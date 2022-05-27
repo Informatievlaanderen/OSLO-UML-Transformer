@@ -1,0 +1,63 @@
+{
+  "name": "@oslo-flanders/core",
+  "version": "0.0.0",
+  "description": "Core package used by the components of the OSLO Toolchain",
+  "keywords": [
+    "oslo",
+    "interoperability",
+    "semantic",
+    "web"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-core#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "/test/.*.unit.test.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "index.js"
+    ],
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\"",
+    "test:unit:verbose": "node \"../../node_modules/jest/bin/jest.js\" --verbose",
+    "build:components": "componentsjs-generator -s ."
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "devDependencies": {
+    "jest-mock-extended": "^2.0.6"
+  },
+  "dependencies": {
+    "@rdfjs/types": "^1.1.0",
+    "jsonld-streaming-parser": "^2.4.3",
+    "n3": "^1.16.2",
+    "node-fetch": "^3.2.4",
+    "rdf-data-factory": "^1.1.0",
+    "winston": "^3.7.2"
+  }
+}
