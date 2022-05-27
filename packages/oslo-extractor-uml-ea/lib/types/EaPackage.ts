@@ -1,0 +1,34 @@
+import hash from 'object-hash';
+import { EaObject } from './EaObject';
+
+/**
+ * Represents a package in Enterprise Architect
+ * @description - A package has two fields pointing to an identifier:
+ *  1. id (inferred from EaObject) - references the object id
+ *  2. packageId - references the actual packageId which must be used by other objects
+ * to refer to the package
+ */
+export class EaPackage extends EaObject {
+  public readonly packageId: number;
+  public parentId: number;
+  public parent: EaPackage | undefined;
+
+  public constructor(
+    id: number,
+    name: string,
+    guid: string,
+    packageId: number,
+    parentId: number,
+  ) {
+    super(id, name, guid);
+
+    this.packageId = packageId;
+    this.parentId = parentId;
+
+    this.osloGuid = hash(this);
+  }
+
+  public setParent(parent: EaPackage): void {
+    this.parent = parent;
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "@oslo-flanders/ea-uml-extractor",
+  "version": "0.0.0",
+  "description": "Extracts the raw data from a UML data model, created in Enterprise Architect ",
+  "keywords": [
+    "oslo",
+    "semantics",
+    "uml",
+    "enterprise",
+    "architect",
+    "data"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-extractor-uml-ea#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "jest": {
+		"globals": {
+			"ts-jest": {
+				"tsconfig": "../../tsconfig.json"
+			}
+		},
+		"transform": {
+			"^.+\\.ts$": "ts-jest"
+		},
+		"testRegex": "/test/.*.test.ts$",
+		"moduleFileExtensions": [
+			"ts",
+			"js"
+		],
+		"collectCoverage": true
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.0",
+    "alasql": "^1.7.3",
+    "mdb-reader": "^2.2.3",
+    "object-hash": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/object-hash": "^2.2.1"
+  }
+}
