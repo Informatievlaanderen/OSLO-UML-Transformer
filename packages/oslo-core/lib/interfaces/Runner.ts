@@ -1,6 +1,6 @@
-import { Converter } from "./Converter";
-import { Generator } from "./Generator";
-import { OutputHandler } from "./OutputHandler";
+import type { Converter } from './Converter';
+import type { Generator } from './Generator';
+import type { OutputHandler } from './OutputHandler';
 
 /**
  * Interface that contains the configuration for the converters and/or generators

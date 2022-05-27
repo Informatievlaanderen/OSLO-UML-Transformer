@@ -1,7 +1,7 @@
-import { EaObject } from "./EaObject";
 import hash from 'object-hash';
-import { EaTag } from "./EaTag";
-import { ConnectorDirection } from "../enums/ConnectorDirection";
+import { ConnectorDirection } from '../enums/ConnectorDirection';
+import { EaObject } from './EaObject';
+import type { EaTag } from './EaTag';
 
 /**
  * Represents a connector in Enterprise Architect

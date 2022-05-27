@@ -1,7 +1,7 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
-import { EaPackage } from './types/EaPackage';
 import { EaTable } from './enums/EaTable';
+import { EaPackage } from './types/EaPackage';
 
 export function loadPackages(eaReader: MDBReader): EaPackage[] {
   const packages = eaReader.getTable(EaTable.Package).getData();

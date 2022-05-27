@@ -1,5 +1,5 @@
-import { EaObject } from "./EaObject";
 import hash from 'object-hash';
+import { EaObject } from './EaObject';
 
 /**
  * Represents an attribute in Enterprise Architect

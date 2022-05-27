@@ -1,13 +1,13 @@
-import { DataFactory } from "rdf-data-factory";
-import { getLoggerFor } from "../logging/LogUtil";
-import * as N3 from 'n3';
 import type * as RDF from '@rdfjs/types';
+import * as N3 from 'n3';
+import { DataFactory } from 'rdf-data-factory';
+import { getLoggerFor } from '../logging/LogUtil';
 
 type RdfObjectTypes = RDF.NamedNode | RDF.NamedNode[] | RDF.Literal | RDF.Literal[];
 
 /**
  * Writes the converted data in an RDF serialized format to a file.
- * The data in the file must be compliant with the agreements 
+ * The data in the file must be compliant with the agreements
  * made regarding the intermediate format.
  */
 export abstract class OutputHandler {

@@ -1,5 +1,5 @@
-import { getLoggerFor } from "../logging/LogUtil";
-import { OutputHandler } from "./OutputHandler";
+import { getLoggerFor } from '../logging/LogUtil';
+import type { OutputHandler } from './OutputHandler';
 
 /**
  * Handles the conversion of a UML model to an RDF file

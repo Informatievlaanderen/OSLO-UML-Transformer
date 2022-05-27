@@ -1,5 +1,5 @@
-import { getLoggerFor } from "../../../oslo-core";
-import { EaTag } from "./EaTag";
+import { getLoggerFor } from '../../../oslo-core';
+import type { EaTag } from './EaTag';
 
 export abstract class EaObject {
   protected readonly logger = getLoggerFor(this);

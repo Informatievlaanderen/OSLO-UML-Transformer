@@ -1,8 +1,8 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
+import { EaTable } from './enums/EaTable';
 import { EaConnector } from './types/EaConnector';
 import type { EaElement } from './types/EaElement';
-import { EaTable } from './enums/EaTable';
 import { convertToConnectorDirection } from './utils/connectorDirectionResolver';
 import { addEaTagsToElements, addRoleTagsToElements } from './utils/tags';
 

@@ -65,7 +65,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "componentsjs-generator": "^3.0.3",
     "eslint": "^8.16.0",
-    "eslint-config-es": "^3.23.0",
+    "eslint-config-es": "3.31",
     "eslint-import-resolver-lerna": "^2.0.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",

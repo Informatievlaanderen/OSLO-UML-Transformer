@@ -1,9 +1,9 @@
-import * as N3 from 'n3';
-import type * as RDF from '@rdfjs/types';
-import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
 import { Readable } from 'stream';
+import type * as RDF from '@rdfjs/types';
 import { JsonLdParser } from 'jsonld-streaming-parser';
+import * as N3 from 'n3';
 import { getLoggerFor } from '../logging/LogUtil';
+import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
 
 /**
  * Generates a specification using the intermediary OSLO RDF file as input.

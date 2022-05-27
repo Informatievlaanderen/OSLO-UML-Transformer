@@ -22,10 +22,11 @@ enum Prefixes {
 }
 
 export type Namespace = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [T in keyof typeof Prefixes]: Function;
 };
 
-const namespaces = (): Namespace => {
+const vocab = (): Namespace => {
   const namespaces: any = {};
   for (const prefix in Prefixes) {
     const expansion = <string>(<any>Prefixes)[prefix];
@@ -35,4 +36,4 @@ const namespaces = (): Namespace => {
   return <Namespace>namespaces;
 };
 
-export const ns = namespaces();
+export const ns = vocab();

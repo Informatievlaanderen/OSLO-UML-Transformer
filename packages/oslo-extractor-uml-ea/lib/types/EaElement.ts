@@ -1,5 +1,5 @@
 import hash from 'object-hash';
-import { ElementType } from '../enums/ElementType';
+import type { ElementType } from '../enums/ElementType';
 import { EaObject } from './EaObject';
 
 /**

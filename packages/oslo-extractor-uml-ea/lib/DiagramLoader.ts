@@ -1,10 +1,10 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
-import type { EaConnector } from './types/EaConnector';
 import { ConnectorDirection } from './enums/ConnectorDirection';
+import { EaTable } from './enums/EaTable';
+import type { EaConnector } from './types/EaConnector';
 import { EaDiagram } from './types/EaDiagram';
 import type { EaPackage } from './types/EaPackage';
-import { EaTable } from './enums/EaTable';
 import { resolveConnectorDirection } from './utils/connectorDirectionResolver';
 
 export function loadDiagrams(reader: MDBReader, elementConnectors: EaConnector[], packages: EaPackage[]): EaDiagram[] {

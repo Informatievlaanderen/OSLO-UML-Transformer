@@ -1,6 +1,4 @@
 import { readFile, stat } from 'fs/promises';
-
-// eslint-disable-next-line import/no-commonjs
 const fetch = require('node-fetch');
 
 export async function fetchFileOrUrl(file: string): Promise<Buffer> {

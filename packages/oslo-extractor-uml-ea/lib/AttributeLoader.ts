@@ -1,8 +1,8 @@
-import type MDBReader from 'mdb-reader';
 import { getLoggerFor } from '@oslo-flanders/core';
+import type MDBReader from 'mdb-reader';
 import { EaTable } from './enums/EaTable';
 import { EaAttribute } from './types/EaAttribute';
-import { EaElement } from './types/EaElement';
+import type { EaElement } from './types/EaElement';
 import { addEaTagsToElements } from './utils/tags';
 
 export function loadAttributes(reader: MDBReader, elements: EaElement[]): EaAttribute[] {

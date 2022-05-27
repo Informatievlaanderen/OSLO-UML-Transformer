@@ -1,17 +1,17 @@
-import { fetchFileOrUrl, getLoggerFor } from "@oslo-flanders/core";
-import MDBReader from "mdb-reader";
-import { loadAttributes } from "./AttributeLoader";
-import { loadDiagrams } from "./DiagramLoader";
-import { loadElementConnectors } from "./ElementConnectorLoader";
-import { loadElements } from "./ElementLoader";
-import { EaTable } from "./enums/EaTable";
-import { loadPackages } from "./PackageLoader";
-import { EaAttribute } from "./types/EaAttribute";
-import { EaConnector } from "./types/EaConnector";
-import { EaDiagram } from "./types/EaDiagram";
-import { EaElement } from "./types/EaElement";
-import { EaPackage } from "./types/EaPackage";
-import { addEaTagsToElements } from "./utils/tags";
+import { fetchFileOrUrl, getLoggerFor } from '@oslo-flanders/core';
+import MDBReader from 'mdb-reader';
+import { loadAttributes } from './AttributeLoader';
+import { loadDiagrams } from './DiagramLoader';
+import { loadElementConnectors } from './ElementConnectorLoader';
+import { loadElements } from './ElementLoader';
+import { EaTable } from './enums/EaTable';
+import { loadPackages } from './PackageLoader';
+import type { EaAttribute } from './types/EaAttribute';
+import type { EaConnector } from './types/EaConnector';
+import type { EaDiagram } from './types/EaDiagram';
+import type { EaElement } from './types/EaElement';
+import type { EaPackage } from './types/EaPackage';
+import { addEaTagsToElements } from './utils/tags';
 
 export class UmlDataExtractor {
   private readonly logger = getLoggerFor(this);
