@@ -3,8 +3,9 @@
 import { getLoggerFor } from '@oslo-flanders/core';
 import type { EaConnector, EaElement, EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType } from '@oslo-flanders/ea-uml-extractor';
-import { NormalizedConnector, NormalizedConnectorType } from '../types/NormalizedConnector';
-import { TagName } from '../types/NormalizedConnector';
+import { NormalizedConnectorType } from '../enums/NormalizedConnectorType';
+import { TagName } from '../enums/TagName';
+import { NormalizedConnector } from '../types/NormalizedConnector';
 
 export enum CasingType {
   CamelCase,
@@ -214,7 +215,7 @@ function createNormalizedConnector(
   sourceObjectId: number,
   destinationObjectId: number,
   cardinality: string,
-  tags: Tag[],
+  tags: EaTag[],
 ): NormalizedConnector {
   return new NormalizedConnector(
     connector,
@@ -264,13 +265,13 @@ function createNormalizedAssociationClassConnector(
   // FIXME: classes should have a package tag defined
   // FIXME: is adding a package tag still necessary?
 
-  const sourceLabelTag: Tag = {
+  const sourceLabelTag: EaTag = {
     id: Date.now(),
     tagName: 'label',
     tagValue: sourceLabel,
   };
 
-  const destinationLabelTag: Tag = {
+  const destinationLabelTag: EaTag = {
     id: Date.now(),
     tagName: 'label',
     tagValue: destinationLabel,

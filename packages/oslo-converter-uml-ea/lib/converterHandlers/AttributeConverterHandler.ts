@@ -63,7 +63,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       // In case an element is references that is not included on the target diagram
       // We still add it to the output handler
       if (!targetDiagram.elementIds.includes(element.id)) {
-        this.mediator.notify(RequestType.AddElementToOutput, element);
+        await this.mediator.notify(RequestType.AddElementToOutput, element);
       }
 
       range = ns.example(`.well-known/${element.osloGuid}`).value;
