@@ -2,7 +2,7 @@ import type { OutputHandler } from '@oslo-flanders/core';
 import { Scope } from '@oslo-flanders/core';
 import type { EaDiagram, EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
-import type { DataFactory } from 'rdf-data-factory';
+import { DataFactory } from 'rdf-data-factory';
 import type { ConverterHandlerMediator } from '../ConverterHandlerMediator';
 import type { RequestType } from '../enums/RequestType';
 import { TagName } from '../enums/TagName';
@@ -12,7 +12,7 @@ import { getTagValue } from '../utils/utils';
 export abstract class ConverterHandler<T extends EaObject> {
   protected readonly mediator: ConverterHandlerMediator;
   private nextHandler: ConverterHandler<T> | undefined;
-  protected _factory: DataFactory | undefined;
+  protected readonly factory: DataFactory;
   protected _outputHandler: OutputHandler | undefined;
   protected _uriAssigner: UriAssigner | undefined;
   private _specificationType: string | undefined;
@@ -20,6 +20,7 @@ export abstract class ConverterHandler<T extends EaObject> {
 
   public constructor(mediator: ConverterHandlerMediator) {
     this.mediator = mediator;
+    this.factory = new DataFactory();
   }
 
   public abstract addObjectToOutput(
@@ -37,17 +38,6 @@ export abstract class ConverterHandler<T extends EaObject> {
       return this.nextHandler?.handleRequest(requestType, object);
     }
     // TODO: log error message?
-  }
-
-  public get factory(): DataFactory {
-    if (!this._factory) {
-      throw new Error(`DataFactory has not been set yet.`);
-    }
-    return this._factory;
-  }
-
-  public set factory(value: DataFactory) {
-    this._factory = value;
   }
 
   public get outputHandler(): OutputHandler {

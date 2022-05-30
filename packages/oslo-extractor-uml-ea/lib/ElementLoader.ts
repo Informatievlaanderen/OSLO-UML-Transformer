@@ -14,8 +14,8 @@ export function loadElements(reader: MDBReader, packages: EaPackage[]): EaElemen
 
   const eaElements = (<any[]>alasql(query, [objects])).map(item => new EaElement(
     <number>item.Object_ID,
-    <string>item.ea_guid,
     <string>item.Name,
+    <string>item.ea_guid,
     getElementType(<string>item.Object_Type),
     <number>item.Package_ID,
   ));

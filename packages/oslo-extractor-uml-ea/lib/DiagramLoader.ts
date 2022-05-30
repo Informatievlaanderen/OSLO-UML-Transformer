@@ -12,8 +12,8 @@ export function loadDiagrams(reader: MDBReader, elementConnectors: EaConnector[]
 
   const eaDiagrams = diagrams.map(item => new EaDiagram(
     <number>item.Diagram_ID,
-    <string>item.ea_guid,
     <string>item.Name,
+    <string>item.ea_guid,
     <number>item.Package_ID,
   ));
 

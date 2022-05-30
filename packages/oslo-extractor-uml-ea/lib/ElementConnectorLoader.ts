@@ -32,8 +32,8 @@ export function loadElementConnectors(reader: MDBReader, elements: EaElement[]):
 
   const eaConnectors = (<any[]>alasql(query, [connectors, objects, objects])).map(item => new EaConnector(
     <number>item.Connector_ID,
-    <string>item.ea_guid,
     <string>item.Name,
+    <string>item.ea_guid,
     <string>item.Connector_Type,
     <number>item.Start_Object_ID,
     <number>item.End_Object_ID,

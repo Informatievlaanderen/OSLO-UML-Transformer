@@ -1,6 +1,6 @@
+import { uniqueId } from '@oslo-flanders/core';
 import type { EaTag, EaConnector } from '@oslo-flanders/ea-uml-extractor';
 import { EaObject } from '@oslo-flanders/ea-uml-extractor';
-import hash from 'object-hash';
 import { NormalizedConnectorType } from '../enums/NormalizedConnectorType';
 
 export class NormalizedConnector extends EaObject {
@@ -35,7 +35,7 @@ export class NormalizedConnector extends EaObject {
       this.addNameTag(name);
     }
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 
   public get innerConnectorName(): string {

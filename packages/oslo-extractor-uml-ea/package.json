@@ -49,10 +49,6 @@
   "dependencies": {
     "@oslo-flanders/core": "^0.0.0",
     "alasql": "^1.7.3",
-    "mdb-reader": "1.2.1",
-    "object-hash": "^3.0.0"
-  },
-  "devDependencies": {
-    "@types/object-hash": "^2.2.1"
+    "mdb-reader": "1.2.1"
   }
 }

@@ -37,7 +37,6 @@
     "@oslo-flanders/core": "^0.0.0",
     "@oslo-flanders/ea-uml-extractor": "^0.0.0",
     "@rdfjs/types": "^1.1.0",
-    "object-hash": "^3.0.0",
     "rdf-data-factory": "^1.1.0"
   }
 }

@@ -14,8 +14,8 @@ export function loadPackages(eaReader: MDBReader): EaPackage[] {
 
   const eaPackages = (<any[]>alasql(query, [packages, elements])).map(item => new EaPackage(
     <number>item.Object_ID,
-    <string>item.ea_guid,
     <string>item.Name,
+    <string>item.ea_guid,
     <number>item.Package_ID,
     <number>item.Parent_ID,
   ));
@@ -24,11 +24,11 @@ export function loadPackages(eaReader: MDBReader): EaPackage[] {
     const parentPackage = eaPackages.find(x => x.packageId === _package.parentId);
 
     if (!parentPackage) {
-      // Log error
       return;
     }
 
     _package.setParent(parentPackage);
+    _package.path = `${_package.parent?.path}:${_package.name}`;
   });
 
   return eaPackages;

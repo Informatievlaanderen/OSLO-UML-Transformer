@@ -1,3 +1,4 @@
+import { uniqueId } from '@oslo-flanders/core';
 import hash from 'object-hash';
 import { ConnectorDirection } from '../enums/ConnectorDirection';
 import { EaObject } from './EaObject';
@@ -52,6 +53,6 @@ export class EaConnector extends EaObject {
     this.diagramGeometryDirection = direction;
     this.hidden = false;
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 }

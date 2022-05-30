@@ -14,8 +14,8 @@ export function loadAttributes(reader: MDBReader, elements: EaElement[]): EaAttr
     if (elementIds.has(<number>attribute.Object_ID)) {
       attributesArray.push(new EaAttribute(
         <number>attribute.ID,
-        <string>attribute.ea_guid,
         <string>attribute.Name,
+        <string>attribute.ea_guid,
         <number>attribute.Object_ID,
         <string>attribute.Type,
         <string>attribute.LowerBound,

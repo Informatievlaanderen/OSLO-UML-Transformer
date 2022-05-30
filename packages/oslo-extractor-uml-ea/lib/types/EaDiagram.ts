@@ -1,3 +1,4 @@
+import { uniqueId } from '@oslo-flanders/core';
 import hash from 'object-hash';
 import { EaObject } from './EaObject';
 
@@ -21,6 +22,6 @@ export class EaDiagram extends EaObject {
     this.connectorsIds = [];
     this.elementIds = [];
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 }

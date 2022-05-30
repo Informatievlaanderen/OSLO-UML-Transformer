@@ -1,3 +1,4 @@
+import { uniqueId } from '@oslo-flanders/core';
 import hash from 'object-hash';
 import { EaObject } from './EaObject';
 
@@ -25,7 +26,7 @@ export class EaPackage extends EaObject {
     this.packageId = packageId;
     this.parentId = parentId;
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 
   public setParent(parent: EaPackage): void {

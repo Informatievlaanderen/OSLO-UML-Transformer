@@ -1,3 +1,4 @@
+import { uniqueId } from '@oslo-flanders/core';
 import hash from 'object-hash';
 import type { ElementType } from '../enums/ElementType';
 import { EaObject } from './EaObject';
@@ -22,6 +23,6 @@ export class EaElement extends EaObject {
     this.type = type;
     this.packageId = packageId;
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 }

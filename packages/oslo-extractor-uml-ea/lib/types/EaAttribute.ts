@@ -1,4 +1,4 @@
-import hash from 'object-hash';
+import { uniqueId } from '@oslo-flanders/core';
 import { EaObject } from './EaObject';
 
 /**
@@ -26,6 +26,6 @@ export class EaAttribute extends EaObject {
     this.lowerBound = lowerBound;
     this.upperBound = upperBound;
 
-    this.osloGuid = hash(this);
+    this.osloGuid = uniqueId();
   }
 }
