@@ -50,14 +50,15 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.6.1",
     "jest-mock-extended": "^2.0.6"
   },
   "dependencies": {
     "@rdfjs/types": "^1.1.0",
     "jsonld-streaming-parser": "^2.4.3",
     "n3": "^1.16.2",
-    "node-fetch": "^3.2.4",
+    "node-fetch": "2.6.7",
     "rdf-data-factory": "^1.1.0",
-    "winston": "^3.7.2"
+    "winston": "3.6.0"
   }
 }
