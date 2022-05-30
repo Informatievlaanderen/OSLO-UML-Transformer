@@ -1,0 +1,43 @@
+{
+  "name": "@oslo-flanders/ea-converter",
+  "version": "0.0.0",
+  "description": "Converts a UML data model created in Enterprise Architect to a file in an RDF serialization",
+  "keywords": [
+    "semantics",
+    "oslo",
+    "uml",
+    "rdf",
+    "conversion"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-uml-ea#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "build:components": "componentsjs-generator -s ."
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/configuration": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.0",
+    "@oslo-flanders/ea-uml-extractor": "^0.0.0",
+    "@rdfjs/types": "^1.1.0",
+    "object-hash": "^3.0.0",
+    "rdf-data-factory": "^1.1.0"
+  }
+}

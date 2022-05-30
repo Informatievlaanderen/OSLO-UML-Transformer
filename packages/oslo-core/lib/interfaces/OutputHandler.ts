@@ -22,7 +22,7 @@ export abstract class OutputHandler {
 
   public abstract write(path: string): Promise<void>;
 
-  public add(subject: RDF.NamedNode, predicate: RDF.NamedNode, object: RdfObjectTypes, graph: RDF.NamedNode): void {
+  public add(subject: RDF.NamedNode, predicate: RDF.NamedNode, object: RdfObjectTypes, graph?: RDF.NamedNode): void {
     if (Array.isArray(object)) {
       return object.forEach(x => this.store.addQuad(subject, predicate, x, graph));
     }

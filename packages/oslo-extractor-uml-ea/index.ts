@@ -6,3 +6,6 @@ export * from './lib/types/EaPackage';
 export * from './lib/types/EaDiagram';
 export * from './lib/types/EaObject';
 export * from './lib/types/EaTag';
+export * from './lib/enums/ConnectorDirection';
+export * from './lib/enums/ConnectorType';
+export * from './lib/enums/ElementType';

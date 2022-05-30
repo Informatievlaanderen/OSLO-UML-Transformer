@@ -35,6 +35,8 @@ module.exports = {
   },
   rules: {
     // Default
+    "keyword-spacing": "off",
+    "@typescript-eslint/keyword-spacing": "off",
     "import/group-exports": "off",
     "import/exports-last": "off",
     "mocha/valid-test-description": "off",
