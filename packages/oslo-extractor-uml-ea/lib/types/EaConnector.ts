@@ -1,5 +1,4 @@
 import { uniqueId } from '@oslo-flanders/core';
-import hash from 'object-hash';
 import { ConnectorDirection } from '../enums/ConnectorDirection';
 import { EaObject } from './EaObject';
 import type { EaTag } from './EaTag';
