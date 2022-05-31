@@ -1,0 +1,2658 @@
+{
+  "@context": {
+    "vlaanderen": "http://data.vlaanderen.be/ns/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "void": "http://rdfs.org/ns/void#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "qb": "http://purl.org/linked-data/cube#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "person": "http://www.w3.org/ns/person#",
+    "rec": "http://www.w3.org/2001/02pd/rec54#",
+    "vann": "http://purl.org/vocab/vann/",
+    "sh": "http://w3.org/ns/shacl#",
+    "authors": {
+      "@type": "foaf:Person",
+      "@id": "foaf:maker"
+    },
+    "editors": {
+      "@type": "foaf:Person",
+      "@id": "rec:editor"
+    },
+    "contributors": {
+      "@type": "foaf:Person",
+      "@id": "dcterms:contributor"
+    },
+    "affiliation": {
+      "@id": "http://schema.org/affiliation"
+    },
+    "classes": "http://example.org/classes",
+    "datatypes": "http://example.org/datatypes",
+    "attributes": "http://example.org/attributes",
+    "label": {
+      "@id": "rdfs:label",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "rdfs:comment",
+      "@container": "@language"
+    },
+    "usageNote": {
+      "@id": "vann:usageNote",
+      "@container": "@language"
+    },
+    "domain": {
+      "@id": "rdfs:domain"
+    },
+    "range": {
+      "@id": "rdfs:range"
+    },
+    "minCardinality": {
+      "@id": "sh:minCount"
+    },
+    "maxCardinality": {
+      "@id": "sh:maxCount"
+    },
+    "parent": {
+      "@id": "rdfs:subClassOf",
+      "@type": "owl:Class"
+    },
+    "scope": {
+      "@id": "http://example.org/scope"
+    },
+    "Class": {
+      "@id": "owl:Class"
+    }
+  },
+  "@id": "http://example.org/TestId",
+  "packages": [
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon",
+      "@type": "Package",
+      "baseUri": "https://data.vlaanderen.be/ns/persoon#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "http://purl.org/dc/terms/Location",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/67rxz5sd2b2",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Plaats"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een ruimtelijk gebied of benoemde plaats."
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "http://purl.org/dc/terms/Agent",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/z73sm9286s",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Agent"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Iemand die of iets dat kan handelen of een effect kan teweeg brengen."
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "http://purl.org/dc/terms/Jurisdiction",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/jw21u8sevg",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Jurisdictie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het gebied waarover de rechtsmacht van een overheid zich uitstrekt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Doorgaans een land of deelstaat."
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#Organization",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/3so7svnnlml",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Organisatie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "parent": [
+        {
+          "@id": "http://purl.org/dc/terms/Agent"
+        },
+        {
+          "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburger",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/k717u28s76i",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Staatsburger"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die juridisch verbonden is met een staat."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/a8rbhqsbp59",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Persoonsgebeurtenis"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Belangrijke gebeurtenis ih leven ve persoon."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/kx85cme9p3c",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Geboorte"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het ter wereld komen vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Afstamming",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/a7qhud9jc9k",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Afstamming"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Afstamming�is de dalende lijn van�bloedverwantschap�tussen verschillende�generaties."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "De afstamming kan ook niet-biologisch zijn, bv adoptie. Afstamming kan ook in opgaande lijn worden bekeken. Het begrip is enger dan verwantschap dat oa ook huwelijk inhoudt."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/3p4y0swkcc6",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Persoonsrelatie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Relatie tussen twee of meer personen."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Typisch zijn dit burgerrechtelijke relaties (zie burgerlijke staat) maar niet noodzakelijk daartoe beperkt."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/hlz0siixm4q",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verblijfplaats"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar een persoon al dan niet tijdelijk woont of logeert."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#GeregistreerdPersoon",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/cb6s1r9ha55",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Geregistreerd Persoon"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon waarvan de gegevens zijn ingeschreven in een register."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "parent": [
+        {
+          "@id": "http://www.w3.org/ns/person#Person"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Voogdij",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/8w2lvjihnce",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Voogdij"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Situatie waarbij een persoon die optreedt als voogd ve ander persoon en in die hoedanigheid instaat voor deze persoon en zijn goederen."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit is bv het geval voor minderjarigen die hun ouders zijn verloren of voor meerderjarigen die hun verstandelijke vermogens zijn verloren."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Inwoner",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/1yd0yicrpbg",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Inwoner"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die in een bepaalde plaats of land woont."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Plaats of land wordt hier vertegenwoordigd door de entiteit jurisdictie."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Samenwonen",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/ew9pzrcnp2e",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Samenwonen"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Regeling waarbij twee personen die niet getrouwd zijn samenleven."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Kan, net als bv een huwelijk, de basis vormen van een gezin."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Domicilie",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/bi4vvggxc5r",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Domicilie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Hoofdverblijfplaats ve persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar de persoon het grootste deel vd tijd verblijft binnen de jurisdictie waarvan hij Inwoner is. Dit wordt doorgaans officieel vastgesteld en geregistreerd ih bevolkingsregister. Kan in praktijk verschillend vd feitelijke verblijfplaats."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#GeenInwoner",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/18bt8ghccapm",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Geen Inwoner"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die niet in een bepaalde plaats of land woont."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Plaats of land wordt hier vertegenwoordigd door de entiteit jurisdictie."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Huwelijk",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/dt8bhl1t4g4",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Huwelijk"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een door burgerlijk of religieus recht geregelde�samenlevingsvorm van twee personen."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Kan, net als bv samenwonen, de basis vormen van een gezin."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Nationaliteit",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/6y1d0lu4xt5",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Nationaliteit"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De relatie tussen een persoon en een staat, cultuur of loyaliteit."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/azyfftdpc84",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Burgerlijke Staat"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Burgerrechtelijke toestand van een persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Slaat op huwelijk, partnerregistratie, afstamming, voogdij etc. Is maw de toestand van bepaalde verhoudingen tussen personen."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#PermanentInwoner",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/58adtiwsgyf",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Permanent Inwoner"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die permanent in een bepaalde plaats of land woont."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Is een verblijfsrecht dat in principe officieel moet worden toegekend als de persoon geen staatsburger is."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Inwoner"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/9zmtudsx42i",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Gezin"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Samenwerkingsvorm die een herkenbare sociale eenheid vormt (bv tgv huwelijk), met al dan niet verwante personen die duurzame banden hebben en elkaar onderling steun en verzorging verlenen."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Ruimer begrip dan familie waar het gezin louter bestaat uit nabije bloedverwanten, bv een eenpersoonsgezin of living apart together. Gezinsleden hebben doorgaans dezelfde verblijfplaats."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "http://www.w3.org/ns/org#Organization"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/iq0wz29j6fb",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Inwonerschap"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het feit dat een persoon verblijf houdt in een plaats of land."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/107egoxker2g",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Staatburgerschap"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Juridische band ve persoon met een staat, waaraan bepaalde rechten en plichten verbonden zijn"
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Vloeit meestal voort uit de nationaliteit ve persoon. De rechten en plichten waarvan sprake zijn burgerrechten (vb godsdienstvrijheid) of van politieke (vb stemrecht) of sociale aard (bv recht op een uitkering)."
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/person#Person",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/f50auok7o8c",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Persoon"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Natuurlijk persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "parent": [
+        {
+          "@id": "http://purl.org/dc/terms/Agent"
+        },
+        {
+          "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Overlijden",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/334lc7t3oj2",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Overlijden"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het doodgaan vd Persoon."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Vreemdeling",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/amsnggw434t",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Vreemdeling"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die niet de nationaliteit bezit vh land waar hij verblijft."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Daardoor kan de persoon geen staatsburger worden genoemd. In praktijk geniet de Vreemdeling als Inwoner een subset vd burgerrechten die een Staatsbutger wel heeft. Bv wel godsdienstvrijheid maar geen stemrecht."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#TijdelijkInwoner",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/forklqtyp6u",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Tijdelijk Inwoner"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die tijdelijk in een plaats of land woont."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Is een verblijfsrecht dat in principe enkel wordt toegekend omwille ve zeer specifieke reden bv werken of studeren. Exclusief personen met kort verblijf, bv als toerist."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Inwoner"
+        }
+      ],
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezinsrelatie",
+      "@type": "Class",
+      "guid": "http://example.org/.well-known/akm64z10iee",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Gezinsrelatie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Relatie tussen leden van eenzelfde gezin."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv echtgenoot, zoon, schoonmoeder."
+        }
+      ],
+      "parent": [
+        {
+          "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie"
+        }
+      ],
+      "scope": "InPackage"
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#datum",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/alyilsgs2tw",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "datum"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de gebeurtenis plaatsvond."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoonsgebeurtenis"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "label": "DateTime"
+      },
+      "parent": "http://purl.org/vocab/bio/0.1/date",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#datumVanAfstamming",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/jyi7100nf7",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "datum van afstamming"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De datum waarop de afstamming wordt vastgesteld."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Afstamming",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Afstamming"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "label": "DateTime"
+      },
+      "parent": "http://purl.org/dc/terms/date",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://xmlns.com/foaf/0.1/familyName",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/a2wn8ztgcl",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "achternaam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Gedeelte van de volledige naam vd persoon ontvangen van de vorige generatie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Ook wel familienaam genoemd omdat de achternaam een familiale verwantschap aanduidt."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#alternatieveNaam",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/ij2s9z2t73o",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "alternatieve naam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Alternatief voor de volledige naam vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv pseudoniem, titel etc."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "parent": "http://xmlns.com/foaf/0.1/name",
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/person#birthName",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/7e4qutbp66x",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geboortenaam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Volledige naam vd persoon bij geboorte."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "De namen van een persoon kunnen id loop vd tijd wijzigen, bv kan de achternaam wijzigen door huwelijk. De oorspronkelijke naam wordt echter dikwijls ook nog gebruikt."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/ij38khjmrtf",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "gebruikte voornaam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Belangrijkste vd voornamen ve persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "parent": "http://xmlns.com/foaf/0.1/givenName",
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/person#patronymicName",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/bmlevnx7pe9",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "patroniem"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Achternaam gebaseerd op de voornaam vd vader ve persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv in Ijsland: Magnusdottir (dochter van Magnus)."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#volledigeNaam",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/bzmbs8sp94",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "volledige naam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De volledige naam vd persoon, doorgaans de combinatie van voornamen en achternaam."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "parent": "http://xmlns.com/foaf/0.1/name",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://xmlns.com/foaf/0.1/givenName",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "guid": "http://example.org/.well-known/hsk0c7nd46",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "voornaam"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Naam die een kind bij geboorte wordt gegeven. Onderscheidt het kind van de andere kinderen in de familie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string",
+        "label": "String"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/generiek#plaats",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/5vbcxnwrzhn",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "plaats"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Ruimtelijk gebied of benoemde plaats waarmee de Jurisdictie samenvalt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Typisch een land."
+        }
+      ],
+      "domain": {
+        "@id": "http://purl.org/dc/terms/Jurisdiction",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Jurisdictie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Location",
+        "label": "Plaats"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPublicationEnvironment"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#land",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/cr1n6t7rohd",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "land"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Land waar de gebeurtenis plaatsvond."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoonsgebeurtenis"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Location",
+        "label": "Plaats"
+      },
+      "parent": "http://purl.org/vocab/bio/0.1/place",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#plaats",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/2dv6et0swxp",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "plaats"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats in het land waar de gebeurtenis plaatsvond."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoonsgebeurtenis"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Location",
+        "label": "Plaats"
+      },
+      "parent": "http://purl.org/vocab/bio/0.1/place",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#afstammingsType",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/dvx47b25hog",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "afstammingstype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard vd afstamming."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv geadopteerd, kind uit huwelijk, erkend door de vader etc."
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Afstamming",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Afstamming"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "label": "Afstammingstype",
+        "definition": "Aard vd afstamming tussen twee personen.",
+        "usageNote": ""
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#verblijfsadres",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/cg4wybs9gkf",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "verblijfsadres"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar een persoon al dan niet tijdelijk woont of logeert."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Verblijfplaats"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/locn#Address",
+        "label": "Adresvoorstelling"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://schema.org/contactPoint",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/9t48b0nwesi",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "contactinfo"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie zoals email, telefoon� die toelaat de Persoon te contacteren."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://schema.org/ContactPoint",
+        "label": "Contactinfo"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#geslacht",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/8uq2f1rhvj4",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geslacht"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het feit of de persoon een man of een vrouw is."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "label": "Geslacht",
+        "definition": "Het feit of men een man of een vrouw is.",
+        "usageNote": "",
+        "codelist": "http://publications.europa.eu/mdr/authority/human-sex/"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinsrelatietype",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/f0fq9j2b1a7",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "gezinsrelatietype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard vd relatie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Wordt typisch bepaald tov het gezinshoofd. Bv als de vader gezinshoofd is en een gezinslid is zoon, dan zou als de grootvader gezinshoofd was datzelfde gezinslid kleinzoon zijn."
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezinsrelatie",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezinsrelatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "label": "Gezinsrelatietype",
+        "definition": "Aard vd gezinsrelatie tussen twee personen.",
+        "usageNote": ""
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#nationaliteit",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/a89ztodvlb",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "nationaliteit"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De nationaliteit vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Nationaliteit",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Nationaliteit"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "label": "Nationaliteitscode",
+        "codelist": "http://publications.europa.eu/mdr/authority/country/"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#type",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/94e5bip6unb",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard vd burgerlijke staat."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Burgerlijke Staat"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "label": "BurgerlijkeStaatType",
+        "definition": "Aard vd burgerlijke staat ve persoon.",
+        "usageNote": ""
+      },
+      "parent": "http://purl.org/dc/elements/1.1/type",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinsadres",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/eqpmfnnuwie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "gezinsadres"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verblijfplaats vh gezin."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dikwijls een criterium om te bepalen of personen deel uitmaken van eenzelfde gezin."
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezin"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/locn#Address",
+        "label": "Adresvoorstelling"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftNationaliteit",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/gfjk1jleqsf",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft nationaliteit"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Nationaliteit vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Nationaliteit",
+        "label": "Nationaliteit"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinshoofd",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/3q0fie4knpf",
+      "label": [],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezin"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isHoofdVan",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/im71ujfhf",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "is hoofd van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die standaard het gezin vertegenwoordigt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezin"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "parent": "https://data.vlaanderen.be/ns/persoon#isLidVan",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isHoofdVan",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/8pmyuat9bn9",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "is hoofd van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die standaard het gezin vertegenwoordigt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "label": "Gezin"
+      },
+      "parent": "https://data.vlaanderen.be/ns/persoon#isLidVan",
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftRelatieMet",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/hf25y1d9smj",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft relatie met"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon waarmee de persoon gerelateerd is."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie.persoon.source",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/472jq9pdb7c",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Persoon (source)"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoonsrelatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie.persoon.target",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/h7ogdtjgzw7",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Persoon (target)"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoonsrelatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinslid",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/h1f475fqq3q",
+      "label": [],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezin"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isLidVan",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/7ub5pmq5nsu",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "is lid van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die tot een gezin behoort."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Gezin"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "parent": "http://www.w3.org/ns/org#memberOf",
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isLidVan",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/fam71yrwom9",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "is lid van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Persoon die tot een gezin behoort."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
+        "label": "Gezin"
+      },
+      "parent": "http://www.w3.org/ns/org#memberOf",
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftOverlijden",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/ej9y6k1n1s",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft overlijden"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de overlijdensgegevens vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Overlijden",
+        "label": "Overlijden"
+      },
+      "parent": "http://purl.org/vocab/bio/0.1/death",
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftBurgerlijkeStaat",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/9pu4gfae8gv",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft burgerlijke staat"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Burgerlijke staat vd Persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat",
+        "label": "Burgerlijke Staat"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftVerblijfplaats",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/2i7qrtv183g",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft verblijfplaats"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar een persoon verblijft."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Inwonerschap"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats",
+        "label": "Verblijfplaats"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftGeboorte",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/db7e567kibv",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "heeft geboorte"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de geboortegegevens vd persoon."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+        "label": "Geboorte"
+      },
+      "parent": "http://purl.org/vocab/bio/0.1/birth",
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#subOrganizationOf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/jmfh29ar6ec",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "suborganisatie van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de Organisatie die deze Organisatie omvat."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Wordt gebruikt om een hi�rarchie van organisaties te documenteren."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Organisatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "label": "Organisatie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#linkedTo",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/8zx9q032t5u",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "gelinkt met"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Niet nader bepaalde relatie met een andere Organisatie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv om subsidi�ring of bevooradingsketens te documenteren. Dient in dat geval verder gespecialiseerd te worden."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Organisatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "label": "Organisatie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap.persoon",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/k0ydvkgg64",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Persoon"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Staatburgerschap"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/person#citizenship",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/7ha7in0yjyq",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "staatsburgerschap"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Jurisdictie waarbinnen het staatsburgerschap vd persoon is gedefinieerd."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Jurisdiction",
+        "label": "Jurisdictie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap.persoon",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/28pb5ra855q",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Persoon"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Inwonerschap"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "label": "Persoon"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPackage"
+    },
+    {
+      "@id": "http://www.w3.org/ns/person#residency",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/fqsa77f3cnb",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "inwonerschap"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Jurisdictie waarbinnen het Inwonerschap vd persoon is gedefinieerd."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/person#Person",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Persoon"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Jurisdiction",
+        "label": "Jurisdictie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#memberOf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/fmty6y2dkee",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "lid van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Niet nader bepaald lidmaatschap van een Agent van een Organisatie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dekt elk type aansluiting of betrokkenheid van een Agent bij een Organisatie, niet enkel formeel lidmaatschap. Kan eventueel verder gespecialiseerd worden."
+        }
+      ],
+      "domain": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Organisatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "label": "Agent"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#memberOf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/57c9qz6971u",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "lid van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Niet nader bepaald lidmaatschap van een Agent van een Organisatie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dekt elk type aansluiting of betrokkenheid van een Agent bij een Organisatie, niet enkel formeel lidmaatschap. Kan eventueel verder gespecialiseerd worden."
+        }
+      ],
+      "domain": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Agent"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "label": "Organisatie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "https://www.w3.org/ns/org#reportsTo",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/9m4sxghvsxc",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "rapporteert aan"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de Agent waaraan de Agent verantwoording aflegt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gecombineerd met Positie rapporteertAan-Positie kan het organogram vd Organisatie gedocumenteerd worden."
+        }
+      ],
+      "domain": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Agent"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "label": "Agent"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/ns/organisatie#Lidmaatschap.organisatie",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/cqgv0zrni3c",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Organisatie"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "domain": {
+        "@type": "Class",
+        "label": []
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "label": "Organisatie"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "InPublicationEnvironment"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#headOf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/cb96hneo6l",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "hoofd van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de Organisatie waaraan een Agent aan het hoofd staat of leiding geeft."
+        }
+      ],
+      "usageNote": [],
+      "domain": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Organisatie"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "label": "Agent"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/org#headOf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "guid": "http://example.org/.well-known/faibcxpez6l",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "hoofd van"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar de Organisatie waaraan een Agent aan het hoofd staat of leiding geeft."
+        }
+      ],
+      "usageNote": [],
+      "domain": {
+        "@id": "http://purl.org/dc/terms/Agent",
+        "@type": "Class",
+        "label": [
+          {
+            "@language": "nl",
+            "@value": "Agent"
+          }
+        ]
+      },
+      "range": {
+        "@id": "http://www.w3.org/ns/org#Organization",
+        "label": "Organisatie"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "External"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "https://schema.org/ContactPoint",
+      "@type": "Datatype",
+      "guid": "http://example.org/.well-known/7mhshr44uhg",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Contactinfo"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie zoals email, telefoon, adres die toelaat om iemand of iets te contacteren."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb een persoon of organisatie of dienstverlening... Mogelijke vormen van contact: bellen, mailen etc."
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/locn#Address",
+      "@type": "Datatype",
+      "guid": "http://example.org/.well-known/89zv4fo2wqs",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Adresvoorstelling"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Meer leesbare voorstelling met enkel de basisgegevens van het adres, bedoeld voor het gebruik van een adres als attribuut van een ander object."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/locn#Geometry",
+      "@type": "Datatype",
+      "guid": "http://example.org/.well-known/1mpohhycrwe",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "@type": "Datatype",
+      "guid": "http://example.org/.well-known/4h8v0rnc2f2",
+      "label": [],
+      "definition": [],
+      "usageNote": [],
+      "scope": "External"
+    },
+    {
+      "@id": "http://www.w3.org/ns/adms#Identifier",
+      "@type": "Datatype",
+      "guid": "http://example.org/.well-known/ghnmmp19b6h",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Identificator"
+        }
+      ],
+      "definition": [],
+      "usageNote": [],
+      "scope": "External"
+    }
+  ]
+}

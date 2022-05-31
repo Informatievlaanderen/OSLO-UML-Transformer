@@ -1,0 +1,35 @@
+{
+  "name": "@oslo-flanders/runner",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Digtaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-runner#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "build:components": "componentsjs-generator -s ."
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/configuration": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.0",
+    "@oslo-flanders/ea-converter": "^0.0.0",
+    "componentsjs": "^5.2.0",
+    "yargs": "^17.5.1"
+  }
+}
