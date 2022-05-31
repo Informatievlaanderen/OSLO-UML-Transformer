@@ -17,6 +17,7 @@ ____
 <!--A clear and detailed description of what the problem exactly is.-->
 
 ____
-#### Output
+#### Crash log:
 
-<!--What output do you get when you execute the command the results in a crash?-->
+<!--Only required when the program fails.-->
+<!--What output do you get when you execute the command that results in a crash?-->
