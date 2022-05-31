@@ -6,12 +6,12 @@ import type { OutputHandler } from './OutputHandler';
  */
 export abstract class Converter<T> {
   protected readonly logger = getLoggerFor(this);
-  private _configuration: T | undefined;
-  private _outputHandler: OutputHandler | undefined;
+  protected _configuration: T | undefined;
+  protected _outputHandler: OutputHandler | undefined;
 
   public abstract convert(): Promise<void>;
 
-  public init(config: T, outputHandler: OutputHandler): void {
+  public init(config: T, outputHandler?: OutputHandler): void {
     this._configuration = config;
     this._outputHandler = outputHandler;
   }

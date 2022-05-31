@@ -1,4 +1,4 @@
-import type { OsloEaConverterConfiguration } from '@oslo-flanders/configuration';
+import type { ConverterConfiguration } from '@oslo-flanders/configuration';
 import type { OutputHandler } from '@oslo-flanders/core';
 import type { EaConnector, EaDiagram, EaElement, EaObject } from '@oslo-flanders/ea-uml-extractor';
 import { AttributeConverterHandler } from './converterHandlers/AttributeConverterHandler';
@@ -35,7 +35,7 @@ export class ConverterHandlerMediator {
   }
 
   public configureHandlers(
-    config: OsloEaConverterConfiguration,
+    config: ConverterConfiguration,
     outputHandler: OutputHandler,
     uriAssigner: UriAssigner,
   ): void {

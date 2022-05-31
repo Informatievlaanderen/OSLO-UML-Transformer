@@ -1,15 +1,16 @@
-import type { OsloEaConverterConfiguration } from '@oslo-flanders/configuration';
-import { Converter } from '@oslo-flanders/core';
+import type { ConverterConfiguration } from '@oslo-flanders/configuration';
+import { Converter, OutputHandler } from '@oslo-flanders/core';
 import type { EaAttribute, EaConnector, EaDiagram, EaElement, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, UmlDataExtractor } from '@oslo-flanders/ea-uml-extractor';
 
 import { ConverterHandlerMediator } from './ConverterHandlerMediator';
 import { NormalizedConnectorType } from './enums/NormalizedConnectorType';
+import { OsloJsonLdOutputHandler } from './OsloJsonLdOutputHandler';
 import type { NormalizedConnector } from './types/NormalizedConnector';
 import { UriAssigner } from './UriAssigner';
 import { ignore, normalize } from './utils/utils';
 
-export class OsloEaUmlConverter extends Converter<OsloEaConverterConfiguration> {
+export class OsloEaUmlConverter extends Converter<ConverterConfiguration> {
   private readonly extractor: UmlDataExtractor;
   private readonly converterHandlerMediator: ConverterHandlerMediator;
   private normalizedConnectors: NormalizedConnector[];
@@ -20,6 +21,14 @@ export class OsloEaUmlConverter extends Converter<OsloEaConverterConfiguration> 
     this.converterHandlerMediator = new ConverterHandlerMediator(this);
 
     this.normalizedConnectors = [];
+  }
+
+  public get outputHandler(): OutputHandler {
+    if (!this._outputHandler) {
+      this.logger.warn(`Output handler was not set in configuration. Internal output handler (OsloJsonLdOutputHandler) is used.`);
+      this._outputHandler = new OsloJsonLdOutputHandler();
+    }
+    return this._outputHandler;
   }
 
   public async convert(): Promise<void> {
