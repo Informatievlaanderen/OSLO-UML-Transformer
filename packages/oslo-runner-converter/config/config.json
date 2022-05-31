@@ -1,8 +1,0 @@
-{
-  "umlFile": "https://github.com/Informatievlaanderen/OSLOthema-persoon/blob/persoon-basis/OSLO-Persoon-Basis-AP.eap?raw=true",
-  "diagramName": "OSLO-Persoon-Basis",
-  "outputFile": "report-test.jsonld",
-  "specificationType": "ApplicationProfile",
-  "targetDomain": "https://data.vlaanderen.be/",
-  "documentId": "http://example.org/testSpecification"
-}
