@@ -15,6 +15,7 @@ export class ConverterApp implements IApp {
   }
 
   public async init(): Promise<void> {
+    this.logger.info('Initialising the converter');
     let configuredConverter = this.config.converterPackageName;
 
     if (!configuredConverter) {
@@ -27,7 +28,13 @@ export class ConverterApp implements IApp {
   }
 
   public async start(): Promise<void> {
-    return this.converter?.convert();
+    this.logger.info('Starting conversion of the UML diagram.');
+
+    const start = new Date(Date.now());
+    await this.converter?.convert();
+    const end = new Date(Date.now());
+
+    this.logger.debug(`Conversion took ${Math.abs(end.getTime() - start.getTime())} ms.`);
   }
 
   public resolveConnector(packageName: string): Converter<ConverterConfiguration> {
