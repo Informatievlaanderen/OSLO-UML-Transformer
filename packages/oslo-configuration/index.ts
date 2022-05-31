@@ -1,1 +1,2 @@
-export * from './lib/OsloEaConverterConfiguration';
+export * from './lib/ConverterConfiguration';
+export * from './lib/GeneratorConfiguration';
