@@ -3,6 +3,6 @@
   "diagramName": "OSLO-Persoon-Basis",
   "outputFile": "report-test.jsonld",
   "specificationType": "ApplicationProfile",
-  "targetDomain": "https://data.vlaanderen.be/",
+  "publicationEnvironmentDomain": "https://data.vlaanderen.be/",
   "documentId": "http://example.org/testSpecification"
 }

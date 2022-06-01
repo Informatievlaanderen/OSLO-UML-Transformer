@@ -6,6 +6,6 @@ export interface ConverterConfiguration {
   readonly umlFile: string;
   readonly specificationType: string;
   readonly outputFile: string;
-  readonly targetDomain: string;
+  readonly publicationEnvironmentDomain: string;
   readonly documentId: string;
 }

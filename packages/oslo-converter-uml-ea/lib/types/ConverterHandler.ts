@@ -16,7 +16,7 @@ export abstract class ConverterHandler<T extends EaObject> {
   protected _outputHandler: OutputHandler | undefined;
   protected _uriAssigner: UriAssigner | undefined;
   private _specificationType: string | undefined;
-  private _targetDomain: string | undefined;
+  private _publicationEnvironmentDomain: string | undefined;
 
   public constructor(mediator: ConverterHandlerMediator) {
     this.mediator = mediator;
@@ -73,15 +73,15 @@ export abstract class ConverterHandler<T extends EaObject> {
     this._specificationType = value;
   }
 
-  public get targetDomain(): string {
-    if (!this._targetDomain) {
-      throw new Error(`Target domain has not been set yet.`);
+  public get publicationEnvironmentDomain(): string {
+    if (!this._publicationEnvironmentDomain) {
+      throw new Error(`Publication environment domain has not been set yet.`);
     }
-    return this._targetDomain;
+    return this._publicationEnvironmentDomain;
   }
 
-  public set targetDomain(value: string) {
-    this._targetDomain = value;
+  public set publicationEnvironmentDomain(value: string) {
+    this._publicationEnvironmentDomain = value;
   }
 
   public getLabel(object: T): RDF.Literal[] {
@@ -115,7 +115,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       return Scope.InPackage;
     }
 
-    if (uri.startsWith(this.targetDomain)) {
+    if (uri.startsWith(this.publicationEnvironmentDomain)) {
       return Scope.InPublicationEnvironment;
     }
 

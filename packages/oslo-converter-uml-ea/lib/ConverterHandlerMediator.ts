@@ -48,7 +48,7 @@ export class ConverterHandlerMediator {
       x.outputHandler = outputHandler;
       x.uriAssigner = uriAssigner;
       x.specificationType = config.specificationType;
-      x.targetDomain = config.targetDomain;
+      x.publicationEnvironmentDomain = config.publicationEnvironmentDomain;
     });
   }
 
