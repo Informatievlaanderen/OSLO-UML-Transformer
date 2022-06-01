@@ -1,3 +1,4 @@
+import { getLoggerFor } from '@oslo-flanders/core';
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
 import { EaTable } from './enums/EaTable';
@@ -41,11 +42,12 @@ function getElementType(type: string): ElementType {
 }
 
 function setElementPath(element: EaElement, packages: EaPackage[]): void {
+  const logger = getLoggerFor('ElementLoader');
   const elementPackage = packages.find(x => x.packageId === element.packageId);
   let path: string;
 
   if (!elementPackage) {
-    // Log error
+    logger.warn(`Unnable to find package to which element with EA guid ${element.eaGuid} belonags. Setting path to its name '${element.name}'.`);
     path = element.name;
   } else {
     path = `${elementPackage.path}:${element.name}`;

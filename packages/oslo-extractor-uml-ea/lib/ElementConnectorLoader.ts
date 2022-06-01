@@ -1,3 +1,4 @@
+import { getLoggerFor } from '@oslo-flanders/core';
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
 import { EaTable } from './enums/EaTable';
@@ -57,11 +58,12 @@ export function loadElementConnectors(reader: MDBReader, elements: EaElement[]):
 }
 
 function setElementConnectorLoaderPath(connector: EaConnector, elements: EaElement[]): void {
+  const logger = getLoggerFor('ElementConnectorLoader');
   let path: string;
   const sourceObject = elements.find(x => x.id === connector.sourceObjectId);
 
   if (!sourceObject) {
-    // Log error
+    logger.error(`Unnable to set path for connector with EA guid ${connector.eaGuid}, because source object is not found. Skipping connector...`);
     return;
   }
 
@@ -71,7 +73,7 @@ function setElementConnectorLoaderPath(connector: EaConnector, elements: EaEleme
     const destinationObject = elements.find(x => x.id === connector.destinationObjectId);
 
     if (!destinationObject) {
-      // Log error
+      logger.error(`Unnable to set path for connector with EA guid ${connector.eaGuid}, because destination object is not found. Skipping connector...`);
       return;
     }
 

@@ -1,3 +1,4 @@
+import { getLoggerFor } from '@oslo-flanders/core';
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
 import { ConnectorDirection } from './enums/ConnectorDirection';
@@ -26,6 +27,7 @@ export function loadDiagrams(reader: MDBReader, elementConnectors: EaConnector[]
 }
 
 function loadDiagramObjects(reader: MDBReader, diagrams: EaDiagram[]): void {
+  const logger = getLoggerFor('DiagramObjectLoader');
   const diagramObjects = reader.getTable(EaTable.DiagramObject).getData();
   const objects = reader.getTable(EaTable.Object).getData();
 
@@ -40,31 +42,32 @@ function loadDiagramObjects(reader: MDBReader, diagrams: EaDiagram[]): void {
     const diagram = diagrams.find(x => x.id === diagramObject.Diagram_ID);
 
     if (!diagram) {
-      // TODO: log error or warning
-    } else {
-      diagram.elementIds = diagram.elementIds ?
-        [...diagram.elementIds, diagramObject.Object_ID] :
-        [diagramObject.Object_ID];
+      logger.warn(`Unnable to find diagram to which element with id ${diagramObject.Object_ID} belongs, and will be skipped.`);
+      return;
     }
+
+    diagram.elementIds = diagram.elementIds ?
+      [...diagram.elementIds, diagramObject.Object_ID] :
+      [diagramObject.Object_ID];
   });
 }
 
 function loadDiagramConnectors(reader: MDBReader, diagrams: EaDiagram[], elementConnectors: EaConnector[]): void {
+  const logger = getLoggerFor('DiagramConnectorLoader');
   const diagramConnectors = reader.getTable(EaTable.DiagramLink).getData();
 
   diagramConnectors.forEach(diagramConnector => {
     const diagram = diagrams.find(x => x.id === diagramConnector.DiagramID);
 
     if (!diagram) {
-      // TODO: log error?
-      console.log(`Diagram not found for ${JSON.stringify(diagramConnector, null, 4)}`);
+      logger.warn(`Unnable to find diagram to which connector width id ${diagramConnector.ConnectorID} belongs, and will be skipped.`);
       return;
     }
 
     let direction = ConnectorDirection.Unspecified;
 
     if (diagramConnector.Geometry === null) {
-      // TODO: log error
+      logger.error(`Diagram connector has no 'Geometry' value, so its direction can not be resolved, and will be skipped.`);
       return;
     }
     direction = resolveConnectorDirection(<string>diagramConnector.Geometry);
@@ -72,7 +75,7 @@ function loadDiagramConnectors(reader: MDBReader, diagrams: EaDiagram[], element
     const connector = elementConnectors.find(x => x.id === diagramConnector.ConnectorID);
 
     if (!connector) {
-      // TODO: log error
+      logger.error(`Unnable to find corresponding connector object for connector with id ${diagramConnector.ConnectorID}, and will be skipped.`);
       return;
     }
 
@@ -86,11 +89,12 @@ function loadDiagramConnectors(reader: MDBReader, diagrams: EaDiagram[], element
 }
 
 function setDiagramPath(diagram: EaDiagram, packages: EaPackage[]): void {
+  const logger = getLoggerFor('DiagramLoader');
   const diagramPackage = packages.find(x => x.packageId === diagram.packageId);
   let path: string;
 
   if (!diagramPackage) {
-    // TODO: Log error
+    logger.warn(`Unnable to find package to which diagram with EA guid ${diagram.eaGuid} belonags. Setting path to its name '${diagram.name}'.`);
     path = diagram.name;
   } else {
     path = `${diagramPackage.path}:${diagram.name}`;
