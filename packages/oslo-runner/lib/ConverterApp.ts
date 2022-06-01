@@ -1,22 +1,27 @@
-import type { ConverterConfiguration } from '@oslo-flanders/configuration';
 import type { Converter } from '@oslo-flanders/core';
 import { getLoggerFor } from '@oslo-flanders/core';
 import type { IApp } from './IApp';
 
 const DEFAULT_CONVERTER = '@oslo-flanders/ea-converter';
 
-export class ConverterApp implements IApp {
+type ConverterConfiguration = Record<string, unknown>;
+
+type AppConfiguration<T extends ConverterConfiguration> = T & {
+  'converterPackageName'?: string;
+};
+
+export class ConverterApp<P extends AppConfiguration<ConverterConfiguration>> implements IApp {
   private readonly logger = getLoggerFor(this);
-  private readonly config: ConverterConfiguration;
+  private readonly appConfig: P;
   private converter: Converter<ConverterConfiguration> | undefined;
 
-  public constructor(config: ConverterConfiguration) {
-    this.config = config;
+  public constructor(config: P) {
+    this.appConfig = config;
   }
 
   public async init(): Promise<void> {
     this.logger.info('Initialising the converter');
-    let configuredConverter = this.config.converterPackageName;
+    let configuredConverter = this.appConfig.converterPackageName;
 
     if (!configuredConverter) {
       this.logger.warn(`No converter package name was set in configuration. Setting default: ${DEFAULT_CONVERTER}`);
@@ -24,7 +29,10 @@ export class ConverterApp implements IApp {
     }
 
     this.converter = this.resolveConnector(configuredConverter);
-    this.converter.init(this.config);
+
+    // Remove property so that it is not available in converter itself
+    delete this.appConfig.converterPackageName;
+    this.converter.init(<ConverterConfiguration>this.appConfig);
   }
 
   public async start(): Promise<void> {
