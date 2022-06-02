@@ -1,0 +1,3 @@
+packages/**/*.d.ts
+package/**/*.js
+node_modules
