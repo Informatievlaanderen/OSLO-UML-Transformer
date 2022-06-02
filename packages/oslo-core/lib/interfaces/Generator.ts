@@ -3,7 +3,6 @@ import type * as RDF from '@rdfjs/types';
 import { JsonLdParser } from 'jsonld-streaming-parser';
 import * as N3 from 'n3';
 import { getLoggerFor } from '../logging/LogUtil';
-import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
 
 /**
  * Generates a specification using the intermediary OSLO RDF file as input.
@@ -13,9 +12,12 @@ import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
 export abstract class Generator<T> {
   protected readonly logger = getLoggerFor(this);
   private _configuration: T | undefined;
-  private _store: N3.Store | undefined;
 
-  public abstract generate(data?: any): Promise<void>;
+  public abstract generate(data: string): Promise<void>;
+
+  public async init(config: T): Promise<void> {
+    this._configuration = config;
+  }
 
   public get configuration(): T {
     if (!this._configuration) {
@@ -24,41 +26,41 @@ export abstract class Generator<T> {
     return this._configuration;
   }
 
-  public set configuration(value: T) {
-    this._configuration = value;
-  }
+  public async createRdfStore(data: string, targetLanguage: string): Promise<N3.Store> {
+    const store = new N3.Store();
 
-  public get store(): N3.Store {
-    if (!this._store) {
-      throw new Error(`N3 Store in Generator has not been set yet`);
-    }
-    return this._store;
-  }
+    await new Promise((resolve, reject) => {
+      Readable.from(data)
+        .pipe(new JsonLdParser())
+        .on('data', (quad: RDF.Quad) => {
+          if (this.matchesTargetLanguage(quad, targetLanguage)) {
+            store.addQuad(quad.subject, quad.predicate, quad.object, quad.predicate);
+          }
+        })
+        .on('error', reject)
+        .on('end', resolve);
+    });
 
-  public async initStore(jsonLdFile: string, targetLanguage: string): Promise<void> {
-    if (!this._store) {
-      this._store = new N3.Store();
-
-      const data = await fetchFileOrUrl(jsonLdFile);
-      return new Promise((resolve, reject) => {
-        Readable.from(data.toString())
-          .pipe(new JsonLdParser())
-          .on('data', (quad: RDF.Quad) => this.languageFilter(quad, targetLanguage))
-          .on('error', reject)
-          .on('end', resolve);
-      });
-    }
+    return store;
   }
 
   /**
-   * Add RDF.Quads to an N3.Store after a language check has been applied.
-   * Quads without a language tag will also be added to the store
+   * Checks if the language of the object matches the target language
+   * Quad wihtout a language tag will also return true
    * @param quad - an RDF Quad
    * @param targetLanguage - language in which the specification must be rendered
    */
-  private languageFilter(quad: RDF.Quad, targetLanguage: string): void {
-    if (quad.object.termType === 'NamedNode' || (<RDF.Literal>quad.object).language === targetLanguage) {
-      this.store.addQuad(quad);
+  private matchesTargetLanguage(quad: RDF.Quad, targetLanguage: string): boolean {
+    const isLiteral = quad.object.termType;
+
+    if (isLiteral) {
+      const literal = <RDF.Literal>quad.object;
+
+      if (literal.language && literal.language !== targetLanguage) {
+        return false;
+      }
     }
+
+    return true;
   }
 }
