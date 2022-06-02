@@ -20,17 +20,17 @@ export class ConverterApp<P extends AppConfiguration<ConverterConfiguration>> im
   }
 
   public async init(): Promise<void> {
-    this.logger.info('Initialising the converter');
+    this.logger.info('Initialising the converter.');
     let configuredConverter = this.appConfig.converterPackageName;
 
     if (!configuredConverter) {
-      this.logger.warn(`No converter package name was set in configuration. Setting default: ${DEFAULT_CONVERTER}`);
+      this.logger.warn(`No converter package name was set in configuration. Setting default: ${DEFAULT_CONVERTER}.`);
       configuredConverter = DEFAULT_CONVERTER;
     }
 
     this.converter = this.resolveConnector(configuredConverter);
 
-    // Remove property so that it is not available in converter itself
+    // Remove property as it should not be available for the converter
     delete this.appConfig.converterPackageName;
     this.converter.init(<ConverterConfiguration>this.appConfig);
   }

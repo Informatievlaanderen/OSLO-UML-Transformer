@@ -1,3 +1,4 @@
+import { stderr } from 'process';
 import { fetchFileOrUrl, getLoggerFor } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { ConverterApp } from './ConverterApp';
@@ -17,6 +18,7 @@ export class AppRunner {
   public runCliSync(process: NodeJS.Process): void {
     this.runCli(process.argv).catch((error): never => {
       this.logger.info(`Process exited due to one or more errors.`);
+      stderr.write(error.message);
       // eslint-disable-next-line unicorn/no-process-exit
       process.exit(1);
     });

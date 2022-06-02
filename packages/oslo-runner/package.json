@@ -27,6 +27,7 @@
     "@oslo-flanders/configuration": "^0.0.0",
     "@oslo-flanders/core": "^0.0.0",
     "@oslo-flanders/ea-converter": "^0.0.0",
+    "@oslo-flanders/jsonld-context-generator": "^0.0.0",
     "componentsjs": "^5.2.0",
     "yargs": "^17.5.1"
   }
