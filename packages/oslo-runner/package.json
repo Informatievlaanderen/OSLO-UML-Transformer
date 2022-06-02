@@ -19,9 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "scripts": {
-    "build:components": "componentsjs-generator -s ."
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
