@@ -1,5 +1,6 @@
 import type { ConverterConfiguration } from '@oslo-flanders/configuration';
-import { Converter, OutputHandler } from '@oslo-flanders/core';
+import type { OutputHandler } from '@oslo-flanders/core';
+import { Converter } from '@oslo-flanders/core';
 import type { EaAttribute, EaConnector, EaDiagram, EaElement, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, UmlDataExtractor } from '@oslo-flanders/ea-uml-extractor';
 
@@ -35,6 +36,7 @@ export class OsloEaUmlConverter extends Converter<ConverterConfiguration> {
     await this.extractor.extractData(this.configuration.umlFile);
     this.extractor.setTargetDiagram(this.configuration.diagramName);
 
+    this.filterIgnoredObjects();
     this.normalizeConnectors(this.extractor.connectors);
 
     const uriAssigner = new UriAssigner();
@@ -77,16 +79,23 @@ export class OsloEaUmlConverter extends Converter<ConverterConfiguration> {
     this.normalizedConnectors = normalizedConnectors;
   }
 
+  private filterIgnoredObjects(): void {
+    this.extractor.packages = this.extractor.packages.filter(x => !ignore(x));
+    this.extractor.attributes = this.extractor.attributes.filter(x => !ignore(x));
+    this.extractor.elements = this.extractor.elements.filter(x => !ignore(x));
+    this.extractor.connectors = this.extractor.connectors.filter(x => !ignore(x));
+  }
+
   public getPackages(): EaPackage[] {
-    return this.extractor.packages.filter(x => !ignore(x));
+    return this.extractor.packages;
   }
 
   public getAttributes(): EaAttribute[] {
-    return this.extractor.attributes.filter(x => !ignore(x));
+    return this.extractor.attributes;
   }
 
   public getElements(): EaElement[] {
-    return this.extractor.elements.filter(x => !ignore(x));
+    return this.extractor.elements;
   }
 
   public getGeneralizationConnectors(): EaConnector[] {
