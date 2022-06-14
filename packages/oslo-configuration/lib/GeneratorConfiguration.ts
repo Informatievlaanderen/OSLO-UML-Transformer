@@ -1,1 +1,5 @@
-export interface GeneratorConfiguration {}
+export interface GeneratorConfiguration {
+  output: string;
+  language: string;
+  addDomainPrefix: boolean;
+}
