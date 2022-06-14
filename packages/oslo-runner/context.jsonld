@@ -1,0 +1,188 @@
+{
+  "@context": {
+    "Afstamming": "https://data.vlaanderen.be/ns/persoon#Afstamming",
+    "Agent": "http://purl.org/dc/terms/Agent",
+    "BurgerlijkeStaat": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat",
+    "Domicilie": "https://data.vlaanderen.be/ns/persoon#Domicilie",
+    "Geboorte": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+    "GeenInwoner": "https://data.vlaanderen.be/ns/persoon#GeenInwoner",
+    "GeregistreerdPersoon": "https://data.vlaanderen.be/ns/persoon#GeregistreerdPersoon",
+    "Gezin": "https://data.vlaanderen.be/ns/persoon#Gezin",
+    "Gezinsrelatie": "https://data.vlaanderen.be/ns/persoon#Gezinsrelatie",
+    "Huwelijk": "https://data.vlaanderen.be/ns/persoon#Huwelijk",
+    "Inwoner": "https://data.vlaanderen.be/ns/persoon#Inwoner",
+    "Inwonerschap": "https://data.vlaanderen.be/ns/persoon#Inwonerschap",
+    "Jurisdictie": "http://purl.org/dc/terms/Jurisdiction",
+    "Nationaliteit": "https://data.vlaanderen.be/ns/persoon#Nationaliteit",
+    "Organisatie": "http://www.w3.org/ns/org#Organization",
+    "Overlijden": "https://data.vlaanderen.be/ns/persoon#Overlijden",
+    "PermanentInwoner": "https://data.vlaanderen.be/ns/persoon#PermanentInwoner",
+    "Persoon": "http://www.w3.org/ns/person#Person",
+    "Persoonsgebeurtenis": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+    "Persoonsrelatie": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie",
+    "Plaats": "http://purl.org/dc/terms/Location",
+    "Samenwonen": "https://data.vlaanderen.be/ns/persoon#Samenwonen",
+    "Staatburgerschap": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap",
+    "Staatsburger": "https://data.vlaanderen.be/ns/persoon#Staatsburger",
+    "TijdelijkInwoner": "https://data.vlaanderen.be/ns/persoon#TijdelijkInwoner",
+    "Verblijfplaats": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats",
+    "Voogdij": "https://data.vlaanderen.be/ns/persoon#Voogdij",
+    "Vreemdeling": "https://data.vlaanderen.be/ns/persoon#Vreemdeling",
+    "Afstamming.afstammingstype": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#afstammingsType",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    "Afstamming.datumVanAfstamming": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#datumVanAfstamming",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Agent.hoofdVan": {
+      "@id": "http://www.w3.org/ns/org#headOf",
+      "@type": "http://www.w3.org/ns/org#Organization"
+    },
+    "Agent.lidVan": {
+      "@id": "http://www.w3.org/ns/org#memberOf",
+      "@type": "http://www.w3.org/ns/org#Organization"
+    },
+    "Agent.rapporteertAan": {
+      "@id": "https://www.w3.org/ns/org#reportsTo",
+      "@type": "http://purl.org/dc/terms/Agent"
+    },
+    "BurgerlijkeStaat.type": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#type",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    "Gezin.gezinsadres": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinsadres",
+      "@type": "http://www.w3.org/ns/locn#Address"
+    },
+    "Gezin.isHoofdVan": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isHoofdVan",
+      "@type": "http://www.w3.org/ns/person#Person"
+    },
+    "Gezin.isLidVan": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isLidVan",
+      "@type": "http://www.w3.org/ns/person#Person"
+    },
+    "Gezinsrelatie.gezinsrelatietype": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gezinsrelatietype",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    "Inwonerschap.heeftVerblijfplaats": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftVerblijfplaats",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats"
+    },
+    "Jurisdictie.plaats": {
+      "@id": "https://data.vlaanderen.be/ns/generiek#plaats",
+      "@type": "http://purl.org/dc/terms/Location"
+    },
+    "Nationaliteit.nationaliteit": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#nationaliteit",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    "Organisatie.gelinktMet": {
+      "@id": "http://www.w3.org/ns/org#linkedTo",
+      "@type": "http://www.w3.org/ns/org#Organization"
+    },
+    "Organisatie.hoofdVan": {
+      "@id": "http://www.w3.org/ns/org#headOf",
+      "@type": "http://purl.org/dc/terms/Agent"
+    },
+    "Organisatie.lidVan": {
+      "@id": "http://www.w3.org/ns/org#memberOf",
+      "@type": "http://purl.org/dc/terms/Agent"
+    },
+    "Organisatie.suborganisatieVan": {
+      "@id": "http://www.w3.org/ns/org#subOrganizationOf",
+      "@type": "http://www.w3.org/ns/org#Organization"
+    },
+    "Persoon.achternaam": {
+      "@id": "http://xmlns.com/foaf/0.1/familyName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.alternatieveNaam": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#alternatieveNaam",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.contactinfo": {
+      "@id": "http://schema.org/contactPoint",
+      "@type": "https://schema.org/ContactPoint"
+    },
+    "Persoon.geboortenaam": {
+      "@id": "http://www.w3.org/ns/person#birthName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.gebruikteVoornaam": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.geslacht": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#geslacht",
+      "@type": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    "Persoon.heeftBurgerlijkeStaat": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftBurgerlijkeStaat",
+      "@type": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat"
+    },
+    "Persoon.heeftGeboorte": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftGeboorte",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Geboorte"
+    },
+    "Persoon.heeftNationaliteit": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftNationaliteit",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Nationaliteit"
+    },
+    "Persoon.heeftOverlijden": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftOverlijden",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Overlijden"
+    },
+    "Persoon.heeftRelatieMet": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#heeftRelatieMet",
+      "@type": "http://www.w3.org/ns/person#Person"
+    },
+    "Persoon.inwonerschap": {
+      "@id": "http://www.w3.org/ns/person#residency",
+      "@type": "http://purl.org/dc/terms/Jurisdiction"
+    },
+    "Persoon.isHoofdVan": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isHoofdVan",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Gezin"
+    },
+    "Persoon.isLidVan": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isLidVan",
+      "@type": "https://data.vlaanderen.be/ns/persoon#Gezin"
+    },
+    "Persoon.patroniem": {
+      "@id": "http://www.w3.org/ns/person#patronymicName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.staatsburgerschap": {
+      "@id": "http://www.w3.org/ns/person#citizenship",
+      "@type": "http://purl.org/dc/terms/Jurisdiction"
+    },
+    "Persoon.volledigeNaam": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#volledigeNaam",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoon.voornaam": {
+      "@id": "http://xmlns.com/foaf/0.1/givenName",
+      "@type": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Persoonsgebeurtenis.datum": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#datum",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Persoonsgebeurtenis.land": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#land",
+      "@type": "http://purl.org/dc/terms/Location"
+    },
+    "Persoonsgebeurtenis.plaats": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#plaats",
+      "@type": "http://purl.org/dc/terms/Location"
+    },
+    "Verblijfplaats.verblijfsadres": {
+      "@id": "https://data.vlaanderen.be/ns/persoon#verblijfsadres",
+      "@type": "http://www.w3.org/ns/locn#Address"
+    }
+  }
+}

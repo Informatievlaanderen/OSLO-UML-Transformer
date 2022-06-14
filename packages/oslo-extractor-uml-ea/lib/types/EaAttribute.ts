@@ -26,6 +26,6 @@ export class EaAttribute extends EaObject {
     this.lowerBound = lowerBound;
     this.upperBound = upperBound;
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(guid, name, id);
   }
 }

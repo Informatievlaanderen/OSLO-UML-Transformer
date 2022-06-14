@@ -1,3 +1,6 @@
 {
-  "inputFile": "./report-test.jsonld"
+  "inputFile": "./report-test.jsonld",
+  "addDomainPrefix": true,
+  "language": "nl",
+  "output": "context.jsonld"
 }

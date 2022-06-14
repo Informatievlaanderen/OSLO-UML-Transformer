@@ -25,7 +25,7 @@ export class EaPackage extends EaObject {
     this.packageId = packageId;
     this.parentId = parentId;
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(guid, name, id);
   }
 
   public setParent(parent: EaPackage): void {

@@ -50,11 +50,13 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/node-fetch": "^2.6.1",
     "jest-mock-extended": "^2.0.6"
   },
   "dependencies": {
     "@rdfjs/types": "^1.1.0",
+    "crypto-js": "^4.1.1",
     "jsonld-streaming-parser": "^2.4.3",
     "n3": "^1.16.2",
     "node-fetch": "2.6.7",

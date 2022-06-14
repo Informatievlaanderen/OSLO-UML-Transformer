@@ -35,7 +35,7 @@ export class NormalizedConnector extends EaObject {
       this.addNameTag(name);
     }
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(innerConnector.eaGuid, name, sourceObjectId);
   }
 
   public get innerConnectorName(): string {

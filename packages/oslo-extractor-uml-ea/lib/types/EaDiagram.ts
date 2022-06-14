@@ -21,6 +21,6 @@ export class EaDiagram extends EaObject {
     this.connectorsIds = [];
     this.elementIds = [];
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(guid, name, id);
   }
 }

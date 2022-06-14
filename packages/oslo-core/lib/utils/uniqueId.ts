@@ -1,4 +1,11 @@
-// TODO: this should be a hash based on guid + label and id
-export function uniqueId(): string {
-  return (Date.now() * Math.random()).toString(36).replace('.', '');
+import { SHA256 } from 'crypto-js';
+
+export function uniqueId(guid: string, label: string, id: number): string {
+  const object = {
+    guid,
+    label,
+    id,
+  };
+
+  return SHA256(JSON.stringify(object)).toString();
 }

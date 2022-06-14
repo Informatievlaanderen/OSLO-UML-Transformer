@@ -22,6 +22,6 @@ export class EaElement extends EaObject {
     this.type = type;
     this.packageId = packageId;
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(guid, name, id);
   }
 }

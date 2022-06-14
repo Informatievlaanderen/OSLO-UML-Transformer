@@ -80,7 +80,7 @@
     {
       "@id": "http://purl.org/dc/terms/Location",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/67rxz5sd2b2",
+      "guid": "http://example.org/.well-known/ddce4946e93c8da1a1a80c8c0eebf596e760f4440f9750ad043e4524b8d483cf",
       "label": [
         {
           "@language": "nl",
@@ -98,7 +98,7 @@
     {
       "@id": "http://purl.org/dc/terms/Agent",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/z73sm9286s",
+      "guid": "http://example.org/.well-known/86bb3ca68cd7a6bc08fb04891c0ebaaf3871766d5145fad92c7e79c65d8822ba",
       "label": [
         {
           "@language": "nl",
@@ -116,7 +116,7 @@
     {
       "@id": "http://purl.org/dc/terms/Jurisdiction",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/jw21u8sevg",
+      "guid": "http://example.org/.well-known/c5864d251251f662ef96686036e1b9187a6d4006cdeacba85d7139d9fffc310f",
       "label": [
         {
           "@language": "nl",
@@ -140,7 +140,7 @@
     {
       "@id": "http://www.w3.org/ns/org#Organization",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/3so7svnnlml",
+      "guid": "http://example.org/.well-known/db15792377f82f6e97e16d7dee020c8a6da84e68155a5689734f18d7e2b72c80",
       "label": [
         {
           "@language": "nl",
@@ -166,7 +166,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburger",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/k717u28s76i",
+      "guid": "http://example.org/.well-known/de354b30dc4f49c79f054ccf7f71d9a2b4eb279939935e8c7fd06668f3a2c77c",
       "label": [
         {
           "@language": "nl",
@@ -189,7 +189,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/a8rbhqsbp59",
+      "guid": "http://example.org/.well-known/c8358cec4d2b50e8c37a6597393f48175630e910ed22a16f90faf3eb4efa63ce",
       "label": [
         {
           "@language": "nl",
@@ -207,7 +207,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Geboorte",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/kx85cme9p3c",
+      "guid": "http://example.org/.well-known/d815cca0c9a8018ed31ffc2d54632570a53639b9bdd13af2cee9b8901757063e",
       "label": [
         {
           "@language": "nl",
@@ -236,7 +236,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Afstamming",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/a7qhud9jc9k",
+      "guid": "http://example.org/.well-known/888f2ccc41971ecc367ab85b16acc3da3008a70ac2d84d5b5a12ed2db39586eb",
       "label": [
         {
           "@language": "nl",
@@ -265,7 +265,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/3p4y0swkcc6",
+      "guid": "http://example.org/.well-known/7de44d98611d78b4d5776bca167e71f0d9180b5039a381d3db79646cb8d5bee1",
       "label": [
         {
           "@language": "nl",
@@ -289,7 +289,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Verblijfplaats",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/hlz0siixm4q",
+      "guid": "http://example.org/.well-known/493d48e048a1ad2a696858125d5353e07a5eddf6ad7e86cc8b90dbdac99dfaac",
       "label": [
         {
           "@language": "nl",
@@ -307,7 +307,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#GeregistreerdPersoon",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/cb6s1r9ha55",
+      "guid": "http://example.org/.well-known/f6146ae9dbd380065c4548b9cc308ec53e923e4df9a036a0fe8afaa4a0acfb47",
       "label": [
         {
           "@language": "nl",
@@ -336,7 +336,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Voogdij",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/8w2lvjihnce",
+      "guid": "http://example.org/.well-known/f7791a38e3576b06fa66c0991483b305ecccc78eff2eea1cc8620cf83489541e",
       "label": [
         {
           "@language": "nl",
@@ -365,7 +365,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Inwoner",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/1yd0yicrpbg",
+      "guid": "http://example.org/.well-known/1a43d6ffb9589b92d5c83977eadd2e1a866ace50ad2ef264b6c4981511df161d",
       "label": [
         {
           "@language": "nl",
@@ -394,7 +394,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Samenwonen",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/ew9pzrcnp2e",
+      "guid": "http://example.org/.well-known/4b6be421818ad7bf553063713559e1e7db1865ce420830a73fe9f24f2d421999",
       "label": [
         {
           "@language": "nl",
@@ -423,7 +423,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Domicilie",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/bi4vvggxc5r",
+      "guid": "http://example.org/.well-known/0355d984bb301d8bfc3f3248cf846d58a76a3cb1a7861b7a142221844f1b27d8",
       "label": [
         {
           "@language": "nl",
@@ -452,7 +452,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#GeenInwoner",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/18bt8ghccapm",
+      "guid": "http://example.org/.well-known/55ccf0e1bfe220944e29b0219b288459a919ea30daf521aba227c7e9ec534247",
       "label": [
         {
           "@language": "nl",
@@ -481,7 +481,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Huwelijk",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/dt8bhl1t4g4",
+      "guid": "http://example.org/.well-known/14080668036e38edafd8db98065d222bd32356606dacc099887262e8eb88791b",
       "label": [
         {
           "@language": "nl",
@@ -510,7 +510,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Nationaliteit",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/6y1d0lu4xt5",
+      "guid": "http://example.org/.well-known/a6cc9f808a5a37ff86a57348e0e64655564b3c27103477633a491bab57fe8efa",
       "label": [
         {
           "@language": "nl",
@@ -534,7 +534,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/azyfftdpc84",
+      "guid": "http://example.org/.well-known/fa521dadbea16231ecea24f52741eb90143979468fe2a435ff2b1f9fa8ea4553",
       "label": [
         {
           "@language": "nl",
@@ -558,7 +558,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#PermanentInwoner",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/58adtiwsgyf",
+      "guid": "http://example.org/.well-known/0ad55cb4d3afb11fe8907d076b0d214c97e3b9951a2fdb0d2b3bc6636431b024",
       "label": [
         {
           "@language": "nl",
@@ -587,7 +587,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Gezin",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/9zmtudsx42i",
+      "guid": "http://example.org/.well-known/8b0b7549560b0c8e3841fba2a205cd0ad2ec79e0f82c4e50d1c6e51304b56d7e",
       "label": [
         {
           "@language": "nl",
@@ -616,7 +616,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/iq0wz29j6fb",
+      "guid": "http://example.org/.well-known/1721897e0ee3c1a28324a0e3d3e14d6f7e17c5945e6d03e4fefaccc20ae50067",
       "label": [
         {
           "@language": "nl",
@@ -634,7 +634,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/107egoxker2g",
+      "guid": "http://example.org/.well-known/ee968bbc0ef3b17b72563bf9616ce1d959e9344d81e86f2686bb2a0ab3bf8772",
       "label": [
         {
           "@language": "nl",
@@ -658,7 +658,7 @@
     {
       "@id": "http://www.w3.org/ns/person#Person",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/f50auok7o8c",
+      "guid": "http://example.org/.well-known/edb91060a974584946a56da389ded55bb775aeaae8390349351ee8afa8b35ef2",
       "label": [
         {
           "@language": "nl",
@@ -690,7 +690,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Overlijden",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/334lc7t3oj2",
+      "guid": "http://example.org/.well-known/0d600777a14a0440fbf83484ba0450e0868ee5fcb7ed6d60d2a20a8d1d288465",
       "label": [
         {
           "@language": "nl",
@@ -713,7 +713,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Vreemdeling",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/amsnggw434t",
+      "guid": "http://example.org/.well-known/d59fe1da3c4c77d3da48d2b4f7a470b93c1eab204ea662e5d876983f3801a436",
       "label": [
         {
           "@language": "nl",
@@ -742,7 +742,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#TijdelijkInwoner",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/forklqtyp6u",
+      "guid": "http://example.org/.well-known/284118c40cdc60da39d5acc34975f19a44f4c1c1ffd0b3cc3a684f2d492e0774",
       "label": [
         {
           "@language": "nl",
@@ -771,7 +771,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Gezinsrelatie",
       "@type": "Class",
-      "guid": "http://example.org/.well-known/akm64z10iee",
+      "guid": "http://example.org/.well-known/f49f3eed64e08eb6d68e705ab7973485103248ca90f16abf399a716a393d1701",
       "label": [
         {
           "@language": "nl",
@@ -802,7 +802,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#datum",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/alyilsgs2tw",
+      "guid": "http://example.org/.well-known/3b4040119a8089d0cdec995510f2a08799eaf8a7bb552da3837c671c61c1cada",
       "label": [
         {
           "@language": "nl",
@@ -843,7 +843,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#datumVanAfstamming",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/jyi7100nf7",
+      "guid": "http://example.org/.well-known/00f94a0c840159f30dfd3b17db95eaf4effdecba3e54017c425e01d912640b86",
       "label": [
         {
           "@language": "nl",
@@ -884,7 +884,7 @@
     {
       "@id": "http://xmlns.com/foaf/0.1/familyName",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/a2wn8ztgcl",
+      "guid": "http://example.org/.well-known/c3ee4219ed8f71c3d82ef0679e8894bbe31a488c95c535daba7fbfa76aceccd2",
       "label": [
         {
           "@language": "nl",
@@ -924,7 +924,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#alternatieveNaam",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/ij2s9z2t73o",
+      "guid": "http://example.org/.well-known/c0436674dc1763d0a31e5b5d34d1d1e8810d186fb2d3e711330cd193df22e2dd",
       "label": [
         {
           "@language": "nl",
@@ -965,7 +965,7 @@
     {
       "@id": "http://www.w3.org/ns/person#birthName",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/7e4qutbp66x",
+      "guid": "http://example.org/.well-known/3e68147f1a8be3da489fca6dd4f44d7eb3cfe24f3e86027cc1007b534ed987b6",
       "label": [
         {
           "@language": "nl",
@@ -1005,7 +1005,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/ij38khjmrtf",
+      "guid": "http://example.org/.well-known/51486ae313fc89ccace4fdb06d19759e5e47acb5ff89a68c5594277a1c8b9702",
       "label": [
         {
           "@language": "nl",
@@ -1046,7 +1046,7 @@
     {
       "@id": "http://www.w3.org/ns/person#patronymicName",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/bmlevnx7pe9",
+      "guid": "http://example.org/.well-known/f634e57fafe18b49adb0d69d2a05968b0316fab94762c7b6064d1dd5dfb980e7",
       "label": [
         {
           "@language": "nl",
@@ -1086,7 +1086,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#volledigeNaam",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/bzmbs8sp94",
+      "guid": "http://example.org/.well-known/a4d71fd2fcb0b73423a44a1bbf778be92df99c03988e62dec3d8af2e41c9f20d",
       "label": [
         {
           "@language": "nl",
@@ -1127,7 +1127,7 @@
     {
       "@id": "http://xmlns.com/foaf/0.1/givenName",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "guid": "http://example.org/.well-known/hsk0c7nd46",
+      "guid": "http://example.org/.well-known/5399eb8d9a50b046afa15e39b7ea72f8f75dd59aaf52b1e0c9705898db87b4e7",
       "label": [
         {
           "@language": "nl",
@@ -1167,7 +1167,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/generiek#plaats",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/5vbcxnwrzhn",
+      "guid": "http://example.org/.well-known/9441b961a696f5f8c178ffa7c132535f5b1b0b77376ec835ce10408d56be6850",
       "label": [
         {
           "@language": "nl",
@@ -1207,7 +1207,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#land",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/cr1n6t7rohd",
+      "guid": "http://example.org/.well-known/3113a4df72b713488ec8e6f947d05273ff13f110763950f2ca661225849ffccc",
       "label": [
         {
           "@language": "nl",
@@ -1248,7 +1248,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#plaats",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/2dv6et0swxp",
+      "guid": "http://example.org/.well-known/8ea570a8eb350aef912e5f51a697ce88849dc5f084b50648cbf9f2b05dd714f3",
       "label": [
         {
           "@language": "nl",
@@ -1289,7 +1289,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#afstammingsType",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/dvx47b25hog",
+      "guid": "http://example.org/.well-known/e3572dec8e6d6ab56e390d9e03f21d6e3a590c5265d869b46572471a69f3fad5",
       "label": [
         {
           "@language": "nl",
@@ -1331,7 +1331,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#verblijfsadres",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/cg4wybs9gkf",
+      "guid": "http://example.org/.well-known/cb8f1076963c9adc037dd27d2ab17522a67c6ecee21e6803d98f3f6eb2e91a37",
       "label": [
         {
           "@language": "nl",
@@ -1371,7 +1371,7 @@
     {
       "@id": "http://schema.org/contactPoint",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/9t48b0nwesi",
+      "guid": "http://example.org/.well-known/9c23aa142783608b2d2cbc624ea2ac4a0ba954eb87932dd001920e91122ca327",
       "label": [
         {
           "@language": "nl",
@@ -1411,7 +1411,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#geslacht",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/8uq2f1rhvj4",
+      "guid": "http://example.org/.well-known/38c3d6cdb591f83970716e79789a13035cb78fc28f741e98dd27df148fa0c80f",
       "label": [
         {
           "@language": "nl",
@@ -1454,7 +1454,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#gezinsrelatietype",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/f0fq9j2b1a7",
+      "guid": "http://example.org/.well-known/ba14fb11884de0aa2197a176632879445066887147cf68efc7eae454dcddd4b9",
       "label": [
         {
           "@language": "nl",
@@ -1496,7 +1496,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#nationaliteit",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/a89ztodvlb",
+      "guid": "http://example.org/.well-known/f854cbd9cacc1c6d15931a22bae1e86aa4f4587690c800204e36f4e6d574193b",
       "label": [
         {
           "@language": "nl",
@@ -1537,7 +1537,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#type",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/94e5bip6unb",
+      "guid": "http://example.org/.well-known/88aa0c0dd64ddef1f07f6630f8b58924126f8e185dda0e2456e8b640d09474ff",
       "label": [
         {
           "@language": "nl",
@@ -1580,7 +1580,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#gezinsadres",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/eqpmfnnuwie",
+      "guid": "http://example.org/.well-known/4abd5d03703afe5b1e34d565d945bc464f6dea376dc740dbf20616a8c247aaf9",
       "label": [
         {
           "@language": "nl",
@@ -1620,7 +1620,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftNationaliteit",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/gfjk1jleqsf",
+      "guid": "http://example.org/.well-known/fbc9f967cd510605cc718c2b1944afa7eaa4aa6067e1d8ea7b18296f85ba5903",
       "label": [
         {
           "@language": "nl",
@@ -1660,7 +1660,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#gezinshoofd",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/3q0fie4knpf",
+      "guid": "http://example.org/.well-known/cbe8dfabbc17fe418eeea773b7176e7e28f501456fef24df415e8dde091f6ec0",
       "label": [],
       "definition": [],
       "usageNote": [],
@@ -1685,7 +1685,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isHoofdVan",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/im71ujfhf",
+      "guid": "http://example.org/.well-known/334e870a002267654413fb506837aa2c1feaa543495db4c06441f951f7fba602",
       "label": [
         {
           "@language": "nl",
@@ -1726,7 +1726,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isHoofdVan",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/8pmyuat9bn9",
+      "guid": "http://example.org/.well-known/e71c5925302d00c8e64c029c433718aea99b196139b4c821d682074f415c1676",
       "label": [
         {
           "@language": "nl",
@@ -1767,7 +1767,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftRelatieMet",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/hf25y1d9smj",
+      "guid": "http://example.org/.well-known/4fadcaf14427fabaa7998a27a0bcbc5f5e37a40e1d6264da8b32f847ed499195",
       "label": [
         {
           "@language": "nl",
@@ -1807,7 +1807,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie.persoon.source",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/472jq9pdb7c",
+      "guid": "http://example.org/.well-known/f51b3de64a2a4dde0c4c028932586c4dcac1d4cb9114efc686d4dcd0153f615d",
       "label": [
         {
           "@language": "label",
@@ -1837,7 +1837,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoonsrelatie.persoon.target",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/h7ogdtjgzw7",
+      "guid": "http://example.org/.well-known/ebe50128b1f7f624bc1db1323d4d22bc8df5cb848bdf0ad090746febff549611",
       "label": [
         {
           "@language": "label",
@@ -1867,7 +1867,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#gezinslid",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/h1f475fqq3q",
+      "guid": "http://example.org/.well-known/9574b37fd700d3290b5a8ad03d10ddb832c91812383679d504e9dba947b3651a",
       "label": [],
       "definition": [],
       "usageNote": [],
@@ -1892,7 +1892,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Persoon.isLidVan",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/7ub5pmq5nsu",
+      "guid": "http://example.org/.well-known/c2b781d1ab136b9bcd1cc902f3561b164cf3bd84b7ec3f89025af12f167cb3d9",
       "label": [
         {
           "@language": "nl",
@@ -1933,7 +1933,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Gezin.isLidVan",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/fam71yrwom9",
+      "guid": "http://example.org/.well-known/f97c8251ca2ca5b27281070cbd5f15973c94407fd089c1c47d63db85d9a687ac",
       "label": [
         {
           "@language": "nl",
@@ -1974,7 +1974,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftOverlijden",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/ej9y6k1n1s",
+      "guid": "http://example.org/.well-known/c8cd581aa96438ca80551ff31f0c6e87b10635093fd22e51fdc86431a30aaf53",
       "label": [
         {
           "@language": "nl",
@@ -2015,7 +2015,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftBurgerlijkeStaat",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/9pu4gfae8gv",
+      "guid": "http://example.org/.well-known/bdb70c417a4fa61245de651aa34ec9dc024ef610e1b164c1685b9a53633cfb7a",
       "label": [
         {
           "@language": "nl",
@@ -2055,7 +2055,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftVerblijfplaats",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/2i7qrtv183g",
+      "guid": "http://example.org/.well-known/d26d1a4e05426430d8e36da98a9c6edfaf3ece67497f34edbdd90577aa224840",
       "label": [
         {
           "@language": "nl",
@@ -2095,7 +2095,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#heeftGeboorte",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/db7e567kibv",
+      "guid": "http://example.org/.well-known/2c3c98789a69da4a7f2b47374c8ec289c72c72c212f3a2ab17c08f15baed9788",
       "label": [
         {
           "@language": "nl",
@@ -2136,7 +2136,7 @@
     {
       "@id": "http://www.w3.org/ns/org#subOrganizationOf",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/jmfh29ar6ec",
+      "guid": "http://example.org/.well-known/ffaf83899a79e6905a4f796fd6bafe5430d6b8b36ca696f707890ed8f2aa2847",
       "label": [
         {
           "@language": "nl",
@@ -2176,7 +2176,7 @@
     {
       "@id": "http://www.w3.org/ns/org#linkedTo",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/8zx9q032t5u",
+      "guid": "http://example.org/.well-known/0a4b88a6ead3675873a27c1667e74f5e148695f1f80e4dab21492e8242f4ecb2",
       "label": [
         {
           "@language": "nl",
@@ -2216,7 +2216,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Staatsburgerschap.persoon",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/k0ydvkgg64",
+      "guid": "http://example.org/.well-known/7d2db1c144e780798fa8aae5e3dd5442834488cd21822309f2dae645f3bffac0",
       "label": [
         {
           "@language": "label",
@@ -2246,7 +2246,7 @@
     {
       "@id": "http://www.w3.org/ns/person#citizenship",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/7ha7in0yjyq",
+      "guid": "http://example.org/.well-known/2dc0aedfbc93573728b1f0a4cb4e8037e23b7676d55251d6d1e104b9a7df7f10",
       "label": [
         {
           "@language": "nl",
@@ -2286,7 +2286,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/persoon#Inwonerschap.persoon",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/28pb5ra855q",
+      "guid": "http://example.org/.well-known/1ded5e64fd20521f6a38ac1ac4e68d00d2e186c6f87204529915ef64da12f060",
       "label": [
         {
           "@language": "label",
@@ -2316,7 +2316,7 @@
     {
       "@id": "http://www.w3.org/ns/person#residency",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/fqsa77f3cnb",
+      "guid": "http://example.org/.well-known/9c50c1c75288fa00a8d0d2a4b4d5b07ef40b366f35fdf467555278b93cc8dba5",
       "label": [
         {
           "@language": "nl",
@@ -2356,7 +2356,7 @@
     {
       "@id": "http://www.w3.org/ns/org#memberOf",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/fmty6y2dkee",
+      "guid": "http://example.org/.well-known/0aea756a8d6a017e17206dcbb3334cb9f9d4d5baae96ad8dbd5d9be64d06fba8",
       "label": [
         {
           "@language": "nl",
@@ -2396,7 +2396,7 @@
     {
       "@id": "http://www.w3.org/ns/org#memberOf",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/57c9qz6971u",
+      "guid": "http://example.org/.well-known/c347ae4130ac56c1363782b697bba8197a4d854364b89150e0f744fbc3977087",
       "label": [
         {
           "@language": "nl",
@@ -2436,7 +2436,7 @@
     {
       "@id": "https://www.w3.org/ns/org#reportsTo",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/9m4sxghvsxc",
+      "guid": "http://example.org/.well-known/7d759d38b8053b582a4093f176ddf55a79fcc20cbac181a0596e471ca282b2ae",
       "label": [
         {
           "@language": "nl",
@@ -2476,7 +2476,7 @@
     {
       "@id": "https://data.vlaanderen.be/ns/organisatie#Lidmaatschap.organisatie",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/cqgv0zrni3c",
+      "guid": "http://example.org/.well-known/bb8cc4a45848ee2bee6b6d81141ea70db6d16f87070b256ad769375c3efe0518",
       "label": [
         {
           "@language": "label",
@@ -2500,7 +2500,7 @@
     {
       "@id": "http://www.w3.org/ns/org#headOf",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/cb96hneo6l",
+      "guid": "http://example.org/.well-known/a630031744792d13b24853a7cccc30b0069f1b2a921340f5b86f51b7c1fb0048",
       "label": [
         {
           "@language": "nl",
@@ -2535,7 +2535,7 @@
     {
       "@id": "http://www.w3.org/ns/org#headOf",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "guid": "http://example.org/.well-known/faibcxpez6l",
+      "guid": "http://example.org/.well-known/5e32b7317eb3a17815833d06f0d982ba7ea8389b97f7fddc4d9b01639a513a73",
       "label": [
         {
           "@language": "nl",
@@ -2572,7 +2572,7 @@
     {
       "@id": "https://schema.org/ContactPoint",
       "@type": "Datatype",
-      "guid": "http://example.org/.well-known/7mhshr44uhg",
+      "guid": "http://example.org/.well-known/d763936834088f9ae4ec0bf383d7fb2c0d59a73be80e56c26bd13730f349cf97",
       "label": [
         {
           "@language": "nl",
@@ -2596,7 +2596,7 @@
     {
       "@id": "http://www.w3.org/ns/locn#Address",
       "@type": "Datatype",
-      "guid": "http://example.org/.well-known/89zv4fo2wqs",
+      "guid": "http://example.org/.well-known/d338581f646da9b79b028f2751e125990f072a507dba24dce89121f997dab1c1",
       "label": [
         {
           "@language": "nl",
@@ -2620,7 +2620,7 @@
     {
       "@id": "http://www.w3.org/ns/locn#Geometry",
       "@type": "Datatype",
-      "guid": "http://example.org/.well-known/1mpohhycrwe",
+      "guid": "http://example.org/.well-known/ec8bab21191a8df95da13e9ccb878066e20ca677b5de40dae2c244c9efe9485c",
       "label": [
         {
           "@language": "nl",
@@ -2634,7 +2634,7 @@
     {
       "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
       "@type": "Datatype",
-      "guid": "http://example.org/.well-known/4h8v0rnc2f2",
+      "guid": "http://example.org/.well-known/ee0175d0ec94a3cb7be1bfc0491bca3582534d9c710e00c9651e08585ec9a742",
       "label": [],
       "definition": [],
       "usageNote": [],
@@ -2643,7 +2643,7 @@
     {
       "@id": "http://www.w3.org/ns/adms#Identifier",
       "@type": "Datatype",
-      "guid": "http://example.org/.well-known/ghnmmp19b6h",
+      "guid": "http://example.org/.well-known/db30393c5a12e4f8dc73d225aa15dbe0ac486be91a353165fe6c3c5338411ff2",
       "label": [
         {
           "@language": "nl",

@@ -52,6 +52,6 @@ export class EaConnector extends EaObject {
     this.diagramGeometryDirection = direction;
     this.hidden = false;
 
-    this.osloGuid = uniqueId();
+    this.osloGuid = uniqueId(guid, name, id);
   }
 }
