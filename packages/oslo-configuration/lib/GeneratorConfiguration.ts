@@ -1,5 +1,6 @@
 export interface GeneratorConfiguration {
-  output: string;
+  contextOutput: string;
+  shaclOutput: string;
   language: string;
   addDomainPrefix: boolean;
 }
