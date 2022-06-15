@@ -19,7 +19,7 @@ export class JsonLdContextGenerator extends Generator<GeneratorConfiguration> {
     }
 
     const context = this.generateContext(document, duplicates);
-    await writeFile(this.configuration.output, JSON.stringify(context, null, 2));
+    await writeFile(this.configuration.contextOutput, JSON.stringify(context, null, 2));
   }
 
   private identifyDuplicates(attributes: any[]): string[] {
