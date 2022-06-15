@@ -1,9 +1,17 @@
 {
-  "name": "@oslo-flanders/runner",
+  "name": "@oslo-flanders/shacl-generator",
   "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "Digtaal Vlaanderen",
-  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-runner#readme",
+  "description": "Generates a SHACL file",
+  "keywords": [
+    "semantic",
+    "web",
+    "oslo",
+    "shacl",
+    "linked",
+    "data"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-shacl#readme",
   "license": "MIT",
   "main": "index.js",
   "typings": "index",
@@ -25,11 +33,6 @@
   },
   "dependencies": {
     "@oslo-flanders/configuration": "^0.0.0",
-    "@oslo-flanders/core": "^0.0.0",
-    "@oslo-flanders/ea-converter": "^0.0.0",
-    "@oslo-flanders/jsonld-context-generator": "^0.0.0",
-    "@oslo-flanders/shacl-generator": "^0.0.0",
-    "componentsjs": "^5.2.0",
-    "yargs": "^17.5.1"
+    "@oslo-flanders/core": "^0.0.0"
   }
 }
