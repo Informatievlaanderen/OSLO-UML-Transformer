@@ -30,7 +30,7 @@ export class AppRunner {
     try {
       await app.init().then(() => app.start());
     } catch (error: unknown) {
-      this.logger.error(`Could not start the app: ${error instanceof Error ? error.message : error}`);
+      this.logger.error(`App failed: ${error instanceof Error ? error.message : error}`);
     }
   }
 
