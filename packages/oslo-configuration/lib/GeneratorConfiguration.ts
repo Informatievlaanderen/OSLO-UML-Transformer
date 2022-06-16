@@ -3,4 +3,6 @@ export interface GeneratorConfiguration {
   shaclOutput: string;
   language: string;
   addDomainPrefix: boolean;
+  targetLanguage: string;
+  translationFileOutput: string;
 }

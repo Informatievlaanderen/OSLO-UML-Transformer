@@ -1,0 +1,39 @@
+{
+  "name": "@oslo-flanders/translation-json-generator",
+  "version": "0.0.0",
+  "description": "Generates a JSON file that can be used to add a translation to a specification",
+  "keywords": [
+    "oslo",
+    "semantic",
+    "web",
+    "uml",
+    "translation",
+    "json",
+    "jsonld"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-translation-json#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/configuration": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.0"
+  }
+}
