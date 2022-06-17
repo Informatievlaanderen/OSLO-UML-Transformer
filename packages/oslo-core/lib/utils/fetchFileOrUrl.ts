@@ -1,3 +1,4 @@
+import { existsSync } from 'fs';
 import { readFile, stat } from 'fs/promises';
 const fetch = require('node-fetch');
 
@@ -10,7 +11,7 @@ export async function fetchFileOrUrl(file: string): Promise<Buffer> {
     file = file.slice(7);
   }
 
-  if (!(await stat(file)).isFile()) {
+  if (!existsSync(file) || !(await stat(file)).isFile()) {
     throw new Error(`Path does not refer to a valid file: ${file}`);
   }
 
