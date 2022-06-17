@@ -77,7 +77,7 @@ export class AppRunner {
     return true;
   }
 
-  private createApp(appType: string, appConfig: any): IApp {
+  public createApp(appType: string, appConfig: any): IApp {
     switch (appType) {
       case 'converter':
         return new ConverterApp(appConfig);
