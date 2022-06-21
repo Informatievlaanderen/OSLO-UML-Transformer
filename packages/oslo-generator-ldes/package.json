@@ -35,6 +35,7 @@
   "dependencies": {
     "@oslo-flanders/configuration": "^0.0.0",
     "@oslo-flanders/core": "^0.0.0",
+    "@oslo-flanders/mongodb-ldes-connector": "^0.0.0",
     "crypto-js": "^4.1.1"
   },
   "devDependencies": {

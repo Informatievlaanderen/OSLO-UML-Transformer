@@ -1,24 +1,23 @@
-import { Readable } from 'stream';
 import type { GeneratorConfiguration } from '@oslo-flanders/configuration';
 import type { LdesWritableConnector, OsloLdesMember } from '@oslo-flanders/core';
 import { ns, Generator } from '@oslo-flanders/core';
 import { SHA256 } from 'crypto-js';
 import { DataFactory } from 'rdf-data-factory';
 
-export class LdesGenerator extends Generator<GeneratorConfiguration> {
+export class LdesGenerator<T> extends Generator<GeneratorConfiguration> {
   private readonly factory: DataFactory;
-  private readonly stream: Readable;
-  private connector: LdesWritableConnector | undefined;
+  private _connector: LdesWritableConnector<T> | undefined;
 
   public constructor() {
     super();
     this.factory = new DataFactory();
-    this.stream = new Readable({ objectMode: true });
   }
 
   public async generate(data: string): Promise<void> {
     const store = await this.createRdfStore(data, this.configuration.language);
     const documentUrl = `${this.configuration.baseUri}${this.configuration.documentId}`;
+
+    const tasks: Promise<void>[] = [];
 
     const objectIds = store.getObjects(this.factory.namedNode(documentUrl), null, null);
     objectIds.forEach(objectId => {
@@ -42,8 +41,10 @@ export class LdesGenerator extends Generator<GeneratorConfiguration> {
         context: documentUrl,
       };
 
-      this.stream.push(member);
+      tasks.push(this.connector.writeVersion(member));
     });
+
+    await Promise.all(tasks);
   }
 
   public async init(config: GeneratorConfiguration): Promise<void> {
@@ -61,6 +62,18 @@ export class LdesGenerator extends Generator<GeneratorConfiguration> {
     }
 
     this.connector = new WritableConnectorPackage[connectorName]();
-    await this.connector!.init(this.stream);
+    await this.connector.init();
+  }
+
+  public get connector(): LdesWritableConnector {
+    if (!this._connector) {
+      throw new Error(`LdesWritableConnector is not set yet.`);
+    }
+
+    return this._connector;
+  }
+
+  public set connector(value: LdesWritableConnector) {
+    this._connector = value;
   }
 }

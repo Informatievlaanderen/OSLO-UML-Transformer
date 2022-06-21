@@ -1,0 +1,37 @@
+{
+  "name": "@oslo-flanders/mongodb-ldes-connector",
+  "version": "0.0.0",
+  "description": "Writable connector to write OSLO LDES members to a MongoDB database",
+  "keywords": [
+    "semantic",
+    "web",
+    "oslo",
+    "ldes",
+    "mongodb"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-ldes-writable-connector-mongodb#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.0",
+    "mongodb": "^4.7.0"
+  }
+}
