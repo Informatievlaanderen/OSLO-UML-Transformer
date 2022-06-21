@@ -9,7 +9,8 @@ export class MongoDbWritableConnector implements LdesWritableConnector<MongoDbWr
   private _client: MongoClient | undefined;
 
   public async writeVersion(member: Partial<OsloLdesMember>): Promise<void> {
-    
+    // 1. Query by versionId
+    // 2. Add object if not already in it
   }
 
   public async init(config: MongoDbWritableConnectorConfig): Promise<void> {

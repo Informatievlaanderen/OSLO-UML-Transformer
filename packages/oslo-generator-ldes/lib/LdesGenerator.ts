@@ -4,7 +4,7 @@ import { ns, Generator } from '@oslo-flanders/core';
 import { SHA256 } from 'crypto-js';
 import { DataFactory } from 'rdf-data-factory';
 
-export class LdesGenerator<T> extends Generator<GeneratorConfiguration> {
+export class LdesGenerator<T extends GeneratorConfiguration> extends Generator<GeneratorConfiguration> {
   private readonly factory: DataFactory;
   private _connector: LdesWritableConnector<T> | undefined;
 
@@ -62,10 +62,10 @@ export class LdesGenerator<T> extends Generator<GeneratorConfiguration> {
     }
 
     this.connector = new WritableConnectorPackage[connectorName]();
-    await this.connector.init();
+    await this.connector.init(<T>this.configuration);
   }
 
-  public get connector(): LdesWritableConnector {
+  public get connector(): LdesWritableConnector<T> {
     if (!this._connector) {
       throw new Error(`LdesWritableConnector is not set yet.`);
     }
@@ -73,7 +73,7 @@ export class LdesGenerator<T> extends Generator<GeneratorConfiguration> {
     return this._connector;
   }
 
-  public set connector(value: LdesWritableConnector) {
+  public set connector(value: LdesWritableConnector<T>) {
     this._connector = value;
   }
 }

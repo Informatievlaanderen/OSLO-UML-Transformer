@@ -8,4 +8,5 @@ export interface GeneratorConfiguration {
   documentId: string;
   baseUri: string;
   ldesBackendConnectorPackageName: string;
+  databaseUrl: string;
 }
