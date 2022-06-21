@@ -7,4 +7,5 @@ export interface ConverterConfiguration {
   readonly outputFile: string;
   readonly publicationEnvironmentDomain: string;
   readonly documentId: string;
+  readonly baseUri: string;
 }

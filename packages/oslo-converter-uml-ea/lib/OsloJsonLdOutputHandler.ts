@@ -13,8 +13,9 @@ export class OsloJsonLdOutputHandler extends OutputHandler {
 
     const document: any = {};
     document['@context'] = this.getContext();
-    // FIXME: document id should come from configuration
-    document['@id'] = ns.example('TestId').value;
+
+    const documentUrl = this.store.getSubjects(ns.rdf('type'), ns.example('DocumentId'), null)[0];
+    document['@id'] = documentUrl.value;
     document.packages = osloPackages;
     document.classes = osloClasses;
     document.attributes = osloAttributes;
@@ -280,7 +281,7 @@ export class OsloJsonLdOutputHandler extends OutputHandler {
 
       return {
         '@id': datatypeSubject.value,
-        '@type': 'Datatype',
+        '@type': 'DataType',
         guid: wellKnownIdSubject.value,
         label: labelLiterals.map(x => ({ '@language': x.language, '@value': x.value })),
         definition: definitionLiterals.map(x => ({ '@language': x.language, '@value': x.value })),
@@ -358,6 +359,13 @@ export class OsloJsonLdOutputHandler extends OutputHandler {
       },
       Class: {
         '@id': 'owl:Class',
+      },
+      DataType: {
+        '@id': 'http://example.org/DataType',
+      },
+      guid: {
+        '@id': 'http://example.org/guid',
+        '@type': '@id',
       },
     };
   }

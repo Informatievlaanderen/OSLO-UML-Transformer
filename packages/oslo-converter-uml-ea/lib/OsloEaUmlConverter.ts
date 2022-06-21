@@ -1,6 +1,6 @@
 import type { ConverterConfiguration } from '@oslo-flanders/configuration';
 import type { OutputHandler } from '@oslo-flanders/core';
-import { Converter } from '@oslo-flanders/core';
+import { ns, Converter } from '@oslo-flanders/core';
 import type { EaAttribute, EaConnector, EaDiagram, EaElement, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, UmlDataExtractor } from '@oslo-flanders/ea-uml-extractor';
 
@@ -49,6 +49,10 @@ export class OsloEaUmlConverter extends Converter<ConverterConfiguration> {
     );
 
     this.converterHandlerMediator.configureHandlers(this.configuration, this.outputHandler, uriAssigner);
+
+    // Make the document id available for the OutputHandler
+    const documentUrl = `${this.configuration.baseUri}${this.configuration.documentId}`;
+    this.outputHandler.add(this.outputHandler.factory.namedNode(documentUrl), ns.rdf('type'), ns.example('DocumentId'));
 
     await this.converterHandlerMediator.addObjectsToOutput()
       .then(() => this.outputHandler.write(this.configuration.outputFile));
