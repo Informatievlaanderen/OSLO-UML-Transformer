@@ -1,0 +1,45 @@
+{
+  "name": "@oslo-flanders/ldes-generator",
+  "version": "0.0.0",
+  "description": "Generates a Linked Data Event Stream based on the OSLO JSON-LD file",
+  "keywords": [
+    "oslo",
+    "semantic",
+    "web",
+    "jsonld",
+    "ldes"
+  ],
+  "author": "Digitaal Vlaanderen",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-ldes#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/configuration": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.0",
+    "crypto-js": "^4.1.1"
+  },
+  "devDependencies": {
+    "@rdfjs/types": "^1.1.0",
+    "@types/crypto-js": "^4.1.1",
+    "rdf-data-factory": "^1.1.0"
+  }
+}

@@ -8,3 +8,5 @@ export * from './lib/interfaces/OutputHandler';
 export * from './lib/utils/namespaces';
 export * from './lib/oslo/Scope';
 export * from './lib/oslo/PropertyType';
+export * from './lib/oslo/OsloLdesMember';
+export * from './lib/interfaces/LdesWritableConnector';

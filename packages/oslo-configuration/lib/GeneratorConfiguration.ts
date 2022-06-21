@@ -5,4 +5,7 @@ export interface GeneratorConfiguration {
   addDomainPrefix: boolean;
   targetLanguage: string;
   translationFileOutput: string;
+  documentId: string;
+  baseUri: string;
+  ldesBackendConnectorPackageName: string;
 }
