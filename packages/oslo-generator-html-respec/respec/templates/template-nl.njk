@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>{{page_title}}</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer>
+  </script>
+  {{respec_config}}
+</head>
+
+<body>
+  <section id="abstract">
+    <h2>Samenvatting</h2>
+  </section>
+  <section>
+    <h2>Klassen</h2>
+
+    <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
+    
+    {% for class in classes %}
+      {% include "../specs/classTemplate.njk" %}
+    {% endfor %}
+
+  </section>
+  <section>
+    <h2>Eigenschappen</h2>
+  </section>
+  <section id="sotd">
+    <p>This is required.</p>
+  </section>
+</body>
+
+</html>

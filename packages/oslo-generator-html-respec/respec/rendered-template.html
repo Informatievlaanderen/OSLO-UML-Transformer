@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>test</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer>
+  </script>
+  
+      <script class="remove" >
+        var respecConfig = {"specStatus":"unofficial","editors":[{"name":"Test","url":"https://your-site.com"}],"github":"w3c/respec","shortName":"respec","xref":"web-platform","group":"webapps"}
+      </script>
+    
+</head>
+
+<body>
+  <section id="abstract">
+    <h2>Samenvatting</h2>
+  </section>
+  <section>
+    <h2>Klassen</h2>
+
+    <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
+    
+    
+      <h3>
+  Plaats
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>http://purl.org/dc/terms/Location</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Een ruimtelijk gebied of benoemde plaats.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Agent
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>http://purl.org/dc/terms/Agent</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Iemand die of iets dat kan handelen of een effect kan teweeg brengen.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Jurisdictie
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>http://purl.org/dc/terms/Jurisdiction</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Het gebied waarover de rechtsmacht van een overheid zich uitstrekt.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Doorgaans een land of deelstaat.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Organisatie
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>http://www.w3.org/ns/org#Organization</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>http://purl.org/dc/terms/Agent
+http://www.w3.org/2000/01/rdf-schema#Resource</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>NOTE</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Staatsburger
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Staatsburger</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Staatsburgerschap</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die juridisch verbonden is met een staat.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Persoonsgebeurtenis
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Belangrijke gebeurtenis ih leven ve persoon.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Geboorte
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Geboorte</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Het ter wereld komen vd persoon.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Afstamming
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Afstamming</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Afstamming�is de dalende lijn van�bloedverwantschap�tussen verschillende�generaties.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>De afstamming kan ook niet-biologisch zijn, bv adoptie. Afstamming kan ook in opgaande lijn worden bekeken. Het begrip is enger dan verwantschap dat oa ook huwelijk inhoudt.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Persoonsrelatie
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Relatie tussen twee of meer personen.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Typisch zijn dit burgerrechtelijke relaties (zie burgerlijke staat) maar niet noodzakelijk daartoe beperkt.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Verblijfplaats
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Verblijfplaats</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Plaats waar een persoon al dan niet tijdelijk woont of logeert.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Geregistreerd Persoon
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#GeregistreerdPersoon</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>http://www.w3.org/ns/person#Person</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon waarvan de gegevens zijn ingeschreven in een register.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>NOTE</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Voogdij
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Voogdij</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Situatie waarbij een persoon die optreedt als voogd ve ander persoon en in die hoedanigheid instaat voor deze persoon en zijn goederen.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Dit is bv het geval voor minderjarigen die hun ouders zijn verloren of voor meerderjarigen die hun verstandelijke vermogens zijn verloren.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Inwoner
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Inwoner</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Inwonerschap</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die in een bepaalde plaats of land woont.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Plaats of land wordt hier vertegenwoordigd door de entiteit jurisdictie.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Samenwonen
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Samenwonen</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Regeling waarbij twee personen die niet getrouwd zijn samenleven.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Kan, net als bv een huwelijk, de basis vormen van een gezin.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Domicilie
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Domicilie</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Verblijfplaats</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Hoofdverblijfplaats ve persoon.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Plaats waar de persoon het grootste deel vd tijd verblijft binnen de jurisdictie waarvan hij Inwoner is. Dit wordt doorgaans officieel vastgesteld en geregistreerd ih bevolkingsregister. Kan in praktijk verschillend vd feitelijke verblijfplaats.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Geen Inwoner
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#GeenInwoner</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Inwonerschap</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die niet in een bepaalde plaats of land woont.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Plaats of land wordt hier vertegenwoordigd door de entiteit jurisdictie.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Huwelijk
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Huwelijk</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Een door burgerlijk of religieus recht geregelde�samenlevingsvorm van twee personen.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Kan, net als bv samenwonen, de basis vormen van een gezin.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Nationaliteit
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Nationaliteit</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>De relatie tussen een persoon en een staat, cultuur of loyaliteit.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>NOTE</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Burgerlijke Staat
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#BurgerlijkeStaat</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Burgerrechtelijke toestand van een persoon.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Slaat op huwelijk, partnerregistratie, afstamming, voogdij etc. Is maw de toestand van bepaalde verhoudingen tussen personen.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Permanent Inwoner
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#PermanentInwoner</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Inwoner</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die permanent in een bepaalde plaats of land woont.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Is een verblijfsrecht dat in principe officieel moet worden toegekend als de persoon geen staatsburger is.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Gezin
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Gezin</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>http://www.w3.org/ns/org#Organization</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Samenwerkingsvorm die een herkenbare sociale eenheid vormt (bv tgv huwelijk), met al dan niet verwante personen die duurzame banden hebben en elkaar onderling steun en verzorging verlenen.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Ruimer begrip dan familie waar het gezin louter bestaat uit nabije bloedverwanten, bv een eenpersoonsgezin of living apart together. Gezinsleden hebben doorgaans dezelfde verblijfplaats.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Inwonerschap
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Inwonerschap</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Het feit dat een persoon verblijf houdt in een plaats of land.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Staatburgerschap
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Staatsburgerschap</td>
+  </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Juridische band ve persoon met een staat, waaraan bepaalde rechten en plichten verbonden zijn</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Vloeit meestal voort uit de nationaliteit ve persoon. De rechten en plichten waarvan sprake zijn burgerrechten (vb godsdienstvrijheid) of van politieke (vb stemrecht) of sociale aard (bv recht op een uitkering).</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Persoon
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>http://www.w3.org/ns/person#Person</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>http://purl.org/dc/terms/Agent
+http://www.w3.org/2000/01/rdf-schema#Resource</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Natuurlijk persoon.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>NOTE</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Overlijden
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Overlijden</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Het doodgaan vd Persoon.</td>
+  </tr>
+  
+</table>
+    
+      <h3>
+  Vreemdeling
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Vreemdeling</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Staatsburgerschap</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die niet de nationaliteit bezit vh land waar hij verblijft.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Daardoor kan de persoon geen staatsburger worden genoemd. In praktijk geniet de Vreemdeling als Inwoner een subset vd burgerrechten die een Staatsbutger wel heeft. Bv wel godsdienstvrijheid maar geen stemrecht.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Tijdelijk Inwoner
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#TijdelijkInwoner</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Inwoner</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Persoon die tijdelijk in een plaats of land woont.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Is een verblijfsrecht dat in principe enkel wordt toegekend omwille ve zeer specifieke reden bv werken of studeren. Exclusief personen met kort verblijf, bv als toerist.</td>
+    </tr>
+  
+</table>
+    
+      <h3>
+  Gezinsrelatie
+</h3>
+
+<table class='simple'>
+  <tr>
+    <td>Type</td>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <td>URI</td>
+    <td>https://data.vlaanderen.be/ns/persoon#Gezinsrelatie</td>
+  </tr>
+  
+    <tr>
+      <td>Parent</td>
+      <td>https://data.vlaanderen.be/ns/persoon#Persoonsrelatie</td>
+    </tr>
+  
+  <tr>
+    <td>Definition</td>
+    <td>Relatie tussen leden van eenzelfde gezin.</td>
+  </tr>
+  
+    <tr>
+      <td>Usage</td>
+      <td>Bv echtgenoot, zoon, schoonmoeder.</td>
+    </tr>
+  
+</table>
+    
+
+  </section>
+  <section>
+    <h2>Eigenschappen</h2>
+  </section>
+  <section id="sotd">
+    <p>This is required.</p>
+  </section>
+</body>
+
+</html>

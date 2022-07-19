@@ -66,9 +66,17 @@
     },
     "Class": {
       "@id": "owl:Class"
+    },
+    "DataType": {
+      "@id": "http://example.org/DataType"
+    },
+    "guid": {
+      "@id": "http://example.org/guid",
+      "@type": "@id"
     }
   },
-  "@id": "http://example.org/TestId",
+  "@id": "https://data.vlaanderen.be/doc/vocabularium/test-standaard/ontwerpstandaard/2022-06-21",
+  "shacl": {"path": "testpath/to/testfile", "name": "Test name", "addToConfig": true},
   "packages": [
     {
       "@id": "https://data.vlaanderen.be/ns/persoon",
@@ -2571,7 +2579,7 @@
   "datatypes": [
     {
       "@id": "https://schema.org/ContactPoint",
-      "@type": "Datatype",
+      "@type": "DataType",
       "guid": "http://example.org/.well-known/d763936834088f9ae4ec0bf383d7fb2c0d59a73be80e56c26bd13730f349cf97",
       "label": [
         {
@@ -2595,7 +2603,7 @@
     },
     {
       "@id": "http://www.w3.org/ns/locn#Address",
-      "@type": "Datatype",
+      "@type": "DataType",
       "guid": "http://example.org/.well-known/d338581f646da9b79b028f2751e125990f072a507dba24dce89121f997dab1c1",
       "label": [
         {
@@ -2619,7 +2627,7 @@
     },
     {
       "@id": "http://www.w3.org/ns/locn#Geometry",
-      "@type": "Datatype",
+      "@type": "DataType",
       "guid": "http://example.org/.well-known/ec8bab21191a8df95da13e9ccb878066e20ca677b5de40dae2c244c9efe9485c",
       "label": [
         {
@@ -2633,7 +2641,7 @@
     },
     {
       "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-      "@type": "Datatype",
+      "@type": "DataType",
       "guid": "http://example.org/.well-known/ee0175d0ec94a3cb7be1bfc0491bca3582534d9c710e00c9651e08585ec9a742",
       "label": [],
       "definition": [],
@@ -2642,7 +2650,7 @@
     },
     {
       "@id": "http://www.w3.org/ns/adms#Identifier",
-      "@type": "Datatype",
+      "@type": "DataType",
       "guid": "http://example.org/.well-known/db30393c5a12e4f8dc73d225aa15dbe0ac486be91a353165fe6c3c5338411ff2",
       "label": [
         {

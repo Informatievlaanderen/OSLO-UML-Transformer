@@ -4,5 +4,6 @@
   "outputFile": "report-test.jsonld",
   "specificationType": "ApplicationProfile",
   "publicationEnvironmentDomain": "https://data.vlaanderen.be/",
-  "documentId": "http://example.org/testSpecification"
+  "documentId": "/doc/vocabularium/test-standaard/ontwerpstandaard/2022-06-21",
+  "baseUri": "https://data.vlaanderen.be"
 }

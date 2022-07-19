@@ -1,0 +1,30 @@
+{
+  "name": "oslo-generator-shacl-validator-config",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "ARm8-2 <77163307+ARm8-2@users.noreply.github.com>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-shacl-validator-config#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattisVdDo/OSLO-UML-Transformer.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/MattisVdDo/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/configuration": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.0",
+    "properties-reader": "^2.2.0"
+  }
+}
