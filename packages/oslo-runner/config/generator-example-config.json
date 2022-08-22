@@ -10,6 +10,6 @@
   "documentId": "/doc/vocabularium/test-standaard/ontwerpstandaard/2022-06-21",
   "baseUri": "https://data.vlaanderen.be",
   "ldesBackendConnectorPackageName": "@oslo-flanders/mongodb-ldes-connector",
-  "shaclConfig": "C:/Users/matti/OneDrive/Documents/GitHub/OSLO-UML-Transformer/packages/oslo-generator-shacl-validator-config/lib/config.properties",
+  "shaclConfig": "",
   "fullRebuild": true
 }
