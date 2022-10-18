@@ -1,0 +1,22 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.md"
+      ],
+      "message": "Bump to new release version",
+      "allowBranch": "main",
+      "npmClient": "npm"
+    }
+  },
+  "loglevel": "info",
+  "registry": "https://registry.npmjs.org/",
+  "npmClient": "npm",
+  "npmClientArgs": [
+    "--no-package-lock"
+  ],
+  "version": "independent"
+}
