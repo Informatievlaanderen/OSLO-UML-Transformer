@@ -11,9 +11,6 @@
   "bugs": {
     "url": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/issues"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
     "@types/node": "^18.11.0",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
