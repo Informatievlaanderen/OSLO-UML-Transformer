@@ -1,9 +1,9 @@
 {
-  "name": "@oslo-flanders/ea-converter",
+  "name": "@oslo-flanders/output-handlers",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Dwight Van Lancker <dwight.vanlancker@hotmail.com>",
-  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-uml-ea#readme",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-output-handlers#readme",
   "license": "MIT",
   "main": "index.js",
   "directories": {
@@ -18,14 +18,12 @@
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
   "scripts": {
-    "test": "node ./__tests__/oslo-converter-uml-ea.test.js"
+    "test": "node ./__tests__/oslo-output-handlers.test.js"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.0",
-    "@oslo-flanders/ea-uml-extractor": "^0.0.0",
-    "@oslo-flanders/output-handlers": "^0.0.0"
+    "@oslo-flanders/core": "^0.0.0"
   }
 }

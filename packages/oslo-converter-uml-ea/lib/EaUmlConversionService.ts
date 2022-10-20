@@ -1,10 +1,10 @@
 import { IConversionService, IOutputHandler } from "@oslo-flanders/core";
 import { inject, injectable } from "inversify";
 import { DataRegistry } from "@oslo-flanders/ea-uml-extractor";
-import { ServiceIdentifier } from "./config/ServiceIdentifier";
 import { EaUmlConverterConfiguration } from "./config/EaUmlConverterConfiguration";
-import { OsloUriRegistry } from "./UriRegistry";
+import { UriRegistry } from "./UriRegistry";
 import { ConverterHandlerService } from "./ConverterHandlerService";
+import { EaUmlConverterServiceIdentifier } from "./config/EaUmlConverterServiceIdentifier";
 
 @injectable()
 export class EaUmlConversionService implements IConversionService {
@@ -12,18 +12,17 @@ export class EaUmlConversionService implements IConversionService {
   public readonly outputHandler: IOutputHandler;
 
   public constructor(
-    @inject(ServiceIdentifier.UmlConverterConfiguration) config: EaUmlConverterConfiguration,
-    @inject(ServiceIdentifier.OutputHandler) outputHandler: IOutputHandler
+    @inject(EaUmlConverterServiceIdentifier.Configuration) config: EaUmlConverterConfiguration,
+    @inject(EaUmlConverterServiceIdentifier.OutputHandler) outputHandler: IOutputHandler
   ) {
     this.configuration = config;
     this.outputHandler = outputHandler;
-    console.log(config);
   }
 
   public async run(): Promise<void> {
     const model = new DataRegistry();
     const converterHandler = new ConverterHandlerService();
-    const uriRegistry = new OsloUriRegistry();
+    const uriRegistry = new UriRegistry();
 
     await model.extract(this.configuration.umlFile);
 

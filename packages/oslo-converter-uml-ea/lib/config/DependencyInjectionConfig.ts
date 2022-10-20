@@ -8,13 +8,13 @@ import { PackageConverterHandler } from "../converterHandlers/PackageConverterHa
 import { IConverterHandler } from "../interfaces/IConverterHandler";
 import { EaUmlConversionService } from "../EaUmlConversionService";
 import { EaUmlConverterConfiguration } from "./EaUmlConverterConfiguration";
-import { ServiceIdentifier } from "./ServiceIdentifier";
+import { EaUmlConverterServiceIdentifier } from "./EaUmlConverterServiceIdentifier";
 
 export const container = new Container();
 
-container.bind<IConversionService>(ServiceIdentifier.ConversionService).to(EaUmlConversionService);
-container.bind<IConfiguration>(ServiceIdentifier.UmlConverterConfiguration).to(EaUmlConverterConfiguration).inSingletonScope();
+container.bind<IConversionService>(EaUmlConverterServiceIdentifier.ConversionService).to(EaUmlConversionService);
+container.bind<IConfiguration>(EaUmlConverterServiceIdentifier.Configuration).to(EaUmlConverterConfiguration).inSingletonScope();
 
-container.bind<IConverterHandler<EaPackage>>(ServiceIdentifier.ConverterHandler).to(PackageConverterHandler).whenTargetNamed('PackageConverterHandler');
-container.bind<IConverterHandler<EaAttribute>>(ServiceIdentifier.ConverterHandler).to(AttributeConverterHandler).whenTargetNamed('AttributeConverterHandler');
-container.bind<IConverterHandler<EaElement>>(ServiceIdentifier.ConverterHandler).to(ElementConverterHandler).whenTargetNamed('ElementConverterHandler');
+container.bind<IConverterHandler<EaPackage>>(EaUmlConverterServiceIdentifier.ConverterHandler).to(PackageConverterHandler).whenTargetNamed('PackageConverterHandler');
+container.bind<IConverterHandler<EaAttribute>>(EaUmlConverterServiceIdentifier.ConverterHandler).to(AttributeConverterHandler).whenTargetNamed('AttributeConverterHandler');
+container.bind<IConverterHandler<EaElement>>(EaUmlConverterServiceIdentifier.ConverterHandler).to(ElementConverterHandler).whenTargetNamed('ElementConverterHandler');

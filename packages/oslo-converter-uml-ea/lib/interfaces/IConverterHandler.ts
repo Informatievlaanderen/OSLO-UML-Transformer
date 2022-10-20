@@ -1,12 +1,12 @@
 import { DataRegistry } from "@oslo-flanders/ea-uml-extractor";
 import type * as RDF from '@rdfjs/types';
-import { OsloUriRegistry } from "../UriRegistry";
+import { UriRegistry } from "../UriRegistry";
 
 export interface IConverterHandler<T> {
   /**
    * Creates RDF.Quads for objects with type T in the normalized model and adds them to an RDF.Store
    */
-  convert: (normalizedModel: DataRegistry, uriRegistry: OsloUriRegistry, store: RDF.Store) => Promise<RDF.Store>;
+  convert: (normalizedModel: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store) => Promise<RDF.Store>;
 
   /**
    * Normalizes objects with type T in the data model
@@ -16,7 +16,7 @@ export interface IConverterHandler<T> {
   /**
    * Assigns URIs to objects with type T in the data model and adds them to the URI registry
    */
-  assignUris: (normalizedModel: DataRegistry, uriRegistry: OsloUriRegistry) => Promise<OsloUriRegistry>;
+  assignUris: (normalizedModel: DataRegistry, uriRegistry: UriRegistry) => Promise<UriRegistry>;
 
   /**
    * Creates and returns quads for an object with type T

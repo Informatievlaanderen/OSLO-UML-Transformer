@@ -35,9 +35,13 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    */
   private _baseUri: string | undefined;
 
-  // TODO: change input type
   public async createFromCli(params: YargsParams): Promise<void> {
-    // TODO
+    this._umlFile = <string>params.umlFile;
+    this._diagramName = <string>params.diagramName;
+    this._specificationType = <string>params.specificationType;
+    this._outputFile = <string>(params.outputFile || 'report.jsonld')
+    this._versionId = <string>params.versionId;
+    this._baseUri = <string>params.baseUri;
   }
 
   public get umlFile(): string {

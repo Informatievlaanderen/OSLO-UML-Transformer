@@ -6,3 +6,4 @@ export * from './lib/interfaces/IOutputHandler';
 export * from './lib/utils/fetchFileOrUrl';
 export * from './lib/utils/namespaces';
 export * from './lib/utils/uniqueId';
+export * from './lib/ServiceIdentifier';

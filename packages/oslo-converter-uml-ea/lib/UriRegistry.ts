@@ -1,3 +1,3 @@
-export class OsloUriRegistry {
+export class UriRegistry {
   
 }
