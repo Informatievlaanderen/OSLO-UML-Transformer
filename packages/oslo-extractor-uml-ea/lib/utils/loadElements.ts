@@ -1,11 +1,11 @@
-import { DataRegistry } from "../DataRegistry";
-import MDBReader from "mdb-reader";
-import { EaTable } from "../enums/EaTable";
-import alasql from "alasql";
-import { EaElement } from "../types/EaElement";
-import { EaPackage } from "../types/EaPackage";
-import { ElementType } from "../enums/ElementType";
-import { addEaTagsToElements } from "./assignTags";
+import alasql from 'alasql';
+import type MDBReader from 'mdb-reader';
+import type { DataRegistry } from '../DataRegistry';
+import { EaTable } from '../enums/EaTable';
+import { ElementType } from '../enums/ElementType';
+import { EaElement } from '../types/EaElement';
+import type { EaPackage } from '../types/EaPackage';
+import { addEaTagsToElements } from './assignTags';
 
 export function loadElements(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const objects = mdb.getTable(EaTable.Object).getData();
@@ -54,7 +54,7 @@ function setElementPath(element: EaElement, packages: EaPackage[]): void {
   let path: string;
 
   if (!elementPackage) {
-    //logger.warn(`Unnable to find package to which element with EA guid ${element.eaGuid} belonags. Setting path to its name '${element.name}'.`);
+    // TODO: log message
     path = element.name;
   } else {
     path = `${elementPackage.path}:${element.name}`;

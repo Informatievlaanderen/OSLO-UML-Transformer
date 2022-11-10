@@ -1,11 +1,11 @@
-import { DataRegistry } from "../DataRegistry";
-import MDBReader from "mdb-reader";
-import { convertToConnectorDirection } from "./resolveConnectorDirection";
-import { EaConnector } from "../types/EaConnector";
-import { EaElement } from "../types/EaElement";
-import alasql from "alasql";
-import { EaTable } from "../enums/EaTable";
-import { addEaTagsToElements, addRoleTagsToElements } from "./assignTags";
+import alasql from 'alasql';
+import type MDBReader from 'mdb-reader';
+import type { DataRegistry } from '../DataRegistry';
+import { EaTable } from '../enums/EaTable';
+import { EaConnector } from '../types/EaConnector';
+import type { EaElement } from '../types/EaElement';
+import { addEaTagsToElements, addRoleTagsToElements } from './assignTags';
+import { convertToConnectorDirection } from './resolveConnectorDirection';
 
 export function loadElementConnectors(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const connectors = mdb.getTable(EaTable.Connector).getData();
@@ -62,7 +62,7 @@ function setElementConnectorLoaderPath(connector: EaConnector, elements: EaEleme
   const sourceObject = elements.find(x => x.id === connector.sourceObjectId);
 
   if (!sourceObject) {
-    //logger.error(`Unnable to set path for connector with EA guid ${connector.eaGuid}, because source object is not found. Skipping connector...`);
+    // TODO: log message
     return;
   }
 
@@ -72,7 +72,7 @@ function setElementConnectorLoaderPath(connector: EaConnector, elements: EaEleme
     const destinationObject = elements.find(x => x.id === connector.destinationObjectId);
 
     if (!destinationObject) {
-      //logger.error(`Unnable to set path for connector with EA guid ${connector.eaGuid}, because destination object is not found. Skipping connector...`);
+      // TODO: log message
       return;
     }
 

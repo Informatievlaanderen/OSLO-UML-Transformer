@@ -1,11 +1,8 @@
-# `oslo-output-handlers`
+# OSLO Output handler
 
-> TODO: description
+> Writing the contents of an RDF store to an RDF serialization to a WritableStream (file or process.stdout)
 
-## Usage
-
-```
-const osloOutputHandlers = require('oslo-output-handlers');
-
-// TODO: DEMONSTRATE API
+## Install
+```bash
+npm install @oslo-flanders/output-handlers
 ```

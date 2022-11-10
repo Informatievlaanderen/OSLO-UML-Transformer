@@ -7,3 +7,5 @@ export * from './lib/utils/fetchFileOrUrl';
 export * from './lib/utils/namespaces';
 export * from './lib/utils/uniqueId';
 export * from './lib/ServiceIdentifier';
+export * from './lib/enums/Scope';
+export * from './lib/enums/PropertyTypes';

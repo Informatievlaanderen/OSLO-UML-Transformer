@@ -1,3 +1,2 @@
-import "reflect-metadata";
-export * from './lib/ConsoleOutputHandler';
-export * from './lib/RdfOutputHandler';
+export * from './lib/JsonLdOutputHandler';
+export * from './lib/NQuadsOutputHandler';

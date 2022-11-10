@@ -1,5 +1,6 @@
-import { ServiceIdentifier } from "@oslo-flanders/core";
+import { ServiceIdentifier } from '@oslo-flanders/core';
 
 export class EaUmlConverterServiceIdentifier extends ServiceIdentifier {
-  static readonly ConverterHandler = Symbol.for('ConverterHandler')
+  public static readonly ConverterHandler = Symbol.for('ConverterHandler');
+  public static readonly OutputHandlerService = Symbol.for('OutputHandlerService');
 }

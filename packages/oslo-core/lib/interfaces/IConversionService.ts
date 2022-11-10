@@ -1,4 +1,4 @@
-import { IConfiguration } from "./IConfiguration";
+import type { IConfiguration } from './IConfiguration';
 
 /**
  * Interface that must be implemented by classes that convert a UML diagram to an RDF file

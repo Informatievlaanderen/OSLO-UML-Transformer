@@ -2,13 +2,12 @@
   "name": "@oslo-flanders/core",
   "version": "0.0.0",
   "description": "Core interfaces and utilities",
-  "author": "Dwight Van Lancker <dwight.vanlancker@hotmail.com>",
+  "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-core#readme",
   "license": "MIT",
   "main": "index.js",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -17,9 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "scripts": {
-    "test": "node ./__tests__/oslo-core.test.js"
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   }

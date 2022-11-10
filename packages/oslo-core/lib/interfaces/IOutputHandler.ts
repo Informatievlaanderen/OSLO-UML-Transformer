@@ -1,10 +1,8 @@
-import { IConfiguration } from "./IConfiguration";
-import type * as N3 from 'n3';
+import type { Quad, Store } from 'n3';
 
 /**
- * Writes the triples in an RDF store to a file in a configurable format
+ * Writes the triples in an RDF store to a write stream
  */
 export interface IOutputHandler {
-  configuration: IConfiguration;
-  write: (store: N3.Store) => Promise<void>;
+  write: (store: Store<Quad>, writeStream: any) => Promise<void>;
 }

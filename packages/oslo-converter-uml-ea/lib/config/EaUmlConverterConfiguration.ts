@@ -1,5 +1,5 @@
-import { IConfiguration, YargsParams } from "@oslo-flanders/core";
-import { injectable } from "inversify";
+import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
+import { injectable } from 'inversify';
 
 @injectable()
 export class EaUmlConverterConfiguration implements IConfiguration {
@@ -31,17 +31,23 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   private _versionId: string | undefined;
 
   /**
-   * Base URI used for the version id in the RDF document 
+   * Base URI used for the version id in the RDF document
    */
   private _baseUri: string | undefined;
+
+  /**
+   * An RDF serialisation
+   */
+  private _outputFormat: string | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
     this._specificationType = <string>params.specificationType;
-    this._outputFile = <string>(params.outputFile || 'report.jsonld')
+    this._outputFile = <string>(params.outputFile || 'report.jsonld');
     this._versionId = <string>params.versionId;
     this._baseUri = <string>params.baseUri;
+    this._outputFormat = params.outputFormat ? <string>params.outputFormat : undefined;
   }
 
   public get umlFile(): string {
@@ -84,5 +90,12 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "baseUri" before it was set.`);
     }
     return this._baseUri;
+  }
+
+  public get outputFormat(): string {
+    if (!this._outputFormat) {
+      throw new Error(`Trying to access property "outputFormat" before it was set.`);
+    }
+    return this._outputFormat;
   }
 }

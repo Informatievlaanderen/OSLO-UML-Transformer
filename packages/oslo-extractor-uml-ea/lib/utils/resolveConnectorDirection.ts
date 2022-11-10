@@ -32,7 +32,7 @@ export function resolveConnectorDirection(geometry: string): ConnectorDirection 
           break;
 
         default:
-          //logger.error(`Could not resolve connector direction of geometry '${geometry}'. Returning connector direction 'Unknown'.`);
+          // TODO: log message
           labelDirection = ConnectorDirection.Unknown;
       }
     }
@@ -56,7 +56,7 @@ export function convertToConnectorDirection(direction: string): ConnectorDirecti
       return ConnectorDirection.Unspecified;
 
     default:
-      //logger.error(`Direction string '${direction}' could not be mapped to connector direction enum. Returning connector direction 'Unknown'.`);
+      // TODO: log message
       return ConnectorDirection.Unknown;
   }
 }

@@ -1,4 +1,4 @@
-import { stderr } from "process";
+import { stderr } from 'process';
 
 export type CliArgv = string[];
 
@@ -10,7 +10,7 @@ export type YargsParams = {
   [x: string]: unknown;
   _: (string | number)[];
   $0: string;
-}
+};
 
 export abstract class AppRunner {
   public runCliSync(process: NodeJS.Process): void {

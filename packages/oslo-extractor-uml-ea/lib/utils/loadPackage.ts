@@ -1,9 +1,9 @@
-import { DataRegistry } from "../DataRegistry";
-import MDBReader from "mdb-reader";
-import { EaTable } from "../enums/EaTable";
 import alasql from 'alasql';
-import { EaPackage } from "../types/EaPackage";
-import { addEaTagsToElements } from "./assignTags";
+import type MDBReader from 'mdb-reader';
+import type { DataRegistry } from '../DataRegistry';
+import { EaTable } from '../enums/EaTable';
+import { EaPackage } from '../types/EaPackage';
+import { addEaTagsToElements } from './assignTags';
 
 export function loadPackages(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const packages = mdb.getTable(EaTable.Package).getData();
@@ -21,7 +21,7 @@ export function loadPackages(mdb: MDBReader, model: DataRegistry): DataRegistry 
     <string>item.ea_guid,
     <number>item.Package_ID,
     <number>item.Parent_ID,
-  ))
+  ));
 
   // For each package, find and set their parent (if it exists) and add it to their path
   model.packages.forEach(packageObject => {

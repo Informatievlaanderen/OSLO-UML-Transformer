@@ -1,15 +1,16 @@
-import { fetchFileOrUrl } from "@oslo-flanders/core";
+import { fetchFileOrUrl } from '@oslo-flanders/core';
 import MDBReader from 'mdb-reader';
-import { EaAttribute } from "./types/EaAttribute";
-import { EaConnector } from "./types/EaConnector";
-import { EaDiagram } from "./types/EaDiagram";
-import { EaElement } from "./types/EaElement";
-import { EaPackage } from "./types/EaPackage";
-import { loadAttributes } from "./utils/loadAttributes";
-import { loadDiagrams } from "./utils/loadDiagrams";
-import { loadElementConnectors } from "./utils/loadElementConnectors";
-import { loadElements } from "./utils/loadElements";
-import { loadPackages } from "./utils/loadPackage";
+import type { EaAttribute } from './types/EaAttribute';
+import type { EaConnector } from './types/EaConnector';
+import type { EaDiagram } from './types/EaDiagram';
+import type { EaElement } from './types/EaElement';
+import type { EaPackage } from './types/EaPackage';
+import type { NormalizedConnector } from './types/NormalizedConnector';
+import { loadAttributes } from './utils/loadAttributes';
+import { loadDiagrams } from './utils/loadDiagrams';
+import { loadElementConnectors } from './utils/loadElementConnectors';
+import { loadElements } from './utils/loadElements';
+import { loadPackages } from './utils/loadPackage';
 
 export class DataRegistry {
   private _diagrams: EaDiagram[] | undefined;
@@ -17,6 +18,8 @@ export class DataRegistry {
   private _attributes: EaAttribute[] | undefined;
   private _elements: EaElement[] | undefined;
   private _connectors: EaConnector[] | undefined;
+  private _normalizedConnectors: NormalizedConnector[] | undefined;
+  private _targetDiagram: EaDiagram | undefined;
 
   public async extract(umlFile: string): Promise<void> {
     const buffer = await fetchFileOrUrl(umlFile);
@@ -29,9 +32,37 @@ export class DataRegistry {
     loadDiagrams(mdb, this);
   }
 
+  public setTargetDiagram(name: string): void {
+    const filteredDiagrams = this.diagrams.filter(x => x.name === name);
+
+    if (filteredDiagrams.length > 1) {
+      throw new Error(`Multiple diagrams share the same name '${name}'. Aborting conversion.`);
+    }
+
+    if (filteredDiagrams.length === 0) {
+      throw new Error(`UML model does not contain a diagram with name ${name}.`);
+    }
+
+    this.targetDiagram = filteredDiagrams[0];
+  }
+
+  public get targetDiagram(): EaDiagram {
+    if (!this._targetDiagram) {
+      throw new Error(`Trying to access targetDiagram before it was set.`);
+    }
+    return this._targetDiagram;
+  }
+
+  public set targetDiagram(value: EaDiagram) {
+    if (this._targetDiagram) {
+      throw new Error(`TargetDiagram was already set.`);
+    }
+    this._targetDiagram = value;
+  }
+
   public get diagrams(): EaDiagram[] {
     if (!this._diagrams) {
-      throw new Error(`Trying to access diagrams before they were loaded.`)
+      throw new Error(`Trying to access diagrams before they were loaded.`);
     }
     return this._diagrams;
   }
@@ -42,7 +73,7 @@ export class DataRegistry {
 
   public get packages(): EaPackage[] {
     if (!this._packages) {
-      throw new Error(`Trying to access packages before they were loaded.`)
+      throw new Error(`Trying to access packages before they were loaded.`);
     }
     return this._packages;
   }
@@ -53,7 +84,7 @@ export class DataRegistry {
 
   public get attributes(): EaAttribute[] {
     if (!this._attributes) {
-      throw new Error(`Trying to access attributes before they were loaded.`)
+      throw new Error(`Trying to access attributes before they were loaded.`);
     }
     return this._attributes;
   }
@@ -64,7 +95,7 @@ export class DataRegistry {
 
   public get elements(): EaElement[] {
     if (!this._elements) {
-      throw new Error(`Trying to access elements before they were loaded.`)
+      throw new Error(`Trying to access elements before they were loaded.`);
     }
     return this._elements;
   }
@@ -75,12 +106,23 @@ export class DataRegistry {
 
   public get connectors(): EaConnector[] {
     if (!this._connectors) {
-      throw new Error(`Trying to access connectors before they were loaded.`)
+      throw new Error(`Trying to access connectors before they were loaded.`);
     }
     return this._connectors;
   }
 
   public set connectors(value: EaConnector[]) {
     this._connectors = value;
+  }
+
+  public get normalizedConnectors(): NormalizedConnector[] {
+    if (!this._normalizedConnectors) {
+      throw new Error(`Trying to access normalized connectors before they were loaded.`);
+    }
+    return this._normalizedConnectors;
+  }
+
+  public set normalizedConnectors(value: NormalizedConnector[]) {
+    this._normalizedConnectors = value;
   }
 }

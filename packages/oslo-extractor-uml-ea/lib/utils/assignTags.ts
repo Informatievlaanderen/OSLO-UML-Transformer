@@ -1,6 +1,6 @@
-import { EaConnector } from "../types/EaConnector";
-import { EaObject } from "../types/EaObject";
-import { EaTag } from "../types/EaTag";
+import type { EaConnector } from '../types/EaConnector';
+import type { EaObject } from '../types/EaObject';
+import type { EaTag } from '../types/EaTag';
 
 /**
  * Iterates over tags and adds it to the corresponding object.
@@ -19,8 +19,7 @@ export function addEaTagsToElements(
     const element = elements.find(x => x.id === tag[objectIdPropertyName]);
 
     if (!element) {
-      //logger.warn(`Unable to find element with id ${tag[objectIdPropertyName]} to add following tag to: ${JSON.stringify(tag, null, 4)}`);
-      return;
+      // TODO: log message
     } else {
       const eaTag: EaTag = {
         id: <number>tag.PropertyID,

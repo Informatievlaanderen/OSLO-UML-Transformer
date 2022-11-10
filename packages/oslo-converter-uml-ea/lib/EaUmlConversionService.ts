@@ -1,35 +1,38 @@
-import { IConversionService, IOutputHandler } from "@oslo-flanders/core";
-import { inject, injectable } from "inversify";
-import { DataRegistry } from "@oslo-flanders/ea-uml-extractor";
-import { EaUmlConverterConfiguration } from "./config/EaUmlConverterConfiguration";
-import { UriRegistry } from "./UriRegistry";
-import { ConverterHandlerService } from "./ConverterHandlerService";
-import { EaUmlConverterServiceIdentifier } from "./config/EaUmlConverterServiceIdentifier";
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/indent */
+import type { IConversionService } from '@oslo-flanders/core';
+import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
+import { inject, injectable } from 'inversify';
+import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
+import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
+import { ConverterHandlerService } from './ConverterHandlerService';
+import { OutputHandlerService } from './OutputHandlerService';
 
 @injectable()
 export class EaUmlConversionService implements IConversionService {
   public readonly configuration: EaUmlConverterConfiguration;
-  public readonly outputHandler: IOutputHandler;
+  public readonly outputHandlerService: OutputHandlerService;
 
   public constructor(
     @inject(EaUmlConverterServiceIdentifier.Configuration) config: EaUmlConverterConfiguration,
-    @inject(EaUmlConverterServiceIdentifier.OutputHandler) outputHandler: IOutputHandler
+    @inject(EaUmlConverterServiceIdentifier.OutputHandlerService) outputHandlerService: OutputHandlerService,
   ) {
     this.configuration = config;
-    this.outputHandler = outputHandler;
+    this.outputHandlerService = outputHandlerService;
   }
 
   public async run(): Promise<void> {
     const model = new DataRegistry();
     const converterHandler = new ConverterHandlerService();
-    const uriRegistry = new UriRegistry();
 
     await model.extract(this.configuration.umlFile);
+    model.setTargetDiagram(this.configuration.diagramName);
 
-    const store = await converterHandler.normalize(model)
-      .then(() => converterHandler.assignUris(model, uriRegistry))
-      .then(() => converterHandler.convert(model, uriRegistry));
+    const store = await converterHandler.filterIgnoredObjects(model)
+      .then(() => converterHandler.normalize(model))
+      .then(() => converterHandler.assignUris(model))
+      .then(uriRegistry => converterHandler.convert(model, uriRegistry));
 
-    await this.outputHandler.write(store);
+    await this.outputHandlerService.write(store);
   }
 }

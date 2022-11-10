@@ -1,4 +1,4 @@
-import { YargsParams } from "./AppRunner";
+import type { YargsParams } from './AppRunner';
 
 /**
  * Interface that must be implemented by classes that contain configuration properties
