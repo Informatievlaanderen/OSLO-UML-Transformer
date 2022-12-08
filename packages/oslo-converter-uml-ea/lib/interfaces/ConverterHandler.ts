@@ -103,8 +103,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     }
 
     tags.forEach((tag: EaTag) => {
-      const parts = tag.tagName.split('-');
-      const languageCode = parts[parts.length - 1];
+      const languageCode = tag.tagName.split('-').slice(1)[0];
 
       if (languageToTagValueMap.has(languageCode)) {
         // TODO: Log warning that object has multiple occurrences and will be overriden
