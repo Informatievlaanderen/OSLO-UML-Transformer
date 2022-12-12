@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 export * from './lib/interfaces/AppRunner';
 export * from './lib/interfaces/IConfiguration';
 export * from './lib/interfaces/IConversionService';
@@ -9,3 +10,7 @@ export * from './lib/utils/uniqueId';
 export * from './lib/ServiceIdentifier';
 export * from './lib/enums/Scope';
 export * from './lib/enums/PropertyTypes';
+export * from './lib/logging/LogLevel';
+export * from './lib/logging/Logger';
+export * from './lib/logging/VoidLogger';
+export * from './lib/logging/WinstonLogger';
