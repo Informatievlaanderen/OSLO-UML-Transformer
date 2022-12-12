@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -5,10 +7,7 @@ module.exports = {
     tsconfigRootDir: __dirname, // this is the reason this is a .js file
     project: ["./tsconfig.eslint.json"],
   },
-  plugins: [
-    "eslint-plugin-import",
-    "eslint-plugin-unused-imports",
-  ],
+  plugins: ["jest", "eslint-plugin-import", "eslint-plugin-unused-imports"],
   extends: [
     "es/node",
     "plugin:import/errors",
@@ -22,6 +21,9 @@ module.exports = {
     "import/resolver": {
       typescript: {
         alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/rdf-js`
+      },
+      "eslint-import-resolver-lerna": {
+        packages: path.resolve(__dirname, "packages"),
       },
     },
   },
@@ -153,9 +155,9 @@ module.exports = {
     ],
     "import/no-unused-modules": "off",
     "unused-imports/no-unused-imports-ts": "error",
-    "import/no-extraneous-dependencies": "error",
 
     // TODO: Try to re-enable the following rules in the future
+    "import/no-extraneous-dependencies": "off",
     "global-require": "off",
     "no-process-env": "off",
     "@typescript-eslint/no-require-imports": "off",

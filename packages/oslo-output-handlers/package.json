@@ -1,0 +1,29 @@
+{
+  "name": "@oslo-flanders/output-handlers",
+  "version": "0.0.0",
+  "description": "Writing the input from an RDF store in an RDF serialization to a WritableStream",
+  "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-output-handlers#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/n3": "^1.10.4"
+  }
+}
