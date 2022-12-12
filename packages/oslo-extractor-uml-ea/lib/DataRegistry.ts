@@ -1,3 +1,4 @@
+import type { Logger } from '@oslo-flanders/core';
 import { fetchFileOrUrl } from '@oslo-flanders/core';
 import MDBReader from 'mdb-reader';
 import type { EaAttribute } from './types/EaAttribute';
@@ -13,6 +14,12 @@ import { loadElements } from './utils/loadElements';
 import { loadPackages } from './utils/loadPackage';
 
 export class DataRegistry {
+  public readonly logger: Logger;
+
+  public constructor(logger: Logger) {
+    this.logger = logger;
+  }
+
   private _diagrams: EaDiagram[] | undefined;
   private _packages: EaPackage[] | undefined;
   private _attributes: EaAttribute[] | undefined;

@@ -1,3 +1,4 @@
+import type { Logger } from '@oslo-flanders/core';
 import type { DataRegistry, EaObject } from '@oslo-flanders/ea-uml-extractor';
 import type { Quad } from 'n3';
 import { Store } from 'n3';
@@ -7,6 +8,12 @@ import type { ConverterHandler } from './interfaces/ConverterHandler';
 import { UriRegistry } from './UriRegistry';
 
 export class ConverterHandlerService<T extends EaObject> {
+  public readonly logger: Logger;
+
+  public constructor(logger: Logger) {
+    this.logger = logger;
+  }
+
   public async filterIgnoredObjects(model: DataRegistry): Promise<DataRegistry> {
     container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
       .forEach(handler => handler.filterIgnoredObjects(model));

@@ -1,4 +1,4 @@
-import { Scope } from '@oslo-flanders/core';
+import { Logger, Scope } from '@oslo-flanders/core';
 import type { DataRegistry, EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
@@ -11,6 +11,7 @@ import type { UriRegistry } from '../UriRegistry';
 @injectable()
 export abstract class ConverterHandler<T extends EaObject> {
   @inject(EaUmlConverterServiceIdentifier.Configuration) public readonly config!: EaUmlConverterConfiguration;
+  @inject(EaUmlConverterServiceIdentifier.Logger) public readonly logger!: Logger;
   public readonly df = new DataFactory();
 
   /**
