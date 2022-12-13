@@ -16,7 +16,7 @@
     "importHelpers": false,
     "strict": true,
     "esModuleInterop": true,
-    "types": ["reflect-metadata", "node"],
+    "types": ["reflect-metadata", "node", "jest"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
