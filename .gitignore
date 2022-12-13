@@ -1,0 +1,19 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+coverage
+node_modules/
+typings/
+*.tsbuildinfo
+.npm
+.eslintcache
+.env
+.env.test
+dist
+packages/**/*.js
+packages/**/*.d.ts
+packages/**/*.js.map
