@@ -19,5 +19,8 @@
   "scripts": {},
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "winston": "^3.8.2"
   }
 }
