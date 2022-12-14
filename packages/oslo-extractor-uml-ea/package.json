@@ -28,7 +28,9 @@
     "collectCoverage": true,
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "index.js"
+      "index.js",
+      "./lib/utils",
+      "./lib/types"
     ],
     "testEnvironment": "node"
   },
