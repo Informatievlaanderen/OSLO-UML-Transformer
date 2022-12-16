@@ -3,6 +3,7 @@ import type { IOutputHandler } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import type { Store, Quad } from 'n3';
+import { getOsloContext } from './utils/osloContext';
 
 export class JsonLdOutputHandler implements IOutputHandler {
   public async write(store: Store<Quad>, writeStream: any): Promise<void> {
@@ -15,6 +16,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
     ]);
 
     const document: any = {};
+    document['@context'] = getOsloContext();
+    this.addDocumentInformation(document, store);
+
     document.packages = packages;
     document.classes = classes;
     document.attributes = attributes;
@@ -22,6 +26,17 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.statements = statements;
 
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
+  }
+
+  private addDocumentInformation(document: any, store: Store): void {
+    const versionIdQuads = store.getQuads(null, ns.prov('generatedAtTime'), null, null);
+
+    if (!versionIdQuads) {
+      throw new Error(`Unnable to find version id for the document.`);
+    }
+
+    document['@id'] = versionIdQuads[0].subject.value;
+    document.generatedAtTime = versionIdQuads[0].object.value;
   }
 
   private async getPackages(store: Store<Quad>): Promise<any> {
@@ -45,7 +60,6 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getClasses(store: Store<Quad>): Promise<any> {
     const quads = store.getQuads(null, ns.rdf('type'), ns.owl('Class'), null);
     return quads.reduce<any[]>((jsonLdClasses, quad) => {
-      // TODO: fix comment ()
       // skos:Concept classes are not being published separately, but only
       // as part of an attribute's range
       if (quad.subject.equals(ns.skos('Concept'))) {
@@ -58,13 +72,6 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const labelQuads = classQuads.filter(x => x.predicate.equals(ns.rdfs('label')));
       const scopeQuad = classQuads.find(x => x.predicate.equals(ns.example('scope')));
       const parentQuads = classQuads.filter(x => x.predicate.equals(ns.rdfs('subClassOf')));
-
-      // Const parentLabelQuads: RDF.Quad[] = []
-      // if (parentQuads.length > 0) {
-      // parentQuads.forEach(parentQuad => {
-      //     parentLabelQuads.push(...store.getQuads(parentQuad.object, ns.rdfs('label'), null, null));
-      // });
-      // }
 
       jsonLdClasses.push(
         {

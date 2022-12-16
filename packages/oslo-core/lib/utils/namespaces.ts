@@ -19,7 +19,8 @@ enum Prefixes {
   xsd = 'http://www.w3.org/2001/XMLSchema#',
   person = 'http://www.w3.org/ns/person#',
   vann = 'http://purl.org/vocab/vann/',
-  shacl = 'http://w3.org/ns/shacl#'
+  shacl = 'http://w3.org/ns/shacl#',
+  prov = 'http://www.w3.org/ns/prov#'
 }
 
 export type Namespace = {
