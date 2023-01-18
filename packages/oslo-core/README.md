@@ -24,7 +24,7 @@ The core package contains general interfaces and utility functions
 #### `IConversionService`
 Interface that must be implemented when creating a new conversion service
 
-#### `Generator`
+#### `IGenerationService`
 Interface that must be implemented when creating a new generator.
 
 #### `IOutputHandler`
