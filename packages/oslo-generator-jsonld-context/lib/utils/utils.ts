@@ -16,12 +16,6 @@ export function alphabeticalSort(source: [string, any][]): [string, any][] {
 }
 
 export function getLabel(subject: RDF.Quad_Subject, language: string, store: N3.Store): RDF.Quad_Object | undefined {
-  const labels = store.getObjects(subject, ns.rdfs('label'), null);
-  const filteredLabels = labels.filter(x => (<RDF.Literal>x).language === language);
-
-  if (filteredLabels.length > 1) {
-    throw new Error(`Multiple labels found for ${subject.value} in language ${language}`);
-  }
-
-  return filteredLabels.shift();
+  return store.getObjects(subject, ns.rdfs('label'), null)
+    .find(x => (<RDF.Literal>x).language === language);
 }
