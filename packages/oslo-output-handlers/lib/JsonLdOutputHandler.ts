@@ -46,12 +46,16 @@ export class JsonLdOutputHandler implements IOutputHandler {
 
       const baseUriValue = packageQuads.find(x => x.predicate.equals(ns.example('baseUri')));
       if (!baseUriValue) {
-        throw new Error(`Unnable to find base URI for package with .well-known id ${quad.graph.value}`);
+        throw new Error(`Unnable to find base URI for package with .well-known id ${quad.subject.value}`);
       }
 
+      const assignedUri = packageQuads.find(x => x.predicate.equals(ns.example('assignedUri')));
       return {
         '@id': quad.subject.value,
         '@type': 'Package',
+        ...assignedUri && {
+          assignedUri: assignedUri.object.value,
+        },
         baseUri: baseUriValue.object.value,
       };
     });
@@ -60,7 +64,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getClasses(store: Store<Quad>): Promise<any> {
     const quads = store.getQuads(null, ns.rdf('type'), ns.owl('Class'), null);
     return quads.reduce<any[]>((jsonLdClasses, quad) => {
-      // skos:Concept classes are not being published separately, but only
+      // Classes with skos:Concept URI are not being published separately, but only
       // as part of an attribute's range
       if (quad.subject.equals(ns.skos('Concept'))) {
         return jsonLdClasses;
@@ -68,6 +72,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
 
       const classQuads = store.getQuads(quad.subject, null, null, null);
 
+      const assignedUri = classQuads.find(x => x.predicate.equals(ns.example('assignedUri')));
       const definitionQuads = classQuads.filter(x => x.predicate.equals(ns.rdfs('comment')));
       const labelQuads = classQuads.filter(x => x.predicate.equals(ns.rdfs('label')));
       const scopeQuad = classQuads.find(x => x.predicate.equals(ns.example('scope')));
@@ -77,6 +82,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
         {
           '@id': quad.subject.value,
           '@type': 'Class',
+          ...assignedUri && {
+            assignedUri: assignedUri.object.value,
+          },
           definition: definitionQuads
             .map(x => ({ '@language': (<RDF.Literal>x.object).language, '@value': x.object.value })),
           label: labelQuads.map(x => ({ '@language': (<RDF.Literal>x.object).language, '@value': x.object.value })),
@@ -103,6 +111,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     ].map(quad => {
       const attributeQuads = store.getQuads(quad.subject, null, null, null);
 
+      const assignedUri = attributeQuads.find(x => x.predicate.equals(ns.example('assignedUri')));
       const definitionQuads = attributeQuads.filter(x => x.predicate.equals(ns.rdfs('comment')));
       const attributeTypeQuad = attributeQuads
         .find(x => x.subject.equals(quad.subject) && x.predicate.equals(ns.rdf('type')));
@@ -126,6 +135,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
       return {
         '@id': quad.subject.value,
         '@type': attributeTypeQuad.object.value,
+        ...assignedUri && {
+          assignedUri: assignedUri.object.value,
+        },
         ...labelQuads.length > 0 && {
           label: labelQuads.map(x => ({ '@language': (<RDF.Literal>x.object).language, '@value': x.object.value })),
         },
@@ -160,6 +172,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     return quads.map(quad => {
       const dataTypeQuads = store.getQuads(quad.subject, null, null, null);
 
+      const assignedUri = dataTypeQuads.find(x => x.predicate.equals(ns.example('assignedUri')));
       const definitionQuads = dataTypeQuads.filter(x => x.predicate.equals(ns.rdfs('comment')));
       const labelQuads = dataTypeQuads.filter(x => x.predicate.equals(ns.rdfs('label')));
       const usageNoteQuads = dataTypeQuads.filter(x => x.predicate.equals(ns.vann('usageNote')));
@@ -168,6 +181,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
       return {
         '@id': quad.subject.value,
         '@type': 'DataType',
+        ...assignedUri && {
+          assignedUri: assignedUri.object.value,
+        },
         ...labelQuads.length > 0 && {
           label: labelQuads.map(x => ({ '@language': (<RDF.Literal>x.object).language, '@value': x.object.value })),
         },
@@ -189,14 +205,14 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getRdfStatements(store: Store<Quad>): Promise<any> {
     const statementQuads = store.getQuads(null, ns.rdf('type'), ns.rdf('Statement'), null);
     return statementQuads.map(quad => {
-      const statementSubject = store.getQuads(quad.subject, ns.rdf('subject'), null, null)[0];
-      const statementPredicate = store.getQuads(quad.subject, ns.rdf('predicate'), null, null)[0];
-      const statementObject = store.getQuads(quad.subject, ns.rdf('object'), null, null)[0];
+      const statementSubject = store.getQuads(quad.subject, ns.rdf('subject'), null, null).shift()!;
+      const statementPredicate = store.getQuads(quad.subject, ns.rdf('predicate'), null, null).shift()!;
+      const statementObject = store.getQuads(quad.subject, ns.rdf('object'), null, null).shift()!;
 
-      const statementLabel = store.getQuads(quad.subject, ns.rdfs('label'), null, null)[0];
+      const statementLabel = store.getQuads(quad.subject, ns.rdfs('label'), null, null).shift();
       const statementDefinitions = store.getQuads(quad.subject, ns.rdfs('comment'), null, null);
       const statementUsageNotes = store.getQuads(quad.subject, ns.vann('usageNote'), null, null);
-      const statementConceptScheme = store.getQuads(quad.subject, ns.example('usesConceptScheme'), null, null)[0];
+      const statementConceptScheme = store.getQuads(quad.subject, ns.example('usesConceptScheme'), null, null).shift();
 
       return {
         '@type': quad.object.value,

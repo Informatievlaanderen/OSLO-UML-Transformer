@@ -40,6 +40,11 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    */
   private _outputFormat: string | undefined;
 
+  /**
+   * The base URI of the environment where the document will be published
+   */
+  private _publicationEnvironment: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
@@ -47,7 +52,8 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._outputFile = <string>(params.outputFile || 'report.jsonld');
     this._versionId = <string>params.versionId;
     this._baseUri = <string>params.baseUri;
-    this._outputFormat = params.outputFormat ? <string>params.outputFormat : undefined;
+    this._outputFormat = <string>params.outputFormat;
+    this._publicationEnvironment = <string>params.publicationEnvironment;
   }
 
   public get umlFile(): string {
@@ -97,5 +103,12 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "outputFormat" before it was set.`);
     }
     return this._outputFormat;
+  }
+
+  public get publicationEnvironment(): string {
+    if (!this._publicationEnvironment) {
+      throw new Error(`Trying to access property "publicationEnvironment" before it was set.`);
+    }
+    return this._publicationEnvironment;
   }
 }

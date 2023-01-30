@@ -3,6 +3,11 @@ import type { EaElement, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 
 export class UriRegistry {
   /**
+   * The fallback base URI
+   */
+  private readonly _fallbackBaseUri = 'http://todo.com/';
+
+  /**
    * Package id mapped to a URI
    */
   private _packageIdUriMap: Map<number, URL> | undefined;
@@ -134,5 +139,9 @@ export class UriRegistry {
       throw new Error(`ConnectorIdUri map was already set.`);
     }
     this._connectorOsloIdUriMap = value;
+  }
+
+  public get fallbackBaseUri(): string {
+    return this._fallbackBaseUri;
   }
 }
