@@ -35,7 +35,7 @@ export class NormalizedConnector extends EaObject {
     this._originalId = originalConnector.id;
     this._originalType = originalConnector.type;
 
-    if (name) {
+    if (!tags.some(x => x.tagName === 'name') && name) {
       this.addNameTag(name);
     }
 

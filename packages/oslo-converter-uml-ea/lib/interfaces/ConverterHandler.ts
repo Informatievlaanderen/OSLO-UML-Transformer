@@ -71,8 +71,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       return Scope.InPackage;
     }
 
-    // TODO: can we use base URI instead of publicationEnvironmentVariable?
-    if (uri.toString().startsWith(this.config.baseUri)) {
+    if (uri.toString().startsWith(this.config.publicationEnvironment)) {
       return Scope.InPublicationEnvironment;
     }
 
@@ -88,12 +87,12 @@ export abstract class ConverterHandler<T extends EaObject> {
    * the vocabulary fallback tags are used
    */
   private getLanguageDependentTag(object: T, name: TagNames, fallbackTag?: TagNames): RDF.Literal[] {
-    const tags = object.tags?.filter((x: EaTag) => x.tagName?.startsWith(name));
+    const tags = object.tags.filter((x: EaTag) => x.tagName.startsWith(name));
     const literals: RDF.Literal[] = [];
 
     const languageToTagValueMap = new Map<string, string>();
 
-    if (!tags || tags.length === 0) {
+    if (tags.length === 0) {
       // TODO: Log warning that primary tag choice is not available, and fallback will be applied
       if (!fallbackTag) {
         // TODO: Log error that there is no fallback anymore
@@ -104,7 +103,8 @@ export abstract class ConverterHandler<T extends EaObject> {
     }
 
     tags.forEach((tag: EaTag) => {
-      const languageCode = tag.tagName.split('-').slice(1)[0];
+      const parts = tag.tagName.split('-');
+      const languageCode = parts[parts.length - 1];
 
       if (languageToTagValueMap.has(languageCode)) {
         // TODO: Log warning that object has multiple occurrences and will be overriden

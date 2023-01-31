@@ -82,6 +82,21 @@ export function getOsloContext(): any {
       affiliation: {
         '@id': 'http://schema.org/affiliation',
       },
+      subject: {
+        '@id': 'rdf:subject',
+      },
+      predicate: {
+        '@id': 'rdf:predicate',
+      },
+      object: {
+        '@id': 'rdf:object',
+      },
+      Statement: {
+        '@id': 'rdf:Statement',
+      },
+      assignedUri: {
+        '@id': 'http://example.org/assignedUri',
+      },
     },
   };
 }
