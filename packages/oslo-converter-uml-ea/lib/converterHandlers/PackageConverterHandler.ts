@@ -35,14 +35,16 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     uriRegistry.packageNameToPackageMap = new Map<string, EaPackage[]>();
 
     model.packages.forEach(packageObject => {
-      if (!uriRegistry.packageNameToPackageMap.has(packageObject.name)) {
-        uriRegistry.packageNameToPackageMap.set(packageObject.name, []);
-      }
-
       uriRegistry.packageNameToPackageMap
         .set(packageObject.name, [...uriRegistry.packageNameToPackageMap.get(packageObject.name) || [], packageObject]);
 
-      const packageUri = getTagValue(packageObject, TagNames.PackageBaseUri, this.config.baseUri);
+      let packageUri = getTagValue(packageObject, TagNames.PackageBaseUri, null);
+
+      if (!packageUri) {
+        this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package with EA guid ${packageObject.eaGuid}.`);
+        packageUri = uriRegistry.fallbackBaseUri;
+      }
+
       const namespace = packageUri.slice(0, -1);
       const ontologyURI = getTagValue(packageObject, TagNames.PackageOntologyUri, namespace);
 
@@ -67,15 +69,21 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     }
 
     const ontologyUriNamedNode = this.df.namedNode(ontologyUri.toString());
+    const uniqueHttpUri = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${object.osloGuid}`);
 
     quads.push(
       this.df.quad(
-        ontologyUriNamedNode,
+        uniqueHttpUri,
         ns.rdf('type'),
         ns.example('Package'),
       ),
       this.df.quad(
+        uniqueHttpUri,
+        ns.example('assignedUri'),
         ontologyUriNamedNode,
+      ),
+      this.df.quad(
+        uniqueHttpUri,
         ns.example('baseUri'),
         this.df.namedNode(baseUri.toString()),
       ),

@@ -22,12 +22,17 @@ export class EaUmlConversionServiceRunner extends AppRunner {
           describe: 'Type of the specification.',
           choices: ['ApplicationProfile', 'Vocabulary'],
         })
-      .option('versionId', { describe: 'Version identifier for the document.' })
+      .option('versionId', { describe: 'Relative URI used to identify this document.' })
       .option('baseUri', { describe: 'The base URI to be used within the document and to create the version URI.' })
       .option('outputFormat',
         {
           describe: 'RDF content-type in which the output must be written or to the console.',
           choices: ['application/ld+json', 'application/trig'],
+          default: 'application/ld+json',
+        })
+      .option('publicationEnvironment',
+        {
+          describe: 'The base URI of environment where the document will be published',
         })
       .option('silent',
         {
@@ -40,7 +45,7 @@ export class EaUmlConversionServiceRunner extends AppRunner {
         default: 'info',
         choices: LOG_LEVELS,
       })
-      .demandOption(['umlFile', 'diagramName', 'specificationType', 'versionId', 'baseUri'],
+      .demandOption(['umlFile', 'diagramName', 'specificationType', 'versionId', 'baseUri', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.')
       .help('h')
       .alias('h', 'help');
