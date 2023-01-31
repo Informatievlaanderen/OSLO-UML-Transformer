@@ -324,9 +324,6 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       return [];
     }
 
-    // In case of an association class, we use the package tag of the association class
-    // TODO: verify this with the editors
-    // Other strategy could be to log an error if connector tags don't have a package tag
     const assocationObject = elements.find(x => x.id === connector.associationClassId);
 
     if (!assocationObject) {
@@ -334,50 +331,83 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       return [];
     }
 
-    let sourceObjectName = `${assocationObject.name}.${sourceObject.name}`;
-    let destinationObjectName = `${assocationObject.name}.${destinationObject.name}`;
-    let sourceLabel = sourceObject.name;
-    let destinationLabel = destinationObject.name;
+    let sourceObjectIdentifier = `${assocationObject.name}.${convertToCase(sourceObject.name)}`;
+    let destinationObjectIdentifier = `${assocationObject.name}.${convertToCase(destinationObject.name)}`;
+
+    let sourceLabel: string = sourceObjectIdentifier;
+    let destinationLabel: string = destinationObjectIdentifier;
 
     // In case of a self-association
     if (connector.sourceObjectId === connector.destinationObjectId) {
-      sourceObjectName = `${sourceObjectName}.source`;
-      destinationObjectName = `${destinationObjectName}.target`;
+      sourceObjectIdentifier = `${sourceObjectIdentifier}.source`;
+      destinationObjectIdentifier = `${destinationObjectIdentifier}.target`;
       sourceLabel = `${sourceLabel} (source)`;
       destinationLabel = `${destinationLabel} (target)`;
     }
 
-    // FIXME: classes should have a package tag defined
-    // FIXME: is adding a package tag still necessary?
-    const sourceLabelTag: EaTag = {
+    sourceLabel = getTagValue(
+      assocationObject,
+      this.config.specificationType === 'ApplicationProfile' ?
+        TagNames.AssociationSourceApLabel :
+        TagNames.AssociationSourceLabel,
+      null,
+    ) || sourceLabel;
+
+    destinationLabel = getTagValue(
+      assocationObject,
+      this.config.specificationType === 'ApplicationProfile' ?
+        TagNames.AssociationTargetApLabel :
+        TagNames.AssociationTargetLabel,
+      null,
+    ) || destinationLabel;
+
+    const sourceConnectorTags: EaTag[] = [{
       id: Date.now(),
       tagName: 'label',
       tagValue: sourceLabel,
-    };
+    }];
 
-    const destinationLabelTag: EaTag = {
+    const sourceUri = getTagValue(assocationObject, TagNames.AssociationSourceUri, null);
+    if (sourceUri) {
+      sourceConnectorTags.push({
+        id: Date.now(),
+        tagName: 'uri',
+        tagValue: sourceUri,
+      });
+    }
+
+    const destinationConnectorTags: EaTag[] = [{
       id: Date.now(),
       tagName: 'label',
       tagValue: destinationLabel,
-    };
+    }];
+
+    const destinationUri = getTagValue(assocationObject, TagNames.AssociationTargetUri, null);
+    if (destinationUri) {
+      destinationConnectorTags.push({
+        id: Date.now(),
+        tagName: 'uri',
+        tagValue: destinationUri,
+      });
+    }
 
     return [
       new NormalizedConnector(
         connector,
-        sourceObjectName,
+        sourceObjectIdentifier,
         connector.associationClassId!,
         connector.sourceObjectId,
         '1',
-        [sourceLabelTag],
+        sourceConnectorTags,
         NormalizedConnectorTypes.AssociationClassConnector,
       ),
       new NormalizedConnector(
         connector,
-        destinationObjectName,
+        destinationObjectIdentifier,
         connector.associationClassId!,
         connector.destinationObjectId,
         '1',
-        [destinationLabelTag],
+        destinationConnectorTags,
         NormalizedConnectorTypes.AssociationClassConnector,
       ),
     ];
