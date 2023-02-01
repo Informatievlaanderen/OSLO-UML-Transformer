@@ -53,15 +53,15 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       let definingPackageUri: URL | undefined;
 
       // Here, we check the value of the 'package' tag.
-      // If there was no value, both source and destination must be defined in the same package.
+      // If there was no value, both source and destination should be defined in the same package.
       // If there was a value, we check that the same package name is used for different packages,
-      // (otherwise we log a warning)
+      // otherwise, we use the fallback uri
       if (!packageName) {
-        const sourcePackageId = model.elements.find(x => x.id === connector.sourceObjectId)!.packageId;
-        const destinationPackageId = model.elements.find(x => x.id === connector.destinationObjectId)!.packageId;
+        const sourcePackage = model.elements.find(x => x.id === connector.sourceObjectId);
+        const destinationPackage = model.elements.find(x => x.id === connector.destinationObjectId);
 
-        if (sourcePackageId === destinationPackageId) {
-          definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackageId)!;
+        if (sourcePackage && destinationPackage && sourcePackage.packageId === destinationPackage.packageId) {
+          definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackage.packageId)!;
         } else {
           this.logger.warn(`Can not determine the correct base URI for connector with EA guid ${connector.eaGuid}.`);
           definingPackageUri = new URL(uriRegistry.fallbackBaseUri);
