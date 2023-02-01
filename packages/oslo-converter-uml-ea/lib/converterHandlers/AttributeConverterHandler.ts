@@ -44,7 +44,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const attributeClass = model.elements.find(x => x.id === attribute.classId);
 
       if (!attributeClass) {
-        throw new Error(`Unable to find domain for attribute with EA guid ${attribute.eaGuid}.`);
+        throw new Error(`[AttributeConverterHandler]: Unable to find domain for attribute with EA guid ${attribute.eaGuid}.`);
       }
 
       let attributeBaseUri: URL;
@@ -54,16 +54,16 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         const referencedPackages = uriRegistry.packageNameToPackageMap.get(packageTagValue);
 
         if (referencedPackages && referencedPackages.length > 1) {
-          this.logger.warn(`[AttributeConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`);
+          this.logger.warn(`[AttributeConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}" for attribute (${attribute.path}).`);
         }
 
         if (!referencedPackages) {
-          throw new Error(`[ElementConverterHandler]: Package tag was defined, but unable to find the objects.`);
+          throw new Error(`[AttributeConverterHandler]: Package tag was defined, but unable to find the objects for attribute (${attribute.path}).`);
         }
 
         attributeBaseUri = uriRegistry.packageIdUriMap.get(referencedPackages[0].packageId)!;
       } else if (!uriRegistry.packageIdUriMap.has(attributeClass.packageId)) {
-        throw new Error(`Unable to determine the package of attribute with EA guid ${attribute.eaGuid}.`);
+        throw new Error(`[AttributeConverterHandler]: Unable to determine the package of attribute (${attribute.path}).`);
       } else {
         attributeBaseUri = uriRegistry.packageIdUriMap.get(attributeClass.packageId)!;
       }
@@ -94,7 +94,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     const attributeUri = uriRegistry.attributeIdUriMap.get(object.id);
 
     if (!attributeUri) {
-      throw new Error(`Attribute with EA guid ${object.eaGuid} was not assigned a URI.`);
+      throw new Error(`[AttributeConverterHandler]: Unable to find URI for attribute (${object.path}).`);
     }
 
     const attributeUriNamedNode = this.df.namedNode(attributeUri.toString());
@@ -138,7 +138,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     }
 
     if (!rangeUri) {
-      throw new Error(`Unable to get the URI for the range of attribute with EA guid ${object.eaGuid}`);
+      throw new Error(`[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`);
     }
 
     const rangeUriNamedNode = this.df.namedNode(rangeUri);
@@ -188,7 +188,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
 
     if (!packageBaseUri) {
-      throw new Error(`Unnable to find URI for the package (EA guid: ${model.targetDiagram.eaGuid}) containing the target diagram when converting EaAttributes.`);
+      throw new Error(`[AttributeCOnverterHandler]: Unable to find the URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`);
     }
 
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.attributeIdUriMap);

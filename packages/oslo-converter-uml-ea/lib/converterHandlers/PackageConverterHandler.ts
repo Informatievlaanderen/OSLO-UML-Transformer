@@ -41,7 +41,7 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       let packageUri = getTagValue(packageObject, TagNames.PackageBaseUri, null);
 
       if (!packageUri) {
-        this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package with EA guid ${packageObject.eaGuid}.`);
+        this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package (${packageObject.path}).`);
         packageUri = uriRegistry.fallbackBaseUri;
       }
 
@@ -61,11 +61,11 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     const baseUri = uriRegistry.packageIdUriMap.get(object.packageId);
 
     if (!ontologyUri) {
-      throw new Error(`Package with EA guid ${object.eaGuid} has no URI assigned.`);
+      throw new Error(`[PackageConverterHandler]: Unable to find ontology URI for package (${object.path}).`);
     }
 
     if (!baseUri) {
-      throw new Error(`Package with EA guid ${object.eaGuid} has no base URI set.`);
+      throw new Error(`[PackageConverterHandler]: Unable to find base URI for package (${object.path}).`);
     }
 
     const ontologyUriNamedNode = this.df.namedNode(ontologyUri.toString());

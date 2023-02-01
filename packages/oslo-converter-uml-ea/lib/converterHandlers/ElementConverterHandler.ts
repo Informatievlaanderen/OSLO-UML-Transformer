@@ -61,25 +61,19 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         }
 
         if (!referencedPackages) {
-          throw new Error(`[ElementConverterHandler]: Package tag was defined, but unable to find the objects.`);
+          throw new Error(`[ElementConverterHandler]: Package tag was defined, but unable to find the object for package ${packageTagValue}.`);
         }
 
         elementBaseUri = uriRegistry.packageIdUriMap.get(referencedPackages[0].packageId)!;
       } else if (uriRegistry.packageIdUriMap.has(element.packageId)) {
         elementBaseUri = uriRegistry.packageIdUriMap.get(element.packageId)!;
       } else {
-        this.logger.warn(`[ElementConverterHandler]: Unable to find base URI for element with EA guid ${element.eaGuid}.`);
+        this.logger.warn(`[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`);
         elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
       }
 
-      // TODO: If object.name is returned, then no casing should be applied?
-      let localName = getTagValue(element, TagNames.LocalName, null);
-
-      if (!localName || localName === '') {
-        localName = element.name;
-      } else {
-        localName = convertToCase(localName, CasingTypes.PascalCase);
-      }
+      let localName = getTagValue(element, TagNames.LocalName, element.name);
+      localName = convertToCase(localName, CasingTypes.PascalCase);
 
       const elementUri = new URL(`${elementBaseUri}${localName}`);
 
@@ -99,7 +93,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     const objectUri = uriRegistry.elementIdUriMap.get(object.id);
 
     if (!objectUri) {
-      throw new Error(`Element with type ${object.type} and EA guid ${object.eaGuid} has no URI assigned.`);
+      throw new Error(`[ElementConverterHandler]: Unable to find URI for element (${object.path}).`);
     }
 
     const objectUriNamedNode = this.df.namedNode(objectUri.toString());
@@ -131,7 +125,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
 
     if (!packageBaseUri) {
-      throw new Error(`Unnable to find URI for the package (EA guid: ${model.targetDiagram.eaGuid}) containing the target diagram when converting EaElements.`);
+      throw new Error(`[ElementConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`);
     }
 
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.elementIdUriMap);
@@ -156,7 +150,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         break;
 
       default:
-        throw new Error(`Object type (${object.type}) is not supported.`);
+        throw new Error(`[ElementConverterHandler]: Object type (${object.type}) is not supported.`);
     }
 
     return quads;
@@ -189,7 +183,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       const parentClassObject = model.elements.find(x => x.id === parentClassConnector.destinationObjectId);
 
       if (!parentClassObject) {
-        throw new Error(`Unable to find parent class for class with EA guid ${object.eaGuid}.`);
+        throw new Error(`[ElementConverterHandler]: Unable to find parent class for class (${object.path}).`);
       }
 
       const parentWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${parentClassObject.osloGuid}`);
@@ -203,6 +197,11 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       );
 
       if (!model.targetDiagram.connectorsIds.includes(parentClassConnector.id)) {
+        const parentAssignedUri = uriRegistry.elementIdUriMap.get(parentClassObject.id);
+        if (!parentAssignedUri) {
+          throw new Error(`[ElementConverterHandler]: Unable to find the URI for parent of class (${object.path}).`);
+        }
+
         const definitionValues = this.getDefinition(parentClassObject);
         const labelValues = this.getLabel(parentClassObject);
 
@@ -227,6 +226,11 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
             statementBlankNode,
             ns.rdf('object'),
             parentWellKnownId,
+          ),
+          this.df.quad(
+            statementBlankNode,
+            ns.example('assignedUri'),
+            this.df.namedNode(parentAssignedUri.toString()),
           ),
         );
 
