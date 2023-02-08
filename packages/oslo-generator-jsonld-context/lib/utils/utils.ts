@@ -19,3 +19,7 @@ export function getLabel(subject: RDF.Quad_Subject, language: string, store: N3.
   return store.getObjects(subject, ns.rdfs('label'), null)
     .find(x => (<RDF.Literal>x).language === language);
 }
+
+export function getAssignedUri(subject: RDF.Quad_Subject, store: N3.Store): RDF.Quad_Object | undefined {
+  return store.getObjects(subject, ns.example('assignedUri'), null).shift();
+}

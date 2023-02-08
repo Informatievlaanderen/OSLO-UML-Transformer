@@ -8,7 +8,7 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import type * as N3 from 'n3';
 import { JsonldContextGenerationServiceConfiguration } from './config/JsonldContextGenerationServiceConfiguration';
-import { alphabeticalSort, getLabel, toCamelCase, toPascalCase } from './utils/utils';
+import { alphabeticalSort, getLabel, toCamelCase, toPascalCase, getAssignedUri } from './utils/utils';
 
 @injectable()
 export class JsonldContextGenerationService implements IGenerationService {
@@ -45,8 +45,14 @@ export class JsonldContextGenerationService implements IGenerationService {
 
     context = alphabeticalSort(Array.from(propertyLabelMap.entries()))
       .reduce((main, [key, value]) =>
-        // eslint-disable-next-line @typescript-eslint/object-curly-spacing
-        ({ ...main, [key]: { '@id': value.uri.value, '@type': value.range.value } }), context);
+      ({
+        ...main,
+        [key]: {
+          '@id': value.uri.value,
+          ...value.range && { '@type': value.range.value },
+          ...value.addContainer === true && { '@container': '@set' },
+        },
+      }), context);
 
     return context;
   }
@@ -103,14 +109,21 @@ export class JsonldContextGenerationService implements IGenerationService {
         return;
       }
 
-      classLabelUriMap.set(toPascalCase(label.value), subject.value);
+      const assignedUri = getAssignedUri(subject, store);
+
+      if (!assignedUri) {
+        this.logger.error(`Unable to find the assigned URI for class ${subject.value}.`);
+        return;
+      }
+
+      classLabelUriMap.set(toPascalCase(label.value), assignedUri.value);
     });
 
     return classLabelUriMap;
   }
 
   private async createPropertyLabelMap(store: N3.Store):
-    Promise<Map<string, { uri: RDF.NamedNode; range: RDF.NamedNode }>> {
+    Promise<Map<string, { uri: RDF.NamedNode; range: RDF.NamedNode; addContainer: boolean }>> {
     const propertyLabelUriMap = new Map();
 
     const datatypePropertySubjects = store.getSubjects(ns.rdf('type'), ns.owl('DatatypeProperty'), null);
@@ -119,6 +132,13 @@ export class JsonldContextGenerationService implements IGenerationService {
     const duplicates = this.identifyDuplicateLabels([...datatypePropertySubjects, ...objectPropertySubjects], store);
 
     [...datatypePropertySubjects, ...objectPropertySubjects].forEach(subject => {
+      const assignedUri = getAssignedUri(subject, store);
+
+      if (!assignedUri) {
+        this.logger.error(`Unable to find the assigned URI for attribute ${subject.value}.`);
+        return;
+      }
+
       let label = getLabel(subject, this.configuration.language, store);
       if (!label) {
         // For labels it is possible to have a value without a language tag included
@@ -130,14 +150,20 @@ export class JsonldContextGenerationService implements IGenerationService {
         return;
       }
 
-      const ranges = store.getObjects(subject, ns.rdfs('range'), null);
+      const range = store.getObjects(subject, ns.rdfs('range'), null).shift();
 
-      if (ranges.length === 0) {
+      if (!range) {
         this.logger.error(`No range found for attribute ${subject.value}.`);
         return;
       }
 
-      const range = ranges[0];
+      const rangeUri = getAssignedUri(<RDF.Quad_Subject>range, store);
+
+      // In case we can not find the assigned URI, we do not add a range
+      // (@type will not be present for that property)
+      if (!rangeUri) {
+        this.logger.error(`Unable to find the assigned URI of range with id ${range.value}.`);
+      }
 
       let formattedAttributeLabel = toCamelCase(label.value);
       if (this.configuration.addDomainPrefix || duplicates.includes(subject)) {
@@ -186,9 +212,31 @@ export class JsonldContextGenerationService implements IGenerationService {
         formattedAttributeLabel = `${toPascalCase(domainLabel.value)}.${formattedAttributeLabel}`;
       }
 
-      propertyLabelUriMap.set(formattedAttributeLabel, { uri: subject, range });
+      const addContainerProperty = this.canHaveAListOfValues(subject, store);
+      propertyLabelUriMap.set(formattedAttributeLabel, {
+        uri: assignedUri,
+        range: rangeUri,
+        addContainer: addContainerProperty,
+      });
     });
 
     return propertyLabelUriMap;
+  }
+
+  /**
+   * Function to check if a property can have multiple values
+   * @param subject — The Quad_Subject to check the cardinality of
+   * @param store — The triple store to fetch triples about the Quad_Subject
+   * @returns — A boolean indicating whether or not to add the "@container" property to the attribute
+   */
+  private canHaveAListOfValues(subject: RDF.Quad_Subject, store: N3.Store): boolean {
+    const maxCount = store.getObjects(subject, ns.shacl('maxCount'), null).shift();
+
+    if (!maxCount) {
+      this.logger.warn(`Unable to retrieve max cardinality of property ${subject.value}.`);
+      return false;
+    }
+
+    return maxCount.value === '*';
   }
 }
