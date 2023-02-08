@@ -11,7 +11,7 @@ import { JsonldContextGenerationService } from '../lib/JsonldContextGenerationSe
 import {
   classJsonld,
   classJsonldWithDuplicates,
-  jsonldData, propertyJsonld,
+  jsonldData, jsonldPropertyWithMaxCardinality, jsonLdWithoutAssignedUris, propertyJsonld,
   propertyJsonldWithDuplicates,
   propertyJsonldWithMultipleStatements,
   propertyJsonldWithoutDomain,
@@ -72,24 +72,29 @@ describe('JsonldContextGenerationService', () => {
       TestClass: 'http://example.org/id/class/1',
       anotherTestProperty: {
         '@id': 'http://example.org/id/property/2',
-        '@type': 'http://example.org/id/class/2'
+        '@type': 'http://example.org/id/class/2',
       },
       testProperty: {
         '@id': 'http://example.org/id/property/1',
-        '@type': 'http://example.org/id/class/2'
+        '@type': 'http://example.org/id/class/2',
+        '@container': '@set',
       },
     });
   });
 
-  it('should identify duplicate URIs', async () => {
+  it('should identify duplicate labels for the configured language', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
     const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
     const duplicates = service.identifyDuplicateLabels(store.getSubjects(null, null, null), store);
 
     expect(duplicates)
-      .toEqual(expect.arrayContaining([expect.objectContaining(df.namedNode('http://example.org/id/class/1'))]));
+      .toEqual(expect.arrayContaining(
+        [expect.objectContaining(df.namedNode('http://example.org/.well-known/id/class/1'))],
+      ));
     expect(duplicates)
-      .toEqual(expect.arrayContaining([expect.objectContaining(df.namedNode('http://example.org/id/class/2'))]));
+      .toEqual(expect.arrayContaining(
+        [expect.objectContaining(df.namedNode('http://example.org/.well-known/id/class/2'))],
+      ));
   });
 
   it('should log an error when a class label is used multiple times', async () => {
@@ -131,7 +136,8 @@ describe('JsonldContextGenerationService', () => {
     await service.createPropertyLabelMap(store);
     expect(service.logger.error)
       .toHaveBeenCalledWith(
-        'No label found for attribute http://example.org/id/property/1 in language "nl" or without language tag.',
+        // eslint-disable-next-line max-len
+        'No label found for attribute http://example.org/.well-known/id/property/1 in language "nl" or without language tag.',
       );
   });
 
@@ -143,7 +149,7 @@ describe('JsonldContextGenerationService', () => {
 
     await service.createPropertyLabelMap(store);
     expect(service.logger.error)
-      .toHaveBeenCalledWith('No range found for attribute http://example.org/id/property/1.');
+      .toHaveBeenCalledWith('No range found for attribute http://example.org/.well-known/id/property/1.');
   });
 
   it('should log an error when the domain of a property can not be found', async () => {
@@ -154,7 +160,7 @@ describe('JsonldContextGenerationService', () => {
 
     await service.createPropertyLabelMap(store);
     expect(service.logger.error)
-      .toHaveBeenCalledWith('No domain found for attribute http://example.org/id/property/1.');
+      .toHaveBeenCalledWith('No domain found for attribute http://example.org/.well-known/id/property/1.');
   });
 
   it('should log an error when multiple rdf:Statements can be used to retrieve domain label information', async () => {
@@ -177,7 +183,7 @@ describe('JsonldContextGenerationService', () => {
     await service.createPropertyLabelMap(store);
     expect(service.logger.error)
       // eslint-disable-next-line max-len
-      .toHaveBeenCalledWith('No label found for domain http://example.org/id/class/1 of attribute http://example.org/id/property/1.');
+      .toHaveBeenCalledWith('No label found for domain http://example.org/.well-known/id/class/1 of attribute http://example.org/.well-known/id/property/1.');
   });
 
   it('should generate a property label uri map', async () => {
@@ -216,5 +222,48 @@ describe('JsonldContextGenerationService', () => {
 
     expect(map.has('TestDomain.testLabel')).toBeTruthy();
     expect(map.has('AnotherTestDomain.testLabel')).toBeTruthy();
+  });
+
+  it('should log an error when an assigned URI could not be found', async () => {
+    store.addQuads(await parseJsonld(jsonLdWithoutAssignedUris));
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+
+    jest.spyOn(service.logger, 'error');
+    await service.createClassLabelUriMap(store);
+    expect(service.logger.error)
+      .toHaveBeenCalledWith(`Unable to find the assigned URI for class http://example.org/.well-known/id/class/1.`);
+
+    await service.createPropertyLabelMap(store);
+    expect(service.logger.error)
+      // eslint-disable-next-line max-len
+      .toHaveBeenCalledWith('Unable to find the assigned URI for attribute http://example.org/.well-known/id/property/2.');
+  });
+
+  it('should determine if an attribute can have multiple values', async () => {
+    store.addQuads(await parseJsonld(jsonldPropertyWithMaxCardinality));
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+
+    const canHaveMultipleValues = service.canHaveAListOfValues(
+      df.namedNode('http://example.org/.well-known/id/property/1'), store,
+    );
+    expect(canHaveMultipleValues).toBe(true);
+
+    const canNotHaveMultipleValues = service.canHaveAListOfValues(
+      df.namedNode('http://example.org/.well-known/id/property/2'), store,
+    );
+    expect(canNotHaveMultipleValues).toBe(false);
+  });
+
+  it('should log a warning when max cardinality is not present for attribute', async () => {
+    store.addQuads(await parseJsonld(propertyJsonld));
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+
+    jest.spyOn(service.logger, 'warn');
+    service.canHaveAListOfValues(
+      df.namedNode('http://example.org/.well-known/id/property/1'), store,
+    );
+
+    expect(service.logger.warn)
+      .toHaveBeenCalledWith(`Unable to retrieve max cardinality of property http://example.org/.well-known/id/property/1.`);
   });
 });
