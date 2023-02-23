@@ -1,6 +1,6 @@
 import { existsSync } from 'fs';
 import { readFile, stat } from 'fs/promises';
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 export async function fetchFileOrUrl(file: string): Promise<Buffer> {
   if (file.startsWith('http://') || file.startsWith('https://')) {
