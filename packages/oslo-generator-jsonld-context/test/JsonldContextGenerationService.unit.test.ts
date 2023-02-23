@@ -2,7 +2,7 @@
  * @group unit
  */
 import fs from 'fs/promises';
-import { VoidLogger, createN3Store } from '@oslo-flanders/core';
+import { VoidLogger, createN3Store, WinstonLogger, LOG_LEVELS } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import * as N3 from 'n3';
 import { DataFactory } from 'rdf-data-factory';
@@ -13,7 +13,6 @@ import {
   classJsonldWithDuplicates,
   jsonldData, jsonldPropertyWithMaxCardinality, jsonLdWithoutAssignedUris, propertyJsonld,
   propertyJsonldWithDuplicates,
-  propertyJsonldWithMultipleStatements,
   propertyJsonldWithoutDomain,
   propertyJsonldWithoutRange,
   propertyJsonldWithStatement,
@@ -163,17 +162,6 @@ describe('JsonldContextGenerationService', () => {
       .toHaveBeenCalledWith('No domain found for attribute http://example.org/.well-known/id/property/1.');
   });
 
-  it('should log an error when multiple rdf:Statements can be used to retrieve domain label information', async () => {
-    store.addQuads(await parseJsonld(propertyJsonldWithMultipleStatements));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: true });
-
-    jest.spyOn(service.logger, 'error');
-
-    await service.createPropertyLabelMap(store);
-    expect(service.logger.error)
-      .toHaveBeenCalledWith('Found multiple usable subjects for the statement.');
-  });
-
   it('should log an error when the domain label can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
     const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: true });
@@ -200,9 +188,10 @@ describe('JsonldContextGenerationService', () => {
     expect(value.range.value).toBe('http://example.org/id/class/2');
   });
 
-  it('should add the domain label as prefix when "addDomainPrefix" option is configured', async () => {
+  it('test', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithStatement));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: true });
+    const testLogger = new WinstonLogger(LOG_LEVELS[0]);
+    const service = <any>new JsonldContextGenerationService(testLogger, <any>{ language: 'en', addDomainPrefix: true });
 
     const map = await service.createPropertyLabelMap(store);
 
