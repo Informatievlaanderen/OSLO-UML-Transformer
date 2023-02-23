@@ -84,18 +84,22 @@ export function getOsloContext(): any {
       },
       subject: {
         '@id': 'rdf:subject',
+        '@type': '@id',
       },
       predicate: {
         '@id': 'rdf:predicate',
+        '@type': '@id',
       },
       object: {
         '@id': 'rdf:object',
+        '@type': '@id',
       },
       Statement: {
         '@id': 'rdf:Statement',
       },
       assignedUri: {
         '@id': 'http://example.org/assignedUri',
+        '@type': '@id',
       },
     },
   };
