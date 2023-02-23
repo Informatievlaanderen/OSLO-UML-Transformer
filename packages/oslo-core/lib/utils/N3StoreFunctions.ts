@@ -5,17 +5,17 @@ import { fetchFileOrUrl } from './fetchFileOrUrl';
 import { ns } from './namespaces';
 
 /**
- * Given a file or URL with RDF data, it is parsed and added to an in-memory quad store
- * @param fileOrUrl Local path or URL of the input file
+ * Given a local file, it is parsed and added to an in-memory quad store
+ * @param fileOrUrl Local path of the input file
  * @returns A N3 quad store
  */
-export async function createN3Store(fileOrUrl: string): Promise<N3.Store> {
+export async function createN3Store(file: string): Promise<N3.Store> {
   const store = new N3.Store();
-  const buffer = await fetchFileOrUrl(fileOrUrl);
+  const buffer = await fetchFileOrUrl(file);
   const textStream = require('streamify-string')(buffer.toString());
 
   return new Promise<N3.Store>((resolve, reject) => {
-    rdfParser.parse(textStream, { path: fileOrUrl })
+    rdfParser.parse(textStream, { path: file })
       .on('data', (quad: RDF.Quad) => store.addQuad(quad))
       .on('error', (error: unknown) => reject(error))
       .on('end', () => resolve(store));
@@ -42,12 +42,12 @@ export function getTargetStatementId(
   const statementObjectPredicateSubjects = store.getSubjects(ns.rdf('object'), statementObject, null);
 
   const targetIds = statementIds
-    .filter(x => statementSubjectPredicateSubjects.includes(x))
-    .filter(x => statementPredicatePredicateSubjects.includes(x))
-    .filter(x => statementObjectPredicateSubjects.includes(x));
+    .filter(x => statementSubjectPredicateSubjects.some(y => y.value === x.value))
+    .filter(x => statementPredicatePredicateSubjects.some(y => y.value === x.value))
+    .filter(x => statementObjectPredicateSubjects.some(y => y.value === x.value));
 
   if (targetIds.length > 1) {
-    throw new Error(`Found multiple statement with subject "${statementSubject.value}", predicate "${statementPredicate.value}" and object "${statementObject.value}".`);
+    throw new Error(`Found multiple statements with subject "${statementSubject.value}", predicate "${statementPredicate.value}" and object "${statementObject.value}".`);
   }
 
   return targetIds.shift();
@@ -103,8 +103,8 @@ export function getLabels(subject: RDF.Term, store: N3.Store): RDF.Literal[] {
  * @param language A language tag
  * @returns An RDF.Literal or undefined if not found
  */
-export function getLabel(subject: RDF.Term, store: N3.Store, language: string): RDF.Literal | undefined {
-  return getLabels(subject, store).find(x => x.language === language);
+export function getLabel(subject: RDF.Term, store: N3.Store, language?: string): RDF.Literal | undefined {
+  return getLabels(subject, store).find(x => x.language === (language || ''));
 }
 
 /**
@@ -130,7 +130,7 @@ export function getLabelViaStatements(
   }
 
   const label = getLabel(statementId, store, language);
-  return label || getLabel(statementId, store, '');
+  return label || getLabel(statementId, store);
 }
 
 /**
@@ -150,8 +150,34 @@ export function getDefinitions(subject: RDF.Term, store: N3.Store): RDF.Literal[
  * @param language A language tag
  * @returns An RDF.Literal or undefined if not found
  */
-export function getDefinition(subject: RDF.Term, store: N3.Store, language: string): RDF.Literal | undefined {
-  return getDefinitions(subject, store).find(x => x.language === language);
+export function getDefinition(subject: RDF.Term, store: N3.Store, language?: string): RDF.Literal | undefined {
+  return getDefinitions(subject, store).find(x => x.language === (language || ''));
+}
+
+/**
+ * Finds the rdfs:comment for an RDF.Term in rdf:Statements
+ * @param subject The statement subject
+ * @param predicate The statement predicate
+ * @param object The statement object for which the definition must be found
+ * @param store A N3 quad store
+ * @param language A language tag
+ * @returns An RDF.Literal or undefined if not found
+ */
+export function getDefinitionViaStatements(
+  subject: RDF.Term,
+  predicate: RDF.Term,
+  object: RDF.Term,
+  store: N3.Store,
+  language: string,
+): RDF.Literal | undefined {
+  const statementId = getTargetStatementId(subject, predicate, object, store);
+
+  if (!statementId) {
+    return undefined;
+  }
+
+  const definition = getDefinition(statementId, store, language);
+  return definition || getDefinition(statementId, store);
 }
 
 /**
@@ -211,8 +237,8 @@ export function getUsageNotes(subject: RDF.Term, store: N3.Store): RDF.Literal[]
  * @param language A language tag
  * @returns An RDF.Literal or undefined if not found
  */
-export function getUsageNote(subject: RDF.Term, store: N3.Store, language: string): RDF.Literal | undefined {
-  return getUsageNotes(subject, store).find(x => x.language === language);
+export function getUsageNote(subject: RDF.Term, store: N3.Store, language?: string): RDF.Literal | undefined {
+  return getUsageNotes(subject, store).find(x => x.language === (language || ''));
 }
 
 /**
@@ -238,5 +264,5 @@ export function getUsageNoteViaStatements(
   }
 
   const usageNote = getUsageNote(statementId, store, language);
-  return usageNote || getUsageNote(statementId, store, '');
+  return usageNote || getUsageNote(statementId, store);
 }
