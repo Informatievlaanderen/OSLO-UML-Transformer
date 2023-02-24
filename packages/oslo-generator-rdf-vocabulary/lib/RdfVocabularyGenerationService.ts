@@ -1,14 +1,27 @@
 import { createWriteStream } from 'fs';
 import type { IGenerationService } from '@oslo-flanders/core';
-import { ns, createN3Store, Logger, ServiceIdentifier } from '@oslo-flanders/core';
+import {
+  getAssignedUri,
+  getDefinition,
+  getDomain,
+  getParentOfProperty,
+  getParentsOfClass,
+  getRange,
+  getTargetStatementId,
+  getUsageNote,
+  ns,
+  createN3Store,
+  Logger,
+  ServiceIdentifier,
+} from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import type * as N3 from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import rdfSerializer from 'rdf-serialize';
+import streamifyArray from 'streamify-array';
 import { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
-const streamifyArray = require('streamify-array');
 
 @injectable()
 export class RdfVocabularyGenerationService implements IGenerationService {
@@ -17,7 +30,7 @@ export class RdfVocabularyGenerationService implements IGenerationService {
   public readonly dataFactory = new DataFactory();
 
   public constructor(
-    @inject(ServiceIdentifier.Logger) logger: Logger,
+  @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration) config: RdfVocabularyGenerationServiceConfiguration,
   ) {
     this.logger = logger;
@@ -32,7 +45,7 @@ export class RdfVocabularyGenerationService implements IGenerationService {
       throw new Error(`No package was defined in the OSLO RDF file.`);
     }
 
-    const vocabularyUri = store.getObjects(packageWellKnownId, ns.example('assignedUri'), null).shift();
+    const vocabularyUri = getAssignedUri(packageWellKnownId, store);
     if (!vocabularyUri) {
       throw new Error(`Unable to find the vocabulary URI.`);
     }
@@ -47,8 +60,7 @@ export class RdfVocabularyGenerationService implements IGenerationService {
     const textStream = rdfSerializer.serialize(quadStream, { contentType: this.configuration.contentType });
 
     const outputStream = createWriteStream(this.configuration.output);
-    textStream.pipe(outputStream)
-      .on('error', error => console.error(error));
+    textStream.pipe(outputStream);
   }
 
   private async createVocabularyInformationQuads(store: N3.Store, vocabularyUri: RDF.NamedNode): Promise<RDF.Quad[]> {
@@ -71,7 +83,8 @@ export class RdfVocabularyGenerationService implements IGenerationService {
       .filter(x => this.isInScope(<RDF.NamedNode>x, store));
 
     classSubjects.forEach(subject => {
-      const assignedUri = store.getObjects(subject, ns.example('assignedUri'), null).shift();
+      const assignedUri = getAssignedUri(subject, store);
+
       if (!assignedUri) {
         this.logger.error(`Unable to find the assignedUri for class ${subject.value}.`);
         return;
@@ -90,24 +103,22 @@ export class RdfVocabularyGenerationService implements IGenerationService {
         ),
       );
 
-      const definitions = store.getObjects(subject, ns.rdfs('comment'), null);
-      const languageDefinition = definitions.find(x => (<RDF.Literal>x).language === this.configuration.language);
-
-      if (!languageDefinition) {
+      const definition = getDefinition(subject, store, this.configuration.language);
+      if (!definition) {
         this.logger.error(`Unable to find the definition for class ${subject.value}.`);
       } else {
         quads.push(
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('comment'),
-            languageDefinition,
+            definition,
           ),
         );
       }
 
-      const parents = store.getObjects(subject, ns.rdfs('subClassOf'), null);
+      const parents = getParentsOfClass(subject, store);
       parents.forEach(parent => {
-        const parentAssignedUri = store.getObjects(parent, ns.example('assignedUri'), null).shift();
+        const parentAssignedUri = getAssignedUri(parent, store);
 
         if (!parentAssignedUri) {
           throw new Error(`Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`);
@@ -117,12 +128,12 @@ export class RdfVocabularyGenerationService implements IGenerationService {
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('subClassOf'),
-            parentAssignedUri,
+            <RDF.NamedNode>parentAssignedUri,
           ),
         );
       });
 
-      const usageNote = store.getObjects(subject, ns.vann('usageNote'), null).shift();
+      const usageNote = getUsageNote(subject, store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(
@@ -148,7 +159,7 @@ export class RdfVocabularyGenerationService implements IGenerationService {
       .filter(x => this.isInScope(<RDF.NamedNode>x.subject, store));
 
     [...datatypePropertyQuads, ...objectPropertyQuads].forEach(propertyQuad => {
-      const assignedUri = store.getObjects(propertyQuad.subject, ns.example('assignedUri'), null).shift();
+      const assignedUri = getAssignedUri(propertyQuad.subject, store);
       if (!assignedUri) {
         this.logger.error(`Unable to find the assignedUri for property ${propertyQuad.subject.value}.`);
         return;
@@ -167,13 +178,13 @@ export class RdfVocabularyGenerationService implements IGenerationService {
         ),
       );
 
-      const domainWellKnownId = store.getObjects(propertyQuad.subject, ns.rdfs('domain'), null).shift();
+      const domainWellKnownId = getDomain(propertyQuad.subject, store);
       if (!domainWellKnownId) {
         this.logger.error(`Unable to find the domain well known id for property ${propertyQuad.subject.value}.`);
         return;
       }
 
-      const domainAssignedUri = store.getObjects(domainWellKnownId, ns.example('assignedUri'), null).shift();
+      const domainAssignedUri = getAssignedUri(domainWellKnownId, store);
       if (!domainAssignedUri) {
         this.logger.error(`Unable to find the assigned URI for the domain of property ${propertyQuad.subject.value}.`);
       } else {
@@ -181,37 +192,28 @@ export class RdfVocabularyGenerationService implements IGenerationService {
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('domain'),
-            domainAssignedUri,
+            <RDF.NamedNode>domainAssignedUri,
           ),
         );
       }
 
-      const rangeWellKnownId = store.getObjects(propertyQuad.subject, ns.rdfs('range'), null).shift();
+      const rangeWellKnownId = getRange(propertyQuad.subject, store);
       if (!rangeWellKnownId) {
         this.logger.error(`Unable to find the range well known id for property ${propertyQuad.subject.value}.`);
         return;
       }
 
-      let rangeAssignedUri = store.getObjects(rangeWellKnownId, ns.example('assignedUri'), null).shift();
+      let rangeAssignedUri = getAssignedUri(rangeWellKnownId, store);
       if (!rangeAssignedUri) {
-        const statementIds = store.getSubjects(ns.rdf('type'), ns.rdf('Statement'), null);
-        const statementSubjectPredicateSubjects = store.getSubjects(ns.rdf('subject'), propertyQuad.subject, null);
-        const statementPredicatePredicateSubjects = store.getSubjects(ns.rdf('predicate'), ns.rdfs('range'), null);
-        const statementObjectPredicateSubjects = store.getSubjects(ns.rdf('object'), rangeWellKnownId, null);
-
-        const targetIds = statementIds
-          .filter(x => statementSubjectPredicateSubjects.includes(x))
-          .filter(x => statementPredicatePredicateSubjects.includes(x))
-          .filter(x => statementObjectPredicateSubjects.includes(x));
-
-        if (targetIds.length > 1) {
-          throw new Error(`Multiple target IDs found in statement for range info of property ${propertyQuad.subject.value}.`);
-        }
-
-        const targetId = targetIds.shift();
+        const targetId = getTargetStatementId(
+          propertyQuad.subject,
+          ns.rdfs('range'),
+          rangeWellKnownId,
+          store,
+        );
 
         if (targetId) {
-          rangeAssignedUri = store.getObjects(targetId, ns.example('assignedUri'), null).shift();
+          rangeAssignedUri = getAssignedUri(targetId, store);
         }
       }
 
@@ -222,38 +224,36 @@ export class RdfVocabularyGenerationService implements IGenerationService {
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('range'),
-            rangeAssignedUri,
+            <RDF.NamedNode>rangeAssignedUri,
           ),
         );
       }
 
-      const parent = store.getObjects(propertyQuad.subject, ns.rdfs('subPropertyOf'), null).shift();
+      const parent = getParentOfProperty(propertyQuad.subject, store);
       if (parent) {
         quads.push(
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('subPropertyOf'),
-            parent,
+            <RDF.NamedNode>parent,
           ),
         );
       }
 
-      const definitions = store.getObjects(propertyQuad.subject, ns.rdfs('comment'), null);
-      const languageDefinition = definitions.find(x => (<RDF.Literal>x).language === this.configuration.language);
-
-      if (!languageDefinition) {
+      const definition = getDefinition(propertyQuad.subject, store, this.configuration.language);
+      if (!definition) {
         this.logger.error(`Unable to find the definition for property ${propertyQuad.subject.value}.`);
       } else {
         quads.push(
           this.dataFactory.quad(
             <RDF.NamedNode>assignedUri,
             ns.rdfs('comment'),
-            languageDefinition,
+            definition,
           ),
         );
       }
 
-      const usageNote = store.getObjects(propertyQuad.subject, ns.vann('usageNote'), null).shift();
+      const usageNote = getUsageNote(propertyQuad.subject, store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(
