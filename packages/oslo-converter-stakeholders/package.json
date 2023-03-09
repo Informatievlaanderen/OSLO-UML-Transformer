@@ -1,0 +1,30 @@
+{
+  "name": "@oslo-flanders/stakeholders-converter",
+  "version": "0.0.0",
+  "description": "Converts an OSLO stakeholders csv file to RDF",
+  "author": "Dwight Van Lancker <dwight.vanlancker@hotmail.com>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-stakeholders-oslo#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/oslo-converter-stakeholders-oslo.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.0",
+    "csv-parse": "^5.3.6"
+  }
+}
