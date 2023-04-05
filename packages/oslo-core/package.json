@@ -10,7 +10,12 @@
     "lib": "lib"
   },
   "files": [
-    "lib"
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "index.d.ts",
+    "index.js"
   ],
   "repository": {
     "type": "git",

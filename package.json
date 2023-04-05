@@ -45,7 +45,9 @@
     "lint:fix": "eslint . --ext .ts --cache --fix",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "lerna run test:unit",
-    "test:integration": "lerna run test:integration"
+    "test:integration": "lerna run test:integration",
+    "publish": "npm run build",
+    "publish-release": "lerna publish"
   },
   "devDependencies": {
     "@microsoft/tsdoc": "^0.14.2",

@@ -6,13 +6,21 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-uml-ea#readme",
   "license": "MIT",
   "main": "index.js",
+  "bin": {
+    "oslo-converter-ea": "./bin/runner.js"
+  },
   "directories": {
     "lib": "lib",
-    "bin": "bin"
+    "bin": "bin",
+    "test": "test"
   },
   "files": [
-    "lib",
-    "bin"
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "index.d.ts",
+    "index.js"
   ],
   "repository": {
     "type": "git",
