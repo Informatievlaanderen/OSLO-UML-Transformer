@@ -49,13 +49,21 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
+    "crypto-js": "^4.1.1",
+    "n3": "^1.16.2",
+    "node-fetch": "^2.6.7",
+    "rdf-data-factory": "^1.1.1",
     "rdf-parse": "^2.1.1",
     "streamify-string": "^1.0.1",
+    "reflect-metadata": "^0.1.13",
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@rdfjs/types": "^1.1.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/node-fetch": "^2.6.2",
     "@types/streamify-string": "^1.0.0",
     "@types/tmp": "^0.2.3"
-  }
+  },
+  "gitHead": "f749c71908781f533e0e35f0e3394ce43a8dd7c0"
 }
