@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/core",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.3-alpha.0",
   "description": "Core interfaces and utilities",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-core#readme",
@@ -54,8 +54,8 @@
     "node-fetch": "^2.6.7",
     "rdf-data-factory": "^1.1.1",
     "rdf-parse": "^2.1.1",
-    "streamify-string": "^1.0.1",
     "reflect-metadata": "^0.1.13",
+    "streamify-string": "^1.0.1",
     "winston": "^3.8.2"
   },
   "devDependencies": {
