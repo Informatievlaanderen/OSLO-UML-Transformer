@@ -23,6 +23,7 @@ export function getTagValue(object: any, tagName: TagNames, _default: any): stri
   return tags[0].tagValue;
 }
 
+// TODO: this function should be removed and logic should be part of connectors
 export function extractUri(object: EaObject, packageUri: URL, casing?: CasingTypes): URL {
   const uri = getTagValue(object, TagNames.ExternalUri, null);
 
@@ -30,7 +31,6 @@ export function extractUri(object: EaObject, packageUri: URL, casing?: CasingTyp
     return new URL(uri);
   }
 
-  // TODO: If object.name is returned, then no casing should be applied?
   let localName = getTagValue(object, TagNames.LocalName, null);
 
   if (!localName) {

@@ -41,9 +41,11 @@ export abstract class ConverterHandler<T extends EaObject> {
   public abstract filterIgnoredObjects(model: DataRegistry): Promise<DataRegistry>;
 
   public getLabel(object: T): RDF.Literal[] {
-    return this.config.specificationType === 'ApplicationProfile' ?
+    const labelTags = this.config.specificationType === 'ApplicationProfile' ?
       this.getLanguageDependentTag(object, TagNames.ApLabel, TagNames.Label) :
       this.getLanguageDependentTag(object, TagNames.Label);
+
+    return labelTags.length > 0 ? labelTags : [this.df.literal(object.name)];
   }
 
   public getDefinition(object: T): RDF.Literal[] {

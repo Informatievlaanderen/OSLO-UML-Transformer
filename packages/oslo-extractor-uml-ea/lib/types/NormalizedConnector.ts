@@ -35,10 +35,6 @@ export class NormalizedConnector extends EaObject {
     this._originalId = originalConnector.id;
     this._originalType = originalConnector.type;
 
-    if (!tags.some(x => x.tagName === 'name') && name) {
-      this.addNameTag(name);
-    }
-
     this.osloGuid = uniqueId(originalConnector.eaGuid, name, sourceObjectId);
   }
 
@@ -67,19 +63,5 @@ export class NormalizedConnector extends EaObject {
 
   public get type(): NormalizedConnectorTypes {
     return this._type;
-  }
-
-  private addNameTag(name: string): void {
-    const tag: EaTag = {
-      id: Math.random(),
-      tagName: 'name',
-      tagValue: name,
-    };
-
-    if (this.tags.some(x => x.tagName === 'name')) {
-      return;
-    }
-
-    this.tags = [...this.tags, tag];
   }
 }

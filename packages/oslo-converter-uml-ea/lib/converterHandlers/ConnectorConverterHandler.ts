@@ -49,39 +49,34 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       }
 
       let connectorUri = getTagValue(connector, TagNames.ExternalUri, null);
-      const packageName = getTagValue(connector, TagNames.DefiningPackage, null);
+      const packageTagValue = getTagValue(connector, TagNames.DefiningPackage, null);
       let definingPackageUri: URL | undefined;
 
       // Here, we check the value of the 'package' tag.
       // If there was no value, both source and destination should be defined in the same package.
       // If there was a value, we check that the same package name is used for different packages,
       // otherwise, we use the fallback uri
-      if (!packageName) {
+      if (!packageTagValue) {
         const sourcePackage = model.elements.find(x => x.id === connector.sourceObjectId);
         const destinationPackage = model.elements.find(x => x.id === connector.destinationObjectId);
 
         if (sourcePackage && destinationPackage && sourcePackage.packageId === destinationPackage.packageId) {
           definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackage.packageId)!;
         } else {
-          this.logger.warn(`Can not determine the correct base URI for connector with EA guid ${connector.eaGuid}.`);
+          this.logger.warn(`[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}).`);
           definingPackageUri = new URL(uriRegistry.fallbackBaseUri);
         }
       } else {
-        const packageObject = model.packages.find(x => x.name === packageName);
+        const packageObject = model.packages.find(x => x.name === packageTagValue);
         if (!packageObject) {
-          throw new Error(`Unable to find package for name "${packageName}".`);
+          throw new Error(`[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`);
         }
 
         definingPackageUri = new URL(uriRegistry.packageIdUriMap.get(packageObject.packageId)!);
       }
 
       if (!connectorUri) {
-        let localName = getTagValue(connector, TagNames.LocalName, null);
-
-        if (!localName) {
-          throw new Error(`Unable to find value for "name" tag in connector with EA guid ${connector.eaGuid}.`);
-        }
-
+        let localName = getTagValue(connector, TagNames.LocalName, connector.name);
         localName = convertToCase(localName);
         connectorUri = `${definingPackageUri}${localName}`;
       }
@@ -99,7 +94,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     const connectorUri = uriRegistry.connectorOsloIdUriMap.get(object.id);
 
     if (!connectorUri) {
-      throw new Error(`Connector with EA guid ${object.eaGuid} has no URI assigned.`);
+      throw new Error(`[ConnectorConverterHandler]: Unable to find URI for connector (${object.path})`);
     }
 
     const connectorUriNamedNode = this.df.namedNode(connectorUri.toString());
@@ -144,7 +139,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
 
     if (!packageBaseUri) {
-      throw new Error(`Unnable to find URI for the package (EA guid: ${model.targetDiagram.eaGuid}) containing the target diagram when converting EaAttributes.`);
+      throw new Error(`[ConnectorConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`);
     }
 
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.connectorOsloIdUriMap);
@@ -177,7 +172,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         ),
       );
     } else {
-      this.logger.warn(`Unable to determine cardinality for connector with EA guid ${object.eaGuid}.`);
+      this.logger.warn(`[ConnectorConverterHandler]: Unable to determine cardinality for connector (${object.path}).`);
     }
 
     const parentUri = getTagValue(object, TagNames.ParentUri, null);
