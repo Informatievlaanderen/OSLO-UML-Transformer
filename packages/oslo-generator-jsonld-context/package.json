@@ -1,0 +1,66 @@
+{
+  "name": "@oslo-flanders/jsonld-context-generator",
+  "version": "0.0.0",
+  "description": "Generates a JSON-LD context file from an OSLO-compliant RDF file",
+  "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-jsonld-context#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "oslo-jsonld-context-generator": "./bin/runner.js"
+  },
+  "directories": {
+    "bin": "bin",
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "index.d.ts",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "jest": {
+    "runner": "groups",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "/test/.*.test.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "index.js",
+      "test"
+    ],
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "tsc",
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "devDependencies": {
+    "@rdfjs/types": "^1.1.0"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.0",
+    "reflect-metadata": "^0.1.13",
+    "inversify": "^6.0.1",
+    "n3": "^1.16.2",
+    "yargs": "^17.6.0"
+  }
+}
