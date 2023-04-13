@@ -67,12 +67,12 @@ export class JsonldContextGenerationService implements IService {
 
   /**
    * Identifies labels that have been used two or more times for a different URI
-   * @param uris — RDF.Quad_Subjects validate their label is unique
+   * @param uris — RDF.NamedNode validate their label is unique
    * @param store — In-memory quad store
-   * @returns an array of RDF.Quad_Subjects that have a label that is not unique
+   * @returns an array of RDF.NamedNode that have a label that is not unique
    */
-  private identifyDuplicateLabels(uris: RDF.Quad_Subject[]): RDF.Quad_Subject[] {
-    const labelUriMap: Map<string, RDF.Quad_Subject[]> = new Map();
+  private identifyDuplicateLabels(uris: RDF.NamedNode[]): RDF.NamedNode[] {
+    const labelUriMap: Map<string, RDF.NamedNode[]> = new Map();
 
     uris.forEach(uri => {
       const label = this.store.getLabel(uri, this.configuration.language);
@@ -86,8 +86,8 @@ export class JsonldContextGenerationService implements IService {
       labelUriMap.set(label.value, labelUris);
     });
 
-    const duplicates: RDF.Quad_Subject[] = [];
-    labelUriMap.forEach((subjects: RDF.Quad_Subject[], label: string) => {
+    const duplicates: RDF.NamedNode[] = [];
+    labelUriMap.forEach((subjects: RDF.NamedNode[], label: string) => {
       const unique = new Set(subjects);
       if (unique.size > 1) {
         duplicates.push(...Array.from(unique));

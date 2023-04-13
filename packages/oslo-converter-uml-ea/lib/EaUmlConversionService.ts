@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/indent */
 import { Logger, ns } from '@oslo-flanders/core';
-import type { IConversionService, QuadStore } from '@oslo-flanders/core';
+import type { QuadStore, IService } from '@oslo-flanders/core';
 import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
@@ -11,7 +11,7 @@ import { ConverterHandlerService } from './ConverterHandlerService';
 import { OutputHandlerService } from './OutputHandlerService';
 
 @injectable()
-export class EaUmlConversionService implements IConversionService {
+export class EaUmlConversionService implements IService {
   public readonly logger: Logger;
   public readonly configuration: EaUmlConverterConfiguration;
   public readonly outputHandlerService: OutputHandlerService;
