@@ -1,4 +1,12 @@
 import { stderr } from 'process';
+import type { Container } from 'inversify';
+import type { Logger } from '../logging/Logger';
+import type { LogLevel } from '../logging/LogLevel';
+import { VoidLogger } from '../logging/VoidLogger';
+import { WinstonLogger } from '../logging/WinstonLogger';
+import { ServiceIdentifier } from '../ServiceIdentifier';
+import type { IConfiguration } from './IConfiguration';
+import type { IService } from './IService';
 
 export type CliArgv = string[];
 
@@ -12,7 +20,7 @@ export type YargsParams = {
   $0: string;
 };
 
-export abstract class AppRunner {
+export abstract class AppRunner<T extends IService, K extends IConfiguration> {
   public runCliSync(process: NodeJS.Process): void {
     this.runCli(process.argv).catch((error): never => {
       stderr.write(error.message);
@@ -22,4 +30,22 @@ export abstract class AppRunner {
   }
 
   public abstract runCli(argv: CliArgv): Promise<void>;
+
+  public async startApp(params: YargsParams, container: Container): Promise<void> {
+    const configuration = container.get<K>(ServiceIdentifier.Configuration);
+    await configuration.createFromCli(params);
+
+    if (params.silent) {
+      container.bind<Logger>(ServiceIdentifier.Logger)
+        .to(VoidLogger);
+    } else {
+      container.bind<Logger>(ServiceIdentifier.Logger)
+        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
+    }
+
+    const service = container.get<T>(ServiceIdentifier.Service);
+    service.init()
+      .then(() => service.run())
+      .catch(error => console.error(error));
+  }
 }

@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import type { IConfiguration, IConversionService } from '@oslo-flanders/core';
+import type { IConfiguration, IService } from '@oslo-flanders/core';
 import type { EaAttribute, EaElement, EaPackage, NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { Container } from 'inversify';
 import { AttributeConverterHandler } from '../converterHandlers/AttributeConverterHandler';
@@ -14,7 +14,7 @@ import { EaUmlConverterServiceIdentifier } from './EaUmlConverterServiceIdentifi
 
 export const container = new Container();
 
-container.bind<IConversionService>(EaUmlConverterServiceIdentifier.ConversionService).to(EaUmlConversionService);
+container.bind<IService>(EaUmlConverterServiceIdentifier.Service).to(EaUmlConversionService);
 container.bind<IConfiguration>(EaUmlConverterServiceIdentifier.Configuration)
   .to(EaUmlConverterConfiguration)
   .inSingletonScope();

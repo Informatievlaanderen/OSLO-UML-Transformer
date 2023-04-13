@@ -1,13 +1,12 @@
-import type { CliArgv, Logger, LogLevel } from '@oslo-flanders/core';
-import { LOG_LEVELS, VoidLogger, WinstonLogger, AppRunner } from '@oslo-flanders/core';
+import type { CliArgv } from '@oslo-flanders/core';
+import { LOG_LEVELS, AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
-import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
 import type { EaUmlConversionService } from './EaUmlConversionService';
 
-export class EaUmlConversionServiceRunner extends AppRunner {
+export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionService, EaUmlConverterConfiguration> {
   public async runCli(argv: CliArgv): Promise<void> {
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
@@ -51,18 +50,6 @@ export class EaUmlConversionServiceRunner extends AppRunner {
       .alias('h', 'help');
 
     const params = await yargv.parse();
-    const configuration = container.get<EaUmlConverterConfiguration>(EaUmlConverterServiceIdentifier.Configuration);
-    await configuration.createFromCli(params);
-
-    if (params.silent) {
-      container.bind<Logger>(EaUmlConverterServiceIdentifier.Logger)
-        .to(VoidLogger);
-    } else {
-      container.bind<Logger>(EaUmlConverterServiceIdentifier.Logger)
-        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
-    }
-
-    const conversionService = container.get<EaUmlConversionService>(EaUmlConverterServiceIdentifier.ConversionService);
-    conversionService.run().catch(error => console.error(error));
+    this.startApp(params, container).catch(error => console.error(error));
   }
 }

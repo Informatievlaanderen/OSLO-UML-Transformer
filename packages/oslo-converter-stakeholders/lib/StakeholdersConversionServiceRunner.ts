@@ -1,11 +1,12 @@
-import type { CliArgv, Logger, LogLevel } from '@oslo-flanders/core';
-import { AppRunner, LOG_LEVELS, ServiceIdentifier, VoidLogger, WinstonLogger } from '@oslo-flanders/core';
+import type { CliArgv } from '@oslo-flanders/core';
+import { AppRunner, LOG_LEVELS } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { StakeholdersConversionServiceConfiguration } from './config/StakeholdersConversionServiceConfiguration';
 import type { StakeholdersConversionService } from './StakeholdersConversionService';
 
-export class StakeholdersConversionServiceRunner extends AppRunner {
+export class StakeholdersConversionServiceRunner extends
+  AppRunner<StakeholdersConversionService, StakeholdersConversionServiceConfiguration> {
   public async runCli(argv: CliArgv): Promise<void> {
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
@@ -32,19 +33,6 @@ export class StakeholdersConversionServiceRunner extends AppRunner {
       .alias('h', 'help');
 
     const params = await yargv.parse();
-
-    const configuration = container.get<StakeholdersConversionServiceConfiguration>(ServiceIdentifier.Configuration);
-    await configuration.createFromCli(params);
-
-    if (params.silent) {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .to(VoidLogger);
-    } else {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
-    }
-
-    const conversionService = container.get<StakeholdersConversionService>(ServiceIdentifier.ConversionService);
-    conversionService.run().catch(error => console.error(error));
+    this.startApp(params, container).catch(error => console.error(error));
   }
 }

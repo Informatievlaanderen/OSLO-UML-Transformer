@@ -57,7 +57,7 @@
     "@rdfjs/types": "^1.1.0"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.0",
+    "@oslo-flanders/core": "^0.0.3-alpha.0",
     "reflect-metadata": "^0.1.13",
     "inversify": "^6.0.1",
     "n3": "^1.16.2",

@@ -1,10 +1,10 @@
 import { URL } from 'url';
+import type { QuadStore } from '@oslo-flanders/core';
 import { ns, PropertyType } from '@oslo-flanders/core';
 import type { DataRegistry, EaAttribute, EaElement } from '@oslo-flanders/ea-uml-extractor';
 import { ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import type * as N3 from 'n3';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { CasingTypes } from '../enums/CasingTypes';
@@ -24,11 +24,11 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     return model;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store): Promise<RDF.Store> {
+  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
     // Only attributes of elements that are on the target diagram will be passed to the output handler
     model.attributes
       .filter(x => model.targetDiagram.elementIds.includes(x.classId))
-      .forEach(object => (<N3.Store>store).addQuads(this.createQuads(object, uriRegistry, model)));
+      .forEach(object => store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
   }
@@ -247,10 +247,10 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
     if (rangeElement &&
       (!model.targetDiagram.elementIds.includes(rangeElement.id) || attributeUri.equals(ns.skos('Concept')))) {
-      const definitionValues = this.getDefinition(<any>rangeElement);
+      const definitionValues = <RDF.Literal[]>(<any>this.getDefinition)(rangeElement);
       definitionValues.forEach(x => quads.push(this.df.quad(statementBlankNode, ns.rdfs('comment'), x)));
 
-      const usageNoteValues = this.getUsageNote(<any>rangeElement);
+      const usageNoteValues = <RDF.Literal[]>(<any>this.getUsageNote)(rangeElement);
       usageNoteValues.forEach(x => quads.push(this.df.quad(statementBlankNode, ns.vann('usageNote'), x)));
 
       const skosCodelist = getTagValue(rangeElement, TagNames.ApCodelist, null);

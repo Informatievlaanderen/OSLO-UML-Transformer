@@ -1,9 +1,9 @@
+import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type { DataRegistry, EaElement } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import type * as N3 from 'n3';
 import { CasingTypes } from '../enums/CasingTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
@@ -18,13 +18,13 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     return model;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store): Promise<RDF.Store> {
+  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
     // All elements will be processed and receive a URI, but only elements on the target diagram
     // will be passed to the OutputHandler. This flow is necessary because element types could be
     // in other packages and their URIs are needed to refer to in the output file.
     model.elements
       .filter(x => model.targetDiagram.elementIds.includes(x.id))
-      .forEach(object => (<N3.Store>store).addQuads(this.createQuads(object, uriRegistry, model)));
+      .forEach(object => store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
   }

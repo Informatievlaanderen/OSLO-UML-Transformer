@@ -1,12 +1,13 @@
-import type { CliArgv, Logger, LogLevel } from '@oslo-flanders/core';
-import { VoidLogger, WinstonLogger, ServiceIdentifier, AppRunner } from '@oslo-flanders/core';
+import type { CliArgv } from '@oslo-flanders/core';
+import { AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { JsonldContextGenerationServiceConfiguration } from './config/JsonldContextGenerationServiceConfiguration';
 import type { JsonldContextGenerationService } from './JsonldContextGenerationService';
 
-export class JsonldContextGenerationServiceRunner extends AppRunner {
+export class JsonldContextGenerationServiceRunner extends
+  AppRunner<JsonldContextGenerationService, JsonldContextGenerationServiceConfiguration> {
   public async runCli(argv: CliArgv): Promise<void> {
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
@@ -30,18 +31,6 @@ export class JsonldContextGenerationServiceRunner extends AppRunner {
       .alias('h', 'help');
 
     const params = await yargv.parse();
-    const configuration = container.get<JsonldContextGenerationServiceConfiguration>(ServiceIdentifier.Configuration);
-    await configuration.createFromCli(params);
-
-    if (params.silent) {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .to(VoidLogger);
-    } else {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
-    }
-
-    const generationService = container.get<JsonldContextGenerationService>(ServiceIdentifier.GenerationService);
-    generationService.run().catch(error => console.error(error));
+    this.startApp(params, container).catch(error => console.error(error));
   }
 }
