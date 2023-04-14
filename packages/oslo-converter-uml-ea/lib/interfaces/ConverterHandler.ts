@@ -1,3 +1,4 @@
+import type { QuadStore } from '@oslo-flanders/core';
 import { Logger, Scope } from '@oslo-flanders/core';
 import type { DataRegistry, EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
@@ -17,7 +18,7 @@ export abstract class ConverterHandler<T extends EaObject> {
   /**
    * Creates RDF.Quads for objects with type T in the normalized model and adds them to an RDF.Store
    */
-  public abstract convert(model: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store): Promise<RDF.Store>;
+  public abstract convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore>;
 
   /**
    * Normalizes objects with type T in the data model

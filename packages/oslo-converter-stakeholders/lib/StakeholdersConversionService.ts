@@ -1,5 +1,7 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/indent */
 import { writeFile } from 'fs/promises';
-import type { IConversionService } from '@oslo-flanders/core';
+import type { IService } from '@oslo-flanders/core';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';
@@ -10,7 +12,7 @@ import { context } from './utils/JsonLdContext';
 import { ToJsonLdTransformer } from './utils/ToJsonLdTransformer';
 
 @injectable()
-export class StakeholdersConversionService implements IConversionService {
+export class StakeholdersConversionService implements IService {
   public readonly logger: Logger;
   public readonly configuration: StakeholdersConversionServiceConfiguration;
 
@@ -20,6 +22,10 @@ export class StakeholdersConversionService implements IConversionService {
   ) {
     this.logger = logger;
     this.configuration = config;
+  }
+
+  public async init(): Promise<void> {
+    // Nothing to init here
   }
 
   public async run(): Promise<void> {

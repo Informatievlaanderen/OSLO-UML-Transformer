@@ -1,12 +1,13 @@
-import type { CliArgv, Logger, LogLevel } from '@oslo-flanders/core';
-import { ServiceIdentifier, VoidLogger, WinstonLogger, AppRunner } from '@oslo-flanders/core';
+import type { CliArgv } from '@oslo-flanders/core';
+import { AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
 import type { RdfVocabularyGenerationService } from './RdfVocabularyGenerationService';
 
-export class RdfVocabularyGenerationServiceRunner extends AppRunner {
+export class RdfVocabularyGenerationServiceRunner extends
+  AppRunner<RdfVocabularyGenerationService, RdfVocabularyGenerationServiceConfiguration> {
   public async runCli(argv: CliArgv): Promise<void> {
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
@@ -30,18 +31,6 @@ export class RdfVocabularyGenerationServiceRunner extends AppRunner {
       .alias('h', 'help');
 
     const params = await yargv.parse();
-    const configuration = container.get<RdfVocabularyGenerationServiceConfiguration>(ServiceIdentifier.Configuration);
-    await configuration.createFromCli(params);
-
-    if (params.silent) {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .to(VoidLogger);
-    } else {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
-    }
-
-    const generationService = container.get<RdfVocabularyGenerationService>(ServiceIdentifier.GenerationService);
-    generationService.run().catch(error => console.error(error));
+    this.startApp(params, container).catch(error => console.error(error));
   }
 }

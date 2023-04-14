@@ -1,41 +1,39 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/indent */
 import { writeFile } from 'fs/promises';
-import type { IGenerationService } from '@oslo-flanders/core';
-import {
-  getAssignedUri,
-  getDomain,
-  getLabel,
-  getLabelViaStatements,
-  getRange,
-  Logger,
+import type { IService } from '@oslo-flanders/core';
+import { Logger,
   ns,
-  createN3Store,
   ServiceIdentifier,
-} from '@oslo-flanders/core';
+ QuadStore } from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import type * as N3 from 'n3';
 import { JsonldContextGenerationServiceConfiguration } from './config/JsonldContextGenerationServiceConfiguration';
 import { alphabeticalSort, toCamelCase, toPascalCase } from './utils/utils';
 
 @injectable()
-export class JsonldContextGenerationService implements IGenerationService {
+export class JsonldContextGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: JsonldContextGenerationServiceConfiguration;
+  public readonly store: QuadStore;
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration) config: JsonldContextGenerationServiceConfiguration,
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
     this.logger = logger;
     this.configuration = config;
+    this.store = store;
+  }
+
+  public async init(): Promise<void> {
+    return this.store.addQuadsFromFile(this.configuration.input);
   }
 
   public async run(): Promise<void> {
-    const store = await createN3Store(this.configuration.input);
-    const context = await this.generateContext(store);
+    const context = await this.generateContext();
 
     const result = {
       '@context': context,
@@ -44,10 +42,10 @@ export class JsonldContextGenerationService implements IGenerationService {
     await writeFile(this.configuration.output, JSON.stringify(result, null, 2));
   }
 
-  private async generateContext(store: N3.Store): Promise<any> {
+  private async generateContext(): Promise<any> {
     const [classLabelUriMap, propertyLabelMap] = await Promise.all([
-      this.createClassLabelUriMap(store),
-      this.createPropertyLabelMap(store),
+      this.createClassLabelUriMap(),
+      this.createPropertyLabelMap(),
     ]);
 
     let context = Object.fromEntries(alphabeticalSort(Array.from(classLabelUriMap.entries()))
@@ -69,15 +67,15 @@ export class JsonldContextGenerationService implements IGenerationService {
 
   /**
    * Identifies labels that have been used two or more times for a different URI
-   * @param uris — RDF.Quad_Subjects validate their label is unique
+   * @param uris — RDF.NamedNode validate their label is unique
    * @param store — In-memory quad store
-   * @returns an array of RDF.Quad_Subjects that have a label that is not unique
+   * @returns an array of RDF.NamedNode that have a label that is not unique
    */
-  private identifyDuplicateLabels(uris: RDF.Quad_Subject[], store: N3.Store): RDF.Quad_Subject[] {
-    const labelUriMap: Map<string, RDF.Quad_Subject[]> = new Map();
+  private identifyDuplicateLabels(uris: RDF.NamedNode[]): RDF.NamedNode[] {
+    const labelUriMap: Map<string, RDF.NamedNode[]> = new Map();
 
     uris.forEach(uri => {
-      const label = getLabel(uri, store, this.configuration.language);
+      const label = this.store.getLabel(uri, this.configuration.language);
 
       if (!label) {
         return;
@@ -88,8 +86,8 @@ export class JsonldContextGenerationService implements IGenerationService {
       labelUriMap.set(label.value, labelUris);
     });
 
-    const duplicates: RDF.Quad_Subject[] = [];
-    labelUriMap.forEach((subjects: RDF.Quad_Subject[], label: string) => {
+    const duplicates: RDF.NamedNode[] = [];
+    labelUriMap.forEach((subjects: RDF.NamedNode[], label: string) => {
       const unique = new Set(subjects);
       if (unique.size > 1) {
         duplicates.push(...Array.from(unique));
@@ -99,14 +97,14 @@ export class JsonldContextGenerationService implements IGenerationService {
     return duplicates;
   }
 
-  private async createClassLabelUriMap(store: N3.Store): Promise<Map<string, RDF.NamedNode>> {
+  private async createClassLabelUriMap(): Promise<Map<string, RDF.NamedNode>> {
     const classLabelUriMap = new Map();
 
-    const classSubjects = store.getSubjects(ns.rdf('type'), ns.owl('Class'), null);
-    const duplicates = this.identifyDuplicateLabels(classSubjects, store);
+    const classSubjects = this.store.getClassIds();
+    const duplicates = this.identifyDuplicateLabels(classSubjects);
 
     classSubjects.forEach(subject => {
-      const label = getLabel(subject, store, this.configuration.language);
+      const label = this.store.getLabel(subject, this.configuration.language);
 
       if (!label) {
         this.logger.warn(`No label found for class ${subject.value} in language ${this.configuration.language}.`);
@@ -118,7 +116,7 @@ export class JsonldContextGenerationService implements IGenerationService {
         return;
       }
 
-      const assignedUri = getAssignedUri(subject, store);
+      const assignedUri = this.store.getAssignedUri(subject);
 
       if (!assignedUri) {
         this.logger.error(`Unable to find the assigned URI for class ${subject.value}.`);
@@ -131,27 +129,27 @@ export class JsonldContextGenerationService implements IGenerationService {
     return classLabelUriMap;
   }
 
-  private async createPropertyLabelMap(store: N3.Store):
+  private async createPropertyLabelMap():
     Promise<Map<string, { uri: RDF.NamedNode; range: RDF.NamedNode; addContainer: boolean }>> {
     const propertyLabelUriMap = new Map();
 
-    const datatypePropertySubjects = store.getSubjects(ns.rdf('type'), ns.owl('DatatypeProperty'), null);
-    const objectPropertySubjects = store.getSubjects(ns.rdf('type'), ns.owl('ObjectProperty'), null);
+    const datatypePropertySubjects = this.store.getDatatypePropertyIds();
+    const objectPropertySubjects = this.store.getObjectPropertyIds();
 
-    const duplicates = this.identifyDuplicateLabels([...datatypePropertySubjects, ...objectPropertySubjects], store);
+    const duplicates = this.identifyDuplicateLabels([...datatypePropertySubjects, ...objectPropertySubjects]);
 
     [...datatypePropertySubjects, ...objectPropertySubjects].forEach(subject => {
-      const assignedUri = getAssignedUri(subject, store);
+      const assignedUri = this.store.getAssignedUri(subject);
 
       if (!assignedUri) {
         this.logger.error(`Unable to find the assigned URI for attribute ${subject.value}.`);
         return;
       }
 
-      let label = getLabel(subject, store, this.configuration.language);
+      let label = this.store.getLabel(subject, this.configuration.language);
       if (!label) {
         // For labels it is possible to have a value without a language tag included
-        label = getLabel(subject, store);
+        label = this.store.getLabel(subject);
       }
 
       if (!label) {
@@ -159,14 +157,14 @@ export class JsonldContextGenerationService implements IGenerationService {
         return;
       }
 
-      const range = getRange(subject, store);
+      const range = this.store.getRange(subject);
 
       if (!range) {
         this.logger.error(`No range found for attribute ${subject.value}.`);
         return;
       }
 
-      const rangeUri = getAssignedUri(<RDF.Quad_Subject>range, store);
+      const rangeUri = this.store.getAssignedUri(range);
 
       // In case we can not find the assigned URI, we do not add a range
       // (@type will not be present for that property)
@@ -176,20 +174,19 @@ export class JsonldContextGenerationService implements IGenerationService {
 
       let formattedAttributeLabel = toCamelCase(label.value);
       if (this.configuration.addDomainPrefix || duplicates.includes(subject)) {
-        const domain = getDomain(subject, store);
+        const domain = this.store.getDomain(subject);
         if (!domain) {
           this.logger.error(`No domain found for attribute ${subject.value}.`);
           return;
         }
 
-        let domainLabel = getLabel(domain, store, this.configuration.language);
+        let domainLabel = this.store.getLabel(domain, this.configuration.language);
 
         if (!domainLabel) {
-          domainLabel = getLabelViaStatements(
+          domainLabel = this.store.getLabelViaStatements(
             subject,
             ns.rdfs('domain'),
             domain,
-            store,
             this.configuration.language,
           );
         }
@@ -202,7 +199,7 @@ export class JsonldContextGenerationService implements IGenerationService {
         formattedAttributeLabel = `${toPascalCase(domainLabel.value)}.${formattedAttributeLabel}`;
       }
 
-      const addContainerProperty = this.canHaveAListOfValues(subject, store);
+      const addContainerProperty = this.canHaveAListOfValues(subject);
       propertyLabelUriMap.set(formattedAttributeLabel, {
         uri: assignedUri,
         range: rangeUri,
@@ -219,8 +216,8 @@ export class JsonldContextGenerationService implements IGenerationService {
    * @param store — The triple store to fetch triples about the Quad_Subject
    * @returns — A boolean indicating whether or not to add the "@container" property to the attribute
    */
-  private canHaveAListOfValues(subject: RDF.Quad_Subject, store: N3.Store): boolean {
-    const maxCount = store.getObjects(subject, ns.shacl('maxCount'), null).shift();
+  private canHaveAListOfValues(subject: RDF.Quad_Subject): boolean {
+    const maxCount = this.store.getMaxCardinality(subject);
 
     if (!maxCount) {
       this.logger.warn(`Unable to retrieve max cardinality of property ${subject.value}.`);

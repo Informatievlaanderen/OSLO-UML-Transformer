@@ -2,9 +2,8 @@
  * @group unit
  */
 import fs from 'fs/promises';
-import { VoidLogger, createN3Store, WinstonLogger, LOG_LEVELS } from '@oslo-flanders/core';
+import { VoidLogger, WinstonLogger, LOG_LEVELS, QuadStore } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
-import * as N3 from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
 import { JsonldContextGenerationService } from '../lib/JsonldContextGenerationService';
@@ -38,21 +37,38 @@ function parseJsonld(data: any): Promise<RDF.Quad[]> {
 }
 
 describe('JsonldContextGenerationService', () => {
-  let store: N3.Store;
+  let store: QuadStore;
   const df: DataFactory = new DataFactory();
   const logger = new VoidLogger();
 
   beforeEach(() => {
-    store = new N3.Store();
+    store = new QuadStore();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
+  it('should initialize the quad store in the init function', async () => {
+    jest.spyOn(store, 'addQuadsFromFile').mockReturnValue(Promise.resolve());
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', output: 'context.jsonld' },
+      store,
+    );
+
+    await service.init();
+
+    expect(store.addQuadsFromFile).toHaveBeenCalled();
+  });
+
   it('should write the jsonld context to a file', async () => {
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', output: 'context.jsonld' });
-    (<any>createN3Store).mockReturnValue(Promise.resolve(new N3.Store()));
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', output: 'context.jsonld' },
+      store,
+    );
+
     jest.spyOn(fs, 'writeFile');
 
     await service.run();
@@ -63,9 +79,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should generate a context object', async () => {
     store.addQuads(await parseJsonld(jsonldData));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
-    const context = await service.generateContext(store);
+    const context = await service.generateContext();
     expect(context).toEqual({
       AnotherTestClass: 'http://example.org/id/class/2',
       TestClass: 'http://example.org/id/class/1',
@@ -83,8 +99,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should identify duplicate labels for the configured language', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
-    const duplicates = service.identifyDuplicateLabels(store.getSubjects(null, null, null), store);
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const subjects = <RDF.NamedNode[]>store.findQuads(null, null, null).map(x => x.subject);
+    const duplicates = service.identifyDuplicateLabels(subjects);
 
     expect(duplicates)
       .toEqual(expect.arrayContaining(
@@ -98,18 +115,18 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when a class label is used multiple times', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
     jest.spyOn(service.logger, 'error');
 
-    await service.createClassLabelUriMap(store);
+    await service.createClassLabelUriMap();
     expect(service.logger.error).toHaveBeenCalled();
   });
 
   it('should create a class label URI map', async () => {
     store.addQuads(await parseJsonld(classJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'nl' });
-    const classLabelUriMap: Map<string, RDF.NamedNode> = await service.createClassLabelUriMap(store);
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'nl' }, store);
+    const classLabelUriMap: Map<string, RDF.NamedNode> = await service.createClassLabelUriMap();
 
     expect(classLabelUriMap.size).toBe(1);
     expect(classLabelUriMap.has('TestClass')).toBeTruthy();
@@ -118,21 +135,21 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log a warning when a class label can not be found', async () => {
     store.addQuads(await parseJsonld(classJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
     jest.spyOn(service.logger, 'warn');
 
-    await service.createClassLabelUriMap(store);
+    await service.createClassLabelUriMap();
     expect(service.logger.warn).toHaveBeenCalled();
   });
 
   it('should log an error when the label for a property can not be found in the desired language', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'nl' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'nl' }, store);
 
     jest.spyOn(service.logger, 'error');
 
-    await service.createPropertyLabelMap(store);
+    await service.createPropertyLabelMap();
     expect(service.logger.error)
       .toHaveBeenCalledWith(
         // eslint-disable-next-line max-len
@@ -142,33 +159,41 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the range of a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutRange));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
     jest.spyOn(service.logger, 'error');
 
-    await service.createPropertyLabelMap(store);
+    await service.createPropertyLabelMap();
     expect(service.logger.error)
       .toHaveBeenCalledWith('No range found for attribute http://example.org/.well-known/id/property/1.');
   });
 
   it('should log an error when the domain of a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutDomain));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: true });
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', addDomainPrefix: true },
+      store,
+    );
 
     jest.spyOn(service.logger, 'error');
 
-    await service.createPropertyLabelMap(store);
+    await service.createPropertyLabelMap();
     expect(service.logger.error)
       .toHaveBeenCalledWith('No domain found for attribute http://example.org/.well-known/id/property/1.');
   });
 
   it('should log an error when the domain label can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: true });
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', addDomainPrefix: true },
+      store,
+    );
 
     jest.spyOn(service.logger, 'error');
 
-    await service.createPropertyLabelMap(store);
+    await service.createPropertyLabelMap();
     expect(service.logger.error)
       // eslint-disable-next-line max-len
       .toHaveBeenCalledWith('No label found for domain http://example.org/.well-known/id/class/1 of attribute http://example.org/.well-known/id/property/1.');
@@ -176,9 +201,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should generate a property label uri map', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
-    const map = await service.createPropertyLabelMap(store);
+    const map = await service.createPropertyLabelMap();
 
     expect(map.has('test')).toBeTruthy();
 
@@ -188,12 +213,16 @@ describe('JsonldContextGenerationService', () => {
     expect(value.range.value).toBe('http://example.org/id/class/2');
   });
 
-  it('test', async () => {
+  it('should add the domain label prefix when this option is set in configuration', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithStatement));
     const testLogger = new WinstonLogger(LOG_LEVELS[0]);
-    const service = <any>new JsonldContextGenerationService(testLogger, <any>{ language: 'en', addDomainPrefix: true });
+    const service = <any>new JsonldContextGenerationService(
+      testLogger,
+      <any>{ language: 'en', addDomainPrefix: true },
+      store,
+    );
 
-    const map = await service.createPropertyLabelMap(store);
+    const map = await service.createPropertyLabelMap();
 
     expect(map.has('TestDomain.test')).toBeTruthy();
 
@@ -205,9 +234,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should add the domain label as prefix when duplicate property labels are detected', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' });
+    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
 
-    const map = await service.createPropertyLabelMap(store);
+    const map = await service.createPropertyLabelMap();
 
     expect(map.has('TestDomain.testLabel')).toBeTruthy();
     expect(map.has('AnotherTestDomain.testLabel')).toBeTruthy();
@@ -215,14 +244,18 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when an assigned URI could not be found', async () => {
     store.addQuads(await parseJsonld(jsonLdWithoutAssignedUris));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', addDomainPrefix: false },
+      store,
+    );
 
     jest.spyOn(service.logger, 'error');
-    await service.createClassLabelUriMap(store);
+    await service.createClassLabelUriMap();
     expect(service.logger.error)
       .toHaveBeenCalledWith(`Unable to find the assigned URI for class http://example.org/.well-known/id/class/1.`);
 
-    await service.createPropertyLabelMap(store);
+    await service.createPropertyLabelMap();
     expect(service.logger.error)
       // eslint-disable-next-line max-len
       .toHaveBeenCalledWith('Unable to find the assigned URI for attribute http://example.org/.well-known/id/property/2.');
@@ -230,26 +263,34 @@ describe('JsonldContextGenerationService', () => {
 
   it('should determine if an attribute can have multiple values', async () => {
     store.addQuads(await parseJsonld(jsonldPropertyWithMaxCardinality));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', addDomainPrefix: false },
+      store,
+    );
 
     const canHaveMultipleValues = service.canHaveAListOfValues(
-      df.namedNode('http://example.org/.well-known/id/property/1'), store,
+      df.namedNode('http://example.org/.well-known/id/property/1'),
     );
     expect(canHaveMultipleValues).toBe(true);
 
     const canNotHaveMultipleValues = service.canHaveAListOfValues(
-      df.namedNode('http://example.org/.well-known/id/property/2'), store,
+      df.namedNode('http://example.org/.well-known/id/property/2'),
     );
     expect(canNotHaveMultipleValues).toBe(false);
   });
 
   it('should log a warning when max cardinality is not present for attribute', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en', addDomainPrefix: false });
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{ language: 'en', addDomainPrefix: false },
+      store,
+    );
 
     jest.spyOn(service.logger, 'warn');
     service.canHaveAListOfValues(
-      df.namedNode('http://example.org/.well-known/id/property/1'), store,
+      df.namedNode('http://example.org/.well-known/id/property/1'),
     );
 
     expect(service.logger.warn)

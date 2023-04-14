@@ -1,10 +1,9 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/indent */
 import { Logger, ns } from '@oslo-flanders/core';
-import type { IConversionService } from '@oslo-flanders/core';
+import type { QuadStore, IService } from '@oslo-flanders/core';
 import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
-import type { Store, Quad } from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
@@ -12,7 +11,7 @@ import { ConverterHandlerService } from './ConverterHandlerService';
 import { OutputHandlerService } from './OutputHandlerService';
 
 @injectable()
-export class EaUmlConversionService implements IConversionService {
+export class EaUmlConversionService implements IService {
   public readonly logger: Logger;
   public readonly configuration: EaUmlConverterConfiguration;
   public readonly outputHandlerService: OutputHandlerService;
@@ -25,6 +24,10 @@ export class EaUmlConversionService implements IConversionService {
     this.logger = logger;
     this.configuration = config;
     this.outputHandlerService = outputHandlerService;
+  }
+
+  public async init(): Promise<void> {
+    // Nothing to init here
   }
 
   public async run(): Promise<void> {
@@ -43,17 +46,19 @@ export class EaUmlConversionService implements IConversionService {
     await this.outputHandlerService.write(store);
   }
 
-  private async addDocumentInformation(store: Store): Promise<Store<Quad>> {
+  private async addDocumentInformation(store: QuadStore): Promise<QuadStore> {
     const df = new DataFactory();
     const versionUri = `${this.configuration.baseUri}/${this.configuration.versionId}`;
 
     // The output handler will use this quad to set the id of the document
     store.addQuad(
-      df.namedNode(versionUri),
-      ns.prov('generatedAtTime'),
-      df.literal(new Date(Date.now()).toISOString(), ns.xsd('datetime')),
+      df.quad(
+        df.namedNode(versionUri),
+        ns.prov('generatedAtTime'),
+        df.literal(new Date(Date.now()).toISOString(), ns.xsd('datetime')),
+      ),
     );
 
-    return <Store<Quad>>store;
+    return store;
   }
 }

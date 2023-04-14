@@ -4,9 +4,8 @@
 import 'reflect-metadata';
 import fs from 'fs';
 import { Readable, Writable } from 'stream';
-import { VoidLogger, createN3Store, ns } from '@oslo-flanders/core';
+import { QuadStore, VoidLogger, ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
-import * as N3 from 'n3';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
 import rdfSerializer from 'rdf-serialize';
@@ -48,18 +47,17 @@ function parseJsonld(data: any): Promise<RDF.Quad[]> {
 }
 
 describe('RdfVocabularyGenerationService', () => {
-  let store: N3.Store;
+  let store: QuadStore;
   let service: any;
   const df: DataFactory = new DataFactory();
   const logger = new VoidLogger();
   const vocabularyUri: RDF.NamedNode = df.namedNode('http://example.org/vocabularyUri');
 
   beforeEach(() => {
+    store = new QuadStore();
     service = <any>new RdfVocabularyGenerationService(
-      logger, <any>{ language: 'en', output: 'output.jsonld', contentType: 'text/turtle' },
+      logger, <any>{ language: 'en', output: 'output.jsonld', contentType: 'text/turtle' }, store,
     );
-
-    store = new N3.Store();
 
     jest.mock('streamify-array', () => {
       return {
@@ -73,20 +71,24 @@ describe('RdfVocabularyGenerationService', () => {
     jest.clearAllMocks();
   });
 
+  it('should initialize the quad store in the init function', async () => {
+    jest.spyOn(store, 'addQuadsFromFile').mockReturnValue(Promise.resolve());
+    await service.init();
+
+    expect(store.addQuadsFromFile).toHaveBeenCalled();
+  });
+
   it('should throw an error when the package well known id can not be found', async () => {
-    (<any>createN3Store).mockReturnValue(Promise.resolve(store));
     await expect(async () => await service.run()).rejects.toThrowError();
   });
 
   it('should throw an error when the vocabulary URI can not be found', async () => {
     store.addQuads(await parseJsonld(jsonldPackageWithoutAssignedUri));
-    (<any>createN3Store).mockReturnValue(Promise.resolve(store));
     await expect(async () => await service.run()).rejects.toThrowError();
   });
 
   it('should write serialized RDF to a file', async () => {
     store.addQuads(await parseJsonld(jsonldPackage));
-    (<any>createN3Store).mockReturnValue(Promise.resolve(store));
 
     const mockStream = new Writable();
     mockStream._write = size => { /* Do nothing */ };
@@ -100,8 +102,8 @@ describe('RdfVocabularyGenerationService', () => {
     expect(rdfSerializer.serialize).toHaveBeenCalled();
   });
 
-  it('should create a quad containing describing the vocabulary as an ontology', async () => {
-    const quads = await service.createVocabularyInformationQuads(store, vocabularyUri);
+  it('should create a quad describing the vocabulary as an ontology', async () => {
+    const quads = await service.createVocabularyInformationQuads(vocabularyUri);
 
     expect(quads.length).toBe(1);
     expect(quads.some((quad: RDF.Quad) =>
@@ -113,7 +115,7 @@ describe('RdfVocabularyGenerationService', () => {
 
   it('should create quads to describe a class', async () => {
     store.addQuads(await parseJsonld(jsonldWithClassAndProperty));
-    const quads = await service.extractClassQuads(store, vocabularyUri);
+    const quads = await service.extractClassQuads(vocabularyUri);
 
     expect(quads.length).toBe(4);
     expect(quads.some((quad: RDF.Quad) =>
@@ -144,7 +146,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldClassWithoutAssignedUri));
 
     jest.spyOn(service.logger, 'error');
-    await service.extractClassQuads(store, vocabularyUri);
+    await service.extractClassQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
@@ -153,14 +155,14 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldClassWithoutDefinition));
 
     jest.spyOn(service.logger, 'error');
-    await service.extractClassQuads(store, vocabularyUri);
+    await service.extractClassQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
 
   it('should add a quad with the URI of the parent if that information is available', async () => {
     store.addQuads(await parseJsonld(jsonldClassWithParent));
-    const quads = await service.extractClassQuads(store, vocabularyUri);
+    const quads = await service.extractClassQuads(vocabularyUri);
 
     expect(quads.some((quad: RDF.Quad) =>
       quad.subject.equals(df.namedNode('http://example.org/id/class/1')) &&
@@ -176,7 +178,7 @@ describe('RdfVocabularyGenerationService', () => {
 
   it('should create quads to describe an attribute', async () => {
     store.addQuads(await parseJsonld(jsonldWithClassAndProperty));
-    const quads = await service.createAttributeQuads(store, vocabularyUri);
+    const quads = await service.createAttributeQuads(vocabularyUri);
 
     expect(quads.length).toBe(6);
     expect(quads.some((quad: RDF.Quad) =>
@@ -219,7 +221,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithoutAssignedUri));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
@@ -228,7 +230,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithoutDomain));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
@@ -237,7 +239,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldDomainWithoutAssignedUri));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
@@ -246,7 +248,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldDomainWithoutRange));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
@@ -255,14 +257,14 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldRangeWithoutAssignedUri));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });
 
   it('should search in rdf:Statements for the assigned URI of a range', async () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithRangeStatement));
-    const quads = await service.createAttributeQuads(store, vocabularyUri);
+    const quads = await service.createAttributeQuads(vocabularyUri);
 
     expect(quads.some((quad: RDF.Quad) =>
       quad.subject.equals(df.namedNode('http://example.org/id/property/1')) &&
@@ -273,7 +275,7 @@ describe('RdfVocabularyGenerationService', () => {
 
   it('should add a link to the parent of the attribute it that information was found', async () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithParent));
-    const quads = await service.createAttributeQuads(store, vocabularyUri);
+    const quads = await service.createAttributeQuads(vocabularyUri);
 
     expect(quads.some((quad: RDF.Quad) =>
       quad.subject.equals(df.namedNode('http://example.org/id/property/1')) &&
@@ -288,7 +290,7 @@ describe('RdfVocabularyGenerationService', () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithRangeStatement));
 
     jest.spyOn(service.logger, 'error');
-    await service.createAttributeQuads(store, vocabularyUri);
+    await service.createAttributeQuads(vocabularyUri);
 
     expect(service.logger.error).toHaveBeenCalled();
   });

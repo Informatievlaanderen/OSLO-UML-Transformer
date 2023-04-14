@@ -1,8 +1,8 @@
+import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type { DataRegistry, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import type * as N3 from 'n3';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
@@ -16,11 +16,11 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     return model;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store): Promise<RDF.Store> {
+  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
     // Only the information of the target diagram's package is added to the output
     model.packages
       .filter(x => x.packageId === model.targetDiagram.packageId)
-      .forEach(object => (<N3.Store>store).addQuads(this.createQuads(object, uriRegistry)));
+      .forEach(object => store.addQuads(this.createQuads(object, uriRegistry)));
 
     return store;
   }

@@ -2,10 +2,11 @@ import type { Logger } from '../logging/Logger';
 import type { IConfiguration } from './IConfiguration';
 
 /**
- * Interface that must be implemented by classes that convert a UML diagram to an RDF file
+ * Interface that must be implemented by conversion of generation services
  */
-export interface IConversionService {
+export interface IService {
   logger: Logger;
   configuration: IConfiguration;
+  init: () => Promise<void>;
   run: () => Promise<void>;
 }

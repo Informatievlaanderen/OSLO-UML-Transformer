@@ -1,9 +1,9 @@
+import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type { DataRegistry, EaConnector, EaElement, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, NormalizedConnector, NormalizedConnectorTypes } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import type * as N3 from 'n3';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
@@ -17,10 +17,10 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     return model;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: RDF.Store): Promise<RDF.Store> {
+  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
     model.normalizedConnectors
       .filter(x => model.targetDiagram.connectorsIds.includes(x.originalId))
-      .forEach(object => (<N3.Store>store).addQuads(this.createQuads(object, uriRegistry, model)));
+      .forEach(object => store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
   }

@@ -1,10 +1,9 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/indent */
 import { createWriteStream } from 'fs';
-import type { IOutputHandler } from '@oslo-flanders/core';
+import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
 import { JsonLdOutputHandler, NQuadsOutputHandler } from '@oslo-flanders/output-handlers';
 import { inject, injectable } from 'inversify';
-import type { Quad, Store } from 'n3';
 import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
 
@@ -33,7 +32,7 @@ export class OutputHandlerService {
     }
   }
 
-  public async write(store: Store<Quad>): Promise<void> {
+  public async write(store: QuadStore): Promise<void> {
     const writeStream: any = this.configuration.outputFile ?
       createWriteStream(this.configuration.outputFile) :
       process.stdout;

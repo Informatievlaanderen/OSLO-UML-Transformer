@@ -1,8 +1,7 @@
-import type { IOutputHandler } from '@oslo-flanders/core';
-import type { Store, Quad } from 'n3';
+import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
 
 export class NQuadsOutputHandler implements IOutputHandler {
-  public async write(store: Store<Quad>, writeStream: any): Promise<void> {
+  public async write(store: QuadStore, writeStream: any): Promise<void> {
     console.log('This handler writes n-quads.');
   }
 }

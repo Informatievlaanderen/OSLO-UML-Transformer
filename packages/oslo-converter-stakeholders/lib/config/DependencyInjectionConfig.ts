@@ -1,4 +1,4 @@
-import type { IConfiguration, IConversionService } from '@oslo-flanders/core';
+import type { IConfiguration, IService } from '@oslo-flanders/core';
 import { ServiceIdentifier } from '@oslo-flanders/core';
 import { Container } from 'inversify';
 import { StakeholdersConversionService } from '../StakeholdersConversionService';
@@ -6,7 +6,7 @@ import { StakeholdersConversionServiceConfiguration } from './StakeholdersConver
 
 export const container = new Container();
 
-container.bind<IConversionService>(ServiceIdentifier.ConversionService)
+container.bind<IService>(ServiceIdentifier.Service)
   .to(StakeholdersConversionService)
   .inSingletonScope();
 

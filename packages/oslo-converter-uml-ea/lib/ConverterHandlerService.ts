@@ -1,7 +1,6 @@
 import type { Logger } from '@oslo-flanders/core';
+import { QuadStore } from '@oslo-flanders/core';
 import type { DataRegistry, EaObject } from '@oslo-flanders/ea-uml-extractor';
-import type { Quad } from 'n3';
-import { Store } from 'n3';
 import { container } from './config/DependencyInjectionConfig';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
 import type { ConverterHandler } from './interfaces/ConverterHandler';
@@ -46,10 +45,10 @@ export class ConverterHandlerService<T extends EaObject> {
     return uriRegistry;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry): Promise<Store<Quad>> {
+  public async convert(model: DataRegistry, uriRegistry: UriRegistry): Promise<QuadStore> {
     return new Promise(async resolve => {
       const handlers = container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler);
-      const store = new Store<Quad>();
+      const store = new QuadStore();
 
       const tasks: Promise<any>[] = [];
 

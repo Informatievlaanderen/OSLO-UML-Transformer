@@ -1,13 +1,12 @@
 import 'reflect-metadata';
 export * from './lib/interfaces/AppRunner';
 export * from './lib/interfaces/IConfiguration';
-export * from './lib/interfaces/IConversionService';
-export * from './lib/interfaces/IGenerationService';
 export * from './lib/interfaces/IOutputHandler';
+export * from './lib/interfaces/IService';
 export * from './lib/utils/fetchFileOrUrl';
 export * from './lib/utils/namespaces';
 export * from './lib/utils/uniqueId';
-export * from './lib/utils/N3StoreFunctions';
+export * from './lib/store/QuadStore';
 export * from './lib/ServiceIdentifier';
 export * from './lib/enums/Scope';
 export * from './lib/enums/PropertyTypes';
