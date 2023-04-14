@@ -5,16 +5,19 @@ import 'reflect-metadata';
 import { WinstonLogger } from '../lib/logging/WinstonLogger';
 
 describe('WinstonLogger', () => {
+  let innerLogger: any;
   let logger: WinstonLogger;
-  let spy: any;
+
   beforeEach(async (): Promise<void> => {
-    logger = new (<any>WinstonLogger)('info');
-    spy = jest.spyOn((<any>logger).logger, 'log');
+    innerLogger = {
+      log: jest.fn(),
+    };
+    logger = new WinstonLogger(innerLogger);
   });
 
   it('delegates log invocations to the inner logger', () => {
-    expect(logger.log('debug', 'my message')).toBe(logger);
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith('debug', 'my message');
+    expect(logger.log('info', 'a test message')).toBe(logger);
+    expect(innerLogger.log).toHaveBeenCalledTimes(1);
+    expect(innerLogger.log).toHaveBeenCalledWith('info', 'a test message');
   });
 });

@@ -14,3 +14,7 @@ export * from './lib/logging/LogLevel';
 export * from './lib/logging/Logger';
 export * from './lib/logging/VoidLogger';
 export * from './lib/logging/WinstonLogger';
+export * from './lib/logging/LogUtil';
+export * from './lib/logging/LoggerFactory';
+export * from './lib/logging/VoidLoggerFactory';
+export * from './lib/logging/WinstonLoggerFactory';

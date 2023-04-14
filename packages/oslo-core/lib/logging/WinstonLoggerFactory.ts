@@ -18,9 +18,7 @@ export class WinstonLoggerFactory implements LoggerFactory {
   public createLogger(label?: string): Logger {
     return new WinstonLogger(createLogger({
       level: this.level,
-      transports: [
-        new transports.Console(),
-      ],
+      transports: this.createTransports(),
       format: combine(
         colorize(),
         messageFormat,
