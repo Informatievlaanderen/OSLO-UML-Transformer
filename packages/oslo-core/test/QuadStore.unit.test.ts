@@ -56,6 +56,16 @@ describe('QuadStore functions', () => {
     store = new QuadStore();
   });
 
+  it('should be able to parse valid RDF (or a serialization)', async () => {
+    jest.spyOn(_, 'fetchFileOrUrl').mockImplementation(() => Promise.resolve(Buffer.from(
+      `<http://example.org/id/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http//example.org/Test> .`,
+    )));
+    (<any>store).store.addQuad = jest.fn();
+
+    await expect(store.addQuadsFromFile('http://example.org/testFile.ttl')).resolves.not.toThrow();
+    expect((<any>store).store.addQuad).toHaveBeenCalled();
+  });
+
   it('should throw an error when parsing the file to RDF goes wrong', async () => {
     // Data snippet misses "." at the end to be valid turtle and parser should fail
     jest.spyOn(_, 'fetchFileOrUrl').mockImplementation(() => Promise.resolve(Buffer.from(

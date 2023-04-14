@@ -1,9 +1,7 @@
 import { stderr } from 'process';
 import type { Container } from 'inversify';
 import type { Logger } from '../logging/Logger';
-import type { LogLevel } from '../logging/LogLevel';
-import { VoidLogger } from '../logging/VoidLogger';
-import { WinstonLogger } from '../logging/WinstonLogger';
+import { createLogger, setLoggerFactory } from '../logging/LogUtil';
 import { ServiceIdentifier } from '../ServiceIdentifier';
 import type { IConfiguration } from './IConfiguration';
 import type { IService } from './IService';
@@ -35,13 +33,8 @@ export abstract class AppRunner<T extends IService, K extends IConfiguration> {
     const configuration = container.get<K>(ServiceIdentifier.Configuration);
     await configuration.createFromCli(params);
 
-    if (params.silent) {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .to(VoidLogger);
-    } else {
-      container.bind<Logger>(ServiceIdentifier.Logger)
-        .toDynamicValue(() => new WinstonLogger(<LogLevel>params.logLevel));
-    }
+    setLoggerFactory(params);
+    container.bind<Logger>(ServiceIdentifier.Logger).toDynamicValue(() => createLogger()).inSingletonScope();
 
     const service = container.get<T>(ServiceIdentifier.Service);
     service.init()

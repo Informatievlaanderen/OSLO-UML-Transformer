@@ -6,7 +6,7 @@ import { VoidLogger } from '../lib/logging/VoidLogger';
 
 describe('VoidLogger', () => {
   let logger: VoidLogger;
-  beforeEach(async (): Promise<void> => {
+  beforeEach(async () => {
     logger = new VoidLogger();
   });
 

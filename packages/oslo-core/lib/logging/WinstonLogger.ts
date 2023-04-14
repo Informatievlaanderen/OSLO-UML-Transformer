@@ -1,29 +1,16 @@
 import { injectable } from 'inversify';
-import type { Logger as WinstonInnerLogger } from 'winston';
-import { transports, createLogger, format } from 'winston';
-const { combine, colorize, printf } = format;
+import { Logger as WinstonInnerLogger } from 'winston';
 
 import { BaseLogger } from './Logger';
-import { LogLevel } from './LogLevel';
-
-const messageFormat = printf(({ level, message, messageTimestamp }) => `${new Date(Date.now()).toISOString()} ${level}: ${message}`);
+import type { LogLevel } from './LogLevel';
 
 @injectable()
 export class WinstonLogger extends BaseLogger {
   private readonly logger: WinstonInnerLogger;
 
-  public constructor(logLevel: LogLevel) {
+  public constructor(logger: WinstonInnerLogger) {
     super();
-    this.logger = createLogger({
-      level: logLevel,
-      transports: [
-        new transports.Console(),
-      ],
-      format: combine(
-        colorize(),
-        messageFormat,
-      ),
-    });
+    this.logger = logger;
   }
 
   public log(level: LogLevel, message: string): this {
