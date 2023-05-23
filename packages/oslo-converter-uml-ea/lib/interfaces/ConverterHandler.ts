@@ -14,6 +14,7 @@ export abstract class ConverterHandler<T extends EaObject> {
   @inject(EaUmlConverterServiceIdentifier.Configuration) public readonly config!: EaUmlConverterConfiguration;
   @inject(EaUmlConverterServiceIdentifier.Logger) public readonly logger!: Logger;
   public readonly df = new DataFactory();
+  public readonly baseUrnScheme: string = 'urn:oslo-toolchain';
 
   /**
    * Creates RDF.Quads for objects with type T in the normalized model and adds them to an RDF.Store

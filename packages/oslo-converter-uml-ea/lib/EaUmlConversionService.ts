@@ -48,7 +48,10 @@ export class EaUmlConversionService implements IService {
 
   private async addDocumentInformation(store: QuadStore): Promise<QuadStore> {
     const df = new DataFactory();
-    const versionUri = `${this.configuration.baseUri}/${this.configuration.versionId}`;
+    const normalizedVersionBaseUri = this.configuration.publicationEnvironment.endsWith('/') ?
+      this.configuration.publicationEnvironment.slice(0, -1) :
+      this.configuration.publicationEnvironment;
+    const versionUri = `${normalizedVersionBaseUri}/${this.configuration.versionId}`;
 
     // The output handler will use this quad to set the id of the document
     store.addQuad(

@@ -26,8 +26,11 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
   public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
     // Only attributes of elements that are on the target diagram will be passed to the output handler
+    // and attributes that have a domain that is not an enumeration
+    const enumerationClasses = model.elements.filter(x => x.type === ElementType.Enumeration);
     model.attributes
-      .filter(x => model.targetDiagram.elementIds.includes(x.classId))
+      .filter(x => model.targetDiagram.elementIds.includes(x.classId) &&
+        !enumerationClasses.some(y => y.id === x.classId))
       .forEach(object => store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
@@ -58,7 +61,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         }
 
         if (!referencedPackages) {
-          throw new Error(`[AttributeConverterHandler]: Package tag was defined, but unable to find the objects for attribute (${attribute.path}).`);
+          throw new Error(`[AttributeConverterHandler]: Package tag was defined, but unable to find a related package object for attribute (${attribute.path}).`);
         }
 
         attributeBaseUri = uriRegistry.packageIdUriMap.get(referencedPackages[0].packageId)!;
@@ -90,7 +93,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
   public createQuads(object: EaAttribute, uriRegistry: UriRegistry, model: DataRegistry): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
-    const attributeWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${object.osloGuid}`);
+    const attributeInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
     const attributeUri = uriRegistry.attributeIdUriMap.get(object.id);
 
     if (!attributeUri) {
@@ -131,7 +134,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const elementIsLiteral = getTagValue(rangeElement, TagNames.IsLiteral, false);
 
       attributeType = elementIsLiteral === 'true' ? PropertyType.DataTypeProperty : PropertyType.ObjectProperty;
-      rangeUri = `${this.config.baseUri}/.well-known/id/${rangeElement.osloGuid}`;
+      rangeUri = `${this.baseUrnScheme}:${rangeElement.osloGuid}`;
       rangeLabel = object.type;
     } else {
       attributeType = PropertyType.Property;
@@ -145,42 +148,42 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
     quads.push(
       this.df.quad(
-        attributeWellKnownId,
+        attributeInternalId,
         ns.rdf('type'),
         this.df.namedNode(attributeType),
       ),
       this.df.quad(
-        attributeWellKnownId,
+        attributeInternalId,
         ns.example('assignedUri'),
         attributeUriNamedNode,
       ),
       this.df.quad(
-        attributeWellKnownId,
+        attributeInternalId,
         ns.rdfs('range'),
         rangeUriNamedNode,
       ),
     );
 
-    quads.push(...this.addRangeRdfStatement(attributeWellKnownId, rangeUriNamedNode, model, rangeLabel, rangeElement));
+    quads.push(...this.addRangeRdfStatement(attributeInternalId, rangeUriNamedNode, model, rangeLabel, rangeElement));
 
     const definitionLiterals = this.getDefinition(object);
-    definitionLiterals.forEach(x => quads.push(this.df.quad(attributeWellKnownId, ns.rdfs('comment'), x)));
+    definitionLiterals.forEach(x => quads.push(this.df.quad(attributeInternalId, ns.rdfs('comment'), x)));
 
     const labelLiterals = this.getLabel(object);
-    labelLiterals.forEach(x => quads.push(this.df.quad(attributeWellKnownId, ns.rdfs('label'), x)));
+    labelLiterals.forEach(x => quads.push(this.df.quad(attributeInternalId, ns.rdfs('label'), x)));
 
     const usageNoteLiterals = this.getUsageNote(object);
-    usageNoteLiterals.forEach(x => quads.push(this.df.quad(attributeWellKnownId, ns.vann('usageNote'), x)));
+    usageNoteLiterals.forEach(x => quads.push(this.df.quad(attributeInternalId, ns.vann('usageNote'), x)));
 
     const domainClass = model.elements.find(x => x.id === object.classId);
     if (domainClass) {
-      const domainWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${domainClass.osloGuid}`);
+      const domainInternalId = this.df.namedNode(`${this.baseUrnScheme}:${domainClass.osloGuid}`);
 
       quads.push(
         this.df.quad(
-          attributeWellKnownId,
+          attributeInternalId,
           ns.rdfs('domain'),
-          domainWellKnownId,
+          domainInternalId,
         ),
       );
     }
@@ -193,19 +196,19 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.attributeIdUriMap);
     quads.push(this.df.quad(
-      attributeWellKnownId,
+      attributeInternalId,
       ns.example('scope'),
       this.df.literal(scope),
     ));
 
     quads.push(
       this.df.quad(
-        attributeWellKnownId,
+        attributeInternalId,
         ns.shacl('minCount'),
         this.df.literal(object.lowerBound),
       ),
       this.df.quad(
-        attributeWellKnownId,
+        attributeInternalId,
         ns.shacl('maxCount'),
         this.df.literal(object.upperBound),
       ),
@@ -215,7 +218,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     if (parentUri) {
       quads.push(
         this.df.quad(
-          attributeWellKnownId,
+          attributeInternalId,
           ns.rdfs('subPropertyOf'),
           this.df.namedNode(parentUri),
         ),

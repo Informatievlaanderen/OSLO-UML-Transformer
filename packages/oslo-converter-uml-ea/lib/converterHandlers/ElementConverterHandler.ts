@@ -89,7 +89,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
   public createQuads(object: EaElement, uriRegistry: UriRegistry, model: DataRegistry): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
-    const objectWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${object.osloGuid}`);
+    const objectInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
     const objectUri = uriRegistry.elementIdUriMap.get(object.id);
 
     if (!objectUri) {
@@ -110,17 +110,17 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
     quads.push(
       this.df.quad(
-        objectWellKnownId,
+        objectInternalId,
         ns.example('assignedUri'),
         objectUriNamedNode,
       ),
     );
 
     const definitionValues = this.getDefinition(object);
-    definitionValues.forEach(value => quads.push(this.df.quad(objectWellKnownId, ns.rdfs('comment'), value)));
+    definitionValues.forEach(value => quads.push(this.df.quad(objectInternalId, ns.rdfs('comment'), value)));
 
     const usageNoteValues = this.getUsageNote(object);
-    usageNoteValues.forEach(value => quads.push(this.df.quad(objectWellKnownId, ns.vann('usageNote'), value)));
+    usageNoteValues.forEach(value => quads.push(this.df.quad(objectInternalId, ns.vann('usageNote'), value)));
 
     const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
 
@@ -131,22 +131,22 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.elementIdUriMap);
 
     quads.push(this.df.quad(
-      objectWellKnownId,
+      objectInternalId,
       ns.example('scope'),
       this.df.literal(scope),
     ));
 
     switch (object.type) {
       case ElementType.Class:
-        quads.push(...this.createClassSpecificQuads(object, objectWellKnownId, uriRegistry, model));
+        quads.push(...this.createClassSpecificQuads(object, objectInternalId, uriRegistry, model));
         break;
 
       case ElementType.DataType:
-        quads.push(...this.createDataTypeSpecificQuads(object, objectWellKnownId, uriRegistry, model));
+        quads.push(...this.createDataTypeSpecificQuads(object, objectInternalId, uriRegistry, model));
         break;
 
       case ElementType.Enumeration:
-        quads.push(...this.createEnumerationSpecificQuads(object, objectWellKnownId, uriRegistry, model));
+        quads.push(...this.createEnumerationSpecificQuads(object, objectInternalId, uriRegistry, model));
         break;
 
       default:
@@ -158,7 +158,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
   private createClassSpecificQuads(
     object: EaElement,
-    objectWellKnownId: RDF.NamedNode,
+    objectInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
     model: DataRegistry,
   ): RDF.Quad[] {
@@ -166,14 +166,14 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
     quads.push(
       this.df.quad(
-        objectWellKnownId,
+        objectInternalId,
         ns.rdf('type'),
         ns.owl('Class'),
       ),
     );
 
     const labelLiterals = this.getLabel(object);
-    labelLiterals.forEach(x => quads.push(this.df.quad(objectWellKnownId, ns.rdfs('label'), x)));
+    labelLiterals.forEach(x => quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), x)));
 
     // Connectors array is used here, because NormalizedConnectors array doesn't have this type
     const parentClassConnectors = model.connectors
@@ -186,13 +186,13 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         throw new Error(`[ElementConverterHandler]: Unable to find parent class for class (${object.path}).`);
       }
 
-      const parentWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${parentClassObject.osloGuid}`);
+      const parentInternalId = this.df.namedNode(`${this.baseUrnScheme}:${parentClassObject.osloGuid}`);
 
       quads.push(
         this.df.quad(
-          objectWellKnownId,
+          objectInternalId,
           ns.rdfs('subClassOf'),
-          parentWellKnownId,
+          parentInternalId,
         ),
       );
 
@@ -215,7 +215,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
           this.df.quad(
             statementBlankNode,
             ns.rdf('subject'),
-            objectWellKnownId,
+            objectInternalId,
           ),
           this.df.quad(
             statementBlankNode,
@@ -225,7 +225,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
           this.df.quad(
             statementBlankNode,
             ns.rdf('object'),
-            parentWellKnownId,
+            parentInternalId,
           ),
           this.df.quad(
             statementBlankNode,
@@ -244,7 +244,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
   private createDataTypeSpecificQuads(
     object: EaElement,
-    objectWellKnownId: RDF.NamedNode,
+    objectInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
     model: DataRegistry,
   ): RDF.Quad[] {
@@ -252,21 +252,21 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
     quads.push(
       this.df.quad(
-        objectWellKnownId,
+        objectInternalId,
         ns.rdf('type'),
         ns.example('DataType'),
       ),
     );
 
     const labelLiterals = this.getLabel(object);
-    labelLiterals.forEach(x => quads.push(this.df.quad(objectWellKnownId, ns.rdfs('label'), x)));
+    labelLiterals.forEach(x => quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), x)));
 
     return quads;
   }
 
   private createEnumerationSpecificQuads(
     object: EaElement,
-    objectWellKnownId: RDF.NamedNode,
+    objectInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
     model: DataRegistry,
   ): RDF.Quad[] {
@@ -274,7 +274,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
     quads.push(
       this.df.quad(
-        objectWellKnownId,
+        objectInternalId,
         ns.rdf('type'),
         ns.owl('Class'),
       ),
@@ -282,12 +282,12 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
     // FIXME: this should be available through a tag (language-aware)
     const label = this.df.literal(object.name);
-    quads.push(this.df.quad(objectWellKnownId, ns.rdfs('label'), label));
+    quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), label));
 
     const codelist = getTagValue(object, TagNames.ApCodelist, null);
 
     if (codelist) {
-      quads.push(this.df.quad(objectWellKnownId, ns.example('codelist'), this.df.namedNode(codelist)));
+      quads.push(this.df.quad(objectInternalId, ns.example('codelist'), this.df.namedNode(codelist)));
     }
 
     return quads;
