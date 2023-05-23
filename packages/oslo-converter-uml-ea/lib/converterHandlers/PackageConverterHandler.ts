@@ -69,21 +69,21 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     }
 
     const ontologyUriNamedNode = this.df.namedNode(ontologyUri.toString());
-    const uniqueHttpUri = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${object.osloGuid}`);
+    const packageInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
 
     quads.push(
       this.df.quad(
-        uniqueHttpUri,
+        packageInternalId,
         ns.rdf('type'),
         ns.example('Package'),
       ),
       this.df.quad(
-        uniqueHttpUri,
+        packageInternalId,
         ns.example('assignedUri'),
         ontologyUriNamedNode,
       ),
       this.df.quad(
-        uniqueHttpUri,
+        packageInternalId,
         ns.example('baseUri'),
         this.df.namedNode(baseUri.toString()),
       ),

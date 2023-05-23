@@ -22,7 +22,6 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
           choices: ['ApplicationProfile', 'Vocabulary'],
         })
       .option('versionId', { describe: 'Relative URI used to identify this document.' })
-      .option('baseUri', { describe: 'The base URI to be used within the document and to create the version URI.' })
       .option('outputFormat',
         {
           describe: 'RDF content-type in which the output must be written or to the console.',

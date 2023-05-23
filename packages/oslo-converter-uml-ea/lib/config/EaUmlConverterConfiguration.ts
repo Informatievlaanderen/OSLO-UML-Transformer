@@ -31,11 +31,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   private _versionId: string | undefined;
 
   /**
-   * Base URI used for the version id in the RDF document
-   */
-  private _baseUri: string | undefined;
-
-  /**
    * An RDF serialisation
    */
   private _outputFormat: string | undefined;
@@ -51,7 +46,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._specificationType = <string>params.specificationType;
     this._outputFile = <string>(params.outputFile || 'report.jsonld');
     this._versionId = <string>params.versionId;
-    this._baseUri = <string>params.baseUri;
     this._outputFormat = <string>params.outputFormat;
     this._publicationEnvironment = <string>params.publicationEnvironment;
   }
@@ -89,13 +83,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "versionId" before it was set.`);
     }
     return this._versionId;
-  }
-
-  public get baseUri(): string {
-    if (!this._baseUri) {
-      throw new Error(`Trying to access property "baseUri" before it was set.`);
-    }
-    return this._baseUri;
   }
 
   public get outputFormat(): string {

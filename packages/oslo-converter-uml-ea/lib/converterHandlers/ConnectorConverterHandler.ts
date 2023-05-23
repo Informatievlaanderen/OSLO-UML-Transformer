@@ -52,30 +52,31 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       const packageTagValue = getTagValue(connector, TagNames.DefiningPackage, null);
       let definingPackageUri: URL | undefined;
 
-      // Here, we check the value of the 'package' tag.
-      // If there was no value, both source and destination should be defined in the same package.
-      // If there was a value, we check that the same package name is used for different packages,
-      // otherwise, we use the fallback uri
-      if (!packageTagValue) {
-        const sourcePackage = model.elements.find(x => x.id === connector.sourceObjectId);
-        const destinationPackage = model.elements.find(x => x.id === connector.destinationObjectId);
-
-        if (sourcePackage && destinationPackage && sourcePackage.packageId === destinationPackage.packageId) {
-          definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackage.packageId)!;
-        } else {
-          this.logger.warn(`[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}).`);
-          definingPackageUri = new URL(uriRegistry.fallbackBaseUri);
-        }
-      } else {
-        const packageObject = model.packages.find(x => x.name === packageTagValue);
-        if (!packageObject) {
-          throw new Error(`[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`);
-        }
-
-        definingPackageUri = new URL(uriRegistry.packageIdUriMap.get(packageObject.packageId)!);
-      }
-
       if (!connectorUri) {
+        // Here, we check the value of the 'package' tag.
+        // If there was no value, both source and destination should be defined in the same package.
+        // If there was a value, we check that the same package name is used for different packages,
+        // otherwise, we use the fallback uri
+        if (!packageTagValue) {
+          const sourcePackage = model.elements.find(x => x.id === connector.sourceObjectId);
+          const destinationPackage = model.elements.find(x => x.id === connector.destinationObjectId);
+
+          if (sourcePackage && destinationPackage && sourcePackage.packageId === destinationPackage.packageId) {
+            definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackage.packageId)!;
+          } else {
+            console.log(connector.tags);
+            this.logger.warn(`[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}) and the fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`);
+            definingPackageUri = new URL(uriRegistry.fallbackBaseUri);
+          }
+        } else {
+          const packageObject = model.packages.find(x => x.name === packageTagValue);
+          if (!packageObject) {
+            throw new Error(`[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`);
+          }
+
+          definingPackageUri = new URL(uriRegistry.packageIdUriMap.get(packageObject.packageId)!);
+        }
+
         let localName = getTagValue(connector, TagNames.LocalName, connector.name);
         localName = convertToCase(localName);
         connectorUri = `${definingPackageUri}${localName}`;
@@ -90,7 +91,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   public createQuads(object: NormalizedConnector, uriRegistry: UriRegistry, model: DataRegistry): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
-    const connectorWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${object.osloGuid}`);
+    const connectorInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
     const connectorUri = uriRegistry.connectorOsloIdUriMap.get(object.id);
 
     if (!connectorUri) {
@@ -100,39 +101,39 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     const connectorUriNamedNode = this.df.namedNode(connectorUri.toString());
 
     quads.push(
-      this.df.quad(connectorWellKnownId, ns.rdf('type'), ns.owl('ObjectProperty')),
-      this.df.quad(connectorWellKnownId, ns.example('assignedUri'), connectorUriNamedNode),
+      this.df.quad(connectorInternalId, ns.rdf('type'), ns.owl('ObjectProperty')),
+      this.df.quad(connectorInternalId, ns.example('assignedUri'), connectorUriNamedNode),
     );
 
     const definitionValues = this.getDefinition(object);
-    definitionValues.forEach(x => quads.push(this.df.quad(connectorWellKnownId, ns.rdfs('comment'), x)));
+    definitionValues.forEach(x => quads.push(this.df.quad(connectorInternalId, ns.rdfs('comment'), x)));
 
     const labelValues = this.getLabel(object);
-    labelValues.forEach(x => quads.push(this.df.quad(connectorWellKnownId, ns.rdfs('label'), x)));
+    labelValues.forEach(x => quads.push(this.df.quad(connectorInternalId, ns.rdfs('label'), x)));
 
     const usageNoteValues = this.getUsageNote(object);
-    usageNoteValues.forEach(x => quads.push(this.df.quad(connectorWellKnownId, ns.vann('usageNote'), x)));
+    usageNoteValues.forEach(x => quads.push(this.df.quad(connectorInternalId, ns.vann('usageNote'), x)));
 
     const domainObject = model.elements.find(x => x.id === object.sourceObjectId);
 
     if (domainObject) {
-      const domainWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${domainObject.osloGuid}`);
+      const domainInternalId = this.df.namedNode(`${this.baseUrnScheme}:${domainObject.osloGuid}`);
       quads.push(this.df.quad(
-        connectorWellKnownId,
+        connectorInternalId,
         ns.rdfs('domain'),
-        domainWellKnownId,
+        domainInternalId,
       ));
     }
 
     const rangeObject = model.elements.find(x => x.id === object.destinationObjectId);
 
     if (rangeObject) {
-      const rangeWellKnownId = this.df.namedNode(`${this.config.baseUri}/.well-known/id/${rangeObject.osloGuid}`);
+      const rangeInternalId = this.df.namedNode(`${this.baseUrnScheme}:${rangeObject.osloGuid}`);
 
       quads.push(this.df.quad(
-        connectorWellKnownId,
+        connectorInternalId,
         ns.rdfs('range'),
-        rangeWellKnownId,
+        rangeInternalId,
       ));
     }
 
@@ -144,7 +145,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
 
     const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.connectorOsloIdUriMap);
     quads.push(this.df.quad(
-      connectorWellKnownId,
+      connectorInternalId,
       ns.example('scope'),
       this.df.namedNode(scope),
     ));
@@ -161,12 +162,12 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
 
       quads.push(
         this.df.quad(
-          connectorWellKnownId,
+          connectorInternalId,
           ns.shacl('minCount'),
           this.df.literal(minCardinality),
         ),
         this.df.quad(
-          connectorWellKnownId,
+          connectorInternalId,
           ns.shacl('maxCount'),
           this.df.literal(maxCardinality),
         ),
@@ -179,7 +180,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     if (parentUri) {
       quads.push(
         this.df.quad(
-          connectorWellKnownId,
+          connectorInternalId,
           ns.rdfs('subPropertyOf'),
           this.df.namedNode(parentUri),
         ),
