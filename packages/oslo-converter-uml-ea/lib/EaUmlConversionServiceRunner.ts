@@ -43,7 +43,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
         default: 'info',
         choices: LOG_LEVELS,
       })
-      .demandOption(['umlFile', 'diagramName', 'specificationType', 'versionId', 'baseUri', 'publicationEnvironment'],
+      .demandOption(['umlFile', 'diagramName', 'specificationType', 'versionId', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.')
       .help('h')
       .alias('h', 'help');

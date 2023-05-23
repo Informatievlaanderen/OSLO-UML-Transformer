@@ -41,7 +41,7 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       let packageUri = getTagValue(packageObject, TagNames.PackageBaseUri, null);
 
       if (!packageUri) {
-        this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package (${packageObject.path}).`);
+        this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package (${packageObject.path}) and fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`);
         packageUri = uriRegistry.fallbackBaseUri;
       }
 

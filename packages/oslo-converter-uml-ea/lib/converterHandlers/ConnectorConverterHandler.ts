@@ -64,7 +64,6 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
           if (sourcePackage && destinationPackage && sourcePackage.packageId === destinationPackage.packageId) {
             definingPackageUri = uriRegistry.packageIdUriMap.get(sourcePackage.packageId)!;
           } else {
-            console.log(connector.tags);
             this.logger.warn(`[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}) and the fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`);
             definingPackageUri = new URL(uriRegistry.fallbackBaseUri);
           }
