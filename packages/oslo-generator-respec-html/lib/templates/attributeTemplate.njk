@@ -1,0 +1,79 @@
+<h2> {{attribute.label}} </h2>
+
+
+
+<table>
+  <tr>
+    <th>Type</th>
+    <td>Attribute</td>
+  </tr>
+  <tr>
+    <th>URI</th>
+    <td>{{attribute.id | urlize() | safe}}</td>
+  </tr>
+
+
+  <tr>
+    <th>Definition</th>
+    {% if attribute.definition%}
+    <td>{{attribute.definition}}</td>
+     {% else %}
+    <td style="color:red;">Empty</td>
+  {%endif%}
+  </tr>
+
+  <tr>
+    <th>Label</th>
+    {% if attribute.label%}
+    <td>{{attribute.label}}</td>
+     {% else %}
+    <td style="color:red;">Empty</td>
+ {%endif%}
+  </tr>
+
+   <tr>
+    <th>UsageNote</th>
+    {% if attribute.usageNote %}
+    <td>{{attribute.usageNote}}</td>
+     {% else %}
+    <td style="color:red;">Empty</td>
+    {% endif %}
+  </tr>
+
+  <tr>
+    <th>Domain</th>
+    {% if attribute.domain %}
+    <td>{{attribute.domain | urlize() | safe}}</td>
+    {% else %}
+    <td style="color:red;">Empty</td>
+  </tr>
+{% endif %}
+
+  <tr>
+    <th>Range</th>
+    {% if attribute.range %}
+    <td>{{attribute.range}}</td>
+    {% else %}
+    <td style="color:red;">Empty</td>
+  </tr>
+{% endif %}
+
+  <tr>
+    <th>maxCount</th>
+    {% if attribute.maxCount %}
+    <td>{{attribute.maxCount}}</td>
+    {% else %}
+    <td style="color:red;">Empty</td>
+  </tr>
+{% endif %}
+
+  <tr>
+    <th>minCount</th>
+    {% if attribute.minCount %}
+    <td>{{attribute.minCount}}</td>
+    {% else %}
+    <td style="color:red;">Empty</td>
+  </tr>
+{% endif %}
+
+</table>

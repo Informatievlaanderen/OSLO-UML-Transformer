@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8"/>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">var respecConfig = {{respecConfig | safe}}</script>
+  </head>
+
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th:first-child {
+      width: 15%;
+    }
+
+    table{
+      width: 100%;
+    }
+  </style> 
+  <body>
+    <h1 id="title">{{specName}}</h1>
+
+    <br></br>
+    This document describes a <b>vocabulary</b>, in this case <b>{{specName}}</b>. A vocabulary is a collection of reusable terms, namely classes and properties, whose meaning is fixed by means of a label and definition. Additional formal agreements are available for terms defined in this domain. For external terms, the formal conventions are taken from the external source.
+
+    <h1>Resume</h1>
+    <br></br>
+
+    <h1>Status of this document</h1>
+    <br></br>
+    
+    <h1>License</h1>
+    <br></br>
+
+    <h1>Conformity</h1>
+    An exchange of data, however the exchange takes place, conforms to this vocabulary when it uses the terminology (classes and properties) in a manner consistent with the semantics established in the latest version of the specification (domain, range , definition and usage) and does not use terminology from other vocabularies as an alternative to the proposed terminology included in this vocabulary.
+    <br>
+
+    <h1>Classes</h1>
+    <p>This section gives a formal definition to each class.</p>
+
+    {% for class in classes %}{% include "./classTemplate.njk" %}{% endfor %}
+
+    <h1>Attributes</h1>
+    <p>This section gives a formal definition to each attribute.</p>
+
+    {% for attribute in attributes %}{% include "./attributeTemplate.njk" %}{% endfor %}
+
+
+    <h1>External terminology</h1>
+
+    <br></br>
+
+    <h1>Authors and contributors</h1>
+    <b>Authors</b>
+    <br></br>
+
+    <b>Contributors</b>
+  </body>
+</html>

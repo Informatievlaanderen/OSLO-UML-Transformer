@@ -1,0 +1,52 @@
+<h2>{{class.label}}</h2>
+
+
+
+<table>
+  <tr>
+    <th>Type</th>
+    <td>Class</td>
+  </tr>
+  <tr>
+    <th>URI</th>
+    <td>{{class.id | urlize() | safe}}</td>
+  </tr>
+
+
+  <tr>
+    <th>Definition</th>
+    {% if class.definition%}
+    <td>{{class.definition}}</td>
+     {% else %}
+    <td style="color:red;">Empty</td>
+  {%endif%}
+  </tr>
+
+  <tr>
+    <th>Label</th>
+    {% if class.label%}
+    <td>{{class.label}}</td>
+     {% else %}
+    <td style="color:red;">Empty</td>
+ {%endif%}
+  </tr>
+
+  {% if class.parents.length > 0 %}
+  <tr>
+    <th>Parent</th>
+    <td>
+    {% for parent in class.parents%}
+      {{parent | urlize() | safe }}
+      {% if class.parents.length >1 %}
+      <br/>
+      {% endif %}
+    {% endfor %}
+    </td>
+  </tr>
+  {% endif %}
+
+
+
+
+</table>
+
