@@ -2,6 +2,9 @@
 
 > Given an OSLO-compliant RDF file, this tool generates an HTML file with the ReSpec layout
 
+## Note
+This tool has not been thoroughly tested and is primarily used as a visual validation tool!
+
 ## Install
 ```
 npm install @oslo-flanders/html-respec-generator
