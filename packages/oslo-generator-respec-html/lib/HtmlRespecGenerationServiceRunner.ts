@@ -13,13 +13,20 @@ export class HtmlRespecGenerationServiceRunner extends
       .option('input', { describe: 'The input file to generate an HTML file for.' })
       .option('output', { describe: 'Name of the output file.', default: 'respec.html' })
       .option('language', { describe: 'The language in which the HTML must be generated.' })
+      .option('specificationType',
+        {
+          describe: 'The specification type to generate an HTML page for',
+          choices: ['ApplicationProfile', 'Vocabulary'],
+          default: 'Vocabulary',
+        })
+      .option('specificationName', { describe: 'The name of the specification' })
       .option('silent',
         {
           describe: 'All logs are suppressed',
           default: false,
           boolean: true,
         })
-      .demandOption(['input', 'language'])
+      .demandOption(['input', 'language', 'specificationName'])
       .help('h')
       .alias('h', 'help');
 

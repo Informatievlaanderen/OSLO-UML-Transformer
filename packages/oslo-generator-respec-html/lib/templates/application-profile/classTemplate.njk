@@ -1,0 +1,35 @@
+<h2>
+  {{class.label}}
+</h2>
+
+<b>URI</b>
+<br>
+{{class.id | urlize() | safe}}
+
+<br>
+
+<b>Definition</b>
+<br>
+{{class.definition}}
+
+<br>
+{% if class.properties.length > 0 %}
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  {% for property in class.properties %}
+  <tr>
+    <td>{{property.label}}</td>
+    <td>{{property.range}}</td>
+    <td>{{property.definition}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p><b><i>No properties defined for this entity</b></i></p>
+{% endif %}

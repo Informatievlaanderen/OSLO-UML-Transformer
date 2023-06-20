@@ -1,23 +1,16 @@
 <h2>{{class.label}}</h2>
 
-
-
 <table>
-  <tr>
-    <th>Type</th>
-    <td>Class</td>
-  </tr>
   <tr>
     <th>URI</th>
     <td>{{class.id | urlize() | safe}}</td>
   </tr>
 
-
   <tr>
     <th>Definition</th>
     {% if class.definition%}
     <td>{{class.definition}}</td>
-     {% else %}
+    {% else %}
     <td style="color:red;">Empty</td>
   {%endif%}
   </tr>
@@ -28,8 +21,15 @@
     <td>{{class.label}}</td>
      {% else %}
     <td style="color:red;">Empty</td>
- {%endif%}
+    {%endif%}
   </tr>
+
+  {% if class.usageNote %}
+  <tr>
+    <th>Usage note</th>
+    <td>{{class.usageNote}}</td>
+  </tr>
+  {% endif %}
 
   {% if class.parents.length > 0 %}
   <tr>

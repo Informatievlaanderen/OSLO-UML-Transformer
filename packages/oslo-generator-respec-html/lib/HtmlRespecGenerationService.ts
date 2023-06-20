@@ -7,7 +7,9 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
 import { HtmlRespecGenerationServiceConfiguration } from './config/HtmlRespecGenerationServiceConfiguration';
+import { alphabeticalSort } from './utils/alphabeticalSort';
 import { isInScope } from './utils/scopeFilter';
+import { SpecificationType } from './utils/specificationTypeEnum';
 
 @injectable()
 export class HtmlRespecGenerationService implements IService {
@@ -16,7 +18,7 @@ export class HtmlRespecGenerationService implements IService {
   public readonly store: QuadStore;
 
   public constructor(
-  @inject(ServiceIdentifier.Logger) logger: Logger,
+    @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration) config: HtmlRespecGenerationServiceConfiguration,
     @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
@@ -30,7 +32,6 @@ export class HtmlRespecGenerationService implements IService {
     await this.store.addQuadsFromFile(this.configuration.input);
   }
 
-  // TODO: make a distinction between application profile and vocabulary
   public async run(): Promise<void> {
     const [classes, attributes, config] = await Promise.all([
       this.extractClassInformation(),
@@ -38,11 +39,23 @@ export class HtmlRespecGenerationService implements IService {
       this.createRespecConfig(),
     ]);
 
-    const html = nj.render('index.njk', {
-      specName: '',
+    const indexPath = this.configuration.specificationType === SpecificationType.Vocabulary ?
+      'vocabulary/index.njk' :
+      'application-profile/index.njk';
+
+    let data: any = {};
+    if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
+      this.groupPropertiesPerDomain(classes, attributes);
+      data = classes;
+    } else {
+      data.classes = classes;
+      data.properties = attributes;
+    }
+
+    const html = nj.render(indexPath, {
+      specName: this.configuration.specificationName,
       respecConfig: config,
-      classes,
-      attributes,
+      data,
     });
 
     const dirPath = dirname(this.configuration.output);
@@ -53,20 +66,43 @@ export class HtmlRespecGenerationService implements IService {
 
   private async createRespecConfig(): Promise<any> {
     const respecConfig = {
-      specStatus: 'ED',
+      specStatus: 'unofficial',
+      editors: [
+        {
+          name: 'John Doe',
+        },
+      ],
       publishDate: new Date().toISOString(),
     };
 
     return `${JSON.stringify(respecConfig)}`;
   }
 
+  private groupPropertiesPerDomain(classes: any[], properties: any[]): void {
+    properties.forEach(property => {
+      const classObject = classes.find(x => x.id === property.domain);
+
+      if (!classObject) {
+        this.logger.error(`Unable to find a related class object for domain ${property.domain} of property ${property.assignedUri}.`);
+        return;
+      }
+
+      if (!classObject.properties) {
+        classObject.properties = [];
+      }
+
+      classObject.properties.push(property);
+    });
+  }
+
   private async extractClassInformation(): Promise<any[]> {
     return this.store.findSubjects(ns.rdf('type'), ns.owl('Class'))
-      .filter(x => isInScope(<RDF.NamedNode>x, this.store))
+      //.filter(x => isInScope(<RDF.NamedNode>x, this.store))
       .map(subjectId => {
         const assignedUri = this.store.getAssignedUri(subjectId);
-        const label = this.store.getLabel(subjectId, this.configuration.language);
+        const label = this.store.getLabel(subjectId, this.configuration.language) || this.store.getLabel(subjectId);
         const definition = this.store.getDefinition(subjectId, this.configuration.language);
+        const usageNote = this.store.getUsageNote(subjectId, this.configuration.language);
         const parents = this.store.getParentsOfClass(subjectId);
 
         const parentAssignedUris: RDF.NamedNode[] = [];
@@ -92,9 +128,11 @@ export class HtmlRespecGenerationService implements IService {
           id: assignedUri?.value,
           label: label?.value,
           definition: definition?.value,
+          usageNote: usageNote?.value,
           parents: parentAssignedUris,
         };
-      });
+      })
+      .sort(alphabeticalSort);
   }
 
   private async extractPropertyInformation(): Promise<any[]> {
@@ -105,7 +143,7 @@ export class HtmlRespecGenerationService implements IService {
       .filter(x => isInScope(<RDF.NamedNode>x, this.store))
       .map(subjectId => {
         const assignedUri = this.store.getAssignedUri(subjectId);
-        const label = this.store.getLabel(subjectId, this.configuration.language);
+        const label = this.store.getLabel(subjectId, this.configuration.language) || this.store.getLabel(subjectId);
         const definition = this.store.getDefinition(subjectId, this.configuration.language);
         const minCount = this.store.getMinCardinality(subjectId);
         const maxCount = this.store.getMaxCardinality(subjectId);
@@ -141,6 +179,7 @@ export class HtmlRespecGenerationService implements IService {
           domain: domainAssignedUri?.value,
           range: rangeAssignedUri?.value,
         };
-      });
+      })
+      .sort(alphabeticalSort);
   }
 }

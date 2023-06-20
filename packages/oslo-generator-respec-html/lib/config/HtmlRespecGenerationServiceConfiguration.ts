@@ -1,5 +1,6 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
+import { SpecificationType } from '../utils/specificationTypeEnum';
 
 @injectable()
 export class HtmlRespecGenerationServiceConfiguration implements IConfiguration {
@@ -18,10 +19,23 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
    */
   private _language: string | undefined;
 
+  /**
+   * The specification that must be generated: an application profile
+   * or vocabulary.
+   */
+  private _specificationType: SpecificationType | undefined;
+
+  /**
+   * Name of the specification
+   */
+  private _specificationName: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
+    this._specificationType = this.getSpecificationType(<string>params.specificationType);
+    this._specificationName = <string>params.specificationName;
   }
 
   public get input(): string {
@@ -45,5 +59,34 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
       );
     }
     return this._language;
+  }
+
+  public get specificationType(): SpecificationType {
+    if (this._specificationType === undefined) {
+      throw new Error(`Trying to access property "specificationType" before it was set.`);
+    }
+    return this._specificationType;
+  }
+
+  public get specificationName(): string {
+    if (!this._specificationName) {
+      throw new Error(
+        `Trying to access property "specificationName" before it was set.`,
+      );
+    }
+    return this._specificationName;
+  }
+
+  private getSpecificationType(value: string): SpecificationType {
+    switch (value) {
+      case 'Vocabulary':
+        return SpecificationType.Vocabulary;
+
+      case 'ApplicationProfile':
+        return SpecificationType.ApplicationProfile;
+
+      default:
+        throw new Error(`Unable to translate ${value} to a specification type.`);
+    }
   }
 }
