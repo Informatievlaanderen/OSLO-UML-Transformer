@@ -105,7 +105,7 @@ export class HtmlRespecGenerationService implements IService {
         const usageNote = this.store.getUsageNote(subjectId, this.configuration.language);
         const parents = this.store.getParentsOfClass(subjectId);
 
-        const parentAssignedUris: RDF.NamedNode[] = [];
+        const parentAssignedUris: string[] = [];
         parents.forEach(parent => {
           let parentAssignedUri = this.store.getAssignedUri(parent);
 
@@ -120,7 +120,7 @@ export class HtmlRespecGenerationService implements IService {
           if (!parentAssignedUri) {
             this.logger.error(`Unable to find the assigned URI of parent (${parent.value}) of class ${subjectId.value}.`);
           } else {
-            parentAssignedUris.push(parentAssignedUri);
+            parentAssignedUris.push(parentAssignedUri.value);
           }
         });
 

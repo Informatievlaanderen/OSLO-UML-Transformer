@@ -36,7 +36,7 @@
     <th>Parent</th>
     <td>
     {% for parent in class.parents%}
-      {{parent | urlize() | safe }}
+      {{ parent | urlize() | safe }}
       {% if class.parents.length >1 %}
       <br/>
       {% endif %}
