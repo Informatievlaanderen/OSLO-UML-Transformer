@@ -2,7 +2,7 @@
  * @group unit
  */
 import fs from 'fs/promises';
-import { VoidLogger, WinstonLogger, LOG_LEVELS, QuadStore } from '@oslo-flanders/core';
+import { VoidLogger, WinstonLogger, LOG_LEVELS, QuadStore, WinstonLoggerFactory } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
@@ -215,7 +215,7 @@ describe('JsonldContextGenerationService', () => {
 
   it('should add the domain label prefix when this option is set in configuration', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithStatement));
-    const testLogger = new WinstonLogger(LOG_LEVELS[0]);
+    const testLogger = new WinstonLoggerFactory(LOG_LEVELS[0]).createLogger();
     const service = <any>new JsonldContextGenerationService(
       testLogger,
       <any>{ language: 'en', addDomainPrefix: true },

@@ -24,9 +24,6 @@ export class OutputHandlerService {
       case 'application/ld+json':
         return new JsonLdOutputHandler();
 
-      case 'application/n-quads':
-        return new NQuadsOutputHandler();
-
       default:
         throw new Error(`Output format ${config.outputFormat} is not supported.`);
     }
