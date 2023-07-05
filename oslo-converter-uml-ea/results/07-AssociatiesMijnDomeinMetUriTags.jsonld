@@ -1,0 +1,2079 @@
+{
+  "@context": {
+    "@context": {
+      "vlaanderen": "http://data.vlaanderen.be/ns/",
+      "owl": "http://www.w3.org/2002/07/owl#",
+      "void": "http://rdfs.org/ns/void#",
+      "dcterms": "http://purl.org/dc/terms/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "qb": "http://purl.org/linked-data/cube#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "person": "http://www.w3.org/ns/person#",
+      "rec": "http://www.w3.org/2001/02pd/rec54#",
+      "vann": "http://purl.org/vocab/vann/",
+      "sh": "http://w3.org/ns/shacl#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "packages": "@included",
+      "classes": "@included",
+      "datatypes": "@included",
+      "attributes": "@included",
+      "baseUri": "http://example.org/baseUri",
+      "definition": {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      "label": {
+        "@id": "rdfs:label",
+        "@container": "@set"
+      },
+      "scope": {
+        "@id": "http://example.org/scope"
+      },
+      "usageNote": {
+        "@id": "vann:usageNote",
+        "@container": "@set"
+      },
+      "domain": {
+        "@id": "rdfs:domain",
+        "@container": "@set"
+      },
+      "range": {
+        "@id": "rdfs:range"
+      },
+      "minCount": {
+        "@id": "sh:minCount"
+      },
+      "maxCount": {
+        "@id": "sh:maxCount"
+      },
+      "parent": {
+        "@id": "rdfs:subClassOf",
+        "@type": "owl:Class"
+      },
+      "generatedAtTime": {
+        "@id": "prov:generatedAtTime"
+      },
+      "Package": "http://example.org/Package",
+      "Class": {
+        "@id": "owl:Class"
+      },
+      "DatatypeProperty": {
+        "@id": "owl:DatatypeProperty"
+      },
+      "ObjectProperty": {
+        "@id": "owl:ObjectProperty"
+      },
+      "authors": {
+        "@type": "foaf:Person",
+        "@id": "foaf:maker"
+      },
+      "editors": {
+        "@type": "foaf:Person",
+        "@id": "rec:editor"
+      },
+      "contributors": {
+        "@type": "foaf:Person",
+        "@id": "dcterms:contributor"
+      },
+      "affiliation": {
+        "@id": "http://schema.org/affiliation"
+      },
+      "subject": {
+        "@id": "rdf:subject",
+        "@type": "@id"
+      },
+      "predicate": {
+        "@id": "rdf:predicate",
+        "@type": "@id"
+      },
+      "object": {
+        "@id": "rdf:object",
+        "@type": "@id"
+      },
+      "Statement": {
+        "@id": "rdf:Statement"
+      },
+      "assignedUri": {
+        "@id": "http://example.org/assignedUri",
+        "@type": "@id"
+      }
+    }
+  },
+  "@id": "https://data.vlaanderen.be/version/1",
+  "generatedAtTime": "2023-07-05T16:33:51.437Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:754de023a94361fb63193f5bd740f47097dc5b2cfa73e9dfa90cee57f160b67d",
+      "@type": "Package",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein",
+      "baseUri": "https://data.vlaanderen.be/ns/mijndomein#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:aacff774e0387bcaf6d980113c698c3ccec156590a91e8463fb6a94286d352cb",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K26",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K26 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 26"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fcbd849c86adabc540a45e47aa2edbf1d7a20eed4fa9eb5ffb05ebda5050b186",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K03B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K03B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 03B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4920452309f41aa6d47213b634e2fd9dbd10e8b639c85f257e667402e9304036",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K05A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K05A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 05A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K07A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K07A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 07A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9cceac351651665b6fe55ff4a43be290da04bf844dc75865dc23f052ee0c30cd",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft06",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft06 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 06"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:65ec771cd1481cf73ea2f3e547d0eb0eba39a87905f309f79df7d79e89bc2881",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K05B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K05B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 05B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:616ba204fc10cfdeced8b7e8fbd4cce79c53b52055984d3703fa7f6ec9dd65e5",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft26",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft26 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 26"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7535415e90bae177b194e60690ec806714d56a1f98a0bddda93b2f7b606aa2f8",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft27b",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft27b (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 27b"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K27",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K27 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 27"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:52b6ece01f7172d7b2e5d3866d0550926c1ea34249a55a10c2ab1710c702996a",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft05",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft05 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 05"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f6db2327f95743f98f4de9028f607f0fc5e1b7699a67e7f6c4dba719fb019708",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K06B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K06B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 06B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3c03a788868415967d002b9be2bdd20ed8bde834d769d57c9f5cc33cb9307934",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K06A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K06A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 06A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c563bdde0df068a104a40f165acf31b54c15d26c9d25f88cb7a71e44bbd53fb4",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K25",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K25 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 25"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dc7edeeb46cdd488b91de02864c83966c8a55fabd67b123411a91309edb0d6a6",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K01A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K01A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 01A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8de7de0807988be95668cb9fb5d8c715a9a0f69b64a1e5300356685e06ec47ba",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K01B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K01B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 01B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K07B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K07B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 07B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d31c3a8c5c71531ec4e68bd275970915afabf4a0cb8ace4711ab02b156646920",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft07",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft07 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 07"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:354c28568a4cbdb23698f200ba55807928261058cd82300cc6a20a3b27fcabfe",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft07b",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft07b (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 07b"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:396031ad0da639fba78f73feb60ff1ce4f231e5ffbf0901ea3279d125b26bfc2",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft25",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft25 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 25"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c5668838e2a36453583dd031ad840bf70efce2bd10a4da0e3c2e1f43ffba2044",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K21",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K21 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 21"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a7ca5ebdd160cc79e856e671823624a4a9a619de66b73576370b2994785f20e2",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K02A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K02A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 02A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ffaf6331d7b356d28a0d4b01f41819a5097daf08649aa2dcfa2ad123e470a5b6",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K22",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K22 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 22"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cb9590dad2262408fc20df3ba43f32dcaeef6784a96b72685efb38367865497c",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K03A",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K03A etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 03A"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K23",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K23 etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 23"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:44dde806195fbcd7586264fff99297b1b6775970197e723206d43cde52f1261f",
+      "@type": "Class",
+      "assignedUri": "https://extern.domein/#Heeft27",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft27 (associatieklasse) etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 27"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c96446b50edca36cc7c769f0213f846e988fa5dc0a97cf4bdd7cbec027af0c04",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#K02B",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie K02B etc."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "K 02B"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:fe1d553394e3b43c851b5bc5148c0f3e2028b95775e724395bd2e5001c43eab9",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a05",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 05"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a05 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a05 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:52b6ece01f7172d7b2e5d3866d0550926c1ea34249a55a10c2ab1710c702996a"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1a261fbe59c020d4c916a3abfaf3f9f2f27dfa516f1c14520d819c0120739cd8",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a07",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 07"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a07 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a07 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d31c3a8c5c71531ec4e68bd275970915afabf4a0cb8ace4711ab02b156646920"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:39022a69f013927884c568658100fe1277e36c5b557b60578dd8dc23008411c1",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a07b",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 07b"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a07b etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a07b etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:354c28568a4cbdb23698f200ba55807928261058cd82300cc6a20a3b27fcabfe"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:257acc47c1e8f8a14165d30301b8b9992c1a2315db6b05d31182f4f237ea28e6",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a25",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 25"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a25 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a25 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:396031ad0da639fba78f73feb60ff1ce4f231e5ffbf0901ea3279d125b26bfc2"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:66c91f4d56e8c8a91e58bc7e69ec57501d4cb7778181e505d3e3cf10ac9be0f3",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a27",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 27"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a27 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a27 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:44dde806195fbcd7586264fff99297b1b6775970197e723206d43cde52f1261f"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4922f0f3eaa4314e260311ccfac1d7d0234ca028267935fd1e774486b4259f24",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a06",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 06"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a06 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a06 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9cceac351651665b6fe55ff4a43be290da04bf844dc75865dc23f052ee0c30cd"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c4bf9768d96d47ead3e8100a4fb1f54b527b6bac4544e3865abb1b410d8d8240",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a26",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 26"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a26 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a26 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:616ba204fc10cfdeced8b7e8fbd4cce79c53b52055984d3703fa7f6ec9dd65e5"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8150055cfb24d00882335c1f49718f08f3c901ac2ac7e295a1dd85d0c52a2fc9",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#a27b",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "a 27b"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie a27b etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik a27b etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7535415e90bae177b194e60690ec806714d56a1f98a0bddda93b2f7b606aa2f8"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:528bf25dfc955961b7be2c0527a7b34340ae05c88cb7c997581ef091bc4f03d2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k07Arol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 07A rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k07Arol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k07Arol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:527f57037c940926a7bd93101d8b9ffa5818733ebeba6ae33d44249111965836",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k07Brol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 07B rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k07Brol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k07Brol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:baba88de77a9a7da5f3e5b1bb43613a887aeb80f82e15394a5313cb5b4cff37b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft07.k07A",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft07.k07A"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d31c3a8c5c71531ec4e68bd275970915afabf4a0cb8ace4711ab02b156646920"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b8f826538cda1400f00b002165b58332f93504ef8e0fc4b70ec7425d2102f583",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft07.k07B",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft07.k07B"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d31c3a8c5c71531ec4e68bd275970915afabf4a0cb8ace4711ab02b156646920"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2130914e29ebd457f89a8065b104bc40ee3186962140d49bca3daccffa3e66a7",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k07BrolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 07B rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k07BrolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k07BrolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e3b7067a27c50818d4dddb40351945c71f3261946c2049d3edf9f7ba4ac24e24",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft07b.k07A",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft07b.k07A"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:354c28568a4cbdb23698f200ba55807928261058cd82300cc6a20a3b27fcabfe"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3bc8f034858a8c5d57f7930d9db1dbbc0606a0b5e9fbeb97c8d98772fe25ebe7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d1e0be5252443245298d98479f0aa3e29bdbedb8b5de106ae73f8c409ce62db1",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft07b.k07B",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft07b.k07B"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:354c28568a4cbdb23698f200ba55807928261058cd82300cc6a20a3b27fcabfe"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4b2d61d6b7b74a9420a567800c29582614f0441629f855550d9f25fb19e26bfb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:adfcacf356fc48662f1126d9d6dca7b818be57e2fd2aeb071c0b7b750d4a2cf2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft05",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 05"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft05 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft05 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4920452309f41aa6d47213b634e2fd9dbd10e8b639c85f257e667402e9304036"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:65ec771cd1481cf73ea2f3e547d0eb0eba39a87905f309f79df7d79e89bc2881"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0beea00b03e55d92fa5d9103a9c0a8d84caeb720419492a2ce152f910278b02c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft05.k05A",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft05.k05A"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:52b6ece01f7172d7b2e5d3866d0550926c1ea34249a55a10c2ab1710c702996a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4920452309f41aa6d47213b634e2fd9dbd10e8b639c85f257e667402e9304036"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4022d55bb66688d7c299e2575dd0a42f0bada673927b5eec6721ffbae1620a59",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft05.k05B",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft05.k05B"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:52b6ece01f7172d7b2e5d3866d0550926c1ea34249a55a10c2ab1710c702996a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:65ec771cd1481cf73ea2f3e547d0eb0eba39a87905f309f79df7d79e89bc2881"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e6d26acd92cd75591e2dec868f883cf1506269062e0ea750e34f9842d866a051",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k03ArolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 03A rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k03ArolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k03ArolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fcbd849c86adabc540a45e47aa2edbf1d7a20eed4fa9eb5ffb05ebda5050b186"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cb9590dad2262408fc20df3ba43f32dcaeef6784a96b72685efb38367865497c"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:263cd71b41372fc038c67d8a03e673072776df569435cf586f5c84b9d63b608c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k03BrolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 03B rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k03BrolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k03BrolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cb9590dad2262408fc20df3ba43f32dcaeef6784a96b72685efb38367865497c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fcbd849c86adabc540a45e47aa2edbf1d7a20eed4fa9eb5ffb05ebda5050b186"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:61fed842957f7f099aa265cfd86786214fb982ae471e063f4dcb9b6b97752efc",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k03Arol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 03A rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k03Arol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k03Arol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fcbd849c86adabc540a45e47aa2edbf1d7a20eed4fa9eb5ffb05ebda5050b186"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cb9590dad2262408fc20df3ba43f32dcaeef6784a96b72685efb38367865497c"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:84a23309637a7d4deb2c7baf8d5da450b5e995ba98c91e5e9a599266b015aa1c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k03Brol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 03B rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k03Brol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k03Brol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cb9590dad2262408fc20df3ba43f32dcaeef6784a96b72685efb38367865497c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fcbd849c86adabc540a45e47aa2edbf1d7a20eed4fa9eb5ffb05ebda5050b186"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7b4d5bca643cdaad0541004339c5f30c7cf045369f98ed1e7b10a1b218a93673",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft26",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 26"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft26 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft26 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:aacff774e0387bcaf6d980113c698c3ccec156590a91e8463fb6a94286d352cb"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:aacff774e0387bcaf6d980113c698c3ccec156590a91e8463fb6a94286d352cb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7346a7bfba4b84f97237d5b3d1ebcfa10ffd09506a137d99210115cb7a29a658",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft26.k26.source",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft26.k26 (source)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:616ba204fc10cfdeced8b7e8fbd4cce79c53b52055984d3703fa7f6ec9dd65e5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:aacff774e0387bcaf6d980113c698c3ccec156590a91e8463fb6a94286d352cb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b22efe23cbf807cea145a81902abaaf325db955647f1f3935eb00a791031e148",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft26.k26.target",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft26.k26 (target)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:616ba204fc10cfdeced8b7e8fbd4cce79c53b52055984d3703fa7f6ec9dd65e5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:aacff774e0387bcaf6d980113c698c3ccec156590a91e8463fb6a94286d352cb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e68f0c3ebb618f0522092b89769313df1aa43b5443650aa1799ad8636f2fc29c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k23ArolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 23A rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k23ArolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k23ArolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:484c82ddd9d216f3cf169146b1d7c28aad504963501738f836af7fa517b7edad",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k23BrolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 23B rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k23BrolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k23BrolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1850a62398d7a45ae1fef43cf58861d017380472a9e856eab32a2243e8d56bd1",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k23Arol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 23A rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k23Arol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k23Arol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:782f470e7eacb74fc300fc06b2ef1f2dd22c1636ff071d24f2238dc497253e5b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k23Brol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 23B rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k23Brol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k23Brol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bbd761cec22e91c3e3e66152927eb40e16bb536810b136e7c92b3ac95d7f4071"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0e82ac9201fc9461d01cbb2cfdc4186a97cbc6df37f66208fca392e191df6a45",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft22",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 22"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft22 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft22 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffaf6331d7b356d28a0d4b01f41819a5097daf08649aa2dcfa2ad123e470a5b6"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ffaf6331d7b356d28a0d4b01f41819a5097daf08649aa2dcfa2ad123e470a5b6"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3b5c56f984187e99f94e0d70c46150a71db3f9d1a72c8f294baaaca7b01de52b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft02",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 02"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft02 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft02 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c96446b50edca36cc7c769f0213f846e988fa5dc0a97cf4bdd7cbec027af0c04"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a7ca5ebdd160cc79e856e671823624a4a9a619de66b73576370b2994785f20e2"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7f07e7185166f86edf3b2351524ad5138fad26ce9272317037d7fe0faebbae5a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft02",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 02"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft02 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft02 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a7ca5ebdd160cc79e856e671823624a4a9a619de66b73576370b2994785f20e2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c96446b50edca36cc7c769f0213f846e988fa5dc0a97cf4bdd7cbec027af0c04"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:44780263da19d263f5086ff074135b48c59b3924a25610c227792f7d9b12fa1b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft21",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 21"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft21 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft21 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c5668838e2a36453583dd031ad840bf70efce2bd10a4da0e3c2e1f43ffba2044"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c5668838e2a36453583dd031ad840bf70efce2bd10a4da0e3c2e1f43ffba2044"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:76090504539d902f0ed0eac2ff1c82a0b511f41c4e114254331ba8d8f5f3b8b6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft01",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 01"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft01 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft01 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:dc7edeeb46cdd488b91de02864c83966c8a55fabd67b123411a91309edb0d6a6"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8de7de0807988be95668cb9fb5d8c715a9a0f69b64a1e5300356685e06ec47ba"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:30c857a5330474815c6e0f08eb8239a749296098ce8c42469a1c0918b3262518",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft25",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 25"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft25 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft25 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c563bdde0df068a104a40f165acf31b54c15d26c9d25f88cb7a71e44bbd53fb4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c563bdde0df068a104a40f165acf31b54c15d26c9d25f88cb7a71e44bbd53fb4"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5556bea852101c660fd82f1e6a3783c27cf03adc600bfc0f590db202501f5375",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft25.k25.source",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft25.k25 (source)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:396031ad0da639fba78f73feb60ff1ce4f231e5ffbf0901ea3279d125b26bfc2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c563bdde0df068a104a40f165acf31b54c15d26c9d25f88cb7a71e44bbd53fb4"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:21a8597d42b27ba3ab161d3f78baa9a1d6db2b7790fa220136f455358849bd82",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft25.k25.target",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft25.k25 (target)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:396031ad0da639fba78f73feb60ff1ce4f231e5ffbf0901ea3279d125b26bfc2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c563bdde0df068a104a40f165acf31b54c15d26c9d25f88cb7a71e44bbd53fb4"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:025f34684cf22a6f80060ee326a2ffaa369f180b5971db672973922574f24d67",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft06",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 06"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft06 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft06 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:f6db2327f95743f98f4de9028f607f0fc5e1b7699a67e7f6c4dba719fb019708"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3c03a788868415967d002b9be2bdd20ed8bde834d769d57c9f5cc33cb9307934"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f90632469b4942fe0e9da28d2531215c811dfd894a2d8cdfcbd2aad102c3af9a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#heeft06",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Heeft 06"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie Heeft06 etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Heeft06 etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3c03a788868415967d002b9be2bdd20ed8bde834d769d57c9f5cc33cb9307934"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f6db2327f95743f98f4de9028f607f0fc5e1b7699a67e7f6c4dba719fb019708"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9c5ef1bc21ffd76844abfa1962f7021c2d35fee2a1cda900064404935f6a72a3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft06.k06A",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft06.k06A"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9cceac351651665b6fe55ff4a43be290da04bf844dc75865dc23f052ee0c30cd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3c03a788868415967d002b9be2bdd20ed8bde834d769d57c9f5cc33cb9307934"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81fd404e0f6a3a9d6ce031f96b8ee5f63e14b203bbaf910a359f3e1e7f43e2d5",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft06.k06B",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft06.k06B"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9cceac351651665b6fe55ff4a43be290da04bf844dc75865dc23f052ee0c30cd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f6db2327f95743f98f4de9028f607f0fc5e1b7699a67e7f6c4dba719fb019708"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4ed60bbc389bb3ff92bef5e25ca2f78857a4a80a7760a4ed265d8d0178addf96",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k27Arol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 27A rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k27Arol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k27Arol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d03dd3a9fb9a524948a87daebfff2b77c24b3f83cab4befce5dc7d88a325f688",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k27Brol",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 27B rol"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k27Brol etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k27Brol etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d67d1eb51b359b203a03d6a6f4aeae68800ae6cac96e6054ccc977be7c24166b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft27.k27.source",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft27.k27 (source)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:44dde806195fbcd7586264fff99297b1b6775970197e723206d43cde52f1261f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2287864194b05d09eda6a4a84d4bd1e0f89d714fe3a8b3eae7729c7384d7e9f3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft27.k27.target",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft27.k27 (target)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:44dde806195fbcd7586264fff99297b1b6775970197e723206d43cde52f1261f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9b402caa6827b9b09273da198fb73fbf75ddea60e5a3fb15b151ba925ed6a6e4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://extern.domein/#k27BrolTweede",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "k 27B rol Tweede"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie k27BrolTweede etc."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik k27BrolTweede etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4fb613df0fd85ddb7e837f556f8851564570d543f32899cae96953c80d29c8c6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft27b.k27.source",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft27b.k27 (source)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7535415e90bae177b194e60690ec806714d56a1f98a0bddda93b2f7b606aa2f8"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7483b627f672573b98e8a768e579c0548ceab537fb91d8c130e8015d8f202c99",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/mijndomein#Heeft27b.k27.target",
+      "label": [
+        {
+          "@language": "label",
+          "@value": "Heeft27b.k27 (target)"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7535415e90bae177b194e60690ec806714d56a1f98a0bddda93b2f7b606aa2f8"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8153739451b5ce7920135b0c404fda2a2cbbdff8ce2f60d5051fa424ffcc1c75"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    }
+  ],
+  "dataTypes": [],
+  "statements": [
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:fe1d553394e3b43c851b5bc5148c0f3e2028b95775e724395bd2e5001c43eab9"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:1a261fbe59c020d4c916a3abfaf3f9f2f27dfa516f1c14520d819c0120739cd8"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:39022a69f013927884c568658100fe1277e36c5b557b60578dd8dc23008411c1"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:257acc47c1e8f8a14165d30301b8b9992c1a2315db6b05d31182f4f237ea28e6"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:66c91f4d56e8c8a91e58bc7e69ec57501d4cb7778181e505d3e3cf10ac9be0f3"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:4922f0f3eaa4314e260311ccfac1d7d0234ca028267935fd1e774486b4259f24"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:c4bf9768d96d47ead3e8100a4fb1f54b527b6bac4544e3865abb1b410d8d8240"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:8150055cfb24d00882335c1f49718f08f3c901ac2ac7e295a1dd85d0c52a2fc9"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "String"
+        }
+      ]
+    }
+  ]
+}
