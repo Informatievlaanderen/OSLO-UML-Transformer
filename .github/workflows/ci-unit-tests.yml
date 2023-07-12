@@ -22,7 +22,5 @@ jobs:
           npm install
           npx lerna exec -- npm i
           npx lerna bootstrap
-      - name: Build project
-        run: npm run build
       - name: Run all unit tests
         run: npm run test:unit
