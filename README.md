@@ -1,4 +1,5 @@
 # OSLO UML Transformer
+![Build](https://github.com/informatievlaanderen/OSLO-UML-Transformer/actions/workflows/ci-build.yml/badge.svg)
 ![Unit tests](https://github.com/informatievlaanderen/OSLO-UML-Transformer/actions/workflows/ci-unit-tests.yml/badge.svg)
 
 This repository contains open-source software that can be used to transform data models, modelled as UML diagrams in Enterprise Architect, into various artefacts such as an HTML page, JSON-LD context file or an RDF file. These components were built to support the Flemish Interoperability Program, called Open Standards for Linked Organizations (OSLO), which is reponsible for the creation of data standards in Flanders, based on the principles of Linked Data.
