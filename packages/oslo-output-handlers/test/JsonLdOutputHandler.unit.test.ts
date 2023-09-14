@@ -24,7 +24,7 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getPackages');
     jest.spyOn(<any>outputHandler, 'getClasses');
     jest.spyOn(<any>outputHandler, 'getAttributes');
-    jest.spyOn(<any>outputHandler, 'getDataTypes');
+    jest.spyOn(<any>outputHandler, 'getDatatypes');
     jest.spyOn(<any>outputHandler, 'getRdfStatements');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
@@ -41,7 +41,7 @@ describe('JsonLdOutputHandler', () => {
     document.packages = [];
     document.classes = [];
     document.attributes = [];
-    document.dataTypes = [];
+    document.datatypes = [];
     document.statements = [];
 
     await outputHandler.write(store, writeStream);
@@ -333,7 +333,7 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.example('DataType')
+        ns.rdfs('Datatype')
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
@@ -363,13 +363,13 @@ describe('JsonLdOutputHandler', () => {
     ];
 
     store.addQuads(quads);
-    const dataTypeObjects = await (<any>outputHandler).getDataTypes(store);
+    const datatypeObjects = await(<any>outputHandler).getDatatypes(store);
 
-    expect(dataTypeObjects).toEqual(
+    expect(datatypeObjects).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           '@id': 'urn:oslo-toolchain:1',
-          '@type': 'DataType',
+          '@type': 'Datatype',
           assignedUri: 'http://example.org/id/dataType/1',
           label: [
             {
