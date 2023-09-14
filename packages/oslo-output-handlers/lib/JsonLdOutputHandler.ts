@@ -249,6 +249,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const statementPredicate = store.findObject(subject, ns.rdf('predicate'));
       const statementObject = store.findObject(subject, ns.rdf('object'));
 
+      const statementAssignedUri = store.findObject(subject, ns.example('assignedUri'));
       const statementLabels = store.findObjects(subject, ns.rdfs('label'));
       const statementDefinitions = store.findObjects(
         subject,
@@ -274,6 +275,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
         object: {
           '@id': statementObject?.value,
         },
+        ...(statementAssignedUri && {
+          assignedUri: statementAssignedUri.value,
+        }),
         ...(statementLabels.length > 0 && {
           label: statementLabels.map((x) => ({
             '@language': (<RDF.Literal>x).language,

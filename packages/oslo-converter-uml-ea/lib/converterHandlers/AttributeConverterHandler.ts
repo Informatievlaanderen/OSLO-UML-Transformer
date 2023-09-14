@@ -164,7 +164,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       ),
     );
 
-    quads.push(...this.addRangeRdfStatement(attributeInternalId, rangeUriNamedNode, model, rangeLabel, rangeElement));
+    quads.push(...this.addRangeRdfStatement(attributeInternalId, rangeUriNamedNode, model, uriRegistry, rangeLabel, rangeElement));
 
     const definitionLiterals = this.getDefinition(object);
     definitionLiterals.forEach(x => quads.push(this.df.quad(attributeInternalId, ns.rdfs('comment'), x)));
@@ -232,6 +232,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     attributeUri: RDF.NamedNode,
     rangeUri: RDF.NamedNode,
     model: DataRegistry,
+    uriRegistry: UriRegistry,
     rangeLabel?: string,
     rangeElement?: EaElement,
   ): RDF.Quad[] {
@@ -255,6 +256,19 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
       const usageNoteValues = <RDF.Literal[]>(<any>this.getUsageNote)(rangeElement);
       usageNoteValues.forEach(x => quads.push(this.df.quad(statementBlankNode, ns.vann('usageNote'), x)));
+
+      const assignedUri = uriRegistry.elementIdUriMap.get(rangeElement.id);
+      if(!assignedUri){
+        throw new Error(`[AttributeConverterHandler]: Unable to find the assigned URI for the range (${rangeElement.path}) of attribute.`);
+      }
+
+      quads.push(
+        this.df.quad(
+          statementBlankNode,
+          ns.example('assignedUri'),
+          this.df.namedNode(assignedUri.toString())
+        )
+      )
 
       const skosCodelist = getTagValue(rangeElement, TagNames.ApCodelist, null);
       if (skosCodelist) {
