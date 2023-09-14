@@ -101,6 +101,9 @@ export function getOsloContext(): any {
         '@id': 'http://example.org/assignedUri',
         '@type': '@id',
       },
+      Datatype: {
+        '@id': 'rdfs:Datatype',
+      },
     },
   };
 }

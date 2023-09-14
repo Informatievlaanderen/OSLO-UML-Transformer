@@ -254,7 +254,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       this.df.quad(
         objectInternalId,
         ns.rdf('type'),
-        ns.example('DataType'),
+        ns.rdfs('Datatype')
       ),
     );
 
