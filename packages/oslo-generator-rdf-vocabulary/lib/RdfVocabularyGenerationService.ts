@@ -115,7 +115,13 @@ export class RdfVocabularyGenerationService implements IService {
 
       const parents = this.store.getParentsOfClass(subject);
       parents.forEach(parent => {
-        const parentAssignedUri = this.store.getAssignedUri(parent);
+        const parentAssignedUri =
+          this.store.getAssignedUri(parent) ||
+          this.store.getAssignedUriViaStatements(
+            subject,
+            ns.rdfs('subClassOf'),
+            parent
+          );;
 
         if (!parentAssignedUri) {
           throw new Error(`Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`);
