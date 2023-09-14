@@ -22,7 +22,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.packages = packages;
     document.classes = classes;
     document.attributes = attributes;
-    document.dataTypes = dataTypes;
+    document.datatypes = dataTypes;
     document.statements = statements;
 
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
@@ -200,10 +200,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
   }
 
   private async getDataTypes(store: QuadStore): Promise<any> {
-    const datatypeIds = store.findSubjects(
-      ns.rdf('type'),
-      ns.example('DataType')
-    );
+    const datatypeIds = store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype'));
     return datatypeIds.map((subject) => {
       const assignedUri = store.getAssignedUri(subject);
       const definitionQuads = store.getDefinitions(subject);
