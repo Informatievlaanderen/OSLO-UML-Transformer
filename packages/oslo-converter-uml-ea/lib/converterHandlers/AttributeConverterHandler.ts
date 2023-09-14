@@ -47,7 +47,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const attributeClass = model.elements.find(x => x.id === attribute.classId);
 
       if (!attributeClass) {
-        throw new Error(`[AttributeConverterHandler]: Unable to find domain for attribute with EA guid ${attribute.eaGuid}.`);
+        throw new Error(`[AttributeConverterHandler]: Unable to find domain for attribute (${attribute.path}).`);
       }
 
       let attributeBaseUri: URL;
