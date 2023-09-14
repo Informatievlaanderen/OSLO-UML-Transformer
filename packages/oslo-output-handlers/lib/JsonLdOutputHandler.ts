@@ -11,7 +11,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         this.getPackages(store),
         this.getClasses(store),
         this.getAttributes(store),
-        this.getDataTypes(store),
+        this.getDatatypes(store),
         this.getRdfStatements(store),
       ]);
 
@@ -199,7 +199,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     });
   }
 
-  private async getDataTypes(store: QuadStore): Promise<any> {
+  private async getDatatypes(store: QuadStore): Promise<any> {
     const datatypeIds = store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype'));
     return datatypeIds.map((subject) => {
       const assignedUri = store.getAssignedUri(subject);
@@ -210,7 +210,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
 
       return {
         '@id': subject.value,
-        '@type': 'DataType',
+        '@type': 'Datatype',
         ...(assignedUri && {
           assignedUri: assignedUri.value,
         }),
