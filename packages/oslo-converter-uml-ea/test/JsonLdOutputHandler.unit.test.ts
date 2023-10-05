@@ -2,9 +2,9 @@
  * @group unit
  */
 import { DataFactory } from 'rdf-data-factory';
-import { JsonLdOutputHandler } from '../lib/JsonLdOutputHandler';
+import { JsonLdOutputHandler } from '../../oslo-output-handlers/lib/JsonLdOutputHandler';
 import { QuadStore, ns } from '@oslo-flanders/core';
-import { getOsloContext } from '../lib/utils/osloContext';
+import { getOsloContext } from '../../oslo-output-handlers/lib/utils/osloContext';
 
 describe('JsonLdOutputHandler', () => {
   let store: QuadStore;
