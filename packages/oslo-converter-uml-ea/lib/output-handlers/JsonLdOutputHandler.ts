@@ -1,8 +1,8 @@
 import type { WriteStream } from 'fs';
-import type { IOutputHandler, Logger, QuadStore } from '@oslo-flanders/core';
+import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
-import { getOsloContext } from './utils/osloContext';
+import { getOsloContext } from '../utils/osloContext';
 
 export class JsonLdOutputHandler implements IOutputHandler {
   public async write(store: QuadStore, writeStream: any): Promise<void> {

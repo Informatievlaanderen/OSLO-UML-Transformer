@@ -46,7 +46,8 @@
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration"
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
