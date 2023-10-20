@@ -29,38 +29,38 @@ container
 
 container
   .bind<OutputHandlerService>(
-    EaUmlConverterServiceIdentifier.OutputHandlerService
-  )
+  EaUmlConverterServiceIdentifier.OutputHandlerService,
+)
   .to(OutputHandlerService);
 
 container
   .bind<ConverterHandler<EaPackage>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  EaUmlConverterServiceIdentifier.ConverterHandler,
+)
   .to(PackageConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('PackageConverterHandler');
 
 container
   .bind<ConverterHandler<EaAttribute>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  EaUmlConverterServiceIdentifier.ConverterHandler,
+)
   .to(AttributeConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('AttributeConverterHandler');
 
 container
   .bind<ConverterHandler<EaElement>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  EaUmlConverterServiceIdentifier.ConverterHandler,
+)
   .to(ElementConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ElementConverterHandler');
 
 container
   .bind<ConverterHandler<NormalizedConnector>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  EaUmlConverterServiceIdentifier.ConverterHandler,
+)
   .to(ConnectorConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ConnectorConverterHandler');

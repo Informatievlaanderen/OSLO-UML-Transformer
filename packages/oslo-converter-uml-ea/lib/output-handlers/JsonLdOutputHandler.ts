@@ -2,17 +2,18 @@ import type { WriteStream } from 'fs';
 import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
+import { DataFactory } from 'rdf-data-factory';
 import { getOsloContext } from '../utils/osloContext';
 
 export class JsonLdOutputHandler implements IOutputHandler {
   public async write(store: QuadStore, writeStream: any): Promise<void> {
-    const [packages, classes, attributes, dataTypes, statements] =
+    const [packages, classes, attributes, dataTypes, referencedEntities] =
       await Promise.all([
         this.getPackages(store),
         this.getClasses(store),
         this.getAttributes(store),
         this.getDatatypes(store),
-        this.getRdfStatements(store),
+        this.getReferencedEntities(store),
       ]);
 
     const document: any = {};
@@ -23,7 +24,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.classes = classes;
     document.attributes = attributes;
     document.datatypes = dataTypes;
-    document.statements = statements;
+    document.referencedEntities = referencedEntities;
 
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
   }
@@ -44,49 +45,40 @@ export class JsonLdOutputHandler implements IOutputHandler {
   }
 
   private async getPackages(store: QuadStore): Promise<any> {
-    const packageIds = store.findSubjects(
-      ns.rdf('type'),
-      ns.example('Package')
-    );
+    const packageIds = store.findSubjects(ns.rdf('type'), ns.oslo('Package'));
     return packageIds.map((id) => {
       const packageQuads = store.findQuads(id, null, null);
 
-      const baseUriValue = packageQuads.find((x) =>
-        x.predicate.equals(ns.example('baseUri'))
+      const baseURIValue = packageQuads.find((x) =>
+        x.predicate.equals(ns.oslo('baseURI'))
       );
-      if (!baseUriValue) {
+      if (!baseURIValue) {
         throw new Error(
-          `Unnable to find base URI for package with .well-known id ${id.value}`
+          `Unable to find base URI for package with internal id ${id.value}`
         );
       }
 
-      const assignedUri = packageQuads.find((x) =>
-        x.predicate.equals(ns.example('assignedUri'))
+      const assignedURI = packageQuads.find((x) =>
+        x.predicate.equals(ns.oslo('assignedURI'))
       );
       return {
         '@id': id.value,
         '@type': 'Package',
-        ...(assignedUri && {
-          assignedUri: assignedUri.object.value,
+        ...(assignedURI && {
+          assignedURI: assignedURI.object.value,
         }),
-        baseUri: baseUriValue.object.value,
+        baseURI: baseURIValue.object.value,
       };
     });
   }
 
   private async getClasses(store: QuadStore): Promise<any> {
     const classIds = store.findSubjects(ns.rdf('type'), ns.owl('Class'));
+
     return classIds.reduce<any[]>((jsonLdClasses, subject) => {
-      const assignedUri = store.getAssignedUri(subject);
+      const assignedURI = store.getAssignedUri(subject);
 
-      // TODO: logging should happen here
-      if (!assignedUri) {
-        return jsonLdClasses;
-      }
-
-      // Classes with skos:Concept URI are not being published separately, but only
-      // as part of an attribute's range
-      if (assignedUri.equals(ns.skos('Concept'))) {
+      if (!assignedURI) {
         return jsonLdClasses;
       }
 
@@ -94,24 +86,24 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const labelQuads = store.getLabels(subject);
       const scopeQuad = store.getScope(subject);
       const parentQuads = store.getParentsOfClass(subject);
+      const codelist = store.getCodelist(subject);
+      const usageNoteQuads = store.getUsageNotes(subject);
 
       jsonLdClasses.push({
         '@id': subject.value,
         '@type': 'Class',
-        ...(assignedUri && {
-          assignedUri: assignedUri.value,
+        ...(assignedURI && {
+          assignedURI: assignedURI.value,
         }),
-        definition: definitionQuads.map((x) => ({
-          '@language': (<RDF.Literal>x).language,
-          '@value': x.value,
-        })),
-        label: labelQuads.map((x) => ({
-          '@language': (<RDF.Literal>x).language,
-          '@value': x.value,
-        })),
+        ...this.mapLabels(labelQuads),
+        ...this.mapDefinitions(definitionQuads),
+        ...this.mapUsageNotes(usageNoteQuads),
         scope: scopeQuad?.value,
         ...(parentQuads.length > 0 && {
           parent: parentQuads.map((x) => ({ '@id': x.value })),
+        }),
+        ...(codelist && {
+          codelist: codelist.value,
         }),
       });
 
@@ -138,7 +130,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       ...objectPropertyAttributeIds,
       ...propertyAttributeIds,
     ].map((subject) => {
-      const assignedUri = store.getAssignedUri(subject);
+      const assignedURI = store.getAssignedUri(subject);
       const definitionQuads = store.getDefinitions(subject);
       const attributeTypeQuad = store.findObject(subject, ns.rdf('type'));
 
@@ -152,31 +144,17 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const parentQuad = store.getParentOfProperty(subject);
       const minCardinalityQuad = store.getMinCardinality(subject);
       const maxCardinalityQuad = store.getMaxCardinality(subject);
+      const codelist = store.getCodelist(subject);
 
       return {
         '@id': subject.value,
         '@type': attributeTypeQuad?.value,
-        ...(assignedUri && {
-          assignedUri: assignedUri.value,
+        ...(assignedURI && {
+          assignedURI: assignedURI.value,
         }),
-        ...(labelQuads.length > 0 && {
-          label: labelQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
-        ...(definitionQuads.length > 0 && {
-          definition: definitionQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
-        ...(usageNoteQuads.length > 0 && {
-          usageNote: usageNoteQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
+        ...this.mapLabels(labelQuads),
+        ...this.mapDefinitions(definitionQuads),
+        ...this.mapUsageNotes(usageNoteQuads),
         ...(domainQuad && {
           domain: {
             '@id': domainQuad.value,
@@ -195,6 +173,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
         minCount: minCardinalityQuad?.value,
         maxCount: maxCardinalityQuad?.value,
         scope: scopeQuad?.value,
+        ...(codelist && {
+          codelist: codelist.value,
+        }),
       };
     });
   }
@@ -202,7 +183,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getDatatypes(store: QuadStore): Promise<any> {
     const datatypeIds = store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype'));
     return datatypeIds.map((subject) => {
-      const assignedUri = store.getAssignedUri(subject);
+      const assignedURI = store.getAssignedUri(subject);
       const definitionQuads = store.getDefinitions(subject);
       const labelQuads = store.getLabels(subject);
       const usageNoteQuads = store.getUsageNotes(subject);
@@ -211,27 +192,12 @@ export class JsonLdOutputHandler implements IOutputHandler {
       return {
         '@id': subject.value,
         '@type': 'Datatype',
-        ...(assignedUri && {
-          assignedUri: assignedUri.value,
+        ...(assignedURI && {
+          assignedURI: assignedURI.value,
         }),
-        ...(labelQuads.length > 0 && {
-          label: labelQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
-        ...(definitionQuads.length > 0 && {
-          definition: definitionQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
-        ...(usageNoteQuads.length > 0 && {
-          usageNote: usageNoteQuads.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
+        ...this.mapLabels(labelQuads),
+        ...this.mapDefinitions(definitionQuads),
+        ...this.mapUsageNotes(usageNoteQuads),
         ...(scopeQuad && {
           scope: scopeQuad.value,
         }),
@@ -239,67 +205,123 @@ export class JsonLdOutputHandler implements IOutputHandler {
     });
   }
 
-  private async getRdfStatements(store: QuadStore): Promise<any> {
-    const statementIds = store.findSubjects(
-      ns.rdf('type'),
-      ns.rdf('Statement')
+  private async getReferencedEntities(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const referencedEntitiesGraph = df.namedNode('referencedEntities');
+
+    const quads: RDF.Quad[] = store.findQuads(
+      null,
+      null,
+      null,
+      referencedEntitiesGraph
     );
-    return statementIds.map((subject) => {
-      const statementSubject = store.findObject(subject, ns.rdf('subject'));
-      const statementPredicate = store.findObject(subject, ns.rdf('predicate'));
-      const statementObject = store.findObject(subject, ns.rdf('object'));
 
-      const statementAssignedUri = store.findObject(subject, ns.example('assignedUri'));
-      const statementLabels = store.findObjects(subject, ns.rdfs('label'));
-      const statementDefinitions = store.findObjects(
-        subject,
-        ns.rdfs('comment')
-      );
-      const statementUsageNotes = store.findObjects(
-        subject,
-        ns.vann('usageNote')
-      );
-      const statementConceptScheme = store.findObject(
-        subject,
-        ns.example('usesConceptScheme')
-      );
+    const subjects = new Set(quads.map((x) => x.subject));
 
-      return {
-        '@type': ns.rdf('Statement').value,
-        subject: {
-          '@id': statementSubject?.value,
-        },
-        predicate: {
-          '@id': statementPredicate?.value,
-        },
-        object: {
-          '@id': statementObject?.value,
-        },
-        ...(statementAssignedUri && {
-          assignedUri: statementAssignedUri.value,
+    const result: any[] = [];
+    subjects.forEach((subject) => {
+      const assignedURI = store.getAssignedUri(
+        subject,
+        referencedEntitiesGraph
+      );
+      const subjectType = store.findObject(
+        subject,
+        ns.rdf('type'),
+        referencedEntitiesGraph
+      );
+      const definitions = store.getDefinitions(
+        subject,
+        referencedEntitiesGraph
+      );
+      const labels = store.getLabels(subject, referencedEntitiesGraph);
+      const usageNotes = store.getUsageNotes(subject, referencedEntitiesGraph);
+      const scope = store.getScope(subject, referencedEntitiesGraph);
+
+      result.push({
+        '@id': subject.value,
+        ...(subjectType && {
+          '@type': subjectType.value,
         }),
-        ...(statementLabels.length > 0 && {
-          label: statementLabels.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
+        ...(assignedURI && {
+          assignedURI: assignedURI.value,
         }),
-        ...(statementDefinitions.length > 0 && {
-          definition: statementDefinitions.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
+        ...this.mapLabels(labels),
+        ...this.mapDefinitions(definitions),
+        ...this.mapUsageNotes(usageNotes),
+        ...(scope && {
+          scope: scope.value,
         }),
-        ...(statementUsageNotes.length > 0 && {
-          usageNote: statementUsageNotes.map((x) => ({
-            '@language': (<RDF.Literal>x).language,
-            '@value': x.value,
-          })),
-        }),
-        ...(statementConceptScheme && {
-          usesConceptScheme: statementConceptScheme.value,
-        }),
-      };
+      });
     });
+    return result;
+  }
+
+  private mapLabels(labels: RDF.Quad[]): any {
+    const vocLabels = labels.filter((x) =>
+      x.predicate.equals(ns.oslo('vocLabel'))
+    );
+    const apLabels = labels.filter((x) =>
+      x.predicate.equals(ns.oslo('apLabel'))
+    );
+    const diagramLabels = labels.filter((x) =>
+      x.predicate.equals(ns.oslo('diagramLabel'))
+    );
+
+    return {
+      ...(vocLabels.length > 0 && {
+        vocLabel: vocLabels.map((x) => this.mapToLiteral(x)),
+      }),
+      ...(apLabels.length > 0 && {
+        apLabel: apLabels.map((x) => this.mapToLiteral(x)),
+      }),
+      ...(diagramLabels.length > 0 && {
+        diagramLabel: diagramLabels.map((x) => this.mapToLiteral(x, false)),
+      }),
+    };
+  }
+
+  private mapDefinitions(definitions: RDF.Quad[]): any {
+    const vocDefinitions = definitions.filter((x) =>
+      x.predicate.equals(ns.oslo('vocDefinition'))
+    );
+    const apDefinitions = definitions.filter((x) =>
+      x.predicate.equals(ns.oslo('apDefinition'))
+    );
+
+    return {
+      ...(vocDefinitions.length > 0 && {
+        vocDefinition: vocDefinitions.map((x) => this.mapToLiteral(x)),
+      }),
+      ...(apDefinitions.length > 0 && {
+        apDefinition: apDefinitions.map((x) => this.mapToLiteral(x)),
+      }),
+    };
+  }
+
+  private mapUsageNotes(usageNotes: RDF.Quad[]): any {
+    const vocUsageNotes = usageNotes.filter((x) =>
+      x.predicate.equals(ns.oslo('vocUsageNote'))
+    );
+    const apUsageNotes = usageNotes.filter((x) =>
+      x.predicate.equals(ns.oslo('apUsageNote'))
+    );
+
+    return {
+      ...(vocUsageNotes.length > 0 && {
+        vocUsageNote: vocUsageNotes.map((x) => this.mapToLiteral(x)),
+      }),
+      ...(apUsageNotes.length > 0 && {
+        apUsageNote: apUsageNotes.map((x) => this.mapToLiteral(x)),
+      }),
+    };
+  }
+
+  private mapToLiteral(quad: RDF.Quad, addLanguage: boolean = true): any {
+    return {
+      ...(addLanguage && {
+        '@language': (<RDF.Literal>quad.object).language,
+      }),
+      '@value': quad.object.value,
+    };
   }
 }

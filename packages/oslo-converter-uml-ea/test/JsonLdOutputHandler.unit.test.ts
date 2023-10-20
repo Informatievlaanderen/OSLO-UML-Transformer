@@ -1,9 +1,9 @@
 /**
  * @group unit
  */
+import { QuadStore, ns } from '@oslo-flanders/core';
 import { DataFactory } from 'rdf-data-factory';
 import { JsonLdOutputHandler } from '../lib/output-handlers/JsonLdOutputHandler';
-import { QuadStore, ns } from '@oslo-flanders/core';
 import { getOsloContext } from '../lib/utils/osloContext';
 
 describe('JsonLdOutputHandler', () => {
@@ -46,7 +46,7 @@ describe('JsonLdOutputHandler', () => {
 
     await outputHandler.write(store, writeStream);
     expect(writeStream.write).toHaveBeenCalledWith(
-      JSON.stringify(document, null, 2)
+      JSON.stringify(document, null, 2),
     );
   });
 
@@ -55,7 +55,7 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/version/1'),
         ns.prov('generatedAtTime'),
-        df.literal(new Date().toISOString())
+        df.literal(new Date().toISOString()),
       ),
     ];
 
@@ -70,8 +70,7 @@ describe('JsonLdOutputHandler', () => {
 
   it('should throw an error when the version id can not be found', async () => {
     expect(() =>
-      (<any>outputHandler).addDocumentInformation({}, store)
-    ).toThrowError();
+      (<any>outputHandler).addDocumentInformation({}, store)).toThrowError();
   });
 
   it('should get all packages from the quad store and return a JSON-LD object', async () => {
@@ -79,17 +78,17 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.rdf('type'),
-        ns.example('Package')
+        ns.example('Package'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.example('baseUri'),
-        df.namedNode('http://example.org/ns/A#')
+        df.namedNode('http://example.org/ns/A#'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.example('assignedUri'),
-        df.namedNode('http://example.org/ns/A')
+        df.namedNode('http://example.org/ns/A'),
       ),
     ];
 
@@ -111,18 +110,18 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.rdf('type'),
-        ns.example('Package')
+        ns.example('Package'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.example('assignedUri'),
-        df.namedNode('http://example.org/ns/A#')
+        df.namedNode('http://example.org/ns/A#'),
       ),
     ];
 
     store.addQuads(quads);
     await expect(
-      (<any>outputHandler).getPackages(store)
+      (<any>outputHandler).getPackages(store),
     ).rejects.toThrowError();
   });
 
@@ -131,32 +130,32 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.owl('Class')
+        ns.owl('Class'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/class/1')
+        df.namedNode('http://example.org/id/class/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('label'),
-        df.literal('TestClass', 'en')
+        df.literal('TestClass', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        df.namedNode('http://example.org/id/scope/A'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('subClassOf'),
-        df.namedNode('http://example.org/id/class/B')
+        df.namedNode('http://example.org/id/class/B'),
       ),
     ];
 
@@ -194,7 +193,7 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.owl('Class')
+        ns.owl('Class'),
       ),
     ];
 
@@ -210,12 +209,12 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.owl('Class')
+        ns.owl('Class'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.example('assignedUri'),
-        ns.skos('Concept')
+        ns.skos('Concept'),
       ),
     ];
 
@@ -230,57 +229,57 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdf('type'),
-        ns.owl('DatatypeProperty')
+        ns.owl('DatatypeProperty'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/property/1')
+        df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('label'),
-        df.literal('A label', 'en')
+        df.literal('A label', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
+        df.literal('A usage note', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('domain'),
-        df.namedNode('urn:oslo-toolchain:class:1')
+        df.namedNode('urn:oslo-toolchain:class:1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('range'),
-        ns.rdfs('Literal')
+        ns.rdfs('Literal'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        df.namedNode('http://example.org/id/scope/A'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('maxCount'),
-        df.literal('1')
+        df.literal('1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('minCount'),
-        df.literal('1')
+        df.literal('1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('subPropertyOf'),
-        df.namedNode('http://example.org/id/property/2')
+        df.namedNode('http://example.org/id/property/2'),
       ),
     ];
 
@@ -324,7 +323,7 @@ describe('JsonLdOutputHandler', () => {
           maxCount: '1',
           scope: 'http://example.org/id/scope/A',
         }),
-      ])
+      ]),
     );
   });
 
@@ -333,37 +332,37 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.rdfs('Datatype')
+        ns.rdfs('Datatype'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/dataType/1')
+        df.namedNode('http://example.org/id/dataType/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('label'),
-        df.literal('A label', 'en')
+        df.literal('A label', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
+        df.literal('A usage note', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        df.namedNode('http://example.org/id/scope/A'),
       ),
     ];
 
     store.addQuads(quads);
-    const datatypeObjects = await(<any>outputHandler).getDatatypes(store);
+    const datatypeObjects = await (<any>outputHandler).getDatatypes(store);
 
     expect(datatypeObjects).toEqual(
       expect.arrayContaining([
@@ -391,7 +390,7 @@ describe('JsonLdOutputHandler', () => {
           ],
           scope: 'http://example.org/id/scope/A',
         }),
-      ])
+      ]),
     );
   });
 
@@ -400,42 +399,42 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdf('type'),
-        ns.rdf('Statement')
+        ns.rdf('Statement'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdf('subject'),
-        df.namedNode('urn:oslo-toolchain:attribute:2')
+        df.namedNode('urn:oslo-toolchain:attribute:2'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdf('predicate'),
-        ns.rdfs('domain')
+        ns.rdfs('domain'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdf('object'),
-        df.namedNode('urn:oslo-toolchain:class:2')
+        df.namedNode('urn:oslo-toolchain:class:2'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.rdfs('label'),
-        df.literal('A label', 'en')
+        df.literal('A label', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
+        df.literal('A usage note', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:statement:1'),
         ns.example('usesConceptScheme'),
-        df.namedNode('http://example.org/id/conceptScheme/A')
+        df.namedNode('http://example.org/id/conceptScheme/A'),
       ),
     ];
 
@@ -475,7 +474,7 @@ describe('JsonLdOutputHandler', () => {
           ],
           usesConceptScheme: 'http://example.org/id/conceptScheme/A',
         }),
-      ])
+      ]),
     );
   });
 });

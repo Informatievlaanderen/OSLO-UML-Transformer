@@ -1,3 +1,4 @@
+import { URL } from 'url';
 import type { EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import { CasingTypes } from '../enums/CasingTypes';
 import { TagNames } from '../enums/TagNames';
@@ -8,7 +9,11 @@ export function ignore(object: EaObject): boolean {
   return Boolean(ignoreObject);
 }
 
-export function getTagValue(object: any, tagName: TagNames, _default: any): string {
+export function getTagValue(
+  object: any,
+  tagName: TagNames,
+  _default: any,
+): string {
   const tags = object.tags?.filter((x: EaTag) => x.tagName === tagName);
 
   if (!tags || tags.length === 0) {
@@ -24,7 +29,11 @@ export function getTagValue(object: any, tagName: TagNames, _default: any): stri
 }
 
 // TODO: this function should be removed and logic should be part of connectors
-export function extractUri(object: EaObject, packageUri: URL, casing?: CasingTypes): URL {
+export function extractUri(
+  object: EaObject,
+  packageUri: URL,
+  casing?: CasingTypes,
+): URL {
   const uri = getTagValue(object, TagNames.ExternalUri, null);
 
   if (uri) {
@@ -73,8 +82,13 @@ export function convertToCase(text: string, casing?: CasingTypes): string {
   return casedText;
 }
 
-export function getDefininingPackageUri(uriRegistry: UriRegistry, packageName: string, currentPackageUri: URL): URL {
-  const referencedPackages = uriRegistry.packageNameToPackageMap.get(packageName) || [];
+export function getDefininingPackageUri(
+  uriRegistry: UriRegistry,
+  packageName: string,
+  currentPackageUri: URL,
+): URL {
+  const referencedPackages =
+    uriRegistry.packageNameToPackageMap.get(packageName) || [];
 
   if (referencedPackages.length === 0) {
     // TODO: log messag
@@ -93,10 +107,15 @@ function removeCaret(text: string): string {
 }
 
 function toPascalCase(text: string): string {
-  return text.replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) => word.toUpperCase()).replace(/\s+/gu, '');
+  return text
+    .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
+      word.toUpperCase())
+    .replace(/\s+/gu, '');
 }
 
 function toCamelCase(text: string): string {
-  return text.replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
-    index === 0 ? word.toLowerCase() : word.toUpperCase()).replace(/\s+/gu, '');
+  return text
+    .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
+      index === 0 ? word.toLowerCase() : word.toUpperCase())
+    .replace(/\s+/gu, '');
 }

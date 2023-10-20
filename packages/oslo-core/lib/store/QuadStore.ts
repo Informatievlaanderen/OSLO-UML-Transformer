@@ -26,67 +26,104 @@ export class QuadStore {
     const textStream = require('streamify-string')(buffer.toString());
 
     return new Promise<void>((resolve, reject) => {
-      rdfParser.parse(textStream, { path: file })
+      rdfParser
+        .parse(textStream, { path: file })
         .on('data', (quad: RDF.Quad) => this.store.addQuad(quad))
         .on('error', (error: unknown) => reject(error))
         .on('end', () => resolve());
     });
   }
 
-  public findQuads(subject: RDF.Term | null, predicate: RDF.Term | null, object: RDF.Term | null): RDF.Quad[] {
-    return this.store.getQuads(subject, predicate, object, null);
+  public findQuads(
+    subject: RDF.Term | null,
+    predicate: RDF.Term | null,
+    object: RDF.Term | null,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad[] {
+    return this.store.getQuads(subject, predicate, object, graph);
   }
 
-  public findQuad(subject: RDF.Term | null, predicate: RDF.Term | null, object: RDF.Term | null): RDF.Quad | undefined {
-    return this.findQuads(subject, predicate, object).shift();
+  public findQuad(
+    subject: RDF.Term | null,
+    predicate: RDF.Term | null,
+    object: RDF.Term | null,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad | undefined {
+    return this.findQuads(subject, predicate, object, graph).shift();
   }
 
-  public findSubjects(predicate: RDF.Term, object: RDF.Term): RDF.Term[] {
-    return <RDF.Term[]>this.store.getSubjects(predicate, object, null);
+  public findSubjects(
+    predicate: RDF.Term,
+    object: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term[] {
+    return <RDF.Term[]>this.store.getSubjects(predicate, object, graph);
   }
 
-  public findSubject(predicate: RDF.Term, object: RDF.Term): RDF.Term | undefined {
-    return this.findSubjects(predicate, object).shift();
+  public findSubject(
+    predicate: RDF.Term,
+    object: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term | undefined {
+    return this.findSubjects(predicate, object, graph).shift();
   }
 
-  public findObjects(subject: RDF.Term, predicate: RDF.Term): RDF.Term[] {
-    return <RDF.Term[]>this.store.getObjects(subject, predicate, null);
+  public findObjects(
+    subject: RDF.Term,
+    predicate: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term[] {
+    return <RDF.Term[]>this.store.getObjects(subject, predicate, graph);
   }
 
-  public findObject(subject: RDF.Term, predicate: RDF.Term): RDF.Term | undefined {
-    return this.findObjects(subject, predicate).shift();
+  public findObject(
+    subject: RDF.Term,
+    predicate: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term | undefined {
+    return this.findObjects(subject, predicate, graph).shift();
   }
 
   /**
-   * Finds the subject where predicate is 'rdf:type' and object 'example:Package'
+   * Finds the subject where predicate is 'rdf:type' and object 'oslo:Package'
    * @returns a RDF.NamedNode or undefined
    */
   public getPackageId(): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getSubjects(ns.rdf('type'), ns.example('Package'), null).shift();
+    return <RDF.NamedNode | undefined>(
+      this.store.getSubjects(ns.rdf('type'), ns.oslo('Package'), null).shift()
+    );
   }
 
   /**
    * Finds all subjects where predicate is 'rdf:type' and object 'owl:Class'
    * @returns an array of RDF.NamedNodes
    */
-  public getClassIds(): RDF.NamedNode[] {
-    return <RDF.NamedNode[]>this.store.getSubjects(ns.rdf('type'), ns.owl('Class'), null);
+  public getClassIds(graph: RDF.Term | null = null): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(
+      this.store.getSubjects(ns.rdf('type'), ns.owl('Class'), graph)
+    );
   }
 
   /**
- * Finds all subjects where predicate is 'rdf:type' and object 'owl:DatatypeProperty'
- * @returns an array of RDF.NamedNodes
- */
-  public getDatatypePropertyIds(): RDF.NamedNode[] {
-    return <RDF.NamedNode[]>this.store.getSubjects(ns.rdf('type'), ns.owl('DatatypeProperty'), null);
+   * Finds all subjects where predicate is 'rdf:type' and object 'owl:DatatypeProperty'
+   * @returns an array of RDF.NamedNodes
+   */
+  public getDatatypePropertyIds(
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(
+      this.store.getSubjects(ns.rdf('type'), ns.owl('DatatypeProperty'), graph)
+    );
   }
 
   /**
- * Finds all subjects where predicate is 'rdf:type' and object 'owl:ObjectProperty'
- * @returns an array of RDF.NamedNodes
- */
-  public getObjectPropertyIds(): RDF.NamedNode[] {
-    return <RDF.NamedNode[]>this.store.getSubjects(ns.rdf('type'), ns.owl('ObjectProperty'), null);
+   * Finds all subjects where predicate is 'rdf:type' and object 'owl:ObjectProperty'
+   * @returns an array of RDF.NamedNodes
+   */
+  public getObjectPropertyIds(graph: RDF.Term | null = null): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(
+      this.store.getSubjects(ns.rdf('type'), ns.owl('ObjectProperty'), graph)
+    );
   }
 
   /**
@@ -95,18 +132,44 @@ export class QuadStore {
    * @param store The quad store
    * @returns An RDF.NamedNode or undefined if not found
    */
-  public getAssignedUri(subject: RDF.Term): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getObjects(subject, ns.example('assignedUri'), null).shift();
+  public getAssignedUri(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('assignedURI'), graph).shift()
+    );
   }
 
   /**
-   * Find all rdfs:labels for a given subject
-   * @param subject The RDF.Term to find the rdfs:labels for
+   * Find all quads with a label predicate (vocLabel, apLabel and diagramLabel) for a given subject
+   * @param subject The RDF.Term to find the labels for
    * @param store A N3 quad store
-   * @returns An array of RDF.Literals
+   * @returns An array of RDF.Quads
    */
-  public getLabels(subject: RDF.Term): RDF.Literal[] {
-    return <RDF.Literal[]>this.store.getObjects(subject, ns.rdfs('label'), null);
+  public getLabels(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad[] {
+    const vocLabel = this.store.getQuads(
+      subject,
+      ns.oslo('vocLabel'),
+      null,
+      graph,
+    );
+    const apLabel = this.store.getQuads(
+      subject,
+      ns.oslo('apLabel'),
+      null,
+      graph,
+    );
+    const diagramLabel = this.store.getQuads(
+      subject,
+      ns.oslo('diagramLabel'),
+      null,
+      graph,
+    );
+    return <RDF.Quad[]>vocLabel.concat(apLabel).concat(diagramLabel);
   }
 
   /**
@@ -116,8 +179,14 @@ export class QuadStore {
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getLabel(subject: RDF.Term, language?: string): RDF.Literal | undefined {
-    return this.getLabels(subject).find(x => x.language === (language || ''));
+  public getLabel(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad | undefined {
+    return this.getLabels(subject, graph).find(
+      x => (<RDF.Literal>x.object).language === (language || ''),
+    );
   }
 
   /**
@@ -126,8 +195,26 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An array of RDF.Literals
    */
-  public getDefinitions(subject: RDF.Term): RDF.Literal[] {
-    return <RDF.Literal[]>this.store.getObjects(subject, ns.rdfs('comment'), null);
+  public getDefinitions(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad[] {
+    const vocDefinitions = this.store.getQuads(
+      subject,
+      ns.oslo('vocDefinition'),
+      null,
+      graph
+    );
+
+    const apDefinitions = this.store.getQuads(
+      subject,
+      ns.oslo('apDefinition'),
+      null,
+      graph
+    );
+    return <RDF.Quad[]>(
+      vocDefinitions.concat(apDefinitions)
+    );
   }
 
   /**
@@ -137,8 +224,14 @@ export class QuadStore {
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getDefinition(subject: RDF.Term, language?: string): RDF.Literal | undefined {
-    return this.getDefinitions(subject).find(x => x.language === (language || ''));
+  public getDefinition(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad | undefined {
+    return this.getDefinitions(subject, graph).find(
+      x => (<RDF.Literal>x.object).language === (language || ''),
+    );
   }
 
   /**
@@ -147,8 +240,13 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An RDF.Term or undefined if not found
    */
-  public getRange(subject: RDF.Term): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getObjects(subject, ns.rdfs('range'), null).shift();
+  public getRange(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.rdfs('range'), graph).shift()
+    );
   }
 
   /**
@@ -157,8 +255,13 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An RDF.Term or undefined if not found
    */
-  public getDomain(subject: RDF.Term): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getObjects(subject, ns.rdfs('domain'), null).shift();
+  public getDomain(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.rdfs('domain'), graph).shift()
+    );
   }
 
   /**
@@ -167,8 +270,24 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An array of RDF.Literals
    */
-  public getUsageNotes(subject: RDF.Term): RDF.Literal[] {
-    return <RDF.Literal[]>this.store.getObjects(subject, ns.vann('usageNote'), null);
+  public getUsageNotes(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad[] {
+    const vocUsageNotes = this.store.getQuads(
+      subject,
+      ns.oslo('vocUsageNote'),
+      null,
+      graph
+    );
+
+    const apUsageNotes = this.store.getQuads(
+      subject,
+      ns.oslo('apUsageNote'),
+      null,
+      graph
+    );
+    return <RDF.Quad[]>vocUsageNotes.concat(apUsageNotes);
   }
 
   /**
@@ -178,8 +297,14 @@ export class QuadStore {
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getUsageNote(subject: RDF.Term, language?: string): RDF.Literal | undefined {
-    return this.getUsageNotes(subject).find(x => x.language === (language || ''));
+  public getUsageNote(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Quad | undefined {
+    return this.getUsageNotes(subject, graph).find(
+      x => (<RDF.Literal>x.object).language === (language || ''),
+    );
   }
 
   /**
@@ -187,8 +312,13 @@ export class QuadStore {
    * @param subject The RDF.Term to find the scope for
    * @returns An RDF.NamedNode or undefined if not found
    */
-  public getScope(subject: RDF.Term): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getObjects(subject, ns.example('scope'), null).shift();
+  public getScope(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('scope'), graph).shift()
+    );
   }
 
   /**
@@ -196,17 +326,27 @@ export class QuadStore {
    * @param subject The RDF.Term to find the shacl:minCardinaly for
    * @returns An RDF.Literal or undefined if not found
    */
-  public getMinCardinality(subject: RDF.Term): RDF.Literal | undefined {
-    return <RDF.Literal | undefined>this.store.getObjects(subject, ns.shacl('minCount'), null).shift();
+  public getMinCardinality(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal | undefined>(
+      this.store.getObjects(subject, ns.shacl('minCount'), graph).shift()
+    );
   }
 
   /**
- * Finds the shacl:maxCardinality for a given subject
- * @param subject The RDF.Term to find the shacl:maxCardinaly for
- * @returns An RDF.Literal or undefined if not found
- */
-  public getMaxCardinality(subject: RDF.Term): RDF.Literal | undefined {
-    return <RDF.Literal | undefined>this.store.getObjects(subject, ns.shacl('maxCount'), null).shift();
+   * Finds the shacl:maxCardinality for a given subject
+   * @param subject The RDF.Term to find the shacl:maxCardinaly for
+   * @returns An RDF.Literal or undefined if not found
+   */
+  public getMaxCardinality(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal | undefined>(
+      this.store.getObjects(subject, ns.shacl('maxCount'), graph).shift()
+    );
   }
 
   /**
@@ -215,8 +355,13 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An array of RDF.Terms
    */
-  public getParentsOfClass(subject: RDF.Term): RDF.NamedNode[] {
-    return <RDF.NamedNode[]>this.store.getObjects(subject, ns.rdfs('subClassOf'), null);
+  public getParentsOfClass(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(
+      this.store.getObjects(subject, ns.rdfs('subClassOf'), graph)
+    );
   }
 
   /**
@@ -225,8 +370,22 @@ export class QuadStore {
    * @param store A N3 quad store
    * @returns An RDF.Term or undefined if not found
    */
-  public getParentOfProperty(subject: RDF.Term): RDF.NamedNode | undefined {
-    return <RDF.NamedNode | undefined>this.store.getObjects(subject, ns.rdfs('subPropertyOf'), null).shift();
+  public getParentOfProperty(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.rdfs('subPropertyOf'), graph).shift()
+    );
+  }
+
+  public getCodelist(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('codelist'), graph).shift()
+    );
   }
 
   /**
@@ -242,18 +401,39 @@ export class QuadStore {
     statementPredicate: RDF.Term,
     statementObject: RDF.Term,
   ): RDF.Term | undefined {
-    const statementIds = this.store.getSubjects(ns.rdf('type'), ns.rdf('Statement'), null);
-    const statementSubjectPredicateSubjects = this.store.getSubjects(ns.rdf('subject'), statementSubject, null);
-    const statementPredicatePredicateSubjects = this.store.getSubjects(ns.rdf('predicate'), statementPredicate, null);
-    const statementObjectPredicateSubjects = this.store.getSubjects(ns.rdf('object'), statementObject, null);
+    const statementIds = this.store.getSubjects(
+      ns.rdf('type'),
+      ns.rdf('Statement'),
+      null,
+    );
+    const statementSubjectPredicateSubjects = this.store.getSubjects(
+      ns.rdf('subject'),
+      statementSubject,
+      null,
+    );
+    const statementPredicatePredicateSubjects = this.store.getSubjects(
+      ns.rdf('predicate'),
+      statementPredicate,
+      null,
+    );
+    const statementObjectPredicateSubjects = this.store.getSubjects(
+      ns.rdf('object'),
+      statementObject,
+      null,
+    );
 
     const targetIds = statementIds
-      .filter(x => statementSubjectPredicateSubjects.some(y => y.value === x.value))
-      .filter(x => statementPredicatePredicateSubjects.some(y => y.value === x.value))
-      .filter(x => statementObjectPredicateSubjects.some(y => y.value === x.value));
+      .filter(x =>
+        statementSubjectPredicateSubjects.some(y => y.value === x.value))
+      .filter(x =>
+        statementPredicatePredicateSubjects.some(y => y.value === x.value))
+      .filter(x =>
+        statementObjectPredicateSubjects.some(y => y.value === x.value));
 
     if (targetIds.length > 1) {
-      throw new Error(`Found multiple statements with subject "${statementSubject.value}", predicate "${statementPredicate.value}" and object "${statementObject.value}".`);
+      throw new Error(
+        `Found multiple statements with subject "${statementSubject.value}", predicate "${statementPredicate.value}" and object "${statementObject.value}".`,
+      );
     }
 
     return targetIds.shift();
@@ -295,7 +475,7 @@ export class QuadStore {
     predicate: RDF.Term,
     object: RDF.Term,
     language: string,
-  ): RDF.Literal | undefined {
+  ): RDF.Quad | undefined {
     const statementId = this.getTargetStatementId(subject, predicate, object);
 
     if (!statementId) {
@@ -320,7 +500,7 @@ export class QuadStore {
     predicate: RDF.Term,
     object: RDF.Term,
     language: string,
-  ): RDF.Literal | undefined {
+  ): RDF.Quad | undefined {
     const statementId = this.getTargetStatementId(subject, predicate, object);
 
     if (!statementId) {
@@ -345,7 +525,7 @@ export class QuadStore {
     predicate: RDF.Term,
     object: RDF.Term,
     language: string,
-  ): RDF.Literal | undefined {
+  ): RDF.Quad | undefined {
     const statementId = this.getTargetStatementId(subject, predicate, object);
 
     if (!statementId) {

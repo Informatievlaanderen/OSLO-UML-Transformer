@@ -1,6 +1,11 @@
+import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
-import { Logger, Scope } from '@oslo-flanders/core';
-import type { DataRegistry, EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
+import { Logger, Scope, ns } from '@oslo-flanders/core';
+import type {
+  DataRegistry,
+  EaObject,
+  EaTag,
+} from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
@@ -11,15 +16,23 @@ import type { UriRegistry } from '../UriRegistry';
 
 @injectable()
 export abstract class ConverterHandler<T extends EaObject> {
-  @inject(EaUmlConverterServiceIdentifier.Configuration) public readonly config!: EaUmlConverterConfiguration;
-  @inject(EaUmlConverterServiceIdentifier.Logger) public readonly logger!: Logger;
+  @inject(EaUmlConverterServiceIdentifier.Configuration)
+  public readonly config!: EaUmlConverterConfiguration;
+
+  @inject(EaUmlConverterServiceIdentifier.Logger)
+  public readonly logger!: Logger;
+
   public readonly df = new DataFactory();
   public readonly baseUrnScheme: string = 'urn:oslo-toolchain';
 
   /**
    * Creates RDF.Quads for objects with type T in the normalized model and adds them to an RDF.Store
    */
-  public abstract convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore>;
+  public abstract convert(
+    model: DataRegistry,
+    uriRegistry: UriRegistry,
+    store: QuadStore
+  ): Promise<QuadStore>;
 
   /**
    * Normalizes objects with type T in the data model
@@ -29,98 +42,233 @@ export abstract class ConverterHandler<T extends EaObject> {
   /**
    * Assigns URIs to objects with type T in the data model and adds them to the URI registry
    */
-  public abstract assignUris(normalizedModel: DataRegistry, uriRegistry: UriRegistry): Promise<UriRegistry>;
+  public abstract assignUris(
+    normalizedModel: DataRegistry,
+    uriRegistry: UriRegistry
+  ): Promise<UriRegistry>;
 
   /**
    * Creates and returns quads for an object with type T
    */
-  public abstract createQuads(object: T, uriRegistry: UriRegistry, model?: DataRegistry): RDF.Quad[];
+  public abstract createQuads(
+    object: T,
+    uriRegistry: UriRegistry,
+    model?: DataRegistry
+  ): RDF.Quad[];
 
   /**
    * Removes objects that contain an ignore tag
-   * @param model
+   * @param model - The data registry containing the entities
    */
-  public abstract filterIgnoredObjects(model: DataRegistry): Promise<DataRegistry>;
+  public abstract filterIgnoredObjects(
+    model: DataRegistry
+  ): Promise<DataRegistry>;
 
-  public getLabel(object: T): RDF.Literal[] {
-    const labelTags = this.config.specificationType === 'ApplicationProfile' ?
-      this.getLanguageDependentTag(object, TagNames.ApLabel, TagNames.Label) :
-      this.getLanguageDependentTag(object, TagNames.Label);
-
-    return labelTags.length > 0 ? labelTags : [this.df.literal(object.name)];
+  /**
+   * Adds information that was set via tags on an entity to the array of quads
+   * @param object - The entity to extract the information from and add it to the array of quads
+   * @param objectInternalId - An RDF.NamedNode representing the internal ID of the entity
+   * @param quads - The array of quads
+   * @param graph - The graph to add the quads to
+   */
+  public addEntityInformation(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    quads: RDF.Quad[],
+    graph: RDF.Quad_Graph = this.df.defaultGraph(),
+  ): void {
+    this.addDefinitions(object, objectInternalId, graph, quads);
+    this.addLabels(object, objectInternalId, graph, quads);
+    this.addUsageNotes(object, objectInternalId, graph, quads);
   }
 
-  public getDefinition(object: T): RDF.Literal[] {
-    return this.config.specificationType === 'ApplicationProfile' ?
-      this.getLanguageDependentTag(object, TagNames.ApDefinition, TagNames.Definition) :
-      this.getLanguageDependentTag(object, TagNames.Definition);
+  public addDefinitions(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    graph: RDF.Quad_Graph,
+    quads: RDF.Quad[],
+  ): void {
+    const apDefinitions = this.getTagValue(object, TagNames.ApDefinition);
+    this.addValuesToQuads(
+      apDefinitions,
+      objectInternalId,
+      ns.oslo('apDefinition'),
+      graph,
+      quads,
+    );
+
+    const vocDefinitions = this.getTagValue(object, TagNames.Definition);
+    this.addValuesToQuads(
+      vocDefinitions,
+      objectInternalId,
+      ns.oslo('vocDefinition'),
+      graph,
+      quads,
+    );
   }
 
-  public getUsageNote(object: T): RDF.Literal[] {
-    return this.config.specificationType === 'ApplicationProfile' ?
-      this.getLanguageDependentTag(object, TagNames.ApUsageNote, TagNames.UsageNote) :
-      this.getLanguageDependentTag(object, TagNames.UsageNote);
+  public addLabels(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    graph: RDF.Quad_Graph,
+    quads: RDF.Quad[],
+  ): void {
+    const apLabels = this.getTagValue(object, TagNames.ApLabel);
+    this.addValuesToQuads(
+      apLabels,
+      objectInternalId,
+      ns.oslo('apLabel'),
+      graph,
+      quads,
+    );
+
+    const vocLabels = this.getTagValue(object, TagNames.Label);
+    this.addValuesToQuads(
+      vocLabels,
+      objectInternalId,
+      ns.oslo('vocLabel'),
+      graph,
+      quads,
+    );
+
+    // The name of the object as it appears on the diagram is also provided
+    this.addValuesToQuads(
+      [this.df.literal(object.name)],
+      objectInternalId,
+      ns.oslo('diagramLabel'),
+      graph,
+      quads,
+    );
   }
 
-  // TODO: watch out for URI tags containing a data.vlaanderen URI
-  public getScope(object: T, packageBaseUri: string, idUriMap: Map<number, URL>): Scope {
+  public addUsageNotes(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    graph: RDF.Quad_Graph,
+    quads: RDF.Quad[],
+  ): void {
+    const apUsageNotes = this.getTagValue(object, TagNames.ApUsageNote);
+    this.addValuesToQuads(
+      apUsageNotes,
+      objectInternalId,
+      ns.oslo('apUsageNote'),
+      graph,
+      quads,
+    );
+
+    const vocUsageNotes = this.getTagValue(object, TagNames.UsageNote);
+    this.addValuesToQuads(
+      vocUsageNotes,
+      objectInternalId,
+      ns.oslo('vocUsageNote'),
+      graph,
+      quads,
+    );
+  }
+
+  /**
+   * Determines the scope of the assigned URI of an entity
+   * @param object - The entity to determine the scope for
+   * @param objectInternalId - An RDF.NamedNode representing the internal ID of the entity
+   * @param packageBaseUri - The base URI that has been set on the EA package
+   * @param idUriMap - A map containing the entity id and assigned URI
+   * @param quads - An array of RDF.Quads to add the quad to
+   */
+  public addScope(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    packageBaseUri: string,
+    idUriMap: Map<number, URL>,
+    quads: RDF.Quad[],
+  ): void {
     const uri = idUriMap.get(object.id);
 
+    let scope: Scope = Scope.External;
+
     if (!uri) {
-      // TODO: log message
-      return Scope.Undefined;
+      this.logger.warn(
+        `[ConverterHandler]: Unable to find the URI for object with path ${object.path}. Setting scope to "Undefined".`,
+      );
+      scope = Scope.Undefined;
     }
 
-    if (uri.toString().startsWith(packageBaseUri)) {
-      return Scope.InPackage;
+    if (uri?.toString().startsWith(packageBaseUri)) {
+      scope = Scope.InPackage;
     }
 
-    if (uri.toString().startsWith(this.config.publicationEnvironment)) {
-      return Scope.InPublicationEnvironment;
+    if (uri?.toString().startsWith(this.config.publicationEnvironment)) {
+      scope = Scope.InPublicationEnvironment;
     }
 
-    return Scope.External;
+    quads.push(
+      this.df.quad(objectInternalId, ns.oslo('scope'), this.df.namedNode(scope)),
+    );
+  }
+
+  /**
+   * Extract the value for a tag
+   * @param object - The entity to extract the tag values from
+   * @param tag - The name of the tag to extract the value for
+   * @returns - An array of RDF.Literals
+   */
+  private getTagValue(object: T, tag: TagNames): RDF.Literal[] {
+    return this.getLanguageDependentTag(object, tag);
+  }
+
+  /**
+   * Adds RDF.Literals to an array of quads for a configurable subject and predicate
+   * @param values - An array of RDF.Literals
+   * @param objectInternalId  - An RDF.NamedNode representing the URI of the subject
+   * @param predicate - An RDF.NamedNode representing the predicate
+   * @param graph - To graph to add to quads to
+   * @param quads - The array of quads
+   */
+  private addValuesToQuads(
+    values: RDF.Literal[],
+    objectInternalId: RDF.NamedNode,
+    predicate: RDF.NamedNode,
+    graph: RDF.Quad_Graph,
+    quads: RDF.Quad[],
+  ): void {
+    values.forEach(value => {
+      quads.push(this.df.quad(objectInternalId, predicate, value, graph));
+    });
   }
 
   /**
    * Returns all values of tags that contain the tag name
    * @param object — The object to extract the tag values from
-   * @param name  — The tag name
-   * @param fallbackTag  — Depending on the specification type, a fallback tag will be used to get tag values
-   * When specification type is 'ApplicationProfile' and certain tags are not added,
-   * the vocabulary fallback tags are used
+   * @param name  — The name of the tag
    */
-  private getLanguageDependentTag(object: T, name: TagNames, fallbackTag?: TagNames): RDF.Literal[] {
+  private getLanguageDependentTag(object: T, name: TagNames): RDF.Literal[] {
     const tags = object.tags.filter((x: EaTag) => x.tagName.startsWith(name));
     const literals: RDF.Literal[] = [];
 
     const languageToTagValueMap = new Map<string, string>();
 
-    if (tags.length === 0) {
-      // TODO: Log warning that primary tag choice is not available, and fallback will be applied
-      if (!fallbackTag) {
-        // TODO: Log error that there is no fallback anymore
-        return literals;
-      }
-
-      return this.getLanguageDependentTag(object, fallbackTag);
-    }
-
     tags.forEach((tag: EaTag) => {
       const parts = tag.tagName.split('-');
       const languageCode = parts[parts.length - 1];
 
-      if (languageToTagValueMap.has(languageCode)) {
-        // TODO: Log warning that object has multiple occurrences and will be overriden
-      }
-
       const tagValue = tag.tagValue;
       if (!tagValue) {
-        // TODO: Log warning for empty field?
+        this.logger.warn(
+          `[ConverterHandler]: Entity with path ${object.path} has an empty value for tag ${tag.tagName}.`,
+        );
         return;
       }
 
-      literals.push(this.df.literal(tagValue.trim(), languageCode));
+      if (languageToTagValueMap.has(languageCode)) {
+        this.logger.warn(
+          `[ConverterHandler]: Entity with path ${object.path} has already a value for ${tag.tagName} in language ${languageCode}, but will be overwritten.`,
+        );
+      }
+
+      languageToTagValueMap.set(languageCode, tag.tagValue);
+    });
+
+    languageToTagValueMap.forEach((value, languageCode) => {
+      literals.push(this.df.literal(value.trim(), languageCode));
     });
 
     return literals;

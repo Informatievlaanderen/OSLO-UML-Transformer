@@ -75,16 +75,16 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       this.df.quad(
         packageInternalId,
         ns.rdf('type'),
-        ns.example('Package'),
+        ns.oslo('Package'),
       ),
       this.df.quad(
         packageInternalId,
-        ns.example('assignedUri'),
+        ns.oslo('assignedURI'),
         ontologyUriNamedNode,
       ),
       this.df.quad(
         packageInternalId,
-        ns.example('baseUri'),
+        ns.oslo('baseURI'),
         this.df.namedNode(baseUri.toString()),
       ),
     );

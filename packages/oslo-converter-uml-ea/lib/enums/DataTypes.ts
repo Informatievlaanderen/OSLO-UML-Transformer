@@ -24,3 +24,11 @@ export const DataTypes: Map<string, string> = new Map<string, string>(
     ['URI', `${xsd}#anyURI`],
   ],
 );
+
+export const datatypeIdentifierToHash = (uri: string): number => {
+  let h: number = 0;
+  for (let i = 0; i < uri.length; i++) {
+    h = (Math.imul(31, h) + uri.charCodeAt(i)) | 0;
+  }
+  return h > 0 ? h : (h * - 1)
+}
