@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
+    "@types/n3": "^1.16.1",
     "jest-runner-groups": "^2.2.0"
   },
   "dependencies": {

@@ -4,7 +4,6 @@ const factory = new DataFactory();
 
 // TODO: remove example.org from prefixes
 enum Prefixes {
-  example = 'http://example.org/',
   adms = 'http://www.w3.org/ns/adms#',
   dcat = 'http://www.w3.org/ns/dcat#',
   dcterms = 'http://purl.org/dc/terms/',
@@ -20,7 +19,8 @@ enum Prefixes {
   person = 'http://www.w3.org/ns/person#',
   vann = 'http://purl.org/vocab/vann/',
   shacl = 'http://w3.org/ns/shacl#',
-  prov = 'http://www.w3.org/ns/prov#'
+  prov = 'http://www.w3.org/ns/prov#',
+  oslo = 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#'
 }
 
 export type Namespace = {

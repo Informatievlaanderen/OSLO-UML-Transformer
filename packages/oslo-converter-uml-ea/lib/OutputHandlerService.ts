@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/indent */
 import { createWriteStream } from 'fs';
 import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
-import { JsonLdOutputHandler } from './output-handlers/JsonLdOutputHandler';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
+import { JsonLdOutputHandler } from './output-handlers/JsonLdOutputHandler';
 
 @injectable()
 export class OutputHandlerService {
