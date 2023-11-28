@@ -1,0 +1,2792 @@
+{
+  "@context": {
+    "@context": {
+      "vlaanderen": "http://data.vlaanderen.be/ns/",
+      "owl": "http://www.w3.org/2002/07/owl#",
+      "void": "http://rdfs.org/ns/void#",
+      "dcterms": "http://purl.org/dc/terms/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "qb": "http://purl.org/linked-data/cube#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "person": "http://www.w3.org/ns/person#",
+      "rec": "http://www.w3.org/2001/02pd/rec54#",
+      "vann": "http://purl.org/vocab/vann/",
+      "sh": "http://w3.org/ns/shacl#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "packages": "@included",
+      "classes": "@included",
+      "datatypes": "@included",
+      "attributes": "@included",
+      "baseUri": "http://example.org/baseUri",
+      "definition": {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      "label": {
+        "@id": "rdfs:label",
+        "@container": "@set"
+      },
+      "scope": {
+        "@id": "http://example.org/scope"
+      },
+      "usageNote": {
+        "@id": "vann:usageNote",
+        "@container": "@set"
+      },
+      "domain": {
+        "@id": "rdfs:domain",
+        "@container": "@set"
+      },
+      "range": {
+        "@id": "rdfs:range"
+      },
+      "minCount": {
+        "@id": "sh:minCount"
+      },
+      "maxCount": {
+        "@id": "sh:maxCount"
+      },
+      "parent": {
+        "@id": "rdfs:subClassOf",
+        "@type": "owl:Class"
+      },
+      "generatedAtTime": {
+        "@id": "prov:generatedAtTime"
+      },
+      "Package": "http://example.org/Package",
+      "Class": {
+        "@id": "owl:Class"
+      },
+      "DatatypeProperty": {
+        "@id": "owl:DatatypeProperty"
+      },
+      "ObjectProperty": {
+        "@id": "owl:ObjectProperty"
+      },
+      "authors": {
+        "@type": "foaf:Person",
+        "@id": "foaf:maker"
+      },
+      "editors": {
+        "@type": "foaf:Person",
+        "@id": "rec:editor"
+      },
+      "contributors": {
+        "@type": "foaf:Person",
+        "@id": "dcterms:contributor"
+      },
+      "affiliation": {
+        "@id": "http://schema.org/affiliation"
+      },
+      "subject": {
+        "@id": "rdf:subject",
+        "@type": "@id"
+      },
+      "predicate": {
+        "@id": "rdf:predicate",
+        "@type": "@id"
+      },
+      "object": {
+        "@id": "rdf:object",
+        "@type": "@id"
+      },
+      "Statement": {
+        "@id": "rdf:Statement"
+      },
+      "assignedUri": {
+        "@id": "http://example.org/assignedUri",
+        "@type": "@id"
+      },
+      "Datatype": {
+        "@id": "rdfs:Datatype"
+      }
+    }
+  },
+  "@id": "https://implementatie.data.vlaanderen.be#/Verkeersmetingen",
+  "generatedAtTime": "2023-11-28T12:09:30.297Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:6c95ad7c233cf656b02e9d29a5997158235ac5578c42a0b75c2c58bc1da3a8f3",
+      "@type": "Package",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen",
+      "baseUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:6def1310f21591ae3af067d0eeb8d170a62479034dbb87b3d671c9bd9e3a8ac8",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeersdomeinobject",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object uit het verkeersdomein waarvan men een Verkeerskenmerk meet."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeersdomeinobject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947"
+        },
+        {
+          "@id": "urn:oslo-toolchain:66d628169f230316ab5425d07deb3c883259cf6eddfb9d7165812da3e83d119c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeersobject",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object waarop of waarlangs zich verkeer voordoet of dat deel uitmaakt vh verkeer."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeersobject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:11c573ff6ad2747711d3fa59ad16239f45bb2bae2294961a9bcf54b0846b5a81"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeersmeting",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het vaststellen van de waarde van een bepaald kenmerk van het verkeer op een bepaald tijdstip of tussen twee tijdstippen."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeersmeting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:0ddea466c9a04ab64885dd83b8231576ab2dde468bff6c52197d630d4df86ce6"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:a16ccea5e174267f5995976d8234c8c9d79db81242e050e38fac265bbc334898",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeersmeetpunt",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Punt waarlangs men kenmerken van het voorbijkomend verkeer meet."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeersmeetpunt"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:814aae74f7a41bb19ab0dc8795433e725734add10985743bbfd684fce272c870"
+        },
+        {
+          "@id": "urn:oslo-toolchain:b5010de335a22fd6579da79c29c4850a39480247a25be03e1e2457cc252ca7b2"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:814aae74f7a41bb19ab0dc8795433e725734add10985743bbfd684fce272c870",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeersbemonsteringsobject",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat representatief is voor het object waarvan men het Verkeerskenmerk meet."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeersbemonsteringsobject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947"
+        },
+        {
+          "@id": "urn:oslo-toolchain:dc020eeb66b8d467955f59144c2680e0dc090190ff706e376d6e71049239f346"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Verkeerskenmerk",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerk van het Verkeersdomeinobject of het Verkeersbemonsteringsobject dat gemeten wordt en dat betrekking heeft op het verkeer over of langs dat object of op zijn deelname aan het verkeer."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerskenmerk"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:354f5ec934521027c12d7a88d5b3f3b12a7394e2f423d49c7d0c05de0ade4eb1"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:09bf86d348d982ad5b6ff0d680f7dc3e1e6b854865773b2291d9031664b18b9a",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#Rijrichting",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Richting waarin het verkeer zich over de weg beweegt."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Rijrichting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:6def1310f21591ae3af067d0eeb8d170a62479034dbb87b3d671c9bd9e3a8ac8"
+        },
+        {
+          "@id": "urn:oslo-toolchain:21fc7a9eb636d0bdc23e0fbd84138a8b2b5a5b95bdec0f8285a4eaa736463eaf"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:2390ce60b057e71208d1e12a8ef5fb6939621c648ece149f0f1f338be9ba2bd6",
+      "@type": "Class",
+      "assignedUri": "http://purl.org/dc/terms/Agent",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Iemand die of iets dat kan handelen of een effect kan teweeg brengen."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Agent"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0db93684f4a1289dddb7ee4ea83bbad2203c77a43bea045631bb5c1183931457",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#Wegknoop",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Significante positie in het Tansportnetwerk die steeds samenvalt met het begin of het einde van een Wegsegment."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Wegknoop"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:65ed5d100af1202084b938661d65e3ad04bc53eec47abb7c5dd8ac4944604c08"
+        },
+        {
+          "@id": "urn:oslo-toolchain:24562857fd01cecaef5e4121b45f1456562cb35d1f531ba41ad0d4adc1551839"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:65ed5d100af1202084b938661d65e3ad04bc53eec47abb7c5dd8ac4944604c08",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Wegobject",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat een onderdeel uit een Wegennetwerk vertegenwoordigt."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Wegobject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:6def1310f21591ae3af067d0eeb8d170a62479034dbb87b3d671c9bd9e3a8ac8"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#Wegsegment",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Lineair ruimtelijk object dat de geometrie en connectiviteit beschrijft tussen twee punten in een Wegennetwerk."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Wegsegment"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:65ed5d100af1202084b938661d65e3ad04bc53eec47abb7c5dd8ac4944604c08"
+        },
+        {
+          "@id": "urn:oslo-toolchain:561358df9ba7404b2625a1fede7c6d86ea51180e7239902153c7f130bf3ffb93"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43",
+      "@type": "Class",
+      "assignedUri": "https://www.w3.org/TR/vocab-ssn/#SOSAProcedure",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een workflow, protocol, plan, algoritme of berekeningswijze waarin wordt gespecifieerd hoe een Observatie moet worden uitgevoerd."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Observatieprocedure"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:9fbf5c5c332716026a2aef0513123ce9e08942e9f2cf9cb47fe10ce446e6903e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f",
+      "@type": "Class",
+      "assignedUri": "https://www.w3.org/ns/sosa/Sensor",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Toestel of Agent (incl Personen of software) waarmee Observaties gemaakt worden."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Sensor"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7009df8214fc49c11f834d6613df207dcbc6aeb066af9893e58bb5a5c477ca23"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:e59762019d095bc54f6671183552650adf496bcc613aebcb2926811c728551fe",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Transportlink",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Lineair ruimtelijk object dat de geometrie en connectiviteit beschrijft tussen twee punten in een Transportnetwerk."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Transportlink"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d51fbf6d208f5e87220931669e030aa4826a096e1e6a841f2f5e2e374634b6eb",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Netwerkelement",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Element in een Netwerk dat daarin een functie van belang vervult."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Netwerkelement"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:262d1d2d4bf8d587294b7c4cca15840e22dd3f6b03d1c3cc0df463cbeadc03ac",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/Observation#OM_Observation",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het vaststellen van de waarde van een bepaald kenmerk van een Object op een bepaald tijdstip of tussen twee tijdstippen."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Observatie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c42b1383e075230329e9b2502ebc8ef6a7163d195de9d1ed932695f19e5f408d",
+      "@type": "Class",
+      "assignedUri": "https://www.w3.org/TR/vocab-ssn/#ssn-system",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Samenhangend geheel van componenten die samen ��n of meer functies vervullen."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Systeem"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:48c51c999e9d339d268188a71bb6706041ba5d980f80f57b7b1d39f5077c5386",
+      "@type": "Class",
+      "assignedUri": "http://www.w3.org/ns/sosa/Procedure",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Vastgelegde of offici�le manier om iets te doen."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Procedure"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4a15314e24a88c5c33db21af6312ae9a89f69fff7c1c65df9330019cfa330da5",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/SamplingPoint#SF_SamplingPoint",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een RuimtelijkBemonsteringsobject dat de vorm aanneemt van een Punt."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Bemonsteringspunt"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9226a57b5f0cb868fe74ba82a82b7e7b910f6acaa68ea80300747c67a751fc7d",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Klasse die instanties van om het even welk type vertegenwoordigt."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Object"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9fe76139c4fcdf0e1efdeaac08d4f449615e77273a2f14d4111abfc5a0a0e2c4",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19109/2005/GeneralFeatureModel#GF_PropertyType",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Klasse die kenmerken van instanties van om het even welk type vertegenwoordigt."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerktype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d4d1e614c7d49b6e65d044d763546679d0b483b2d23bbd9b2f38dce7a868a3e1",
+      "@type": "Class",
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Transporteigenschap",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Eigenschap van een Transportobject."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Transporteigenschap"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f4d1120a3ce87287740f88e2ea538ddd894680cbb4e0a62c3d817f50c73a2a7a",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_DomainFeature",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object uit de re�le wereld dat geen Bemonsteringsobject is."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Domeinobject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081",
+      "@type": "Class",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerstelling",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het vaststellen van het aantal voertuigen op een bepaalde locatie op een bepaald tijdstip of gedurende een specifiek tijdsinterval."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerstelling"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+        },
+        {
+          "@id": "urn:oslo-toolchain:4addbffe268446049385846e2c5c239a426b4ac8066a8f72261af0098ab0229c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:3aff92b5a363b148b2352907b394a09006c849834066c13399e836c780793304",
+      "@type": "Class",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerstellingkenmerk",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerk van het Verkeersdomeinobject of het Verkeersbemonsteringsobject dat gemeten wordt en dat betrekking heeft op het verkeer over of langs dat object of op zijn deelname aan het verkeer."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerstellingkenmerk"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:d4795de966a550263faee5c812f5a9db0c13730255c6672bae4f20564adc7309",
+      "@type": "Class",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerssnelheidsmetingkenmerk",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerk van het Verkeersdomeinobject of het Verkeersbemonsteringsobject dat gemeten wordt en dat betrekking heeft op het verkeer over of langs dat object of op zijn deelname aan het verkeer."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerssnelheidsmetingkenmerk"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:0032d63f3bfba4408ba07ffb021666d31b6ecdc3334c261f1267d5e8347b9605",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/Measurement#OM_Measurement",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Observatie waarbij het resultaat kwantitatief is."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Meting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a6a012a04ebfbea867422a92f5e542b4cd6b6cb840f5f27097f823f7d4367597",
+      "@type": "Class",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/CountObservation#OM_CountObservation",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Observatie waarbij het resultaat een aantal is."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Telling"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7ac97f263586b4a887448a94039bd7c9083bd69e5f51fd64daaba972ca62a1ff",
+      "@type": "Class",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerssnelheidsmeting",
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het vaststellen van de snelheid van voertuigen op een bepaalde locatie op een bepaald tijdstip of gedurende een specifiek tijdsinterval."
+        }
+      ],
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerssnelheidsmeting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+        },
+        {
+          "@id": "urn:oslo-toolchain:fff1225325bdf96e7382b3f0c16cc81824fcbb323aea3ce7c91962ec786cc7b4"
+        }
+      ]
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:0e2d68996b4ab9297265263276860a5144a63ade1695c86e2a181a1cbb8275c8",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "http://www.opengis.net/ont/geosparql#asGML",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "GML"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie uitgedrukt in gml-formaat."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik http://www.opengis.net/ont/geosparql#gmlLiteral als datatype."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:120a6183591fe52ef809de5f83e828ad98050a8e6112456f25bb7adf5beb2497"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:43fd129ed5e962b2c0d28dbe2fe2c3536fe70474daadddbeecf8e407097144aa",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "http://www.opengis.net/ont/geosparql#asWKT",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "WKT"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie uitgedrukt in wkt-formaat."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik http://www.opengis.net/ont/geosparql#wktLiteral als datatype."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:120a6183591fe52ef809de5f83e828ad98050a8e6112456f25bb7adf5beb2497"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3af6482aa7b3ab53989ab0ee3a601c3eff9a428dcb32c559664dd4bda222eb01",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerstelling.tellingresultaat",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerstelling.tellingresultaat"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De waarde van het geobserveerdKenmerk als resultaat van de Verkeerstelling (aantal)."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081"
+      },
+      "range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#xdouble"
+      },
+      "parent": {
+        "@id": "http://def.isotc211.org/iso19156/2011/Observation#OM_Observation.result"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3f6322f440128ab6c84a90f353ce0e1550e660caab70dab344cc4c3180998fa4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/SamplingPoint#SF_SamplingPoint.shape",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geometrie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Vorm- en positiekenmerken van het meetpunt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Datatype vd geometrie is Punt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a16ccea5e174267f5995976d8234c8c9d79db81242e050e38fac265bbc334898"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:03bc2211278366cbf666d5683179bc87bbffd75a6c48bb901d62074a37d04a40"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f98cfa1b3e3f0541a8322ad4c2f3c9bbf6dd11175d855b57fa6d2d14535f3727",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#voertuigType",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "voertuigType"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Soort Voertuig waarvan men het Verkeerskenmerk meet."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb \"Fiets\" als men enkel het aantal fietsen wil tellen in een Meetpunt. Enkel noodzakelijk voor Verkeersdomeinobjecten die zelf geen Voertuig zijn maar bvb een Wegsegment of Rijstrook etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9024a941a2f5ce39ab21d5e4025201721a1f1dd347753a5ad8c564e157728f27"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:907d8e767c88fefac7533957c42d16af1308b1333d5d07b6244a1738922f624f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#rijrichting",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "rijrichting"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De rijrichting."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze wordt beschreven tov de richting van de geometrie van de weg: gelijklopend met of tegengesteld aan die richting. De richting van de geometrie wordt bepaald door de volgorde waarin de co�rdinaten op elkaar volgen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:09bf86d348d982ad5b6ff0d680f7dc3e1e6b854865773b2291d9031664b18b9a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d418b7881ec1da50212afa875b01e9a6ffb9715e976d2f3ee8a2288790ad3fde"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:df8f700d9b81bdab7f9498e54a53174dad26263f4950bb5b9450dd6736db66cc",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#vanPositie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "vanPositie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Afstand vanaf het begin van de Link of Linksequentie tot waar de Netwerkeigenschap geldt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:114ee05e59b0d2327b4c8da6c50e0e336947b5e1d9539f62de8d588d0f43006b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d5bd51f7d054e0053e8011a1cb9871a762f6b240eb2fa0ef98c7a780f8160d69",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/weg#totPositie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "totPositie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Afstand vanaf het begin van de Link of Linksequentie vanaf waar de Netwerkeigenschap geldt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:114ee05e59b0d2327b4c8da6c50e0e336947b5e1d9539f62de8d588d0f43006b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b4b1e6c156ab19b1e28362aed1dd8d14e47af80ea4a37588812b77756b103c45",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Knoop.geometrie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geometrie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Locatie van de Knoop."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Weergegeven door een Punt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0db93684f4a1289dddb7ee4ea83bbad2203c77a43bea045631bb5c1183931457"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:03bc2211278366cbf666d5683179bc87bbffd75a6c48bb901d62074a37d04a40"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:245ff1729e1fd42c2ab92ae2c90a83aa346f3d70edc86f9ee65f2782fc2ed09d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#toepassingsRichting",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "toepassingsRichting"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Richting waarvoor de Netwerkeigenschap geldt tov de richting van de geometrie van de Link of Linksequentie."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c529a7d8b9fd72545d7a441023bc3417f301be7612ddf05780f0912a9194acca"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d418b7881ec1da50212afa875b01e9a6ffb9715e976d2f3ee8a2288790ad3fde"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:21b7e85de500447920744e0a105cac52d31fabef186ecfe8a4f7f587c3f6882c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Puntreferentie.opPositie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "opPositie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Afstand vanaf het begin van de Link of Linksequentie tot het punt waar de Netwerkeigenschap geldt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:02a9873ab353cdf7c6b8ee45ad5c9f38176dcb0337c9f95b117a720f68d28738"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:781870bba7278e43f869b594400371bb31af4eb2c81842a30603bfa491b41dac",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Link.geometriemiddellijn",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geometriemiddenlijn"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie van de midellijn van het Wegsegment."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:82535ae18afd29c90cf5d58de8087a7240c961025961ffa79ad7d9a1516cebde"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:624858d3b3d6bb5de62c8df83d919cc4df90bb3034ec96b3d70b61178439cd0f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Netwerkreferentie.element",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "element"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar het Netwerkelement."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:81981aaef8a0837fd6f175b51c01520b68f3e795389408d9d323232bfb1bece2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e56862715fa18cb7136d7765cae7eb1ba2166c6a1085d311b2b031bc9eb08fea"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:36161078f03a5b10bdce7306b4342cd6caec6203e7e9311892df682adb0f718f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#ligging",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "ligging"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Locatie van de Sensor."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:65583088ac954e92da0c98edd63567242ebe54adf576f749902004989ab91420"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:46a5a568c3ef2e90017b95df75b2eba27f5d661cbf26d96ebd0a1b573bb8bf5d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://purl.org/cd/terms/type",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard van de Observatieprocedure."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:403e41978c0dcbac6284d0a8928fc102a2eac03094eac810b462259a9f17e505"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c1a6c583c0aeef226b16bf850fb6df1f46fd180bccbcd0a1297c97522871f7f0",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#fenomeenTijd",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "fenomeenTijd"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het moment waarop het resultaat van de Verkeersmeting van toepassing is."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Typisch het moment waarop de observatie of bemonstering plaatsvindt. Is het resultaat een voorspelling dan is de fenomeentijd het moment waarop deze voorspelling van toepassing zou moeten zijn."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c86f3884f1fc217379d374a19b506be9096b2c6ca63acaa49fdad0e6872d37b5"
+      },
+      "parent": {
+        "@id": "https://def.isotc211.org/iso19156/2011/Observation#OM_Observation.phenomenonTime"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2f5585fc7159bb9003d5d1188f29f8856ccd00036d895143f7f1b9df55c482c6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen/#Verkeersmeetpunt.verkeersmeetpuntnetwerkreferentie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "verkeersmeetpuntnetwerkreferentie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Referentie naar het Netwerkelement waarop of waarlangs het Verkeersmeetpunt ligt of dat door dat punt bemonsterd wordt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a16ccea5e174267f5995976d8234c8c9d79db81242e050e38fac265bbc334898"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:02a9873ab353cdf7c6b8ee45ad5c9f38176dcb0337c9f95b117a720f68d28738"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:36216ac00b9916c5ff16227217207a35a0fa7ea4b5fec34bea8736373260a93f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Rijrichting.netwerkreferentieelement",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Rijrichting.netwerkreferentieelement"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar het Netwerkelement Wegsegment waarvoor de Netwerkeigenschap (bijvoorbeeld rijrichting) geldt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:09bf86d348d982ad5b6ff0d680f7dc3e1e6b854865773b2291d9031664b18b9a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "parent": {
+        "@id": "https://data.vlaanderen.be/ns/netwerk/#netwerkreferentie"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:22aa3add3b3458a522dffbc3df71d13773b0b39a1b5933506c14ef695ed48562",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/Measurement#OM_Measurement.result",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "resultaat"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Resultaat van de Verkeerssnelheidsmeting."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7ac97f263586b4a887448a94039bd7c9083bd69e5f51fd64daaba972ca62a1ff"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1106abc3634cccdb62be2ef98a00f3649877f803fbac24191089c53e3c7592d8"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:af268076876274713cac4ca80cf6262e306d15e419587a2a97b67a96195f8fce",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerstellingkenmerk.kenmerktype",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "kenmerktype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerktype 'aantal' is het specifieke kenmerktype van de verkeerstelling"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3aff92b5a363b148b2352907b394a09006c849834066c13399e836c780793304"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b5d7ed281d1b4c5a9009464a9d44b2694710356a78dcfa0cad8f8119fe2d9945"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ad77a7274110d645723b8b709fa7b0c0264916c86577af4c92935f5f9ac8b80c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerssnelheidsmetingkenmerk.kenmerktype",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "kenmerktype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerktype 'snelheid' is het specifieke kenmerktype van de verkeerssnelheidsmeting"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d4795de966a550263faee5c812f5a9db0c13730255c6672bae4f20564adc7309"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b19ce68d010a5870ea29b6bd8eb6aa20983601339273a933b2ca6611b5f6c6d8"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7bef10f532019cd1da01423275319533593edcb2a93fe5f953389b584738b897",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerstelling.geobserveerdKenmerk",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerstelling.geobserveerdKenmerk"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat door de Verkeerstelling wordt geobserveerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3aff92b5a363b148b2352907b394a09006c849834066c13399e836c780793304"
+      },
+      "parent": {
+        "@id": "https://data.vlaanderen.be/ns/verkeersmetingen#geobserveerdKenmerk"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:18b4358c73175718a05c702f8a3e9f6e73f173897992d71f1fe2a75f5efd5e56",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://implementatie.data.vlaanderen.be/ns/vsds-verkeersmetingen#Verkeerssnelheidsmeting.geobserveerdKenmerk",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Verkeerssnelheidsmeting.geobserveerdKenmerk"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat door de Verkeerssnelheidsmetingen wordt geobserveerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7ac97f263586b4a887448a94039bd7c9083bd69e5f51fd64daaba972ca62a1ff"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d4795de966a550263faee5c812f5a9db0c13730255c6672bae4f20564adc7309"
+      },
+      "parent": {
+        "@id": "https://data.vlaanderen.be/ns/verkeersmetingen#geobserveerdKenmerk"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:36141c904ecb00bc384ac755851fb2a36edfcb1a0159753d66515cf9020b20cd",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#eindknoop",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "eindknoop"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Knoop die het einde is van het Wegsegment."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0db93684f4a1289dddb7ee4ea83bbad2203c77a43bea045631bb5c1183931457"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:08151517b67ea0968885c62355c734ce672b1332ea37f19f8b00ed8d1f446d97",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk/#beginknoop",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "beginknoop"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Knoop die het begin is van het Wegsegment."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0db93684f4a1289dddb7ee4ea83bbad2203c77a43bea045631bb5c1183931457"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:866edcf86c9a4fa8b535a1b6d2602ed0295ba61e058b9484988522dc21b02ab8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#geobserveerdKenmerk",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geobserveerdKenmerk"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Kenmerk van het Verkeersobject dat geobserveerd wordt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "CONSTRAINT: Het geobserveerdKenmerk moet werkelijk een kenmerk zijn van het geobserveerdObject of van een (onder)deel ervan. Soms is de procedure waarmee de waarden vh kenmerk worden bekomen indirect, ttz men meet om praktische reden een ander kenmerk dat een proxy is voor het kenmerk dat men werkelijk wil observeren. Bv om de Verkeersintensiteit op een Wegsegment te bepalen telt men individuele doorkomsten van Voertuigen in een Verkeersmeetpunt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+      },
+      "parent": {
+        "@id": "http://def.isotc211.org/iso19156/2011/Observation#OM_Observation.observedProperty"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f118961d5b9acce0d82e9a3263884f349527b190dcd5fe3b0226da3b91a9a36d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#waardeverschaffer",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "waardeverschaffer"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar een Verkeersmeting die op het geobserveerdObject plaatsvondt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Die meting verschaft ahw een waarde voor het Verkeerskenmerk dat van het Verkeersobject wordt gemeten."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "parent": {
+        "@id": "https://data.vlaanderen.be/ns/observaties-en-metingen#Object.waardeverschaffer"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:afaa4a718f93d7ccf6ab3918d2cec7a39fb43b91c781d2c0a93a1f9f1a62e2ce",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#geobserveerdObject",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geobserveerdObject"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het Verkeersobject dat geobserveerd wordt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dat kan het Verkeersdomeinobject zelf zijn of een proxy ervan, ttz een Verkeersbemonsteringsobject. OPMERKING: In dat laatste geval weet men soms pas na het observeren welk real-world Object men juist geobserveerd heeft. bvb in een Verkeersmeetpunt weet men niet op voorhand welke de Voertuigen zullen zijn waarvan men de snelheid zal vaststellen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947"
+      },
+      "parent": {
+        "@id": "http://def.isotc211.org/iso19156/2011/Observation#OM_Observation.featureOfInterest"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7830d74792863ba0c9c2c4d391427ebf67c364a4c618b6e6b9f59560b3c6c066",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#bemonsterdObject",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "bemonsterdObject"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar het Verkeersdomeinobject waarop de meting betrekking heeft en waarvoor het Verkeersbemonsteringsobject representatief is."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb het Voertuig of het Wegsegment waarvan men een Verkeerskenmerk bepaalt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:814aae74f7a41bb19ab0dc8795433e725734add10985743bbfd684fce272c870"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6def1310f21591ae3af067d0eeb8d170a62479034dbb87b3d671c9bd9e3a8ac8"
+      },
+      "parent": {
+        "@id": "http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeature.sampledFeature"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:84d3f389e4155e2e263bae8f451ab6c2f6b06ce38cac87be1cc8ad6947f693f7",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://www.w3.org/ns/sosa/usedProcedure",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "gebruikteProcedure"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Procedure gebruikt voor de Verkeersmeting."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cb46d2a89f61438b0ff14fcc758de0b92887ef4a6208f78d2bdabdfa9a1c818b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://www.w3.org/ns/ssn/implementedBy",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "ge�mplementeerdMet"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Sensor waarmee de Observatieprocedure is of moet worden uitgevoerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8c13e1ff4853f607f68a8a0f49a61cb80400d87401723ff9a67ac41e8d443744",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://www.w3.org/ns/ssn/implements",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "implementeert"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Observatieprocedure die door de Sensor wordt toegepast."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b1cf136b9630bd41c717fe5e467226a27832f14949bc63d5a0d03c7ebfa2977d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://todo.com/uitgevoerdeObservatie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "uitgevoerd door"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Sensor waarmee de Verkeersmeting is uitgevoerd"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "parent": {
+        "@id": "http://www.w3.org/ns/sosa/madeObservation"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:be769170fc9d6b43c293a57425b12f05c8ca585f4df9543cd8ecf7a335030724",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://www.w3.org/ns/sosa/madeBySensor",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "uitgevoerdMet"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "De Sensor waarmee de Verkeersmeting werd uitgevoerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0ccef7f3bcd9b46cc210c6428db261a0ea48f4cff749f05ee1aad16b8cce964a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#geobserveerdObject",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "geobserveerdObject"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "TODO"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a16ccea5e174267f5995976d8234c8c9d79db81242e050e38fac265bbc334898"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:04e0d13fff2794174e7898ba3bdf560f76dc0004f48c4eb861800dcbb2926032",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://todo.com/geobserveerdKenmerk",
+      "label": [
+        {
+          "@language": "",
+          "@value": "^geobserveerdKenmerk"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:86093c7913069c8322e3feaf5428e603dc0c224b564387fe7c91c0ef57c51e80",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedUri": "http://todo.com/geobserveerdMet",
+      "label": [
+        {
+          "@language": "",
+          "@value": "^geobserveerdMet"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "urn:oslo-toolchain:65583088ac954e92da0c98edd63567242ebe54adf576f749902004989ab91420",
+      "@type": "Datatype",
+      "assignedUri": "http://www.w3.org/ns/prov#Location",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Locatie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van een geografische positie, dmv co�rdinaten, een toponiem, een adreslabel, een verwijzing naar een plaats/regio, een verwijzing naar een adres of een verwijzing naar een geografisch object."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "NOTE"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c86f3884f1fc217379d374a19b506be9096b2c6ca63acaa49fdad0e6872d37b5",
+      "@type": "Datatype",
+      "assignedUri": "http://todo.com/TemporeleEntiteit",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Abstracte klasse voor temporele objecten"
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Die temporele objecten zijn temporele geometrische primitieven zoals Moment of Periode. Of het zijn composieten van temporele primitieven, bv om de geschiedenis van een fenomeen weer te geven (bv de opeenvolgende Periodes dat het fenomeen zich voordeed)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:114ee05e59b0d2327b4c8da6c50e0e336947b5e1d9539f62de8d588d0f43006b",
+      "@type": "Datatype",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#LineaireReferentie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "LineaireReferentie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Netwerkreferentie beperkt tot een deel van de Link of Linksequentie waarnaar ze verwijst."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het deel waarvan sprake ligt tiussen de vanPositie en de totPositie op de Link of Linksequentie."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c529a7d8b9fd72545d7a441023bc3417f301be7612ddf05780f0912a9194acca",
+      "@type": "Datatype",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Linkreferentie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Linkreferentie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Netwerkreferentie waarbij het Netwerkelement waar naar verwezen wordt een Link of Linksequentie is."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:02a9873ab353cdf7c6b8ee45ad5c9f38176dcb0337c9f95b117a720f68d28738",
+      "@type": "Datatype",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Puntreferentie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Puntreferentie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Netwerkreferentie beperkt tot een punt langs de Link of Linksequentie waarnaar ze verwijst."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81981aaef8a0837fd6f175b51c01520b68f3e795389408d9d323232bfb1bece2",
+      "@type": "Datatype",
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Netwerkreferentie",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Netwerkreferentie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar het Netwerkelement waarvoor de Netwerkeigenschap geldt."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb het Wegsegment waarlangs er straatverlichting is, de Wegknoop met verkeerslichten etc."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:120a6183591fe52ef809de5f83e828ad98050a8e6112456f25bb7adf5beb2497",
+      "@type": "Datatype",
+      "assignedUri": "http://www.w3.org/ns/locn#Geometry",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Vorm- en positiekenmerken van een object."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijft deze kenmerken dmv punten, lijnen, polygonen en co�rdinaten"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:03bc2211278366cbf666d5683179bc87bbffd75a6c48bb901d62074a37d04a40",
+      "@type": "Datatype",
+      "assignedUri": "http://www.opengis.net/ont/sf#Point",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Punt"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "en 0-dimensioneel geometrisch object dat een bepaalde locatie in een co�rdinaatruimte voorstelt. Heeft een x-co�rdinaat en een y-co�rdinaat. Kan ook een z-co�rdinaat (hoogte) en een m-co�rdinaat (afstand langs een curve) hebben."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:022515c086a81a6a507df3b9dd124431b5988cf95bc547e1f6c6ca503c9c251d",
+      "@type": "Datatype",
+      "assignedUri": "http://schemas.opengis.net/sf/1.0/simple_features_geometries.rdf#LineString",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Lijnstring"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Curve met lineaire interpolatie tussen de punten. Elk opeenvolgend paar punten vormt een lijnsegment. De lijnstring heeft ten minste twee punten."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een curve is een 1-dimensioneel geometrisch object gedefinieerd als een sequentie van punten. De interpolatie kan op verschillende manieren gebeuren (bv lineair bij een lijnstring)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde",
+      "@type": "Datatype",
+      "assignedUri": "http://def.isotc211.org/iso19103/2015/MeasureTypes#Length",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Lengte"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Afstand tussen twee punten."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "statements": [
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:6def1310f21591ae3af067d0eeb8d170a62479034dbb87b3d671c9bd9e3a8ac8"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:66d628169f230316ab5425d07deb3c883259cf6eddfb9d7165812da3e83d119c"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011GeneralFeatureInstance#GFI_DomainFeature",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Domeinobject"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:684a44dc0aa851133f2f91069da75e2dd4816d4b17de846a1a3797c8df66e947"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:11c573ff6ad2747711d3fa59ad16239f45bb2bae2294961a9bcf54b0846b5a81"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Object"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:e873a63268049f826d02c1bbc22c1fc97f79829ad8e9a392d11999c8e684d750"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:0ddea466c9a04ab64885dd83b8231576ab2dde468bff6c52197d630d4df86ce6"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/Observation#OM_Observation",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Observatie"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Het vaststellen van de waarde van een bepaald kenmerk van een Object op een bepaald tijdstip of tussen twee tijdstippen."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:a16ccea5e174267f5995976d8234c8c9d79db81242e050e38fac265bbc334898"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:b5010de335a22fd6579da79c29c4850a39480247a25be03e1e2457cc252ca7b2"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/SamplingPoint#SF_SamplingPoint",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Bemonsteringspunt"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een RuimtelijkBemonsteringsobject dat de vorm aanneemt van een Punt."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:b364cc960b4bd3ebed331703afb40d486a282d7f9c87d6c375daa6d9a90e3923"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:354f5ec934521027c12d7a88d5b3f3b12a7394e2f423d49c7d0c05de0ade4eb1"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19109/2005/GeneralFeatureModel#GF_PropertyType",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Kenmerktype"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:814aae74f7a41bb19ab0dc8795433e725734add10985743bbfd684fce272c870"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:dc020eeb66b8d467955f59144c2680e0dc090190ff706e376d6e71049239f346"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeature",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Bemonsteringsobject"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Deel van het Object dat men wil observeren en dat representatief is voor dat Object."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:09bf86d348d982ad5b6ff0d680f7dc3e1e6b854865773b2291d9031664b18b9a"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:21fc7a9eb636d0bdc23e0fbd84138a8b2b5a5b95bdec0f8285a4eaa736463eaf"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Transporteigenschap",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Transporteigenschap"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een referentie tot een eigenschap die van toepassing is op het transportnetwerk."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:0db93684f4a1289dddb7ee4ea83bbad2203c77a43bea045631bb5c1183931457"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:24562857fd01cecaef5e4121b45f1456562cb35d1f531ba41ad0d4adc1551839"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Transportknoop",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Transportknoop"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Significante positie in het Transportetwerk die steeds samenvalt met het begin of het einde van een Transportink."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:561358df9ba7404b2625a1fede7c6d86ea51180e7239902153c7f130bf3ffb93"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Transportlink",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Transportlink"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Lineair ruimtelijk object dat de geometrie en connectiviteit beschrijft tussen twee punten in in een Transportnetwer."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:4c0e20fb9566c2cb7f5c0745e2a50b47d3a3d44cf4f50609e1b152881e1aff43"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:9fbf5c5c332716026a2aef0513123ce9e08942e9f2cf9cb47fe10ce446e6903e"
+      },
+      "assignedUri": "http://www.w3.org/ns/sosa/Procedure",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Procedure"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Vastgelegde of offici�le manier om iets te doen."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:fef2078e4969967535cc0a3c06e74085ba93e33ae02b6e42817347a1de1ffc7f"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:7009df8214fc49c11f834d6613df207dcbc6aeb066af9893e58bb5a5c477ca23"
+      },
+      "assignedUri": "https://www.w3.org/TR/vocab-ssn/#ssn-system",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Systeem"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Samenhangend geheel van componenten die samen ��n of meer functies vervullen."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:9972271798424fad5c87d408e6eb16d19f55a115df1f0cbdb63ba686bd22e081"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:4addbffe268446049385846e2c5c239a426b4ac8066a8f72261af0098ab0229c"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/CountObservation#OM_CountObservation",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Telling"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Observatie waarbij het resultaat een aantal is."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:7ac97f263586b4a887448a94039bd7c9083bd69e5f51fd64daaba972ca62a1ff"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:fff1225325bdf96e7382b3f0c16cc81824fcbb323aea3ce7c91962ec786cc7b4"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19156/2011/Measurement#OM_Measurement",
+      "label": [
+        {
+          "@language": "nl",
+          "@value": "Meting"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Observatie waarbij het resultaat kwantitatief is."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:3f6322f440128ab6c84a90f353ce0e1550e660caab70dab344cc4c3180998fa4"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:03bc2211278366cbf666d5683179bc87bbffd75a6c48bb901d62074a37d04a40"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Punt"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:f98cfa1b3e3f0541a8322ad4c2f3c9bbf6dd11175d855b57fa6d2d14535f3727"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:9024a941a2f5ce39ab21d5e4025201721a1f1dd347753a5ad8c564e157728f27"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/Verkeersmetingen#Voertuigtype",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Voertuigtype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Type van voertuig"
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit kan een voetganger zijn, een wagen, fiets, step,�"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:907d8e767c88fefac7533957c42d16af1308b1333d5d07b6244a1738922f624f"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:d418b7881ec1da50212afa875b01e9a6ffb9715e976d2f3ee8a2288790ad3fde"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Linkrichtingtype",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Linkrichtingtype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard van de richting waarmee een link kan worden doorlopen."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:df8f700d9b81bdab7f9498e54a53174dad26263f4950bb5b9450dd6736db66cc"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Lengte"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:d5bd51f7d054e0053e8011a1cb9871a762f6b240eb2fa0ef98c7a780f8160d69"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Lengte"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:b4b1e6c156ab19b1e28362aed1dd8d14e47af80ea4a37588812b77756b103c45"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:03bc2211278366cbf666d5683179bc87bbffd75a6c48bb901d62074a37d04a40"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Punt"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:245ff1729e1fd42c2ab92ae2c90a83aa346f3d70edc86f9ee65f2782fc2ed09d"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:d418b7881ec1da50212afa875b01e9a6ffb9715e976d2f3ee8a2288790ad3fde"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/transportnetwerk#Linkrichtingtype",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Linkrichtingtype"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Aard van de richting waarmee een link kan worden doorlopen."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:21b7e85de500447920744e0a105cac52d31fabef186ecfe8a4f7f587c3f6882c"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:0badc88a1461673ede46bd8663e2d04a8c68c5382f7c6c313b94daa7d58facde"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Lengte"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:781870bba7278e43f869b594400371bb31af4eb2c81842a30603bfa491b41dac"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:82535ae18afd29c90cf5d58de8087a7240c961025961ffa79ad7d9a1516cebde"
+      },
+      "assignedUri": "http://www.opengis.net/ont/sf#LineString",
+      "label": [
+        {
+          "@language": "",
+          "@value": "LijnString"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Curve met lineaire interpolatie tussen de punten. Elk opeenvolgend paar punten vormt een lijnsegment. De lijnstring heeft ten minste twee punten."
+        }
+      ],
+      "usageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een curve is een 1-dimensioneel geometrisch object gedefinieerd als een sequentie van punten. De interpolatie kan op verschillende manieren gebeuren (bv lineair bij een lijnstring)."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:624858d3b3d6bb5de62c8df83d919cc4df90bb3034ec96b3d70b61178439cd0f"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:e56862715fa18cb7136d7765cae7eb1ba2166c6a1085d311b2b031bc9eb08fea"
+      },
+      "assignedUri": "https://data.vlaanderen.be/ns/netwerk#Netwerkelement",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Netwerkelement"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:0e2d68996b4ab9297265263276860a5144a63ade1695c86e2a181a1cbb8275c8"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Literal"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:43fd129ed5e962b2c0d28dbe2fe2c3536fe70474daadddbeecf8e407097144aa"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Literal"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:36161078f03a5b10bdce7306b4342cd6caec6203e7e9311892df682adb0f718f"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:65583088ac954e92da0c98edd63567242ebe54adf576f749902004989ab91420"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Locatie"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:46a5a568c3ef2e90017b95df75b2eba27f5d661cbf26d96ebd0a1b573bb8bf5d"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:403e41978c0dcbac6284d0a8928fc102a2eac03094eac810b462259a9f17e505"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Observatieproceduretype"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:c1a6c583c0aeef226b16bf850fb6df1f46fd180bccbcd0a1297c97522871f7f0"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:c86f3884f1fc217379d374a19b506be9096b2c6ca63acaa49fdad0e6872d37b5"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "TemporeleEntiteit"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:2f5585fc7159bb9003d5d1188f29f8856ccd00036d895143f7f1b9df55c482c6"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:02a9873ab353cdf7c6b8ee45ad5c9f38176dcb0337c9f95b117a720f68d28738"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Puntreferentie"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:36216ac00b9916c5ff16227217207a35a0fa7ea4b5fec34bea8736373260a93f"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:804984ecfb5fa4657e2fab6e8a03bb815f12ec2fb0b1c66947ce067c9b8a46b4"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Wegsegment"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:3af6482aa7b3ab53989ab0ee3a601c3eff9a428dcb32c559664dd4bda222eb01"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "http://www.w3.org/2001/XMLSchema#xdouble"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Double"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:22aa3add3b3458a522dffbc3df71d13773b0b39a1b5933506c14ef695ed48562"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:1106abc3634cccdb62be2ef98a00f3649877f803fbac24191089c53e3c7592d8"
+      },
+      "assignedUri": "http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure",
+      "label": [
+        {
+          "@language": "",
+          "@value": "Maat"
+        }
+      ],
+      "definition": [
+        {
+          "@language": "nl",
+          "@value": "Een (af)gemeten hoeveelheid ve bepaalde grootheid, uitgedrukt in een bepaalde eenheid."
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:af268076876274713cac4ca80cf6262e306d15e419587a2a97b67a96195f8fce"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:b5d7ed281d1b4c5a9009464a9d44b2694710356a78dcfa0cad8f8119fe2d9945"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Verkeerstellingkenmerktype"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:ad77a7274110d645723b8b709fa7b0c0264916c86577af4c92935f5f9ac8b80c"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:b19ce68d010a5870ea29b6bd8eb6aa20983601339273a933b2ca6611b5f6c6d8"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Verkeerssnelheidsmetingkenmerktype"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:7bef10f532019cd1da01423275319533593edcb2a93fe5f953389b584738b897"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:3aff92b5a363b148b2352907b394a09006c849834066c13399e836c780793304"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Verkeerstellingkenmerk"
+        }
+      ]
+    },
+    {
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+      "subject": {
+        "@id": "urn:oslo-toolchain:18b4358c73175718a05c702f8a3e9f6e73f173897992d71f1fe2a75f5efd5e56"
+      },
+      "predicate": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#range"
+      },
+      "object": {
+        "@id": "urn:oslo-toolchain:d4795de966a550263faee5c812f5a9db0c13730255c6672bae4f20564adc7309"
+      },
+      "label": [
+        {
+          "@language": "",
+          "@value": "Verkeerssnelheidsmetingkenmerk"
+        }
+      ]
+    }
+  ]
+}
