@@ -9,7 +9,7 @@ import { CasingTypes } from '../enums/CasingTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
-import { convertToCase, getTagValue, ignore } from '../utils/utils';
+import { getTagValue, ignore, toPascalCase } from '../utils/utils';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
@@ -97,9 +97,9 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
       }
 
-      let localName = getTagValue(element, TagNames.LocalName, element.name);
-      localName = convertToCase(localName, CasingTypes.PascalCase);
-
+      const localName = toPascalCase(
+        getTagValue(element, TagNames.LocalName, null) ?? element.name
+      );
       const elementUri = new URL(`${elementBaseUri}${localName}`);
 
       uriRegistry.elementIdUriMap.set(element.id, elementUri);
@@ -208,7 +208,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     const quads: RDF.Quad[] = [];
 
     // We search for a parent URI via the "parent" tag on the element
-    // ODO: use function getTagValue to get parentURI tags
+    // TODO: use function getTagValue to get parentURI tags
     const parentURITags = object.tags.filter(
       (x) => x.tagName === TagNames.ParentUri
     );

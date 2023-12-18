@@ -16,7 +16,7 @@ import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
-import { convertToCase, extractUri, getTagValue, ignore } from '../utils/utils';
+import { getTagValue, ignore, toCamelCase } from '../utils/utils';
 
 @injectable()
 export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
@@ -136,7 +136,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         TagNames.LocalName,
         attribute.name
       );
-      localName = convertToCase(localName, CasingTypes.CamelCase);
+      localName = toCamelCase(localName);
 
       const attributeURI = new URL(`${attributeBaseURI}${localName}`);
       uriRegistry.attributeIdUriMap.set(attribute.id, attributeURI);

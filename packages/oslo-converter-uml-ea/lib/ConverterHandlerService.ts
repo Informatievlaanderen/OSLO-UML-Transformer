@@ -21,8 +21,11 @@ export class ConverterHandlerService<T extends EaObject> {
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
+    const jobs: Promise<DataRegistry>[] = []
     container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
-      .forEach(handler => handler.normalize(model));
+      .forEach(handler => jobs.push(handler.normalize(model)));
+
+    await Promise.all(jobs);
 
     return model;
   }

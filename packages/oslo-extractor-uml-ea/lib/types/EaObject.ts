@@ -17,7 +17,7 @@ export abstract class EaObject {
 
   public get osloGuid(): string {
     if (!this._osloGuid) {
-      throw new Error(`Oslo guid has not been set yet for ${this.constructor.name} with EA guid ${this.eaGuid}.`);
+      throw new Error(`OSLO guid has not been set yet for ${this.constructor.name} with EA guid ${this.eaGuid}.`);
     }
     return this._osloGuid;
   }

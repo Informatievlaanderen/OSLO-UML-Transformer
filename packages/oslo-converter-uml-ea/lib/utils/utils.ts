@@ -12,7 +12,7 @@ export function ignore(object: EaObject): boolean {
 export function getTagValue(
   object: any,
   tagName: TagNames,
-  _default: any,
+  _default: any
 ): string {
   const tags = object.tags?.filter((x: EaTag) => x.tagName === tagName);
 
@@ -28,64 +28,10 @@ export function getTagValue(
   return tags[0].tagValue;
 }
 
-// TODO: this function should be removed and logic should be part of connectors
-export function extractUri(
-  object: EaObject,
-  packageUri: URL,
-  casing?: CasingTypes,
-): URL {
-  const uri = getTagValue(object, TagNames.ExternalUri, null);
-
-  if (uri) {
-    return new URL(uri);
-  }
-
-  let localName = getTagValue(object, TagNames.LocalName, null);
-
-  if (!localName) {
-    localName = object.name;
-  } else {
-    localName = convertToCase(localName, casing);
-  }
-
-  if (localName && localName !== '') {
-    return new URL(packageUri.toString() + localName);
-  }
-
-  return new URL(`${packageUri.toString()}${object.name}`);
-}
-
-export function convertToCase(text: string, casing?: CasingTypes): string {
-  if (text === null || text === '') {
-    // TODO: log message
-    return '';
-  }
-
-  text = removeCaret(text);
-
-  if (casing === CasingTypes.PascalCase) {
-    return toPascalCase(text);
-  }
-
-  let casedText = '';
-  if (text.includes('.')) {
-    const parts = text.split('.');
-    casedText = parts[0];
-
-    parts.slice(1).forEach(part => {
-      casedText += `.${toCamelCase(part)}`;
-    });
-  } else {
-    return toCamelCase(text);
-  }
-
-  return casedText;
-}
-
 export function getDefininingPackageUri(
   uriRegistry: UriRegistry,
   packageName: string,
-  currentPackageUri: URL,
+  currentPackageUri: URL
 ): URL {
   const referencedPackages =
     uriRegistry.packageNameToPackageMap.get(packageName) || [];
@@ -102,20 +48,36 @@ export function getDefininingPackageUri(
   return uriRegistry.packageIdUriMap.get(referencedPackages[0].packageId)!;
 }
 
+export function updateNameTag(tags: EaTag[], connectorName: string): EaTag[] {
+  const nameTag = tags.find((x) => x.tagName === TagNames.LocalName);
+  if (nameTag) {
+    nameTag.tagValue = connectorName;
+  } else {
+    tags.push({
+      tagName: TagNames.LocalName,
+      tagValue: connectorName,
+    });
+  }
+
+  return tags;
+}
+
 function removeCaret(text: string): string {
   return text.replace(/^\^/u, '');
 }
 
-function toPascalCase(text: string): string {
-  return text
+export function toPascalCase(text: string): string {
+  return removeCaret(text)
     .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
-      word.toUpperCase())
+      word.toUpperCase()
+    )
     .replace(/\s+/gu, '');
 }
 
-function toCamelCase(text: string): string {
-  return text
+export function toCamelCase(text: string): string {
+  return removeCaret(text)
     .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
-      index === 0 ? word.toLowerCase() : word.toUpperCase())
+      index === 0 ? word.toLowerCase() : word.toUpperCase()
+    )
     .replace(/\s+/gu, '');
 }

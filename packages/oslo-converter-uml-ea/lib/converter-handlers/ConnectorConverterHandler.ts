@@ -1,25 +1,25 @@
 import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
-import type {
-  DataRegistry,
-  EaConnector,
-  EaElement,
-  EaTag,
-} from '@oslo-flanders/ea-uml-extractor';
+import type { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
 import {
   ConnectorType,
   NormalizedConnector,
   NormalizedConnectorTypes,
 } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
-import { convertToCase, getTagValue, ignore } from '../utils/utils';
+import { getTagValue, ignore } from '../utils/utils';
+import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
+import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {
+  @inject(EaUmlConverterServiceIdentifier.ConnectorNormalisationService)
+  private readonly connectorNormalisationService!: ConnectorNormalisationService;
+
   public async filterIgnoredObjects(
     model: DataRegistry
   ): Promise<DataRegistry> {
@@ -43,9 +43,14 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
-    model.normalizedConnectors = model.connectors
-      .filter((x) => model.targetDiagram.connectorsIds.includes(x.id))
-      .flatMap((x) => this.normalizeConnector(x, model.elements));
+    const tasks: Promise<NormalizedConnector[]>[] = [];
+    model.connectors.forEach((connector) => {
+      tasks.push(
+        this.connectorNormalisationService.normalise(connector, model)
+      );
+    });
+
+    model.normalizedConnectors = await Promise.all(tasks).then((x) => x.flat());
 
     return model;
   }
@@ -136,12 +141,8 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         TagNames.LocalName,
         connector.name
       );
-      localName = convertToCase(localName);
       const connectorUri = new URL(`${baseUri}${localName}`);
-      uriRegistry.connectorOsloIdUriMap.set(
-        connector.id,
-        connectorUri
-      );
+      uriRegistry.connectorOsloIdUriMap.set(connector.id, connectorUri);
     });
 
     return uriRegistry;
@@ -182,20 +183,6 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
 
     // Adding definitions, labels and usage notes
     this.addEntityInformation(object, connectorInternalId, quads);
-
-    /*this.addDefinitions(
-      object,
-      connectorInternalId,
-      this.df.defaultGraph(),
-      quads
-    );
-    this.addLabels(object, connectorInternalId, this.df.defaultGraph(), quads);
-    this.addUsageNotes(
-      object,
-      connectorInternalId,
-      this.df.defaultGraph(),
-      quads
-    );*/
 
     const domainObject = model.elements.find(
       (x) => x.id === object.sourceObjectId
@@ -280,249 +267,6 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         )
       );
     }
-
     return quads;
-  }
-
-  // TODO: for connector with multiple cardinalities, uri should be disambiguated with class name
-  private normalizeConnector(
-    connector: EaConnector,
-    elements: EaElement[]
-  ): NormalizedConnector[] {
-    const normalizedConnectors: NormalizedConnector[] = [];
-
-    if (connector.type === ConnectorType.Generalization) {
-      return [];
-    }
-
-    if (connector.sourceRole && connector.sourceRole !== '') {
-      normalizedConnectors.push(
-        this.createNormalizedConnector(
-          connector,
-          connector.sourceRole,
-          connector.destinationObjectId,
-          connector.sourceObjectId,
-          connector.sourceCardinality,
-          connector.sourceRoleTags
-        )
-      );
-    }
-
-    if (connector.destinationRole && connector.destinationRole !== '') {
-      normalizedConnectors.push(
-        this.createNormalizedConnector(
-          connector,
-          connector.destinationRole,
-          connector.sourceObjectId,
-          connector.destinationObjectId,
-          connector.destinationCardinality,
-          connector.destinationRoleTags
-        )
-      );
-    }
-
-    if (connector.name && connector.name !== '') {
-      if (
-        connector.sourceCardinality &&
-        connector.sourceCardinality !== '' &&
-        connector.destinationCardinality &&
-        connector.destinationCardinality !== ''
-      ) {
-        const sourceObjectName = elements.find(
-          (x) => x.id === connector.sourceObjectId
-        )!.name;
-        const destinationObjectName = elements.find(
-          (x) => x.id === connector.destinationObjectId
-        )!.name;
-
-        normalizedConnectors.push(
-          this.createNormalizedConnector(
-            connector,
-            `${sourceObjectName}.${connector.name}`,
-            connector.destinationObjectId,
-            connector.sourceObjectId,
-            connector.sourceCardinality,
-            connector.tags
-          )
-        );
-
-        normalizedConnectors.push(
-          this.createNormalizedConnector(
-            connector,
-            `${destinationObjectName}.${connector.name}`,
-            connector.sourceObjectId,
-            connector.destinationObjectId,
-            connector.destinationCardinality,
-            connector.tags
-          )
-        );
-      } else {
-        if (connector.sourceCardinality && connector.sourceCardinality !== '') {
-          normalizedConnectors.push(
-            this.createNormalizedConnector(
-              connector,
-              connector.name,
-              connector.destinationObjectId,
-              connector.sourceObjectId,
-              connector.sourceCardinality,
-              connector.tags
-            )
-          );
-        }
-
-        if (
-          connector.destinationCardinality &&
-          connector.destinationCardinality !== ''
-        ) {
-          normalizedConnectors.push(
-            this.createNormalizedConnector(
-              connector,
-              connector.name,
-              connector.sourceObjectId,
-              connector.destinationObjectId,
-              connector.destinationCardinality,
-              connector.tags
-            )
-          );
-        }
-      }
-    }
-
-    if (connector.associationClassId) {
-      normalizedConnectors.push(
-        ...this.createNormalizedAssociationClassConnector(connector, elements)
-      );
-    }
-
-    if (normalizedConnectors.length === 0) {
-      // TODO: log message
-    }
-
-    return normalizedConnectors;
-  }
-
-  private createNormalizedConnector(
-    connector: EaConnector,
-    name: string,
-    sourceObjectId: number,
-    destinationObjectId: number,
-    cardinality: string,
-    tags: EaTag[]
-  ): NormalizedConnector {
-    return new NormalizedConnector(
-      connector,
-      name,
-      sourceObjectId,
-      destinationObjectId,
-      cardinality,
-      tags
-    );
-  }
-
-  private createNormalizedAssociationClassConnector(
-    connector: EaConnector,
-    elements: EaElement[]
-  ): NormalizedConnector[] {
-    const sourceObject = elements.find(
-      (x) => x.id === connector.sourceObjectId
-    );
-    const destinationObject = elements.find(
-      (x) => x.id === connector.destinationObjectId
-    );
-
-    if (!sourceObject || !destinationObject) {
-      // Log error
-      return [];
-    }
-
-    const assocationObject = elements.find(
-      (x) => x.id === connector.associationClassId
-    );
-
-    if (!assocationObject) {
-      // TODO: log message or throw error
-      return [];
-    }
-
-    let sourceObjectIdentifier = `${assocationObject.name}.${convertToCase(
-      sourceObject.name
-    )}`;
-    let destinationObjectIdentifier = `${assocationObject.name}.${convertToCase(
-      destinationObject.name
-    )}`;
-
-    let sourceLabel: string = sourceObjectIdentifier;
-    let destinationLabel: string = destinationObjectIdentifier;
-
-    // In case of a self-association
-    if (connector.sourceObjectId === connector.destinationObjectId) {
-      sourceObjectIdentifier = `${sourceObjectIdentifier}.source`;
-      destinationObjectIdentifier = `${destinationObjectIdentifier}.target`;
-      sourceLabel = `${sourceLabel} (source)`;
-      destinationLabel = `${destinationLabel} (target)`;
-    }
-
-    const sourceConnectorTags: EaTag[] = [
-      {
-        id: Date.now(),
-        tagName: 'label',
-        tagValue: sourceLabel,
-      },
-    ];
-
-    const sourceUri = getTagValue(
-      assocationObject,
-      TagNames.AssociationSourceUri,
-      null
-    );
-    if (sourceUri) {
-      sourceConnectorTags.push({
-        id: Date.now(),
-        tagName: 'uri',
-        tagValue: sourceUri,
-      });
-    }
-
-    const destinationConnectorTags: EaTag[] = [
-      {
-        id: Date.now(),
-        tagName: 'label',
-        tagValue: destinationLabel,
-      },
-    ];
-
-    const destinationUri = getTagValue(
-      assocationObject,
-      TagNames.AssociationTargetUri,
-      null
-    );
-    if (destinationUri) {
-      destinationConnectorTags.push({
-        id: Date.now(),
-        tagName: 'uri',
-        tagValue: destinationUri,
-      });
-    }
-
-    return [
-      new NormalizedConnector(
-        connector,
-        sourceObjectIdentifier,
-        connector.associationClassId!,
-        connector.sourceObjectId,
-        '1',
-        sourceConnectorTags,
-        NormalizedConnectorTypes.AssociationClassConnector
-      ),
-      new NormalizedConnector(
-        connector,
-        destinationObjectIdentifier,
-        connector.associationClassId!,
-        connector.destinationObjectId,
-        '1',
-        destinationConnectorTags,
-        NormalizedConnectorTypes.AssociationClassConnector
-      ),
-    ];
   }
 }

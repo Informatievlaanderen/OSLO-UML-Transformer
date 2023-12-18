@@ -73,7 +73,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
   }
 
   private async getClasses(store: QuadStore): Promise<any> {
-    const classIds = store.findSubjects(ns.rdf('type'), ns.owl('Class'));
+    const df = new DataFactory();
+    // Process only classes in the default graph, so not the referenced classes
+    const classIds = store.findSubjects(ns.rdf('type'), ns.owl('Class'), df.defaultGraph());
 
     return classIds.reduce<any[]>((jsonLdClasses, subject) => {
       const assignedURI = store.getAssignedUri(subject);
