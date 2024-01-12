@@ -17,6 +17,7 @@ export enum TagNames {
   Definition = 'definition',
   ExternalUri = 'uri',
   Ignore = 'ignore',
+  IgnoreImplicitGeneration = 'ignoreImplicitGeneration',
   IsLiteral = 'literal',
   Label = 'label',
   LocalName = 'name',

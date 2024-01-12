@@ -14,13 +14,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   private _diagramName: string | undefined;
 
   /**
-   * Type of the specification for the intermediary RDF (JSON-LD) file.
-   * Mainly used to extract the correct labels from tags in the UML diagram
-   * Possible values are "ApplicationProfile" or "Vocabulary"
-   */
-  private _specificationType: string | undefined;
-
-  /**
    * Name of the RDF output file
    */
   private _outputFile: string | undefined;
@@ -43,7 +36,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
-    this._specificationType = <string>params.specificationType;
     this._outputFile = <string>(params.outputFile || 'report.jsonld');
     this._versionId = <string>params.versionId;
     this._outputFormat = <string>params.outputFormat;
@@ -62,13 +54,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "diagramName" before it was set.`);
     }
     return this._diagramName;
-  }
-
-  public get specificationType(): string {
-    if (!this._specificationType) {
-      throw new Error(`Trying to access property "specificationType" before it was set.`);
-    }
-    return this._specificationType;
   }
 
   public get outputFile(): string {

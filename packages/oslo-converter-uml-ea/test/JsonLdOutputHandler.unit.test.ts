@@ -1,9 +1,9 @@
 /**
  * @group unit
  */
+import { QuadStore, ns } from '@oslo-flanders/core';
 import { DataFactory } from 'rdf-data-factory';
 import { JsonLdOutputHandler } from '../lib/output-handlers/JsonLdOutputHandler';
-import { QuadStore, ns } from '@oslo-flanders/core';
 import { getOsloContext } from '../lib/utils/osloContext';
 
 describe('JsonLdOutputHandler', () => {
@@ -25,10 +25,11 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getClasses');
     jest.spyOn(<any>outputHandler, 'getAttributes');
     jest.spyOn(<any>outputHandler, 'getDatatypes');
-    jest.spyOn(<any>outputHandler, 'getRdfStatements');
+    jest.spyOn(<any>outputHandler, 'getReferencedEntities');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
-      .mockImplementationOnce(() => {});
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .mockImplementationOnce(() => { });
 
     jest.mock('../lib/utils/osloContext', () => {
       return {
@@ -42,11 +43,11 @@ describe('JsonLdOutputHandler', () => {
     document.classes = [];
     document.attributes = [];
     document.datatypes = [];
-    document.statements = [];
+    document.referencedEntities = [];
 
     await outputHandler.write(store, writeStream);
     expect(writeStream.write).toHaveBeenCalledWith(
-      JSON.stringify(document, null, 2)
+      JSON.stringify(document, null, 2),
     );
   });
 
@@ -55,7 +56,7 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/version/1'),
         ns.prov('generatedAtTime'),
-        df.literal(new Date().toISOString())
+        df.literal(new Date().toISOString()),
       ),
     ];
 
@@ -65,13 +66,12 @@ describe('JsonLdOutputHandler', () => {
     (<any>outputHandler).addDocumentInformation(document, store);
 
     expect(document['@id']).toBe('http://example.org/id/version/1');
-    expect(document.generatedAtTime).toBeDefined;
+    expect(document.generatedAtTime).toBeDefined();
   });
 
   it('should throw an error when the version id can not be found', async () => {
     expect(() =>
-      (<any>outputHandler).addDocumentInformation({}, store)
-    ).toThrowError();
+      (<any>outputHandler).addDocumentInformation({}, store)).toThrowError();
   });
 
   it('should get all packages from the quad store and return a JSON-LD object', async () => {
@@ -79,17 +79,17 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.rdf('type'),
-        ns.example('Package')
+        ns.oslo('Package'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
-        ns.example('baseUri'),
-        df.namedNode('http://example.org/ns/A#')
+        ns.oslo('baseURI'),
+        df.namedNode('http://example.org/ns/A#'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
-        ns.example('assignedUri'),
-        df.namedNode('http://example.org/ns/A')
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/ns/A'),
       ),
     ];
 
@@ -101,8 +101,8 @@ describe('JsonLdOutputHandler', () => {
     expect(packageObject).toEqual({
       '@id': 'http://example.org/id/package/A',
       '@type': 'Package',
-      assignedUri: 'http://example.org/ns/A',
-      baseUri: 'http://example.org/ns/A#',
+      assignedURI: 'http://example.org/ns/A',
+      baseURI: 'http://example.org/ns/A#',
     });
   });
 
@@ -111,18 +111,18 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
         ns.rdf('type'),
-        ns.example('Package')
+        ns.oslo('Package'),
       ),
       df.quad(
         df.namedNode('http://example.org/id/package/A'),
-        ns.example('assignedUri'),
-        df.namedNode('http://example.org/ns/A#')
+        ns.oslo('assignedUri'),
+        df.namedNode('http://example.org/ns/A#'),
       ),
     ];
 
     store.addQuads(quads);
     await expect(
-      (<any>outputHandler).getPackages(store)
+      (<any>outputHandler).getPackages(store),
     ).rejects.toThrowError();
   });
 
@@ -131,32 +131,32 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.owl('Class')
+        ns.owl('Class'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/class/1')
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/id/class/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.rdfs('label'),
-        df.literal('TestClass', 'en')
+        ns.oslo('vocLabel'),
+        df.literal('TestClass', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        ns.oslo('vocDefinition'),
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        ns.oslo('scope'),
+        df.namedNode('http://example.org/id/scope/A'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdfs('subClassOf'),
-        df.namedNode('http://example.org/id/class/B')
+        df.namedNode('http://example.org/id/class/B'),
       ),
     ];
 
@@ -166,14 +166,14 @@ describe('JsonLdOutputHandler', () => {
     expect(classObject).toEqual({
       '@id': 'urn:oslo-toolchain:1',
       '@type': 'Class',
-      assignedUri: 'http://example.org/id/class/1',
-      definition: [
+      assignedURI: 'http://example.org/id/class/1',
+      vocDefinition: [
         {
           '@language': 'en',
           '@value': 'A definition',
         },
       ],
-      label: [
+      vocLabel: [
         {
           '@language': 'en',
           '@value': 'TestClass',
@@ -194,7 +194,7 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.owl('Class')
+        ns.owl('Class'),
       ),
     ];
 
@@ -205,82 +205,62 @@ describe('JsonLdOutputHandler', () => {
     // TODO: add extra test to check if the logger was called
   });
 
-  it('should skip classes that have an assigned URI that equals skos:Concept', async () => {
-    const quads = [
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:1'),
-        ns.rdf('type'),
-        ns.owl('Class')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:1'),
-        ns.example('assignedUri'),
-        ns.skos('Concept')
-      ),
-    ];
-
-    store.addQuads(quads);
-    const classObjects = await (<any>outputHandler).getClasses(store);
-
-    expect(classObjects.length).toBe(0);
-  });
-
   it('should get all attributes from the quad store and return an array of JSON-LD objects', async () => {
     const quads = [
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdf('type'),
-        ns.owl('DatatypeProperty')
+        ns.owl('DatatypeProperty'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
-        ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/property/1')
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
-        ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        ns.oslo('vocDefinition'),
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
-        ns.rdfs('label'),
-        df.literal('A label', 'en')
+        ns.oslo('vocLabel'),
+        df.literal('A label', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
-        ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
+        ns.oslo('vocUsageNote'),
+        df.literal('A usage note', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('domain'),
-        df.namedNode('urn:oslo-toolchain:class:1')
+        df.namedNode('urn:oslo-toolchain:class:1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('range'),
-        ns.rdfs('Literal')
+        ns.rdfs('Literal'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
-        ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        ns.oslo('scope'),
+        df.namedNode('http://example.org/id/scope/A'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('maxCount'),
-        df.literal('1')
+        df.literal('1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('minCount'),
-        df.literal('1')
+        df.literal('1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.rdfs('subPropertyOf'),
-        df.namedNode('http://example.org/id/property/2')
+        df.namedNode('http://example.org/id/property/2'),
       ),
     ];
 
@@ -292,20 +272,20 @@ describe('JsonLdOutputHandler', () => {
         expect.objectContaining({
           '@id': 'urn:oslo-toolchain:property:1',
           '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
-          assignedUri: 'http://example.org/id/property/1',
-          label: [
+          assignedURI: 'http://example.org/id/property/1',
+          vocLabel: [
             {
               '@language': 'en',
               '@value': 'A label',
             },
           ],
-          definition: [
+          vocDefinition: [
             {
               '@language': 'en',
               '@value': 'A definition',
             },
           ],
-          usageNote: [
+          vocUsageNote: [
             {
               '@language': 'en',
               '@value': 'A usage note',
@@ -324,7 +304,7 @@ describe('JsonLdOutputHandler', () => {
           maxCount: '1',
           scope: 'http://example.org/id/scope/A',
         }),
-      ])
+      ]),
     );
   });
 
@@ -333,57 +313,57 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.rdfs('Datatype')
+        ns.rdfs('Datatype'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.example('assignedUri'),
-        df.namedNode('http://example.org/id/dataType/1')
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/id/dataType/1'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.rdfs('comment'),
-        df.literal('A definition', 'en')
+        ns.oslo('vocDefinition'),
+        df.literal('A definition', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.rdfs('label'),
-        df.literal('A label', 'en')
+        ns.oslo('vocLabel'),
+        df.literal('A label', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
+        ns.oslo('vocUsageNote'),
+        df.literal('A usage note', 'en'),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:1'),
-        ns.example('scope'),
-        df.namedNode('http://example.org/id/scope/A')
+        ns.oslo('scope'),
+        df.namedNode('http://example.org/id/scope/A'),
       ),
     ];
 
     store.addQuads(quads);
-    const datatypeObjects = await(<any>outputHandler).getDatatypes(store);
+    const datatypeObjects = await (<any>outputHandler).getDatatypes(store);
 
     expect(datatypeObjects).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           '@id': 'urn:oslo-toolchain:1',
           '@type': 'Datatype',
-          assignedUri: 'http://example.org/id/dataType/1',
-          label: [
+          assignedURI: 'http://example.org/id/dataType/1',
+          vocLabel: [
             {
               '@language': 'en',
               '@value': 'A label',
             },
           ],
-          definition: [
+          vocDefinition: [
             {
               '@language': 'en',
               '@value': 'A definition',
             },
           ],
-          usageNote: [
+          vocUsageNote: [
             {
               '@language': 'en',
               '@value': 'A usage note',
@@ -391,91 +371,142 @@ describe('JsonLdOutputHandler', () => {
           ],
           scope: 'http://example.org/id/scope/A',
         }),
-      ])
+      ]),
     );
   });
 
-  it('should get all statement from the quad store and return an array of JSON-LD objects', async () => {
+  it('should get all entities that are in the referenced entities graph', async () => {
     const quads = [
       df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
+        df.namedNode('urn:oslo-toolchain:1'),
         ns.rdf('type'),
-        ns.rdf('Statement')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.rdf('subject'),
-        df.namedNode('urn:oslo-toolchain:attribute:2')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.rdf('predicate'),
-        ns.rdfs('domain')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.rdf('object'),
-        df.namedNode('urn:oslo-toolchain:class:2')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.rdfs('comment'),
-        df.literal('A definition', 'en')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.rdfs('label'),
-        df.literal('A label', 'en')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.vann('usageNote'),
-        df.literal('A usage note', 'en')
-      ),
-      df.quad(
-        df.namedNode('urn:oslo-toolchain:statement:1'),
-        ns.example('usesConceptScheme'),
-        df.namedNode('http://example.org/id/conceptScheme/A')
+        ns.owl('Class'),
+        df.namedNode('referencedEntities'),
       ),
     ];
 
     store.addQuads(quads);
-    const statementObjects = await (<any>outputHandler).getRdfStatements(store);
+    const referencedEntities = await (<any>outputHandler).getReferencedEntities(store);
 
-    expect(statementObjects).toEqual(
+    expect(referencedEntities).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          '@type': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement',
-          subject: {
-            '@id': 'urn:oslo-toolchain:attribute:2',
-          },
-          predicate: {
-            '@id': ns.rdfs('domain').value,
-          },
-          object: {
-            '@id': 'urn:oslo-toolchain:class:2',
-          },
-          label: [
-            {
-              '@language': 'en',
-              '@value': 'A label',
-            },
-          ],
-          definition: [
-            {
-              '@language': 'en',
-              '@value': 'A definition',
-            },
-          ],
-          usageNote: [
-            {
-              '@language': 'en',
-              '@value': 'A usage note',
-            },
-          ],
-          usesConceptScheme: 'http://example.org/id/conceptScheme/A',
+          '@id': 'urn:oslo-toolchain:1',
+          '@type': ns.owl('Class').value,
         }),
-      ])
+      ]),
+    );
+  });
+
+  it('should transform label quads to a JSON object', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('vocLabel'),
+        df.literal('A vocabulary label', 'en'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('apLabel'),
+        df.literal('An application profile label', 'en'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('diagramLabel'),
+        df.literal('A diagram label'),
+      ),
+    ];
+
+    const labelObject = (<any>outputHandler).mapLabels(quads);
+
+    expect(labelObject).toEqual(
+      expect.objectContaining({
+        vocLabel: [
+          {
+            '@language': 'en',
+            '@value': 'A vocabulary label',
+          },
+        ],
+        apLabel: [
+          {
+            '@language': 'en',
+            '@value': 'An application profile label',
+          },
+        ],
+        diagramLabel: [
+          {
+            '@value': 'A diagram label',
+          },
+        ],
+      }),
+    );
+  });
+
+  it('should transform definition quads to a JSON object', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('vocDefinition'),
+        df.literal('A vocabulary definition', 'en'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('apDefinition'),
+        df.literal('An application profile definition', 'en'),
+      ),
+    ];
+
+    const definitionObject = (<any>outputHandler).mapDefinitions(quads);
+
+    expect(definitionObject).toEqual(
+      expect.objectContaining({
+        vocDefinition: [
+          {
+            '@language': 'en',
+            '@value': 'A vocabulary definition',
+          },
+        ],
+        apDefinition: [
+          {
+            '@language': 'en',
+            '@value': 'An application profile definition',
+          },
+        ],
+      }),
+    );
+  });
+
+  it('should transform usage note quads to a JSON object', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('vocUsageNote'),
+        df.literal('A vocabulary usage note', 'en'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.oslo('apUsageNote'),
+        df.literal('An application profile usage note', 'en'),
+      ),
+    ];
+
+    const usageNoteObject = (<any>outputHandler).mapUsageNotes(quads);
+
+    expect(usageNoteObject).toEqual(
+      expect.objectContaining({
+        vocUsageNote: [
+          {
+            '@language': 'en',
+            '@value': 'A vocabulary usage note',
+          },
+        ],
+        apUsageNote: [
+          {
+            '@language': 'en',
+            '@value': 'An application profile usage note',
+          },
+        ],
+      }),
     );
   });
 });

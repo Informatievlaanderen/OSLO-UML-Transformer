@@ -1,30 +1,37 @@
+import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
-import type { DataRegistry, EaElement } from '@oslo-flanders/ea-uml-extractor';
+import type { DataRegistry, EaConnector, EaElement, EaPackage, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import { CasingTypes } from '../enums/CasingTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
-import { convertToCase, getTagValue, ignore } from '../utils/utils';
+import { getTagValue, ignore, toPascalCase } from '../utils/utils';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
-  public async filterIgnoredObjects(model: DataRegistry): Promise<DataRegistry> {
+  public async filterIgnoredObjects(
+    model: DataRegistry,
+  ): Promise<DataRegistry> {
     model.elements = model.elements.filter(x => !ignore(x));
 
     return model;
   }
 
-  public async convert(model: DataRegistry, uriRegistry: UriRegistry, store: QuadStore): Promise<QuadStore> {
+  public async convert(
+    model: DataRegistry,
+    uriRegistry: UriRegistry,
+    store: QuadStore,
+  ): Promise<QuadStore> {
     // All elements will be processed and receive a URI, but only elements on the target diagram
     // will be passed to the OutputHandler. This flow is necessary because element types could be
     // in other packages and their URIs are needed to refer to in the output file.
     model.elements
       .filter(x => model.targetDiagram.elementIds.includes(x.id))
-      .forEach(object => store.addQuads(this.createQuads(object, uriRegistry, model)));
+      .forEach(object =>
+        store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
   }
@@ -33,130 +40,164 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     return model;
   }
 
-  public async assignUris(model: DataRegistry, uriRegistry: UriRegistry): Promise<UriRegistry> {
+  public async assignUris(
+    model: DataRegistry,
+    uriRegistry: UriRegistry,
+  ): Promise<UriRegistry> {
     uriRegistry.elementIdUriMap = new Map<number, URL>();
     uriRegistry.elementNameToElementMap = new Map<string, EaElement[]>();
 
     model.elements.forEach(element => {
-      const externalUri = getTagValue(element, TagNames.ExternalUri, null);
+      const externalUri: string | null = getTagValue(element, TagNames.ExternalUri, null);
 
       if (externalUri) {
         uriRegistry.elementIdUriMap.set(element.id, new URL(externalUri));
-        uriRegistry.elementNameToElementMap.set(
-          element.name,
-          [...uriRegistry.elementNameToElementMap.get(element.name) || [], element],
-        );
+        uriRegistry.elementNameToElementMap.set(element.name, [
+          ...uriRegistry.elementNameToElementMap.get(element.name) || [],
+          element,
+        ]);
 
         return;
       }
 
       let elementBaseUri: URL;
-      const packageTagValue = getTagValue(element, TagNames.DefiningPackage, null);
+      const packageTagValue: string | null = getTagValue(
+        element,
+        TagNames.DefiningPackage,
+        null,
+      );
 
       if (packageTagValue) {
-        const referencedPackages = uriRegistry.packageNameToPackageMap.get(packageTagValue);
+        const referencedPackages: EaPackage[] | undefined =
+          uriRegistry.packageNameToPackageMap.get(packageTagValue);
 
         if (referencedPackages && referencedPackages.length > 1) {
-          this.logger.warn(`[ElementConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`);
+          this.logger.warn(
+            `[ElementConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`,
+          );
         }
 
         if (!referencedPackages) {
-          throw new Error(`[ElementConverterHandler]: Package tag was defined, but unable to find the object for package ${packageTagValue}.`);
+          throw new Error(
+            `[ElementConverterHandler]: Package tag was defined, but unable to find the object for package ${packageTagValue}.`,
+          );
         }
 
-        elementBaseUri = uriRegistry.packageIdUriMap.get(referencedPackages[0].packageId)!;
+        elementBaseUri = uriRegistry.packageIdUriMap.get(
+          referencedPackages[0].packageId,
+        )!;
       } else if (uriRegistry.packageIdUriMap.has(element.packageId)) {
         elementBaseUri = uriRegistry.packageIdUriMap.get(element.packageId)!;
       } else {
-        this.logger.warn(`[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`);
+        this.logger.warn(
+          `[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`,
+        );
         elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
       }
 
-      let localName = getTagValue(element, TagNames.LocalName, element.name);
-      localName = convertToCase(localName, CasingTypes.PascalCase);
-
+      const localName: string = toPascalCase(
+        getTagValue(element, TagNames.LocalName, null) ?? element.name,
+      );
       const elementUri = new URL(`${elementBaseUri}${localName}`);
 
-      uriRegistry.elementIdUriMap.set(element.id, new URL(elementUri));
-      uriRegistry.elementNameToElementMap.set(
-        element.name,
-        [...uriRegistry.elementNameToElementMap.get(element.name) || [], element],
-      );
+      uriRegistry.elementIdUriMap.set(element.id, elementUri);
+      uriRegistry.elementNameToElementMap.set(element.name, [
+        ...uriRegistry.elementNameToElementMap.get(element.name) || [],
+        element,
+      ]);
     });
 
     return uriRegistry;
   }
 
-  public createQuads(object: EaElement, uriRegistry: UriRegistry, model: DataRegistry): RDF.Quad[] {
+  public createQuads(
+    object: EaElement,
+    uriRegistry: UriRegistry,
+    model: DataRegistry,
+  ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
-    const objectInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
-    const objectUri = uriRegistry.elementIdUriMap.get(object.id);
+    const objectInternalId: RDF.NamedNode = this.df.namedNode(
+      `${this.baseUrnScheme}:${object.osloGuid}`,
+    );
+    const objectUri: URL | undefined = uriRegistry.elementIdUriMap.get(object.id);
 
     if (!objectUri) {
-      throw new Error(`[ElementConverterHandler]: Unable to find URI for element (${object.path}).`);
+      throw new Error(
+        `[ElementConverterHandler]: Unable to find URI for element (${object.path}).`,
+      );
     }
 
-    const objectUriNamedNode = this.df.namedNode(objectUri.toString());
-
-    // In case the URI is a skos:Concept, we do not publish
-    // its information.
-    // The only time information about a skos:Concept
-    // is published, is when an attribute its range
-    // is a skos:Concept. Then information about the skos:Concept
-    // is published as part of an rdf:Statement about the range
-    if (objectUriNamedNode.equals(ns.skos('Concept'))) {
-      return quads;
-    }
+    const objectUriNamedNode: RDF.NamedNode = this.df.namedNode(objectUri.toString());
 
     quads.push(
-      this.df.quad(
+      this.df.quad(objectInternalId, ns.oslo('assignedURI'), objectUriNamedNode),
+    );
+
+    this.addDefinitions(
+      object,
+      objectInternalId,
+      this.df.defaultGraph(),
+      quads,
+    );
+    this.addLabels(object, objectInternalId, this.df.defaultGraph(), quads);
+    this.addUsageNotes(object, objectInternalId, this.df.defaultGraph(), quads);
+
+    // To be able to determine the scope of the element,
+    // we need to compare it to the base URI of the package
+    // which holds the target diagram.
+    const packageBaseUri: URL | undefined = uriRegistry.packageIdUriMap.get(
+      model.targetDiagram.packageId,
+    );
+
+    if (!packageBaseUri) {
+      throw new Error(
+        `[ElementConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`,
+      );
+    }
+
+    this.addScope(
+      object,
+      objectInternalId,
+      packageBaseUri.toString(),
+      uriRegistry.elementIdUriMap,
+      quads,
+    );
+
+    quads.push(
+      ...this.getParentInformationQuads(
+        object,
         objectInternalId,
-        ns.example('assignedUri'),
-        objectUriNamedNode,
+        uriRegistry,
+        model,
       ),
     );
 
-    const definitionValues = this.getDefinition(object);
-    definitionValues.forEach(value => quads.push(this.df.quad(objectInternalId, ns.rdfs('comment'), value)));
-
-    const usageNoteValues = this.getUsageNote(object);
-    usageNoteValues.forEach(value => quads.push(this.df.quad(objectInternalId, ns.vann('usageNote'), value)));
-
-    const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
-
-    if (!packageBaseUri) {
-      throw new Error(`[ElementConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`);
-    }
-
-    const scope = this.getScope(object, packageBaseUri.toString(), uriRegistry.elementIdUriMap);
-
-    quads.push(this.df.quad(
-      objectInternalId,
-      ns.example('scope'),
-      this.df.literal(scope),
-    ));
+    quads.push(...this.getCodelistQuads(object, objectInternalId));
 
     switch (object.type) {
+      case ElementType.Enumeration:
       case ElementType.Class:
-        quads.push(...this.createClassSpecificQuads(object, objectInternalId, uriRegistry, model));
+        quads.push(
+          this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class')),
+        );
         break;
 
       case ElementType.DataType:
-        quads.push(...this.createDataTypeSpecificQuads(object, objectInternalId, uriRegistry, model));
-        break;
-
-      case ElementType.Enumeration:
-        quads.push(...this.createEnumerationSpecificQuads(object, objectInternalId, uriRegistry, model));
+        quads.push(
+          this.df.quad(objectInternalId, ns.rdf('type'), ns.rdfs('Datatype')),
+        );
         break;
 
       default:
-        throw new Error(`[ElementConverterHandler]: Object type (${object.type}) is not supported.`);
+        throw new Error(
+          `[ElementConverterHandler]: Object type (${object.type}) is not supported.`,
+        );
     }
 
     return quads;
   }
 
-  private createClassSpecificQuads(
+  private getParentInformationQuads(
     object: EaElement,
     objectInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
@@ -164,130 +205,125 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
-    quads.push(
-      this.df.quad(
-        objectInternalId,
-        ns.rdf('type'),
-        ns.owl('Class'),
-      ),
+    // We search for a parent URI via the "parent" tag on the element
+    // TODO: use function getTagValue to get parentURI tags
+    const parentURITags: EaTag[] = object.tags.filter(
+      x => x.tagName === TagNames.ParentUri,
     );
-
-    const labelLiterals = this.getLabel(object);
-    labelLiterals.forEach(x => quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), x)));
-
-    // Connectors array is used here, because NormalizedConnectors array doesn't have this type
-    const parentClassConnectors = model.connectors
-      .filter(x => x.type === ConnectorType.Generalization && x.sourceObjectId === object.id);
-
-    parentClassConnectors.forEach(parentClassConnector => {
-      const parentClassObject = model.elements.find(x => x.id === parentClassConnector.destinationObjectId);
-
-      if (!parentClassObject) {
-        throw new Error(`[ElementConverterHandler]: Unable to find parent class for class (${object.path}).`);
-      }
-
-      const parentInternalId = this.df.namedNode(`${this.baseUrnScheme}:${parentClassObject.osloGuid}`);
-
-      quads.push(
-        this.df.quad(
-          objectInternalId,
-          ns.rdfs('subClassOf'),
-          parentInternalId,
-        ),
-      );
-
-      if (!model.targetDiagram.connectorsIds.includes(parentClassConnector.id)) {
-        const parentAssignedUri = uriRegistry.elementIdUriMap.get(parentClassObject.id);
-        if (!parentAssignedUri) {
-          throw new Error(`[ElementConverterHandler]: Unable to find the URI for parent of class (${object.path}).`);
-        }
-
-        const definitionValues = this.getDefinition(parentClassObject);
-        const labelValues = this.getLabel(parentClassObject);
-
-        const statementBlankNode = this.df.blankNode();
+    if (parentURITags.length > 0) {
+      parentURITags.forEach(x => {
         quads.push(
           this.df.quad(
-            statementBlankNode,
-            ns.rdf('type'),
-            ns.rdf('Statement'),
-          ),
-          this.df.quad(
-            statementBlankNode,
-            ns.rdf('subject'),
             objectInternalId,
-          ),
-          this.df.quad(
-            statementBlankNode,
-            ns.rdf('predicate'),
             ns.rdfs('subClassOf'),
-          ),
-          this.df.quad(
-            statementBlankNode,
-            ns.rdf('object'),
-            parentInternalId,
-          ),
-          this.df.quad(
-            statementBlankNode,
-            ns.example('assignedUri'),
-            this.df.namedNode(parentAssignedUri.toString()),
+            this.df.namedNode(x.tagValue),
           ),
         );
+      });
+    }
 
-        definitionValues.forEach(x => quads.push(this.df.quad(statementBlankNode, ns.rdfs('comment'), x)));
-        labelValues.forEach(x => quads.push(this.df.quad(statementBlankNode, ns.rdfs('label'), x)));
+    // We also search for parent relationships via connectors
+    // Connectors array is used here, because NormalizedConnectors array doesn't have this type
+    const parentClassConnectors: EaConnector[] = model.connectors.filter(
+      x =>
+        x.type === ConnectorType.Generalization &&
+        x.sourceObjectId === object.id,
+    );
+
+    parentClassConnectors.forEach(parentClassConnector => {
+      const parentClassObject: EaElement | undefined = model.elements.find(
+        x => x.id === parentClassConnector.destinationObjectId,
+      );
+
+      if (!parentClassObject) {
+        throw new Error(
+          `[ElementConverterHandler]: Unable to find parent object for class (${object.path}).`,
+        );
+      }
+
+      const parentInternalId: RDF.NamedNode = this.df.namedNode(
+        `${this.baseUrnScheme}:${parentClassObject.osloGuid}`,
+      );
+
+      quads.push(
+        this.df.quad(objectInternalId, ns.rdfs('subClassOf'), parentInternalId),
+      );
+
+      // In case the parent object is not visible on the target diagram
+      // we still add all the information, but put it in a different graph in the quad store
+      // so that we can separate it in the OSLO JSON-LD
+      if (
+        !model.targetDiagram.connectorsIds.includes(parentClassConnector.id)
+      ) {
+        const parentAssignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(
+          parentClassObject.id,
+        );
+        if (!parentAssignedUri) {
+          throw new Error(
+            `[ElementConverterHandler]: Unable to find the assigned URI for parent of class (${object.path}).`,
+          );
+        }
+
+        const referencedEntitiesGraph: RDF.NamedNode = this.df.namedNode('referencedEntities');
+
+        this.addDefinitions(
+          parentClassObject,
+          parentInternalId,
+          referencedEntitiesGraph,
+          quads,
+        );
+
+        this.addLabels(
+          parentClassObject,
+          parentInternalId,
+          referencedEntitiesGraph,
+          quads,
+        );
+
+        this.addUsageNotes(
+          parentClassObject,
+          parentInternalId,
+          referencedEntitiesGraph,
+          quads,
+        );
+
+        quads.push(
+          this.df.quad(
+            parentInternalId,
+            ns.rdf('type'),
+            ns.owl('Class'),
+            referencedEntitiesGraph,
+          ),
+          this.df.quad(
+            parentInternalId,
+            ns.oslo('assignedURI'),
+            this.df.namedNode(parentAssignedUri.toString()),
+            referencedEntitiesGraph,
+          ),
+        );
       }
     });
 
     return quads;
   }
 
-  private createDataTypeSpecificQuads(
+  private getCodelistQuads(
     object: EaElement,
     objectInternalId: RDF.NamedNode,
-    uriRegistry: UriRegistry,
-    model: DataRegistry,
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
-    quads.push(
-      this.df.quad(
-        objectInternalId,
-        ns.rdf('type'),
-        ns.rdfs('Datatype')
-      ),
-    );
+    // Get codelist information via "ap-codelist" tag
+    const codelistUri: string | null = getTagValue(object, TagNames.ApCodelist, null);
 
-    const labelLiterals = this.getLabel(object);
-    labelLiterals.forEach(x => quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), x)));
-
-    return quads;
-  }
-
-  private createEnumerationSpecificQuads(
-    object: EaElement,
-    objectInternalId: RDF.NamedNode,
-    uriRegistry: UriRegistry,
-    model: DataRegistry,
-  ): RDF.Quad[] {
-    const quads: RDF.Quad[] = [];
-
-    quads.push(
-      this.df.quad(
-        objectInternalId,
-        ns.rdf('type'),
-        ns.owl('Class'),
-      ),
-    );
-
-    // FIXME: this should be available through a tag (language-aware)
-    const label = this.df.literal(object.name);
-    quads.push(this.df.quad(objectInternalId, ns.rdfs('label'), label));
-
-    const codelist = getTagValue(object, TagNames.ApCodelist, null);
-
-    if (codelist) {
-      quads.push(this.df.quad(objectInternalId, ns.example('codelist'), this.df.namedNode(codelist)));
+    if (codelistUri) {
+      quads.push(
+        this.df.quad(
+          objectInternalId,
+          ns.oslo('codelist'),
+          this.df.namedNode(codelistUri),
+        ),
+      );
     }
 
     return quads;

@@ -66,21 +66,21 @@ export const multipleStatements = [
 
 export const dataWithAssignedUri = {
   '@context': {
-    example: 'http://example.org/',
-    'example:assignedUri': {
+    oslo: 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
+    'oslo:assignedURI': {
       '@type': '@id',
     },
   },
   '@id': 'http://example.org/id/class/1',
-  'example:assignedUri': 'http://example.org/1',
+  'oslo:assignedURI': 'http://example.org/1',
 };
 
 export const dataWithLabels = {
   '@context': {
-    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    oslo: 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
   },
   '@id': 'http://example.org/id/class/1',
-  'rdfs:label': [
+  'oslo:vocLabel': [
     {
       '@language': 'nl',
       '@value': 'TestLabel',
@@ -90,14 +90,39 @@ export const dataWithLabels = {
       '@value': 'AnotherTestLabel',
     },
   ],
+  'oslo:apLabel': [
+    {
+      '@language': 'nl',
+      '@value': 'TestLabel',
+    },
+    {
+      '@language': 'en',
+      '@value': 'AnotherTestLabel',
+    },
+  ],
+  'oslo:diagramLabel': [
+    {
+      '@value': 'TestLabel',
+    },
+  ],
 };
 
 export const dataWithDefinitions = {
   '@context': {
-    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    oslo: 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
   },
   '@id': 'http://example.org/id/class/1',
-  'rdfs:comment': [
+  'oslo:vocDefinition': [
+    {
+      '@language': 'nl',
+      '@value': 'A comment',
+    },
+    {
+      '@language': 'en',
+      '@value': 'Another comment',
+    },
+  ],
+  'oslo:apDefinition': [
     {
       '@language': 'nl',
       '@value': 'A comment',
@@ -184,10 +209,20 @@ export const dataWithDomain = {
 
 export const dataWithUsageNotes = {
   '@context': {
-    vann: 'http://purl.org/vocab/vann/',
+    oslo: 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
   },
   '@id': 'http://example.org/id/class/1',
-  'vann:usageNote': [
+  'oslo:vocUsageNote': [
+    {
+      '@language': 'nl',
+      '@value': 'A usage note',
+    },
+    {
+      '@language': 'en',
+      '@value': 'Another usage note',
+    },
+  ],
+  'oslo:apUsageNote': [
     {
       '@language': 'nl',
       '@value': 'A usage note',
@@ -199,24 +234,13 @@ export const dataWithUsageNotes = {
   ],
 };
 
-export const dataWitUsageNoteInStatementsWithoutLanguageTag = {
+export const dataWithCodelist = {
   '@context': {
-    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    vann: 'http://purl.org/vocab/vann/',
-    'rdf:subject': {
-      '@type': '@id',
-    },
-    'rdf:predicate': {
-      '@type': '@id',
-    },
-    'rdf:object': {
+    oslo: 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
+    'oslo:codelist': {
       '@type': '@id',
     },
   },
-  '@id': 'http://example.org/id/statement/1',
-  '@type': 'rdf:Statement',
-  'rdf:subject': 'http://example.org/id/class/1',
-  'rdf:predicate': 'http://example.org/examplePredicate',
-  'rdf:object': 'http://example.org/id/class/2',
-  'vann:usageNote': 'A usage note',
+  '@id': 'http://example.org/id/property/1',
+  'oslo:codelist': 'http://example.org/id/conceptscheme/A',
 };

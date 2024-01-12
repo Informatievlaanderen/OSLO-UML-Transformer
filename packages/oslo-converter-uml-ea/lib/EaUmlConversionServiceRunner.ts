@@ -16,11 +16,6 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
         {
           describe: 'Name of the output file (default: console).',
         })
-      .option('specificationType',
-        {
-          describe: 'Type of the specification.',
-          choices: ['ApplicationProfile', 'Vocabulary'],
-        })
       .option('versionId', { describe: 'Relative URI used to identify this document.' })
       .option('outputFormat',
         {
@@ -43,7 +38,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
         default: 'info',
         choices: LOG_LEVELS,
       })
-      .demandOption(['umlFile', 'diagramName', 'specificationType', 'versionId', 'publicationEnvironment'],
+      .demandOption(['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.')
       .help('h')
       .alias('h', 'help');

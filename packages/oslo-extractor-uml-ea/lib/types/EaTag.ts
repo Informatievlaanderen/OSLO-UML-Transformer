@@ -2,7 +2,7 @@
  * Represents a tag in Enterprise Architect
  */
 export interface EaTag {
-  id: number | string;
+  id?: number | string;
   tagName: string;
   tagValue: string;
 }

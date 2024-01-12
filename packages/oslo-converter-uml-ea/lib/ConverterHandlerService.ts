@@ -15,14 +15,17 @@ export class ConverterHandlerService<T extends EaObject> {
 
   public async filterIgnoredObjects(model: DataRegistry): Promise<DataRegistry> {
     container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
-      .forEach(handler => handler.filterIgnoredObjects(model));
+      .forEach((handler: ConverterHandler<T>) => handler.filterIgnoredObjects(model));
 
     return model;
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
-    container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
-      .forEach(handler => handler.normalize(model));
+    const jobs: Promise<DataRegistry>[] = container
+      .getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
+      .map((handler: ConverterHandler<T>) => handler.normalize(model));
+
+    await Promise.all(jobs);
 
     return model;
   }
@@ -37,8 +40,8 @@ export class ConverterHandlerService<T extends EaObject> {
     const otherHandlers = container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler)
       .filter(x => x.constructor.name !== 'PackageConverterHandler');
 
-    const tasks: Promise<any>[] = [];
-    otherHandlers.forEach(x => tasks.push(x.assignUris(model, uriRegistry)));
+    const tasks: Promise<UriRegistry>[] =
+      otherHandlers.map((x: ConverterHandler<T>) => x.assignUris(model, uriRegistry));
 
     await Promise.all(tasks);
 
@@ -50,19 +53,17 @@ export class ConverterHandlerService<T extends EaObject> {
       const handlers = container.getAll<ConverterHandler<T>>(EaUmlConverterServiceIdentifier.ConverterHandler);
       const store = new QuadStore();
 
-      const tasks: Promise<any>[] = [];
-
-      handlers
+      let tasks: Promise<any>[] = handlers
         .filter(x => x.constructor.name === 'PackageConverterHandler' ||
           x.constructor.name === 'ElementConverterHandler')
-        .forEach(x => tasks.push(x.convert(model, uriRegistry, store)));
+        .map((x: ConverterHandler<T>) => x.convert(model, uriRegistry, store));
 
       await Promise.all(tasks);
 
-      handlers
+      tasks = handlers
         .filter(x => x.constructor.name === 'AttributeConverterHandler' ||
           x.constructor.name === 'ConnectorConverterHandler')
-        .forEach(x => tasks.push(x.convert(model, uriRegistry, store)));
+        .map(x => x.convert(model, uriRegistry, store));
 
       await Promise.all(tasks);
 
