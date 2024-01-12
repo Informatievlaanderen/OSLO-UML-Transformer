@@ -22,7 +22,7 @@ export class QuadStore {
   }
 
   public async addQuadsFromFile(file: string): Promise<void> {
-    const buffer = await fetchFileOrUrl(file);
+    const buffer: Buffer = await fetchFileOrUrl(file);
     const textStream = require('streamify-string')(buffer.toString());
 
     return new Promise<void>((resolve, reject) => {
@@ -151,47 +151,82 @@ export class QuadStore {
     subject: RDF.Term,
     graph: RDF.Term | null = null,
   ): RDF.Quad[] {
-    const vocLabel = this.store.getQuads(
+    const vocLabel: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('vocLabel'),
       null,
       graph,
     );
-    const apLabel = this.store.getQuads(
+    const apLabel: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('apLabel'),
       null,
       graph,
     );
-    const diagramLabel = this.store.getQuads(
+    const diagramLabel: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('diagramLabel'),
       null,
       graph,
     );
-    return <RDF.Quad[]>vocLabel.concat(apLabel).concat(diagramLabel);
+    return vocLabel.concat(apLabel).concat(diagramLabel);
   }
 
   /**
-   * Finds the rdfs:label whose language tag matches the given language
-   * @param subject The RDF.Term to find the rdfs:label for
+   * Finds the oslo:vocLabel whose language tag matches the given language
+   * @param subject The RDF.Term to find the oslo:vocLabel for
    * @param store A N3 quad store
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getLabel(
+  public getVocLabel(
     subject: RDF.Term,
     language?: string,
     graph: RDF.Term | null = null,
-  ): RDF.Quad | undefined {
-    return this.getLabels(subject, graph).find(
-      x => (<RDF.Literal>x.object).language === (language || ''),
-    );
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getLabels(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('vocLabel')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
   }
 
   /**
-   * Find all rdfs:comments for a given subject
-   * @param subject The RDF.Term to find the rdfs:comments for
+   * Finds the oslo:apLabel whose language tag matches the given language
+   * @param subject The RDF.Term to find the oslo:apLabel for
+   * @param store A N3 quad store
+   * @param language A language tag
+   * @returns An RDF.Literal or undefined if not found
+   */
+  public getApLabel(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getLabels(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('apLabel')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
+  }
+
+  /**
+   * Finds the oslo:diagramLabel for a given subject
+   * @param subject The RDF.Term to find the oslo:diagramLabel for
+   * @param store A N3 quad store
+   * @param language A language tag
+   * @returns An RDF.Literal or undefined if not found
+   */
+  public getDiagramLabel(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getLabels(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('diagramLabel')),
+    )?.object;
+  }
+
+  /**
+   * Find all definitions for a given subject
+   * @param subject The RDF.Term to find the definitions for
    * @param store A N3 quad store
    * @returns An array of RDF.Literals
    */
@@ -199,39 +234,56 @@ export class QuadStore {
     subject: RDF.Term,
     graph: RDF.Term | null = null,
   ): RDF.Quad[] {
-    const vocDefinitions = this.store.getQuads(
+    const vocDefinitions: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('vocDefinition'),
       null,
-      graph
+      graph,
     );
 
-    const apDefinitions = this.store.getQuads(
+    const apDefinitions: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('apDefinition'),
       null,
-      graph
+      graph,
     );
-    return <RDF.Quad[]>(
-      vocDefinitions.concat(apDefinitions)
-    );
+    return vocDefinitions.concat(apDefinitions);
   }
 
   /**
-   * Finds the rdfs:comment whose language tag matches the given language
-   * @param subject The RDF.Term to find the rdfs:comment for
+   * Finds the oslo:vocDefinition whose language tag matches the given language
+   * @param subject The RDF.Term to find the oslo:vocDefinition for
    * @param store A N3 quad store
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getDefinition(
+  public getVocDefinition(
     subject: RDF.Term,
     language?: string,
     graph: RDF.Term | null = null,
-  ): RDF.Quad | undefined {
-    return this.getDefinitions(subject, graph).find(
-      x => (<RDF.Literal>x.object).language === (language || ''),
-    );
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getDefinitions(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('vocDefinition')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
+  }
+
+  /**
+   * Finds the oslo:apDefinition whose language tag matches the given language
+   * @param subject The RDF.Term to find the oslo:apDefinition for
+   * @param store A N3 quad store
+   * @param language A language tag
+   * @returns An RDF.Literal or undefined if not found
+   */
+  public getApDefinition(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getDefinitions(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('apDefinition')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
   }
 
   /**
@@ -265,7 +317,7 @@ export class QuadStore {
   }
 
   /**
-   * Finds all the vann:usageNotes of a given RDF.Term
+   * Finds all the usageNotes (voc and ap) of a given RDF.Term
    * @param subject The RDF.Term to find the usage notes for
    * @param store A N3 quad store
    * @returns An array of RDF.Literals
@@ -274,37 +326,56 @@ export class QuadStore {
     subject: RDF.Term,
     graph: RDF.Term | null = null,
   ): RDF.Quad[] {
-    const vocUsageNotes = this.store.getQuads(
+    const vocUsageNotes: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('vocUsageNote'),
       null,
-      graph
+      graph,
     );
 
-    const apUsageNotes = this.store.getQuads(
+    const apUsageNotes: RDF.Quad[] = this.store.getQuads(
       subject,
       ns.oslo('apUsageNote'),
       null,
-      graph
+      graph,
     );
-    return <RDF.Quad[]>vocUsageNotes.concat(apUsageNotes);
+    return vocUsageNotes.concat(apUsageNotes);
   }
 
   /**
-   * Finds the vann:usageNote of which the language tag matches the given language
-   * @param subject The RDF.Term to find the usage note for
+   * Finds the oslo:vocUsageNote of which the language tag matches the given language
+   * @param subject The RDF.Term to find the vocabulary usage note for
    * @param store A N3 quad store
    * @param language A language tag
    * @returns An RDF.Literal or undefined if not found
    */
-  public getUsageNote(
+  public getVocUsageNote(
     subject: RDF.Term,
     language?: string,
     graph: RDF.Term | null = null,
-  ): RDF.Quad | undefined {
-    return this.getUsageNotes(subject, graph).find(
-      x => (<RDF.Literal>x.object).language === (language || ''),
-    );
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getUsageNotes(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('vocUsageNote')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
+  }
+
+  /**
+   * Finds the oslo:apUsageNote of which the language tag matches the given language
+   * @param subject The RDF.Term to find the application profile usage note for
+   * @param store A N3 quad store
+   * @param language A language tag
+   * @returns An RDF.Literal or undefined if not found
+   */
+  public getApUsageNote(
+    subject: RDF.Term,
+    language?: string,
+    graph: RDF.Term | null = null,
+  ): RDF.Literal | undefined {
+    return <RDF.Literal>this.getUsageNotes(subject, graph).find(
+      (x: RDF.Quad) => x.predicate.equals(ns.oslo('apUsageNote')) &&
+        (<RDF.Literal>x.object).language === (language || ''),
+    )?.object;
   }
 
   /**
@@ -386,153 +457,5 @@ export class QuadStore {
     return <RDF.NamedNode | undefined>(
       this.store.getObjects(subject, ns.oslo('codelist'), graph).shift()
     );
-  }
-
-  /**
-   * Find the subject of the statement that matches the given subject, predicate and object
-   * @param statementSubject The subject to match the statement subject
-   * @param statementPredicate The predicate to match the statement predicate
-   * @param statementObject The object to match the statement object
-   * @param store An N3 quad store
-   * @returns an RDF.Term or undefined if none found
-   */
-  public getTargetStatementId(
-    statementSubject: RDF.Term,
-    statementPredicate: RDF.Term,
-    statementObject: RDF.Term,
-  ): RDF.Term | undefined {
-    const statementIds = this.store.getSubjects(
-      ns.rdf('type'),
-      ns.rdf('Statement'),
-      null,
-    );
-    const statementSubjectPredicateSubjects = this.store.getSubjects(
-      ns.rdf('subject'),
-      statementSubject,
-      null,
-    );
-    const statementPredicatePredicateSubjects = this.store.getSubjects(
-      ns.rdf('predicate'),
-      statementPredicate,
-      null,
-    );
-    const statementObjectPredicateSubjects = this.store.getSubjects(
-      ns.rdf('object'),
-      statementObject,
-      null,
-    );
-
-    const targetIds = statementIds
-      .filter(x =>
-        statementSubjectPredicateSubjects.some(y => y.value === x.value))
-      .filter(x =>
-        statementPredicatePredicateSubjects.some(y => y.value === x.value))
-      .filter(x =>
-        statementObjectPredicateSubjects.some(y => y.value === x.value));
-
-    if (targetIds.length > 1) {
-      throw new Error(
-        `Found multiple statements with subject "${statementSubject.value}", predicate "${statementPredicate.value}" and object "${statementObject.value}".`,
-      );
-    }
-
-    return targetIds.shift();
-  }
-
-  /**
-   * Finds the assigned URI in rdf:Statements
-   * @param subject The statement subject
-   * @param predicate The statement predicate
-   * @param object The statement object for which the assigned URI must be found
-   * @param store A N3 quad store
-   * @returns An RDF.Term or undefined if not found
-   */
-  public getAssignedUriViaStatements(
-    subject: RDF.Term,
-    predicate: RDF.Term,
-    object: RDF.Term,
-  ): RDF.NamedNode | undefined {
-    const statementId = this.getTargetStatementId(subject, predicate, object);
-
-    if (!statementId) {
-      return undefined;
-    }
-
-    return this.getAssignedUri(statementId);
-  }
-
-  /**
-   * Finds the rdfs:label for an RDF.Term in rdf:Statements
-   * @param subject The statement subject
-   * @param predicate The statement predicate
-   * @param object The statement object for which the label must be found
-   * @param store A N3 quad store
-   * @param language A language tag
-   * @returns An RDF.Literal or undefined if not found
-   */
-  public getLabelViaStatements(
-    subject: RDF.Term,
-    predicate: RDF.Term,
-    object: RDF.Term,
-    language: string,
-  ): RDF.Quad | undefined {
-    const statementId = this.getTargetStatementId(subject, predicate, object);
-
-    if (!statementId) {
-      return undefined;
-    }
-
-    const label = this.getLabel(statementId, language);
-    return label || this.getLabel(statementId);
-  }
-
-  /**
-   * Finds the rdfs:comment for an RDF.Term in rdf:Statements
-   * @param subject The statement subject
-   * @param predicate The statement predicate
-   * @param object The statement object for which the definition must be found
-   * @param store A N3 quad store
-   * @param language A language tag
-   * @returns An RDF.Literal or undefined if not found
-   */
-  public getDefinitionViaStatements(
-    subject: RDF.Term,
-    predicate: RDF.Term,
-    object: RDF.Term,
-    language: string,
-  ): RDF.Quad | undefined {
-    const statementId = this.getTargetStatementId(subject, predicate, object);
-
-    if (!statementId) {
-      return undefined;
-    }
-
-    const definition = this.getDefinition(statementId, language);
-    return definition || this.getDefinition(statementId);
-  }
-
-  /**
-   * Finds the vann:usageNote for an RDF.Term in rdf:Statements
-   * @param subject The statement subject
-   * @param predicate The statement predicate
-   * @param object The statement object for which the usage note must be found
-   * @param store A N3 quad store
-   * @param language A language tag
-   * @returns An RDF.Literal or undefined if not found
-   */
-  public getUsageNoteViaStatements(
-    subject: RDF.Term,
-    predicate: RDF.Term,
-    object: RDF.Term,
-    language: string,
-  ): RDF.Quad | undefined {
-    const statementId = this.getTargetStatementId(subject, predicate, object);
-
-    if (!statementId) {
-      return undefined;
-    }
-
-    const usageNote = this.getUsageNote(statementId, language);
-    return usageNote || this.getUsageNote(statementId);
   }
 }

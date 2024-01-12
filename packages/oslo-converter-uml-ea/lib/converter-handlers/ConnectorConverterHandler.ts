@@ -1,19 +1,23 @@
+import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
-import type { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
+import type {
+  DataRegistry,
+  EaElement,
+  EaPackage,
+  NormalizedConnector,
+} from '@oslo-flanders/ea-uml-extractor';
 import {
   ConnectorType,
-  NormalizedConnector,
-  NormalizedConnectorTypes,
 } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
+import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore } from '../utils/utils';
-import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
-import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {
@@ -21,9 +25,9 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   private readonly connectorNormalisationService!: ConnectorNormalisationService;
 
   public async filterIgnoredObjects(
-    model: DataRegistry
+    model: DataRegistry,
   ): Promise<DataRegistry> {
-    model.connectors = model.connectors.filter((x) => !ignore(x));
+    model.connectors = model.connectors.filter(x => !ignore(x));
 
     return model;
   }
@@ -31,93 +35,92 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   public async convert(
     model: DataRegistry,
     uriRegistry: UriRegistry,
-    store: QuadStore
+    store: QuadStore,
   ): Promise<QuadStore> {
     model.normalizedConnectors
-      .filter((x) => model.targetDiagram.connectorsIds.includes(x.originalId))
-      .forEach((object) =>
-        store.addQuads(this.createQuads(object, uriRegistry, model))
-      );
+      .filter(x => model.targetDiagram.connectorsIds.includes(x.originalId))
+      .forEach(object =>
+        store.addQuads(this.createQuads(object, uriRegistry, model)));
 
     return store;
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
     const tasks: Promise<NormalizedConnector[]>[] = [];
-    model.connectors.forEach((connector) => {
+    model.connectors.forEach(connector => {
       tasks.push(
-        this.connectorNormalisationService.normalise(connector, model)
+        this.connectorNormalisationService.normalise(connector, model),
       );
     });
 
-    model.normalizedConnectors = await Promise.all(tasks).then((x) => x.flat());
+    model.normalizedConnectors = await Promise.all(tasks).then(x => x.flat());
 
     return model;
   }
 
   public async assignUris(
     model: DataRegistry,
-    uriRegistry: UriRegistry
+    uriRegistry: UriRegistry,
   ): Promise<UriRegistry> {
     uriRegistry.connectorOsloIdUriMap = new Map<number, URL>();
     const diagramConnectors: NormalizedConnector[] = [];
 
-    model.targetDiagram.connectorsIds.forEach((connectorId) => {
+    model.targetDiagram.connectorsIds.forEach(connectorId => {
       const filteredConnectors =
         model.normalizedConnectors.filter(
-          (x) => x.originalId === connectorId
+          x => x.originalId === connectorId,
         ) || [];
       diagramConnectors.push(...filteredConnectors);
     });
 
-    diagramConnectors.forEach((connector) => {
+    diagramConnectors.forEach(connector => {
       // Inheritance related connectors do not get an URI.
       if (connector.originalType === ConnectorType.Generalization) {
         return;
       }
 
-      const externalUri = getTagValue(connector, TagNames.ExternalUri, null);
+      const externalUri: string | null = getTagValue(connector, TagNames.ExternalUri, null);
       if (externalUri) {
         uriRegistry.connectorOsloIdUriMap.set(
           connector.id,
-          new URL(externalUri)
+          new URL(externalUri),
         );
         return;
       }
 
-      const packageTagValue = getTagValue(
+      const packageTagValue: string | null = getTagValue(
         connector,
         TagNames.DefiningPackage,
-        null
+        null,
       );
       let baseUri: string | undefined;
       if (packageTagValue) {
-        const packageObject = model.packages.find(
-          (x) => x.name === packageTagValue
+        const packageObject: EaPackage | undefined = model.packages.find(
+          x => x.name === packageTagValue,
         );
 
         if (!packageObject) {
           throw new Error(
-            `[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`
+            `[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`,
           );
         }
 
-        const packageUri = uriRegistry.packageIdUriMap.get(
-          packageObject.packageId
+        const packageUri: URL | undefined = uriRegistry.packageIdUriMap.get(
+          packageObject.packageId,
         );
         if (!packageUri) {
           throw new Error(
-            `[ConnectorConverterHandler]: Unable to find the URI for package (${packageObject.path}).`
+            `[ConnectorConverterHandler]: Unable to find the URI for package (${packageObject.path}).`,
           );
         }
 
         baseUri = packageUri.toString();
       } else {
-        const sourcePackage = model.elements.find(
-          (x) => x.id === connector.sourceObjectId
+        const sourcePackage: EaElement | undefined = model.elements.find(
+          x => x.id === connector.sourceObjectId,
         );
-        const destinationPackage = model.elements.find(
-          (x) => x.id === connector.destinationObjectId
+        const destinationPackage: EaElement | undefined = model.elements.find(
+          x => x.id === connector.destinationObjectId,
         );
 
         if (
@@ -130,16 +133,16 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
             .toString();
         } else {
           this.logger.warn(
-            `[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}) and the fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`
+            `[ConnectorConverterHandler]: Can not determine the correct base URI for connector (${connector.path}) and the fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`,
           );
           baseUri = uriRegistry.fallbackBaseUri;
         }
       }
 
-      let localName = getTagValue(
+      const localName: string = getTagValue(
         connector,
         TagNames.LocalName,
-        connector.name
+        connector.name,
       );
       const connectorUri = new URL(`${baseUri}${localName}`);
       uriRegistry.connectorOsloIdUriMap.set(connector.id, connectorUri);
@@ -151,73 +154,73 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   public createQuads(
     object: NormalizedConnector,
     uriRegistry: UriRegistry,
-    model: DataRegistry
+    model: DataRegistry,
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
-    const connectorInternalId = this.df.namedNode(
-      `${this.baseUrnScheme}:${object.osloGuid}`
+    const connectorInternalId: RDF.NamedNode = this.df.namedNode(
+      `${this.baseUrnScheme}:${object.osloGuid}`,
     );
-    const connectorUri = uriRegistry.connectorOsloIdUriMap.get(object.id);
+    const connectorUri: URL | undefined = uriRegistry.connectorOsloIdUriMap.get(object.id);
 
     if (!connectorUri) {
       throw new Error(
-        `[ConnectorConverterHandler]: Unable to find URI for connector (${object.path})`
+        `[ConnectorConverterHandler]: Unable to find URI for connector (${object.path})`,
       );
     }
 
-    const connectorUriNamedNode = this.df.namedNode(connectorUri.toString());
+    const connectorUriNamedNode: RDF.NamedNode = this.df.namedNode(connectorUri.toString());
 
     quads.push(
       this.df.quad(
         connectorInternalId,
         ns.rdf('type'),
-        ns.owl('ObjectProperty')
+        ns.owl('ObjectProperty'),
       ),
       this.df.quad(
         connectorInternalId,
         ns.oslo('assignedURI'),
-        connectorUriNamedNode
-      )
+        connectorUriNamedNode,
+      ),
     );
 
     // Adding definitions, labels and usage notes
     this.addEntityInformation(object, connectorInternalId, quads);
 
-    const domainObject = model.elements.find(
-      (x) => x.id === object.sourceObjectId
+    const domainObject: EaElement | undefined = model.elements.find(
+      x => x.id === object.sourceObjectId,
     );
 
     if (domainObject) {
       const domainInternalId = this.df.namedNode(
-        `${this.baseUrnScheme}:${domainObject.osloGuid}`
+        `${this.baseUrnScheme}:${domainObject.osloGuid}`,
       );
       quads.push(
-        this.df.quad(connectorInternalId, ns.rdfs('domain'), domainInternalId)
+        this.df.quad(connectorInternalId, ns.rdfs('domain'), domainInternalId),
       );
     }
 
-    const rangeObject = model.elements.find(
-      (x) => x.id === object.destinationObjectId
+    const rangeObject: EaElement | undefined = model.elements.find(
+      x => x.id === object.destinationObjectId,
     );
 
     if (rangeObject) {
       const rangeInternalId = this.df.namedNode(
-        `${this.baseUrnScheme}:${rangeObject.osloGuid}`
+        `${this.baseUrnScheme}:${rangeObject.osloGuid}`,
       );
 
       quads.push(
-        this.df.quad(connectorInternalId, ns.rdfs('range'), rangeInternalId)
+        this.df.quad(connectorInternalId, ns.rdfs('range'), rangeInternalId),
       );
     }
 
-    const packageBaseUri = uriRegistry.packageIdUriMap.get(
-      model.targetDiagram.packageId
+    const packageBaseUri: URL | undefined = uriRegistry.packageIdUriMap.get(
+      model.targetDiagram.packageId,
     );
 
     if (!packageBaseUri) {
       throw new Error(
-        `[ConnectorConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`
+        `[ConnectorConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`,
       );
     }
 
@@ -226,11 +229,11 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       connectorInternalId,
       packageBaseUri.toString(),
       uriRegistry.connectorOsloIdUriMap,
-      quads
+      quads,
     );
 
-    let minCardinality;
-    let maxCardinality;
+    let minCardinality: string;
+    let maxCardinality: string;
 
     if (object.cardinality) {
       if (object.cardinality.includes('..')) {
@@ -243,28 +246,28 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         this.df.quad(
           connectorInternalId,
           ns.shacl('minCount'),
-          this.df.literal(minCardinality)
+          this.df.literal(minCardinality),
         ),
         this.df.quad(
           connectorInternalId,
           ns.shacl('maxCount'),
-          this.df.literal(maxCardinality)
-        )
+          this.df.literal(maxCardinality),
+        ),
       );
     } else {
       this.logger.warn(
-        `[ConnectorConverterHandler]: Unable to determine cardinality for connector (${object.path}).`
+        `[ConnectorConverterHandler]: Unable to determine cardinality for connector (${object.path}).`,
       );
     }
 
-    const parentUri = getTagValue(object, TagNames.ParentUri, null);
+    const parentUri: string | null = getTagValue(object, TagNames.ParentUri, null);
     if (parentUri) {
       quads.push(
         this.df.quad(
           connectorInternalId,
           ns.rdfs('subPropertyOf'),
-          this.df.namedNode(parentUri)
-        )
+          this.df.namedNode(parentUri),
+        ),
       );
     }
     return quads;

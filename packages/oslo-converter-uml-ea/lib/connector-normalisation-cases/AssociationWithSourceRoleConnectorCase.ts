@@ -1,20 +1,20 @@
-import {
+import { Logger } from '@oslo-flanders/core';
+import type {
   EaConnector,
   DataRegistry,
-  NormalizedConnector,
   EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
-import { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
-import { TagNames } from '../enums/TagNames';
-import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
+import {
+  NormalizedConnector,
+} from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
-import { Logger } from '@oslo-flanders/core';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { TagNames } from '../enums/TagNames';
+import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
+import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
 
 @injectable()
-export class AssocationWithSourceRoleConnectorCase
-  implements IConnectorNormalisationCase
-{
+export class AssocationWithSourceRoleConnectorCase implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -27,16 +27,16 @@ export class AssocationWithSourceRoleConnectorCase
    */
   public async normalise(
     connector: EaConnector,
-    dataRegistry: DataRegistry
+    dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
-    if (connector.sourceRole === null || connector.name !== null) {
+    if (!connector.sourceRole || connector.name) {
       return [];
     }
 
-    const localName =
+    const localName: string =
       toCamelCase(getTagValue(connector, TagNames.LocalName, null) ?? connector.sourceRole);
 
-    const tags = structuredClone(connector.sourceRoleTags);
+    const tags: EaTag[] = structuredClone(connector.sourceRoleTags);
     updateNameTag(tags, localName);
 
     return [
@@ -46,7 +46,7 @@ export class AssocationWithSourceRoleConnectorCase
         connector.destinationObjectId,
         connector.sourceObjectId,
         connector.sourceCardinality,
-        tags
+        tags,
       ),
     ];
   }

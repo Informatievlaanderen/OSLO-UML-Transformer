@@ -1,4 +1,4 @@
-import { URL } from 'url';
+import type { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
 import { Logger, Scope, ns } from '@oslo-flanders/core';
 import type {
@@ -88,7 +88,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     graph: RDF.Quad_Graph,
     quads: RDF.Quad[],
   ): void {
-    const apDefinitions = this.getTagValue(object, TagNames.ApDefinition);
+    const apDefinitions: RDF.Literal[] = this.getTagValue(object, TagNames.ApDefinition);
     this.addValuesToQuads(
       apDefinitions,
       objectInternalId,
@@ -97,7 +97,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       quads,
     );
 
-    const vocDefinitions = this.getTagValue(object, TagNames.Definition);
+    const vocDefinitions: RDF.Literal[] = this.getTagValue(object, TagNames.Definition);
     this.addValuesToQuads(
       vocDefinitions,
       objectInternalId,
@@ -113,7 +113,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     graph: RDF.Quad_Graph,
     quads: RDF.Quad[],
   ): void {
-    const apLabels = this.getTagValue(object, TagNames.ApLabel);
+    const apLabels: RDF.Literal[] = this.getTagValue(object, TagNames.ApLabel);
     this.addValuesToQuads(
       apLabels,
       objectInternalId,
@@ -122,7 +122,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       quads,
     );
 
-    const vocLabels = this.getTagValue(object, TagNames.Label);
+    const vocLabels: RDF.Literal[] = this.getTagValue(object, TagNames.Label);
     this.addValuesToQuads(
       vocLabels,
       objectInternalId,
@@ -147,7 +147,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     graph: RDF.Quad_Graph,
     quads: RDF.Quad[],
   ): void {
-    const apUsageNotes = this.getTagValue(object, TagNames.ApUsageNote);
+    const apUsageNotes: RDF.Literal[] = this.getTagValue(object, TagNames.ApUsageNote);
     this.addValuesToQuads(
       apUsageNotes,
       objectInternalId,
@@ -156,7 +156,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       quads,
     );
 
-    const vocUsageNotes = this.getTagValue(object, TagNames.UsageNote);
+    const vocUsageNotes: RDF.Literal[] = this.getTagValue(object, TagNames.UsageNote);
     this.addValuesToQuads(
       vocUsageNotes,
       objectInternalId,
@@ -181,7 +181,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     idUriMap: Map<number, URL>,
     quads: RDF.Quad[],
   ): void {
-    const uri = idUriMap.get(object.id);
+    const uri: URL | undefined = idUriMap.get(object.id);
 
     let scope: Scope = Scope.External;
 
@@ -241,16 +241,16 @@ export abstract class ConverterHandler<T extends EaObject> {
    * @param name  — The name of the tag
    */
   private getLanguageDependentTag(object: T, name: TagNames): RDF.Literal[] {
-    const tags = object.tags.filter((x: EaTag) => x.tagName.startsWith(name));
+    const tags: EaTag[] = object.tags.filter((x: EaTag) => x.tagName.startsWith(name));
     const literals: RDF.Literal[] = [];
 
     const languageToTagValueMap = new Map<string, string>();
 
     tags.forEach((tag: EaTag) => {
-      const parts = tag.tagName.split('-');
-      const languageCode = parts[parts.length - 1];
+      const parts: string[] = tag.tagName.split('-');
+      const languageCode: string = parts[parts.length - 1];
 
-      const tagValue = tag.tagValue;
+      const tagValue: string = tag.tagValue;
       if (!tagValue) {
         this.logger.warn(
           `[ConverterHandler]: Entity with path ${object.path} has an empty value for tag ${tag.tagName}.`,
@@ -267,7 +267,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       languageToTagValueMap.set(languageCode, tag.tagValue);
     });
 
-    languageToTagValueMap.forEach((value, languageCode) => {
+    languageToTagValueMap.forEach((value: string, languageCode: string) => {
       literals.push(this.df.literal(value.trim(), languageCode));
     });
 

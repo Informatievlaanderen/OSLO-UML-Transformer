@@ -7,6 +7,18 @@ import type {
   NormalizedConnector,
 } from '@oslo-flanders/ea-uml-extractor';
 import { Container } from 'inversify';
+import { AssociationWithAssociationClassConnectorCase }
+  from '../connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
+import { AssociationWithDestinationRoleConnectorCase } from
+  '../connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
+import { AssociationWithNameConnectorCase } from '../connector-normalisation-cases/AssociationWithNameConnectorCase';
+import { AssocationWithSourceRoleConnectorCase } from
+  '../connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
+import { SelfAssociationWithAssociationClassConnectorCase } from
+  '../connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
+import { SelfAssociationWithNameConnectorCase } from
+  '../connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
+import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
 import { AttributeConverterHandler } from '../converter-handlers/AttributeConverterHandler';
 import { ConnectorConverterHandler } from '../converter-handlers/ConnectorConverterHandler';
 import { ElementConverterHandler } from '../converter-handlers/ElementConverterHandler';
@@ -16,13 +28,6 @@ import type { ConverterHandler } from '../interfaces/ConverterHandler';
 import { OutputHandlerService } from '../OutputHandlerService';
 import { EaUmlConverterConfiguration } from './EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './EaUmlConverterServiceIdentifier';
-import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
-import { AssociationWithNameConnectorCase } from '../connector-normalisation-cases/AssociationWithNameConnectorCase';
-import { SelfAssociationWithNameConnectorCase } from '../connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
-import { AssocationWithSourceRoleConnectorCase } from '../connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
-import { AssociationWithDestinationRoleConnectorCase } from '../connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
-import { AssociationWithAssociationClassConnectorCase } from '../connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
-import { SelfAssociationWithAssociationClassConnectorCase } from '../connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
 
 export const container = new Container();
 
@@ -35,42 +40,32 @@ container
   .inSingletonScope();
 
 container
-  .bind<OutputHandlerService>(
-    EaUmlConverterServiceIdentifier.OutputHandlerService
-  )
+  .bind<OutputHandlerService>(EaUmlConverterServiceIdentifier.OutputHandlerService)
   .to(OutputHandlerService);
 
 /**
  * Converter handlers
  */
 container
-  .bind<ConverterHandler<EaPackage>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  .bind<ConverterHandler<EaPackage>>(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(PackageConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('PackageConverterHandler');
 
 container
-  .bind<ConverterHandler<EaAttribute>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  .bind<ConverterHandler<EaAttribute>>(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(AttributeConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('AttributeConverterHandler');
 
 container
-  .bind<ConverterHandler<EaElement>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  .bind<ConverterHandler<EaElement>>(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(ElementConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ElementConverterHandler');
 
 container
-  .bind<ConverterHandler<NormalizedConnector>>(
-    EaUmlConverterServiceIdentifier.ConverterHandler
-  )
+  .bind<ConverterHandler<NormalizedConnector>>(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(ConnectorConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ConnectorConverterHandler');
@@ -79,9 +74,7 @@ container
  * Connector normalisation service and cases
  */
 container
-  .bind<ConnectorNormalisationService>(
-    EaUmlConverterServiceIdentifier.ConnectorNormalisationService
-  )
+  .bind<ConnectorNormalisationService>(EaUmlConverterServiceIdentifier.ConnectorNormalisationService)
   .to(ConnectorNormalisationService)
   .inSingletonScope();
 

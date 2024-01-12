@@ -11,8 +11,6 @@ import { QuadStore } from '../lib/store/QuadStore';
 import * as _ from '../lib/utils/fetchFileOrUrl';
 import { ns } from '../lib/utils/namespaces';
 import {
-  singleStatement,
-  multipleStatements,
   dataWithAssignedUri,
   dataWithLabels,
   dataWithDefinitions,
@@ -21,8 +19,7 @@ import {
   dataWithRange,
   dataWithDomain,
   dataWithUsageNotes,
-  dataWithDefinitionInStatementsWithoutLanguageTag,
-  dataWitUsageNoteInStatementsWithoutLanguageTag,
+  dataWithCodelist,
 } from './data/mockData';
 
 function parseJsonld(data: any): Promise<RDF.Quad[]> {
@@ -157,7 +154,7 @@ describe('QuadStore functions', () => {
     const packageQuad = df.quad(
       df.namedNode('http://example.org/id/package/1'),
       ns.rdf('type'),
-      ns.example('Package'),
+      ns.oslo('Package'),
     );
 
     store.addQuad(packageQuad);
@@ -209,35 +206,6 @@ describe('QuadStore functions', () => {
     ));
   });
 
-  it('should return the id of the target statement', async () => {
-    store.addQuads(await parseJsonld(singleStatement));
-
-    const targetStatement = store.getTargetStatementId(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-    );
-
-    const undefinedTargetStatement = store.getTargetStatementId(
-      df.namedNode('http://example.org/id/class/2'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/3'),
-    );
-
-    expect(targetStatement?.value).toBe('http://example.org/id/statement/1');
-    expect(undefinedTargetStatement).toBe(undefined);
-  });
-
-  it('should throw an error when multiple ids are returned for the target statement', async () => {
-    store.addQuads(await parseJsonld(multipleStatements));
-
-    expect(() => store.getTargetStatementId(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-    )).toThrowError();
-  });
-
   it('should return the assigned URI of a given RDF.Term', async () => {
     store.addQuads(await parseJsonld(dataWithAssignedUri));
 
@@ -248,134 +216,85 @@ describe('QuadStore functions', () => {
     expect(undefinedAssignedUri).toBe(undefined);
   });
 
-  it('should return the assigned URI of a given triple by searching the rdf:Statements', async () => {
-    store.addQuads(await parseJsonld(singleStatement));
-
-    const assignedUri = store.getAssignedUriViaStatements(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-    );
-
-    const undefinedAssignedUri = store.getAssignedUriViaStatements(
-      df.namedNode('http://example.org/id/class/2'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/3'),
-    );
-
-    expect(assignedUri?.value).toBe('http://example.org/1');
-    expect(undefinedAssignedUri).toBe(undefined);
-  });
-
-  it('should return all rdfs:labels for a given RDF.Term', async () => {
+  it('should return all labels for a given RDF.Term', async () => {
     store.addQuads(await parseJsonld(dataWithLabels));
 
     const labels = store.getLabels(
       df.namedNode('http://example.org/id/class/1'),
     );
 
-    expect(labels.length).toBe(2);
+    expect(labels.length).toBe(5);
   });
 
-  it('should return the rdfs:label that has a language tag that matches the configured language', async () => {
+  it('should return the oslo:vocLabel for a given language or undefined if it can not be found', async () => {
     store.addQuads(await parseJsonld(dataWithLabels));
+    const vocLabel = store.getVocLabel(df.namedNode('http://example.org/id/class/1'), 'nl');
+    const undefinedLabel = store.getVocLabel(df.namedNode('http://example.org/id/class/1'), 'de');
 
-    const label = store.getLabel(
-      df.namedNode('http://example.org/id/class/1'),
-      'nl',
-    );
-
-    const undefinedLabel = store.getLabel(
-      df.namedNode('http://example.org/id/class/1'),
-      'es',
-    );
-
-    expect(label?.value).toBe('TestLabel');
+    expect(vocLabel?.value).toBe('TestLabel');
     expect(undefinedLabel).toBe(undefined);
   });
 
-  it('should return the rdfs:label for a given triple by searching in the rdfs:Statements', async () => {
-    store.addQuads(await parseJsonld(singleStatement));
+  it('should return the oslo:apLabel for a given language or undefined if it can not be found', async () => {
+    store.addQuads(await parseJsonld(dataWithLabels));
+    const apLabel = store.getApLabel(df.namedNode('http://example.org/id/class/1'), 'nl');
+    const undefinedLabel = store.getApLabel(df.namedNode('http://example.org/id/class/1'), 'de');
 
-    const label = store.getLabelViaStatements(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-      'nl',
-    );
-
-    const undefinedLabel = store.getLabelViaStatements(
-      df.namedNode('http://example.org/id/class/2'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/3'),
-      'nl',
-    );
-
-    expect(label?.value).toBe('TestLabel');
+    expect(apLabel?.value).toBe('TestLabel');
     expect(undefinedLabel).toBe(undefined);
   });
 
-  it('should return all rdfs:comments for a given RDF.Term', async () => {
+  it('should return the oslo:diagramLabel for a given language or undefined if it can not be found', async () => {
+    store.addQuads(await parseJsonld(dataWithLabels));
+    const diagramLabel = store.getDiagramLabel(df.namedNode('http://example.org/id/class/1'));
+    const undefinedLabel = store.getDiagramLabel(df.namedNode('http://example.org/id/class/2'));
+
+    expect(diagramLabel?.value).toBe('TestLabel');
+    expect(undefinedLabel).toBe(undefined);
+  });
+
+  it('should return all definitions for a given RDF.Term', async () => {
     store.addQuads(await parseJsonld(dataWithDefinitions));
 
     const definitions = store.getDefinitions(
       df.namedNode('http://example.org/id/class/1'),
     );
 
-    expect(definitions.length).toBe(2);
+    expect(definitions.length).toBe(4);
   });
 
-  it('should return the rdfs:comment that has a language tag that matches the configured language', async () => {
+  it('should return the oslo:vocDefinition for a given language or undefined if it can not be found', async () => {
     store.addQuads(await parseJsonld(dataWithDefinitions));
 
-    const definition = store.getDefinition(
+    const definition = store.getVocDefinition(
       df.namedNode('http://example.org/id/class/1'),
       'en',
     );
 
-    const undefinedDefinition = store.getDefinition(
+    const undefinedDefinition = store.getVocDefinition(
       df.namedNode('http://example.org/id/class/2'),
-      'en',
+      'es',
     );
 
     expect(definition?.value).toBe('Another comment');
     expect(undefinedDefinition).toBe(undefined);
   });
 
-  it('should return the rdfs:comment for a given triple by searching in the rdfs:Statements', async () => {
-    store.addQuads(await parseJsonld(singleStatement));
+  it('should return the oslo:apDefinition for a given language or undefined if it can not be found', async () => {
+    store.addQuads(await parseJsonld(dataWithDefinitions));
 
-    const definition = store.getDefinitionViaStatements(
+    const definition = store.getApDefinition(
       df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
       'en',
     );
 
-    const undefinedDefinition = store.getDefinitionViaStatements(
+    const undefinedDefinition = store.getApDefinition(
       df.namedNode('http://example.org/id/class/2'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/3'),
-      'en',
+      'es',
     );
 
-    expect(definition?.value).toBe('A comment');
+    expect(definition?.value).toBe('Another comment');
     expect(undefinedDefinition).toBe(undefined);
-  });
-
-  // eslint-disable-next-line max-len
-  it('should try to find an rdfs:comment without language tag if no rdfs:comment with matching language tag is present in the rdf:Statements', async () => {
-    store.addQuads(await parseJsonld(dataWithDefinitionInStatementsWithoutLanguageTag));
-
-    const definition = store.getDefinitionViaStatements(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-      'en',
-    );
-
-    expect(definition?.value).toBe('A comment');
-    expect(definition?.language).toBe('');
   });
 
   it('should return all parents of a given class', async () => {
@@ -438,67 +357,48 @@ describe('QuadStore functions', () => {
     expect(undefinedDomain).toBe(undefined);
   });
 
-  it('should return all vann:usageNotes for a given RDF.Term', async () => {
+  it('should return all usageNotes for a given RDF.Term', async () => {
     store.addQuads(await parseJsonld(dataWithUsageNotes));
 
     const usageNotes = store.getUsageNotes(
       df.namedNode('http://example.org/id/class/1'),
     );
 
-    expect(usageNotes.length).toBe(2);
+    expect(usageNotes.length).toBe(4);
   });
 
-  it('should return the vann:usageNote that has a language tag that matches the configured language', async () => {
+  it('should return the oslo:vocUsageNote for a given language or undefined if it can not be found', async () => {
     store.addQuads(await parseJsonld(dataWithUsageNotes));
 
-    const usageNote = store.getUsageNote(
+    const usageNote = store.getVocUsageNote(
       df.namedNode('http://example.org/id/class/1'),
       'en',
     );
 
-    const undefinedUsageNote = store.getUsageNote(
-      df.namedNode('http://example.org/id/class/2'),
-      'en',
+    const undefinedUsageNote = store.getVocUsageNote(
+      df.namedNode('http://example.org/id/class/1'),
+      'de',
     );
 
     expect(usageNote?.value).toBe('Another usage note');
     expect(undefinedUsageNote).toBe(undefined);
   });
 
-  it('should return the van:usageNote for a given triple by searching in the rdfs:Statements', async () => {
-    store.addQuads(await parseJsonld(singleStatement));
+  it('should return the oslo:apUsageNote for a given language or undefined if it can not be found', async () => {
+    store.addQuads(await parseJsonld(dataWithUsageNotes));
 
-    const usageNote = store.getUsageNoteViaStatements(
+    const usageNote = store.getApUsageNote(
       df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
       'en',
     );
 
-    const undefinedUsageNote = store.getUsageNoteViaStatements(
-      df.namedNode('http://example.org/id/class/2'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/3'),
-      'en',
+    const undefinedUsageNote = store.getApUsageNote(
+      df.namedNode('http://example.org/id/class/1'),
+      'de',
     );
 
-    expect(usageNote?.value).toBe('A usage note');
+    expect(usageNote?.value).toBe('Another usage note');
     expect(undefinedUsageNote).toBe(undefined);
-  });
-
-  // eslint-disable-next-line max-len
-  it('should try to find an vann:usageNote without language tag if no vann:usageNote with matching language tag is present in the rdf:Statements', async () => {
-    store.addQuads(await parseJsonld(dataWitUsageNoteInStatementsWithoutLanguageTag));
-
-    const usageNote = store.getUsageNoteViaStatements(
-      df.namedNode('http://example.org/id/class/1'),
-      df.namedNode('http://example.org/examplePredicate'),
-      df.namedNode('http://example.org/id/class/2'),
-      'en',
-    );
-
-    expect(usageNote?.value).toBe('A usage note');
-    expect(usageNote?.language).toBe('');
   });
 
   it('should return an the scope of an RDF.Term as an RDF.NamedNode or undefined if not found', async () => {
@@ -506,7 +406,7 @@ describe('QuadStore functions', () => {
 
     const scopeQuad = df.quad(
       df.namedNode('http://example.org/subject/1'),
-      ns.example('scope'),
+      ns.oslo('scope'),
       df.namedNode('http://example.org/inScope'),
     );
     store.addQuad(scopeQuad);
@@ -540,5 +440,14 @@ describe('QuadStore functions', () => {
 
     expect(store.getMinCardinality(df.namedNode('http://example.org/subject/1'))!.value)
       .toBe('1');
+  });
+
+  it('should return a codelist or undefined if it can not be found', async () => {
+    store.addQuads(await parseJsonld(dataWithCodelist));
+    const codelist = store.getCodelist(df.namedNode('http://example.org/id/property/1'));
+    const undefinedCodelist = store.getCodelist(df.namedNode('http://example.org/id/property/2'));
+
+    expect(codelist?.value).toBe('http://example.org/id/conceptscheme/A');
+    expect(undefinedCodelist).toBe(undefined);
   });
 });

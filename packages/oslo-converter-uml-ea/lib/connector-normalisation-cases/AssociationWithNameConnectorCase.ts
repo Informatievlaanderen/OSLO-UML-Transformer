@@ -1,20 +1,21 @@
-import {
+import { Logger } from '@oslo-flanders/core';
+import type {
   EaConnector,
   DataRegistry,
-  NormalizedConnector,
+  EaElement,
   EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
-import { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
+import {
+  NormalizedConnector,
+} from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
-import { TagNames } from '../enums/TagNames';
-import { getTagValue, toCamelCase, toPascalCase, updateNameTag } from '../utils/utils';
-import { Logger } from '@oslo-flanders/core';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { TagNames } from '../enums/TagNames';
+import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
+import { getTagValue, toCamelCase, toPascalCase, updateNameTag } from '../utils/utils';
 
 @injectable()
-export class AssociationWithNameConnectorCase
-  implements IConnectorNormalisationCase
-{
+export class AssociationWithNameConnectorCase implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -27,48 +28,44 @@ export class AssociationWithNameConnectorCase
    */
   public async normalise(
     connector: EaConnector,
-    dataRegistry: DataRegistry
+    dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
     if (
-      connector.name === null ||
+      !connector.name ||
       connector.sourceObjectId === connector.destinationObjectId
     ) {
       return [];
     }
 
-    const addPrefix =
-      connector.sourceCardinality !== null &&
-      connector.destinationCardinality !== null;
+    const addPrefix = Boolean(connector.sourceCardinality && connector.destinationCardinality);
 
     const getLocalName = (
-      connector: EaConnector,
-      isSourceCardinality: boolean
+      targetConnector: EaConnector,
+      isSourceCardinality: boolean,
     ): string => {
-      let localName =
-        getTagValue(connector, TagNames.LocalName, null) ?? connector.name;
+      let localName: string =
+        getTagValue(connector, TagNames.LocalName, null) ?? targetConnector.name;
 
       if (addPrefix) {
-        const domainObjectId = isSourceCardinality
-          ? connector.destinationObjectId
-          : connector.sourceObjectId;
-        const domainObject = dataRegistry.elements.find(
-          (x) => domainObjectId === x.id
+        const domainObjectId: number = isSourceCardinality ?
+          targetConnector.destinationObjectId :
+          targetConnector.sourceObjectId;
+        const domainObject: EaElement | undefined = dataRegistry.elements.find(
+          x => domainObjectId === x.id,
         );
 
         if (!domainObject) {
           throw new Error(`
-            Unable to find the ${
-              isSourceCardinality ? 'source' : 'destination'
-            } object for connector with path ${connector.path}.
+            Unable to find the ${isSourceCardinality ? 'source' : 'destination'} object for connector with path ${targetConnector.path}.
           `);
         }
 
-        const domainObjectName =
+        const domainObjectName: string =
           getTagValue(domainObject, TagNames.LocalName, null) ??
           domainObject.name;
 
         localName = `${toPascalCase(domainObjectName)}.${toCamelCase(
-          localName
+          localName,
         )}`;
       }
 
@@ -77,9 +74,9 @@ export class AssociationWithNameConnectorCase
 
     const normalisedConnectors: NormalizedConnector[] = [];
 
-    if (connector.sourceCardinality !== null) {
-      const localName = getLocalName(connector, true);
-      const tags = structuredClone(connector.tags);
+    if (connector.sourceCardinality) {
+      const localName: string = getLocalName(connector, true);
+      const tags: EaTag[] = structuredClone(connector.tags);
 
       // The name tag is updated or added with the new local name
       updateNameTag(tags, localName);
@@ -91,14 +88,14 @@ export class AssociationWithNameConnectorCase
           connector.destinationObjectId,
           connector.sourceObjectId,
           connector.sourceCardinality,
-          tags
-        )
+          tags,
+        ),
       );
     }
 
-    if (connector.destinationCardinality !== null) {
-      const localName = getLocalName(connector, false);
-      const tags = structuredClone(connector.tags);
+    if (connector.destinationCardinality) {
+      const localName: string = getLocalName(connector, false);
+      const tags: EaTag[] = structuredClone(connector.tags);
 
       // The name tag is updated or added with the new local name
       updateNameTag(tags, localName);
@@ -110,8 +107,8 @@ export class AssociationWithNameConnectorCase
           connector.sourceObjectId,
           connector.destinationObjectId,
           connector.destinationCardinality,
-          tags
-        )
+          tags,
+        ),
       );
     }
 

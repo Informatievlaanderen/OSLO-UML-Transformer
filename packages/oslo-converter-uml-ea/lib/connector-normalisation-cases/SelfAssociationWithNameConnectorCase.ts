@@ -1,26 +1,26 @@
-import {
+import { Logger } from '@oslo-flanders/core';
+import type {
   EaConnector,
   DataRegistry,
-  NormalizedConnector,
-  EaObject,
+  EaElement,
   EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
-import { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
+import {
+  NormalizedConnector,
+} from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
+import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
+import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
 import {
   getTagValue,
   toCamelCase,
   toPascalCase,
   updateNameTag,
 } from '../utils/utils';
-import { Logger } from '@oslo-flanders/core';
-import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 
 @injectable()
-export class SelfAssociationWithNameConnectorCase
-  implements IConnectorNormalisationCase
-{
+export class SelfAssociationWithNameConnectorCase implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -32,88 +32,82 @@ export class SelfAssociationWithNameConnectorCase
    */
   public async normalise(
     connector: EaConnector,
-    dataRegistry: DataRegistry
+    dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
     if (
-      connector.name === null ||
+      !connector.name ||
       connector.sourceObjectId !== connector.destinationObjectId
     ) {
       return [];
     }
 
-    const disambiguate =
-      connector.sourceCardinality !== null &&
-      connector.destinationCardinality !== null;
-
+    const disambiguate = Boolean(connector.sourceCardinality && connector.destinationCardinality);
     const normalisedConnectors: NormalizedConnector[] = [];
 
     const createNormalisedConnector = (
-      connector: EaConnector,
-      role: 'target' | 'source'
+      originalConnector: EaConnector,
+      role: 'target' | 'source',
     ): NormalizedConnector => {
-      const cardinality =
-        role === 'target'
-          ? connector.sourceCardinality
-          : connector.destinationCardinality;
-      const domainObject = dataRegistry.elements.find(
-        (x) => x.id === connector.sourceObjectId
+      const cardinality: string =
+        role === 'target' ?
+          originalConnector.sourceCardinality :
+          originalConnector.destinationCardinality;
+
+      const domainObject: EaElement | undefined = dataRegistry.elements.find(
+        x => x.id === originalConnector.sourceObjectId,
       );
 
       if (!domainObject) {
         throw new Error(
-          `Unable to find the ${role} object for connector with path ${connector.path}.`
+          `Unable to find the ${role} object for connector with path ${originalConnector.path}.`,
         );
       }
 
-      const domainObjectName =
-        getTagValue(domainObject, TagNames.LocalName, null) ??
-        domainObject.name;
-      const connectorName =
-        getTagValue(connector, TagNames.LocalName, null) ?? connector.name;
-      const localName = `${toPascalCase(domainObjectName)}.${toCamelCase(
-        connectorName
-      )}.${role}`;
-      let tags = structuredClone(connector.tags);
+      const domainObjectName: string =
+        getTagValue(domainObject, TagNames.LocalName, null) ?? domainObject.name;
+      const connectorName: string =
+        getTagValue(originalConnector, TagNames.LocalName, null) ?? originalConnector.name;
+      const localName = `${toPascalCase(domainObjectName)}.${toCamelCase(connectorName)}.${role}`;
+      const tags: EaTag[] = structuredClone(originalConnector.tags);
 
       // Change or update the value of the 'name' tag as with the new local name
       updateNameTag(tags, localName);
 
       return new NormalizedConnector(
-        connector,
-        `${connector.name} (${role})`,
-        connector.sourceObjectId,
-        connector.destinationObjectId,
+        originalConnector,
+        `${originalConnector.name} (${role})`,
+        originalConnector.sourceObjectId,
+        originalConnector.destinationObjectId,
         cardinality,
-        tags
+        tags,
       );
     };
 
     if (disambiguate) {
       normalisedConnectors.push(
         createNormalisedConnector(connector, 'target'),
-        createNormalisedConnector(connector, 'source')
+        createNormalisedConnector(connector, 'source'),
       );
     } else {
-      const connectorName =
+      const connectorName: string =
         getTagValue(connector, TagNames.LocalName, null) ?? connector.name;
-      const localName = toCamelCase(connectorName);
-      const hasSourceCardinality = connector.sourceCardinality !== null;
-
-      const tags = updateNameTag(structuredClone(connector.tags), localName);
+      const localName: string = toCamelCase(connectorName);
+      const hasSourceCardinality = Boolean(connector.sourceCardinality);
+      const tags: EaTag[] = updateNameTag(structuredClone(connector.tags), localName);
 
       normalisedConnectors.push(
         new NormalizedConnector(
           connector,
           connector.name,
-          hasSourceCardinality
-            ? connector.destinationObjectId
-            : connector.sourceObjectId,
-          hasSourceCardinality
-            ? connector.sourceObjectId
-            : connector.destinationObjectId,
+          hasSourceCardinality ?
+            connector.destinationObjectId :
+            connector.sourceObjectId,
+          hasSourceCardinality ?
+            connector.sourceObjectId :
+            connector.destinationObjectId,
           connector.sourceCardinality ?? connector.destinationCardinality,
-          tags
-        )
+          tags,
+        ),
       );
     }
 

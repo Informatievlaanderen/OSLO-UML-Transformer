@@ -26,9 +26,9 @@ export const DataTypes: Map<string, string> = new Map<string, string>(
 );
 
 export const datatypeIdentifierToHash = (uri: string): number => {
-  let h: number = 0;
+  let hash = 0;
   for (let i = 0; i < uri.length; i++) {
-    h = (Math.imul(31, h) + uri.charCodeAt(i)) | 0;
+    hash = Math.trunc(Math.imul(31, hash) + uri.charCodeAt(i));
   }
-  return h > 0 ? h : (h * - 1)
-}
+  return hash > 0 ? hash : hash * -1;
+};

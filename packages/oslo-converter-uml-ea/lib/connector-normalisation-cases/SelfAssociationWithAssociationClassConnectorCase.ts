@@ -1,20 +1,21 @@
-import {
+import { Logger } from '@oslo-flanders/core';
+import type {
   EaConnector,
   DataRegistry,
-  NormalizedConnector,
   EaTag,
+  EaElement,
 } from '@oslo-flanders/ea-uml-extractor';
-import { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
-import { TagNames } from '../enums/TagNames';
-import { getTagValue, toCamelCase, toPascalCase } from '../utils/utils';
+import {
+  NormalizedConnector,
+} from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
-import { Logger } from '@oslo-flanders/core';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { TagNames } from '../enums/TagNames';
+import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
+import { getTagValue, toCamelCase, toPascalCase } from '../utils/utils';
 
 @injectable()
-export class SelfAssociationWithAssociationClassConnectorCase
-  implements IConnectorNormalisationCase
-{
+export class SelfAssociationWithAssociationClassConnectorCase implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -27,57 +28,59 @@ export class SelfAssociationWithAssociationClassConnectorCase
    */
   public async normalise(
     connector: EaConnector,
-    dataRegistry: DataRegistry
+    dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
     if (
-      connector.associationClassId === null ||
+      !connector.associationClassId ||
       connector.sourceObjectId !== connector.destinationObjectId
     ) {
       return [];
     }
 
     const ignoreImplicitGeneration = Boolean(
-      getTagValue(connector, TagNames.IgnoreImplicitGeneration, false)
+      getTagValue(connector, TagNames.IgnoreImplicitGeneration, false),
     );
 
-    if (ignoreImplicitGeneration === true) {
+    if (ignoreImplicitGeneration) {
       return [];
     }
 
     const normalisedConnectors: NormalizedConnector[] = [];
 
-    const associationClassObject = dataRegistry.elements.find(
-      (x) => x.id === connector.associationClassId
+    const associationClassObject: EaElement | undefined = dataRegistry.elements.find(
+      x => x.id === connector.associationClassId,
     );
 
     if (!associationClassObject) {
-      console.log(connector);
       throw new Error(
-        `Unable to find the association class object for connector with path ${connector.path}.`
+        `Unable to find the association class object for connector with path ${connector.path}.`,
       );
     }
 
-    let associationClassName = associationClassObject.name;
-    const associationClassNameTag = associationClassObject.tags.find(
-      (x) => x.tagName === TagNames.LocalName
+    let associationClassName: string = associationClassObject.name;
+    const associationClassNameTag: EaTag | undefined = associationClassObject.tags.find(
+      x => x.tagName === TagNames.LocalName,
     );
+
     if (associationClassNameTag) {
       associationClassName = associationClassNameTag.tagValue;
     }
 
-    const baseClassObject = dataRegistry.elements.find(
-      (x) => x.id === connector.sourceObjectId
+    const baseClassObject: EaElement | undefined = dataRegistry.elements.find(
+      x => x.id === connector.sourceObjectId,
     );
+
     if (!baseClassObject) {
       throw new Error(
-        `Unable to find the target object for connector with path ${connector.path}.`
+        `Unable to find the target object for connector with path ${connector.path}.`,
       );
     }
 
-    let baseClassObjectName = baseClassObject.name;
-    const baseClassObjectNameTag = baseClassObject.tags.find(
-      (x) => x.tagName === TagNames.LocalName
+    let baseClassObjectName: string = baseClassObject.name;
+    const baseClassObjectNameTag: EaTag | undefined = baseClassObject.tags.find(
+      x => x.tagName === TagNames.LocalName,
     );
+
     if (baseClassObjectNameTag) {
       baseClassObjectName = baseClassObjectNameTag.tagValue;
     }
@@ -86,7 +89,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
       {
         tagName: TagNames.LocalName,
         tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
-          baseClassObjectName
+          baseClassObjectName,
         )}.source`,
       },
     ];
@@ -95,7 +98,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
       {
         tagName: TagNames.LocalName,
         tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
-          baseClassObjectName
+          baseClassObjectName,
         )}.target`,
       },
     ];
@@ -104,19 +107,19 @@ export class SelfAssociationWithAssociationClassConnectorCase
       new NormalizedConnector(
         connector,
         `${baseClassObjectName} (source)`,
-        connector.associationClassId!,
+        connector.associationClassId,
         connector.sourceObjectId,
         '1',
-        sourceBaseClassTags
+        sourceBaseClassTags,
       ),
       new NormalizedConnector(
         connector,
         `${baseClassObjectName} (target)`,
-        connector.associationClassId!,
+        connector.associationClassId,
         connector.destinationObjectId,
         '1',
-        targetBaseClassTags
-      )
+        targetBaseClassTags,
+      ),
     );
 
     return normalisedConnectors;

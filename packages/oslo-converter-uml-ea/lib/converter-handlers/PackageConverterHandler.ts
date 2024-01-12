@@ -1,3 +1,4 @@
+import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type { DataRegistry, EaPackage } from '@oslo-flanders/ea-uml-extractor';
@@ -38,15 +39,15 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       uriRegistry.packageNameToPackageMap
         .set(packageObject.name, [...uriRegistry.packageNameToPackageMap.get(packageObject.name) || [], packageObject]);
 
-      let packageUri = getTagValue(packageObject, TagNames.PackageBaseUri, null);
+      let packageUri: string | null = getTagValue(packageObject, TagNames.PackageBaseUri, null);
 
       if (!packageUri) {
         this.logger.warn(`[PackageConverterHandler]: No value found for tag "baseUri" in package (${packageObject.path}) and fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`);
         packageUri = uriRegistry.fallbackBaseUri;
       }
 
-      const namespace = packageUri.slice(0, -1);
-      const ontologyURI = getTagValue(packageObject, TagNames.PackageOntologyUri, namespace);
+      const namespace: string = packageUri.slice(0, -1);
+      const ontologyURI: string = getTagValue(packageObject, TagNames.PackageOntologyUri, namespace);
 
       uriRegistry.packageIdUriMap.set(packageObject.packageId, new URL(packageUri));
       uriRegistry.packageIdOntologyUriMap.set(packageObject.packageId, new URL(ontologyURI));
@@ -57,8 +58,8 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
 
   public createQuads(object: EaPackage, uriRegistry: UriRegistry): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
-    const ontologyUri = uriRegistry.packageIdOntologyUriMap.get(object.packageId);
-    const baseUri = uriRegistry.packageIdUriMap.get(object.packageId);
+    const ontologyUri: URL | undefined = uriRegistry.packageIdOntologyUriMap.get(object.packageId);
+    const baseUri: URL | undefined = uriRegistry.packageIdUriMap.get(object.packageId);
 
     if (!ontologyUri) {
       throw new Error(`[PackageConverterHandler]: Unable to find ontology URI for package (${object.path}).`);
@@ -68,8 +69,8 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       throw new Error(`[PackageConverterHandler]: Unable to find base URI for package (${object.path}).`);
     }
 
-    const ontologyUriNamedNode = this.df.namedNode(ontologyUri.toString());
-    const packageInternalId = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
+    const ontologyUriNamedNode: RDF.NamedNode = this.df.namedNode(ontologyUri.toString());
+    const packageInternalId: RDF.NamedNode = this.df.namedNode(`${this.baseUrnScheme}:${object.osloGuid}`);
 
     quads.push(
       this.df.quad(
