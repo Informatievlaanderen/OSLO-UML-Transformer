@@ -7,12 +7,14 @@ module.exports = {
     tsconfigRootDir: __dirname, // this is the reason this is a .js file
     project: ["./tsconfig.eslint.json"],
   },
-  plugins: ["jest", "eslint-plugin-import", "eslint-plugin-unused-imports"],
+  plugins: ["jest", "eslint-plugin-import", "eslint-plugin-unused-imports", "prettier"],
   extends: [
     "es/node",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   settings: {
     "import/parsers": {
