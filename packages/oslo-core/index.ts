@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-export * from '@interfaces/AppRunner';
-export * from '@interfaces/IConfiguration';
-export * from '@interfaces/IOutputHandler';
-export * from '@interfaces/IService';
+export * from './lib/interfaces/AppRunner';
+export * from './lib/interfaces/IConfiguration';
+export * from './lib/interfaces/IOutputHandler';
+export * from './lib/interfaces/IService';
 export * from './lib/utils/fetchFileOrUrl';
 export * from './lib/utils/namespaces';
 export * from './lib/utils/uniqueId';
