@@ -18,7 +18,7 @@ export class HtmlRespecGenerationService implements IService {
   public readonly store: QuadStore;
 
   public constructor(
-    @inject(ServiceIdentifier.Logger) logger: Logger,
+  @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration) config: HtmlRespecGenerationServiceConfiguration,
     @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
@@ -97,7 +97,7 @@ export class HtmlRespecGenerationService implements IService {
 
   private async extractClassInformation(): Promise<any[]> {
     return this.store.findSubjects(ns.rdf('type'), ns.owl('Class'))
-      //.filter(x => isInScope(<RDF.NamedNode>x, this.store))
+      // .filter(x => isInScope(<RDF.NamedNode>x, this.store))
       .map(subjectId => {
         const assignedUri = this.store.getAssignedUri(subjectId);
         const label = this.store.getLabel(subjectId, this.configuration.language) || this.store.getLabel(subjectId);

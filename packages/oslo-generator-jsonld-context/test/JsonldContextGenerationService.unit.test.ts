@@ -2,7 +2,7 @@
  * @group unit
  */
 import fs from 'fs/promises';
-import { VoidLogger, WinstonLogger, LOG_LEVELS, QuadStore, WinstonLoggerFactory } from '@oslo-flanders/core';
+import { VoidLogger, LOG_LEVELS, QuadStore, WinstonLoggerFactory } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
@@ -73,7 +73,7 @@ describe('JsonldContextGenerationService', () => {
 
     await service.run();
 
-    // eslint-disable-next-line @typescript-eslint/object-curly-spacing
+     
     expect(fs.writeFile).toBeCalledWith('context.jsonld', JSON.stringify({ '@context': {} }, null, 2));
   });
 

@@ -1,5 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/indent */
+ 
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';

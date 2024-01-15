@@ -1,5 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/indent */
+ 
 import { Logger, ns } from '@oslo-flanders/core';
 import type { QuadStore, IService } from '@oslo-flanders/core';
 import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
