@@ -6,9 +6,9 @@ import { ConnectorType, ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
 import { TagNames } from '../enums/TagNames';
-import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toPascalCase } from '../utils/utils';
+import { ConverterHandler } from '@interfaces/ConverterHandler';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {

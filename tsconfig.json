@@ -2,10 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
-    "lib": [
-      "ES2019",
-      "DOM"
-    ],
+    "lib": ["ES2019", "DOM"],
     "target": "ES2019",
     "noImplicitAny": true,
     "removeComments": false,
@@ -18,15 +15,24 @@
     "esModuleInterop": true,
     "types": ["reflect-metadata", "node", "jest"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".", // This must be specified if "paths" is.
+    "paths": {
+      "@interfaces/*": [
+        "packages/oslo-converter-stakeholders/lib/interfaces/*",
+        "packages/oslo-converter-uml-ea/lib/interfaces/*",
+        "packages/oslo-core/lib/interfaces/*",
+        "packages/oslo-extractor-uml-ea/lib/interfaces/*",
+        "packages/oslo-generator-jsonld-context/lib/interfaces/*",
+        "packages/oslo-generator-rdf-vocabulary/lib/interfaces/*",
+        "packages/oslo-generator-respec-html/lib/interfaces/*"
+      ]
+    }
   },
   "include": [
     "packages/**/index.ts",
     "packages/**/bin/**/*",
     "packages/**/lib/**/*"
   ],
-  "exclude": [
-    "**/node_modules",
-    "**/test/*"
-  ]
+  "exclude": ["**/node_modules", "**/test/*"]
 }

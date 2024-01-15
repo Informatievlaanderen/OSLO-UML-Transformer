@@ -11,8 +11,8 @@ import {
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
-import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
 import { getTagValue, toCamelCase, toPascalCase, updateNameTag } from '../utils/utils';
+import type { IConnectorNormalisationCase } from '@interfaces/IConnectorNormalisationCase';
 
 @injectable()
 export class AssociationWithNameConnectorCase implements IConnectorNormalisationCase {

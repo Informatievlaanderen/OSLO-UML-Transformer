@@ -24,10 +24,10 @@ import { ConnectorConverterHandler } from '../converter-handlers/ConnectorConver
 import { ElementConverterHandler } from '../converter-handlers/ElementConverterHandler';
 import { PackageConverterHandler } from '../converter-handlers/PackageConverterHandler';
 import { EaUmlConversionService } from '../EaUmlConversionService';
-import type { ConverterHandler } from '../interfaces/ConverterHandler';
 import { OutputHandlerService } from '../OutputHandlerService';
 import { EaUmlConverterConfiguration } from './EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './EaUmlConverterServiceIdentifier';
+import type { ConverterHandler } from '@interfaces/ConverterHandler';
 
 export const container = new Container();
 

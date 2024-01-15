@@ -15,9 +15,9 @@ import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
 import { TagNames } from '../enums/TagNames';
-import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore } from '../utils/utils';
+import { ConverterHandler } from '@interfaces/ConverterHandler';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {

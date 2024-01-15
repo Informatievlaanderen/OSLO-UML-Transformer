@@ -2,7 +2,7 @@
  * @group unit
  */
 import fs from 'fs/promises';
-import { VoidLogger, WinstonLogger, LOG_LEVELS, QuadStore, WinstonLoggerFactory } from '@oslo-flanders/core';
+import { VoidLogger, LOG_LEVELS, QuadStore, WinstonLoggerFactory } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';

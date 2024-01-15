@@ -16,9 +16,9 @@ import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfigurati
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
 import { TagNames } from '../enums/TagNames';
-import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toCamelCase } from '../utils/utils';
+import { ConverterHandler } from '@interfaces/ConverterHandler';
 
 @injectable()
 export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {

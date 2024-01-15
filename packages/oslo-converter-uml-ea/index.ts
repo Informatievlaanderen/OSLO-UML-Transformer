@@ -14,6 +14,6 @@ export * from './lib/config/EaUmlConverterServiceIdentifier';
 export * from './lib/enums/CasingTypes';
 export * from './lib/enums/DataTypes';
 export * from './lib/enums/TagNames';
-export * from './lib/interfaces/ConverterHandler';
+export * from '@interfaces/ConverterHandler';
 export * from './lib/utils/utils';
 export * from './lib/output-handlers/JsonLdOutputHandler';

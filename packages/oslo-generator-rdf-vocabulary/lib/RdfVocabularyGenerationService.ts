@@ -120,8 +120,8 @@ export class RdfVocabularyGenerationService implements IService {
           this.store.getAssignedUriViaStatements(
             subject,
             ns.rdfs('subClassOf'),
-            parent
-          );;
+            parent,
+          );
 
         if (!parentAssignedUri) {
           throw new Error(`Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`);
