@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-stakeholders-oslo#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@interfaces": "./lib/interfaces"
+  },
   "bin": {
     "oslo-stakeholders-converter": "./bin/runner.js"
   },
