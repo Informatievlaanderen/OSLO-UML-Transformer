@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-respec-html#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@interfaces": "./lib/interfaces"
+  },
   "bin": {
     "oslo-generator-respec": "./bin/runner.js"
   },
@@ -45,6 +48,7 @@
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
-    "@types/nunjucks": "^3.2.2"
+    "@types/nunjucks": "^3.2.2",
+    "module-alias": "^2.2.3"
   }
 }

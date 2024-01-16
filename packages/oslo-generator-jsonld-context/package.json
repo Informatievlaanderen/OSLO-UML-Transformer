@@ -9,6 +9,9 @@
   "bin": {
     "oslo-jsonld-context-generator": "./bin/runner.js"
   },
+  "_moduleAliases": {
+    "@interfaces": "./lib/interfaces"
+  },
   "directories": {
     "bin": "bin",
     "lib": "lib",
@@ -54,7 +57,8 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0"
+    "@rdfjs/types": "^1.1.0",
+    "module-alias": "^2.2.3"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.4-alpha.0",
