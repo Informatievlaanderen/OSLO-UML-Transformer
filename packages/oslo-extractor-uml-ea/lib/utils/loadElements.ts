@@ -1,11 +1,11 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { EaElement } from '../types/EaElement';
-import type { EaPackage } from '../types/EaPackage';
-import { addEaTagsToElements } from './assignTags';
+import type { DataRegistry } from '@oslo-extractor-uml-ea/DataRegistry';
 import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
 import { ElementType } from '@oslo-extractor-uml-ea/enums/ElementType';
+import { EaElement } from '@oslo-extractor-uml-ea/types/EaElement';
+import type { EaPackage } from '@oslo-extractor-uml-ea/types/EaPackage';
+import { addEaTagsToElements } from '@oslo-extractor-uml-ea/utils/assignTags';
 
 export function loadElements(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const objects = mdb.getTable(EaTable.Object).getData();

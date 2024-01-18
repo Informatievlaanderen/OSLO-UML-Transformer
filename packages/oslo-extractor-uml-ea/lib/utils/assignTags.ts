@@ -1,6 +1,6 @@
-import type { EaConnector } from '../types/EaConnector';
-import type { EaObject } from '../types/EaObject';
-import type { EaTag } from '../types/EaTag';
+import type { EaConnector } from '@oslo-extractor-uml-ea/types/EaConnector';
+import type { EaObject } from '@oslo-extractor-uml-ea/types/EaObject';
+import type { EaTag } from '@oslo-extractor-uml-ea/types/EaTag';
 
 /**
  * Iterates over tags and adds it to the corresponding object.
