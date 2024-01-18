@@ -22,10 +22,6 @@
         "packages/oslo-converter-stakeholders/lib/interfaces/*",
         "packages/oslo-converter-uml-ea/lib/interfaces/*",
         "packages/oslo-core/lib/interfaces/*",
-        "packages/oslo-extractor-uml-ea/lib/interfaces/*",
-        "packages/oslo-generator-jsonld-context/lib/interfaces/*",
-        "packages/oslo-generator-rdf-vocabulary/lib/interfaces/*",
-        "packages/oslo-generator-respec-html/lib/interfaces/*"
       ]
     }
   },
