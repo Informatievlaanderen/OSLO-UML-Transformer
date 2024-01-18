@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "../enums": "./lib/enums"
+    "@oslo-converter-stakeholders": "./lib"
   },
   "bin": {
     "oslo-stakeholders-converter": "./bin/runner.js"

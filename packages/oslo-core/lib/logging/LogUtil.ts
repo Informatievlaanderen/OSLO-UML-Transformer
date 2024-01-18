@@ -3,7 +3,7 @@ import type { LoggerFactory } from './LoggerFactory';
 import type { LogLevel } from './LogLevel';
 import { VoidLoggerFactory } from './VoidLoggerFactory';
 import { WinstonLoggerFactory } from './WinstonLoggerFactory';
-import type { YargsParams } from '@interfaces/AppRunner';
+import type { YargsParams } from '@oslo-core/interfaces/AppRunner';
 
 let loggerFactory: LoggerFactory = new VoidLoggerFactory();
 

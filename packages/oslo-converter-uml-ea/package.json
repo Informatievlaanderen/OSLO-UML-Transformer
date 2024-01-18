@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@interfaces": "./lib/interfaces"
+    "@oslo-converter-uml-ea": "./lib"
   },
   "bin": {
     "oslo-converter-ea": "./bin/runner.js"

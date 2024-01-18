@@ -17,7 +17,7 @@ import {
   toPascalCase,
   updateNameTag,
 } from '../utils/utils';
-import type { IConnectorNormalisationCase } from '@interfaces/IConnectorNormalisationCase';
+import type { IConnectorNormalisationCase } from '@oslo-converter-uml-ea/interfaces/IConnectorNormalisationCase';
 
 @injectable()
 export class SelfAssociationWithNameConnectorCase implements IConnectorNormalisationCase {

@@ -17,7 +17,7 @@ import { ConnectorNormalisationService } from '../ConnectorNormalisationService'
 import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore } from '../utils/utils';
-import { ConverterHandler } from '@interfaces/ConverterHandler';
+import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {

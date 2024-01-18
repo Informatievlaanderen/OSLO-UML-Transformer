@@ -18,7 +18,7 @@ import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
 import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toCamelCase } from '../utils/utils';
-import { ConverterHandler } from '@interfaces/ConverterHandler';
+import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 @injectable()
 export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {

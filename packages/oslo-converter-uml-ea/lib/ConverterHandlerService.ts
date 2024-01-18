@@ -4,7 +4,7 @@ import type { DataRegistry, EaObject } from '@oslo-flanders/ea-uml-extractor';
 import { container } from './config/DependencyInjectionConfig';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
 import { UriRegistry } from './UriRegistry';
-import type { ConverterHandler } from '@interfaces/ConverterHandler';
+import type { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 export class ConverterHandlerService<T extends EaObject> {
   public readonly logger: Logger;

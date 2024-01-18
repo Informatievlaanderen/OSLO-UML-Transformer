@@ -7,7 +7,7 @@ import { injectable } from 'inversify';
 import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore } from '../utils/utils';
-import { ConverterHandler } from '@interfaces/ConverterHandler';
+import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 @injectable()
 export class PackageConverterHandler extends ConverterHandler<EaPackage> {

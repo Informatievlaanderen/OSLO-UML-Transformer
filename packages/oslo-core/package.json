@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@interfaces": "./lib/interfaces"
+    "@@oslo-core": "./lib"
   },
   "directories": {
     "lib": "lib"

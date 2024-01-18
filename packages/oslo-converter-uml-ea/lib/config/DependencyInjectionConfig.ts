@@ -27,7 +27,7 @@ import { EaUmlConversionService } from '../EaUmlConversionService';
 import { OutputHandlerService } from '../OutputHandlerService';
 import { EaUmlConverterConfiguration } from './EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './EaUmlConverterServiceIdentifier';
-import type { ConverterHandler } from '@interfaces/ConverterHandler';
+import type { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 export const container = new Container();
 

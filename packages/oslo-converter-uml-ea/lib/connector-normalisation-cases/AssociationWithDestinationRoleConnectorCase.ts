@@ -11,7 +11,7 @@ import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
 import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
-import type { IConnectorNormalisationCase } from '@interfaces/IConnectorNormalisationCase';
+import type { IConnectorNormalisationCase } from '@oslo-converter-uml-ea/interfaces/IConnectorNormalisationCase';
 
 @injectable()
 export class AssociationWithDestinationRoleConnectorCase implements IConnectorNormalisationCase {

@@ -18,10 +18,20 @@
     "emitDecoratorMetadata": true,
     "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
-      "@interfaces/*": [
-        "packages/oslo-converter-stakeholders/lib/interfaces/*",
-        "packages/oslo-converter-uml-ea/lib/interfaces/*",
-        "packages/oslo-core/lib/interfaces/*",
+      "@oslo-converter-uml-ea/*": ["packages/oslo-converter-uml-ea/lib/*"],
+      "@oslo-core/*": ["packages/oslo-core/lib/*"],
+      "@oslo-extractor-uml-ea/*": ["packages/oslo-extractor-uml-ea/lib/*"],
+      "@oslo-converter-stakeholders/*": [
+        "packages/oslo-converter-stakeholders/lib/*"
+      ],
+      "@oslo-generator-jsonld-context/*": [
+        "packages/oslo-generator-jsonld-context/lib/*"
+      ],
+      "@oslo-generator-rdf-vocabulary/*": [
+        "packages/oslo-generator-rdf-vocabulary/lib/*"
+      ],
+      "@oslo-generator-respec-html/*": [
+        "packages/oslo-generator-respec-html/lib/*"
       ]
     }
   },

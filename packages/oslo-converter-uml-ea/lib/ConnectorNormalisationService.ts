@@ -7,7 +7,7 @@ import type {
 import { injectable } from 'inversify';
 import { container } from './config/DependencyInjectionConfig';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
-import type { IConnectorNormalisationCase } from '@interfaces/IConnectorNormalisationCase';
+import type { IConnectorNormalisationCase } from '@oslo-converter-uml-ea/interfaces/IConnectorNormalisationCase';
 
 @injectable()
 export class ConnectorNormalisationService {
