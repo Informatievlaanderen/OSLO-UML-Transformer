@@ -15,9 +15,9 @@ import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
 import type { UriRegistry } from '../UriRegistry';
-import { getTagValue, ignore } from '../utils/utils';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
+import { getTagValue, ignore } from '@oslo-converter-uml-ea/utils/utils';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {

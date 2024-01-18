@@ -7,11 +7,11 @@ import type { EaDiagram } from './types/EaDiagram';
 import type { EaElement } from './types/EaElement';
 import type { EaPackage } from './types/EaPackage';
 import type { NormalizedConnector } from './types/NormalizedConnector';
-import { loadAttributes } from './utils/loadAttributes';
-import { loadDiagrams } from './utils/loadDiagrams';
-import { loadElementConnectors } from './utils/loadElementConnectors';
-import { loadElements } from './utils/loadElements';
-import { loadPackages } from './utils/loadPackage';
+import { loadAttributes } from '@oslo-extractor-uml-ea/utils/loadAttributes';
+import { loadDiagrams } from '@oslo-extractor-uml-ea/utils/loadDiagrams';
+import { loadElementConnectors } from '@oslo-extractor-uml-ea/utils/loadElementConnectors';
+import { loadElements } from '@oslo-extractor-uml-ea/utils/loadElements';
+import { loadPackages } from '@oslo-extractor-uml-ea/utils/loadPackage';
 
 export class DataRegistry {
   public readonly logger: Logger;

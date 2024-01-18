@@ -7,9 +7,9 @@ import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 import { parse } from 'csv-parse';
 import { inject, injectable } from 'inversify';
 import { StakeholdersConversionServiceConfiguration } from './config/StakeholdersConversionServiceConfiguration';
-import { context } from './utils/JsonLdContext';
-import { ToJsonLdTransformer } from './utils/ToJsonLdTransformer';
 import { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
+import { context } from '@oslo-converter-stakeholders/utils/JsonLdContext';
+import { ToJsonLdTransformer } from '@oslo-converter-stakeholders/utils/ToJsonLdTransformer';
 
 @injectable()
 export class StakeholdersConversionService implements IService {

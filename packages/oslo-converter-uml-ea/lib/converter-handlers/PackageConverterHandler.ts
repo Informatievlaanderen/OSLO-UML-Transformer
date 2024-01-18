@@ -5,9 +5,9 @@ import type { DataRegistry, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
 import type { UriRegistry } from '../UriRegistry';
-import { getTagValue, ignore } from '../utils/utils';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
+import { getTagValue, ignore } from '@oslo-converter-uml-ea/utils/utils';
 
 @injectable()
 export class PackageConverterHandler extends ConverterHandler<EaPackage> {

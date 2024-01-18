@@ -15,10 +15,10 @@ import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import type { UriRegistry } from '../UriRegistry';
-import { getTagValue, ignore, toCamelCase } from '../utils/utils';
 import { DataTypes, datatypeIdentifierToHash } from '@oslo-converter-uml-ea/enums/DataTypes';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
+import { getTagValue, ignore, toCamelCase } from '@oslo-converter-uml-ea/utils/utils';
 
 @injectable()
 export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
