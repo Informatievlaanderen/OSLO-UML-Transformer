@@ -7,27 +7,29 @@ import type {
   NormalizedConnector,
 } from '@oslo-flanders/ea-uml-extractor';
 import { Container } from 'inversify';
+import { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
+import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
 import { AssociationWithAssociationClassConnectorCase }
-  from '../connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
+  from '@oslo-converter-uml-ea/connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
 import { AssociationWithDestinationRoleConnectorCase } from
-  '../connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
-import { AssociationWithNameConnectorCase } from '../connector-normalisation-cases/AssociationWithNameConnectorCase';
+  '@oslo-converter-uml-ea/connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
+import {
+  AssociationWithNameConnectorCase,
+} from '@oslo-converter-uml-ea/connector-normalisation-cases/AssociationWithNameConnectorCase';
 import { AssocationWithSourceRoleConnectorCase } from
-  '../connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
+  '@oslo-converter-uml-ea/connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
 import { SelfAssociationWithAssociationClassConnectorCase } from
-  '../connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
+  '@oslo-converter-uml-ea/connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
 import { SelfAssociationWithNameConnectorCase } from
-  '../connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
-import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
-import { AttributeConverterHandler } from '../converter-handlers/AttributeConverterHandler';
-import { ConnectorConverterHandler } from '../converter-handlers/ConnectorConverterHandler';
-import { ElementConverterHandler } from '../converter-handlers/ElementConverterHandler';
-import { PackageConverterHandler } from '../converter-handlers/PackageConverterHandler';
-import { EaUmlConversionService } from '../EaUmlConversionService';
-import { OutputHandlerService } from '../OutputHandlerService';
-import { EaUmlConverterConfiguration } from './EaUmlConverterConfiguration';
-import { EaUmlConverterServiceIdentifier } from './EaUmlConverterServiceIdentifier';
+  '@oslo-converter-uml-ea/connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
+import { ConnectorNormalisationService } from '@oslo-converter-uml-ea/ConnectorNormalisationService';
+import { AttributeConverterHandler } from '@oslo-converter-uml-ea/converter-handlers/AttributeConverterHandler';
+import { ConnectorConverterHandler } from '@oslo-converter-uml-ea/converter-handlers/ConnectorConverterHandler';
+import { ElementConverterHandler } from '@oslo-converter-uml-ea/converter-handlers/ElementConverterHandler';
+import { PackageConverterHandler } from '@oslo-converter-uml-ea/converter-handlers/PackageConverterHandler';
+import { EaUmlConversionService } from '@oslo-converter-uml-ea/EaUmlConversionService';
 import type { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
+import { OutputHandlerService } from '@oslo-converter-uml-ea/OutputHandlerService';
 
 export const container = new Container();
 

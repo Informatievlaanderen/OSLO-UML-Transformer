@@ -1,7 +1,7 @@
 import type { URL } from 'url';
 import type { EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
-import type { UriRegistry } from '../UriRegistry';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
+import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
 
 export function ignore(object: EaObject): boolean {
   const ignoreObject = getTagValue(object, TagNames.Ignore, false);

@@ -9,10 +9,10 @@ import type {
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
-import type { UriRegistry } from '../UriRegistry';
 import { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
+import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
 
 @injectable()
 export abstract class ConverterHandler<T extends EaObject> {

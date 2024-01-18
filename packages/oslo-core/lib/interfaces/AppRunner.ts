@@ -1,10 +1,10 @@
 import { stderr } from 'process';
 import type { Container } from 'inversify';
-import type { Logger } from '../logging/Logger';
-import { createLogger, setLoggerFactory } from '../logging/LogUtil';
-import { ServiceIdentifier } from '../ServiceIdentifier';
-import type { IConfiguration } from './IConfiguration';
-import type { IService } from './IService';
+import type { IConfiguration } from '@oslo-core/interfaces/IConfiguration';
+import type { IService } from '@oslo-core/interfaces/IService';
+import type { Logger } from '@oslo-core/logging/Logger';
+import { createLogger, setLoggerFactory } from '@oslo-core/logging/LogUtil';
+import { ServiceIdentifier } from '@oslo-core/ServiceIdentifier';
 
 export type CliArgv = string[];
 
