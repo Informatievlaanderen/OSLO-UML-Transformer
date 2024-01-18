@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-jsonld-context#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@oslo-generator-jsonld-context": "./lib"
+  },
   "bin": {
     "oslo-jsonld-context-generator": "./bin/runner.js"
   },
@@ -54,7 +57,8 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0"
+    "@rdfjs/types": "^1.1.0",
+    "module-alias": "^2.2.3"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.4-alpha.0",

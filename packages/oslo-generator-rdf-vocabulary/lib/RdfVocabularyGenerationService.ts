@@ -14,7 +14,9 @@ import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import rdfSerializer from 'rdf-serialize';
 import streamifyArray from 'streamify-array';
-import { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
+import {
+  RdfVocabularyGenerationServiceConfiguration,
+} from '@oslo-generator-rdf-vocabulary/config/RdfVocabularyGenerationServiceConfiguration';
 
 @injectable()
 export class RdfVocabularyGenerationService implements IService {

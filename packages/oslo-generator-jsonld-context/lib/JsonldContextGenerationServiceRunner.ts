@@ -2,9 +2,11 @@ import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
-import { container } from './config/DependencyInjectionConfig';
-import type { JsonldContextGenerationServiceConfiguration } from './config/JsonldContextGenerationServiceConfiguration';
-import type { JsonldContextGenerationService } from './JsonldContextGenerationService';
+import { container } from '@oslo-generator-jsonld-context/config/DependencyInjectionConfig';
+import type {
+  JsonldContextGenerationServiceConfiguration,
+} from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
+import type { JsonldContextGenerationService } from '@oslo-generator-jsonld-context/JsonldContextGenerationService';
 
 export class JsonldContextGenerationServiceRunner extends
   AppRunner<JsonldContextGenerationService, JsonldContextGenerationServiceConfiguration> {

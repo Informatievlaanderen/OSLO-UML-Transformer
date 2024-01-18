@@ -5,9 +5,9 @@ import type {
 } from '@oslo-flanders/ea-uml-extractor';
 
 import { injectable } from 'inversify';
-import { container } from './config/DependencyInjectionConfig';
-import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
-import type { IConnectorNormalisationCase } from './interfaces/IConnectorNormalisationCase';
+import { container } from '@oslo-converter-uml-ea/config/DependencyInjectionConfig';
+import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
+import type { IConnectorNormalisationCase } from '@oslo-converter-uml-ea/interfaces/IConnectorNormalisationCase';
 
 @injectable()
 export class ConnectorNormalisationService {

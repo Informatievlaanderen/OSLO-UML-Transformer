@@ -3,9 +3,9 @@
 import { createWriteStream } from 'fs';
 import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
-import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
-import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
-import { JsonLdOutputHandler } from './output-handlers/JsonLdOutputHandler';
+import { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
+import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
+import { JsonLdOutputHandler } from '@oslo-converter-uml-ea/output-handlers/JsonLdOutputHandler';
 
 @injectable()
 export class OutputHandlerService {

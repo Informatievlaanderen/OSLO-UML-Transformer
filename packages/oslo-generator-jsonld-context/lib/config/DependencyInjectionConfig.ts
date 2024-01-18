@@ -3,8 +3,10 @@ import type { IConfiguration, IService } from '@oslo-flanders/core';
 import { QuadStore, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { Container } from 'inversify';
-import { JsonldContextGenerationService } from '../JsonldContextGenerationService';
-import { JsonldContextGenerationServiceConfiguration } from './JsonldContextGenerationServiceConfiguration';
+import {
+  JsonldContextGenerationServiceConfiguration,
+} from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
+import { JsonldContextGenerationService } from '@oslo-generator-jsonld-context/JsonldContextGenerationService';
 
 export const container = new Container();
 

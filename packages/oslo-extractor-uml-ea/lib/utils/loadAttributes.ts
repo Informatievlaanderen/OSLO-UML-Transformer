@@ -1,9 +1,9 @@
 import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
-import { EaAttribute } from '../types/EaAttribute';
-import type { EaElement } from '../types/EaElement';
-import { addEaTagsToElements } from './assignTags';
+import type { DataRegistry } from '@oslo-extractor-uml-ea/DataRegistry';
+import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
+import { EaAttribute } from '@oslo-extractor-uml-ea/types/EaAttribute';
+import type { EaElement } from '@oslo-extractor-uml-ea/types/EaElement';
+import { addEaTagsToElements } from '@oslo-extractor-uml-ea/utils/assignTags';
 
 export function loadAttributes(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const attributes = mdb.getTable(EaTable.Attribute).getData();

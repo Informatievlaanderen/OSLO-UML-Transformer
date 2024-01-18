@@ -6,10 +6,12 @@ import { ns, Logger, QuadStore, ServiceIdentifier } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
-import { HtmlRespecGenerationServiceConfiguration } from './config/HtmlRespecGenerationServiceConfiguration';
-import { alphabeticalSort } from './utils/alphabeticalSort';
-import { isInScope } from './utils/scopeFilter';
-import { SpecificationType } from './utils/specificationTypeEnum';
+import {
+  HtmlRespecGenerationServiceConfiguration,
+} from '@oslo-generator-respec-html/config/HtmlRespecGenerationServiceConfiguration';
+import { alphabeticalSort } from '@oslo-generator-respec-html/utils/alphabeticalSort';
+import { isInScope } from '@oslo-generator-respec-html/utils/scopeFilter';
+import { SpecificationType } from '@oslo-generator-respec-html/utils/specificationTypeEnum';
 
 @injectable()
 export class HtmlRespecGenerationService implements IService {

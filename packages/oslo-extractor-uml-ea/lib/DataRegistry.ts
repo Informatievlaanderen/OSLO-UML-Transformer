@@ -1,17 +1,17 @@
 import type { Logger } from '@oslo-flanders/core';
 import { fetchFileOrUrl } from '@oslo-flanders/core';
 import MDBReader from 'mdb-reader';
-import type { EaAttribute } from './types/EaAttribute';
-import type { EaConnector } from './types/EaConnector';
-import type { EaDiagram } from './types/EaDiagram';
-import type { EaElement } from './types/EaElement';
-import type { EaPackage } from './types/EaPackage';
-import type { NormalizedConnector } from './types/NormalizedConnector';
-import { loadAttributes } from './utils/loadAttributes';
-import { loadDiagrams } from './utils/loadDiagrams';
-import { loadElementConnectors } from './utils/loadElementConnectors';
-import { loadElements } from './utils/loadElements';
-import { loadPackages } from './utils/loadPackage';
+import type { EaAttribute } from '@oslo-extractor-uml-ea/types/EaAttribute';
+import type { EaConnector } from '@oslo-extractor-uml-ea/types/EaConnector';
+import type { EaDiagram } from '@oslo-extractor-uml-ea/types/EaDiagram';
+import type { EaElement } from '@oslo-extractor-uml-ea/types/EaElement';
+import type { EaPackage } from '@oslo-extractor-uml-ea/types/EaPackage';
+import type { NormalizedConnector } from '@oslo-extractor-uml-ea/types/NormalizedConnector';
+import { loadAttributes } from '@oslo-extractor-uml-ea/utils/loadAttributes';
+import { loadDiagrams } from '@oslo-extractor-uml-ea/utils/loadDiagrams';
+import { loadElementConnectors } from '@oslo-extractor-uml-ea/utils/loadElementConnectors';
+import { loadElements } from '@oslo-extractor-uml-ea/utils/loadElements';
+import { loadPackages } from '@oslo-extractor-uml-ea/utils/loadPackage';
 
 export class DataRegistry {
   public readonly logger: Logger;

@@ -1,9 +1,11 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
 import yargs from 'yargs';
-import { container } from './config/DependencyInjectionConfig';
-import type { HtmlRespecGenerationServiceConfiguration } from './config/HtmlRespecGenerationServiceConfiguration';
-import type { HtmlRespecGenerationService } from './HtmlRespecGenerationService';
+import { container } from '@oslo-generator-respec-html/config/DependencyInjectionConfig';
+import type {
+  HtmlRespecGenerationServiceConfiguration,
+} from '@oslo-generator-respec-html/config/HtmlRespecGenerationServiceConfiguration';
+import type { HtmlRespecGenerationService } from '@oslo-generator-respec-html/HtmlRespecGenerationService';
 
 export class HtmlRespecGenerationServiceRunner extends
   AppRunner<HtmlRespecGenerationService, HtmlRespecGenerationServiceConfiguration> {

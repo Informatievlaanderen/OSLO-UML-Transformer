@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-stakeholders-oslo#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@oslo-converter-stakeholders": "./lib"
+  },
   "bin": {
     "oslo-stakeholders-converter": "./bin/runner.js"
   },
@@ -35,5 +38,8 @@
     "reflect-metadata": "^0.1.13",
     "yargs": "^17.6.0"
   },
-  "gitHead": "f749c71908781f533e0e35f0e3394ce43a8dd7c0"
+  "gitHead": "f749c71908781f533e0e35f0e3394ce43a8dd7c0",
+  "devDependencies": {
+    "module-alias": "^2.2.3"
+  }
 }

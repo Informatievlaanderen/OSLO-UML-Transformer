@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import { Logger as WinstonInnerLogger } from 'winston';
 
-import { BaseLogger } from './Logger';
-import type { LogLevel } from './LogLevel';
+import { BaseLogger } from '@oslo-core/logging/Logger';
+import type { LogLevel } from '@oslo-core/logging/LogLevel';
 
 @injectable()
 export class WinstonLogger extends BaseLogger {

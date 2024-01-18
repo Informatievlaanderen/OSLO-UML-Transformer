@@ -2,8 +2,8 @@ import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
 import * as N3 from 'n3';
 import rdfParser from 'rdf-parse';
-import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
-import { ns } from '../utils/namespaces';
+import { fetchFileOrUrl } from '@oslo-core/utils/fetchFileOrUrl';
+import { ns } from '@oslo-core/utils/namespaces';
 
 @injectable()
 export class QuadStore {

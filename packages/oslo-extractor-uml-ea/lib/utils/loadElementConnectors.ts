@@ -1,11 +1,11 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
-import { EaConnector } from '../types/EaConnector';
-import type { EaElement } from '../types/EaElement';
-import { addEaTagsToElements, addRoleTagsToElements } from './assignTags';
-import { convertToConnectorDirection } from './resolveConnectorDirection';
+import type { DataRegistry } from '@oslo-extractor-uml-ea/DataRegistry';
+import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
+import { EaConnector } from '@oslo-extractor-uml-ea/types/EaConnector';
+import type { EaElement } from '@oslo-extractor-uml-ea/types/EaElement';
+import { addEaTagsToElements, addRoleTagsToElements } from '@oslo-extractor-uml-ea/utils/assignTags';
+import { convertToConnectorDirection } from '@oslo-extractor-uml-ea/utils/resolveConnectorDirection';
 
 export function loadElementConnectors(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const connectors = mdb.getTable(EaTable.Connector).getData();

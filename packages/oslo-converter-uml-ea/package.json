@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-uml-ea#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@oslo-converter-uml-ea": "./lib"
+  },
   "bin": {
     "oslo-converter-ea": "./bin/runner.js"
   },
@@ -55,7 +58,8 @@
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
     "@types/n3": "^1.16.1",
-    "jest-runner-groups": "^2.2.0"
+    "jest-runner-groups": "^2.2.0",
+    "module-alias": "^2.2.3"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.4-alpha.0",

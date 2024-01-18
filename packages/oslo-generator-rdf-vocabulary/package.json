@@ -6,6 +6,9 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-rdf-vocabulary#readme",
   "license": "MIT",
   "main": "index.js",
+  "_moduleAliases": {
+    "@oslo-generator-rdf-vocabulary": "./lib"
+  },
   "bin": {
     "oslo-generator-rdf": "./bin/runner.js"
   },
@@ -53,7 +56,8 @@
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
-    "@types/streamify-array": "^1.0.0"
+    "@types/streamify-array": "^1.0.0",
+    "module-alias": "^2.2.3"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.4-alpha.0",

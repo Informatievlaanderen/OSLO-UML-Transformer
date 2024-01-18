@@ -1,12 +1,12 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { ConnectorDirection } from '../enums/ConnectorDirection';
-import { EaTable } from '../enums/EaTable';
-import type { EaConnector } from '../types/EaConnector';
-import { EaDiagram } from '../types/EaDiagram';
-import type { EaPackage } from '../types/EaPackage';
-import { resolveConnectorDirection } from './resolveConnectorDirection';
+import type { DataRegistry } from '@oslo-extractor-uml-ea/DataRegistry';
+import { ConnectorDirection } from '@oslo-extractor-uml-ea/enums/ConnectorDirection';
+import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
+import type { EaConnector } from '@oslo-extractor-uml-ea/types/EaConnector';
+import { EaDiagram } from '@oslo-extractor-uml-ea/types/EaDiagram';
+import type { EaPackage } from '@oslo-extractor-uml-ea/types/EaPackage';
+import { resolveConnectorDirection } from '@oslo-extractor-uml-ea/utils/resolveConnectorDirection';
 
 export function loadDiagrams(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const diagrams = mdb.getTable(EaTable.Diagram).getData();

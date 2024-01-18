@@ -12,13 +12,13 @@ import type {
 
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
-import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
-import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
-import { TagNames } from '../enums/TagNames';
-import { ConverterHandler } from '../interfaces/ConverterHandler';
-import type { UriRegistry } from '../UriRegistry';
-import { getTagValue, ignore, toCamelCase } from '../utils/utils';
+import { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
+import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
+import { DataTypes, datatypeIdentifierToHash } from '@oslo-converter-uml-ea/enums/DataTypes';
+import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
+import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
+import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
+import { getTagValue, ignore, toCamelCase } from '@oslo-converter-uml-ea/utils/utils';
 
 @injectable()
 export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
