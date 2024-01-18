@@ -5,9 +5,9 @@ import type { DataRegistry, EaConnector, EaElement, EaPackage, EaTag } from '@os
 import { ConnectorType, ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toPascalCase } from '../utils/utils';
+import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 @injectable()

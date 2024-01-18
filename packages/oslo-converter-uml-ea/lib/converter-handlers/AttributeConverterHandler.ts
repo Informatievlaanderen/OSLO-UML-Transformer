@@ -14,10 +14,10 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
-import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
-import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toCamelCase } from '../utils/utils';
+import { DataTypes, datatypeIdentifierToHash } from '@oslo-converter-uml-ea/enums/DataTypes';
+import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 
 @injectable()

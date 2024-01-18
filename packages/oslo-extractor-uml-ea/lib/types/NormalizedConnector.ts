@@ -1,8 +1,8 @@
 import { uniqueId } from '@oslo-flanders/core';
-import { NormalizedConnectorTypes } from '../enums/NormalizedConnectorTypes';
 import type { EaConnector } from './EaConnector';
 import { EaObject } from './EaObject';
 import type { EaTag } from './EaTag';
+import { NormalizedConnectorTypes } from '@oslo-extractor-uml-ea/enums/NormalizedConnectorTypes';
 
 export class NormalizedConnector extends EaObject {
   private readonly _sourceObjectId: number;

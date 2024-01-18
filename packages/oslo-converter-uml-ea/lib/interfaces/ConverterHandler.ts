@@ -11,8 +11,8 @@ import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
-import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
+import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 
 @injectable()
 export abstract class ConverterHandler<T extends EaObject> {

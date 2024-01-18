@@ -1,9 +1,9 @@
 import type MDBReader from 'mdb-reader';
 import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
 import { EaAttribute } from '../types/EaAttribute';
 import type { EaElement } from '../types/EaElement';
 import { addEaTagsToElements } from './assignTags';
+import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
 
 export function loadAttributes(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const attributes = mdb.getTable(EaTable.Attribute).getData();

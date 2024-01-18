@@ -1,6 +1,6 @@
 import { uniqueId } from '@oslo-flanders/core';
-import type { ElementType } from '../enums/ElementType';
 import { EaObject } from './EaObject';
+import type { ElementType } from '@oslo-extractor-uml-ea/enums/ElementType';
 
 /**
  * Represents an element in Enterprise Architect

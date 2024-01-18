@@ -1,9 +1,9 @@
 import alasql from 'alasql';
 import type MDBReader from 'mdb-reader';
 import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
 import { EaPackage } from '../types/EaPackage';
 import { addEaTagsToElements } from './assignTags';
+import { EaTable } from '@oslo-extractor-uml-ea/enums/EaTable';
 
 export function loadPackages(mdb: MDBReader, model: DataRegistry): DataRegistry {
   const packages = mdb.getTable(EaTable.Package).getData();

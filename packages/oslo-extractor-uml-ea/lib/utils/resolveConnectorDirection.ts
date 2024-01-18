@@ -1,4 +1,4 @@
-import { ConnectorDirection } from '../enums/ConnectorDirection';
+import { ConnectorDirection } from '@oslo-extractor-uml-ea/enums/ConnectorDirection';
 
 /**
  * Resolves the direction of a connector by applying a regular expression on the geometry field of a connector.
