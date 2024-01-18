@@ -9,7 +9,9 @@ import { Logger,
 
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import { JsonldContextGenerationServiceConfiguration } from './config/JsonldContextGenerationServiceConfiguration';
+import {
+  JsonldContextGenerationServiceConfiguration,
+ } from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
 import { alphabeticalSort, toCamelCase, toPascalCase } from '@oslo-generator-jsonld-context/utils/utils';
 
 @injectable()

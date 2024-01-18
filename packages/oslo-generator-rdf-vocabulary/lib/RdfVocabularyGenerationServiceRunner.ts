@@ -2,9 +2,11 @@ import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
-import { container } from './config/DependencyInjectionConfig';
-import type { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
-import type { RdfVocabularyGenerationService } from './RdfVocabularyGenerationService';
+import { container } from '@oslo-generator-rdf-vocabulary/config/DependencyInjectionConfig';
+import type {
+  RdfVocabularyGenerationServiceConfiguration,
+} from '@oslo-generator-rdf-vocabulary/config/RdfVocabularyGenerationServiceConfiguration';
+import type { RdfVocabularyGenerationService } from '@oslo-generator-rdf-vocabulary/RdfVocabularyGenerationService';
 
 export class RdfVocabularyGenerationServiceRunner extends
   AppRunner<RdfVocabularyGenerationService, RdfVocabularyGenerationServiceConfiguration> {

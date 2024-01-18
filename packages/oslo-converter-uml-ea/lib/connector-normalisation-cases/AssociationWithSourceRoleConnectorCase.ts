@@ -8,7 +8,7 @@ import {
   NormalizedConnector,
 } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
-import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import type { IConnectorNormalisationCase } from '@oslo-converter-uml-ea/interfaces/IConnectorNormalisationCase';
 import { getTagValue, toCamelCase, updateNameTag } from '@oslo-converter-uml-ea/utils/utils';

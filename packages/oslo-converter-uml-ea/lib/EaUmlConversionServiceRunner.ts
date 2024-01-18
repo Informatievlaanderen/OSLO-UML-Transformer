@@ -2,9 +2,9 @@ import type { CliArgv } from '@oslo-flanders/core';
 import { LOG_LEVELS, AppRunner } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
-import { container } from './config/DependencyInjectionConfig';
-import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
-import type { EaUmlConversionService } from './EaUmlConversionService';
+import { container } from '@oslo-converter-uml-ea/config/DependencyInjectionConfig';
+import type { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
+import type { EaUmlConversionService } from '@oslo-converter-uml-ea/EaUmlConversionService';
 
 export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionService, EaUmlConverterConfiguration> {
   public async runCli(argv: CliArgv): Promise<void> {
