@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
-import type { Logger } from './Logger';
-import { BaseLogger } from './Logger';
-import type { LogLevel } from './LogLevel';
+import type { Logger } from '@oslo-core/logging/Logger';
+import { BaseLogger } from '@oslo-core/logging/Logger';
+import type { LogLevel } from '@oslo-core/logging/LogLevel';
 
 @injectable()
 export class VoidLogger extends BaseLogger {

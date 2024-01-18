@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
-import type { LogLevel } from './LogLevel';
+import type { LogLevel } from '@oslo-core/logging/LogLevel';
 
 export interface Logger {
   log: (level: LogLevel, message: string) => Logger;

@@ -1,11 +1,11 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner, LOG_LEVELS } from '@oslo-flanders/core';
 import yargs from 'yargs';
-import type { StakeholdersConversionService } from './StakeholdersConversionService';
 import { container } from '@oslo-converter-stakeholders/config/DependencyInjectionConfig';
 import type {
   StakeholdersConversionServiceConfiguration,
 } from '@oslo-converter-stakeholders/config/StakeholdersConversionServiceConfiguration';
+import type { StakeholdersConversionService } from '@oslo-converter-stakeholders/StakeholdersConversionService';
 
 export class StakeholdersConversionServiceRunner extends
   AppRunner<StakeholdersConversionService, StakeholdersConversionServiceConfiguration> {

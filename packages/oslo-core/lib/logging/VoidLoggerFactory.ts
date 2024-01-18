@@ -1,5 +1,5 @@
-import type { LoggerFactory } from './LoggerFactory';
-import { VoidLogger } from './VoidLogger';
+import type { LoggerFactory } from '@oslo-core/logging/LoggerFactory';
+import { VoidLogger } from '@oslo-core/logging/VoidLogger';
 
 /**
  * A factory that always returns {@link VoidLogger}, which does nothing on log messages.

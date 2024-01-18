@@ -1,4 +1,4 @@
-import type { YargsParams } from './AppRunner';
+import type { YargsParams } from '@oslo-core/interfaces/AppRunner';
 
 /**
  * Interface that must be implemented by classes that contain configuration properties

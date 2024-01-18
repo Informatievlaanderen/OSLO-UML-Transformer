@@ -1,5 +1,5 @@
 import { uniqueId } from '@oslo-flanders/core';
-import { EaObject } from './EaObject';
+import { EaObject } from '@oslo-extractor-uml-ea/types/EaObject';
 
 /**
  * Represents an attribute in Enterprise Architect

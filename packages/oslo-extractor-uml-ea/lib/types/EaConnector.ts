@@ -1,7 +1,7 @@
 import { uniqueId } from '@oslo-flanders/core';
-import { EaObject } from './EaObject';
-import type { EaTag } from './EaTag';
 import { ConnectorDirection } from '@oslo-extractor-uml-ea/enums/ConnectorDirection';
+import { EaObject } from '@oslo-extractor-uml-ea/types/EaObject';
+import type { EaTag } from '@oslo-extractor-uml-ea/types/EaTag';
 
 /**
  * Represents a connector in Enterprise Architect
