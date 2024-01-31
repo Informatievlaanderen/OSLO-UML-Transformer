@@ -40,7 +40,6 @@
     "bootstrap": "lerna bootstrap",
     "test-changed": "lerna run test --since HEAD",
     "build-changed": "lerna run build --since HEAD",
-    "transpile-module": "babel ./packages/oslo-extractor-uml-ea/node_modules/mdb-reader --out-dir ./packages/oslo-extractor-uml-ea/node_modules/mdb-reader",
     "build": "npm run build:ts",
     "build:ts": "tsc",
     "build-watch": "tsc --watch",
