@@ -1,6 +1,6 @@
 import type { Logger } from '@oslo-flanders/core';
 import { fetchFileOrUrl } from '@oslo-flanders/core';
-import MDBReader from 'mdb-reader';
+import MDBReader from './MdbReaderWrapper';
 import type { EaAttribute } from '@oslo-extractor-uml-ea/types/EaAttribute';
 import type { EaConnector } from '@oslo-extractor-uml-ea/types/EaConnector';
 import type { EaDiagram } from '@oslo-extractor-uml-ea/types/EaDiagram';
