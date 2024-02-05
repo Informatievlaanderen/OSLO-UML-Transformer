@@ -8,6 +8,11 @@ import * as MDBReaderOriginal from 'mdb-reader';
 // The workaround is to use the default import of the library and then access the default property 
 // of the default import, which will throw some errors in the editor, but will work as expected.
 
+// This fix was implemented to fix the encoding problem that arose with using the mdb-reader library:
+// https://github.com/andipaetzold/mdb-reader/issues/172
+// This was also something that our editors noticed and we had to fix it in order to use the library:
+// https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/36
+
 
 const MDBReader = MDBReaderOriginal.default.default;
 
