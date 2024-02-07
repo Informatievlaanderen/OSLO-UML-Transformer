@@ -190,14 +190,15 @@ export abstract class ConverterHandler<T extends EaObject> {
         `[ConverterHandler]: Unable to find the URI for object with path ${object.path}. Setting scope to "Undefined".`,
       );
       scope = Scope.Undefined;
+      return;
     }
 
-    if (uri?.toString().startsWith(packageBaseUri)) {
-      scope = Scope.InPackage;
-    }
-
-    if (uri?.toString().startsWith(this.config.publicationEnvironment)) {
+    if (uri.toString().startsWith(this.config.publicationEnvironment)) {
       scope = Scope.InPublicationEnvironment;
+    }
+
+    if (uri.toString().startsWith(packageBaseUri)) {
+      scope = Scope.InPackage;
     }
 
     quads.push(
