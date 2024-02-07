@@ -1,21 +1,21 @@
 const esbuild = require('esbuild');
 const glob = require('glob');
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
 
-async function transpileNodeModules() {
+const transpileNodeModules = async () => {
     // Get package.json file of mdb-reader module
     const packageJsonPath = 'packages/oslo-extractor-uml-ea/node_modules/mdb-reader/package.json';
 
     try {
-        const json = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8'));
+        const json = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
         // Skip unless the type of the package is ESM
         if (!json.name || json.type !== 'module') {
             return;
         }
 
-        console.log(`🦀 Transpiling ${json.name}...`);
+        console.log(`🦀 Transpiling ${json?.name}...`);
 
         const dir = path.dirname(packageJsonPath);
 
@@ -45,11 +45,10 @@ async function transpileNodeModules() {
 
         // Change the type of the package to commonjs
         json.type = 'commonjs';
-        await fs.writeFile(packageJsonPath, JSON.stringify(json, null, 2));
+        fs.writeFileSync(packageJsonPath, JSON.stringify(json, null, 2));
     } catch (e) {
         console.log('Error: Wasnt able to run postinstall script. Make sure the packages inside oslo-extractor-uml-ea are installed.')
         console.error(e);
     }
 }
-
 transpileNodeModules();
