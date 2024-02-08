@@ -84,6 +84,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const externalUri: string = getTagValue(attribute, TagNames.ExternalUri, null);
       if (externalUri) {
         uriRegistry.attributeIdUriMap.set(attribute.id, new URL(externalUri));
+        return;
       }
 
       let attributeBaseURI: string | undefined;
@@ -137,6 +138,10 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         TagNames.LocalName,
         attribute.name,
       );
+
+      if(!localName){
+        throw new Error(`[AttributeConverterHandler]: Unable to determine local name for attribute (${attribute.path}). If you used a "name" tag, did you set it correctly?`)
+      }
       localName = toCamelCase(localName);
 
       const attributeURI: URL = new URL(`${attributeBaseURI}${localName}`);
