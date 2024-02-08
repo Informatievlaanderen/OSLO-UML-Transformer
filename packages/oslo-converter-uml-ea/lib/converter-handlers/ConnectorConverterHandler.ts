@@ -46,12 +46,9 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
-    const tasks: Promise<NormalizedConnector[]>[] = [];
-    model.connectors.forEach(connector => {
-      tasks.push(
-        this.connectorNormalisationService.normalise(connector, model),
-      );
-    });
+    const tasks: Promise<NormalizedConnector[]>[] = model.connectors
+      .filter(x => model.targetDiagram.connectorsIds.includes(x.id))
+      .map(connector => this.connectorNormalisationService.normalise(connector, model));
 
     model.normalizedConnectors = await Promise.all(tasks).then(x => x.flat());
 
