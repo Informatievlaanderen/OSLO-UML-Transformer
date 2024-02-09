@@ -99,7 +99,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
         if (!packageObjects) {
           throw new Error(
-            `[AttributeConverterHandler]: Package tag was defined, but unable to find a related package object for attribute (${attribute.path}).`,
+            `[AttributeConverterHandler]: Package tag was defined (${packageTagValue}), but unable to find a related package object for attribute (${attribute.path}).`,
           );
         }
 

@@ -79,7 +79,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
         if (!referencedPackages) {
           throw new Error(
-            `[ElementConverterHandler]: Package tag was defined, but unable to find the object for package ${packageTagValue}.`,
+            `[ElementConverterHandler]: Package tag was defined for element ${element.path}, but unable to find the object for package ${packageTagValue}.`,
           );
         }
 

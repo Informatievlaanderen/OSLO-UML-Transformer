@@ -98,7 +98,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
 
         if (!packageObject) {
           throw new Error(
-            `[ConnectorConverterHandler]: Unable to find package for name "${packageTagValue}".`,
+            `[ConnectorConverterHandler]: Package tag (${packageTagValue}) was set for connector ${connector.path}, but could not find the package object.`,
           );
         }
 
