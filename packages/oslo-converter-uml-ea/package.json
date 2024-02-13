@@ -58,8 +58,7 @@
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
     "@types/n3": "^1.16.1",
-    "jest-runner-groups": "^2.2.0",
-    "module-alias": "^2.2.3"
+    "jest-runner-groups": "^2.2.0"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.5-alpha.0",
@@ -67,6 +66,7 @@
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
     "jest-runner-groups": "^2.2.0",
+    "module-alias": "^2.2.3",
     "n3": "^1.16.2",
     "rdf-data-factory": "^1.1.1",
     "reflect-metadata": "^0.1.13",
