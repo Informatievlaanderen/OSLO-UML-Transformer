@@ -1,5 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
- 
+
 import { createWriteStream } from 'fs';
 import type { IService } from '@oslo-flanders/core';
 import {
@@ -7,6 +7,8 @@ import {
   ns,
   Logger,
   ServiceIdentifier,
+  getVocabularyDefinition,
+  getVocabularyUsageNote,
 } from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
@@ -102,7 +104,7 @@ export class RdfVocabularyGenerationService implements IService {
         ),
       );
 
-      const definition = this.store.getDefinition(subject, this.configuration.language);
+      const definition = getVocabularyDefinition(subject, this.store, this.configuration.language);
       if (!definition) {
         this.logger.error(`Unable to find the definition for class ${subject.value}.`);
       } else {
@@ -117,13 +119,7 @@ export class RdfVocabularyGenerationService implements IService {
 
       const parents = this.store.getParentsOfClass(subject);
       parents.forEach(parent => {
-        const parentAssignedUri =
-          this.store.getAssignedUri(parent) ||
-          this.store.getAssignedUriViaStatements(
-            subject,
-            ns.rdfs('subClassOf'),
-            parent,
-          );
+        const parentAssignedUri = this.store.getAssignedUri(parent);
 
         if (!parentAssignedUri) {
           throw new Error(`Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`);
@@ -138,7 +134,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       });
 
-      const usageNote = this.store.getUsageNote(subject, this.configuration.language);
+      const usageNote = getVocabularyUsageNote(subject, this.store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(
@@ -208,18 +204,7 @@ export class RdfVocabularyGenerationService implements IService {
         return;
       }
 
-      let rangeAssignedUri = this.store.getAssignedUri(rangeWellKnownId);
-      if (!rangeAssignedUri) {
-        const targetId = this.store.getTargetStatementId(
-          id,
-          ns.rdfs('range'),
-          rangeWellKnownId,
-        );
-
-        if (targetId) {
-          rangeAssignedUri = this.store.getAssignedUri(targetId);
-        }
-      }
+      const rangeAssignedUri = this.store.getAssignedUri(rangeWellKnownId);
 
       if (!rangeAssignedUri) {
         this.logger.error(`Unable to find assigned URI for range of property ${id.value}.`);
@@ -244,7 +229,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       }
 
-      const definition = this.store.getDefinition(id, this.configuration.language);
+      const definition = getVocabularyDefinition(id, this.store, this.configuration.language)
       if (!definition) {
         this.logger.error(`Unable to find the definition for property ${id.value}.`);
       } else {
@@ -257,7 +242,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       }
 
-      const usageNote = this.store.getUsageNote(id, this.configuration.language);
+      const usageNote = getVocabularyUsageNote(id, this.store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(

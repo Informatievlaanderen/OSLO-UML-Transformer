@@ -2,7 +2,6 @@ import { DataFactory } from 'rdf-data-factory';
 
 const factory = new DataFactory();
 
-// TODO: remove example.org from prefixes
 enum Prefixes {
   adms = 'http://www.w3.org/ns/adms#',
   dcat = 'http://www.w3.org/ns/dcat#',
