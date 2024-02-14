@@ -1,8 +1,7 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, dirname } from 'path';
 import type { IService } from '@oslo-flanders/core';
-import { ns, Logger, QuadStore, ServiceIdentifier } from '@oslo-flanders/core';
-
+import { ns, Logger, QuadStore, ServiceIdentifier, getApplicationProfileLabel, getVocabularyLabel, getApplicationProfileDefinition, getVocabularyDefinition, getApplicationProfileUsageNote, getVocabularyUsageNote } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
@@ -104,23 +103,14 @@ export class HtmlRespecGenerationService implements IService {
         const assignedUri = this.store.getAssignedUri(subjectId);
         const parents = this.store.getParentsOfClass(subjectId);
 
-        let label;
-        let definition;
-        let usageNote;
-        if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
-          label = this.store.getApLabel(subjectId, this.configuration.language) || this.store.getApLabel(subjectId) ||
-            this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+        const label = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileLabel(subjectId, this.store, this.configuration.language) : getVocabularyLabel(subjectId, this.store, this.configuration.language);
 
-          definition = this.store.getApDefinition(subjectId, this.configuration.language) || this.store.getApDefinition(subjectId) ||
-            this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId);
+        const definition = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileDefinition(subjectId, this.store, this.configuration.language) : getVocabularyDefinition(subjectId, this.store, this.configuration.language);
 
-          usageNote = this.store.getApUsageNote(subjectId, this.configuration.language) || this.store.getApUsageNote(subjectId) ||
-            this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId);
-        } else {
-          label = this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
-          definition = this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId)
-          usageNote = this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId)
-        }
+        const usageNote = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileUsageNote(subjectId, this.store, this.configuration.language) : getVocabularyUsageNote(subjectId, this.store, this.configuration.language)
 
         const parentAssignedUris: string[] = [];
         parents.forEach(parent => {
@@ -155,23 +145,14 @@ export class HtmlRespecGenerationService implements IService {
         const minCount = this.store.getMinCardinality(subjectId);
         const maxCount = this.store.getMaxCardinality(subjectId);
 
-        let label;
-        let definition;
-        let usageNote;
-        if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
-          label = this.store.getApLabel(subjectId, this.configuration.language) || this.store.getApLabel(subjectId) ||
-            this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+        const label = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileLabel(subjectId, this.store, this.configuration.language) : getVocabularyLabel(subjectId, this.store, this.configuration.language);
 
-          definition = this.store.getApDefinition(subjectId, this.configuration.language) || this.store.getApDefinition(subjectId) ||
-            this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId);
+        const definition = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileDefinition(subjectId, this.store, this.configuration.language) : getVocabularyDefinition(subjectId, this.store, this.configuration.language);
 
-          usageNote = this.store.getApUsageNote(subjectId, this.configuration.language) || this.store.getApUsageNote(subjectId) ||
-            this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId);
-        } else {
-          label = this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
-          definition = this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId)
-          usageNote = this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId)
-        }
+        const usageNote = this.configuration.specificationType === SpecificationType.ApplicationProfile ?
+          getApplicationProfileUsageNote(subjectId, this.store, this.configuration.language) : getVocabularyUsageNote(subjectId, this.store, this.configuration.language)
 
         const domain = this.store.getDomain(subjectId);
         if (!domain) {

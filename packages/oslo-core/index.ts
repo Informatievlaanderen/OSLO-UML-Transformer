@@ -20,3 +20,4 @@ export * from '@oslo-core/logging/LogUtil';
 export * from '@oslo-core/logging/LoggerFactory';
 export * from '@oslo-core/logging/VoidLoggerFactory';
 export * from '@oslo-core/logging/WinstonLoggerFactory';
+export * from '@oslo-core/utils/storeUtils';

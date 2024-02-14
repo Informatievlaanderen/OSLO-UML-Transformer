@@ -6,7 +6,8 @@ import {
   Logger,
   ns,
   ServiceIdentifier,
-  QuadStore
+  QuadStore,
+  getApplicationProfileLabel
 } from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
@@ -79,8 +80,7 @@ export class JsonldContextGenerationService implements IService {
     const labelUriMap: Map<string, RDF.NamedNode[]> = new Map();
 
     uris.forEach(uri => {
-      const label = this.store.getApLabel(uri, this.configuration.language) || this.store.getApLabel(uri) ||
-        this.store.getVocLabel(uri, this.configuration.language) || this.store.getVocLabel(uri) || this.store.getDiagramLabel(uri);
+      const label = getApplicationProfileLabel(uri, this.store, this.configuration.language);
 
       if (!label) {
         return;
@@ -109,8 +109,7 @@ export class JsonldContextGenerationService implements IService {
     const duplicates = this.identifyDuplicateLabels(classSubjects);
 
     classSubjects.forEach(subject => {
-      const label = this.store.getApLabel(subject, this.configuration.language) || this.store.getApLabel(subject) ||
-        this.store.getVocLabel(subject, this.configuration.language) || this.store.getVocLabel(subject) || this.store.getDiagramLabel(subject);
+      const label = getApplicationProfileLabel(subject, this.store, this.configuration.language);
 
       if (!label) {
         this.logger.warn(`No label found for class ${subject.value} in language ${this.configuration.language}.`);
@@ -152,8 +151,7 @@ export class JsonldContextGenerationService implements IService {
         return;
       }
 
-      const label = this.store.getApLabel(subject, this.configuration.language) || this.store.getApLabel(subject) ||
-        this.store.getVocLabel(subject, this.configuration.language) || this.store.getVocLabel(subject) || this.store.getDiagramLabel(subject);
+      const label = getApplicationProfileLabel(subject, this.store, this.configuration.language);
 
       if (!label) {
         this.logger.error(`No label found for attribute ${subject.value} in language "${this.configuration.language}" or without language tag.`);
@@ -183,8 +181,7 @@ export class JsonldContextGenerationService implements IService {
           return;
         }
 
-        const domainLabel = this.store.getApLabel(domain, this.configuration.language) || this.store.getApLabel(domain) ||
-          this.store.getVocLabel(domain, this.configuration.language) || this.store.getVocLabel(domain) || this.store.getDiagramLabel(domain);
+        const domainLabel = getApplicationProfileLabel(domain, this.store, this.configuration.language);
 
         if (!domainLabel) {
           this.logger.error(`No label found for domain ${domain.value} of attribute ${subject.value}.`);

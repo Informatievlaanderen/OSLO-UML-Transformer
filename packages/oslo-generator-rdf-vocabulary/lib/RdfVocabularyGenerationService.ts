@@ -7,6 +7,8 @@ import {
   ns,
   Logger,
   ServiceIdentifier,
+  getVocabularyDefinition,
+  getVocabularyUsageNote,
 } from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
@@ -102,7 +104,7 @@ export class RdfVocabularyGenerationService implements IService {
         ),
       );
 
-      const definition = this.store.getVocDefinition(subject, this.configuration.language) || this.store.getVocDefinition(subject);
+      const definition = getVocabularyDefinition(subject, this.store, this.configuration.language);
       if (!definition) {
         this.logger.error(`Unable to find the definition for class ${subject.value}.`);
       } else {
@@ -132,7 +134,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       });
 
-      const usageNote = this.store.getVocUsageNote(subject, this.configuration.language) || this.store.getVocUsageNote(subject);
+      const usageNote = getVocabularyUsageNote(subject, this.store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(
@@ -227,7 +229,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       }
 
-      const definition = this.store.getVocDefinition(id, this.configuration.language) || this.store.getVocDefinition(id);
+      const definition = getVocabularyDefinition(id, this.store, this.configuration.language)
       if (!definition) {
         this.logger.error(`Unable to find the definition for property ${id.value}.`);
       } else {
@@ -240,7 +242,7 @@ export class RdfVocabularyGenerationService implements IService {
         );
       }
 
-      const usageNote = this.store.getVocUsageNote(id, this.configuration.language) || this.store.getVocDefinition(id);
+      const usageNote = getVocabularyUsageNote(id, this.store, this.configuration.language);
       if (usageNote) {
         quads.push(
           this.dataFactory.quad(
