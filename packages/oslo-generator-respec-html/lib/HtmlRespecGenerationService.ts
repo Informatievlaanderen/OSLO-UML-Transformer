@@ -20,7 +20,7 @@ export class HtmlRespecGenerationService implements IService {
   public readonly store: QuadStore;
 
   public constructor(
-  @inject(ServiceIdentifier.Logger) logger: Logger,
+    @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration) config: HtmlRespecGenerationServiceConfiguration,
     @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
@@ -102,22 +102,29 @@ export class HtmlRespecGenerationService implements IService {
       // .filter(x => isInScope(<RDF.NamedNode>x, this.store))
       .map(subjectId => {
         const assignedUri = this.store.getAssignedUri(subjectId);
-        const label = this.store.getLabel(subjectId, this.configuration.language) || this.store.getLabel(subjectId);
-        const definition = this.store.getDefinition(subjectId, this.configuration.language);
-        const usageNote = this.store.getUsageNote(subjectId, this.configuration.language);
         const parents = this.store.getParentsOfClass(subjectId);
+
+        let label;
+        let definition;
+        let usageNote;
+        if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
+          label = this.store.getApLabel(subjectId, this.configuration.language) || this.store.getApLabel(subjectId) ||
+            this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+
+          definition = this.store.getApDefinition(subjectId, this.configuration.language) || this.store.getApDefinition(subjectId) ||
+            this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId);
+
+          usageNote = this.store.getApUsageNote(subjectId, this.configuration.language) || this.store.getApUsageNote(subjectId) ||
+            this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId);
+        } else {
+          label = this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+          definition = this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId)
+          usageNote = this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId)
+        }
 
         const parentAssignedUris: string[] = [];
         parents.forEach(parent => {
           let parentAssignedUri = this.store.getAssignedUri(parent);
-
-          if (!parentAssignedUri) {
-            parentAssignedUri = this.store.getAssignedUriViaStatements(
-              subjectId,
-              ns.rdfs('subClassOf'),
-              parent,
-            );
-          }
 
           if (!parentAssignedUri) {
             this.logger.error(`Unable to find the assigned URI of parent (${parent.value}) of class ${subjectId.value}.`);
@@ -145,11 +152,26 @@ export class HtmlRespecGenerationService implements IService {
       .filter(x => isInScope(<RDF.NamedNode>x, this.store))
       .map(subjectId => {
         const assignedUri = this.store.getAssignedUri(subjectId);
-        const label = this.store.getLabel(subjectId, this.configuration.language) || this.store.getLabel(subjectId);
-        const definition = this.store.getDefinition(subjectId, this.configuration.language);
         const minCount = this.store.getMinCardinality(subjectId);
         const maxCount = this.store.getMaxCardinality(subjectId);
-        const usageNote = this.store.getUsageNote(subjectId, this.configuration.language);
+
+        let label;
+        let definition;
+        let usageNote;
+        if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
+          label = this.store.getApLabel(subjectId, this.configuration.language) || this.store.getApLabel(subjectId) ||
+            this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+
+          definition = this.store.getApDefinition(subjectId, this.configuration.language) || this.store.getApDefinition(subjectId) ||
+            this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId);
+
+          usageNote = this.store.getApUsageNote(subjectId, this.configuration.language) || this.store.getApUsageNote(subjectId) ||
+            this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId);
+        } else {
+          label = this.store.getVocLabel(subjectId, this.configuration.language) || this.store.getVocLabel(subjectId) || this.store.getDiagramLabel(subjectId);
+          definition = this.store.getVocDefinition(subjectId, this.configuration.language) || this.store.getVocDefinition(subjectId)
+          usageNote = this.store.getVocUsageNote(subjectId, this.configuration.language) || this.store.getVocUsageNote(subjectId)
+        }
 
         const domain = this.store.getDomain(subjectId);
         if (!domain) {
@@ -163,9 +185,6 @@ export class HtmlRespecGenerationService implements IService {
         }
 
         let rangeAssignedUri = this.store.getAssignedUri(range);
-        if (!rangeAssignedUri) {
-          rangeAssignedUri = this.store.getAssignedUriViaStatements(subjectId, ns.rdfs('range'), range);
-        }
 
         if (!rangeAssignedUri) {
           this.logger.error(`Unable to find the assigned URI of range (${range.value}) of attribute ${subjectId.value}.`);

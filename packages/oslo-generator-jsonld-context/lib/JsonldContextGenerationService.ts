@@ -1,17 +1,19 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
- 
+
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
-import { Logger,
+import {
+  Logger,
   ns,
   ServiceIdentifier,
- QuadStore } from '@oslo-flanders/core';
+  QuadStore
+} from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import {
   JsonldContextGenerationServiceConfiguration,
- } from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
+} from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
 import { alphabeticalSort, toCamelCase, toPascalCase } from '@oslo-generator-jsonld-context/utils/utils';
 
 @injectable()
@@ -77,7 +79,8 @@ export class JsonldContextGenerationService implements IService {
     const labelUriMap: Map<string, RDF.NamedNode[]> = new Map();
 
     uris.forEach(uri => {
-      const label = this.store.getLabel(uri, this.configuration.language);
+      const label = this.store.getApLabel(uri, this.configuration.language) || this.store.getApLabel(uri) ||
+        this.store.getVocLabel(uri, this.configuration.language) || this.store.getVocLabel(uri) || this.store.getDiagramLabel(uri);
 
       if (!label) {
         return;
@@ -106,7 +109,8 @@ export class JsonldContextGenerationService implements IService {
     const duplicates = this.identifyDuplicateLabels(classSubjects);
 
     classSubjects.forEach(subject => {
-      const label = this.store.getLabel(subject, this.configuration.language);
+      const label = this.store.getApLabel(subject, this.configuration.language) || this.store.getApLabel(subject) ||
+        this.store.getVocLabel(subject, this.configuration.language) || this.store.getVocLabel(subject) || this.store.getDiagramLabel(subject);
 
       if (!label) {
         this.logger.warn(`No label found for class ${subject.value} in language ${this.configuration.language}.`);
@@ -148,11 +152,8 @@ export class JsonldContextGenerationService implements IService {
         return;
       }
 
-      let label = this.store.getLabel(subject, this.configuration.language);
-      if (!label) {
-        // For labels it is possible to have a value without a language tag included
-        label = this.store.getLabel(subject);
-      }
+      const label = this.store.getApLabel(subject, this.configuration.language) || this.store.getApLabel(subject) ||
+        this.store.getVocLabel(subject, this.configuration.language) || this.store.getVocLabel(subject) || this.store.getDiagramLabel(subject);
 
       if (!label) {
         this.logger.error(`No label found for attribute ${subject.value} in language "${this.configuration.language}" or without language tag.`);
@@ -182,16 +183,8 @@ export class JsonldContextGenerationService implements IService {
           return;
         }
 
-        let domainLabel = this.store.getLabel(domain, this.configuration.language);
-
-        if (!domainLabel) {
-          domainLabel = this.store.getLabelViaStatements(
-            subject,
-            ns.rdfs('domain'),
-            domain,
-            this.configuration.language,
-          );
-        }
+        const domainLabel = this.store.getApLabel(domain, this.configuration.language) || this.store.getApLabel(domain) ||
+          this.store.getVocLabel(domain, this.configuration.language) || this.store.getVocLabel(domain) || this.store.getDiagramLabel(domain);
 
         if (!domainLabel) {
           this.logger.error(`No label found for domain ${domain.value} of attribute ${subject.value}.`);
