@@ -17,7 +17,7 @@ import { ConnectorNormalisationService } from '@oslo-converter-uml-ea/ConnectorN
 import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
 import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
 import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
-import { getTagValue, ignore } from '@oslo-converter-uml-ea/utils/utils';
+import { getTagValue, ignore, toCamelCase } from '@oslo-converter-uml-ea/utils/utils';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {
@@ -136,11 +136,23 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         }
       }
 
-      const localName: string = getTagValue(
+      let localName: string = getTagValue(
         connector,
         TagNames.LocalName,
         connector.name,
       );
+
+      if(!localName){
+        throw new Error(`[ConnectorConverterHandler]: Unable to find local name for connector (${connector.path}).`);
+      }
+
+      // Names on the diagram are not prefixed, so if this value contains
+      // a prefix (by checking for a dot), we assume this value was added by the editor through
+      // a name tag. We assume the spelling is correctly done and we do not camel case it.
+      if(!localName.includes('.')){
+        localName = toCamelCase(localName);
+      }
+
       const connectorUri = new URL(`${baseUri}${localName}`);
       uriRegistry.connectorOsloIdUriMap.set(connector.id, connectorUri);
     });

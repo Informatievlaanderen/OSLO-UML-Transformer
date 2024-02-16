@@ -139,10 +139,16 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         attribute.name,
       );
 
-      if(!localName){
+      if (!localName) {
         throw new Error(`[AttributeConverterHandler]: Unable to determine local name for attribute (${attribute.path}). If you used a "name" tag, did you set it correctly?`)
       }
-      localName = toCamelCase(localName);
+
+      // Names on the diagram are not prefixed, so if this value contains
+      // a prefix (by checking for a dot), we assume this value was added by the editor through
+      // a name tag. We assume the spelling is correctly done and we do not camel case it.
+      if (!localName.includes('.')) {
+        localName = toCamelCase(localName);
+      }
 
       const attributeURI: URL = new URL(`${attributeBaseURI}${localName}`);
       uriRegistry.attributeIdUriMap.set(attribute.id, attributeURI);
