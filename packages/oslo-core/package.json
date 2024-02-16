@@ -41,7 +41,10 @@
       "test/data/*",
       "lib/utils/namespaces.ts"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/lib/$1"
+    }
   },
   "scripts": {
     "build": "npm run build:ts",
