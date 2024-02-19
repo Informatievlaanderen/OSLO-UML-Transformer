@@ -55,7 +55,7 @@
     "@oslo-flanders/core": "^0.0.6-alpha.0",
     "alasql": "1.7.3",
     "inversify": "^6.0.1",
-    "mdb-reader": "3.0.0",
+    "mdb-reader": "github:Informatievlaanderen/mdb-reader",
     "module-alias": "^2.2.3",
     "reflect-metadata": "^0.1.13"
   },
