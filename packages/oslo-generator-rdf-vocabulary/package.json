@@ -7,7 +7,8 @@
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@oslo-generator-rdf-vocabulary": "./lib"
+    "@oslo-generator-rdf-vocabulary": "./lib",
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
   },
   "bin": {
     "oslo-generator-rdf": "./bin/runner.js"
