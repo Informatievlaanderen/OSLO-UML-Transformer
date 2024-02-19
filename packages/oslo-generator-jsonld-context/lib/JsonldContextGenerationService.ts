@@ -15,7 +15,9 @@ import { inject, injectable } from 'inversify';
 import {
   JsonldContextGenerationServiceConfiguration,
 } from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
-import { alphabeticalSort, toCamelCase, toPascalCase } from '@oslo-generator-jsonld-context/utils/utils';
+import { toCamelCase, toPascalCase } from '@oslo-generator-jsonld-context/utils/utils';
+import { ClassMetadata } from '@oslo-generator-jsonld-context/types/ClassMetadata';
+import { PropertyMetadata } from '@oslo-generator-jsonld-context/types/PropertyMetadata';
 
 @injectable()
 export class JsonldContextGenerationService implements IService {
@@ -47,40 +49,30 @@ export class JsonldContextGenerationService implements IService {
     await writeFile(this.configuration.output, JSON.stringify(result, null, 2));
   }
 
+  /**
+   * Generates a JSON-LD context object
+   * @returns an context object
+   */
   private async generateContext(): Promise<any> {
-    const [classLabelUriMap, propertyLabelMap] = await Promise.all([
-      this.createClassLabelUriMap(),
-      this.createPropertyLabelMap(),
-    ]);
+    const [classMetadata, propertyMetadata] = await Promise.all([
+      this.createClassMetadata(),
+      this.createPropertyMetadata(),
+    ])
 
-    let context = Object.fromEntries(alphabeticalSort(Array.from(classLabelUriMap.entries()))
-      .map(([key, value]) => [key, value]));
-
-    context = alphabeticalSort(Array.from(propertyLabelMap.entries()))
-      .reduce((main, [key, value]) =>
-      ({
-        ...main,
-        [key]: {
-          '@id': value.uri.value,
-          ...value.range && { '@type': value.range.value },
-          ...value.addContainer === true && { '@container': '@set' },
-        },
-      }), context);
-
-    return context;
+    return this.configuration.scopedContext ?
+      this.createScopedContext(classMetadata, propertyMetadata) : this.createRegularContext(classMetadata, propertyMetadata);
   }
 
   /**
    * Identifies labels that have been used two or more times for a different URI
    * @param uris — RDF.NamedNode validate their label is unique
-   * @param store — In-memory quad store
    * @returns an array of RDF.NamedNode that have a label that is not unique
    */
   private identifyDuplicateLabels(uris: RDF.NamedNode[]): RDF.NamedNode[] {
     const labelUriMap: Map<string, RDF.NamedNode[]> = new Map();
 
     uris.forEach(uri => {
-      const label = getApplicationProfileLabel(uri, this.store, this.configuration.language);
+      const label: RDF.Literal | undefined = getApplicationProfileLabel(uri, this.store, this.configuration.language);
 
       if (!label) {
         return;
@@ -93,7 +85,7 @@ export class JsonldContextGenerationService implements IService {
 
     const duplicates: RDF.NamedNode[] = [];
     labelUriMap.forEach((subjects: RDF.NamedNode[], label: string) => {
-      const unique = new Set(subjects);
+      const unique: Set<RDF.NamedNode> = new Set(subjects);
       if (unique.size > 1) {
         duplicates.push(...Array.from(unique));
       }
@@ -102,114 +94,185 @@ export class JsonldContextGenerationService implements IService {
     return duplicates;
   }
 
-  private async createClassLabelUriMap(): Promise<Map<string, RDF.NamedNode>> {
-    const classLabelUriMap = new Map();
+  /**
+   * Creates a scoped context object
+   * @param classMetadata An array of ClassMetadata objects
+   * @param propertyMetadata An array of PropertyMetadata objects
+   * @returns A scoped context object
+   */
+  private createScopedContext(classMetadata: ClassMetadata[], propertyMetadata: PropertyMetadata[]): any {
+    const result = classMetadata
+      .sort((a, b) => a.label.value.localeCompare(b.label.value))
+      .reduce((main, x: ClassMetadata) => {
+        return {
+          ...main,
+          [x.label.value]: {
+            '@id': x.assignedURI.value,
+            '@context': {
+              ...propertyMetadata
+                .filter((y: PropertyMetadata) => y.domainLabel.value === x.label.value)
+                .sort((a, b) => a.label.value.localeCompare(b.label.value))
+                .reduce((subMain, y: PropertyMetadata) => {
+                  return {
+                    ...subMain,
+                    [toCamelCase(y.label.value)]: {
+                      '@id': y.assignedURI.value,
+                      ...y.rangeAssignedUri && { '@type': y.rangeAssignedUri.value },
+                      ...y.addContainer === true && { '@container': '@set' },
+                    }
+                  }
+                }, {})
+            }
+          }
+        }
+      }, {});
 
-    const classSubjects = this.store.getClassIds();
+    // Delete empty @context objects
+    for (const [key, value] of Object.entries(result)) {
+      if (typeof value === 'object' && Object.keys((<any>value)['@context']).length === 0) {
+        delete (<any>result)[key]['@context'];
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Creates a regular context object
+   * @param classMetadata An array of ClassMetadata objects
+   * @param propertyMetadata An array of PropertyMetadata objects
+   * @returns A regular context object
+   */
+  private createRegularContext(classMetadata: ClassMetadata[], propertyMetadata: PropertyMetadata[]): any {
+    const classContext = Object.fromEntries(classMetadata
+      .sort((a, b) => a.label.value.localeCompare(b.label.value))
+      .map((x: ClassMetadata) => [x.label.value, x.assignedURI.value]))
+
+
+    const propertyContext = propertyMetadata
+      .reduce((main, x: PropertyMetadata) => {
+        return {
+          ...main,
+          [x.addPrefix ? `${toPascalCase(x.domainLabel.value)}.${toCamelCase(x.label.value)}` : toCamelCase(x.label.value)]: {
+            '@id': x.assignedURI.value,
+            ...x.rangeAssignedUri && { '@type': x.rangeAssignedUri.value },
+            ...x.addContainer === true && { '@container': '@set' },
+          }
+        }
+      }, {});
+
+    return Object
+      .fromEntries(Object.entries({ ...classContext, ...propertyContext }).sort((a, b) => a[0].localeCompare(b[0])));
+  }
+
+  /**
+   * Creates an array of ClassMetadata objects
+   * @returns An array of ClassMetadata objects
+   */
+  private createClassMetadata(): ClassMetadata[] {
+    const classMetadata: ClassMetadata[] = [];
+    const classSubjects: RDF.NamedNode[] = this.store.getClassIds();
     const duplicates = this.identifyDuplicateLabels(classSubjects);
 
     classSubjects.forEach(subject => {
-      const label = getApplicationProfileLabel(subject, this.store, this.configuration.language);
+      try {
+        const label: RDF.Literal | undefined = getApplicationProfileLabel(subject, this.store, this.configuration.language);
+        if (!label) {
+          throw new Error(`No label found for class ${subject.value} in language ${this.configuration.language}.`);
+        }
 
-      if (!label) {
-        this.logger.warn(`No label found for class ${subject.value} in language ${this.configuration.language}.`);
-        return;
+        if (duplicates.includes(subject)) {
+          throw new Error(`Found ${subject.value} in duplicates, meaning "${label.value}" is used multiple times as label.`);
+        }
+
+        const assignedUri: RDF.NamedNode | undefined = this.store.getAssignedUri(subject);
+
+        if (!assignedUri) {
+          throw new Error(`Unable to find the assigned URI for class ${subject.value}.`);
+        }
+
+        classMetadata.push({
+          osloId: subject,
+          assignedURI: assignedUri,
+          label: label,
+        });
+      } catch (error) {
+        this.logger.error((<Error>error).message);
       }
-
-      if (duplicates.includes(subject)) {
-        this.logger.error(`Found ${subject.value} in duplicates, meaning "${label.value}" is used multiple times as label.`);
-        return;
-      }
-
-      const assignedUri = this.store.getAssignedUri(subject);
-
-      if (!assignedUri) {
-        this.logger.error(`Unable to find the assigned URI for class ${subject.value}.`);
-        return;
-      }
-
-      classLabelUriMap.set(toPascalCase(label.value), assignedUri.value);
     });
 
-    return classLabelUriMap;
+    return classMetadata;
   }
 
-  private async createPropertyLabelMap():
-    Promise<Map<string, { uri: RDF.NamedNode; range: RDF.NamedNode; addContainer: boolean }>> {
-    const propertyLabelUriMap = new Map();
-
+  /**
+   * Creates an array of PropertyMetadata objects
+   * @returns An array of PropertyMetadata objects
+   */
+  private createPropertyMetadata(): PropertyMetadata[] {
+    const propertyMetadata: PropertyMetadata[] = [];
     const datatypePropertySubjects = this.store.getDatatypePropertyIds();
     const objectPropertySubjects = this.store.getObjectPropertyIds();
 
     const duplicates = this.identifyDuplicateLabels([...datatypePropertySubjects, ...objectPropertySubjects]);
-
     [...datatypePropertySubjects, ...objectPropertySubjects].forEach(subject => {
-      const assignedUri = this.store.getAssignedUri(subject);
+      try {
+        const assignedUri: RDF.NamedNode | undefined = this.store.getAssignedUri(subject);
 
-      if (!assignedUri) {
-        this.logger.error(`Unable to find the assigned URI for attribute ${subject.value}.`);
-        return;
-      }
-
-      const label = getApplicationProfileLabel(subject, this.store, this.configuration.language);
-
-      if (!label) {
-        this.logger.error(`No label found for attribute ${subject.value} in language "${this.configuration.language}" or without language tag.`);
-        return;
-      }
-
-      const range = this.store.getRange(subject);
-
-      if (!range) {
-        this.logger.error(`No range found for attribute ${subject.value}.`);
-        return;
-      }
-
-      const rangeUri = this.store.getAssignedUri(range);
-
-      // In case we can not find the assigned URI, we do not add a range
-      // (@type will not be present for that property)
-      if (!rangeUri) {
-        this.logger.error(`Unable to find the assigned URI of range with id ${range.value}.`);
-      }
-
-      let formattedAttributeLabel = toCamelCase(label.value);
-      if (this.configuration.addDomainPrefix || duplicates.includes(subject)) {
-        const domain = this.store.getDomain(subject);
-        if (!domain) {
-          this.logger.error(`No domain found for attribute ${subject.value}.`);
-          return;
+        if (!assignedUri) {
+          throw new Error(`Unable to find the assigned URI for attribute ${subject.value}.`);
         }
 
-        const domainLabel = getApplicationProfileLabel(domain, this.store, this.configuration.language);
+        const label: RDF.Literal | undefined = getApplicationProfileLabel(subject, this.store, this.configuration.language);
+        if (!label) {
+          throw new Error(`No label found for attribute ${subject.value} in language "${this.configuration.language}" or without language tag.`);
+        }
+
+        const range: RDF.NamedNode | undefined = this.store.getRange(subject);
+        if (!range) {
+          throw new Error(`No range found for attribute ${subject.value}.`);
+        }
+        const rangeUri: RDF.NamedNode | undefined = this.store.getAssignedUri(range);
+
+        if (!rangeUri) {
+          throw new Error(`Unable to find the assigned URI of range with id ${range.value}.`);
+        }
+
+        const domain: RDF.NamedNode | undefined = this.store.getDomain(subject);
+        if (!domain) {
+          throw new Error(`No domain found for attribute ${subject.value}.`);
+        }
+
+        const domainLabel: RDF.Literal | undefined = getApplicationProfileLabel(domain, this.store, this.configuration.language);
 
         if (!domainLabel) {
-          this.logger.error(`No label found for domain ${domain.value} of attribute ${subject.value}.`);
-          return;
+          throw new Error(`No label found for domain ${domain.value} of attribute ${subject.value}.`);
         }
 
-        formattedAttributeLabel = `${toPascalCase(domainLabel.value)}.${formattedAttributeLabel}`;
+        propertyMetadata.push({
+          osloId: subject,
+          assignedURI: assignedUri,
+          label: label,
+          domainLabel: domainLabel,
+          rangeAssignedUri: rangeUri,
+          addContainer: this.canHaveAListOfValues(subject),
+          addPrefix: this.configuration.addDomainPrefix || duplicates.includes(subject),
+        });
+      } catch (error) {
+        this.logger.error((<Error>error).message);
       }
-
-      const addContainerProperty = this.canHaveAListOfValues(subject);
-      propertyLabelUriMap.set(formattedAttributeLabel, {
-        uri: assignedUri,
-        range: rangeUri,
-        addContainer: addContainerProperty,
-      });
     });
 
-    return propertyLabelUriMap;
+    return propertyMetadata;
   }
 
   /**
-   * Function to check if a property can have multiple values
+   * Checks if a property can have multiple values
    * @param subject — The Quad_Subject to check the cardinality of
    * @param store — The triple store to fetch triples about the Quad_Subject
    * @returns — A boolean indicating whether or not to add the "@container" property to the attribute
    */
   private canHaveAListOfValues(subject: RDF.Quad_Subject): boolean {
-    const maxCount = this.store.getMaxCardinality(subject);
+    const maxCount: RDF.Literal | undefined = this.store.getMaxCardinality(subject);
 
     if (!maxCount) {
       this.logger.warn(`Unable to retrieve max cardinality of property ${subject.value}.`);

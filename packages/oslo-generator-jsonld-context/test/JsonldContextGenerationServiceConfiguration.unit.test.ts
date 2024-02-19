@@ -9,6 +9,7 @@ const params: any = {
   output: 'context.jsonld',
   addDomainPrefix: true,
   language: 'en',
+  scopedContext: false,
 };
 
 describe('JsonldContextGenerationServiceConfiguration', () => {
@@ -20,12 +21,13 @@ describe('JsonldContextGenerationServiceConfiguration', () => {
     expect((<any>config)._output).toBeDefined();
     expect((<any>config)._addDomainPrefix).toBeDefined();
     expect((<any>config)._language).toBeDefined();
+    expect((<any>config)._scopedContext).toBeDefined();
   });
 
   it('should throw an error when "input" is undefined or otherwise return its value', async () => {
     const config = new JsonldContextGenerationServiceConfiguration();
 
-    expect(() => config.input).toThrowError('Trying to access property "input" before it was set.');
+    expect(() => config.input).toThrow(new Error('Trying to access property "input" before it was set.'));
     await config.createFromCli(params);
     expect(config.input).toBe('test.jsonld');
   });
@@ -33,7 +35,7 @@ describe('JsonldContextGenerationServiceConfiguration', () => {
   it('should throw an error when "output" is undefined or otherwise return its value', async () => {
     const config = new JsonldContextGenerationServiceConfiguration();
 
-    expect(() => config.output).toThrowError('Trying to access property "output" before it was set.');
+    expect(() => config.output).toThrow(new Error('Trying to access property "output" before it was set.'));
     await config.createFromCli(params);
     expect(config.output).toBe('context.jsonld');
   });
@@ -41,7 +43,8 @@ describe('JsonldContextGenerationServiceConfiguration', () => {
   it('should throw an error when "addDomainPrefix" is undefined or otherwise return its value', async () => {
     const config = new JsonldContextGenerationServiceConfiguration();
 
-    expect(() => config.addDomainPrefix).toThrowError('Trying to access property "addDomainPrefix" before it was set.');
+    expect(() => config.addDomainPrefix)
+      .toThrow(new Error('Trying to access property "addDomainPrefix" before it was set.'));
     await config.createFromCli(params);
     expect(config.addDomainPrefix).toBe(true);
   });
@@ -49,8 +52,17 @@ describe('JsonldContextGenerationServiceConfiguration', () => {
   it('should throw an error when "language" is undefined or otherwise return its value', async () => {
     const config = new JsonldContextGenerationServiceConfiguration();
 
-    expect(() => config.language).toThrowError('Trying to access property "language" before it was set.');
+    expect(() => config.language).toThrow(new Error('Trying to access property "language" before it was set.'));
     await config.createFromCli(params);
     expect(config.language).toBe('en');
+  });
+
+  it('should throw an error when "scopedContext" is undefined or otherwise return its value', async () => {
+    const config = new JsonldContextGenerationServiceConfiguration();
+
+    expect(() => config.scopedContext)
+      .toThrow(new Error('Trying to access property "scopedContext" before it was set.'));
+    await config.createFromCli(params);
+    expect(config.scopedContext).toBe(false);
   });
 });

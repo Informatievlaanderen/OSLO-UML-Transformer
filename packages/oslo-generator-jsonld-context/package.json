@@ -45,7 +45,11 @@
       "index.js",
       "test"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
+      "^@oslo-generator-jsonld-context/(.*)$": "<rootDir>/lib/$1"
+    }
   },
   "scripts": {
     "build": "npm run build:ts",

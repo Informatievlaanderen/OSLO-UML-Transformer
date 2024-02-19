@@ -23,11 +23,17 @@ export class JsonldContextGenerationServiceConfiguration implements IConfigurati
    */
   private _addDomainPrefix: boolean | undefined;
 
+  /**
+   * Create a scoped context for each class
+   */
+  private _scopedContext: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._addDomainPrefix = <boolean>params.addDomainPrefix;
     this._language = <string>params.language;
+    this._scopedContext = <boolean>params.scopedContext;
   }
 
   public get input(): string {
@@ -56,5 +62,12 @@ export class JsonldContextGenerationServiceConfiguration implements IConfigurati
       throw new Error(`Trying to access property "addDomainPrefix" before it was set.`);
     }
     return this._addDomainPrefix;
+  }
+
+  public get scopedContext(): boolean {
+    if (this._scopedContext === undefined) {
+      throw new Error(`Trying to access property "scopedContext" before it was set.`);
+    }
+    return this._scopedContext;
   }
 }

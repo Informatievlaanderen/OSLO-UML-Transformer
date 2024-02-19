@@ -22,6 +22,11 @@ export class JsonldContextGenerationServiceRunner extends
           default: false,
           boolean: true,
         })
+      .option('scopedContext', {
+        describe: 'Create scoped contexts for each class',
+        default: false,
+        boolean: true,
+      })
       .option('silent',
         {
           describe: 'All logs are suppressed',
