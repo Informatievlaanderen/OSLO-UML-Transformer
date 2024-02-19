@@ -8,7 +8,7 @@
         "*.md"
       ],
       "message": "Bump to new release version",
-      "allowBranch": "main",
+      "allowBranch": "SDTT-285-Explore-the-possibility-of-creating-a-fork-of-the-mdb-reader-package-to-tackle-ESM-issues",
       "npmClient": "npm"
     }
   },
