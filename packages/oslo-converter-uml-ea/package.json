@@ -8,8 +8,8 @@
   "main": "index.js",
   "_moduleAliases": {
     "@oslo-converter-uml-ea": "./lib",
-    "@oslo-core": "../oslo-core/lib",
-    "@oslo-extractor-uml-ea": "../oslo-extractor-uml-ea/lib"
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib",
+    "@oslo-extractor-uml-ea": "node_modules/@oslo-flanders/ea-uml-extractor/lib"
   },
   "bin": {
     "oslo-converter-ea": "./bin/runner.js"
