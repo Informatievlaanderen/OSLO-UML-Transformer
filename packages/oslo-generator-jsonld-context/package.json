@@ -61,12 +61,12 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
-    "module-alias": "^2.2.3"
+    "@rdfjs/types": "^1.1.0"
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.5-alpha.0",
     "inversify": "^6.0.1",
+    "module-alias": "^2.2.3",
     "n3": "^1.16.2",
     "rdf-data-factory": "^1.1.2",
     "rdf-parse": "^2.3.2",
