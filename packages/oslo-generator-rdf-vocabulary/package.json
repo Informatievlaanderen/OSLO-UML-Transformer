@@ -1,13 +1,14 @@
 {
   "name": "@oslo-flanders/rdf-vocabulary-generator",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.5-alpha.0",
   "description": "Transform an Enterprise Architect UML diagram to RDF",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-rdf-vocabulary#readme",
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@oslo-generator-rdf-vocabulary": "./lib"
+    "@oslo-generator-rdf-vocabulary": "./lib",
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
   },
   "bin": {
     "oslo-generator-rdf": "./bin/runner.js"

@@ -1,13 +1,14 @@
 {
   "name": "@oslo-flanders/stakeholders-converter",
-  "version": "0.0.6-alpha.0",
+  "version": "0.0.8-alpha.0",
   "description": "Converts an OSLO stakeholders csv file to RDF",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-stakeholders-oslo#readme",
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@oslo-converter-stakeholders": "./lib"
+    "@oslo-converter-stakeholders": "./lib",
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
   },
   "bin": {
     "oslo-stakeholders-converter": "./bin/runner.js"
