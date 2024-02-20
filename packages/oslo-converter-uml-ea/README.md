@@ -8,7 +8,13 @@
 npm install @oslo-flanders/ea-converter
 ```
 
-## Usage
+## Global install
+To use the service from the command line anywhere, you can install it globally.
+```bash
+npm install -g @oslo-flanders/ea-converter
+```
+
+## API
 The service is executed from the CLI and expects the following parameters:
 | Parameter | Description | Required | Possible values |
 | --------- | --------- | ----------- | --------------- |
@@ -17,3 +23,9 @@ The service is executed from the CLI and expects the following parameters:
 | `--outputFile` | The name of the RDF output file | No, but if omitted, output is written to process.stdout ||
 | `--versionId` | Version identifier for the document | :heavy_check_mark: ||
 | `--outputFormat` | RDF content-type specifiying the output format | :heavy_check_mark: | `application/ld+json` |
+
+## Usage
+```bash
+oslo-converter-ea --umlFile path/to/uml/diagram.eap --diagramName "diagramName" --versionId "test/1" --outputFile path/to/output.jsonld --outputFormat application/ld+json
+oslo-converter-ea --umlFile https://github.com/path/to/uml/diagram.eap --diagramName "My UML diagram" --versionId "test/1" --outputFormat application/ld+json
+```
