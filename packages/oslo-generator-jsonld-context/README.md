@@ -7,7 +7,13 @@
 npm install @oslo-flanders/jsonld-context-generator
 ```
 
-## Usage
+## Global install
+To use the service from the command line anywhere, you can install it globally.
+```bash
+npm install -g @oslo-flanders/jsonld-context-generator
+```
+
+## API
 
 The service is executed from the CLI and expects the following parameters:
 | Parameter | Description | Required | Possible values |
@@ -17,3 +23,9 @@ The service is executed from the CLI and expects the following parameters:
 | `--language` | The language in which the context must be generated (labels) | :heavy_check_mark: ||
 | `--addDomainPrefix` | Prefix every attribute with its domain | No | `true` or `false` (default) |
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
+
+## Usage
+```bash
+oslo-jsonld-context-generator --input https://data.vlaanderen.be/ns/adres.jsonld --language nl
+oslo-jsonld-context-generator --input report.jsonld --language nl
+```
