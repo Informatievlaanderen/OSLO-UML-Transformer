@@ -46,7 +46,11 @@
       "/node_modules/",
       "index.js"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
+      "^@oslo-converter-uml-ea/(.*)$": "<rootDir>/lib/$1"
+    }
   },
   "scripts": {
     "build": "npm run build:ts",

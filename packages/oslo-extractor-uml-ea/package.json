@@ -42,7 +42,11 @@
       "./lib/utils",
       "./lib/types"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
+      "^@oslo-extractor-uml-ea/(.*)$": "<rootDir>/lib/$1"
+    }
   },
   "scripts": {
     "build": "npm run build:ts",

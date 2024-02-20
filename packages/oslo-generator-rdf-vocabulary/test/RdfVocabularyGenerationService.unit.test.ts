@@ -14,7 +14,7 @@ import {
   jsonldAttributeWithoutAssignedUri,
   jsonldAttributeWithoutDomain,
   jsonldAttributeWithParent,
-  jsonldAttributeWithRangeStatement,
+  jsonldAttributeWithRange,
   jsonldClassWithoutAssignedUri,
   jsonldClassWithoutDefinition,
   jsonldClassWithParent,
@@ -138,7 +138,7 @@ describe('RdfVocabularyGenerationService', () => {
     expect(quads.some((quad: RDF.Quad) =>
       quad.subject.equals(df.namedNode('http://example.org/id/class/1')) &&
       quad.predicate.equals(ns.vann('usageNote')) &&
-      quad.object.equals(df.literal('A usage note', 'en'))))
+      quad.object.equals(df.literal('A vocabulary usage note', 'en'))))
       .toBe(true);
   });
 
@@ -262,17 +262,6 @@ describe('RdfVocabularyGenerationService', () => {
     expect(service.logger.error).toHaveBeenCalled();
   });
 
-  it('should search in rdf:Statements for the assigned URI of a range', async () => {
-    store.addQuads(await parseJsonld(jsonldAttributeWithRangeStatement));
-    const quads = await service.createAttributeQuads(vocabularyUri);
-
-    expect(quads.some((quad: RDF.Quad) =>
-      quad.subject.equals(df.namedNode('http://example.org/id/property/1')) &&
-      quad.predicate.equals(ns.rdfs('range')) &&
-      quad.object.equals(df.namedNode('http://example.org/id/class/2'))))
-      .toBe(true);
-  });
-
   it('should add a link to the parent of the attribute it that information was found', async () => {
     store.addQuads(await parseJsonld(jsonldAttributeWithParent));
     const quads = await service.createAttributeQuads(vocabularyUri);
@@ -286,8 +275,8 @@ describe('RdfVocabularyGenerationService', () => {
 
   // eslint-disable-next-line max-len
   it('should log an error when the definition of the attribute could not be found in the requested language', async () => {
-    // This 'jsonldAttributeWithRangeStatement' snippet can also be used for this test
-    store.addQuads(await parseJsonld(jsonldAttributeWithRangeStatement));
+    // This 'jsonldAttributeWithRange' snippet can also be used for this test
+    store.addQuads(await parseJsonld(jsonldAttributeWithRange));
 
     jest.spyOn(service.logger, 'error');
     await service.createAttributeQuads(vocabularyUri);

@@ -44,7 +44,11 @@
       "/node_modules/",
       "index.js"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
+      "^@oslo-generator-rdf-vocabulary/(.*)$": "<rootDir>/lib/$1"
+    }
   },
   "scripts": {
     "build": "npm run build:ts",
