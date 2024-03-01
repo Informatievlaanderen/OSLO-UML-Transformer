@@ -238,6 +238,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       connectorInternalId,
       packageBaseUri.toString(),
       uriRegistry.connectorOsloIdUriMap,
+      this.df.defaultGraph(),
       quads,
     );
 

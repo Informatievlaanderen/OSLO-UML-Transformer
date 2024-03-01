@@ -33,6 +33,9 @@
       ],
       "@oslo-generator-respec-html/*": [
         "packages/oslo-generator-respec-html/lib/*"
+      ],
+      "@oslo-generator-json-webuniversum/*": [
+        "packages/oslo-generator-json-webuniversum/lib/*"
       ]
     }
   },

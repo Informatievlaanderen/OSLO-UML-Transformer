@@ -1,0 +1,68 @@
+{
+  "name": "@oslo-flanders/json-webuniversum-generator",
+  "version": "0.0.0",
+  "description": "Generates a JSON file which is used to generate an HTML template using Webuniversum 3",
+  "author": "Dwight Van Lancker <dwight.vanlancker@vlaanderen.be>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-json-webuniversum#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "_moduleAliases": {
+    "@oslo-generator-json-webuniversum": "./lib",
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
+  },
+  "directories": {
+    "bin": "bin",
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "jest": {
+    "runner": "groups",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "/test/.*.test.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "index.js",
+      "test"
+    ],
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
+      "^@oslo-generator-json-webuniversum/(.*)$": "<rootDir>/lib/$1"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "tsc",
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.6-alpha.0",
+    "inversify": "6.0.1",
+    "module-alias": "^2.2.3",
+    "n3": "^1.17.2",
+    "rdf-data-factory": "^1.1.2",
+    "reflect-metadata": "^0.2.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@rdfjs/types": "^1.1.0"
+  }
+}

@@ -114,3 +114,24 @@ export function getVocabularyUsageNote(
     return undefined;
 }
 
+export function getMinCount(
+    subject: RDF.Term,
+    store: QuadStore,
+): string | undefined {
+    return store.findObject(subject, ns.shacl('minCount'))?.value;
+}
+
+export function getMaxCount(
+    subject: RDF.Term,
+    store: QuadStore,
+): string | undefined {
+    return store.findObject(subject, ns.shacl('maxCount'))?.value;
+}
+
+export function getCodelist(
+    subject: RDF.Term,
+    store: QuadStore,
+): string | undefined {
+    return store.findObject(subject, ns.oslo('codelist'))?.value;
+}
+

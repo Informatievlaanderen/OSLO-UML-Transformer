@@ -160,6 +160,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       objectInternalId,
       packageBaseUri.toString(),
       uriRegistry.elementIdUriMap,
+      this.df.defaultGraph(),
       quads,
     );
 
@@ -286,6 +287,21 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
           referencedEntitiesGraph,
           quads,
         );
+
+        const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
+        if (!packageBaseUri) {
+          throw new Error(
+            `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${model.targetDiagram.path}) is placed.`,
+          );
+        }
+        this.addScope(
+          parentClassObject,
+          parentInternalId,
+          packageBaseUri.toString(),
+          uriRegistry.elementIdUriMap,
+          referencedEntitiesGraph,
+          quads,
+        )
 
         quads.push(
           this.df.quad(
