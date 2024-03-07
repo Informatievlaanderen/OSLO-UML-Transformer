@@ -59,8 +59,26 @@ export class JsonWebuniversumGenerationService implements IService {
     sortWebuniversumObjects(datatypes, this.configuration.language);
     datatypes.forEach((datatypeObject: WebuniversumObject) => sortWebuniversumObjects(datatypeObject.properties || [], this.configuration.language));
 
-    const template = { classes: classes, dataTypes: datatypes };
+    const baseURI = this.getBaseURI();
+
+    const template = { baseURI, classes: classes, dataTypes: datatypes };
     await writeFile(this.configuration.output, JSON.stringify(template, null, 2), 'utf-8');
+  }
+
+  private getBaseURI(): string {
+    const packageSubject: RDF.Term = <RDF.Term>this.store.findQuad(null, ns.rdf('type'), ns.oslo('Package'))?.subject;
+
+    if (!packageSubject) {
+      throw new Error(`Unable to find the subject for the package.`);
+    }
+
+    const baseURIObject: RDF.Literal | undefined = <RDF.Literal | undefined>this.store.findObject(packageSubject, ns.oslo('baseURI'));
+
+    if (!baseURIObject) {
+      throw new Error(`Unable to find the baseURI for the package.`);
+    }
+
+    return baseURIObject.value;
   }
 
   private async generateEntityData(entity: RDF.NamedNode, includeProperties: boolean = true): Promise<WebuniversumObject> {

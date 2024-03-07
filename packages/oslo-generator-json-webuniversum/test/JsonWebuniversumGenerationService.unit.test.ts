@@ -19,6 +19,8 @@ import {
 	classWithPropertyWithoutRange,
 	classWithPropertyWithoutRangeAssignedURI,
 	classWithoutAssignedURI,
+	dataWithoutPackage,
+	dataWithoutPackageBaseURI,
 	jsonldClass,
 } from './data/mockData';
 
@@ -73,6 +75,7 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
 		await service.run();
 
 		expect(fs.writeFile).toHaveBeenCalledWith('config.json', JSON.stringify({
+			baseURI: 'http://example.org/ns/domain#',
 			classes: [
 				{
 					id: 'http://example.org/id/class/1',
@@ -122,6 +125,18 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
 			],
 		}, null, 2), 'utf-8');
 	});
+
+	it('should throw an error when the package subject is not found', async () => {
+		store.addQuads(await parseJsonld(dataWithoutPackage));
+
+		expect(() => (<any>service).getBaseURI()).toThrow(new Error('Unable to find the subject for the package.'));
+	});
+
+	it('should throw an error when the baseURI is not found', async () => {
+		store.addQuads(await parseJsonld(dataWithoutPackageBaseURI));
+
+		expect(() => (<any>service).getBaseURI()).toThrow(new Error('Unable to find the baseURI for the package.'));
+	})
 
 	it('should throw an error when an assigned URI is not found', async () => {
 		store.addQuads(await parseJsonld(classWithoutAssignedURI));

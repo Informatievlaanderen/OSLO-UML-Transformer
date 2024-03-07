@@ -1,5 +1,11 @@
 export const jsonldClass = [
     {
+        "@id": "http://example.org/.well-known/id/package/1",
+        "@type": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#Package",
+        "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI": "http://example.org/ns/domain",
+        "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI": "http://example.org/ns/domain#",
+    },
+    {
         '@id': 'http://example.org/.well-known/id/class/1',
         'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
             '@id': 'http://example.org/id/class/1',
@@ -84,6 +90,15 @@ export const jsonldClass = [
                 '@value': 'ApDatatypeUsageNote',
             },
         ],
+    },
+]
+
+export const dataWithoutPackage = [];
+export const dataWithoutPackageBaseURI = [
+    {
+        "@id": "http://example.org/.well-known/id/package/1",
+        "@type": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#Package",
+        "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI": "http://example.org/ns/domain",
     },
 ]
 
