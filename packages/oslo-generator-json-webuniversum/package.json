@@ -10,6 +10,9 @@
     "@oslo-generator-json-webuniversum": "./lib",
     "@oslo-core": "node_modules/@oslo-flanders/core/lib"
   },
+  "bin": {
+    "oslo-webuniversum-json-generator": "bin/runner.js"
+  },
   "directories": {
     "bin": "bin",
     "lib": "lib",

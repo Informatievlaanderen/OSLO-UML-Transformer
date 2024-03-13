@@ -25,8 +25,6 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
         expect((<any>config)._input).toBeDefined();
         expect((<any>config)._output).toBeDefined();
         expect((<any>config)._language).toBeDefined();
-        expect((<any>config)._apTemplateMetadata).toBeDefined();
-        expect((<any>config)._vocTemplateMetadata).toBeDefined();
     });
 
     it('should throw an error when "input" is undefined or otherwise return its value', async () => {
@@ -52,23 +50,4 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
         await config.createFromCli(params);
         expect(config.language).toBe('en');
     });
-
-    it('should throw an error when "apTemplateMetadata" is undefined or otherwise return its value', async () => {
-        const config = new JsonWebuniversumGenerationServiceConfiguration();
-
-        expect(() => config.apTemplateMetadata)
-            .toThrow(new Error('Trying to access "apTemplateMetadata" before it was set.'));
-        await config.createFromCli(params);
-        expect(config.apTemplateMetadata).toBe('ap-markdown.md');
-    });
-
-    it('should throw an error when "vocTemplateMetadata" is undefined or otherwise return its value', async () => {
-        const config = new JsonWebuniversumGenerationServiceConfiguration();
-
-        expect(() => config.vocTemplateMetadata)
-            .toThrow(new Error('Trying to access "vocTemplateMetadata" before it was set.'));
-        await config.createFromCli(params);
-        expect(config.vocTemplateMetadata).toBe('voc-markdown.md');
-    });
-
 })

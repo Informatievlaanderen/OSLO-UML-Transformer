@@ -18,22 +18,10 @@ export class JsonWebuniversumGenerationServiceConfiguration implements IConfigur
      */
     private _language: string | undefined;
 
-    /**
-     * Local path to a markdown file with metadata for the AP template
-     */
-    private _apTemplateMetadata: string | undefined;
-
-    /**
-     * Local path to a markdown file with metadata for the VOC template
-     */
-    private _vocTemplateMetadata: string | undefined;
-
     public async createFromCli(params: YargsParams): Promise<void> {
         this._input = <string>params.input;
         this._output = <string>params.output;
         this._language = <string>params.language;
-        this._apTemplateMetadata = <string>params.apTemplateMetadata;
-        this._vocTemplateMetadata = <string>params.vocTemplateMetadata;
     }
 
     public get input(): string {
@@ -55,19 +43,5 @@ export class JsonWebuniversumGenerationServiceConfiguration implements IConfigur
             throw new Error('Trying to access "language" before it was set.')
         }
         return this._language;
-    }
-
-    public get apTemplateMetadata(): string {
-        if (!this._apTemplateMetadata) {
-            throw new Error('Trying to access "apTemplateMetadata" before it was set.')
-        }
-        return this._apTemplateMetadata;
-    }
-
-    public get vocTemplateMetadata(): string {
-        if (!this._vocTemplateMetadata) {
-            throw new Error('Trying to access "vocTemplateMetadata" before it was set.')
-        }
-        return this._vocTemplateMetadata;
     }
 }

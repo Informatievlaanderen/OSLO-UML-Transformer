@@ -16,8 +16,6 @@ export class JsonWebuniversumGenerationServiceRunner
             .option('input', { describe: 'The input file to generate a JSON-LD context from.' })
             .option('output', { describe: 'Name of the output file.', default: 'webuniversum-config.json' })
             .option('language', { describe: 'The language in which the config must be generated.' })
-            .option('apTemplateMetadata', { describe: 'Markdown file with metadata for the AP template.' })
-            .option('vocTemplateMetadata', { describe: 'Markdown file with metadata for the VOC template.' })
             .option('silent',
                 {
                     describe: 'All logs are suppressed',
