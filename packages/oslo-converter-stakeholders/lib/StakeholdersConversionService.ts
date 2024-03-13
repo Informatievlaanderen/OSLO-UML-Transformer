@@ -28,6 +28,15 @@ export class StakeholdersConversionService implements IService {
     // Nothing to init here
   }
 
+  public async run(): Promise<void> {
+    const data = await fetchFileOrUrl(this.configuration.input);
+    const { authors, contributors, editors } = await this.parseData(data);
+
+    const doc: StakeholdersDocument = this.createDocument(authors, contributors, editors);
+
+    await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
+  }
+
   // helper methods for creating the StakeholdersDocument in the different output formats
   private createJsonLdDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
@@ -92,14 +101,5 @@ export class StakeholdersConversionService implements IService {
     });
 
     return { authors, contributors, editors };
-  }
-
-  public async run(): Promise<void> {
-    const data = await fetchFileOrUrl(this.configuration.input);
-    const { authors, contributors, editors } = await this.parseData(data);
-
-    const doc: StakeholdersDocument = this.createDocument(authors, contributors, editors);
-
-    await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
   }
 }
