@@ -13,9 +13,15 @@ export class StakeholdersConversionServiceConfiguration implements IConfiguratio
    */
   private _output: string | undefined;
 
+  /**
+   * Format of the output file
+   */
+  private _outputFormat: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
+    this._outputFormat = <string>params.outputFormat;
   }
 
   public get input(): string {
@@ -30,5 +36,12 @@ export class StakeholdersConversionServiceConfiguration implements IConfiguratio
       throw new Error(`Trying to access property "output" before it was set.`);
     }
     return this._output;
+  }
+
+  public get outputFormat(): string {
+    if (!this._outputFormat) {
+      throw new Error(`Trying to access property "outputFormat" before it was set.`);
+    }
+    return this._outputFormat;
   }
 }
