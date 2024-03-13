@@ -13,7 +13,7 @@ export class JsonWebuniversumGenerationServiceRunner
     public async runCli(argv: CliArgv): Promise<void> {
         const yargv = yargs(argv.slice(2))
             .usage('node ./bin/runner.js [args]')
-            .option('input', { describe: 'The input file to generate a JSON-LD context from.' })
+            .option('input', { describe: 'The input file to generate a Webuniversum config from.' })
             .option('output', { describe: 'Name of the output file.', default: 'webuniversum-config.json' })
             .option('language', { describe: 'The language in which the config must be generated.' })
             .option('silent',

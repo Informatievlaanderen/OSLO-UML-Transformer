@@ -15,12 +15,12 @@ import {
   getCodelist
 } from "@oslo-flanders/core";
 import { inject, injectable } from "inversify";
-import { JsonWebuniversumGenerationServiceConfiguration } from "./config/JsonWebuniversumGenerationServiceConfiguration";
+import { JsonWebuniversumGenerationServiceConfiguration } from "@oslo-generator-json-webuniversum/config/JsonWebuniversumGenerationServiceConfiguration";
 import type * as RDF from '@rdfjs/types';
 import { writeFile } from "fs/promises";
-import { WebuniversumObject } from "./types/WebuniversumObject";
-import { WebuniversumProperty } from "./types/WebuniversumProperty";
-import { sortWebuniversumObjects } from "./utils/utils";
+import { WebuniversumObject } from "@oslo-generator-json-webuniversum/types/WebuniversumObject";
+import { WebuniversumProperty } from "@oslo-generator-json-webuniversum/types/WebuniversumProperty";
+import { sortWebuniversumObjects } from "@oslo-generator-json-webuniversum/utils/utils";
 
 @injectable()
 export class JsonWebuniversumGenerationService implements IService {
@@ -139,7 +139,7 @@ export class JsonWebuniversumGenerationService implements IService {
 
       const properties: WebuniversumProperty[] = await Promise.all(jobs)
 
-      if (properties.length > 0) {
+      if (properties.length) {
         entityData.properties = properties;
       }
     }
