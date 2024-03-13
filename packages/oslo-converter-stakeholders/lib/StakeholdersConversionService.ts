@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
-import type { StakeholdersDocument } from '@oslo-converter-stakeholders/interfaces/StakeholdersDocument';
+import type { StakeholdersDocument, Stakeholder } from '@oslo-converter-stakeholders/interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';
@@ -10,7 +10,7 @@ import {
 } from '@oslo-converter-stakeholders/config/StakeholdersConversionServiceConfiguration';
 import { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
 import { context } from '@oslo-converter-stakeholders/utils/JsonLdContext';
-import { ToJsonLdTransformer } from '@oslo-converter-stakeholders/utils/ToJsonLdTransformer';
+import { ToJsonTransformer } from '@oslo-converter-stakeholders/utils/ToJsonTransformer';
 @injectable()
 export class StakeholdersConversionService implements IService {
   public readonly logger: Logger;
@@ -29,7 +29,7 @@ export class StakeholdersConversionService implements IService {
   }
 
   // helper methods for creating the StakeholdersDocument in the different output formats
-  private createJsonLdDocument(authors: object[], contributors: object[], editors: object[]): StakeholdersDocument {
+  private createJsonLdDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     doc['@context'] = context;
     doc.contributors = contributors;
@@ -38,7 +38,7 @@ export class StakeholdersConversionService implements IService {
     return doc;
   }
 
-  private createJsonDocument(authors: object[], contributors: object[], editors: object[]): StakeholdersDocument {
+  private createJsonDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     doc.contributors = contributors;
     doc.authors = authors;
@@ -46,7 +46,7 @@ export class StakeholdersConversionService implements IService {
     return doc;
   }
 
-  private createDocument(authors: object[], contributors: object[], editors: object[]): StakeholdersDocument {
+  private createDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
     switch (this.configuration.outputFormat) {
       case 'application/json':
         return this.createJsonDocument(authors, contributors, editors);
@@ -57,13 +57,13 @@ export class StakeholdersConversionService implements IService {
     }
   }
 
-  private async parseData(data: Buffer): Promise<{ authors: object[], contributors: object[], editors: object[] }> {
+  private async parseData(data: Buffer): Promise<{ authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[] }> {
     const parser = parse({ delimiter: ';', columns: true });
-    const transformer = new ToJsonLdTransformer();
+    const transformer = new ToJsonTransformer(this.configuration.outputFormat);
 
-    const contributors: object[] = [];
-    const authors: object[] = [];
-    const editors: object[] = [];
+    const contributors: Stakeholder[] = [];
+    const authors: Stakeholder[] = [];
+    const editors: Stakeholder[] = [];
 
     await new Promise<void>((resolve, reject) => {
       parser.pipe(transformer)

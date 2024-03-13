@@ -2,13 +2,15 @@ import type { TransformCallback } from 'stream';
 import { Transform } from 'stream';
 import { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
 
-export class ToJsonLdTransformer extends Transform {
+export class ToJsonTransformer extends Transform {
   private readonly columnNames = ['Voornaam', 'Naam', 'Affiliatie', 'E-mail', 'Website'];
+  private readonly outputFormat: string;
 
-  public constructor() {
+  public constructor(outputFormat: string) {
     super({
       objectMode: true,
     });
+    this.outputFormat = outputFormat;
   }
 
   public _transform(chunk: any, encoding: string, callback: TransformCallback): void {
@@ -18,7 +20,11 @@ export class ToJsonLdTransformer extends Transform {
   private createContributor(data: any): any {
     const contributor: any = {};
 
-    contributor['@type'] = 'Person';
+    // If the output format is JSON-LD, we need to add the @type attribute
+    if (this.outputFormat === 'application/ld+json') {
+      contributor['@type'] = 'Person';
+    }
+
     contributor.firstName = data.Voornaam;
     contributor.lastName = data.Naam;
     contributor.affiliation = {};
