@@ -29,6 +29,11 @@ export class StakeholdersConversionServiceRunner extends
         default: 'info',
         choices: LOG_LEVELS,
       })
+      .option('outputFormat', {
+        describe: 'Define the output format',
+        default: 'application/ld+json',
+        choices: ['application/ld+json', 'application/json'],
+      })
       .demandOption(['input'],
         'Please provide the necessary arguments to work with this tool.')
       .help('h')
