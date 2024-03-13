@@ -179,6 +179,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     objectInternalId: RDF.NamedNode,
     packageBaseUri: string,
     idUriMap: Map<number, URL>,
+    graph: RDF.Quad_Graph,
     quads: RDF.Quad[],
   ): void {
     const uri: URL | undefined = idUriMap.get(object.id);
@@ -202,7 +203,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     }
 
     quads.push(
-      this.df.quad(objectInternalId, ns.oslo('scope'), this.df.namedNode(scope)),
+      this.df.quad(objectInternalId, ns.oslo('scope'), this.df.namedNode(scope), graph),
     );
   }
 

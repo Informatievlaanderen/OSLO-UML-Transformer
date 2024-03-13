@@ -202,6 +202,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       attributeInternalId,
       packageBaseUri.toString(),
       uriRegistry.attributeIdUriMap,
+      this.df.defaultGraph(),
       quads,
     );
 
@@ -254,6 +255,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
             ...this.getElementInformationQuads(
               this.df.namedNode(rangeURI),
               uriRegistry,
+              model,
               rangeElement,
             ),
           );
@@ -354,6 +356,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   private getElementInformationQuads(
     rangeInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
+    dataRegistry: DataRegistry,
     rangeElement: EaElement,
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
@@ -394,6 +397,22 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         referencedEntitiesGraph,
       ),
     );
+
+    const packageBaseUri = uriRegistry.packageIdUriMap.get(dataRegistry.targetDiagram.packageId);
+    if (!packageBaseUri) {
+      throw new Error(
+        `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${dataRegistry.targetDiagram.path}) is placed.`,
+      );
+    }
+    
+    this.addScope(
+      <any>rangeElement,
+      rangeInternalId,
+      packageBaseUri.toString(),
+      uriRegistry.elementIdUriMap,
+      referencedEntitiesGraph,
+      quads,
+    )
 
     const skosCodelist: string | null = getTagValue(rangeElement, TagNames.ApCodelist, null);
     if (skosCodelist) {
