@@ -30,12 +30,18 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
    */
   private _specificationName: string | undefined;
 
+  /**
+   * Local path or URL to JSON file of stakeholders
+   */
+  private _stakeholders: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
     this._specificationType = this.getSpecificationType(<string>params.specificationType);
     this._specificationName = <string>params.specificationName;
+    this._stakeholders = <string>params.stakeholders;
   }
 
   public get input(): string {
@@ -89,4 +95,14 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
         throw new Error(`Unable to translate ${value} to a specification type.`);
     }
   }
+
+  public get stakeholders(): string {
+    if (!this._stakeholders) {
+      throw new Error(
+        `Trying to access property "stakeholders" before it was set.`,
+      );
+    }
+    return this._stakeholders;
+  }
+
 }

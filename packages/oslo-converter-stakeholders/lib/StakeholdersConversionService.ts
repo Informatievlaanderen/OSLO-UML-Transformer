@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
-import type { StakeholdersDocument, Stakeholder } from '@oslo-converter-stakeholders/interfaces/StakeholdersDocument';
+import type { StakeholdersDocument, Stakeholder } from '@oslo-converter-stakeholders/types/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';

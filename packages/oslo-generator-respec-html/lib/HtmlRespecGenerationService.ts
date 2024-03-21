@@ -1,7 +1,7 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, dirname } from 'path';
 import type { IService } from '@oslo-flanders/core';
-import { ns, Logger, QuadStore, ServiceIdentifier, getApplicationProfileLabel, getVocabularyLabel, getApplicationProfileDefinition, getVocabularyDefinition, getApplicationProfileUsageNote, getVocabularyUsageNote } from '@oslo-flanders/core';
+import { ns, Logger, fetchFileOrUrl, QuadStore, ServiceIdentifier, getApplicationProfileLabel, getVocabularyLabel, getApplicationProfileDefinition, getVocabularyDefinition, getApplicationProfileUsageNote, getVocabularyUsageNote } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
@@ -12,6 +12,7 @@ import { alphabeticalSort } from '@oslo-generator-respec-html/utils/alphabetical
 import { isInScope, isScoped } from '@oslo-generator-respec-html/utils/scopeFilter';
 import { SpecificationType } from '@oslo-generator-respec-html/utils/specificationTypeEnum';
 import { Entity } from '@oslo-generator-respec-html/types/Entity';
+import type { Stakeholder, StakeholdersDocument } from '@oslo-flanders/stakeholders-converter/lib/types/StakeholdersDocument';
 @injectable()
 export class HtmlRespecGenerationService implements IService {
   public readonly logger: Logger;
@@ -82,7 +83,6 @@ export class HtmlRespecGenerationService implements IService {
     let domain: string = "";
     // AP can be less strict since it's only being used for internal navigation
     if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
-      // add topascalcase
       return `${c.label}`.toLowerCase().replace(/ /g, '-');
     }
     // VOC needs to be strict since it's being used for external navigation
@@ -147,18 +147,37 @@ export class HtmlRespecGenerationService implements IService {
   }
 
   private async createRespecConfig(): Promise<any> {
+    const { editors, authors, contributors } = await this.fetchStakeholders();
     const respecConfig = {
       specStatus: 'unofficial',
       shortName: this.configuration.specificationName,
-      editors: [
-        {
-          name: 'John Doe',
-        },
-      ],
+      editors: editors?.map(editor => this.convertStakeholder(editor)) ?? [],
+      authors: authors?.map(author => this.convertStakeholder(author)) ?? [],
+      contributors: authors?.map(contributor => this.convertStakeholder(contributor)) ?? [],
       publishDate: new Date().toISOString(),
     };
 
     return `${JSON.stringify(respecConfig)}`;
+  }
+
+  private convertStakeholder(stakeholder: Stakeholder): { name: string } {
+    return {
+      name: `${stakeholder.firstName} ${stakeholder.lastName}`
+    };
+  }
+
+  private createJsonDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
+    const doc: StakeholdersDocument = {};
+    doc.contributors = contributors;
+    doc.authors = authors;
+    doc.editors = editors;
+    return doc;
+  }
+
+  private async fetchStakeholders(): Promise<StakeholdersDocument> {
+    const data = await fetchFileOrUrl(this.configuration.stakeholders);
+    const { authors, contributors, editors } = JSON.parse(data.toString());
+    return this.createJsonDocument(authors, contributors, editors);
   }
 
   private groupPropertiesPerDomain(classes: Entity[], properties: Entity[]): void {
