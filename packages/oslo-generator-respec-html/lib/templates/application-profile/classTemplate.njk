@@ -1,36 +1,37 @@
 <h2>
-  {{entity.label}}
+  {{ entity.label }}
 </h2>
-
 {% if entity.definition %}
   <p>
     <b>Definition</b>
   </p>
   <p>
-    {{entity.definition}}
+    {{ entity.definition }}
   </p>
 {% endif %}
-
 {% if entity.usageNote %}
   <p>
     <b>Usage</b>
   </p>
   <p>
-  {{entity.usageNote}}
+    {{ entity.usageNote }}
   </p>
 {% endif %}
-
 <p>
   <b>Properties</b>
 </p>
 {% if entity.properties.length %}
   <p>
-    For this entity, the following properties are defined: 
+    For this entity, the following properties are defined:
     {% for property in entity.properties %}
       {% if loop.index == entity.properties.length %}
-        <span>{{property.label}}.</span>
+        <span>
+          <a href="#{{ entity|getAnchorTag }}.{{ property|getAnchorTag }}">{{ property.label }}</a>.
+        </span>
       {% else %}
-        <span>{{property.label}},</span>
+        <span>
+          <a href="#{{ entity|getAnchorTag }}.{{ property|getAnchorTag }}">{{ property.label }}</a>&comma;
+        </span>
       {% endif %}
     {% endfor %}
   </p>
@@ -39,38 +40,39 @@
     No properties defined for this entity
   </p>
 {% endif %}
-
-
 {% if entity.properties.length > 0 %}
-<table>
-  <tr>
-    <th>Property</th>
-    <th>Type</th>
-    <th>Cardinality</th>
-    <th>Definition</th>
-    <th>Usage</th>
-    <th>Codelist</th>
-  </tr>
-
-  {% for property in entity.properties %}
-  <tr>
-    <td>{{property.label}}</td>
-    <td>{{property.range}}</td>
-    {% if (property.minCount == property.maxCount) %}
-      <td>{{ property.minCount }}</td>
-    {% else %}
-      <td>{{property.minCount}}..{{property.maxCount}}</td>
-    {% endif %}
-    <td>{{property.definition}}</td>
-    <td>{{property.usageNote}}</td>
-    {% if (property.codelist) %}
-      <td>
-        <a href="{{property.codelist}}">LINK</a>
-      </td>
-    {% else %}
-      <td></td>
-    {% endif %}
-  </tr>
-  {% endfor %}
-</table>
+  <table>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Cardinality</th>
+      <th>Definition</th>
+      <th>Usage</th>
+      <th>Codelist</th>
+    </tr>
+    {% for property in entity.properties %}
+      <tr>
+        <td id="{{ entity|getAnchorTag }}.{{ property|getAnchorTag }}">
+          <a href="{{ property.id }}">{{ property.label }}</a>
+        </td>
+        <td>
+          <a href="{{ property.range }}">{{ property.type }}</a>
+        </td>
+        {% if (property.minCount == property.maxCount) %}
+          <td>{{ property.minCount }}</td>
+        {% else %}
+          <td>{{ property.minCount }}..{{ property.maxCount }}</td>
+        {% endif %}
+        <td>{{ property.definition }}</td>
+        <td>{{ property.usageNote }}</td>
+        {% if (property.codelist) %}
+          <td>
+            <a href="{{ property.codelist }}">LINK</a>
+          </td>
+        {% else %}
+          <td></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </table>
 {% endif %}

@@ -127,10 +127,15 @@ export class HtmlRespecGenerationService implements IService {
       throw new Error(`Unable to find the range for subject ${subjectId.value}.`);
     }
 
-    let rangeAssignedUri = this.store.getAssignedUri(range);
+    const rangeAssignedUri = this.store.getAssignedUri(range);
 
     if (!rangeAssignedUri) {
       this.logger.error(`Unable to find the assigned URI of range (${range.value}) of attribute ${subjectId.value}.`);
+    }
+    const type = this.fetchLabel(range);
+
+    if (!type) {
+      this.logger.error(`Unable to find the label of range (${range.value}) of attribute ${subjectId.value}.`);
     }
 
     return {
@@ -142,6 +147,7 @@ export class HtmlRespecGenerationService implements IService {
       usageNote: usageNote?.value,
       domain: domainAssignedUri?.value,
       range: rangeAssignedUri?.value,
+      type: type?.value,
       codelist: codelist?.value
     };
   }
