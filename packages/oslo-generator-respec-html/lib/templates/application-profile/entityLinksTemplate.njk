@@ -1,0 +1,6 @@
+{% for entity in entities %}
+  <span>
+    <a href="#{{ entity|getAnchorTag }}">{{ entity.label }}</a>
+    &nbsp;&#124;
+  </span>
+{% endfor %}

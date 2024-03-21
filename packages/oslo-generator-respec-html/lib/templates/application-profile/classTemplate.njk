@@ -1,35 +1,76 @@
 <h2>
-  {{class.label}}
+  {{entity.label}}
 </h2>
 
-<b>URI</b>
-<br>
-{{class.id | urlize() | safe}}
+{% if entity.definition %}
+  <p>
+    <b>Definition</b>
+  </p>
+  <p>
+    {{entity.definition}}
+  </p>
+{% endif %}
 
-<br>
+{% if entity.usageNote %}
+  <p>
+    <b>Usage</b>
+  </p>
+  <p>
+  {{entity.usageNote}}
+  </p>
+{% endif %}
 
-<b>Definition</b>
-<br>
-{{class.definition}}
+<p>
+  <b>Properties</b>
+</p>
+{% if entity.properties.length %}
+  <p>
+    For this entity, the following properties are defined: 
+    {% for property in entity.properties %}
+      {% if loop.index == entity.properties.length %}
+        <span>{{property.label}}.</span>
+      {% else %}
+        <span>{{property.label}},</span>
+      {% endif %}
+    {% endfor %}
+  </p>
+{% else %}
+  <p>
+    No properties defined for this entity
+  </p>
+{% endif %}
 
-<br>
-{% if class.properties.length > 0 %}
+
+{% if entity.properties.length > 0 %}
 <table>
   <tr>
     <th>Property</th>
     <th>Type</th>
-    <th>Definition</th>
     <th>Cardinality</th>
+    <th>Definition</th>
+    <th>Usage</th>
+    <th>Codelist</th>
   </tr>
 
-  {% for property in class.properties %}
+  {% for property in entity.properties %}
   <tr>
     <td>{{property.label}}</td>
     <td>{{property.range}}</td>
+    {% if (property.minCount == property.maxCount) %}
+      <td>{{ property.minCount }}</td>
+    {% else %}
+      <td>{{property.minCount}}..{{property.maxCount}}</td>
+    {% endif %}
     <td>{{property.definition}}</td>
+    <td>{{property.usageNote}}</td>
+    {% if (property.codelist) %}
+      <td>
+        <a href="{{property.codelist}}">LINK</a>
+      </td>
+    {% else %}
+      <td></td>
+    {% endif %}
   </tr>
   {% endfor %}
 </table>
-{% else %}
-<p><b><i>No properties defined for this entity</b></i></p>
 {% endif %}

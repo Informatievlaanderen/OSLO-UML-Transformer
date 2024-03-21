@@ -10,3 +10,13 @@ export function isInScope(subject: RDF.NamedNode, store: QuadStore): RDF.NamedNo
 
   return scope;
 }
+
+export function isScoped(subject: RDF.NamedNode, store: QuadStore): RDF.NamedNode | null {
+  const scope = store.getScope(subject);
+
+  if (!scope) {
+    return null;
+  }
+
+  return scope;
+}
