@@ -2,41 +2,55 @@
 <html>
   <head><meta charset="utf-8"/>
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
-    <script class="remove">var respecConfig = {{respecConfig | safe}}</script>
+    <script class="remove">
+      var respecConfig = {{ respecConfig | safe }}
+    </script>
   </head>
-
   <style>
-    table, th, td {
+    table,
+    th,
+    td {
       border: 1px solid black;
       border-collapse: collapse;
     }
-    
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: left;
     }
-
     th:first-child {
       width: 15%;
     }
-
-    table{
+    table {
       width: 100%;
     }
-  </style> 
+  </style>
   <body>
-    <h1 id="title">{{specName}}</h1>
+    <h1 id="title">{{ specName }}</h1>
     <section id="abstract"></section>
-
+    <section id="overview">
+      <h1>Overview</h1>
+      <div>
+        <p>This section lists all classes and properties of the vocabulary.</p>
+        <h2>Classes</h2>
+        {% set entities = data.classes %}
+        {% include "../entityLinksTemplate.njk" %}
+      </div>
+      <div>
+        <h2>Attributes</h2>
+        {% set entities = data.properties %}
+        {% include "../entityLinksTemplate.njk" %}
+      </div>
+    </section>
     <h1>Classes</h1>
     <p>This section gives a formal definition to each class.</p>
-
-    {% for class in data.classes %}{% include "./classTemplate.njk" %}{% endfor %}
-
+    {% for class in data.classes %}
+      {% include "./classTemplate.njk" %}
+    {% endfor %}
     <h1>Attributes</h1>
     <p>This section gives a formal definition to each attribute.</p>
-
-    {% for attribute in data.properties %}{% include "./attributeTemplate.njk" %}{% endfor %}
-
+    {% for attribute in data.properties %}
+      {% include "./attributeTemplate.njk" %}
+    {% endfor %}
   </body>
 </html>

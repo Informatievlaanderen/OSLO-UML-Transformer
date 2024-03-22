@@ -43,8 +43,7 @@ export class HtmlRespecGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    const [classes, attributes, datatypes, config] = await Promise.all([
-      this.extractClassInformation(),
+    const [attributes, datatypes, config] = await Promise.all([
       this.extractPropertyInformation(),
       this.extractDatatypesInformation(),
       this.createRespecConfig(),
@@ -58,11 +57,11 @@ export class HtmlRespecGenerationService implements IService {
     if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
       // this.groupPropertiesPerDomain(classes, attributes);
       data = {
-        classes,
+        classes: await this.extractClassInformation(isInScope),
         datatypes,
       };
     } else {
-      data.classes = classes;
+      data.classes = await this.extractClassInformation(isScoped);
       data.properties = attributes;
     }
 
@@ -80,17 +79,12 @@ export class HtmlRespecGenerationService implements IService {
 
   // helper methods
   private getAnchorTag(c: Entity) {
-    let domain: string = "";
-    // AP can be less strict since it's only being used for internal navigation
-    if (this.configuration.specificationType === SpecificationType.ApplicationProfile) {
-      return `${c.label}`.toLowerCase().replace(/ /g, '-');
-    }
-    // VOC needs to be strict since it's being used for external navigation
-    if (c?.id && c?.id?.includes('#')) {
-      domain = `${c?.id?.split('#').pop()}`;
-    }
-    return domain;
+    return `${c.label}`
+      .toLowerCase().replace(/[ .]/g, '-')
+      .replace(/\(/g, '')
+      .replace(/\)/g, '');
   }
+
   private fetchLabel(subjectId: RDF.Term) {
     return this.configuration.specificationType === SpecificationType.ApplicationProfile ?
       getApplicationProfileLabel(subjectId, this.store, this.configuration.language) : getVocabularyLabel(subjectId, this.store, this.configuration.language);
@@ -153,13 +147,12 @@ export class HtmlRespecGenerationService implements IService {
   }
 
   private async createRespecConfig(): Promise<any> {
-    const { editors, authors, contributors } = await this.fetchStakeholders();
+    const { editors, authors } = await this.fetchStakeholders();
     const respecConfig = {
       specStatus: 'unofficial',
       shortName: this.configuration.specificationName,
       editors: editors?.map(editor => this.convertStakeholder(editor)) ?? [],
       authors: authors?.map(author => this.convertStakeholder(author)) ?? [],
-      contributors: authors?.map(contributor => this.convertStakeholder(contributor)) ?? [],
       publishDate: new Date().toISOString(),
     };
 
@@ -238,9 +231,9 @@ export class HtmlRespecGenerationService implements IService {
     };
   }
 
-  private async extractClassInformation(): Promise<Entity[]> {
+  private async extractClassInformation(filterFunction: (subject: RDF.NamedNode, store: QuadStore) => RDF.NamedNode | null): Promise<Entity[]> {
     return this.store.findSubjects(ns.rdf('type'), ns.owl('Class'))
-      .filter(x => isInScope(<RDF.NamedNode>x, this.store))
+      .filter(x => filterFunction(<RDF.NamedNode>x, this.store))
       .map(subjectId => this.extractEntityInformation(subjectId))
       .sort(alphabeticalSort);
   }
