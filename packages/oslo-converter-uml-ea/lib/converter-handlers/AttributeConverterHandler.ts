@@ -236,9 +236,8 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const rangeLabel: string = object.type;
       attributeType = PropertyType.Property;
 
-      const rangeElement: EaElement | undefined = model.elements.find(x => x.name === rangeLabel);
-
-      if (rangeElement) {
+      if (object.rangeClassId && model.elements.some(x => x.id === object.rangeClassId)) {
+        const rangeElement: EaElement = model.elements.find(x => x.id === object.rangeClassId)!
         const rangeIsLiteral: string = getTagValue(
           rangeElement,
           TagNames.IsLiteral,
@@ -282,6 +281,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`,
       );
     }
+
 
     quads.push(
       this.df.quad(
@@ -404,7 +404,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${dataRegistry.targetDiagram.path}) is placed.`,
       );
     }
-    
+
     this.addScope(
       <any>rangeElement,
       rangeInternalId,
