@@ -19,6 +19,7 @@ import {
 	classWithPropertyWithoutRange,
 	classWithPropertyWithoutRangeAssignedURI,
 	classWithoutAssignedURI,
+	dataWithRangeCodelist,
 	dataWithoutPackage,
 	dataWithoutPackageBaseURI,
 	jsonldClass,
@@ -206,4 +207,16 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
 		expect(() => (<any>service).createParentObject(df.namedNode('http://example.org/.well-known/id/class/1')))
 			.toThrow(new Error(`Unable to find the assigned URI for class http://example.org/.well-known/id/class/1 which acts as a parent.`))
 	});
+
+	it('should check for a codelist by the range if the range is a skos:Concept', async () => {
+		store.addQuads(await parseJsonld(dataWithRangeCodelist));
+		const propertyObject = {};
+		(<any>service).addPropertySpecificInformation(
+			df.namedNode('http://example.org/.well-known/id/property/1'),
+			propertyObject,
+			df.namedNode('http://example.org/.well-known/id/class/1'),
+		);
+
+		expect(propertyObject).toHaveProperty('codelist', 'http://example.org/codelist/1');
+	})
 });

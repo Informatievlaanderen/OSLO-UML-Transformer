@@ -295,3 +295,44 @@ export const classWithParentWithoutAssignedURI = [
         '@type': 'http://www.w3.org/2002/07/owl#Class',
     },
 ]
+
+export const dataWithRangeCodelist = [
+    {
+        '@id': 'http://example.org/.well-known/id/property/1',
+        'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+            '@id': 'http://example.org/id/property/1',
+        },
+        '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
+        'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+            {
+                '@language': 'en',
+                '@value': 'TestProperty',
+            },
+        ],
+        'http://www.w3.org/2000/01/rdf-schema#domain': [
+            {
+                '@id': 'http://example.org/.well-known/id/class/1',
+            },
+        ],
+        'http://www.w3.org/2000/01/rdf-schema#range': {
+            '@id': 'http://example.org/.well-known/id/class/1',
+        },
+        'http://w3.org/ns/shacl#maxCount': '*',
+    },
+    {
+        '@id': 'http://example.org/.well-known/id/class/1',
+        'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+            '@id': 'http://www.w3.org/2004/02/skos/core#Concept',
+        },
+        '@type': 'http://www.w3.org/2002/07/owl#Class',
+        'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+            {
+                '@language': 'en',
+                '@value': 'TestClass',
+            },
+        ],
+        'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#codelist': {
+            '@id': 'http://example.org/codelist/1',
+        },
+    },
+]
