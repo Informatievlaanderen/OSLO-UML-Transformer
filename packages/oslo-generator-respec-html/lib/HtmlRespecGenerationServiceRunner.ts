@@ -22,14 +22,15 @@ export class HtmlRespecGenerationServiceRunner extends
           default: 'Vocabulary',
         })
       .option('specificationName', { describe: 'The name of the specification' })
-      .option('stakeholders', { describe: 'The URL or local file path of an OSLO stakeholders JSON file.' })
+      .option('stakeholders',
+        { describe: 'The URL or local file path of an OSLO stakeholders JSON file.' })
       .option('silent',
         {
           describe: 'All logs are suppressed',
           default: false,
           boolean: true,
         })
-      .demandOption(['input', 'language', 'specificationName'])
+      .demandOption(['input', 'language', 'specificationName', 'stakeholders'])
       .help('h')
       .alias('h', 'help');
 
