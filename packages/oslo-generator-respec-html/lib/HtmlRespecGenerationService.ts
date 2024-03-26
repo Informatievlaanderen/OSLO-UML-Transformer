@@ -160,6 +160,7 @@ export class HtmlRespecGenerationService implements IService {
       shortName: this.configuration.specificationName,
       editors: editors?.map(editor => this.convertStakeholder(editor)) ?? [],
       authors: authors?.map(author => this.convertStakeholder(author)) ?? [],
+      // left out contributors since this is not a supported key for respec templates
       publishDate: new Date().toISOString(),
     };
 
@@ -223,9 +224,10 @@ export class HtmlRespecGenerationService implements IService {
       }
     });
 
-    const properties = this.store.findSubjects(ns.rdfs('domain'), subjectId).map((property: RDF.Term) => {
-      return this.getPropertyInformation(property);
-    });
+    const properties = this.store
+      .findSubjects(ns.rdfs('domain'), subjectId).map((property: RDF.Term) => {
+        return this.getPropertyInformation(property);
+      }).sort(alphabeticalSort);
 
     return {
       id: assignedUri?.value,
