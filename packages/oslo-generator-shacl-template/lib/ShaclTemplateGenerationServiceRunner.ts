@@ -13,22 +13,30 @@ export class ShaclTemplateGenerationServiceRunner extends
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
       .option('input', { describe: 'The input file to generate a SHACL template from.' })
-      .option('output', { describe: 'Name of the output file.', default: 'shacl.jsonld' })
+      .option('output', {
+        describe: 'Name of the output file. By default, a file in the chosen output format will be created',
+        default: '',
+      })
+      .option('outputFormat', {
+        describe: 'The format of the output file.',
+        default: 'application/ld+json',
+        choices: ['application/ld+json', 'text/turtle', 'application/n-triples'],
+      })
       .option('language', { describe: 'The language in which the SHACL template must be generated.' })
       .option('shapeBaseURI', {
         describe: 'The base URI to be used for the HTTP URIs of the SHACL shapes.',
-        default: 'http://example.org',
+        default: 'http://example.org#',
       })
       .option('mode', {
         describe: 'The generation mode, which can be \'grouped\' or \'individual\'.',
         default: 'grouped',
         choices: ['grouped', 'individual'],
       })
-      .option('constraints', {
+      .option('constraint', {
         describe: 'Additional constraints to add to the SHACL shape.',
         type: 'array',
         default: [],
-        choices: ['stringsNotEmpty', 'uniqueLanguages', 'nodeKind'],
+        choices: ['stringsNotEmpty', 'uniqueLanguages', 'nodeKind', 'codelist'],
       })
       .option('applicationProfileURL', {
         describe: `The URL on which the application profile is published. 
@@ -36,12 +44,7 @@ export class ShaclTemplateGenerationServiceRunner extends
         default: '',
       })
       .option('useUniqueURIs', {
-        describe: 'Create unique HTTP URIs for the individual SHACL shapes using the labels',
-        default: false,
-        boolean: true,
-      })
-      .option('addCodelistRules', {
-        describe: 'Add rules for codelists, if they are present',
+        describe: 'Create unique HTTP URIs for the individual constraint using the labels',
         default: false,
         boolean: true,
       })

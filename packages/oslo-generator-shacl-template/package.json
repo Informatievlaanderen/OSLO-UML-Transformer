@@ -41,14 +41,19 @@
   },
   "dependencies": {
     "@oslo-flanders/core": "^0.0.6-alpha.0",
+    "i18n": "^0.15.1",
     "inversify": "^6.0.1",
     "module-alias": "^2.2.3",
     "n3": "^1.17.2",
     "rdf-data-factory": "^1.1.2",
+    "rdf-serialize": "^2.2.3",
     "reflect-metadata": "^0.2.1",
+    "streamify-array": "^1.0.1",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@types/i18n": "^0.13.10",
+    "@types/n3": "^1.16.4",
     "jest-runner-groups": "^2.2.0"
   }
 }

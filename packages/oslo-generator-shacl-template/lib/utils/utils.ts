@@ -21,12 +21,19 @@ export function getConstraints(constraintStrings: string[] | undefined): Constra
 		switch (constraintString) {
 			case "stringsNotEmpty":
 				return Constraint.StringsNotEmpty;
-			case "uniqueLanguage":
+			case "uniqueLanguages":
 				return Constraint.UniqueLanguage;
 			case "nodeKind":
 				return Constraint.NodeKind;
+			case "codelist":
+				return Constraint.Codelist;
 			default:
 				throw new Error(`Constraint '${constraintString}' is not supported.`);
 		}
 	});
 }
+
+export const toPascalCase = (str: string): string => str
+	.split(' ')
+	.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+	.join('')

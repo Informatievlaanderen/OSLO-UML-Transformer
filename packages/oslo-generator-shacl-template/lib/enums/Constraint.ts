@@ -12,5 +12,10 @@ export enum Constraint {
   /**
    * Add constraint that the range of the property should be a sh:IRI of sh:Literal, depending on its type
    */
-  NodeKind
+  NodeKind,
+
+  /**
+   * Add constraint rules for codelist
+   */
+  Codelist,
 }
