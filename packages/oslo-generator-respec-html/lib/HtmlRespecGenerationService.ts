@@ -13,7 +13,6 @@ import { isInScope, isScoped } from '@oslo-generator-respec-html/utils/scopeFilt
 import { SpecificationType } from '@oslo-generator-respec-html/utils/specificationTypeEnum';
 import { Entity } from '@oslo-generator-respec-html/types/Entity';
 import type { Stakeholder, StakeholdersDocument } from '@oslo-flanders/stakeholders-converter/lib/types/StakeholdersDocument';
-import { SKOS_CONCEPT } from '@oslo-generator-respec-html/utils/skosConstants';
 
 @injectable()
 export class HtmlRespecGenerationService implements IService {
@@ -126,7 +125,7 @@ export class HtmlRespecGenerationService implements IService {
     const rangeAssignedUri = this.store.getAssignedUri(range);
 
     // If the range is an external scope, we need to fetch the codelist from the range
-    if (rangeAssignedUri?.value === SKOS_CONCEPT && !codelist?.value) {
+    if (rangeAssignedUri?.equals(ns.skos('Concept')) && !codelist?.value) {
       codelist = this.store.getCodelist(range);
     }
 
