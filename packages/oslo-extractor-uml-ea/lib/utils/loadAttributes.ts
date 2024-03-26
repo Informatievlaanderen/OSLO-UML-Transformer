@@ -20,6 +20,7 @@ export function loadAttributes(mdb: MDBReader, model: DataRegistry): DataRegistr
         <string>attribute.Type,
         <string>attribute.LowerBound,
         <string>attribute.UpperBound,
+        Number.parseInt(attribute.Classifier, 10) || undefined,
       ));
     }
 
