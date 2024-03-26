@@ -13,6 +13,8 @@ import { isInScope, isScoped } from '@oslo-generator-respec-html/utils/scopeFilt
 import { SpecificationType } from '@oslo-generator-respec-html/utils/specificationTypeEnum';
 import { Entity } from '@oslo-generator-respec-html/types/Entity';
 import type { Stakeholder, StakeholdersDocument } from '@oslo-flanders/stakeholders-converter/lib/types/StakeholdersDocument';
+import { SKOS_CONCEPT } from '@oslo-generator-respec-html/utils/skosConstants';
+
 @injectable()
 export class HtmlRespecGenerationService implements IService {
   public readonly logger: Logger;
@@ -104,7 +106,7 @@ export class HtmlRespecGenerationService implements IService {
     const assignedUri = this.store.getAssignedUri(subjectId);
     const minCount = this.store.getMinCardinality(subjectId);
     const maxCount = this.store.getMaxCardinality(subjectId);
-    const codelist = this.store.getCodelist(subjectId);
+    let codelist = this.store.getCodelist(subjectId);
 
     const label = this.fetchLabel(subjectId);
     const definition = this.fetchDefinition(subjectId);
@@ -122,6 +124,11 @@ export class HtmlRespecGenerationService implements IService {
     }
 
     const rangeAssignedUri = this.store.getAssignedUri(range);
+
+    // If the range is an external scope, we need to fetch the codelist from the range
+    if (rangeAssignedUri?.value === SKOS_CONCEPT && !codelist?.value) {
+      codelist = this.store.getCodelist(range);
+    }
 
     if (!rangeAssignedUri) {
       this.logger.error(`Unable to find the assigned URI of range (${range.value}) of attribute ${subjectId.value}.`);
