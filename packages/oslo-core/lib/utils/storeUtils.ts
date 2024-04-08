@@ -127,11 +127,3 @@ export function getMaxCount(
 ): string | undefined {
     return store.findObject(subject, ns.shacl('maxCount'))?.value;
 }
-
-export function getCodelist(
-    subject: RDF.Term,
-    store: QuadStore,
-): string | undefined {
-    return store.findObject(subject, ns.oslo('codelist'))?.value;
-}
-

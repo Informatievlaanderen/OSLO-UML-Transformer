@@ -12,7 +12,6 @@ import {
   ns,
   getMinCount,
   getMaxCount,
-  getCodelist
 } from "@oslo-flanders/core";
 import { inject, injectable } from "inversify";
 import { JsonWebuniversumGenerationServiceConfiguration } from "@oslo-generator-json-webuniversum/config/JsonWebuniversumGenerationServiceConfiguration";
@@ -169,7 +168,15 @@ export class JsonWebuniversumGenerationService implements IService {
 
     getMinCount(subject, this.store) && (propertyObject.minCount = getMinCount(subject, this.store));
     getMaxCount(subject, this.store) && (propertyObject.maxCount = getMaxCount(subject, this.store));
-    getCodelist(subject, this.store) && (propertyObject.codelist = getCodelist(subject, this.store));
+
+    let codelist = this.store.getCodelist(subject);
+    if (!codelist && rangeAssignedURI.equals(ns.skos('Concept'))) {
+      codelist = this.store.getCodelist(range);
+    }
+
+    if (codelist) {
+      propertyObject.codelist = codelist.value;
+    }
 
     return propertyObject;
   }
