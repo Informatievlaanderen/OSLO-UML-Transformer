@@ -1,4 +1,4 @@
-import 'module-alias/register';
+require('module-alias')(__dirname)
 
 export * from '@oslo-extractor-uml-ea/DataRegistry';
 export * from '@oslo-extractor-uml-ea/types/EaAttribute';
