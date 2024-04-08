@@ -1,4 +1,9 @@
-require('module-alias')(__dirname)
+const moduleAlias = require('module-alias')
+
+moduleAlias.addAliases({
+    '@oslo-extractor-uml-ea': `${__dirname}/lib`,
+    "@oslo-core": "node_modules/@oslo-flanders/core/lib",
+})
 
 export * from '@oslo-extractor-uml-ea/DataRegistry';
 export * from '@oslo-extractor-uml-ea/types/EaAttribute';
