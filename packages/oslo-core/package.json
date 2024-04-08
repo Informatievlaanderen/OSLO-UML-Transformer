@@ -75,5 +75,5 @@
     "@types/streamify-string": "^1.0.0",
     "@types/tmp": "^0.2.3"
   },
-  "gitHead": "43e75d25ff3b17e6e147ae546d2d8645898e5ffe"
+  "gitHead": "ec9638c5a9156c5506a668205b2288c14d0f840d"
 }
