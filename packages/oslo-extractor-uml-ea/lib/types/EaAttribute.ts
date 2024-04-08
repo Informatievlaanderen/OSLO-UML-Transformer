@@ -9,6 +9,7 @@ export class EaAttribute extends EaObject {
   public readonly type: string;
   public readonly lowerBound: string;
   public readonly upperBound: string;
+  public readonly rangeClassId: number | undefined;
 
   public constructor(
     id: number,
@@ -18,6 +19,7 @@ export class EaAttribute extends EaObject {
     type: string,
     lowerBound: string,
     upperBound: string,
+    rangeClassId?: number,
   ) {
     super(id, name, guid);
 
@@ -25,6 +27,7 @@ export class EaAttribute extends EaObject {
     this.type = type;
     this.lowerBound = lowerBound;
     this.upperBound = upperBound;
+    this.rangeClassId = rangeClassId;
 
     this.osloGuid = uniqueId(guid, name, id);
   }
