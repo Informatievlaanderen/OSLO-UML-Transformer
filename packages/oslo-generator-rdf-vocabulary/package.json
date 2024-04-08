@@ -75,5 +75,6 @@
     "streamify-array": "^1.0.1",
     "streamify-string": "^1.0.1",
     "yargs": "^17.6.0"
-  }
+  },
+  "gitHead": "43e75d25ff3b17e6e147ae546d2d8645898e5ffe"
 }

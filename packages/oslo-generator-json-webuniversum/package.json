@@ -67,5 +67,6 @@
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0"
-  }
+  },
+  "gitHead": "43e75d25ff3b17e6e147ae546d2d8645898e5ffe"
 }
