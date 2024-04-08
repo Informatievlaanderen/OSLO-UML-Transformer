@@ -5,7 +5,7 @@ const moduleAlias = require('module-alias')
 
 moduleAlias.addAliases({
     '@oslo-extractor-uml-ea': `${__dirname}/lib`,
-    "@oslo-core": `${__dirname}/node_modules/@oslo-flanders/core/lib`,
+    "@oslo-core": `${__dirname}/../core/lib`,
 })
 
 export * from '@oslo-extractor-uml-ea/DataRegistry';
