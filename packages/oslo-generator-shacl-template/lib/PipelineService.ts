@@ -26,10 +26,9 @@ export class PipelineService {
     @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
   ) {
     this.logger = logger;
-    this.createPipelines(config);
   }
 
-  private createPipelines(config: ShaclTemplateGenerationServiceConfiguration): void {
+  public createPipelines(config: ShaclTemplateGenerationServiceConfiguration): void {
     const translationService: TranslationService = container.get<TranslationService>(ShaclTemplateGenerationServiceIdentifier.TranslationService);
 
     this._classPipeline = new Pipeline();
@@ -40,6 +39,7 @@ export class PipelineService {
     this._propertyPipeline.addComponent(new CardinalityConstraintHandler(config, this.logger, translationService));
 
     if (config.constraint.includes(Constraint.NodeKind)) {
+      
       this._propertyPipeline.addComponent(new NodeKindConstraintHandler(config, this.logger, translationService));
     }
 

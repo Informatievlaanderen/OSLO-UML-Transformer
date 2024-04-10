@@ -1,11 +1,23 @@
-import { getApplicationProfileLabel, ns, type QuadStore } from "@oslo-flanders/core";
+import { Logger, getApplicationProfileLabel, ns, type QuadStore } from "@oslo-flanders/core";
 import type * as RDF from "@rdfjs/types";
 import { GenerationMode } from "@oslo-generator-shacl-template/enums/GenerationMode";
 import { TranslationKey } from "@oslo-generator-shacl-template/enums/TranslationKey";
 import type { NamedOrBlankNode } from "@oslo-generator-shacl-template/types/IHandler";
 import { ShaclHandler } from "@oslo-generator-shacl-template/types/IHandler";
+import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
+import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
+import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { inject } from "inversify";
 
 export class CodelistConstraintHandler extends ShaclHandler {
+  public constructor(
+    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration,
+    @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
+    @inject(ShaclTemplateGenerationServiceIdentifier.TranslationService) translationService: TranslationService,
+  ) {
+    super(config, logger, translationService);
+  }
+
   public handle(
     subject: RDF.NamedNode,
     store: QuadStore,
@@ -43,20 +55,33 @@ export class CodelistConstraintHandler extends ShaclHandler {
   }
 
   private handleIndividualMode(subject: RDF.NamedNode, shapeId: NamedOrBlankNode, codelist: RDF.NamedNode, store: QuadStore, shaclStore: QuadStore): void {
-    const baseQuads = store.findQuads(shapeId, null, null, null);
+    const baseQuads = shaclStore.findQuads(shapeId, null, null, this.df.namedNode('baseQuadsGraph'));
     const constraintId = `${shapeId.value}-CodelistConstraint`;
-    shaclStore.addQuads(baseQuads.map((quad) =>
-      <RDF.Quad>this.df.quad(this.df.namedNode(constraintId), quad.predicate, quad.object)));
+    shaclStore.addQuads(baseQuads.map((quad) => {
+      if (quad.predicate.equals(ns.shacl('property'))) {
+        return <RDF.Quad>this.df.quad(quad.subject, quad.predicate, this.df.namedNode(constraintId))
+      }
+      return <RDF.Quad>this.df.quad(this.df.namedNode(constraintId), quad.predicate, quad.object)
+    }));
 
-    const label = getApplicationProfileLabel(subject, store, this.config.language);
-    if (!label) {
-      throw new Error(`Unable to find the label for subject "${subject.value}".`);
+    this.addConstraintQuads(constraintId, codelist, shaclStore);
+
+    if (this.config.addConstraintMessages) {
+      const label = getApplicationProfileLabel(subject, store, this.config.language);
+      if (!label) {
+        throw new Error(`Unable to find the label for subject "${subject.value}".`);
+      }
+
+      const constraintMessage =
+        this.translationService.translate(TranslationKey.CodelistConstraint,
+          { label: label.value, codelist: codelist.value });
+
+      shaclStore.addQuad(
+        this.df.quad(this.df.namedNode(constraintId), ns.vl('message'), this.df.literal(constraintMessage)));
     }
-
-    this.addConstraintQuads(constraintId, codelist, label, shaclStore);
   }
 
-  private addConstraintQuads(constraintId: string, codelist: RDF.NamedNode, label: RDF.Literal, shaclStore: QuadStore): void {
+  private addConstraintQuads(constraintId: string, codelist: RDF.NamedNode, shaclStore: QuadStore): void {
     const nodeBlankNode = this.df.blankNode();
     const propertyBlankNode = this.df.blankNode();
     shaclStore.addQuads(
@@ -71,14 +96,5 @@ export class CodelistConstraintHandler extends ShaclHandler {
         this.df.quad(propertyBlankNode, ns.shacl('path'), ns.skos('inScheme')),
         this.df.quad(this.df.namedNode(constraintId), ns.shacl('nodeKind'), ns.shacl('IRI')),
       ]);
-
-    if (this.config.addConstraintMessages) {
-      const constraintMessage =
-        this.translationService.translate(TranslationKey.CodelistConstraint,
-          { label: label.value, codelist: codelist.value });
-
-      shaclStore.addQuad(
-        this.df.quad(this.df.namedNode(constraintId), ns.vl('message'), this.df.literal(constraintMessage)));
-    }
   }
 }

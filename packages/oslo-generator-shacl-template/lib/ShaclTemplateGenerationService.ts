@@ -33,12 +33,13 @@ export class ShaclTemplateGenerationService implements IService {
   }
 
   public async init(): Promise<void> {
+    this.pipelineService.createPipelines(this.configuration);
     return this.store.addQuadsFromFile(this.configuration.input);
   }
 
   public async run(): Promise<void> {
     const shaclStore = new QuadStore();
-    const classIdToShapeIdMap = this.createSubjectToShapeIdMap(this.store.getClassIds(), false);
+    const classIdToShapeIdMap = this.createSubjectToShapeIdMap([...this.store.getClassIds(), ...this.store.getDatatypes()], false);
     const propertyIdToShapeIdMap = this.createSubjectToShapeIdMap(
       [...this.store.getDatatypePropertyIds(), ...this.store.getObjectPropertyIds()],
       this.configuration.mode === GenerationMode.Grouped ? true : false,
@@ -46,8 +47,7 @@ export class ShaclTemplateGenerationService implements IService {
 
     this.pipelineService.loadSubjectIdToShapeIdMaps(classIdToShapeIdMap, propertyIdToShapeIdMap);
 
-
-    for (const classId of this.store.getClassIds()) {
+    for (const classId of [...this.store.getClassIds(), ...this.store.getDatatypes()]) {
       this.pipelineService.classPipeline.handle(classId, this.store, shaclStore);
     }
 
@@ -74,8 +74,28 @@ export class ShaclTemplateGenerationService implements IService {
         shapeId = df.blankNode();
       } else {
         const subjectType = this.store.findObject(subject, ns.rdf('type'))!;
-        const suffix = subjectType.equals(ns.owl('Class')) ? 'Shape' : 'Property';
-        shapeId = df.namedNode(`${this.configuration.shapeBaseURI}${toPascalCase(label.value)}${suffix}`)
+        const suffix = (subjectType.equals(ns.owl('Class')) || subjectType.equals(ns.rdfs('Datatype'))) ? 'Shape' : 'Property';
+
+        let fragmentIdentifier = '';
+        if (subjectType.equals(ns.owl('Class')) || subjectType.equals(ns.rdfs('Datatype'))) {
+          fragmentIdentifier = `${toPascalCase(label.value)}${suffix}`;
+        } else {
+          const domain = this.store.getDomain(subject);
+
+          if (!domain) {
+            throw new Error(`Unable to find the domain for subject "${subject.value}".`);
+          }
+
+          const domainLabel = getApplicationProfileLabel(domain, this.store, this.configuration.language);
+
+          if (!domainLabel) {
+            throw new Error(`Unable to find the label for domain "${domain.value}".`);
+          }
+
+          fragmentIdentifier = `${toPascalCase(domainLabel.value)}.${toPascalCase(label.value)}${suffix}`;
+        }
+
+        shapeId = df.namedNode(`${this.configuration.shapeBaseURI}${fragmentIdentifier}`)
       }
 
       subjectToShapeIdMap.set(subject.value, shapeId);

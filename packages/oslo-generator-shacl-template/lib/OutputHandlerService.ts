@@ -4,14 +4,28 @@ import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-
 import { QuadStore } from "@oslo-flanders/core";
 import { createWriteStream } from "fs";
 import rdfSerializer from "rdf-serialize";
+import { DataFactory } from 'rdf-data-factory';
+import type * as RDF from '@rdfjs/types';
+import { quadSort } from "./utils/utils";
 
 @injectable()
 export class OutputHandlerService {
-  @inject(ShaclTemplateGenerationServiceIdentifier.Configuration)
-  public readonly config!: ShaclTemplateGenerationServiceConfiguration;
+  public readonly config: ShaclTemplateGenerationServiceConfiguration;
+
+  public constructor(
+    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration
+  ) {
+    this.config = config;
+  }
 
   public async write(store: QuadStore): Promise<void> {
-    const quadStream = require('streamify-array')(store.findQuads(null, null, null, null));
+    const df: DataFactory = new DataFactory();
+    let quads = [
+      ...store.findQuads(null, null, null, df.defaultGraph()),
+      ...(store.findQuads(null, null, null, df.namedNode('baseQuadsGraph'))).map(quad => df.quad(quad.subject, quad.predicate, quad.object)),
+    ].sort(quadSort);
+
+    const quadStream = require('streamify-array')(quads);
     const outputStream = rdfSerializer.serialize(quadStream, { contentType: this.config.outputFormat });
 
     let fileName: string = this.config.output ? this.config.output : `shacl.${this.getFileExtension()}`;

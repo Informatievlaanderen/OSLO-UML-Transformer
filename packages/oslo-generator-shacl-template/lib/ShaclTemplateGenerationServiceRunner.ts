@@ -36,7 +36,7 @@ export class ShaclTemplateGenerationServiceRunner extends
         describe: 'Additional constraints to add to the SHACL shape.',
         type: 'array',
         default: [],
-        choices: ['stringsNotEmpty', 'uniqueLanguages', 'nodeKind', 'codelist'],
+        choices: ['uniqueLanguages', 'nodeKind', 'codelist'],
       })
       .option('applicationProfileURL', {
         describe: `The URL on which the application profile is published. 

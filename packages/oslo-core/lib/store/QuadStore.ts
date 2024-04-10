@@ -105,6 +105,14 @@ export class QuadStore {
   }
 
   /**
+   * Finds all subjects where predicate is 'rdf:type' and object 'rdfs:Datatype'
+   * @returns an array of RDF.NamedNodes
+   */
+  public getDatatypes(graph: RDF.Term | null = null): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(this.store.getSubjects(ns.rdf('type'), ns.rdfs('Datatype'), graph));
+  }
+
+  /**
    * Finds all subjects where predicate is 'rdf:type' and object 'owl:DatatypeProperty'
    * @returns an array of RDF.NamedNodes
    */

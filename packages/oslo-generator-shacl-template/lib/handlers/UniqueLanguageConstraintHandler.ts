@@ -1,11 +1,23 @@
-import { getApplicationProfileLabel, ns, type QuadStore } from "@oslo-flanders/core";
+import { getApplicationProfileLabel, Logger, ns, type QuadStore } from "@oslo-flanders/core";
 import type * as RDF from '@rdfjs/types';
 import { GenerationMode } from "@oslo-generator-shacl-template/enums/GenerationMode";
 import { TranslationKey } from "@oslo-generator-shacl-template/enums/TranslationKey";
 import type { NamedOrBlankNode } from "@oslo-generator-shacl-template/types/IHandler";
 import { ShaclHandler } from "@oslo-generator-shacl-template/types/IHandler";
+import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
+import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
+import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { inject } from "inversify";
 
 export class UniqueLanguageConstraintHandler extends ShaclHandler {
+  public constructor(
+    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration,
+    @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
+    @inject(ShaclTemplateGenerationServiceIdentifier.TranslationService) translationService: TranslationService,
+  ) {
+    super(config, logger, translationService);
+  }
+
   public handle(
     subject: NamedOrBlankNode,
     store: QuadStore,
@@ -24,8 +36,6 @@ export class UniqueLanguageConstraintHandler extends ShaclHandler {
     }
 
     if (rangeAssignedURI.equals(ns.rdf('langString'))) {
-      const quads: RDF.Quad[] = [];
-
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const shapeId: NamedOrBlankNode = this.propertyIdToShapeIdMap.get(subject.value)!;
       if (this.config.mode === GenerationMode.Grouped) {
@@ -42,17 +52,25 @@ export class UniqueLanguageConstraintHandler extends ShaclHandler {
   }
 
   private handleIndividualMode(subject: NamedOrBlankNode, shapeId: NamedOrBlankNode, store: QuadStore, shaclStore: QuadStore): void {
-    const baseQuads = shaclStore.findQuads(shapeId, null, null, null);
+    const baseQuads = shaclStore.findQuads(shapeId, null, null, this.df.namedNode('baseQuadsGraph'));
     const constraintId = `${shapeId.value}-UniqueLangConstraint`;
-    shaclStore.addQuads(baseQuads.map((quad) =>
-      <RDF.Quad>this.df.quad(this.df.namedNode(constraintId), quad.predicate, quad.object)));
+    shaclStore.addQuads(baseQuads.map((quad) => {
+      if (quad.predicate.equals(ns.shacl('property'))) {
+        return <RDF.Quad>this.df.quad(quad.subject, quad.predicate, this.df.namedNode(constraintId))
+      }
+      return <RDF.Quad>this.df.quad(this.df.namedNode(constraintId), quad.predicate, quad.object)
+    }));
 
-    const label = getApplicationProfileLabel(subject, store, this.config.language);
-    if (!label) {
-      throw new Error(`Unable to find the label for subject "${subject.value}".`);
+    if (this.config.addConstraintMessages) {
+      const label = getApplicationProfileLabel(subject, store, this.config.language);
+      if (!label) {
+        throw new Error(`Unable to find the label for subject "${subject.value}".`);
+      }
+
+      this.addConstraintMessage(constraintId, label, shaclStore);
     }
 
-    this.addConstraintMessage(constraintId, label, shaclStore);
+
     shaclStore.addQuad(this.df.quad(this.df.namedNode(constraintId), ns.shacl('uniqueLang'), this.df.literal('true', ns.xsd('boolean'))));
   }
 
@@ -61,17 +79,15 @@ export class UniqueLanguageConstraintHandler extends ShaclHandler {
     label: RDF.Literal,
     shaclStore: QuadStore,
   ): void {
-    if (this.config.addConstraintMessages) {
-      const constraintMessage =
-        this.translationService.translate(TranslationKey.UniqueLanguageConstraint, { label: label.value });
+    const constraintMessage =
+      this.translationService.translate(TranslationKey.UniqueLanguageConstraint, { label: label.value });
 
-      shaclStore.addQuad(
-        this.df.quad(
-          this.df.namedNode(constraintId),
-          ns.vl('message'),
-          this.df.literal(constraintMessage),
-        ),
-      )
-    }
+    shaclStore.addQuad(
+      this.df.quad(
+        this.df.namedNode(constraintId),
+        ns.vl('message'),
+        this.df.literal(constraintMessage),
+      ),
+    )
   }
 }

@@ -5,11 +5,24 @@ import type { NamedOrBlankNode } from "@oslo-generator-shacl-template/types/IHan
 import { ShaclHandler }
   from "@oslo-generator-shacl-template/types/IHandler";
 import { toPascalCase } from "@oslo-generator-shacl-template/utils/utils";
+import { inject } from "inversify";
+import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { Logger } from "@oslo-flanders/core";
+import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
+import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
 
 /**
  * Adds the base information for a property shape.
  */
 export class PropertyShapeBaseHandler extends ShaclHandler {
+  public constructor(
+    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration,
+    @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
+    @inject(ShaclTemplateGenerationServiceIdentifier.TranslationService) translationService: TranslationService,
+  ) {
+    super(config, logger, translationService);
+  }
+  
   public handle(
     subject: RDF.NamedNode,
     store: QuadStore,
@@ -63,32 +76,39 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const domainShapeId: NamedOrBlankNode = this.classIdToShapeIdMap.get(domain.value)!;
 
+    // For these base quads, we add a graph so that every other handler can extract these base quads
+    const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
     shaclStore.addQuads([
       this.df.quad(
         shapeId,
         ns.shacl('path'),
         assignedURI,
+        baseQuadsGraph,
       ),
       this.df.quad(
         shapeId,
         ns.shacl('name'),
         label,
+        baseQuadsGraph,
       ),
       ...(description ? [this.df.quad(
         shapeId,
         ns.shacl('description'),
         description,
+        baseQuadsGraph,
       )] : [])
       ,
       this.df.quad(
         shapeId,
         propertyTypePredicate,
         rangeAssignedURI,
+        baseQuadsGraph,
       ),
       this.df.quad(
         domainShapeId,
         ns.shacl('property'),
         shapeId,
+        baseQuadsGraph,
       ),
     ])
 
@@ -96,13 +116,13 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
       const domainLabel = getApplicationProfileLabel(domain, store, this.config.language);
 
       if (!domainLabel) {
-        throw new Error(`Unable to find a label for the domain "${domain.value}" of subject ${subject.value}.`);
+        throw new Error(`Unable to find a label for the domain "${domain.value}" of subject "${subject.value}".`);
       }
 
       const seeAlso = `${this.config.applicationProfileURL}#${toPascalCase(domainLabel.value)}.${toPascalCase(label.value)}`;
 
       shaclStore.addQuad(
-        this.df.quad(shapeId, ns.rdfs('seeAlso'), this.df.namedNode(seeAlso)),
+        this.df.quad(shapeId, ns.rdfs('seeAlso'), this.df.namedNode(seeAlso), baseQuadsGraph),
       )
     }
 
@@ -112,6 +132,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
           shapeId,
           ns.vl('rule'),
           this.df.literal('', ns.xsd('string')),
+          baseQuadsGraph,
         ),
       )
     }

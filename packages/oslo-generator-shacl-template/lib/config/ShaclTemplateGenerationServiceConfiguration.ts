@@ -136,14 +136,16 @@ export class ShaclTemplateGenerationServiceConfiguration implements IConfigurati
 	}
 
 	public get useUniqueURIs(): boolean {
-		if (!this._useUniqueURIs) {
+		// Explicitly check for undefined, because when boolean is false, it evaluates to false
+		if (this._useUniqueURIs === undefined) {
 			throw new Error(`Trying to access "useUniqueURIs" before it was set.`)
 		}
 		return this._useUniqueURIs;
 	}
 
 	public get addConstraintMessages(): boolean {
-		if (!this._addConstraintMessages) {
+		// Explicitly check for undefined, because when boolean is false, it evaluates to false
+		if (this._addConstraintMessages === undefined) {
 			throw new Error(`Trying to access "addConstraintMessages" before it was set.`)
 		}
 		return this._addConstraintMessages;
