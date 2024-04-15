@@ -36,7 +36,6 @@ export class UniqueLanguageConstraintHandler extends ShaclHandler {
     }
 
     if (rangeAssignedURI.equals(ns.rdf('langString'))) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const shapeId: NamedOrBlankNode = this.propertyIdToShapeIdMap.get(subject.value)!;
       if (this.config.mode === GenerationMode.Grouped) {
         this.handleGroupedMode(shapeId, shaclStore);

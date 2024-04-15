@@ -22,7 +22,6 @@ export class CardinalityConstraintHandler extends ShaclHandler {
     subject: NamedOrBlankNode,
     store: QuadStore,
     shaclStore: QuadStore): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const shapeId: NamedOrBlankNode = this.propertyIdToShapeIdMap.get(subject.value)!;
     const maxCount = store.getMaxCardinality(subject);
     if (maxCount) {

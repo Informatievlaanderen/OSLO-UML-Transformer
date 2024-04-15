@@ -39,7 +39,7 @@ describe('PipelineService', () => {
     config = new ShaclTemplateGenerationServiceConfiguration();
     await config.createFromCli(params);
 
-    service = new PipelineService(config, logger);
+    service = new PipelineService(logger);
     service.createPipelines(config);
   });
 
@@ -48,7 +48,7 @@ describe('PipelineService', () => {
   })
 
   it('should return the "classPipeline"', () => {
-    const pipelineService = new PipelineService(config, logger);
+    const pipelineService = new PipelineService(logger);
     expect(() => pipelineService.classPipeline)
       .toThrow(new Error(`Trying to access "classPipeline" before it is set.`));
 
@@ -57,7 +57,7 @@ describe('PipelineService', () => {
   });
 
   it('should return the "propertyPipeline"', () => {
-    const pipelineService = new PipelineService(config, logger);
+    const pipelineService = new PipelineService(logger);
     expect(() => pipelineService.propertyPipeline)
       .toThrow(new Error(`Trying to access "propertyPipeline" before it is set.`));
 
@@ -85,7 +85,7 @@ describe('PipelineService', () => {
   it('should add the NodeKindConstraintHandler to the property pipeline', async () => {
     params.constraint = ['nodeKind'];
     await config.createFromCli(params);
-    service = new PipelineService(config, logger);
+    service = new PipelineService(logger);
     service.createPipelines(config);
 
     expect(doesPipelineContainClass(service.propertyPipeline, 'NodeKindConstraintHandler')).toBe(true);
@@ -94,7 +94,7 @@ describe('PipelineService', () => {
   it('should add the UniqueLanguageConstraintHandler to the property pipeline', async () => {
     params.constraint = ['uniqueLanguages'];
     await config.createFromCli(params);
-    service = new PipelineService(config, logger);
+    service = new PipelineService(logger);
     service.createPipelines(config);
 
     expect(doesPipelineContainClass(service.propertyPipeline, 'UniqueLanguageConstraintHandler')).toBe(true);
@@ -103,7 +103,7 @@ describe('PipelineService', () => {
   it('should add the CodelistConstraintHandler to the property pipeline', async () => {
     params.constraint = ['codelist'];
     await config.createFromCli(params);
-    service = new PipelineService(config, logger);
+    service = new PipelineService(logger);
     service.createPipelines(config);
 
     expect(doesPipelineContainClass(service.propertyPipeline, 'CodelistConstraintHandler')).toBe(true);

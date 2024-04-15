@@ -1,8 +1,9 @@
 import type * as RDF from '@rdfjs/types';
 import rdfParser from 'rdf-parse';
+import streamifyString from 'streamify-string'
 
 export function parseJsonld(data: any): Promise<RDF.Quad[]> {
-  const textStream = require('streamify-string')(JSON.stringify(data));
+  const textStream = streamifyString(JSON.stringify(data));
 
   return new Promise<RDF.Quad[]>((resolve, reject) => {
     const quads: RDF.Quad[] = [];

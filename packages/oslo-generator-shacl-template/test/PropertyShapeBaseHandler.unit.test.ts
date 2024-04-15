@@ -22,7 +22,7 @@ import {
   dataWithNoType,
   dataWithoutDomainLabel,
 } from './data/propertyShapeBaseHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('PropertyShapeBaseHandler', () => {
   const logger: Logger = new VoidLogger();

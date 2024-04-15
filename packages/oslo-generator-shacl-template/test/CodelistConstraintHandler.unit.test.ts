@@ -18,7 +18,7 @@ import {
   propertyWithoutLabel,
   rangeWithCodelist,
 } from './data/codelistConstraintHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('CodelistConstraintHandler', () => {
   const logger: Logger = new VoidLogger();

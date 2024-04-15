@@ -5,8 +5,8 @@ import { QuadStore } from "@oslo-flanders/core";
 import { createWriteStream } from "fs";
 import rdfSerializer from "rdf-serialize";
 import { DataFactory } from 'rdf-data-factory';
-import type * as RDF from '@rdfjs/types';
 import { quadSort } from "./utils/utils";
+import streamifyArray from "streamify-array";
 
 @injectable()
 export class OutputHandlerService {
@@ -25,7 +25,7 @@ export class OutputHandlerService {
       ...(store.findQuads(null, null, null, df.namedNode('baseQuadsGraph'))).map(quad => df.quad(quad.subject, quad.predicate, quad.object)),
     ].sort(quadSort);
 
-    const quadStream = require('streamify-array')(quads);
+    const quadStream = streamifyArray(quads);
     const outputStream = rdfSerializer.serialize(quadStream, { contentType: this.config.outputFormat });
 
     let fileName: string = this.config.output ? this.config.output : `shacl.${this.getFileExtension()}`;

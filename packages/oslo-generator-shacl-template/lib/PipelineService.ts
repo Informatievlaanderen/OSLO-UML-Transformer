@@ -1,7 +1,6 @@
 import { ShaclTemplateGenerationServiceConfiguration } from "./config/ShaclTemplateGenerationServiceConfiguration";
 import { ClassShapeBaseHandler } from "./handlers/ClassShapeBaseHandler";
-import type * as RDF from '@rdfjs/types'
-import type { IHandler, NamedOrBlankNode, ShaclHandler } from "./types/IHandler";
+import type { NamedOrBlankNode } from "./types/IHandler";
 import { PropertyShapeBaseHandler } from "./handlers/PropertyShapeBaseHandler";
 import { inject, injectable } from "inversify";
 import { ShaclTemplateGenerationServiceIdentifier } from "./config/ShaclTemplateGenerationServiceIdentifier";
@@ -22,7 +21,6 @@ export class PipelineService {
   private readonly logger: Logger;
 
   public constructor(
-    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration,
     @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
   ) {
     this.logger = logger;
@@ -39,7 +37,6 @@ export class PipelineService {
     this._propertyPipeline.addComponent(new CardinalityConstraintHandler(config, this.logger, translationService));
 
     if (config.constraint.includes(Constraint.NodeKind)) {
-      
       this._propertyPipeline.addComponent(new NodeKindConstraintHandler(config, this.logger, translationService));
     }
 

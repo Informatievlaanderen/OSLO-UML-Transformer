@@ -16,7 +16,7 @@ import {
   dataWithoutRange,
   dataWithoutRangeAssignedURI,
 } from './data/uniqueLanguageConstraintHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('UniqueLanguageConstraintHandler', () => {
   const logger: Logger = new VoidLogger();

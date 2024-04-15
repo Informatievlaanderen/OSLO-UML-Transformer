@@ -18,7 +18,7 @@ import {
   dataWithoutDomainLabel,
   dataWithoutLabel,
 } from './data/shaclTemplateGenerationServiceMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('ShaclTemplateGenerationService', () => {
   let params: any;
@@ -54,7 +54,7 @@ describe('ShaclTemplateGenerationService', () => {
     await config.createFromCli(params);
 
     store = new QuadStore();
-    pipelineService = new PipelineService(config, logger);
+    pipelineService = new PipelineService(logger);
     outputHandlerService = new OutputHandlerService(config);
 
     service = new ShaclTemplateGenerationService(logger, config, store, pipelineService, outputHandlerService);

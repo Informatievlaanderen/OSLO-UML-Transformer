@@ -12,7 +12,7 @@ import { NodeKindConstraintHandler } from '../lib/handlers/NodeKindConstraintHan
 import { TranslationService } from '../lib/TranslationService';
 import type { NamedOrBlankNode } from '../lib/types/IHandler';
 import { baseData, dataWithoutLabel, dataWithoutType } from './data/nodeKindConstraintHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('NodeKindConstraintHandler', () => {
   const logger: Logger = new VoidLogger();

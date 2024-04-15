@@ -12,7 +12,7 @@ import { ClassShapeBaseHandler } from '../lib/handlers/ClassShapeBaseHandler';
 import { TranslationService } from '../lib/TranslationService';
 import type { NamedOrBlankNode } from '../lib/types/IHandler';
 import { baseData, baseDataWithoutAssignedURI } from './data/classShapeBaseHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('ClassShapeBaseHandler', () => {
   const logger: Logger = new VoidLogger();

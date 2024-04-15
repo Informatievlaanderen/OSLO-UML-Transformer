@@ -11,7 +11,7 @@ import { CardinalityConstraintHandler } from '../lib/handlers/CardinalityConstra
 import { TranslationService } from '../lib/TranslationService';
 import type { NamedOrBlankNode } from '../lib/types/IHandler';
 import { baseData, dataWithoutLabel, nCardinalityConstraint } from './data/cardinalityConstraintHandlerMockData';
-import { parseJsonld } from './util';
+import { parseJsonld } from './test-utils';
 
 describe('CardinalityConstraintHandler', () => {
   const logger: Logger = new VoidLogger();
