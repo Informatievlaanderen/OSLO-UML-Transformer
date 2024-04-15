@@ -7,8 +7,7 @@
   "license": "MIT",
   "main": "index.js",
   "_moduleAliases": {
-    "@oslo-generator-shacl-template": "./lib",
-    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
+    "@oslo-generator-shacl-template": "./lib"
   },
   "bin": {
     "oslo-shacl-template-generator": "./bin/runner.js"
@@ -30,39 +29,17 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "jest": {
-    "runner": "groups",
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js",
-      "test"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
-      "^@oslo-generator-shacl-template/(.*)$": "<rootDir>/lib/$1"
-    }
-  },
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
-    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-generator-shacl-template/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-generator-shacl-template/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.6-alpha.0",
+    "@oslo-flanders/core": "^0.0.8-alpha.0",
     "i18n": "^0.15.1",
     "inversify": "^6.0.1",
     "module-alias": "^2.2.3",

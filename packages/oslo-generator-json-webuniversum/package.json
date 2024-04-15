@@ -25,33 +25,11 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "jest": {
-    "runner": "groups",
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js",
-      "test"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
-      "^@oslo-generator-json-webuniversum/(.*)$": "<rootDir>/lib/$1"
-    }
-  },
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
-    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-generator-json-webuniversum/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-generator-json-webuniversum/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
