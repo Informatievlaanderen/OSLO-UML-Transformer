@@ -45,7 +45,7 @@ export const jsonldData = [
     'http://www.w3.org/2000/01/rdf-schema#range': {
       '@id': 'http://example.org/.well-known/id/class/2',
     },
-    'http://w3.org/ns/shacl#maxCount': '*',
+    'http://www.w3.org/ns/shacl#maxCount': '*',
   },
   {
     '@id': 'http://example.org/.well-known/id/property/2',
@@ -411,11 +411,11 @@ export const jsonldPropertyWithMaxCardinality = [
   {
     '@id': 'http://example.org/.well-known/id/property/1',
     '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
-    'http://w3.org/ns/shacl#maxCount': '*',
+    'http://www.w3.org/ns/shacl#maxCount': '*',
   },
   {
     '@id': 'http://example.org/.well-known/id/property/2',
     '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
-    'http://w3.org/ns/shacl#maxCount': '1',
+    'http://www.w3.org/ns/shacl#maxCount': '1',
   },
 ];

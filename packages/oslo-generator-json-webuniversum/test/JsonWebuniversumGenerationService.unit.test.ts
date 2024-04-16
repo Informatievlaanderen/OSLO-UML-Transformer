@@ -160,16 +160,14 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
 				"domain": "http://example.org/id/class/1",
 				"range": {
 					"id": "http://example.org/id/class/2",
-					"applicationProfileLabel": {
-						"en": "ApAnotherTestClass",
-					},
 					"vocabularyLabel": {
 						"en": "VocAnotherTestClass",
 					},
+					"applicationProfileLabel": {
+						"en": "ApAnotherTestClass",
+					},
 				},
-				"minCount": "1",
-				"maxCount": "*",
-				"codelist": 'http://example.org/codelist/1',
+				"codelist": "http://example.org/codelist/1",
 			}),
 		]))
 

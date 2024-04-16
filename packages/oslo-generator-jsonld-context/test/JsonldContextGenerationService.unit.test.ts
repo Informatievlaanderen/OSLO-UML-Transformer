@@ -78,7 +78,7 @@ describe('JsonldContextGenerationService', () => {
     await service.run();
 
 
-    expect(fs.writeFile).toBeCalledWith('context.jsonld', JSON.stringify({ '@context': {} }, null, 2));
+    expect(fs.writeFile).toHaveBeenCalledWith('context.jsonld', JSON.stringify({ '@context': {} }, null, 2));
   });
 
   it('should generate a regular context object', async () => {
