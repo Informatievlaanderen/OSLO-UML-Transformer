@@ -26,32 +26,10 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js",
-      "./lib/utils",
-      "./lib/types"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
-      "^@oslo-extractor-uml-ea/(.*)$": "<rootDir>/lib/$1"
-    }
-  },
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-extractor-uml-ea/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"

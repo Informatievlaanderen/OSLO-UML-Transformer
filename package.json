@@ -11,30 +11,6 @@
   "bugs": {
     "url": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/issues"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js"
-    ],
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
-  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "test-changed": "lerna run test --since HEAD",

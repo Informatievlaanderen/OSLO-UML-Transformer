@@ -31,32 +31,11 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "jest": {
-    "runner": "groups",
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
-      "^@oslo-converter-uml-ea/(.*)$": "<rootDir>/lib/$1"
-    }
-  },
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
-    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-converter-uml-ea/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-converter-uml-ea/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
@@ -71,7 +50,6 @@
     "@oslo-flanders/ea-uml-extractor": "^0.0.12-alpha.0",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
-    "jest-runner-groups": "^2.2.0",
     "module-alias": "^2.2.3",
     "n3": "^1.16.2",
     "rdf-data-factory": "^1.1.1",

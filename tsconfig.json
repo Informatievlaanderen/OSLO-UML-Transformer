@@ -36,6 +36,9 @@
       ],
       "@oslo-generator-json-webuniversum/*": [
         "packages/oslo-generator-json-webuniversum/lib/*"
+      ],
+      "@oslo-generator-shacl-template/*": [
+        "packages/oslo-generator-shacl-template/lib/*"
       ]
     }
   },

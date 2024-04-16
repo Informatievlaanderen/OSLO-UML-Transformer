@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install @oslo-flanders/Core
+npm install @oslo-flanders/core
 ```
 
 ## Usage

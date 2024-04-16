@@ -30,31 +30,11 @@
     "type": "git",
     "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "testRegex": "/test/.*.test.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "index.js"
-    ],
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@oslo-core/(.*)$": "<rootDir>/../oslo-core/lib/$1",
-      "^@oslo-generator-rdf-vocabulary/(.*)$": "<rootDir>/lib/$1"
-    }
-  },
   "scripts": {
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration",
-    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit"
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-generator-rdf-vocabulary/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-generator-rdf-vocabulary/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"

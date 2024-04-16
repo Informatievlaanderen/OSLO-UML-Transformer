@@ -9,7 +9,7 @@ export function getOsloContext(): any {
     xsd: 'http://www.w3.org/2001/XMLSchema#',
     foaf: 'http://xmlns.com/foaf/0.1/',
     rec: 'http://www.w3.org/2001/02pd/rec54#',
-    sh: 'http://w3.org/ns/shacl#',
+    sh: 'http://www.w3.org/ns/shacl#',
     prov: 'http://www.w3.org/ns/prov#',
     packages: '@included',
     classes: '@included',
