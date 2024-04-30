@@ -3,10 +3,10 @@ import type { IConfiguration, IService } from '@oslo-flanders/core';
 import { QuadStore, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { Container } from 'inversify';
+import { HtmlRespecGenerationService } from '../HtmlRespecGenerationService';
 import {
   HtmlRespecGenerationServiceConfiguration,
-} from '@oslo-generator-respec-html/config/HtmlRespecGenerationServiceConfiguration';
-import { HtmlRespecGenerationService } from '@oslo-generator-respec-html/HtmlRespecGenerationService';
+} from './HtmlRespecGenerationServiceConfiguration';
 
 export const container = new Container();
 

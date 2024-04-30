@@ -6,11 +6,6 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-respec-html#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-generator-respec-html": "./lib",
-    "@oslo-core": "node_modules/@oslo-flanders/core/lib",
-    "@oslo-converter-stakeholders": "node_modules/@oslo-flanders/stakeholders-converter/lib"
-  },
   "bin": {
     "oslo-generator-respec": "./bin/runner.js"
   },
