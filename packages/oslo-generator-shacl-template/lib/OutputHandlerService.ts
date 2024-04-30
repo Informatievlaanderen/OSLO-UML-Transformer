@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
-import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
-import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { ShaclTemplateGenerationServiceConfiguration } from "./config/ShaclTemplateGenerationServiceConfiguration";
+import { ShaclTemplateGenerationServiceIdentifier } from "./config/ShaclTemplateGenerationServiceIdentifier";
 import { QuadStore } from "@oslo-flanders/core";
 import { createWriteStream } from "fs";
 import rdfSerializer from "rdf-serialize";

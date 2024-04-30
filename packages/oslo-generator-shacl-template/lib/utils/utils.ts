@@ -1,6 +1,6 @@
 import type * as RDF from '@rdfjs/types';
-import { Constraint } from "@oslo-generator-shacl-template/enums/Constraint";
-import { GenerationMode } from "@oslo-generator-shacl-template/enums/GenerationMode";
+import { Constraint } from "../enums/Constraint";
+import { GenerationMode } from "../enums/GenerationMode";
 
 export function getGenerationMode(mode: string): GenerationMode {
 	switch (mode) {

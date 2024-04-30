@@ -1,15 +1,15 @@
 import { getApplicationProfileDefinition, getApplicationProfileLabel, ns, type QuadStore } from "@oslo-flanders/core";
 import type * as RDF from '@rdfjs/types';
 
-import type { NamedOrBlankNode } from "@oslo-generator-shacl-template/types/IHandler";
+import type { NamedOrBlankNode } from "../types/IHandler";
 import { ShaclHandler }
-  from "@oslo-generator-shacl-template/types/IHandler";
-import { toPascalCase } from "@oslo-generator-shacl-template/utils/utils";
+  from "../types/IHandler";
+import { toPascalCase } from "../utils/utils";
 import { inject } from "inversify";
-import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { ShaclTemplateGenerationServiceIdentifier } from "../config/ShaclTemplateGenerationServiceIdentifier";
 import { Logger } from "@oslo-flanders/core";
-import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
-import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
+import { ShaclTemplateGenerationServiceConfiguration } from "../config/ShaclTemplateGenerationServiceConfiguration";
+import { TranslationService } from "../TranslationService";
 
 /**
  * Adds the base information for a property shape.

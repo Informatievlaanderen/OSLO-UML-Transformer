@@ -2,11 +2,11 @@ import type { Logger, QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { ShaclHandler }
-  from "@oslo-generator-shacl-template/types/IHandler";
+  from "../types/IHandler";
 import { inject } from 'inversify';
-import { TranslationService } from '@oslo-generator-shacl-template/TranslationService';
-import { ShaclTemplateGenerationServiceConfiguration } from '@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration';
-import { ShaclTemplateGenerationServiceIdentifier } from '@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier';
+import { TranslationService } from '../TranslationService';
+import { ShaclTemplateGenerationServiceConfiguration } from '../config/ShaclTemplateGenerationServiceConfiguration';
+import { ShaclTemplateGenerationServiceIdentifier } from '../config/ShaclTemplateGenerationServiceIdentifier';
 
 export class ClassShapeBaseHandler extends ShaclHandler {
   public constructor(

@@ -6,9 +6,6 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-shacl-template#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-generator-shacl-template": "./lib"
-  },
   "bin": {
     "oslo-shacl-template-generator": "./bin/runner.js"
   },
