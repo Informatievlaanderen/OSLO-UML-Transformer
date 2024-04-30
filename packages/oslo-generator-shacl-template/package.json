@@ -54,5 +54,6 @@
     "jest-runner-groups": "^2.2.0",
     "rdf-parse": "^2.3.3",
     "streamify-string": "^1.0.1"
-  }
+  },
+  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315"
 }

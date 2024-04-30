@@ -8,6 +8,7 @@
         "*.md"
       ],
       "message": "Bump to new release version",
+      "allowBranch": "main",
       "npmClient": "npm"
     }
   },
