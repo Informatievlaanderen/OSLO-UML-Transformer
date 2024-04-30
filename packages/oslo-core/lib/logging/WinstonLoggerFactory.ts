@@ -1,9 +1,9 @@
 import { createLogger, transports, format } from 'winston';
 import type * as Transport from 'winston-transport';
-import type { Logger } from '@oslo-core/logging/Logger';
-import type { LoggerFactory } from '@oslo-core/logging/LoggerFactory';
-import type { LogLevel } from '@oslo-core/logging/LogLevel';
-import { WinstonLogger } from '@oslo-core/logging/WinstonLogger';
+import type { Logger } from './Logger';
+import type { LoggerFactory } from './LoggerFactory';
+import type { LogLevel } from './LogLevel';
+import { WinstonLogger } from './WinstonLogger';
 const { combine, colorize, printf } = format;
 
 const messageFormat = printf(({ level, message, messageTimestamp }) => `${new Date(Date.now()).toISOString()} ${level}: ${message}`);

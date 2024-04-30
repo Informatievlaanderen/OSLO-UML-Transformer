@@ -6,9 +6,6 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-core#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-core": "./lib"
-  },
   "directories": {
     "lib": "lib"
   },

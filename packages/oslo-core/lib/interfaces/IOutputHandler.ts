@@ -1,4 +1,4 @@
-import type { QuadStore } from '@oslo-core/store/QuadStore';
+import type { QuadStore } from '../store/QuadStore';
 
 /**
  * Writes the triples in an RDF store to a write stream
