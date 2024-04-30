@@ -6,10 +6,6 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-extract-uml-ea#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-extractor-uml-ea": "./lib",
-    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
-  },
   "directories": {
     "lib": "lib",
     "test": "test"
