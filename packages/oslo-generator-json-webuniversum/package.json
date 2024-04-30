@@ -6,10 +6,6 @@
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-json-webuniversum#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-generator-json-webuniversum": "./lib",
-    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
-  },
   "bin": {
     "oslo-webuniversum-json-generator": "bin/runner.js"
   },
