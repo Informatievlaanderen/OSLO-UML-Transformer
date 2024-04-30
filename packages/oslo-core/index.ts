@@ -1,12 +1,4 @@
 import 'reflect-metadata';
-// Extra manually added alias was required for nested NPM packages:
-// https://github.com/ilearnio/module-alias?tab=readme-ov-file#using-within-another-npm-package
-
-const moduleAlias = require('module-alias')
-
-moduleAlias.addAliases({
-    '@oslo-core': `${__dirname}/lib`,
-})
 
 export * from '@oslo-core/interfaces/AppRunner';
 export * from '@oslo-core/interfaces/IConfiguration';

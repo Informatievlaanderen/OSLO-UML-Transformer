@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import 'module-alias/register';
 import {
   JsonldContextGenerationServiceRunner,
 } from '@oslo-generator-jsonld-context/JsonldContextGenerationServiceRunner';

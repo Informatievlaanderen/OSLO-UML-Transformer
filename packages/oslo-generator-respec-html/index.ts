@@ -1,4 +1,3 @@
-import 'module-alias/register';
 
 export * from '@oslo-generator-respec-html/HtmlRespecGenerationService';
 export * from '@oslo-generator-respec-html/HtmlRespecGenerationServiceRunner';

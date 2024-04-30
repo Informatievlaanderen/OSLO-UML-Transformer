@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import 'module-alias/register';
 
 export * from '@oslo-generator-json-webuniversum/JsonWebuniversumGenerationService';
 export * from '@oslo-generator-json-webuniversum/JsonWebuniversumGenerationServiceRunner';

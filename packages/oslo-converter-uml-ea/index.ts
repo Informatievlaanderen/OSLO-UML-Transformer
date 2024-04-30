@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import 'module-alias/register';
 
 export * from '@oslo-converter-uml-ea/ConverterHandlerService';
 export * from '@oslo-converter-uml-ea/EaUmlConversionService';

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import 'module-alias/register';
 import {
   RdfVocabularyGenerationServiceRunner,
 } from '@oslo-generator-rdf-vocabulary/RdfVocabularyGenerationServiceRunner';

@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import 'module-alias/register';
 
 export * from '@oslo-generator-jsonld-context/JsonldContextGenerationService';
 export * from '@oslo-generator-jsonld-context/JsonldContextGenerationServiceRunner';

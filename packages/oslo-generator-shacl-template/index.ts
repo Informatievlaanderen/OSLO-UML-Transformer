@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-import 'module-alias/register';
 
 export * from '@oslo-generator-shacl-template/ShaclTemplateGenerationServiceRunner';
 export * from '@oslo-generator-shacl-template/ShaclTemplateGenerationService';

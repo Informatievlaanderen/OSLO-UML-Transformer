@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import 'module-alias/register';
 import {
     JsonWebuniversumGenerationServiceRunner,
 } from '@oslo-generator-json-webuniversum/JsonWebuniversumGenerationServiceRunner';

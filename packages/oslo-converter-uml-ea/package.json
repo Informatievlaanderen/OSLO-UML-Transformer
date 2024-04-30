@@ -50,7 +50,6 @@
     "@oslo-flanders/ea-uml-extractor": "^0.0.12-alpha.0",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
-    "module-alias": "^2.2.3",
     "n3": "^1.16.2",
     "rdf-data-factory": "^1.1.1",
     "reflect-metadata": "^0.1.13",

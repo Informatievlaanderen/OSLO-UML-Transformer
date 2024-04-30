@@ -1,12 +1,3 @@
-// Extra manually added alias was required for nested NPM packages:
-// https://github.com/ilearnio/module-alias?tab=readme-ov-file#using-within-another-npm-package
-
-const moduleAlias = require('module-alias')
-
-moduleAlias.addAliases({
-    '@oslo-extractor-uml-ea': `${__dirname}/lib`,
-    "@oslo-core": `${__dirname}/../core/lib`,
-})
 
 export * from '@oslo-extractor-uml-ea/DataRegistry';
 export * from '@oslo-extractor-uml-ea/types/EaAttribute';
