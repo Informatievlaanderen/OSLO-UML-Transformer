@@ -4,10 +4,10 @@ import { ns } from '@oslo-flanders/core';
 import type { DataRegistry, EaPackage } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
-import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
-import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
-import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
-import { getTagValue, ignore } from '@oslo-converter-uml-ea/utils/utils';
+import { TagNames } from '../enums/TagNames';
+import { ConverterHandler } from '../interfaces/ConverterHandler';
+import type { UriRegistry } from '../UriRegistry';
+import { getTagValue, ignore } from '../utils/utils';
 
 @injectable()
 export class PackageConverterHandler extends ConverterHandler<EaPackage> {
