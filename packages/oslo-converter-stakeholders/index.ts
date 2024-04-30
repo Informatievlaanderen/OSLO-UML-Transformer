@@ -1,5 +1,5 @@
 import 'reflect-metadata';
 
-export * from '@oslo-converter-stakeholders/config/StakeholdersConversionServiceConfiguration';
-export * from '@oslo-converter-stakeholders/StakeholdersConversionService';
-export * from '@oslo-converter-stakeholders/StakeholdersConversionServiceRunner';
+export * from './lib/config/StakeholdersConversionServiceConfiguration';
+export * from './lib//StakeholdersConversionService';
+export * from './lib//StakeholdersConversionServiceRunner';

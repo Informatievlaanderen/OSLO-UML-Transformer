@@ -1,16 +1,16 @@
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
-import type { StakeholdersDocument, Stakeholder } from '@oslo-converter-stakeholders/interfaces/StakeholdersDocument';
+import type { StakeholdersDocument, Stakeholder } from './interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';
 import { inject, injectable } from 'inversify';
 import {
   StakeholdersConversionServiceConfiguration,
-} from '@oslo-converter-stakeholders/config/StakeholdersConversionServiceConfiguration';
-import { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
-import { context } from '@oslo-converter-stakeholders/utils/JsonLdContext';
-import { ToJsonTransformer } from '@oslo-converter-stakeholders/utils/ToJsonTransformer';
+} from './config/StakeholdersConversionServiceConfiguration';
+import { ContributorType } from './enums/ContributorType';
+import { context } from './utils/JsonLdContext';
+import { ToJsonTransformer } from './utils/ToJsonTransformer';
 @injectable()
 export class StakeholdersConversionService implements IService {
   public readonly logger: Logger;

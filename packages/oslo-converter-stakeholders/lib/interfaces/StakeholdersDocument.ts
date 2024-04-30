@@ -1,4 +1,4 @@
-import type { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
+import type { ContributorType } from '../enums/ContributorType';
 
 export interface StakeholdersDocument {
     '@context'?: object;
