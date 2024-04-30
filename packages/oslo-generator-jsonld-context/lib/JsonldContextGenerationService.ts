@@ -14,10 +14,10 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import {
   JsonldContextGenerationServiceConfiguration,
-} from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
-import { toCamelCase, toPascalCase } from '@oslo-generator-jsonld-context/utils/utils';
-import { ClassMetadata } from '@oslo-generator-jsonld-context/types/ClassMetadata';
-import { PropertyMetadata } from '@oslo-generator-jsonld-context/types/PropertyMetadata';
+} from './config/JsonldContextGenerationServiceConfiguration';
+import { toCamelCase, toPascalCase } from './utils/utils';
+import { ClassMetadata } from './types/ClassMetadata';
+import { PropertyMetadata } from './types/PropertyMetadata';
 
 @injectable()
 export class JsonldContextGenerationService implements IService {
