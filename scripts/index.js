@@ -36,5 +36,12 @@ run()
 })
     .catch((error) => {
     console.error('Error during script:', error);
+})
+    .finally(async () => {
+    console.log('Cleaning up...');
+    const zipPath = path_1.default.join(__dirname, constants_1.ZIP_NAME);
+    const dir = path_1.default.join(__dirname, `${constants_1.REPO_NAME}-${constants_1.ENVIRONMENT}`);
+    await (0, utils_1.cleanup)(zipPath, dir);
+    console.log('Script finished.');
 });
 //# sourceMappingURL=index.js.map

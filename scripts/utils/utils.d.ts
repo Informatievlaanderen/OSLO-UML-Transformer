@@ -9,3 +9,4 @@ export declare const getConfigFile: (url: string) => Promise<IConfig | null>;
 export declare const addRepositoryUrl: (repositoryURL: string) => string;
 export declare const getConfigFiles: (urls: string[]) => Promise<(IConfig | null)[]>;
 export declare const generateEapConfig: (config: IConfig) => IEapConfig;
+export declare const cleanup: (zipPath: string, repoPath: string) => Promise<void>;

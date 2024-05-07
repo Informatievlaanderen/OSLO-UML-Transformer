@@ -9,6 +9,7 @@ import {
 import type { IConfig, IEapConfig, IPublication } from './types/config';
 import { generateCliCommand, runCommand } from './utils/cli.utils';
 import {
+  cleanup,
   createZipFromGithub,
   extractZip,
   generateEapConfig,
@@ -67,4 +68,12 @@ run()
   })
   .catch((error: unknown) => {
     console.error('Error during script:', error);
+  })
+  .finally(async () => {
+    console.log('Cleaning up...');
+    const zipPath: string = path.join(__dirname, ZIP_NAME);
+    const dir = path.join(__dirname, `${REPO_NAME}-${ENVIRONMENT}`);
+    await cleanup(zipPath, dir);
+
+    console.log('Script finished.');
   });

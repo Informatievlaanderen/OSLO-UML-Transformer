@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs, { promises as fsPromises } from 'fs';
 import https from 'https';
 import path from 'path';
 import axios from 'axios';
@@ -148,4 +148,23 @@ export const generateEapConfig = (config: IConfig): IEapConfig => {
     publicationEnvironment: PUBLICATION_ENVIRONMENT,
   };
   return conf;
+};
+
+export const cleanup = async (
+  zipPath: string,
+  repoPath: string,
+): Promise<void> => {
+  try {
+    await fsPromises.unlink(zipPath);
+    console.log(`${zipPath} was deleted successfully.`);
+  } catch (error: unknown) {
+    console.error(`Error while deleting ${zipPath}.`, error);
+  }
+
+  try {
+    await fsPromises.rmdir(repoPath, { recursive: true });
+    console.log(`${repoPath} was deleted successfully.`);
+  } catch (error: unknown) {
+    console.error(`Error while deleting ${repoPath}.`, error);
+  }
 };
