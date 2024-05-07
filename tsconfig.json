@@ -45,7 +45,8 @@
   "include": [
     "packages/**/index.ts",
     "packages/**/bin/**/*",
-    "packages/**/lib/**/*"
+    "packages/**/lib/**/*",
+    "scripts/**/*.ts"
   ],
   "exclude": ["**/node_modules", "**/test/*"]
 }
