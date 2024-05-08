@@ -1,1 +1,0 @@
-{"version":3,"file":"enum.js","sourceRoot":"","sources":["enum.ts"],"names":[],"mappings":";;;AAAA,IAAY,iBAGX;AAHD,WAAY,iBAAiB;IAC3B,8CAAyB,CAAA;IACzB,uCAAkB,CAAA;AACpB,CAAC,EAHW,iBAAiB,iCAAjB,iBAAiB,QAG5B","sourcesContent":["export enum SpecificationType {\n  ap = 'ApplicationProfile',\n  voc = 'Vocabulary',\n}\n"]}
