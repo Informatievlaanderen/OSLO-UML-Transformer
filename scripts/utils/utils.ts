@@ -162,7 +162,7 @@ export const cleanup = async (
   }
 
   try {
-    await fsPromises.rmdir(repoPath, { recursive: true });
+    await fsPromises.rm(repoPath, { recursive: true });
     console.log(`${repoPath} was deleted successfully.`);
   } catch (error: unknown) {
     console.error(`Error while deleting ${repoPath}.`, error);
