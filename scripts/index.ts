@@ -19,6 +19,7 @@ import {
 } from './utils/utils';
 
 const run = async (): Promise<void> => {
+  console.log(`Validating EAP files for the ${ENVIRONMENT} environment...`);
   const targetPath = path.join(__dirname, './');
   const zipPath: string = path.join(__dirname, ZIP_NAME);
   const dir = path.join(

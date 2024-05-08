@@ -8,6 +8,7 @@ const constants_1 = require("./constants/constants");
 const cli_utils_1 = require("./utils/cli.utils");
 const utils_1 = require("./utils/utils");
 const run = async () => {
+    console.log(`Validating EAP files for the ${constants_1.ENVIRONMENT} environment...`);
     const targetPath = path_1.default.join(__dirname, './');
     const zipPath = path_1.default.join(__dirname, constants_1.ZIP_NAME);
     const dir = path_1.default.join(__dirname, `${constants_1.REPO_NAME}-${constants_1.ENVIRONMENT}/config/${constants_1.ENVIRONMENT}`);
