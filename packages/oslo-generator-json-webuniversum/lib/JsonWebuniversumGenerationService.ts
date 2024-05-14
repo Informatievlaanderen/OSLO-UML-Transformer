@@ -14,12 +14,12 @@ import {
   getMaxCount,
 } from "@oslo-flanders/core";
 import { inject, injectable } from "inversify";
-import { JsonWebuniversumGenerationServiceConfiguration } from "@oslo-generator-json-webuniversum/config/JsonWebuniversumGenerationServiceConfiguration";
+import { JsonWebuniversumGenerationServiceConfiguration } from "./config/JsonWebuniversumGenerationServiceConfiguration";
 import type * as RDF from '@rdfjs/types';
 import { writeFile } from "fs/promises";
-import { WebuniversumObject } from "@oslo-generator-json-webuniversum/types/WebuniversumObject";
-import { WebuniversumProperty } from "@oslo-generator-json-webuniversum/types/WebuniversumProperty";
-import { sortWebuniversumObjects } from "@oslo-generator-json-webuniversum/utils/utils";
+import { WebuniversumObject } from "./types/WebuniversumObject";
+import { WebuniversumProperty } from "./types/WebuniversumProperty";
+import { sortWebuniversumObjects } from "./utils/utils";
 
 @injectable()
 export class JsonWebuniversumGenerationService implements IService {

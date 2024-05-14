@@ -1,10 +1,10 @@
 import type { Logger } from '@oslo-flanders/core';
 import { QuadStore } from '@oslo-flanders/core';
 import type { DataRegistry, EaObject } from '@oslo-flanders/ea-uml-extractor';
-import { container } from '@oslo-converter-uml-ea/config/DependencyInjectionConfig';
-import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
-import type { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
-import { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
+import { container } from './config/DependencyInjectionConfig';
+import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
+import type { ConverterHandler } from './interfaces/ConverterHandler';
+import { UriRegistry } from './UriRegistry';
 
 export class ConverterHandlerService<T extends EaObject> {
   public readonly logger: Logger;

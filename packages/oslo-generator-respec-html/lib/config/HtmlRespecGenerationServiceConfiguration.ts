@@ -1,6 +1,6 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
-import { SpecificationType } from '@oslo-generator-respec-html/utils/specificationTypeEnum';
+import { SpecificationType } from '../utils/specificationTypeEnum';
 
 @injectable()
 export class HtmlRespecGenerationServiceConfiguration implements IConfiguration {

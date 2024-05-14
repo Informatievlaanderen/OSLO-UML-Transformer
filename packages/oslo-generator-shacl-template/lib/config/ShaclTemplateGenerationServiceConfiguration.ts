@@ -1,7 +1,7 @@
 import { IConfiguration, YargsParams } from "@oslo-flanders/core";
-import type { GenerationMode } from "@oslo-generator-shacl-template/enums/GenerationMode";
-import type { Constraint } from "@oslo-generator-shacl-template/enums/Constraint";
-import { getConstraints, getGenerationMode } from "@oslo-generator-shacl-template/utils/utils";
+import type { GenerationMode } from "../enums/GenerationMode";
+import type { Constraint } from "../enums/Constraint";
+import { getConstraints, getGenerationMode } from "../utils/utils";
 import { injectable } from "inversify";
 
 @injectable()

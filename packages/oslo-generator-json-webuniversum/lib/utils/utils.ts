@@ -1,4 +1,4 @@
-import type { WebuniversumObject } from "@oslo-generator-json-webuniversum/types/WebuniversumObject";
+import type { WebuniversumObject } from "../types/WebuniversumObject";
 
 export function sortWebuniversumObjects(
     webuniversumObjects: WebuniversumObject[],

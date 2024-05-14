@@ -6,7 +6,7 @@ import { NamedOrBlankNode } from "./types/IHandler";
 import { DataFactory } from 'rdf-data-factory';
 import { PipelineService } from "./PipelineService";
 import { ShaclTemplateGenerationServiceIdentifier } from "./config/ShaclTemplateGenerationServiceIdentifier";
-import { OutputHandlerService } from "@oslo-generator-shacl-template/OutputHandlerService";
+import { OutputHandlerService } from "./OutputHandlerService";
 import { GenerationMode } from "./enums/GenerationMode";
 import { toPascalCase } from "./utils/utils";
 

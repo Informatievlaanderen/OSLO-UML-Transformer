@@ -1,10 +1,10 @@
 import type { CliArgv } from "@oslo-flanders/core";
 import { AppRunner } from "@oslo-flanders/core";
 import yargs from "yargs";
-import { container } from "@oslo-generator-shacl-template/config/DependencyInjectionConfig";
+import { container } from "./config/DependencyInjectionConfig";
 import type { ShaclTemplateGenerationServiceConfiguration }
-  from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
-import type { ShaclTemplateGenerationService } from "@oslo-generator-shacl-template/ShaclTemplateGenerationService";
+  from "./config/ShaclTemplateGenerationServiceConfiguration";
+import type { ShaclTemplateGenerationService } from "./ShaclTemplateGenerationService";
 
 export class ShaclTemplateGenerationServiceRunner extends
   AppRunner<ShaclTemplateGenerationService, ShaclTemplateGenerationServiceConfiguration> {

@@ -1,4 +1,4 @@
-import type { EaTag } from '@oslo-extractor-uml-ea/types/EaTag';
+import type { EaTag } from './EaTag';
 
 export abstract class EaObject {
   public readonly id: number;

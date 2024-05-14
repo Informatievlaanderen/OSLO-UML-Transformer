@@ -1,12 +1,12 @@
 import { getApplicationProfileLabel, Logger, ns, type QuadStore } from "@oslo-flanders/core";
 import type * as RDF from '@rdfjs/types';
-import { GenerationMode } from "@oslo-generator-shacl-template/enums/GenerationMode";
-import { TranslationKey } from "@oslo-generator-shacl-template/enums/TranslationKey";
-import type { NamedOrBlankNode } from "@oslo-generator-shacl-template/types/IHandler";
-import { ShaclHandler } from "@oslo-generator-shacl-template/types/IHandler";
-import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
-import { ShaclTemplateGenerationServiceConfiguration } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
-import { ShaclTemplateGenerationServiceIdentifier } from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
+import { GenerationMode } from "../enums/GenerationMode";
+import { TranslationKey } from "../enums/TranslationKey";
+import type { NamedOrBlankNode } from "../types/IHandler";
+import { ShaclHandler } from "../types/IHandler";
+import { TranslationService } from "../TranslationService";
+import { ShaclTemplateGenerationServiceConfiguration } from "../config/ShaclTemplateGenerationServiceConfiguration";
+import { ShaclTemplateGenerationServiceIdentifier } from "../config/ShaclTemplateGenerationServiceIdentifier";
 import { inject } from "inversify";
 
 /**

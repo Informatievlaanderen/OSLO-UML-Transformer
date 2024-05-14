@@ -5,10 +5,10 @@ import type { QuadStore, IService } from '@oslo-flanders/core';
 import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
-import { EaUmlConverterConfiguration } from '@oslo-converter-uml-ea/config/EaUmlConverterConfiguration';
-import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
-import { ConverterHandlerService } from '@oslo-converter-uml-ea/ConverterHandlerService';
-import { OutputHandlerService } from '@oslo-converter-uml-ea/OutputHandlerService';
+import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
+import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
+import { ConverterHandlerService } from './ConverterHandlerService';
+import { OutputHandlerService } from './OutputHandlerService';
 
 @injectable()
 export class EaUmlConversionService implements IService {

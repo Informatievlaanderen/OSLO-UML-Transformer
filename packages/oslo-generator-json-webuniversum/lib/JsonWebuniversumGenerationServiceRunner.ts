@@ -1,12 +1,12 @@
-import type { CliArgv } from "@oslo-core/interfaces/AppRunner";
-import { AppRunner } from "@oslo-core/interfaces/AppRunner";
+import type { CliArgv } from "@oslo-flanders/core";
+import { AppRunner } from "@oslo-flanders/core";
 import yargs from "yargs";
-import { container } from "@oslo-generator-json-webuniversum/config/DependencyInjectionConfig";
+import { container } from "./config/DependencyInjectionConfig";
 import type { JsonWebuniversumGenerationServiceConfiguration } from
-    "@oslo-generator-json-webuniversum/config/JsonWebuniversumGenerationServiceConfiguration";
+    "./config/JsonWebuniversumGenerationServiceConfiguration";
 import type {
     JsonWebuniversumGenerationService,
-} from "@oslo-generator-json-webuniversum/JsonWebuniversumGenerationService";
+} from "./JsonWebuniversumGenerationService";
 
 export class JsonWebuniversumGenerationServiceRunner
     extends AppRunner<JsonWebuniversumGenerationService, JsonWebuniversumGenerationServiceConfiguration> {
