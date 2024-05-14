@@ -10,7 +10,6 @@
     "oslo-webuniversum-json-generator": "bin/runner.js"
   },
   "directories": {
-    "bin": "bin",
     "lib": "lib",
     "test": "test"
   },
@@ -41,5 +40,5 @@
   "devDependencies": {
     "@rdfjs/types": "^1.1.0"
   },
-  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315"
+  "types": "./index.d.ts"
 }
