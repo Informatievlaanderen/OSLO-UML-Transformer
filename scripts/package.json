@@ -18,7 +18,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@oslo-flanders/ea-converter": "0.0.16-alpha.0",
+    "@oslo-flanders/ea-converter": "^0.0.20-alpha.0",
     "axios": "^1.6.8",
     "extract-zip": "^2.0.1"
   }
