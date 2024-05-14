@@ -1,10 +1,9 @@
 import 'reflect-metadata';
-import 'module-alias/register';
 
-export * from '@oslo-generator-jsonld-context/JsonldContextGenerationService';
-export * from '@oslo-generator-jsonld-context/JsonldContextGenerationServiceRunner';
-export * from '@oslo-generator-jsonld-context/config/DependencyInjectionConfig';
-export * from '@oslo-generator-jsonld-context/config/JsonldContextGenerationServiceConfiguration';
-export * from '@oslo-generator-jsonld-context/utils/utils';
-export * from '@oslo-generator-jsonld-context/types/ClassMetadata';
-export * from '@oslo-generator-jsonld-context/types/PropertyMetadata';
+export * from './lib/JsonldContextGenerationService';
+export * from './lib/JsonldContextGenerationServiceRunner';
+export * from './lib/config/DependencyInjectionConfig';
+export * from './lib/config/JsonldContextGenerationServiceConfiguration';
+export * from './lib/utils/utils';
+export * from './lib/types/ClassMetadata';
+export * from './lib/types/PropertyMetadata';

@@ -1,9 +1,8 @@
-import 'module-alias/register';
 
-export * from '@oslo-generator-respec-html/HtmlRespecGenerationService';
-export * from '@oslo-generator-respec-html/HtmlRespecGenerationServiceRunner';
-export * from '@oslo-generator-respec-html/config/DependencyInjectionConfig';
-export * from '@oslo-generator-respec-html/config/HtmlRespecGenerationServiceConfiguration';
-export * from '@oslo-generator-respec-html/utils/scopeFilter';
-export * from '@oslo-generator-respec-html/utils/alphabeticalSort';
-export * from '@oslo-generator-respec-html/utils/specificationTypeEnum';
+export * from './lib/HtmlRespecGenerationService';
+export * from './lib/HtmlRespecGenerationServiceRunner';
+export * from './lib/config/DependencyInjectionConfig';
+export * from './lib/config/HtmlRespecGenerationServiceConfiguration';
+export * from './lib/utils/scopeFilter';
+export * from './lib/utils/alphabeticalSort';
+export * from './lib/utils/specificationTypeEnum';

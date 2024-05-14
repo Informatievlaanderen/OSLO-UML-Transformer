@@ -1,12 +1,10 @@
 import 'reflect-metadata';
-import type { IConfiguration } from '@oslo-core/interfaces/IConfiguration';
-import type { IService } from '@oslo-core/interfaces/IService';
-import { ServiceIdentifier } from '@oslo-core/ServiceIdentifier';
-import { QuadStore } from '@oslo-core/store/QuadStore';
+import { ServiceIdentifier, QuadStore } from '@oslo-flanders/core';
+import type { IService, IConfiguration } from '@oslo-flanders/core';
 import { Container } from 'inversify';
+import { JsonWebuniversumGenerationService } from '../JsonWebuniversumGenerationService';
 import { JsonWebuniversumGenerationServiceConfiguration }
-    from '@oslo-generator-json-webuniversum/config/JsonWebuniversumGenerationServiceConfiguration';
-import { JsonWebuniversumGenerationService } from '@oslo-generator-json-webuniversum/JsonWebuniversumGenerationService';
+    from './JsonWebuniversumGenerationServiceConfiguration';
 
 export const container = new Container();
 

@@ -1,6 +1,6 @@
 import type { TransformCallback } from 'stream';
 import { Transform } from 'stream';
-import { ContributorType } from '@oslo-converter-stakeholders/enums/ContributorType';
+import { ContributorType } from '../enums/ContributorType';
 
 export class ToJsonTransformer extends Transform {
   private readonly columnNames = ['Voornaam', 'Naam', 'Affiliatie', 'E-mail', 'Website'];

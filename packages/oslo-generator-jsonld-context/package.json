@@ -1,15 +1,11 @@
 {
   "name": "@oslo-flanders/jsonld-context-generator",
-  "version": "0.0.7-alpha.0",
+  "version": "0.0.9-alpha.0",
   "description": "Generates a JSON-LD context file from an OSLO-compliant RDF file",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-jsonld-context#readme",
   "license": "MIT",
   "main": "index.js",
-  "_moduleAliases": {
-    "@oslo-generator-jsonld-context": "./lib",
-    "@oslo-core": "node_modules/@oslo-flanders/core/lib"
-  },
   "bin": {
     "oslo-jsonld-context-generator": "./bin/runner.js"
   },
@@ -43,9 +39,8 @@
     "@rdfjs/types": "^1.1.0"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.8-alpha.0",
+    "@oslo-flanders/core": "^0.0.14-alpha.0",
     "inversify": "^6.0.1",
-    "module-alias": "^2.2.3",
     "n3": "^1.16.2",
     "rdf-data-factory": "^1.1.2",
     "rdf-parse": "^2.3.2",
@@ -53,5 +48,5 @@
     "streamify-string": "^1.0.1",
     "yargs": "^17.6.0"
   },
-  "gitHead": "ec9638c5a9156c5506a668205b2288c14d0f840d"
+  "gitHead": "b8a15c4c91863a99770fcd716ca0ba1ead9bd85c"
 }

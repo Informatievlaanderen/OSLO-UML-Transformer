@@ -1,16 +1,16 @@
 import type { IService, IConfiguration } from "@oslo-flanders/core";
 import { QuadStore } from "@oslo-flanders/core";
 import { Container } from "inversify";
+import { OutputHandlerService } from "../OutputHandlerService";
+import { PipelineService } from "../PipelineService";
+import { ShaclTemplateGenerationService } from "../ShaclTemplateGenerationService";
+import { TranslationService } from "../TranslationService";
+import { ShaclHandler } from "../types/IHandler";
+import { Pipeline } from "../types/Pipeline";
 import { ShaclTemplateGenerationServiceConfiguration }
-  from "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration";
+  from "./ShaclTemplateGenerationServiceConfiguration";
 import { ShaclTemplateGenerationServiceIdentifier } from
-  "@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier";
-import { OutputHandlerService } from "@oslo-generator-shacl-template/OutputHandlerService";
-import { PipelineService } from "@oslo-generator-shacl-template/PipelineService";
-import { ShaclTemplateGenerationService } from "@oslo-generator-shacl-template/ShaclTemplateGenerationService";
-import { TranslationService } from "@oslo-generator-shacl-template/TranslationService";
-import { ShaclHandler } from "@oslo-generator-shacl-template/types/IHandler";
-import { Pipeline } from "@oslo-generator-shacl-template/types/Pipeline";
+  "./ShaclTemplateGenerationServiceIdentifier";
 
 export const container = new Container();
 

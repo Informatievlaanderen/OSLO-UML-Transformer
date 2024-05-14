@@ -17,36 +17,12 @@
     "types": ["reflect-metadata", "node", "jest"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": ".", // This must be specified if "paths" is.
-    "paths": {
-      "@oslo-converter-uml-ea/*": ["packages/oslo-converter-uml-ea/lib/*"],
-      "@oslo-core/*": ["packages/oslo-core/lib/*"],
-      "@oslo-extractor-uml-ea/*": ["packages/oslo-extractor-uml-ea/lib/*"],
-      "@oslo-converter-stakeholders/*": [
-        "packages/oslo-converter-stakeholders/lib/*"
-      ],
-      "@oslo-generator-jsonld-context/*": [
-        "packages/oslo-generator-jsonld-context/lib/*"
-      ],
-      "@oslo-generator-rdf-vocabulary/*": [
-        "packages/oslo-generator-rdf-vocabulary/lib/*"
-      ],
-      "@oslo-generator-respec-html/*": [
-        "packages/oslo-generator-respec-html/lib/*"
-      ],
-      "@oslo-generator-json-webuniversum/*": [
-        "packages/oslo-generator-json-webuniversum/lib/*"
-      ],
-      "@oslo-generator-shacl-template/*": [
-        "packages/oslo-generator-shacl-template/lib/*"
-      ]
-    }
   },
   "include": [
     "packages/**/index.ts",
     "packages/**/bin/**/*",
     "packages/**/lib/**/*",
-    "scripts/**/*.ts"
+    "scripts/**/*.ts",
   ],
-  "exclude": ["**/node_modules", "**/test/*"]
+  "exclude": ["**/node_modules", "**/test/*"],
 }

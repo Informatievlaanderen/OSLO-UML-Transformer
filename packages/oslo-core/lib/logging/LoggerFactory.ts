@@ -1,4 +1,4 @@
-import type { Logger } from '@oslo-core/logging/Logger';
+import type { Logger } from './Logger';
 
 /**
  * Instantiates new logger instances.

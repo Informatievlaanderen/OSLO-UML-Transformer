@@ -1,6 +1,6 @@
 import type * as RDF from '@rdfjs/types';
-import type { QuadStore } from '@oslo-core/store/QuadStore';
-import { ns } from '@oslo-core/utils/namespaces';
+import type { QuadStore } from '../store/QuadStore';
+import { ns } from './namespaces';
 
 export function getApplicationProfileLabel(
     subject: RDF.Term,

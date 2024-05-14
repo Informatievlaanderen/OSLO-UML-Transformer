@@ -18,7 +18,7 @@ import rdfSerializer from 'rdf-serialize';
 import streamifyArray from 'streamify-array';
 import {
   RdfVocabularyGenerationServiceConfiguration,
-} from '@oslo-generator-rdf-vocabulary/config/RdfVocabularyGenerationServiceConfiguration';
+} from './config/RdfVocabularyGenerationServiceConfiguration';
 
 @injectable()
 export class RdfVocabularyGenerationService implements IService {

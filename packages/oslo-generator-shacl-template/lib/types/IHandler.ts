@@ -1,7 +1,7 @@
 import { Logger, QuadStore } from '@oslo-flanders/core';
-import { TranslationService } from '@oslo-generator-shacl-template/TranslationService';
-import { ShaclTemplateGenerationServiceConfiguration } from '@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceConfiguration';
-import { ShaclTemplateGenerationServiceIdentifier } from '@oslo-generator-shacl-template/config/ShaclTemplateGenerationServiceIdentifier';
+import { TranslationService } from '../TranslationService';
+import { ShaclTemplateGenerationServiceConfiguration } from '../config/ShaclTemplateGenerationServiceConfiguration';
+import { ShaclTemplateGenerationServiceIdentifier } from '../config/ShaclTemplateGenerationServiceIdentifier';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';

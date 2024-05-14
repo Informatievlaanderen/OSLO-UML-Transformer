@@ -12,12 +12,12 @@ import {
 } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import { EaUmlConverterServiceIdentifier } from '@oslo-converter-uml-ea/config/EaUmlConverterServiceIdentifier';
-import { ConnectorNormalisationService } from '@oslo-converter-uml-ea/ConnectorNormalisationService';
-import { TagNames } from '@oslo-converter-uml-ea/enums/TagNames';
-import { ConverterHandler } from '@oslo-converter-uml-ea/interfaces/ConverterHandler';
-import type { UriRegistry } from '@oslo-converter-uml-ea/UriRegistry';
-import { getTagValue, ignore, toCamelCase } from '@oslo-converter-uml-ea/utils/utils';
+import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
+import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
+import { TagNames } from '../enums/TagNames';
+import { ConverterHandler } from '../interfaces/ConverterHandler';
+import type { UriRegistry } from '../UriRegistry';
+import { getTagValue, ignore, toCamelCase } from '../utils/utils';
 
 @injectable()
 export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnector> {

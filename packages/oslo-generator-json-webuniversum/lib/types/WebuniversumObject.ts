@@ -1,4 +1,4 @@
-import type { WebuniversumProperty } from "@oslo-generator-json-webuniversum/types/WebuniversumProperty";
+import type { WebuniversumProperty } from "./WebuniversumProperty";
 
 export interface WebuniversumObject {
     id: string;

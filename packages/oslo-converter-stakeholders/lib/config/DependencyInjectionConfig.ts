@@ -1,10 +1,10 @@
 import type { IConfiguration, IService } from '@oslo-flanders/core';
 import { ServiceIdentifier } from '@oslo-flanders/core';
 import { Container } from 'inversify';
+import { StakeholdersConversionService } from '../StakeholdersConversionService';
 import {
   StakeholdersConversionServiceConfiguration,
-} from '@oslo-converter-stakeholders/config/StakeholdersConversionServiceConfiguration';
-import { StakeholdersConversionService } from '@oslo-converter-stakeholders/StakeholdersConversionService';
+} from './StakeholdersConversionServiceConfiguration';
 
 export const container = new Container();
 
