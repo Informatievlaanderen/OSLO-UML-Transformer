@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 
 import {
@@ -55,8 +56,17 @@ const run = async (): Promise<void> => {
     generateCliCommand(eapConfig),
   );
 
-  const promises: Promise<string>[] = commands.map((command) =>
-    runCommand(command),
+  const promises: Promise<string | void>[] = commands.map((command) =>
+    runCommand(command).catch((error: unknown) => {
+      if (!error) return;
+      const errorMessage = `Command: ${command} \n ${<Error>error}\n`;
+
+      fs.appendFile('error.log', errorMessage, (err) => {
+        if (err) {
+          console.error(`Failed to write to log file: ${err.message}`);
+        }
+      });
+    }),
   );
   await Promise.all(promises);
 };
@@ -68,7 +78,12 @@ run()
     );
   })
   .catch((error: unknown) => {
-    console.error('Error during script:', error);
+    const errorMessage = `Error during script: ${error}\n`;
+    fs.appendFile('error.log', errorMessage, (err) => {
+      if (err) {
+        console.error(`Failed to write to log file: ${err.message}`);
+      }
+    });
   })
   .finally(async () => {
     console.log('Cleaning up...');

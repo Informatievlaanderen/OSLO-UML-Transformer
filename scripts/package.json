@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "build-clean": "tsc --build --clean",
+    "build-clean": "tsc --build --clean ../tsconfig.json",
     "start": "npm run build && node ./index.js"
   },
   "engines": {
