@@ -7,8 +7,11 @@ export const generateCliCommand = (eapConfig: IEapConfig): string =>
 export const runCommand = (command: string): Promise<string> =>
   new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
-      if (stderr || error) {
-        const stderrLines = stderr.split('\n');
+      if (stderr) {
+        const stderrLines: string[] = stderr.split('\n');
+        const errorIndex: number = stderrLines.findIndex((line) =>
+          line.includes('Error:'),
+        );
         if (stderrLines[0].includes('TypeError')) {
           reject(
             new Error(
@@ -16,9 +19,8 @@ export const runCommand = (command: string): Promise<string> =>
             ),
           );
         } else {
-          reject(new Error(stderrLines[0]));
+          reject(new Error(stderrLines[errorIndex]));
         }
       }
-      resolve(stdout);
     });
   });
