@@ -1,4 +1,2 @@
 **/node_modules
-packages/**/*.d.ts
 .eslintrc.js
-jest.config.ts
