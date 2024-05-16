@@ -1,8 +1,0 @@
-{
-  "uniqueLanguageConstraint": "Für jede Sprache ist für \"{ label }\" nur ein Wert zulässig.",
-  "nodeKindLiteralConstraint": "Der erwartete Wert für \"{ label }\" ist ein Literal.",
-  "nodeKindIRIConstraint": "Der erwartete Wert für {{ label }} ist eine rdfs:Resource (URI oder blank node).",
-  "codelistConstraint": "Für \"{ label }\" werden nur <\"{ codelist }\"> Werte erwartet.",
-  "minCountConstraint": "Erwartete Mindestwerte von {{ count }} für \"{ label }\".",
-  "maxCountConstraint": "Maximale { count }-Werte für \"{ label }\" erwartet."
-}

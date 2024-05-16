@@ -14,14 +14,11 @@
     "importHelpers": false,
     "strict": true,
     "esModuleInterop": true,
-    "types": ["reflect-metadata", "node", "jest"],
+    "types": ["reflect-metadata", "node"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
   },
-  "include": [
-    "packages/**/index.ts",
-    "packages/**/bin/**/*",
-    "packages/**/lib/**/*",
-  ],
-  "exclude": ["**/node_modules", "**/test/*"],
+  "include": ["./**/*.ts"],
+
+  "exclude": ["**/node_modules"],
 }

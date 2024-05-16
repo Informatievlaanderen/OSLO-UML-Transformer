@@ -7,12 +7,7 @@ module.exports = {
     tsconfigRootDir: __dirname, // this is the reason this is a .js file
     project: ['./tsconfig.eslint.json'],
   },
-  plugins: [
-    'jest',
-    'eslint-plugin-import',
-    'eslint-plugin-unused-imports',
-    'prettier',
-  ],
+  plugins: ['eslint-plugin-import', 'eslint-plugin-unused-imports', 'prettier'],
   extends: [
     'es/node',
     'plugin:import/errors',
@@ -189,43 +184,6 @@ module.exports = {
         ],
         'no-process-env': 'off',
         'unicorn/no-process-exit': 'off',
-      },
-    },
-    {
-      // Specific rules for test files
-      files: ['**/test/**/*.ts'],
-      env: {
-        'jest/globals': true,
-      },
-      globals: {
-        spyOn: false,
-        fail: false,
-      },
-      rules: {
-        'mocha/no-synchronous-tests': 'off',
-        'mocha/valid-test-description': 'off',
-        'mocha/no-sibling-hooks': 'off',
-
-        'max-statements-per-line': 'off',
-        'id-length': 'off',
-        'arrow-body-style': 'off',
-        'line-comment-position': 'off',
-        'no-inline-comments': 'off',
-        'unicorn/filename-case': 'off',
-        'no-new': 'off',
-        'unicorn/no-nested-ternary': 'off',
-        'no-return-assign': 'off',
-        'no-useless-call': 'off',
-        'no-sync': 'off',
-
-        '@typescript-eslint/brace-style': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/ban-ts-ignore': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/unbound-method': 'off',
-        '@typescript-eslint/no-extra-parens': 'off',
-        '@typescript-eslint/restrict-plus-operands': 'off',
-        'import/no-extraneous-dependencies': 'off',
       },
     },
   ],
