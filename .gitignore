@@ -14,7 +14,7 @@ typings/
 .env
 .env.test
 dist
-# /**/*.js
-# /**/*.d.ts
-# /**/*.js.map
+/**/*.js
+/**/*.d.ts
+/**/*.js.map
 
