@@ -25,7 +25,7 @@ const run = async (): Promise<void> => {
   const zipPath: string = path.join(__dirname, ZIP_NAME);
   const dir = path.join(
     __dirname,
-    `${REPO_NAME}-${ENVIRONMENT}/config/${ENVIRONMENT}`,
+    `${REPO_NAME}-${ENVIRONMENT}/config/${ENVIRONMENT}`
   );
 
   await createZipFromGithub(GITHUB_REPO, zipPath);
@@ -37,23 +37,33 @@ const run = async (): Promise<void> => {
     // If the config has a repository and a filename, we can build the URL
     .filter(
       (publication: IPublication) =>
-        publication.repository && publication.filename,
+        publication.repository && publication.filename
     )
     .map(
       (publication: IPublication) =>
-        `${publication.repository}/raw/master/${publication.filename}`,
+        `${publication.repository}/raw/master/${publication.filename}`
     );
   // Only keep unique URLs
   const uniqueUrls = [...new Set(urls)];
   const configs: IConfig[] = <IConfig[]>await getConfigFiles(uniqueUrls);
+
+  // log the eapConfigs that will be used to run the CLI commands
+  configs.forEach((config: IConfig) => {
+    fs.appendFile('configs.log', `${config.title}\n`, (err) => {
+      if (err) {
+        console.error(`Failed to write to config log file: ${err.message}`);
+      }
+    });
+  });
+
   // Create config files that contain just the required parameters for the CLI
   const eapConfigs: IEapConfig[] = configs.map((config) =>
-    generateEapConfig(config),
+    generateEapConfig(config)
   );
 
   // Create the CLI command using the new eapConfig
   const commands: string[] = eapConfigs.map((eapConfig: IEapConfig) =>
-    generateCliCommand(eapConfig),
+    generateCliCommand(eapConfig)
   );
 
   const promises: Promise<string | void>[] = commands.map((command) =>
@@ -66,7 +76,7 @@ const run = async (): Promise<void> => {
           console.error(`Failed to write to log file: ${err.message}`);
         }
       });
-    }),
+    })
   );
   await Promise.all(promises);
 };
@@ -74,7 +84,7 @@ const run = async (): Promise<void> => {
 run()
   .then(() => {
     console.log(
-      `All EAP files have been validated for the ${ENVIRONMENT} environment.`,
+      `All EAP files have been validated for the ${ENVIRONMENT} environment.`
     );
   })
   .catch((error: unknown) => {
