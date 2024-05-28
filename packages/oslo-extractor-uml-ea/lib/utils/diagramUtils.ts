@@ -1,48 +1,25 @@
-import alasql from 'alasql';
-import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
 import { ConnectorDirection } from '../enums/ConnectorDirection';
-import { EaTable } from '../enums/EaTable';
 import type { EaConnector } from '../types/EaConnector';
 import { EaDiagram } from '../types/EaDiagram';
 import type { EaPackage } from '../types/EaPackage';
-import { resolveConnectorDirection } from '../utils/resolveConnectorDirection';
 
-export function loadDiagrams(mdb: MDBReader, model: DataRegistry): DataRegistry {
-  const diagrams = mdb.getTable(EaTable.Diagram).getData();
-
-  model.diagrams = diagrams.map(item => new EaDiagram(
+export function mapToEaDiagram(data: any[], packages: EaPackage[]): EaDiagram[] {
+  const diagrams = data.map(item => new EaDiagram(
     <number>item.Diagram_ID,
     <string>item.Name,
     <string>item.ea_guid,
     <number>item.Package_ID,
   ));
 
-  model.diagrams.forEach(diagram => setDiagramPath(diagram, model.packages));
-
-  loadDiagramObjects(mdb, model.diagrams);
-  loadDiagramConnectors(mdb, model.diagrams, model.connectors);
-
-  return model;
+  diagrams.forEach(x => setDiagramPath(x, packages));
+  return diagrams;
 }
 
-function loadDiagramObjects(mdb: MDBReader, diagrams: EaDiagram[]): void {
-  // Const logger = getLoggerFor('DiagramObjectLoader');
-  const diagramObjects = mdb.getTable(EaTable.DiagramObject).getData();
-  const objects = mdb.getTable(EaTable.Object).getData();
-
-  const query = `
-    SELECT Diagram_ID, Object_ID
-    FROM ? diagramObject
-    INNER JOIN ? object ON diagramObject.Object_ID = object.Object_ID
-    WHERE object.Object_Type IN ('Class', 'DataType', 'Enumeration')`;
-
-  const filteredDiagramObjects = <any[]>alasql(query, [diagramObjects, objects]);
-  filteredDiagramObjects.forEach(diagramObject => {
+export function addElementIdsToDiagram(diagramObjects: any[], diagrams: EaDiagram[]): void {
+  diagramObjects.forEach(diagramObject => {
     const diagram = diagrams.find(x => x.id === diagramObject.Diagram_ID);
 
     if (!diagram) {
-      // TODO: log message
       return;
     }
 
@@ -52,21 +29,21 @@ function loadDiagramObjects(mdb: MDBReader, diagrams: EaDiagram[]): void {
   });
 }
 
-function loadDiagramConnectors(reader: MDBReader, diagrams: EaDiagram[], elementConnectors: EaConnector[]): void {
-  const diagramConnectors = reader.getTable(EaTable.DiagramLink).getData();
-
+export function addConnectorIdsToDiagram(
+  diagramConnectors: any[],
+  diagrams: EaDiagram[],
+  elementConnectors: EaConnector[],
+): void {
   diagramConnectors.forEach(diagramConnector => {
     const diagram = diagrams.find(x => x.id === diagramConnector.DiagramID);
 
     if (!diagram) {
-      // TODO: log message
       return;
     }
 
     let direction = ConnectorDirection.Unspecified;
 
     if (diagramConnector.Geometry === null) {
-      // TODO: log message
       return;
     }
     direction = resolveConnectorDirection(<string>diagramConnector.Geometry);
@@ -74,7 +51,6 @@ function loadDiagramConnectors(reader: MDBReader, diagrams: EaDiagram[], element
     const connector = elementConnectors.find(x => x.id === diagramConnector.ConnectorID);
 
     if (!connector) {
-      // TODO: log message
       return;
     }
 
@@ -92,11 +68,50 @@ function setDiagramPath(diagram: EaDiagram, packages: EaPackage[]): void {
   let path: string;
 
   if (!diagramPackage) {
-    // TODO: log message
     path = diagram.name;
   } else {
     path = `${diagramPackage.path}:${diagram.name}`;
   }
 
   diagram.path = path;
+}
+
+/**
+ * Resolves the direction of a connector by applying a regular expression on the geometry field of a connector.
+ * @param geometry - The geometry string of a connector.
+ * @returns - The direction of the connector.
+ * @see ConnectorDirection for the possible direction values.
+ */
+function resolveConnectorDirection(geometry: string): ConnectorDirection {
+  let labelDirection = ConnectorDirection.Unspecified;
+
+  const labelPattern = /LMT=[^;]+/u;
+  const directionPattern = /DIR=(-?[01])/u;
+
+  const label = labelPattern.exec(geometry);
+
+  if (label) {
+    const direction = directionPattern.exec(label[0]);
+
+    if (direction) {
+      switch (direction[1]) {
+        case '0':
+          labelDirection = ConnectorDirection.Unspecified;
+          break;
+
+        case '1':
+          labelDirection = ConnectorDirection.SourceToDest;
+          break;
+
+        case '-1':
+          labelDirection = ConnectorDirection.DestToSource;
+          break;
+
+        default:
+          // TODO: log message
+          labelDirection = ConnectorDirection.Unknown;
+      }
+    }
+  }
+  return labelDirection;
 }

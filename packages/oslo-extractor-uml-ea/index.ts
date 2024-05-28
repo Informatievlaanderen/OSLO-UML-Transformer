@@ -13,3 +13,7 @@ export * from './lib/enums/ConnectorType';
 export * from './lib/enums/EaTable';
 export * from './lib/enums/ElementType';
 export * from './lib/enums/NormalizedConnectorTypes';
+export * from './lib/AccessDbFileReader';
+export * from './lib/FileReaderService';
+export * from './lib/SqliteFileReader';
+export * from './lib/interfaces/IFileReader';

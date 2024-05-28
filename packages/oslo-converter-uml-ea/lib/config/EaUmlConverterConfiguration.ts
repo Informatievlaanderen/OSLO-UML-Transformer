@@ -33,6 +33,11 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    */
   private _publicationEnvironment: string | undefined;
 
+  /**
+   * The format of the input file, AccessDB or SQLite
+   */
+  private _inputFormat: string | undefined
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
@@ -40,6 +45,7 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._versionId = <string>params.versionId;
     this._outputFormat = <string>params.outputFormat;
     this._publicationEnvironment = <string>params.publicationEnvironment;
+    this._inputFormat = <string>params.inputFormat;
   }
 
   public get umlFile(): string {
@@ -82,5 +88,12 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "publicationEnvironment" before it was set.`);
     }
     return this._publicationEnvironment;
+  }
+
+  public get inputFormat(): string {
+    if (!this._inputFormat) {
+      throw new Error(`Trying to access property "inputFormat" before it was set.`);
+    }
+    return this._inputFormat;
   }
 }

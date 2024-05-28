@@ -1,15 +1,9 @@
-import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
 import { EaAttribute } from '../types/EaAttribute';
 import type { EaElement } from '../types/EaElement';
-import { addEaTagsToElements } from '../utils/assignTags';
 
-export function loadAttributes(mdb: MDBReader, model: DataRegistry): DataRegistry {
-  const attributes = mdb.getTable(EaTable.Attribute).getData();
-  const elementIds = new Set(model.elements.map(x => x.id));
-
-  model.attributes = attributes.reduce((attributesArray: EaAttribute[], attribute: any): EaAttribute[] => {
+export function mapToEaAttribute(data: any[], elements: EaElement[]): EaAttribute[] {
+  const elementIds = new Set(elements.map(x => x.id));
+  const attributes = data.reduce((attributesArray: EaAttribute[], attribute: any): EaAttribute[] => {
     // Verification that each attribute is linked to a class
     if (elementIds.has(<number>attribute.Object_ID)) {
       attributesArray.push(new EaAttribute(
@@ -20,19 +14,15 @@ export function loadAttributes(mdb: MDBReader, model: DataRegistry): DataRegistr
         <string>attribute.Type,
         <string>attribute.LowerBound,
         <string>attribute.UpperBound,
-        Number.parseInt(attribute.Classifier, 10) || undefined,
       ));
     }
 
     return attributesArray;
   }, []);
 
-  model.attributes.forEach(attribute => setAttributePath(attribute, model.elements));
+  attributes.forEach(x => setAttributePath(x, elements));
 
-  const attributeTags = mdb.getTable(EaTable.AttributeTag).getData();
-  addEaTagsToElements(attributeTags, model.attributes, 'ElementID', 'VALUE');
-
-  return model;
+  return attributes;
 }
 
 function setAttributePath(attribute: EaAttribute, elements: EaElement[]): void {

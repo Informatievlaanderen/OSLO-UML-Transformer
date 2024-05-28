@@ -7,11 +7,6 @@ import type { EaDiagram } from './types/EaDiagram';
 import type { EaElement } from './types/EaElement';
 import type { EaPackage } from './types/EaPackage';
 import type { NormalizedConnector } from './types/NormalizedConnector';
-import { loadAttributes } from './utils/loadAttributes';
-import { loadDiagrams } from './utils/loadDiagrams';
-import { loadElementConnectors } from './utils/loadElementConnectors';
-import { loadElements } from './utils/loadElements';
-import { loadPackages } from './utils/loadPackage';
 
 export class DataRegistry {
   public readonly logger: Logger;
@@ -27,17 +22,6 @@ export class DataRegistry {
   private _connectors: EaConnector[] | undefined;
   private _normalizedConnectors: NormalizedConnector[] | undefined;
   private _targetDiagram: EaDiagram | undefined;
-
-  public async extract(umlFile: string): Promise<void> {
-    const buffer = await fetchFileOrUrl(umlFile);
-    const mdb = new MDBReader(buffer);
-
-    loadPackages(mdb, this);
-    loadElements(mdb, this);
-    loadAttributes(mdb, this);
-    loadElementConnectors(mdb, this);
-    loadDiagrams(mdb, this);
-  }
 
   public setTargetDiagram(name: string): void {
     const filteredDiagrams = this.diagrams.filter(x => x.name === name);

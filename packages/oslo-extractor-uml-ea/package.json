@@ -33,9 +33,13 @@
   "dependencies": {
     "@oslo-flanders/core": "^0.0.13-alpha.0",
     "alasql": "1.7.3",
+    "better-sqlite3": "^10.0.0",
     "inversify": "^6.0.1",
     "mdb-reader": "github:Informatievlaanderen/mdb-reader",
     "reflect-metadata": "^0.1.13"
   },
-  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315"
+  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10"
+  }
 }

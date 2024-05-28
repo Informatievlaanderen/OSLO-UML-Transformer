@@ -27,6 +27,10 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
         {
           describe: 'The base URI of environment where the document will be published',
         })
+      .option('inputFormat', {
+        describe: 'The format of the input file',
+        choices: ['accessdb', 'sqlite'],
+      })
       .option('silent',
         {
           describe: 'All logs are suppressed',
@@ -38,7 +42,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<EaUmlConversionServi
         default: 'info',
         choices: LOG_LEVELS,
       })
-      .demandOption(['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],
+      .demandOption(['umlFile', 'diagramName', 'versionId', 'publicationEnvironment', 'inputFormat'],
         'Please provide the necessary arguments to work with this tool.')
       .help('h')
       .alias('h', 'help');
