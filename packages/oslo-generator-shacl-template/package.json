@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/shacl-template-generator",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.2-alpha.0",
   "description": "Generates a SHACL template based on an OSLO JSON-LD file",
   "author": "Dwight Van Lancker <dwight.vanlancker@vlaanderen.be>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-shacl-template#readme",
@@ -36,7 +36,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.13-alpha.0",
+    "@oslo-flanders/core": "^0.0.14-alpha.0",
     "i18n": "^0.15.1",
     "inversify": "^6.0.1",
     "n3": "^1.17.2",
@@ -55,5 +55,5 @@
     "rdf-parse": "^2.3.3",
     "streamify-string": "^1.0.1"
   },
-  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315"
+  "gitHead": "b8a15c4c91863a99770fcd716ca0ba1ead9bd85c"
 }

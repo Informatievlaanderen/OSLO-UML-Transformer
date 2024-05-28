@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/ea-converter",
-  "version": "0.0.19-alpha.0",
+  "version": "0.0.20-alpha.0",
   "description": "Transform an Enterprise Architect UML diagram to RDF",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-uml-ea#readme",
@@ -41,8 +41,8 @@
     "jest-runner-groups": "^2.2.0"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.13-alpha.0",
-    "@oslo-flanders/ea-uml-extractor": "^0.0.18-alpha.0",
+    "@oslo-flanders/core": "^0.0.14-alpha.0",
+    "@oslo-flanders/ea-uml-extractor": "^0.0.19-alpha.0",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
     "n3": "^1.16.2",
@@ -50,5 +50,5 @@
     "reflect-metadata": "^0.1.13",
     "yargs": "^17.6.0"
   },
-  "gitHead": "5c9d2777bb0afe94b70438c65bf648f6a4a6f315"
+  "gitHead": "b8a15c4c91863a99770fcd716ca0ba1ead9bd85c"
 }
