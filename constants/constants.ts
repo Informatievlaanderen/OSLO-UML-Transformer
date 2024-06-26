@@ -5,3 +5,5 @@ export const GITHUB_REPO = `https://codeload.github.com/Informatievlaanderen/${R
 export const ZIP_NAME = `${ENVIRONMENT}.zip`;
 export const PUBLICATION_ENVIRONMENT = 'https://data.vlaanderen.be';
 export const VERSION_ID = 'test/1';
+// export const BRANCH = 'master';
+export const BRANCH = 'master-node-toolchain';

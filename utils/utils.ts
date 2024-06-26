@@ -4,6 +4,7 @@ import path from 'path';
 import axios from 'axios';
 import extract from 'extract-zip';
 import {
+  BRANCH,
   GET_OPTIONS,
   PUBLICATION_ENVIRONMENT,
   VERSION_ID,
@@ -141,7 +142,7 @@ export const getConfigFiles = async (
 
 export const generateEapConfig = (config: IConfig): IEapConfig => {
   const conf = {
-    umlFile: `${config.repository}/raw/master/${config.eap}`,
+    umlFile: `${config.repository}/raw/${BRANCH}/${config.eap}`,
     diagramName: config.diagram,
     specificationType: SpecificationType[config.type],
     versionId: VERSION_ID,

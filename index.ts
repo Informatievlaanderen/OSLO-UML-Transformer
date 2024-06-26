@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import {
+  BRANCH,
   ENVIRONMENT,
   GITHUB_REPO,
   REPO_NAME,
@@ -41,7 +42,7 @@ const run = async (): Promise<void> => {
     )
     .map(
       (publication: IPublication) =>
-        `${publication.repository}/raw/master/${publication.filename}`
+        `${publication.repository}/raw/${BRANCH}/${publication.filename}`
     );
   // Only keep unique URLs
   const uniqueUrls = [...new Set(urls)];
