@@ -69,6 +69,7 @@ const run = async (): Promise<void> => {
 
   const promises: Promise<string | void>[] = commands.map((command) =>
     runCommand(command).catch((error: unknown) => {
+      console.log(`Error during command: ${command}` + error);
       if (!error) return;
       const errorMessage = `Command: ${command} \n ${<Error>error}\n`;
 
@@ -93,6 +94,7 @@ run()
     fs.appendFile('error.log', errorMessage, (err) => {
       if (err) {
         console.error(`Failed to write to log file: ${err.message}`);
+        throw new Error(err.message);
       }
     });
   })
