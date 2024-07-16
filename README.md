@@ -14,6 +14,7 @@ This repository is managed as a monorepo, using Lerna. Each package in this repo
 - `oslo-generator-jsonld-context` generates a JSON-LD context file using an OSLO JSON-LD as input
 - `oslo-generator-rdf-vocabulary` generates an RDF file using an OSLO JSON-LD as input
 - `oslo-generator-respec-html` generates an HTML page using the ReSpec template using an OSLO JSON-LD as input
+- `oslo-generator-html` generates an HTML page using the Nunjucks template using an OSLO JSON-LD as input
 
 The packages `oslo-core` and `oslo-extractor-uml-ea` are not executable via the CLI, as their purpose is to be added as a depedency in other packages.
 
