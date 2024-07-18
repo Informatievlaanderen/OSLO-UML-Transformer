@@ -18,8 +18,19 @@ npm install -g @oslo-flanders/html-generator
 
 ## API
 
+The service is executed from the CLI and expects the following parameters:
+| Parameter | Description | Required | Possible values |
+| --------- | --------- | ----------- | --------------- |
+| `--input` | The URL or local file path of an OSLO-compliant RDF file | :heavy_check_mark: ||
+| `--output` | The name of the output file | No, defaults to `context.jsonld` ||
+| `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|
+| `--specificationName` | Title of the document | No ||
+| `--language` | The language in which the HTML file must be generated (labels) | :heavy_check_mark: ||
+| `--silent` | Suppress log messages | No | `true` or `false` (default) |
+
 ## Usage
 
 ```bash
-
+oslo-generator-html --input https://data.vlaanderen.be/ns/adresregister/context.jsonld --language nl
+oslo-generator-html --input report.jsonld --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen"
 ```

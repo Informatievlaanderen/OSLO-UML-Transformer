@@ -1,0 +1,20 @@
+<div class="region region--no-space-top" id="jsonld">
+    <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">JSON-LD context</h2>
+    (niet normatief)
+    {% block jsonld %}
+        <p>Een herbruikbare JSON-LD context definitie voor dit applicatieprofiel is terug te vinden op:
+            <a href="{{ documentroot }}/context/{{ metadata.filename }}.jsonld" target="_blank">
+                {{ documentroot }}/context/ {{ metadata.filename }}.jsonld</a>
+        </p>
+    {% endblock %}
+</div>
+<div class="region region--no-space-top" id="shacl">
+    <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">SHACL template</h2>
+    (niet normatief)
+    {% block shacl %}
+        <p>Een herbruikbare SHACL template definitie voor dit applicatieprofiel is terug te vinden op:
+            <a href="{{ documentroot }}/shacl/{{ metadata.filename }}-SHACL.ttl" target="_blank">
+                {{ documentroot }}/shacl/ {{ metadata.filename }}-SHACL.ttl</a>
+        </p>
+    {% endblock %}
+</div></div>

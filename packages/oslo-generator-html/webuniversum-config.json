@@ -1,0 +1,3894 @@
+{
+  "baseURI": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#",
+  "classes": [
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+      "vocabularyLabel": {
+        "nl": "Aanbieder"
+      },
+      "applicationProfileLabel": {
+        "nl": "Aanbieder"
+      },
+      "vocabularyDefinition": {
+        "nl": "Geregistreerde Organisatie die Mobiliteitsdiensten aanbiedt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Geregistreerde Organisatie die Mobiliteitsdiensten aanbiedt."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Onder een Geregistreerde Organisaties verstaan we een Organisatie met een juridisch statuut (vastgelegd door registratie),bv NV,VZW..."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Onder een Geregistreerde Organisaties verstaan we een Organisatie met een juridisch statuut (vastgelegd door registratie),bv NV,VZW..."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/dc/terms/Agent",
+          "vocabularyLabel": {
+            "nl": "Agent"
+          },
+          "applicationProfileLabel": {
+            "nl": "Agent"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "http://schema.org/contactPoint",
+          "vocabularyLabel": {
+            "nl": "contactinfo"
+          },
+          "applicationProfileLabel": {
+            "nl": "contactinfo"
+          },
+          "vocabularyDefinition": {
+            "nl": "Informatie zoals email, telefoon... die toelaat de Organisatie te contacteren."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Informatie zoals email, telefoon... die toelaat de Organisatie te contacteren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+          "range": {
+            "id": "http://schema.org/ContactPoint",
+            "vocabularyLabel": {
+              "nl": "Contactpunt"
+            },
+            "applicationProfileLabel": {
+              "nl": "Contactinfo"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#Organization",
+          "vocabularyLabel": {
+            "nl": "Organisatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Organisatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Organization",
+            "vocabularyLabel": {
+              "nl": "Organisatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Organisatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/regorg#registration",
+          "vocabularyLabel": {
+            "nl": "registratie"
+          },
+          "applicationProfileLabel": {
+            "nl": "registratie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Identificator die de organisatie verkreeg bij registratie."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "In de KBO is dit het ondernemingsnummer."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+          "range": {
+            "id": "http://www.w3.org/ns/adms#Identifier",
+            "vocabularyLabel": {
+              "nl": "Identificator"
+            },
+            "applicationProfileLabel": {
+              "nl": "Identificator"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "vocabularyLabel": {
+            "nl": "voorkeursnaam"
+          },
+          "applicationProfileLabel": {
+            "nl": "voorkeursnaam"
+          },
+          "vocabularyDefinition": {
+            "nl": "Naam waarmee de Organisatie bij voorkeur wordt aangeduid."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam waarmee de Organisatie bij voorkeur wordt aangeduid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Aandrijftype"
+      },
+      "applicationProfileLabel": {
+        "nl": "Aandrijftype"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+      "vocabularyLabel": {
+        "nl": "AanvullendeDienst"
+      },
+      "applicationProfileLabel": {
+        "nl": "AanvullendeDienst"
+      },
+      "vocabularyDefinition": {
+        "nl": "Dienst die een aanvulling biedt op andere Diensten of deze ondersteunt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Dienst die een aanvulling biedt op andere Diensten of deze ondersteunt."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bv Krantenwinkel,Postdienst of Restaurant in een Station. De Diensten die daarmee worden aangevuld of ondersteund zijn bv Mobiliteitsdiensten."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv Krantenwinkel,Postdienst of Restaurant in een Station. De Diensten die daarmee worden aangevuld of ondersteund zijn bv Mobiliteitsdiensten."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#aanbieder",
+          "vocabularyLabel": {
+            "nl": "aanbieder"
+          },
+          "applicationProfileLabel": {
+            "nl": "aanbieder"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+            "vocabularyLabel": {
+              "nl": "Aanbieder"
+            },
+            "applicationProfileLabel": {
+              "nl": "Aanbieder"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst.beschikbaarOpInfrastructuurelement",
+          "vocabularyLabel": {
+            "nl": "beschikbaarOpInfrastructuurelement"
+          },
+          "applicationProfileLabel": {
+            "nl": "beschikbaarOpInfrastructuurelement"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+            "vocabularyLabel": {
+              "nl": "Infrastructuurelement"
+            },
+            "applicationProfileLabel": {
+              "nl": "Infrastructuurelement"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/title",
+          "vocabularyLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "vocabularyDefinition": {
+            "nl": "Naam van de aanvullende dienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de aanvullende dienst."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst.toegankelijkheid",
+          "vocabularyLabel": {
+            "nl": "toegankelijkheid"
+          },
+          "applicationProfileLabel": {
+            "nl": "toegankelijkheid"
+          },
+          "vocabularyDefinition": {
+            "nl": "Toegankelijkheid van de aanvullende dienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Toegankelijkheid van de aanvullende dienst."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv of de Mobiliteitsdienst toegankelijk is voor personen met een beperking."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+            "vocabularyLabel": {
+              "nl": "Toegankelijkheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Toegankelijkheid"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "vocabularyDefinition": {
+            "nl": "Aard van de aanvullende dienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aard van de aanvullende dienst."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv ticketing, wachtaccomodatie, sanitair, AED…"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv ticketing, wachtaccomodatie, sanitair, AED…"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "AanvullendeDiensttype"
+            },
+            "applicationProfileLabel": {
+              "nl": "AanvullendeDiensttype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "AanvullendeDiensttype"
+      },
+      "applicationProfileLabel": {
+        "nl": "AanvullendeDiensttype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Geeft de types dienstverlening weer die aanvullend en ondersteunend is."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Geeft de types dienstverlening weer die aanvullend en ondersteunend is."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Vb: sanitair,geldautomaat,pakketautomaat,vuilnisbaak,oplaadpunt…"
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Vb: sanitair,geldautomaat,pakketautomaat,vuilnisbaak,oplaadpunt…"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://purl.org/dc/terms/Agent",
+      "vocabularyLabel": {
+        "nl": "Agent"
+      },
+      "applicationProfileLabel": {
+        "nl": "Agent"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Iemand die of iets dat kan handelen of een effect kan teweeg brengen."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Bestuurder",
+      "vocabularyLabel": {
+        "nl": "Bestuurder"
+      },
+      "applicationProfileLabel": {
+        "nl": "Bestuurder"
+      },
+      "vocabularyDefinition": {
+        "nl": "De agent die het voertuig opereert."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De agent die het voertuig opereert."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reiziger",
+          "vocabularyLabel": {
+            "nl": "Reiziger"
+          },
+          "applicationProfileLabel": {
+            "nl": "Reiziger"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#opdrachtgever",
+          "vocabularyLabel": {
+            "nl": "opdrachtgever"
+          },
+          "applicationProfileLabel": {
+            "nl": "opdrachtgever"
+          },
+          "vocabularyDefinition": {
+            "nl": "De opdrachtgever van de bestuurder"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De opdrachtgever van de bestuurder"
+          },
+          "vocabularyUsageNote": {
+            "nl": "De organisatie waarvoor een chauffeur de route doet"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "De organisatie waarvoor een chauffeur de route doet"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Bestuurder",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Organization",
+            "vocabularyLabel": {
+              "nl": "Organisatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Organisatie"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+      "vocabularyLabel": {
+        "nl": "Boeking"
+      },
+      "applicationProfileLabel": {
+        "nl": "Boeking"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het vastleggen van een Reis door aankoop van een Vervoersbewijs en/of het reserveren van een Resource."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het vastleggen van een Reis door aankoop van een Vervoersbewijs en/of het reserveren van een Resource."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bv het aankopen van een treinticket of het reserveren van een zitplaats op de trein."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv het aankopen van een treinticket of het reserveren van een zitplaats op de trein."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "http://purl.org/dc/terms/date",
+          "vocabularyLabel": {
+            "nl": "datum"
+          },
+          "applicationProfileLabel": {
+            "nl": "datum"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop de Boeking is gebeurd."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Dit tijdstip ligt typisch voor het vertrektijdstip van de Reis."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#reis",
+          "vocabularyLabel": {
+            "nl": "reis"
+          },
+          "applicationProfileLabel": {
+            "nl": "reis"
+          },
+          "vocabularyDefinition": {
+            "nl": "Reis die geboekt wordt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Reis die geboekt wordt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+          "range": {
+            "id": "https://schema.org/Trip",
+            "vocabularyLabel": {
+              "nl": "Reis"
+            },
+            "applicationProfileLabel": {
+              "nl": "Reis"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking.resource",
+          "vocabularyLabel": {
+            "nl": "resource"
+          },
+          "applicationProfileLabel": {
+            "nl": "resource"
+          },
+          "vocabularyDefinition": {
+            "nl": "Resource die is gereserveerd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Resource die is gereserveerd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+            "vocabularyLabel": {
+              "nl": "Resource"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resource"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking.status",
+          "vocabularyLabel": {
+            "nl": "status"
+          },
+          "applicationProfileLabel": {
+            "nl": "status"
+          },
+          "vocabularyDefinition": {
+            "nl": "Status van de Boeking."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Status van de Boeking."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv of de Boeking nog hangende is of reeds bevestigd."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv of de Boeking nog hangende is of reeds bevestigd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Boekingstatus"
+            },
+            "applicationProfileLabel": {
+              "nl": "Boekingstatus"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1",
+          "codelist": "https://github.com/TOMP-WG/TOMP-API/blob/master/documents/191021%20-%20Blueprint%20for%20a%20TO-MP%20API%20v1.1.pdf"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Boekingstatus"
+      },
+      "applicationProfileLabel": {
+        "nl": "Boekingstatus"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Dienstverleningtype"
+      },
+      "applicationProfileLabel": {
+        "nl": "Dienstverleningtype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Aard van een Dienstverlening."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Aard van een Dienstverlening."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Dimensietype"
+      },
+      "applicationProfileLabel": {
+        "nl": "Dimensietype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het type van de dimensie die van toepassing is"
+      },
+      "applicationProfileDefinition": {
+        "nl": "diepte"
+      },
+      "vocabularyUsageNote": {
+        "nl": "bijvoorbeeld hoogte."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De diepte van de afmeting"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/openbaardomein#Element",
+      "vocabularyLabel": {
+        "nl": "Element"
+      },
+      "applicationProfileLabel": {
+        "nl": "Element"
+      },
+      "vocabularyDefinition": {
+        "nl": "Afzonderlijk te onderscheiden element dat ofwel direct of indirect bevestigd is aan het aardoppervlak."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Afzonderlijk te onderscheiden element dat ofwel direct of indirect bevestigd is aan het aardoppervlak."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+      "vocabularyLabel": {
+        "nl": "Infrastructuurelement"
+      },
+      "applicationProfileLabel": {
+        "nl": "Infrastructuurelement"
+      },
+      "vocabularyDefinition": {
+        "nl": "Individueel object op het Openbaar Domein dat niet vegetatief is."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Individueel object op het Openbaar Domein dat niet vegetatief is."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/openbaardomein#Element",
+          "vocabularyLabel": {
+            "nl": "Element"
+          },
+          "applicationProfileLabel": {
+            "nl": "Element"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst.beschikbaarOpInfrastructuurelement",
+          "vocabularyLabel": {
+            "nl": "dienst"
+          },
+          "applicationProfileLabel": {
+            "nl": "dienst"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#AanvullendeDienst",
+            "vocabularyLabel": {
+              "nl": "AanvullendeDienst"
+            },
+            "applicationProfileLabel": {
+              "nl": "AanvullendeDienst"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten/#Mobiliteitsdienst.beschikbaarOpInfrastructuurelement",
+          "vocabularyLabel": {
+            "nl": "dienst"
+          },
+          "applicationProfileLabel": {
+            "nl": "dienst"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+            "vocabularyLabel": {
+              "nl": "Mobiliteitsdienst"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mobiliteitsdienst"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Lading"
+      },
+      "applicationProfileLabel": {
+        "nl": "Lading"
+      },
+      "vocabularyDefinition": {
+        "nl": "De lading van een voertuig"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Lading"
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De lading van een voertuig"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://purl.org/dc/terms/Location",
+      "vocabularyLabel": {
+        "nl": "Locatie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Plaats"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een ruimtelijk gebied of benoemde plaats."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een ruimtelijk gebied of benoemde plaats."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/locn#geometry",
+          "vocabularyLabel": {
+            "nl": "Geometrie van de plaats of het gebied."
+          },
+          "applicationProfileLabel": {
+            "nl": "geometrie"
+          },
+          "vocabularyDefinition": {
+            "nl": "Geometrie van de plaats of het gebied."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Geometrie van de plaats of het gebied."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://purl.org/dc/terms/Location",
+          "range": {
+            "id": "http://www.w3.org/ns/locn#Geometry",
+            "vocabularyLabel": {
+              "nl": "Geometrie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Geometrie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2000/01/rdf-schema#label",
+          "vocabularyLabel": {
+            "nl": "plaatsnaam"
+          },
+          "applicationProfileLabel": {
+            "nl": "plaatsnaam"
+          },
+          "vocabularyDefinition": {
+            "nl": "Naam van de plaats of van het gebied."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de plaats of van het gebied."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://purl.org/dc/terms/Location",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "GeografischeNaam"
+            },
+            "applicationProfileLabel": {
+              "nl": "GeografischeNaam"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+      "vocabularyLabel": {
+        "nl": "Mobiliteitsdienst"
+      },
+      "applicationProfileLabel": {
+        "nl": "Mobiliteitsdienst"
+      },
+      "vocabularyDefinition": {
+        "nl": "Dienstverlening die verplaatsingen van Personen tussen Locaties mogelijk maakt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Dienstverlening die verplaatsingen van Personen tussen Locaties mogelijk maakt."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Hieronder verstaan we zowel klassieke mobiliteitsdiensten zoals openbaar vervoer (typisch aangeboden als lijndienst, bv metrolijn 5 in Brussel), maar ook deelvervoer zoals free floating deelsteps (bv deelsteps in grote steden)."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Hieronder verstaan we zowel klassieke mobiliteitsdiensten zoals openbaar vervoer (typisch aangeboden als lijndienst, bv metrolijn 5 in Brussel), maar ook deelvervoer zoals free floating deelsteps (bv deelsteps in grote steden)."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#aanbieder",
+          "vocabularyLabel": {
+            "nl": "aanbieder"
+          },
+          "applicationProfileLabel": {
+            "nl": "aanbieder"
+          },
+          "vocabularyDefinition": {
+            "nl": "De aanbieder van de Mobiliteitsdienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De aanbieder van de Mobiliteitsdienst."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Aanbieder",
+            "vocabularyLabel": {
+              "nl": "Aanbieder"
+            },
+            "applicationProfileLabel": {
+              "nl": "Aanbieder"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst.beschikbaarheid",
+          "vocabularyLabel": {
+            "nl": "beschikbaarheid"
+          },
+          "applicationProfileLabel": {
+            "nl": "beschikbaarheid"
+          },
+          "vocabularyDefinition": {
+            "nl": "Beschikbaarheid van de Mobiliteitsdienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Beschikbaarheid van de Mobiliteitsdienst."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv dienstregeling of openingsuren."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv dienstregeling of openingsuren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Beschikbaarheid",
+            "vocabularyLabel": {
+              "nl": "Beschikbaarheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Beschikbaarheid"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/vervoersknooppunten#Mobiliteitsdienst.beschikbaarOpInfrastructuurelement",
+          "vocabularyLabel": {
+            "nl": "beschikbaaropInfrastructuurelement"
+          },
+          "applicationProfileLabel": {
+            "nl": "beschikbaaropInfrastructuurelement"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+            "vocabularyLabel": {
+              "nl": "Infrastructuurelement"
+            },
+            "applicationProfileLabel": {
+              "nl": "Infrastructuurelement"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/title",
+          "vocabularyLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de Mobiliteitsdienst."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#omvat",
+          "vocabularyLabel": {
+            "nl": "omvat"
+          },
+          "applicationProfileLabel": {
+            "nl": "omvat"
+          },
+          "vocabularyDefinition": {
+            "nl": "Meer specifieke Mobiliteitsdiensten waaruit de Mobiliteitsdienst is samengesteld."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Meer specifieke Mobiliteitsdiensten waaruit de Mobiliteitsdienst is samengesteld."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv openbaar vervoer in Brussel aangeboden door de MIVB bestaat uit een aantal metrolijnen bv lijn 5 Erasmus-Herman-Debroux.Of een MAAS-aanbieder integreert meerdere diensten, bv openbaar vervoer en deelvervoer."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv openbaar vervoer in Brussel aangeboden door de MIVB bestaat uit een aantal metrolijnen bv lijn 5 Erasmus-Herman-Debroux.Of een MAAS-aanbieder integreert meerdere diensten, bv openbaar vervoer en deelvervoer."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+            "vocabularyLabel": {
+              "nl": "Mobiliteitsdienst"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mobiliteitsdienst"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst.resource",
+          "vocabularyLabel": {
+            "nl": "resource"
+          },
+          "applicationProfileLabel": {
+            "nl": "resource"
+          },
+          "vocabularyDefinition": {
+            "nl": "Resource waarover de Mobiliteitsdienst beschikt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Resource waarover de Mobiliteitsdienst beschikt."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "NOTE$ea_notes=We beperken ons hier tot Resources die een Reiziger kan reserveren voor het uitvoeren van zijn Reis, bv wel de zitplaats op een trein maar niet de trein waarmee de Mobiliteitsdienst wordt gerealiseerd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+            "vocabularyLabel": {
+              "nl": "Resource"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resource"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/spatial",
+          "vocabularyLabel": {
+            "nl": "ruimtelijke dekking"
+          },
+          "applicationProfileLabel": {
+            "nl": "ruimtelijke dekking"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Gebied of Plaats waarbinnen de Mobiliteitsdienst wordt aangeboden."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv Brussels Gewest, Antwerpen..."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "http://purl.org/dc/terms/Location",
+            "vocabularyLabel": {
+              "nl": "Locatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Plaats"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst.toegankelijkheid",
+          "vocabularyLabel": {
+            "nl": "toegankelijkheid"
+          },
+          "applicationProfileLabel": {
+            "nl": "toegankelijkheid"
+          },
+          "vocabularyDefinition": {
+            "nl": "Toegankelijkheid van de Mobiliteitsdienst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Toegankelijkheid van de Mobiliteitsdienst."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv of de Mobiliteitsdienst toegankelijk is voor personen met een beperking."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv of de Mobiliteitsdienst toegankelijk is voor personen met een beperking."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+            "vocabularyLabel": {
+              "nl": "Toegankelijkheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Toegankelijkheid"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aard van de mobiliteitsdienst."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv openbaar vervoer, parking etc. Combinaties zijn mogelijk, bv collectief vervoer & openbaar vervoer (bv NMBS), individueel vervoer & privé vervoer (taxi's)..."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Dienstverleningtype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Dienstverleningtype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst.vervoermiddel",
+          "vocabularyLabel": {
+            "nl": "vervoermiddel"
+          },
+          "applicationProfileLabel": {
+            "nl": "vervoermiddel"
+          },
+          "vocabularyDefinition": {
+            "nl": "Vervoermiddel waarmee of waarvoor de Mobiliteitsdienst doorgaans wordt georganiseerd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Vervoermiddel waarmee of waarvoor de Mobiliteitsdienst doorgaans wordt georganiseerd."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv metro, tram, bus voor de MIVB. Bv auto, fiets voor parking Coovi."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv metro, tram, bus voor de MIVB. Bv auto, fiets voor parking Coovi."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Vervoermiddel"
+            },
+            "applicationProfileLabel": {
+              "nl": "Vervoermiddel"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Oplegger",
+      "vocabularyLabel": {
+        "nl": "Oplegger"
+      },
+      "applicationProfileLabel": {
+        "nl": "Oplegger"
+      },
+      "vocabularyDefinition": {
+        "nl": "Voertuig voor goederenvervoer zonder vooras en aandrijving."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Voertuig voor goederenvervoer zonder vooras en aandrijving."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "vocabularyLabel": {
+            "nl": "Voertuig"
+          },
+          "applicationProfileLabel": {
+            "nl": "Voertuig"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "id": "http://www.w3.org/ns/org#Organization",
+      "vocabularyLabel": {
+        "nl": "Organisatie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Organisatie"
+      },
+      "applicationProfileDefinition": {
+        "nl": "NOTE"
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/dc/terms/Agent",
+          "vocabularyLabel": {
+            "nl": "Agent"
+          },
+          "applicationProfileLabel": {
+            "nl": "Agent"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#altLabel",
+          "vocabularyLabel": {
+            "nl": "alternatieve label"
+          },
+          "applicationProfileLabel": {
+            "nl": "alternatieve naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Andere naam waaronder de organisatie bekend is."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv commerciële naam, informele naam…"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://purl.org/dc/terms/description",
+          "vocabularyLabel": {
+            "nl": "beschrijving"
+          },
+          "applicationProfileLabel": {
+            "nl": "beschrijving"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Beschrijving van de organisatie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#classification",
+          "vocabularyLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Rangschikking van de organisatie in een classificatiesysteem."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "OrganisatieClassificatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "OrganisatieClassificatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://schema.org/contactPoint",
+          "vocabularyLabel": {
+            "nl": "contactpunt"
+          },
+          "applicationProfileLabel": {
+            "nl": "contactinfo"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Informatie zoals email, telefoon... die toelaat de Organisatie te contacteren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://schema.org/ContactPoint",
+            "vocabularyLabel": {
+              "nl": "Contactpunt"
+            },
+            "applicationProfileLabel": {
+              "nl": "Contactinfo"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#purpose",
+          "vocabularyLabel": {
+            "nl": "doel"
+          },
+          "applicationProfileLabel": {
+            "nl": "doel"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Bestaansreden vd organisatie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#linkedTo",
+          "vocabularyLabel": {
+            "nl": "gelinkt met"
+          },
+          "applicationProfileLabel": {
+            "nl": "is geassocieerd met"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Niet nader bepaalde relatie met een andere organisatie."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv om subsidiëring of bevooradingsketens te documenteren. Dient in dat geval verder gespecialiseerd te worden."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Organization",
+            "vocabularyLabel": {
+              "nl": "Organisatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Organisatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#hasSubOrganization",
+          "vocabularyLabel": {
+            "nl": "heeft suborganisatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "heeft suborganisatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Organisatie die dochter of onderdeel is van de organisatie."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Wordt gebruikt om een hiërarchie van organisaties te documenteren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Organization",
+            "vocabularyLabel": {
+              "nl": "Organisatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Organisatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://xmlns.com/foaf/0.1/homepage",
+          "vocabularyLabel": {
+            "nl": "homepage"
+          },
+          "applicationProfileLabel": {
+            "nl": "homepage"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Adres vd homepage van de website vd organisatie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/regorg#orgActivity",
+          "vocabularyLabel": {
+            "nl": "organisatieactiviteit"
+          },
+          "applicationProfileLabel": {
+            "nl": "activiteit"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Type activiteit die door de organisatie wordt uitgeoefend."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Specialisatie van het attribuut classificatie (naast type & status)."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "OrganisatieActiviteit"
+            },
+            "applicationProfileLabel": {
+              "nl": "OrganisatieActiviteit"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/regorg#orgStatus",
+          "vocabularyLabel": {
+            "nl": "organisatiestatus"
+          },
+          "applicationProfileLabel": {
+            "nl": "status"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Toestand vd organisatie."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Specialisatie van classificatie (naast type & activiteit)."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "OrganisatieStatus"
+            },
+            "applicationProfileLabel": {
+              "nl": "OrganisatieStatus"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/regorg#orgType",
+          "vocabularyLabel": {
+            "nl": "organisatietype"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Soort organisatie."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Specialisatie van classificatie (naast activiteit & status)."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "OrganisatieType"
+            },
+            "applicationProfileLabel": {
+              "nl": "OrganisatieType"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#subOrganizationOf",
+          "vocabularyLabel": {
+            "nl": "suborganisatie van"
+          },
+          "applicationProfileLabel": {
+            "nl": "is suborganisatie van"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Organisatie die deze organisatie omvat."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Wordt gebruikt om een hiërarchie van organisaties te documenteren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Organization",
+            "vocabularyLabel": {
+              "nl": "Organisatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Organisatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "vocabularyLabel": {
+            "nl": "voorkeurslabel"
+          },
+          "applicationProfileLabel": {
+            "nl": "voorkeursnaam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam waarmee de organisatie bij voorkeur wordt aangeduid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Organization",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "vocabularyLabel": {
+              "nl": "Taalstring"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalstring"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://schema.mobivoc.org/#ParkingFacility",
+      "vocabularyLabel": {
+        "nl": "Parkeerfaciliteit"
+      },
+      "applicationProfileLabel": {
+        "nl": "Parkeerfaciliteit"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een faciliteit dat gebruikt wordt om voertuigen te parkeren."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een faciliteit dat gebruikt wordt om voertuigen te parkeren."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+          "vocabularyLabel": {
+            "nl": "Infrastructuurelement"
+          },
+          "applicationProfileLabel": {
+            "nl": "Infrastructuurelement"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://schema.mobivoc.org/#feature",
+          "vocabularyLabel": {
+            "nl": "kenmerk"
+          },
+          "applicationProfileLabel": {
+            "nl": "kenmerk"
+          },
+          "vocabularyDefinition": {
+            "nl": "De kenmerken van een parkeerfaciliteit"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De kenmerken van een parkeerfaciliteit"
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv kiss- and ridezone, laad- en loszone"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv kiss- and ridezone, laad- en loszone"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://schema.mobivoc.org/#ParkingFacility",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "ParkeerfaciliteitKenmerktype"
+            },
+            "applicationProfileLabel": {
+              "nl": "ParkeerfaciliteitKenmerktype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://schema.org/openingHoursSpecification",
+          "vocabularyLabel": {
+            "nl": "openingsuren"
+          },
+          "applicationProfileLabel": {
+            "nl": "openingsuren"
+          },
+          "vocabularyDefinition": {
+            "nl": "De openingsuren van de parkeerfaciliteit."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De openingsuren van de parkeerfaciliteit."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://schema.mobivoc.org/#ParkingFacility",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://schema.mobivoc.org/#parkingSpace",
+          "vocabularyLabel": {
+            "nl": "parkeerplaats"
+          },
+          "applicationProfileLabel": {
+            "nl": "parkeerplaats"
+          },
+          "vocabularyDefinition": {
+            "nl": "De parkeerplaats van de parkeerfaciliteit."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De parkeerplaats van de parkeerfaciliteit."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://schema.mobivoc.org/#ParkingFacility",
+          "range": {
+            "id": "http://schema.mobivoc.org/#ParkingSpace",
+            "vocabularyLabel": {
+              "nl": "Parkeerplaats"
+            },
+            "applicationProfileLabel": {
+              "nl": "Parkeerplaats"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "ParkeerfaciliteitKenmerktype"
+      },
+      "applicationProfileLabel": {
+        "nl": "ParkeerfaciliteitKenmerktype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het kenmerktype van de parkeerfaciliteit."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het kenmerktype van de parkeerfaciliteit."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Vb: Kiss- and Ride"
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Vb: Kiss- and Ride"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://schema.mobivoc.org/#ParkingSpace",
+      "vocabularyLabel": {
+        "nl": "Parkeerplaats"
+      },
+      "applicationProfileLabel": {
+        "nl": "Parkeerplaats"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een plaats dat voorzien is om één voertuig te parkeren."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een plaats dat voorzien is om één voertuig te parkeren."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+          "vocabularyLabel": {
+            "nl": "Resource"
+          },
+          "applicationProfileLabel": {
+            "nl": "Resource"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://schema.mobivoc.org/#feature",
+          "vocabularyLabel": {
+            "nl": "kenmerk"
+          },
+          "applicationProfileLabel": {
+            "nl": "kenmerk"
+          },
+          "vocabularyDefinition": {
+            "nl": "De kenmerken van de parkeerplaats"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De kenmerken van de parkeerplaats"
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv parkeerplaats voor mensen met een handicap"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv parkeerplaats voor mensen met een handicap"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://schema.mobivoc.org/#ParkingSpace",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "ParkeerplaatsKenmerktype"
+            },
+            "applicationProfileLabel": {
+              "nl": "ParkeerplaatsKenmerktype"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "ParkeerplaatsKenmerktype"
+      },
+      "applicationProfileLabel": {
+        "nl": "ParkeerplaatsKenmerktype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het kenmerktype van de parkeerplaats."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het kenmerktype van de parkeerplaats."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Vb: Parkeerplaats voor gehandicapten"
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Vb: Parkeerplaats voor gehandicapten"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "https://schema.org/Trip",
+      "vocabularyLabel": {
+        "nl": "Reis"
+      },
+      "applicationProfileLabel": {
+        "nl": "Reis"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Vrijwillige verplaatsing van een Persoon van de ene Locatie naar een andere Locatie."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De reis verloopt eventueel via andere Locaties. De Locatie waar de Reis begint kan gelijk zijn aan deze waar de Reis eindigt (bv heen- en terugreis)."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "https://schema.org/arrivalTime",
+          "vocabularyLabel": {
+            "nl": "aankomsttijd"
+          },
+          "applicationProfileLabel": {
+            "nl": "aankomsttijdstip"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop de Reis afgelopen is of waarop de Reiziger zou willen dat ze is afgelopen."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Doorgaans wordt enkel een vertrek- of een aankomsttijdstip opgegeven."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reis.boeking",
+          "vocabularyLabel": {
+            "nl": "boeking"
+          },
+          "applicationProfileLabel": {
+            "nl": "boeking"
+          },
+          "vocabularyDefinition": {
+            "nl": "Boeking van de Reis."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Boeking van de Reis."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+            "vocabularyLabel": {
+              "nl": "Boeking"
+            },
+            "applicationProfileLabel": {
+              "nl": "Boeking"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#gekozenRoute",
+          "vocabularyLabel": {
+            "nl": "gekozen route"
+          },
+          "applicationProfileLabel": {
+            "nl": "gekozen route"
+          },
+          "vocabularyDefinition": {
+            "nl": "Route die de Reiziger kiest uit de mogelijke Routes."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Route die de Reiziger kiest uit de mogelijke Routes."
+          },
+          "vocabularyUsageNote": {
+            "nl": "NOTE$ea_notes=Eventueel meer dan 1 gekozen Route als de reiziger onderweg van Route verandert."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "NOTE$ea_notes=Eventueel meer dan 1 gekozen Route als de reiziger onderweg van Route verandert."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+            "vocabularyLabel": {
+              "nl": "Route"
+            },
+            "applicationProfileLabel": {
+              "nl": "Route"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://schema.org/partOfTrip",
+          "vocabularyLabel": {
+            "nl": "isdeelVan"
+          },
+          "applicationProfileLabel": {
+            "nl": "is deel van"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Deel van een volledige Reis dat op zichzelf ook beschouwd kan worden als een Reis."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "https://schema.org/Trip",
+            "vocabularyLabel": {
+              "nl": "Reis"
+            },
+            "applicationProfileLabel": {
+              "nl": "Reis"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#mogelijkeRoute",
+          "vocabularyLabel": {
+            "nl": "mogelijke route"
+          },
+          "applicationProfileLabel": {
+            "nl": "mogelijke route"
+          },
+          "vocabularyDefinition": {
+            "nl": "Routes die gevolgd kunnen worden om de Reis uit te voeren."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Routes die gevolgd kunnen worden om de Reis uit te voeren."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+            "vocabularyLabel": {
+              "nl": "Route"
+            },
+            "applicationProfileLabel": {
+              "nl": "Route"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#uitgevoerdeRoute",
+          "vocabularyLabel": {
+            "nl": "uitgevoerde route"
+          },
+          "applicationProfileLabel": {
+            "nl": "uitgevoerde route"
+          },
+          "vocabularyDefinition": {
+            "nl": "Route die uiteindelijk uitgevoerd is om de Reis te realiseren."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Route die uiteindelijk uitgevoerd is om de Reis te realiseren."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Werkelijke aankomst- en vertrektijdstip, reisduur etc."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Werkelijke aankomst- en vertrektijdstip, reisduur etc."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+            "vocabularyLabel": {
+              "nl": "Route"
+            },
+            "applicationProfileLabel": {
+              "nl": "Route"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://schema.org/departureTime",
+          "vocabularyLabel": {
+            "nl": "vertrektijd"
+          },
+          "applicationProfileLabel": {
+            "nl": "vertrektijdstip"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop de Reis aanvangt of waarop de Reiziger zou willen dat ze aanvangt."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Doorgaans wordt enkel een vertrek- of een aankomsttijdstip opgegeven."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/Trip",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reiziger",
+      "vocabularyLabel": {
+        "nl": "Reiziger"
+      },
+      "applicationProfileLabel": {
+        "nl": "Reiziger"
+      },
+      "vocabularyDefinition": {
+        "nl": "Persoon die een Reis onderneemt of wil ondernemen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Persoon die een Reis onderneemt of wil ondernemen."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reservatie",
+      "vocabularyLabel": {
+        "nl": "Reservatie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Reservatie"
+      },
+      "vocabularyDefinition": {
+        "nl": "Kenmerken van de Reservatie van een Resource bij een Boeking."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Kenmerken van de Reservatie van een Resource bij een Boeking."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reservatie.boeking",
+          "vocabularyLabel": {
+            "nl": "Reservatie.Boeking"
+          },
+          "applicationProfileLabel": {
+            "nl": "Reservatie.Boeking"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reservatie",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Boeking",
+            "vocabularyLabel": {
+              "nl": "Boeking"
+            },
+            "applicationProfileLabel": {
+              "nl": "Boeking"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reservatie.resource",
+          "vocabularyLabel": {
+            "nl": "Reservatie.Resource"
+          },
+          "applicationProfileLabel": {
+            "nl": "Reservatie.Resource"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reservatie",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+            "vocabularyLabel": {
+              "nl": "Resource"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resource"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+      "vocabularyLabel": {
+        "nl": "Resource"
+      },
+      "applicationProfileLabel": {
+        "nl": "Resource"
+      },
+      "vocabularyDefinition": {
+        "nl": "Middel dat de Mobiliteitsdienst aan de Reiziger kan aanbieden om zijn verplaatsing te maken."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Middel dat de Mobiliteitsdienst aan de Reiziger kan aanbieden om zijn verplaatsing te maken."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bv zitplaats op een trein,deelfiets aan een station,parkeerplaats in een parking."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv zitplaats op een trein,deelfiets aan een station,parkeerplaats in een parking."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource.dienst",
+          "vocabularyLabel": {
+            "nl": "dienst"
+          },
+          "applicationProfileLabel": {
+            "nl": "dienst"
+          },
+          "vocabularyDefinition": {
+            "nl": "Mobiliteitsdienst van de Resource."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Mobiliteitsdienst van de Resource."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Mobiliteitsdienst",
+            "vocabularyLabel": {
+              "nl": "Mobiliteitsdienst"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mobiliteitsdienst"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#identificator",
+          "vocabularyLabel": {
+            "nl": "identificator"
+          },
+          "applicationProfileLabel": {
+            "nl": "identificator"
+          },
+          "vocabularyDefinition": {
+            "nl": "Identificator van de Resource."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Identificator van de Resource."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv nummerplaat van de huurauto, nummer vd zitplaats..."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv nummerplaat van de huurauto, nummer vd zitplaats..."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource.status",
+          "vocabularyLabel": {
+            "nl": "status"
+          },
+          "applicationProfileLabel": {
+            "nl": "status"
+          },
+          "vocabularyDefinition": {
+            "nl": "Toestand waarin een Resource zich bevindt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Toestand waarin een Resource zich bevindt."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bv gereserveerd, inactief, beschikbaar. Bepaalt of een Resource gebruikt kan worden."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv gereserveerd, inactief, beschikbaar. Bepaalt of een Resource gebruikt kan worden."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Resourcestatus"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resourcestatus"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aard van de Resource."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Resourcetype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resourcetype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+      "vocabularyLabel": {
+        "nl": "Route"
+      },
+      "applicationProfileLabel": {
+        "nl": "Route"
+      },
+      "vocabularyDefinition": {
+        "nl": "Mogelijke,gekozen of afgelegde weg tussen twee Locaties (resp het vertrekpunt en het aankomstpunt)."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Mogelijke,gekozen of afgelegde weg tussen twee Locaties (resp het vertrekpunt en het aankomstpunt)."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route.aankomsttijdstip",
+          "vocabularyLabel": {
+            "nl": "aankomsttijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "aankomsttijdstip"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip waarop de Route eindigt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop de Route eindigt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route.afstand",
+          "vocabularyLabel": {
+            "nl": "afstand"
+          },
+          "applicationProfileLabel": {
+            "nl": "afstand"
+          },
+          "vocabularyDefinition": {
+            "nl": "TODO"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "vocabularyUsageNote": {
+            "nl": "Af te leiden uit de kenmerken vd Route, typisch uit de geometrie van de Routesegmenten."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "f te leiden uit de kenmerken vd Route, typisch uit de geometrie van de Routesegmenten."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "https://schema.org/QuantitativeValue",
+            "vocabularyLabel": {
+              "nl": "Kwantitatieve Waarde"
+            },
+            "applicationProfileLabel": {
+              "nl": "Kwantitatieve Waarde"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#berekendMet",
+          "vocabularyLabel": {
+            "nl": "berekend met"
+          },
+          "applicationProfileLabel": {
+            "nl": "berekend met"
+          },
+          "vocabularyDefinition": {
+            "nl": "Routeplanner waarmee de Route is berekend."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Routeplanner waarmee de Route is berekend."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routeplanner",
+            "vocabularyLabel": {
+              "nl": "Routeplanner"
+            },
+            "applicationProfileLabel": {
+              "nl": "Routeplanner"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#bestaatUit",
+          "vocabularyLabel": {
+            "nl": "bestaat uit"
+          },
+          "applicationProfileLabel": {
+            "nl": "bestaat uit"
+          },
+          "vocabularyDefinition": {
+            "nl": "Opeenvolging van Routesegmenten waaruit de Route bestaat."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Opeenvolging van Routesegmenten waaruit de Route bestaat."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+            "vocabularyLabel": {
+              "nl": "Routesegment"
+            },
+            "applicationProfileLabel": {
+              "nl": "Routesegment"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#reisduur",
+          "vocabularyLabel": {
+            "nl": "reisduur"
+          },
+          "applicationProfileLabel": {
+            "nl": "reisduur"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijd waarin de Route wordt afgelegd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijd waarin de Route wordt afgelegd."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Af te leiden uit andere kenmerken van de Route, bv uit het vertrek- en aankomsttijdstip."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#duration",
+            "vocabularyLabel": {
+              "nl": "Duration"
+            },
+            "applicationProfileLabel": {
+              "nl": "Duration"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#routebeschrijving",
+          "vocabularyLabel": {
+            "nl": "routebeschrijving"
+          },
+          "applicationProfileLabel": {
+            "nl": "routebeschrijving"
+          },
+          "vocabularyDefinition": {
+            "nl": "Beschrijving van de Route."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Beschrijving van de Route."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Af te leiden uit andere kenmerken van de Route, bv de routesegmenten waaruit de Route bestaat en de kenmerken daarvan."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Af te leiden uit andere kenmerken van de Route, bv de routesegmenten waaruit de Route bestaat en de kenmerken daarvan."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routebeschrijving",
+            "vocabularyLabel": {
+              "nl": "Routebeschrijving"
+            },
+            "applicationProfileLabel": {
+              "nl": "Routebeschrijving"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aard van de Route."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bv kortste, snelste..."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Routetype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Routetype"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route.vertrektijdstip",
+          "vocabularyLabel": {
+            "nl": "vertrektijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "vertrektijdstip"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip waarop de Route begint."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop de Route begint."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routeplanner",
+      "vocabularyLabel": {
+        "nl": "Routeplanner"
+      },
+      "applicationProfileLabel": {
+        "nl": "Routeplanner"
+      },
+      "vocabularyDefinition": {
+        "nl": "Software waarmee de Route van een Reis kan worden berekend."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Software waarmee de Route van een Reis kan worden berekend."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "http://purl.org/dc/terms/title",
+          "vocabularyLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de Routeplanner."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routeplanner",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+      "vocabularyLabel": {
+        "nl": "Routesegment"
+      },
+      "applicationProfileLabel": {
+        "nl": "Routesegment"
+      },
+      "vocabularyDefinition": {
+        "nl": "Deel van een Route dat zonder Overstap wordt afgelegd met hetzelfde vervoermiddel."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Deel van een Route dat zonder Overstap wordt afgelegd met hetzelfde vervoermiddel."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Route",
+          "vocabularyLabel": {
+            "nl": "Route"
+          },
+          "applicationProfileLabel": {
+            "nl": "Route"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment.aandrijving",
+          "vocabularyLabel": {
+            "nl": "aandrijving"
+          },
+          "applicationProfileLabel": {
+            "nl": "aandrijving"
+          },
+          "vocabularyDefinition": {
+            "nl": "Aandrijving van het vervoermiddel waarmee het Routesegment is afgelegd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aandrijving van het vervoermiddel waarmee het Routesegment is afgelegd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Aandrijftype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Aandrijftype"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment.aankomsttijdstip",
+          "vocabularyLabel": {
+            "nl": "aankomsttijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "aankomsttijdstip"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip waarop het Routesegment eindigt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop het Routesegment eindigt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment.gerealiseerdMet",
+          "vocabularyLabel": {
+            "nl": "gerealiseerd met"
+          },
+          "applicationProfileLabel": {
+            "nl": "gerealiseerd met"
+          },
+          "vocabularyDefinition": {
+            "nl": "Resource van de Mobiliteitsdienst die de Reiziger heeft gebruikt bij het afleggen van het Routesegment."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Resource van de Mobiliteitsdienst die de Reiziger heeft gebruikt bij het afleggen van het Routesegment."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Resource",
+            "vocabularyLabel": {
+              "nl": "Resource"
+            },
+            "applicationProfileLabel": {
+              "nl": "Resource"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment.vertrektijdstip",
+          "vocabularyLabel": {
+            "nl": "vertrektijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "vertrektijdstip"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip waarop het Routesegment begint."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip waarop het Routesegment begint."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment.vervoermiddel",
+          "vocabularyLabel": {
+            "nl": "vervoermiddel"
+          },
+          "applicationProfileLabel": {
+            "nl": "vervoermiddel"
+          },
+          "vocabularyDefinition": {
+            "nl": "Type vervoermiddel waarmee het Routesegment is afgelegd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Type vervoermiddel waarmee het Routesegment is afgelegd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routesegment",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Vervoermiddel"
+            },
+            "applicationProfileLabel": {
+              "nl": "Vervoermiddel"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Routetype"
+      },
+      "applicationProfileLabel": {
+        "nl": "Routetype"
+      },
+      "vocabularyDefinition": {
+        "nl": "TODO"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Vervoermiddel"
+      },
+      "applicationProfileLabel": {
+        "nl": "Vervoermiddel"
+      },
+      "vocabularyDefinition": {
+        "nl": "TODO"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+      "vocabularyLabel": {
+        "nl": "Voertuig"
+      },
+      "applicationProfileLabel": {
+        "nl": "Voertuig"
+      },
+      "vocabularyDefinition": {
+        "nl": "Middel om personen of goederen te vervoeren."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Middel om personen of goederen te vervoeren."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Reiziger",
+          "vocabularyLabel": {
+            "nl": "Reiziger"
+          },
+          "applicationProfileLabel": {
+            "nl": "Reiziger"
+          }
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/verkeersmetingen#Voertuig",
+          "vocabularyLabel": {
+            "nl": "Voertuig"
+          },
+          "applicationProfileLabel": {
+            "nl": "Voertuig"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "aandrijvingstype"
+          },
+          "applicationProfileLabel": {
+            "nl": "aandrijvingstype"
+          },
+          "vocabularyDefinition": {
+            "nl": "het type aandrijving dat het voertuig in beweging brengt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "het type aandrijving dat het voertuig in beweging brengt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Aandrijftype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Aandrijftype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#aantalAssen",
+          "vocabularyLabel": {
+            "nl": "aantalAssen"
+          },
+          "applicationProfileLabel": {
+            "nl": "aantalAssen"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het aantal assen waar het voertuig op rust."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het aantal assen waar het voertuig op rust."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#integer",
+            "vocabularyLabel": {
+              "nl": "Integer"
+            },
+            "applicationProfileLabel": {
+              "nl": "Integer"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#dimensie",
+          "vocabularyLabel": {
+            "nl": "dimensie"
+          },
+          "applicationProfileLabel": {
+            "nl": "dimensie"
+          },
+          "vocabularyDefinition": {
+            "nl": "De dimensie(s) van het voertuig"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De dimensie(s) van het voertuig"
+          },
+          "vocabularyUsageNote": {
+            "nl": "bv lengte, breedte, …"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "bv lengte, breedte, …"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+            "vocabularyLabel": {
+              "nl": "Dimensie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Dimensie"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#heeftBestuurder",
+          "vocabularyLabel": {
+            "nl": "heeftBestuurder"
+          },
+          "applicationProfileLabel": {
+            "nl": "heeftBestuurder"
+          },
+          "vocabularyDefinition": {
+            "nl": "De bestuurder van het voertuig"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De bestuurder van het voertuig"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Bestuurder",
+            "vocabularyLabel": {
+              "nl": "Bestuurder"
+            },
+            "applicationProfileLabel": {
+              "nl": "Bestuurder"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#lading",
+          "vocabularyLabel": {
+            "nl": "lading"
+          },
+          "applicationProfileLabel": {
+            "nl": "lading"
+          },
+          "vocabularyDefinition": {
+            "nl": "De lading van een voertuig"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De lading van een voertuig"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Lading"
+            },
+            "applicationProfileLabel": {
+              "nl": "Lading"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#onderneemt",
+          "vocabularyLabel": {
+            "nl": "onderneemt"
+          },
+          "applicationProfileLabel": {
+            "nl": "onderneemt"
+          },
+          "vocabularyDefinition": {
+            "nl": "De reis die de reiziger onderneemt"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De reis die de reiziger onderneemt"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "range": {
+            "id": "https://schema.org/Trip",
+            "vocabularyLabel": {
+              "nl": "Reis"
+            },
+            "applicationProfileLabel": {
+              "nl": "Reis"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/verkeersmetingen#Voertuig",
+      "vocabularyLabel": {
+        "nl": "Voertuig"
+      },
+      "applicationProfileLabel": {
+        "nl": "Voertuig"
+      },
+      "vocabularyDefinition": {
+        "nl": "Middel om personen of goederen te vervoeren."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Middel om personen of goederen te vervoeren."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bvb auto,fiets,vrachtwagen,bus,trein,tram,schip,boot,vliegtuig etc."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bvb auto,fiets,vrachtwagen,bus,trein,tram,schip,boot,vliegtuig etc."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Vrachtwagen",
+      "vocabularyLabel": {
+        "nl": "Vrachtwagen"
+      },
+      "applicationProfileLabel": {
+        "nl": "Vrachtwagen"
+      },
+      "vocabularyDefinition": {
+        "nl": "Voertuig voorzien voor goederenvervoer."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Voertuig voorzien voor goederenvervoer."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Voertuig",
+          "vocabularyLabel": {
+            "nl": "Voertuig"
+          },
+          "applicationProfileLabel": {
+            "nl": "Voertuig"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "vrachtwagentype"
+          },
+          "applicationProfileLabel": {
+            "nl": "vrachtwagentype"
+          },
+          "vocabularyDefinition": {
+            "nl": "Type van de vrachtwagen"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Type van de vrachtwagen"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Vrachtwagen",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Vrachtwagentype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Vrachtwagentype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocabularyLabel": {
+        "nl": "Vrachtwagentype"
+      },
+      "applicationProfileLabel": {
+        "nl": "Vrachtwagentype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het type van de vrachtwagen"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het type van de vrachtwagen"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "dataTypes": [
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Beschikbaarheid",
+      "vocabularyLabel": {
+        "nl": "Beschikbaarheid"
+      },
+      "applicationProfileLabel": {
+        "nl": "Beschikbaarheid"
+      },
+      "vocabularyDefinition": {
+        "nl": "Mate waarin iets voorhanden is voor gebruik."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Mate waarin iets voorhanden is voor gebruik."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bv uren waarin een dienst wordt aangeboden of openingsuren van een gebouw."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv uren waarin een dienst wordt aangeboden of openingsuren van een gebouw."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#dienstregeling",
+          "vocabularyLabel": {
+            "nl": "dienstregeling"
+          },
+          "applicationProfileLabel": {
+            "nl": "dienstregeling"
+          },
+          "vocabularyDefinition": {
+            "nl": "Schema met tijdstippen waarop iets wordt aangeboden."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Schema met tijdstippen waarop iets wordt aangeboden."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Beschikbaarheid",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Dienstregeling",
+            "vocabularyLabel": {
+              "nl": "Dienstregeling"
+            },
+            "applicationProfileLabel": {
+              "nl": "Dienstregeling"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#gebruiker",
+          "vocabularyLabel": {
+            "nl": "gebruiker"
+          },
+          "applicationProfileLabel": {
+            "nl": "gebruiker"
+          },
+          "vocabularyDefinition": {
+            "nl": "Type gebruiker waarvoor de beschikbaarheid geldt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Type gebruiker waarvoor de beschikbaarheid geldt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Beschikbaarheid",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Gebruikerstype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Gebruikerstype"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://schema.org/openingHours",
+          "vocabularyLabel": {
+            "nl": "openingsuren"
+          },
+          "applicationProfileLabel": {
+            "nl": "openingsurenString"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Uren waarop iets beschikbaar is."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Syntax volgens schema.org voor openingsuren. Bv als contact kan worden opgenomen tussen 8 en 20u maandag tot zaterdag en tussen 8 en 18u op zondag wordt dit gecodeerd als Ma-za 08:00-20:00, zo 08:00-18:00."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Beschikbaarheid",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://schema.org/ContactPoint",
+      "vocabularyLabel": {
+        "nl": "Contactpunt"
+      },
+      "applicationProfileLabel": {
+        "nl": "Contactinfo"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Informatie zoals email,telefoon,adres die toelaat om iemand of iets te contacteren."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bvb een persoon of organisatie of dienstverlening... Mogelijke vormen van contact: bellen,mailen etc."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "vocabularyLabel": {
+        "nl": "DateTime"
+      },
+      "applicationProfileLabel": {
+        "nl": "DateTime"
+      }
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+      "vocabularyLabel": {
+        "nl": "Dimensie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Dimensie"
+      },
+      "vocabularyDefinition": {
+        "nl": "De dimensie(s) van een vrachtwagen"
+      },
+      "applicationProfileDefinition": {
+        "nl": "De dimensie(s) van een vrachtwagen"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#eenheid",
+          "vocabularyLabel": {
+            "nl": "eenheid"
+          },
+          "applicationProfileLabel": {
+            "nl": "eenheid"
+          },
+          "vocabularyDefinition": {
+            "nl": "De eenheid waarin de waarde wordt uitgedrukt"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De eenheid waarin de waarde wordt uitgedrukt"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#standaardEenheid",
+          "vocabularyLabel": {
+            "nl": "standaardEenheid"
+          },
+          "applicationProfileLabel": {
+            "nl": "standaardEenheid"
+          },
+          "vocabularyDefinition": {
+            "nl": "De standaardeenheid waarin de waarde wordt uitgedrukt"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De standaardeenheid waarin de waarde wordt uitgedrukt"
+          },
+          "vocabularyUsageNote": {
+            "nl": "bijvoorbeeld meter"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "bijvoorbeeld meter"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/generiek#StandaardEenheid",
+            "vocabularyLabel": {
+              "nl": "Standaard Eenheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Standaard Eenheid"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het type van de dimensie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het type van de dimensie"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Dimensietype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Dimensietype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#waarde",
+          "vocabularyLabel": {
+            "nl": "waarde"
+          },
+          "applicationProfileLabel": {
+            "nl": "waarde"
+          },
+          "vocabularyDefinition": {
+            "nl": "De numerieke waarde voor een dimensie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De numerieke waarde voor een dimensie"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#Dimensie",
+          "range": {
+            "id": "https://schema.org/Number",
+            "vocabularyLabel": {
+              "nl": "Getal"
+            },
+            "applicationProfileLabel": {
+              "nl": "Getal"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2001/XMLSchema#duration",
+      "vocabularyLabel": {
+        "nl": "Duration"
+      },
+      "applicationProfileLabel": {
+        "nl": "Duration"
+      }
+    },
+    {
+      "id": "http://www.w3.org/ns/locn#Geometry",
+      "vocabularyLabel": {
+        "nl": "Geometrie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Geometrie"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.opengis.net/ont/geosparql#asGML",
+          "vocabularyLabel": {
+            "nl": "als GML"
+          },
+          "applicationProfileLabel": {
+            "nl": "gml"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Gebruik http://www.opengis.net/ont/geosparql#gmlLiteral als datatype."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/locn#Geometry",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.opengis.net/ont/geosparql#asWKT",
+          "vocabularyLabel": {
+            "nl": "als WKT"
+          },
+          "applicationProfileLabel": {
+            "nl": "wkt"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Gebruik http://www.opengis.net/ont/geosparql#wktLiteral als datatype."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/locn#Geometry",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://schema.org/Number",
+      "vocabularyLabel": {
+        "nl": "Getal"
+      },
+      "applicationProfileLabel": {
+        "nl": "Getal"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Aanduiding van een hoeveelheid."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "In praktijk de primitieve datatypes waarmee een hoeveelheid kan worden aangeduid,zie xsd datatypes float,double,decimal,integer etc."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "vocabularyLabel": {
+        "nl": "GetypeerdeString"
+      },
+      "applicationProfileLabel": {
+        "nl": "GetypeerdeString"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/2001/XMLSchema#string",
+          "vocabularyLabel": {
+            "nl": "string"
+          },
+          "applicationProfileLabel": {
+            "nl": "string"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/2000/01/rdf-schema#Literal",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/2000/01/rdf-schema#Literal",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#anyURI",
+            "vocabularyLabel": {
+              "nl": "URI"
+            },
+            "applicationProfileLabel": {
+              "nl": "URI"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/ns/adms#Identifier",
+      "vocabularyLabel": {
+        "nl": "Identificator"
+      },
+      "applicationProfileLabel": {
+        "nl": "Identificator"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://purl.org/dc/terms/creator",
+          "vocabularyLabel": {
+            "nl": "maker"
+          },
+          "applicationProfileLabel": {
+            "nl": "toegekend door"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/adms#Identifier",
+          "range": {
+            "id": "http://purl.org/dc/terms/Agent",
+            "vocabularyLabel": {
+              "nl": "Agent"
+            },
+            "applicationProfileLabel": {
+              "nl": "Agent"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#notation",
+          "vocabularyLabel": {
+            "nl": "notatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "notatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Type vd string slaat op het identifierscheme (incl de version ervan), de string zelf op de eigenlijke identifier. Zie definitie Identificator."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/adms#Identifier",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/adms#schemaAgency",
+          "vocabularyLabel": {
+            "nl": "schema agentschap"
+          },
+          "applicationProfileLabel": {
+            "nl": "toegekend door (String)"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/adms#Identifier",
+          "range": {
+            "id": "http://purl.org/dc/terms/Agent",
+            "vocabularyLabel": {
+              "nl": "Agent"
+            },
+            "applicationProfileLabel": {
+              "nl": "Agent"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/issued",
+          "vocabularyLabel": {
+            "nl": "uitgegeven"
+          },
+          "applicationProfileLabel": {
+            "nl": "toegekend op"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/adms#Identifier",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2001/XMLSchema#integer",
+      "vocabularyLabel": {
+        "nl": "Integer"
+      },
+      "applicationProfileLabel": {
+        "nl": "Integer"
+      }
+    },
+    {
+      "id": "https://schema.org/QuantitativeValue",
+      "vocabularyLabel": {
+        "nl": "Kwantitatieve Waarde"
+      },
+      "applicationProfileLabel": {
+        "nl": "Kwantitatieve Waarde"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Aanduiding van de kwantiteit van een bepaald kenmerk van een object."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv de hoogte van een object,het gewicht,de temperatuur etc. Het gaat om een kenmerk dat numeriek uitgedrukt kan worden en in een bepaalde eenheid. Kwalitatieve aanduidingen zoals hoog,laag ed vallen hier dus niet onder."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "https://schema.org/unitCode",
+          "vocabularyLabel": {
+            "nl": "eenheidcode"
+          },
+          "applicationProfileLabel": {
+            "nl": "standaard eenheid"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De gestandaardiseerde eenheid waarin de waarde is uitgedrukt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/QuantitativeValue",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/generiek#StandaardEenheid",
+            "vocabularyLabel": {
+              "nl": "Standaard Eenheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Standaard Eenheid"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://schema.org/unitText",
+          "vocabularyLabel": {
+            "nl": "eenheidtekst"
+          },
+          "applicationProfileLabel": {
+            "nl": "eenheid"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De eenheid waarin de waarde is uitgedrukt."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Te gebruiken als geen standaard eenheid gekend is."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/QuantitativeValue",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://schema.org/value",
+          "vocabularyLabel": {
+            "nl": "waarde"
+          },
+          "applicationProfileLabel": {
+            "nl": "waarde"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://schema.org/QuantitativeValue",
+          "range": {
+            "id": "https://schema.org/Number",
+            "vocabularyLabel": {
+              "nl": "Getal"
+            },
+            "applicationProfileLabel": {
+              "nl": "Getal"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Routebeschrijving",
+      "vocabularyLabel": {
+        "nl": "Routebeschrijving"
+      },
+      "applicationProfileLabel": {
+        "nl": "Routebeschrijving"
+      },
+      "vocabularyDefinition": {
+        "nl": "Beschrijving van een Route."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Beschrijving van een Route."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Typisch de beschrijving zoals ze in een Routeplanner zou worden getoond."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Typisch de beschrijving zoals ze in een Routeplanner zou worden getoond."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/generiek#StandaardEenheid",
+      "vocabularyLabel": {
+        "nl": "Standaard Eenheid"
+      },
+      "applicationProfileLabel": {
+        "nl": "Standaard Eenheid"
+      },
+      "vocabularyDefinition": {
+        "nl": "Eenheid vastgelegd door een standaardiserende organisatie."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Eenheid vastgelegd door een standaardiserende organisatie."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "NOTE"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "id": "http://www.w3.org/2001/XMLSchema#string",
+      "vocabularyLabel": {
+        "nl": "String"
+      },
+      "applicationProfileLabel": {
+        "nl": "String"
+      }
+    },
+    {
+      "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "vocabularyLabel": {
+        "nl": "Taalstring"
+      },
+      "applicationProfileLabel": {
+        "nl": "Taalstring"
+      },
+      "applicationProfileDefinition": {
+        "nl": "TODO"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/2001/XMLSchema#string",
+          "vocabularyLabel": {
+            "nl": "string"
+          },
+          "applicationProfileLabel": {
+            "nl": "string"
+          },
+          "vocabularyDefinition": {
+            "nl": "TODO"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.europa.eu/eli/ontology#language",
+          "vocabularyLabel": {
+            "nl": "taal"
+          },
+          "applicationProfileLabel": {
+            "nl": "taal"
+          },
+          "applicationProfileDefinition": {
+            "nl": "TODO"
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Taalcode"
+            },
+            "applicationProfileLabel": {
+              "nl": "Taalcode"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+      "vocabularyLabel": {
+        "nl": "Toegankelijkheid"
+      },
+      "applicationProfileLabel": {
+        "nl": "Toegankelijkheid"
+      },
+      "vocabularyDefinition": {
+        "nl": "Mate waarin iets bereikt kan worden."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Mate waarin iets bereikt kan worden."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bv fysieke toegankelijkheid van een dienst of gebouw voor personen met een beperking."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bv fysieke toegankelijkheid van een dienst of gebouw voor personen met een beperking."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#Concept",
+          "vocabularyLabel": {
+            "nl": "niveau"
+          },
+          "applicationProfileLabel": {
+            "nl": "niveau"
+          },
+          "vocabularyDefinition": {
+            "nl": "Niveau van toegankelijkheid."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Niveau van toegankelijkheid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Toegankelijkheidsniveau"
+            },
+            "applicationProfileLabel": {
+              "nl": "Toegankelijkheidsniveau"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#Concept",
+          "vocabularyLabel": {
+            "nl": "onderdeel"
+          },
+          "applicationProfileLabel": {
+            "nl": "onderdeel"
+          },
+          "vocabularyDefinition": {
+            "nl": "Deel van de dienst of infrastructuur waarop de Toegankelijkheid betrekking heeft.."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Deel van de dienst of infrastructuur waarop de Toegankelijkheid betrekking heeft.."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Toegankelijkheidsonderdeel"
+            },
+            "applicationProfileLabel": {
+              "nl": "Toegankelijkheidsonderdeel"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/type",
+          "vocabularyLabel": {
+            "nl": "type"
+          },
+          "applicationProfileLabel": {
+            "nl": "type"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Aard van de Toegankelijkheid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/mobiliteit/trips-en-aanbod#Toegankelijkheid",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "vocabularyLabel": {
+              "nl": "Toegankelijkheidstype"
+            },
+            "applicationProfileLabel": {
+              "nl": "Toegankelijkheidstype"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "vocabularyLabel": {
+        "nl": "URI"
+      },
+      "applicationProfileLabel": {
+        "nl": "URI"
+      }
+    }
+  ]
+}
