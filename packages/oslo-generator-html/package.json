@@ -1,7 +1,7 @@
 {
     "name": "@oslo-flanders/html-generator",
     "version": "0.0.1-alpha.0",
-    "description": "Generates an HTML file using an OSLO-compliant RDF file",
+    "description": "Generates an HTML file using an OSLO webuniversum config",
     "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
     "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-html#readme",
     "license": "MIT",
