@@ -19,6 +19,9 @@ export class HtmlGenerationServiceRunner extends AppRunner<
         describe: 'Name of the output file.',
         default: 'index.html',
       })
+      .option('metadata', {
+        describe: 'Input file containing metadata about the publication.',
+      })
       .option('stakeholders', {
         describe: 'JSON file with stakeholders',
       })
@@ -38,7 +41,13 @@ export class HtmlGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
-      .demandOption(['input', 'language', 'specificationName', 'stakeholders'])
+      .demandOption([
+        'input',
+        'metadata',
+        'language',
+        'specificationName',
+        'stakeholders',
+      ])
       .help('h')
       .alias('h', 'help');
 

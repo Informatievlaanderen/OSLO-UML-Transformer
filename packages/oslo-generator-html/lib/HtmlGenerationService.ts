@@ -15,6 +15,13 @@ export class HtmlGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: HtmlGenerationServiceConfiguration;
 
+  isInPackage: (c: Class) => boolean = (c: Class) =>
+    c?.scope === Scope.InPackage;
+  isExternal = (c: Class) => c?.scope === Scope.External;
+  isInPublicationEnvironment = (c: Class) =>
+    c?.scope === Scope.InPublicationEnvironment;
+  isScoped = (c: Class) => !!c?.scope;
+
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
@@ -30,9 +37,10 @@ export class HtmlGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    const [config, stakeholders] = await Promise.all([
+    const [config, stakeholders, metadata] = await Promise.all([
       this.readConfigFile(this.configuration.input),
       this.readConfigFile(this.configuration.stakeholders),
+      this.readConfigFile(this.configuration.metadata),
     ]);
 
     const indexPath =
@@ -63,32 +71,7 @@ export class HtmlGenerationService implements IService {
       this.isInPackage,
     );
 
-    data.metadata = {
-      title: 'Vrachtwagenparkeren: Vocabularium',
-      uri: 'https://data.vlaanderen.be/ns/vrachtwagenparkeren',
-      issued: '2023-11-30',
-      filename: 'Vrachtwagenparkeren',
-      navigation: {
-        self: 'https://data.test-vlaanderen.be/doc/vocabularium/vrachtwagenparkeren/ontwerpstandaard/2023-11-30',
-      },
-      license:
-        'https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0',
-      documenttype: 'voc',
-      documentconfig: {},
-      status:
-        'https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard',
-      statuslabel: 'Ontwerp Standaard',
-      repositoryurl:
-        'https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/tree/cfe84f9cbcd70d7ab4776a4445d96aeb4c2be260',
-      changelogurl:
-        'https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/blob/cfe84f9cbcd70d7ab4776a4445d96aeb4c2be260/CHANGELOG',
-      feedbackurl:
-        'https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/issues',
-      standaardregisterurl:
-        'https://data.test-vlaanderen.be/doc/vocabularium/vrachtwagenparkeren/ontwerpstandaard/2023-05-05',
-      usesVocs: [],
-      usesAPs: [],
-    };
+    data.metadata = metadata;
 
     data.externalClasses = this.filterClasses(classes, this.isExternal);
     data.externalDataTypes = this.filterClasses(dataTypes, this.isExternal);
@@ -115,22 +98,6 @@ export class HtmlGenerationService implements IService {
 
     await writeFile(this.configuration.output, html);
   }
-
-  // private toPascalCase = (str: string): string => {
-  //   console.log('str:', str.split(' ').map((word) => word.charAt(0).toUpperCase()));
-  //   return str
-  //     .split(' ')
-  //     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-  //     .join('');
-  // };
-
-  // Utility functions
-  isInPackage: (c: Class) => boolean = (c: Class) =>
-    c?.scope === Scope.InPackage;
-  isExternal = (c: Class) => c?.scope === Scope.External;
-  isInPublicationEnvironment = (c: Class) =>
-    c?.scope === Scope.InPublicationEnvironment;
-  isScoped = (c: Class) => !!c?.scope;
 
   private filterEntities = (entities: Class[]): Class[] =>
     entities.filter(
@@ -160,11 +127,6 @@ export class HtmlGenerationService implements IService {
 
   private getAnchorTag = (id: string, type: string) => {
     let domain: string = '';
-    // AP can be less strict since it's only being used for internal navigation
-    // if (type === 'AP') {
-    //   return this.toPascalCase(id);
-    // }
-    // VOC needs to be strict since it's being used for external navigation
     if (id && id?.includes('#')) {
       domain = `${id?.split('#').pop()}`;
     }

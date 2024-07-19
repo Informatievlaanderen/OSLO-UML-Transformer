@@ -15,6 +15,11 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   private _output: string | undefined;
 
   /**
+   * Local path or URL to metadata JSON
+   */
+  private _metadata: string | undefined;
+
+  /**
    * Local path or URL to JSON of stakeholders
    */
   private _stakeholders: string | undefined;
@@ -37,8 +42,9 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
-    this._stakeholders = <string>params.stakeholders;
     this._output = <string>params.output;
+    this._stakeholders = <string>params.stakeholders;
+    this._metadata = <string>params.metadata;
     this._language = <string>params.language;
     this._specificationType = this.getSpecificationType(
       <string>params.specificationType,
@@ -58,6 +64,15 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "output" before it was set.`);
     }
     return this._output;
+  }
+
+  public get metadata(): string {
+    if (!this._metadata) {
+      throw new Error(
+        `Trying to access property "metadata" before it was set.`,
+      );
+    }
+    return this._metadata;
   }
 
   public get stakeholders(): string {
