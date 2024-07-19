@@ -1,0 +1,51 @@
+<div class="region region--no-space-top">
+    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="overview">
+        <h2 class="h2" id="overview" aria-level="1" role="heading">
+            <span class="secno">3.
+            </span>Overzicht</h2>
+        <div class="region region--no-space-top">
+            <p>Deze sectie somt alle klassen en eigenschappen van het vocabularium op.</p>
+            <p>
+                {% if externalvocs %}
+                    Dit vocabularium verwijst verder naar termen uit de volgende vocabularia:
+                    <ul>
+                        {% for term in externalvocs %}
+                            <li>
+                                <a href="{{ term.uri }}">{{ term.uri }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </p>
+            <br/>
+        </div>
+        {% if ( ( data.inPackageMerged | length) > 0 ) %}
+            <div class="region region--no-space-top">
+                <h3 class="h3">Klassen</h3>
+                <div class="grid">
+                    <p>
+                        |
+                        {% for class in data.inPackageMerged | sort(attribute=sortattr) %}
+                            <a href="#{{ getAnchorTag(class.id) }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
+                            |
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+        {% if ( ( data.inPackageProperties | length ) > 0 ) %}
+            <div class="region region--no-space-top">
+                <h3 class="h3">Eigenschappen</h3>
+                <div class="grid">
+                    <p>
+                        |
+                        {% for prop in data.inPackageProperties | sort(attribute=sortattr) %}
+                            <a href="#{{ getAnchorTag(prop.id) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                            |
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+</div>

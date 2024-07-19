@@ -1,0 +1,88 @@
+<div class="head" role="contentinfo" id="respecHeader">
+    <dl>
+        <dt>Auteurs</dt>
+        {% set sortedAuthors = (data.stakeholders.authors | sort(attribute='lastName')) %}
+        {% for author in sortedAuthors %}
+            <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                <span typeof="foaf:Person">
+                    <span class="p-name fn" property="foaf:lastName">
+                        {{ author.lastName }}</span>,
+                    <span class="p-name fn" property="foaf:firstName">
+                        {{ author.firstName }}</span>
+                    {% if author.affiliation.homepage and author.affiliation.affiliationName %}
+                        -
+                        <a href="{{ author.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ author.affiliation.affiliationName }}</a>
+                    {% elif author.affiliation.affiliationName %}
+                        -
+                        <span class="p-org org h-org h-card">
+                            {{ author.affiliation.affiliationName }}</span>
+                    {% endif %}
+                    {% if author.email %}
+                        -
+                        <span class="ed_mailto">
+                            <a href="mailto:{{ author.email }}" rel="foaf:mbox" class="u-email email">
+                                {{ author.email }}</a>
+                        </span>
+                    {% endif %}
+                </span>
+            </dd>
+        {% endfor %}
+        <dt>Editors</dt>
+        {% set sortedEditors = (data.stakeholders.editors | sort(attribute='lastName')) %}
+        {% for editor in sortedEditors %}
+            <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                <span typeof="foaf:Person">
+                    <span class="p-name fn" property="foaf:lastName">
+                        {{ editor.lastName }}</span>,
+                    <span class="p-name fn" property="foaf:firstName">
+                        {{ editor.firstName }}</span>
+                    {% if editor.affiliation.homepage and editor.affiliation.affiliationName %}
+                        -
+                        <a href="{{ editor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ editor.affiliation.affiliationName }}</a>
+                    {% elif editor.affiliation.affiliationName %}
+                        -
+                        <span class="p-org org h-org h-card">
+                            {{ editor.affiliation.affiliationName }}</span>
+                    {% endif %}
+                    {% if editor.email %}
+                        -
+                        <span class="ed_mailto">
+                            <a href="mailto:{{ editor.email }}" rel="foaf:mbox" class="u-email email">
+                                {{ editor.email }}</a>
+                        </span>
+                    {% endif %}
+                </span>
+            </dd>
+        {% endfor %}
+        <dt>Medewerkers</dt>
+        {% set sortedContributors = (data.stakeholders.contributors | sort(attribute='lastName')) %}
+        {% for contributor in sortedContributors %}
+            <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                <span typeof="foaf:Person">
+                    <span class="p-name fn" property="foaf:lastName">
+                        {{ contributor.lastName }}</span>,
+                    <span class="p-name fn" property="foaf:firstName">
+                        {{ contributor.firstName }}</span>
+                    {% if contributor.affiliation.homepage and contributor.affiliation.affiliationName %}
+                        -
+                        <a href="{{ contributor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ contributor.affiliation.affiliationName }}</a>
+                    {% elif contributor.affiliation.affiliationName %}
+                        -
+                        <span class="p-org org h-org h-card">
+                            {{ contributor.affiliation.affiliationName }}</span>
+                    {% endif %}
+                    {% if contributor.email %}
+                        -
+                        <span class="ed_mailto">
+                            <a href="mailto:{{ contributor.email }}" rel="foaf:mbox" class="u-email email">
+                                {{ contributor.email }}</a>
+                        </span>
+                    {% endif %}
+                </span>
+            </dd>
+        {% endfor %}
+    </dl>
+</div>

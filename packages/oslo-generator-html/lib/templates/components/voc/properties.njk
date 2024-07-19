@@ -1,0 +1,82 @@
+<div class="region region--no-space-top">
+    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="properties">
+        <h2 class="h2" id="properties" aria-level="1" role="heading">
+            <span class="secno">5.
+            </span>Eigenschappen</h2>
+        {% if data.inPackageProperties %}
+            <div class="region region--no-space-top">
+                <p>Deze sectie geeft een formele definitie aan elke eigenschap.</p>
+            </div>
+            {% for property in data.inPackageProperties | sort(attribute=sortattr) %}
+                <div class="region region--no-space-top">
+                    <h3 class="h3" id="{{ property.vocabularyLabel[language] }}">Eigenschap
+                        <em>{{ property.vocabularyLabel[language] }}</em>
+                    </h3>
+                    <table class="definition">
+                        <tbody>
+                            <tr>
+                                <th>Type</th>
+                                <td>Eigenschap</td>
+                            </tr>
+                            <tr>
+                                <th>URI</th>
+                                <td>
+                                    <code>{{ property.id }}</code>
+                                </td>
+                            </tr>
+                            {% if ( ( property.domain  | length ) > 0 ) %}
+                                <tr>
+                                    <th>Domein</th>
+                                    <td>
+                                        <code>
+                                            {{ property.domain }}
+                                        </code>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (( property.range  | length ) > 0) %}
+                                <tr>
+                                    <th>Bereik</th>
+                                    <td>
+                                        <code>
+                                            {{ property.range.id }}
+                                        </code>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if ( ( property.parents | length ) > 0 ) %}
+                                <tr>
+                                    <th>Specialisatie van</th>
+                                    <td>
+                                        <ul>
+                                            {% for parent in property.parents|sort %}
+                                                <li>
+                                                    <code>{{ parent }}</code>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>Definitie</th>
+                                <td>{{ property.vocabularyDefinition[language] }}</td>
+                            </tr>
+                            {% if property.vocabularyUsageNote[language] %}
+                                <tr>
+                                    <th>Gebruik</th>
+                                    <td>{{ property.vocabularyUsageNote[language] }}</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="region region--no-space-top">
+                <p>In dit vocabularium zijn geen eigenschappen gedefinieerd. Het is wel mogelijk dat eigenschappen uit een gerelateerd
+                    vocabularium worden hergebruikt.</p>
+            </div>
+        {% endif %}
+    </section>
+</div>

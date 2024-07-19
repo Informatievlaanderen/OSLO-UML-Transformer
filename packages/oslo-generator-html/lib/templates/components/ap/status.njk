@@ -1,0 +1,17 @@
+<div class="region region--no-space-top typography" id="status">
+    <section class="introductory" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
+        <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">Status van dit document</h2>
+        {% block status %}
+            <p>
+                Dit applicatieprofiel heeft status
+                <a href="{{ data.metadata.status }}">
+                    {{ data.metadata.statuslabel }}</a>
+                en werd uitgegeven op {{ data.metadata.issued }}.
+            </p>
+            <p>
+                Informatie over het gevolgde proces en de beslissingen om tot deze specificatie te komen zijn beschikbaar in het
+                <a href="{{ data.metadata.standaardregisterurl }}">standaardenregister</a>.
+            </p>
+        {% endblock %}
+    </section>
+</div>
