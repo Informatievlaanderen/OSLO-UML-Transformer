@@ -1,0 +1,46 @@
+<div class="region region--no-space-top">
+    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="external">
+        <h2 class="h2" id="externals" aria-level="1" role="heading">
+            <span class="secno">6.
+            </span>Externe terminologie</h2>
+        <div class="region region--no-space-top">
+            <p>Deze sectie geeft een overzicht van terminologie uit andere vocabularia die relevant is voor dit domeinmodel samen
+                met hun Nederlandstalige labels en definities.</p>
+        </div>
+        {% if data.externalProperties %}
+            {% for external in data.externalProperties %}
+                <div class="region region--no-space-top">
+                    <h3 class="h4" id="{{ external.vocabularyLabel[language] }}">
+                        <em>{{ external.vocabularyLabel[language] }}</em>
+                    </h3>
+                    <table class="definition">
+                        <tbody>
+                            <tr>
+                                <th>URI</th>
+                                <td>
+                                    <code>{{ external.id }}</code>
+                                </td>
+                            </tr>
+                            {% if external.vocabularyDefinition[language] %}
+                                <tr>
+                                    <th>Definitie</th>
+                                    <td>{{ external.vocabularyDefinition[language] }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if external.vocabularyUsageNote[language] %}
+                                <tr>
+                                    <th>Gebruik</th>
+                                    <td>{{ external.vocabularyUsageNote[language] }}</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="region region--no-space-top">
+                <p>In dit vocabularium zijn geen externe termen hergebruikt.</p>
+            </div>
+        {% endif %}
+    </section>
+</div></div>

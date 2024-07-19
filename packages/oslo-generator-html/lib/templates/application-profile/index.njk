@@ -12,7 +12,7 @@
   prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
     http://www.w3.org/2001/02pd/rec54#"
   xmlns="http://www.w3.org/1999/xhtml">
-  {% include "application-profile/components/head.njk" %}
+  {% include "components/head.njk" %}
   <body>
     <div
       style="min-height:44px;" id="vlaanderen-header">
@@ -32,8 +32,8 @@
           <div class="layout layout--wide">
             <div class="grid u-hr">
               <div class="col--9-12 col--1-1--s">
-                {% include "application-profile/components/metadata.njk" %}
-                {% include "application-profile/components/people.njk" %}
+                {% include "components/metadata.njk" %}
+                {% include "components/people.njk" %}
               </div>
             </div>
           </div>
@@ -43,16 +43,16 @@
         <div class="layout layout--wide">
           <div class="grid">
             <div class="col--8-12 col--12-12--s">
-              {% include "application-profile/components/introduction.njk" %}
-              {% include "application-profile/components/summary.njk" %}
-              {% include "application-profile/components/status.njk" %}
-              {% include "application-profile/components/license.njk" %}
-              {% include "application-profile/components/conformance.njk" %}
-              {% include "application-profile/components/overview.njk" %}
-              {% include "application-profile/components/entities.njk" %}
-              {% include "application-profile/components/dataTypes.njk" %}
-              {% include "application-profile/components/jsonldAndRdf.njk" %}
-              {% include "application-profile/components/sideNavigation.njk" %}
+              {% include "components/ap/introduction.njk" %}
+              {% include "components/ap/summary.njk" %}
+              {% include "components/ap/status.njk" %}
+              {% include "components/license.njk" %}
+              {% include "components/ap/conformance.njk" %}
+              {% include "components/ap/overview.njk" %}
+              {% include "components/ap/entities.njk" %}
+              {% include "components/ap/dataTypes.njk" %}
+              {% include "components/ap/jsonldAndRdf.njk" %}
+              {% include "components/ap/navigation.njk" %}
               <!-- End page content -->
             </div>
           </div>

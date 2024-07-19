@@ -1,42 +1,125 @@
-<!DOCTYPE html>
-<html>
-  <head><meta charset="utf-8"/>
-    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
-    <script class="remove">
-      var respecConfig = {{ respecConfig | safe }}
-    </script>
-  </head>
-  <style>
-    table,
-    th,
-    td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-    th,
-    td {
-      padding: 10px;
-      text-align: left;
-    }
-    th:first-child {
-      width: 15%;
-    }
-    table {
-      width: 100%;
-    }
-  </style>
-  <body>
-    <h1 id="title">{{ specName }}</h1>
-    <section id="abstract"></section>
-    <h1>Classes</h1>
-    <p>This section gives a formal definition to each class.</p>
-    {% for class in data.classes %}
-      {% include "./classTemplate.njk" %}
-    {% endfor %}
-    <h1>Attributes</h1>
-    <p>This section gives a formal definition to each attribute.</p>
-    {% for attribute in data.properties %}
-      {% include "./attributeTemplate.njk" %}
-    {% endfor %}
+<!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% set language = "nl" %}
+{% set sortattr = "sort" %}
+<html
+  xml:lang="nl"
+  lang="nl"
+  dir="ltr"
+  typeof="bibo:Document "
+  about=""
+  property="dcterms:language"
+  content="nl"
+  prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
+    http://www.w3.org/2001/02pd/rec54#"
+  xmlns="http://www.w3.org/1999/xhtml">
+  {% include "components/head.njk" %}
+  <body class="h-entry" role="document" id="respecDocument">
+    <div
+      style="min-height:44px;;" id="vlaanderen-header">
+      <!-- insert your global header here -->
+      <script src="https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/widget/99790a73-9a6b-4927-94ad-5df8ae9adf78/embed"></script>
+      <!-- end global header-->
+    </div>
+    <div class="page">
+      <div class="region">
+        <div class="layout layout--wide">
+          <div class="grid u-hr">
+            <div class="col--9-12 col--1-1--s">
+              {% include "components/metadata.njk" %}
+              {% include "components/people.njk" %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <p class="copyright">{{ metadata.rights }}</p> -->
+    </div>
+  </div>
+  <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
+    <div class="region region--no-space-top">
+      <div class="layout layout--wide">
+        <div class="grid">
+          <div class="col--8-12 col--12-12--s">
+            {% include "components/voc/summary.njk" %}
+            {% include "components/voc/status.njk" %}
+            {% include "components/license.njk" %}
+            {% include "components/voc/conformance.njk" %}
+            {% include "components/voc/overview.njk" %}
+            {% include "components/voc/classes.njk" %}
+            {% include "components/voc/properties.njk" %}
+            {% include "components/voc/external.njk" %}
+            {% include "components/voc/navigation.njk" %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="vlaanderen-footer">
+      <!-- insert your Vlaanderen-footer-code here -->
+      <script src="https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/widget/c0df3610-36b9-4113-a487-05dfed92c317/embed"></script>
+      <!-- End global footer-->
+    </div>
+    <script src="https://dij151upo6vad.cloudfront.net/2.latest/js/vlaanderen-ui.js"></script>
+    <style>
+      @media screen {
+        /* hide from IE3 */
+        a[href]:hover {
+          background: #ffa
+        }
+      }
+      table {
+        font-size: 12px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+        margin-top: 2em;
+        width: 100%;
+      }
+      table th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+        width: 110px;
+      }
+      table td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+      }
+      table tr:first-child {
+        font-weight: bold;
+      }
+      tr:nth-child(even) td {
+        background-color: #eee;
+      }
+      dt,
+      dd {
+        margin-top: 0;
+        margin-bottom: 0
+      } /* opera 3.50 */
+      dt {
+        font-weight: bold
+      }
+      pre,
+      code {
+        font-family: monospace
+      } /* navigator 4 requires this */
+      code {
+        color: black
+      }
+      em {
+        font-style: italic;
+      }
+      img {
+        width: 100%;
+      }
+      img.cc {
+        width: 88px;
+      }
+    </style>
   </body>
 </html>

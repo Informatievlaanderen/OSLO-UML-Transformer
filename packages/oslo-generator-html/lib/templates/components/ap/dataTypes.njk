@@ -1,7 +1,7 @@
 <div class="region region--no-space-top">
     <h2 class="h2">Datatypes</h2>
 </div>
-{% for dataType in data.dataTypes | sort(attribute=sortattr) %}
+{% for dataType in data.scopedDataTypes | sort(attribute=sortattr) %}
     <div class="region region--no-space-top">
         <h3 class="h3" id="{{ dataType.id }}">
             <a href="{{ dataType.id }}" data-toggle="tooltip" data-content="{{ dataType.id }}" id="{{ dataType.applicationProfileLabel[language] }}" data-placement="right">

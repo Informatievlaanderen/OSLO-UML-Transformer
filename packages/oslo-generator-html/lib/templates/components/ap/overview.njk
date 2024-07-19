@@ -13,11 +13,11 @@
                     </p>
                 </div>
             {% endif %}
-            {% if ( ( data.dataTypes | length ) > 0 ) %}
+            {% if ( ( data.scopedDataTypes | length ) > 0 ) %}
                 <div class="region region--no-space-top">
                     <p>
                         In dit document worden de volgende datatypes toegelicht: <br/> |
-                        {%- for dataType in data.dataTypes |sort(attribute=sortattr) %}
+                        {%- for dataType in data.scopedDataTypes |sort(attribute=sortattr) %}
                             <a href="#{{ getAnchorTag(dataType.id) }}">
                                 {{ dataType.applicationProfileLabel[language] }}</a>
                             |

@@ -1,4 +1,4 @@
-import type { Languages } from '../enum/language';
+import type { Languages } from '../utils/languageEnum';
 
 export interface Class {
   id: string;

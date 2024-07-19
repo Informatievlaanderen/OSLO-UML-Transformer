@@ -1,0 +1,23 @@
+<div class="region region">
+    <section
+        id="abstract"
+        class="introductory"
+        property="dcterms:abstract"
+        datatype=""
+        typeof="bibo:Chapter"
+        resource="#ref"
+        rel="bibo:Chapter">
+        <h2 class="h2" aria-level="1" role="heading" id="h2_abstract">Samenvatting</h2>
+        <div class="region region--no-space-top typography" id="summary">
+            {% block summary %}
+                <p>
+                    Het {{ data.metadata.title }} vocabularium specificeert een aantal klassen en eigenschappen om een
+                    {{ data.metadata.title | lower }} te beschrijven.
+                </p>
+                <p>
+                    {{ data.metadata.abstract[language] }}
+                </p>
+            {% endblock %}
+        </div>
+    </section>
+</div>

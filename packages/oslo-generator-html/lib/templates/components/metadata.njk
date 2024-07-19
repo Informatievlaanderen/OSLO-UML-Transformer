@@ -1,0 +1,29 @@
+<h1 class="h1">
+    {{ data.metadata.title }}
+</h1>
+<div class="head" role="status" id="status">
+    <dl>
+        <dt>Status</dt>
+        <dd>
+            <a href="{{ data.metadata.status }}">{{ data.metadata.status }}</a>
+        </dd>
+        <dt>Uitgegeven op</dt>
+        <dd>{{ data.metadata.issued }}</dd>
+        <dt>Deze versie</dt>
+        <dd>
+            <a href="{{ data.metadata.navigation.self }}">{{ data.metadata.navigation.self }}</a>
+        </dd>
+        {% if data.metadata.navigation.next %}
+            <dt>Volgende versie</dt>
+            <dd>
+                <a href="{{ data.metadata.navigation.next }}">{{ data.metadata.navigation.next }}</a>
+            </dd>
+        {% endif %}
+        {% if data.metadata.navigation.prev %}
+            <dt>Vorige versie</dt>
+            <dd>
+                <a href="{{ data.metadata.navigation.prev }}">{{ data.metadata.navigation.prev }}</a>
+            </dd>
+        {% endif %}
+    </dl>
+</div>

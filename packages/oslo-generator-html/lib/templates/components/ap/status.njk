@@ -4,13 +4,13 @@
         {% block status %}
             <p>
                 Dit applicatieprofiel heeft status
-                <a href="{{ metadata.status }}">
-                    {{ metadata.statuslabel }}</a>
-                en werd uitgegeven op {{ metadata.issued }}.
+                <a href="{{ data.metadata.status }}">
+                    {{ data.metadata.statuslabel }}</a>
+                en werd uitgegeven op {{ data.metadata.issued }}.
             </p>
             <p>
                 Informatie over het gevolgde proces en de beslissingen om tot deze specificatie te komen zijn beschikbaar in het
-                <a href="{{ metadata.standaardregisterurl }}">standaardenregister</a>.
+                <a href="{{ data.metadata.standaardregisterurl }}">standaardenregister</a>.
             </p>
         {% endblock %}
     </section>
