@@ -5,7 +5,7 @@
             {% if ( ( data.entities | length > 0)   ) %}
                 <div class="region region--no-space-top">
                     <p>In dit document wordt correct gebruik van de volgende entiteiten toegelicht: <br/> |
-                        {%- for entity in data.entities |sort(attribute=sortattr) %}
+                        {%- for entity in data.entities %}
                             <a href="#{{ getAnchorTag(entity.id) }}">
                                 {{ entity.applicationProfileLabel[language] }}</a>
                             |
@@ -17,8 +17,8 @@
                 <div class="region region--no-space-top">
                     <p>
                         In dit document worden de volgende datatypes toegelicht: <br/> |
-                        {%- for dataType in data.scopedDataTypes |sort(attribute=sortattr) %}
-                            <a href="#{{ getAnchorTag(dataType.id) }}">
+                        {%- for dataType in data.scopedDataTypes %}
+                            <a href="#{{ dataType.applicationProfileLabel[language] | replace(' ', '') }}">
                                 {{ dataType.applicationProfileLabel[language] }}</a>
                             |
                         {%- endfor %}

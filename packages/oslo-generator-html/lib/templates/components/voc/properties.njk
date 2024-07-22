@@ -7,7 +7,7 @@
             <div class="region region--no-space-top">
                 <p>Deze sectie geeft een formele definitie aan elke eigenschap.</p>
             </div>
-            {% for property in data.inPackageProperties | sort(attribute=sortattr) %}
+            {% for property in data.inPackageProperties %}
                 <div class="region region--no-space-top">
                     <h3 class="h3" id="{{ property.vocabularyLabel[language] }}">Eigenschap
                         <em>{{ property.vocabularyLabel[language] }}</em>

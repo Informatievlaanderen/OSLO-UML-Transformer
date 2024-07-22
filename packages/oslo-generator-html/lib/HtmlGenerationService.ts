@@ -1,6 +1,6 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, dirname } from 'path';
-import { sortClasses } from './utils/utils';
+import { sortClasses, sortDataTypeProperties } from './utils/utils';
 import { IService, Scope } from '@oslo-flanders/core';
 import { Logger, ServiceIdentifier, fetchFileOrUrl } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
@@ -57,7 +57,10 @@ export class HtmlGenerationService implements IService {
 
     data.entities = this.filterEntities(classes);
 
-    data.scopedDataTypes = this.filterClasses(dataTypes, this.isScoped);
+    data.scopedDataTypes = sortDataTypeProperties(
+      sortClasses(this.filterClasses(dataTypes, this.isScoped), languageKey),
+      languageKey,
+    );
 
     data.inPackageDataTypes = this.filterClasses(dataTypes, this.isInPackage);
     data.inPackageClasses = this.filterClasses(classes, this.isInPackage);
@@ -66,9 +69,9 @@ export class HtmlGenerationService implements IService {
       data.inPackageClasses,
       languageKey,
     );
-    data.inPackageProperties = this.filterAndFlattenProperties(
-      data.inPackageMerged,
-      this.isInPackage,
+    data.inPackageProperties = sortClasses(
+      this.filterAndFlattenProperties(data.inPackageMerged, this.isInPackage),
+      languageKey,
     );
 
     data.metadata = metadata;

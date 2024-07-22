@@ -1,7 +1,7 @@
 <div class="region region--no-space-top">
   <h2 class="h2">Entiteiten</h2>
 </div>
-{% for entity in data.entities | sort(attribute=sortattr) %}
+{% for entity in data.entities %}
   <div class="region region--no-space-top">
     <h3 class="h3" id="{{ entity.id }}">
       <a href="{{ entity.id }}" data-toggle="tooltip" data-content="{{ entity.id }}" id="{{ entity.applicationProfileLabel[language] }}" data-placement="right">
@@ -34,8 +34,8 @@
             <dt>Eigenschappen</dt>
             {% if ((entity.properties | length) > 0 ) %}
               <dd>Voor deze entiteit zijn de volgende eigenschappen gedefinieerd:
-                {%- for prop in entity['properties'] | sort(attribute=sortattr) %}
-                  <a href="#{{ (entity.applicationProfileLabel[language] ~ '.' ~ prop.applicationProfileLabel[language]) | urlencode }}">{{ prop.applicationProfileLabel[language] }}</a>
+                {%- for prop in entity['properties'] %}
+                  <a href="#{{ (entity.applicationProfileLabel[language] ~ ':' ~ prop.applicationProfileLabel[language]) | urlencode }}">{{ prop.applicationProfileLabel[language] }}</a>
                   {% if not loop.last %},
                   {% endif %}
                 {%- endfor %}.
@@ -59,8 +59,8 @@
                 </tr>
               </thead>
               <tbody class="supertype">
-                {% for prop in entity['properties'] | sort(attribute=sortattr) %}
-                  <tr id="{{ (entity.applicationProfileLabel[language] ~ '.' ~ prop.applicationProfileLabel[language]) | urlencode }}" typeof="rdfs:Property" resource="{{ prop.uri }}">
+                {% for prop in entity['properties'] %}
+                  <tr id="{{ (entity.applicationProfileLabel[language] ~ ':' ~ prop.applicationProfileLabel[language]) | urlencode }}" typeof="rdfs:Property" resource="{{ prop.uri }}">
                     <td>
                       <code property="rdfs:label">
                         <a href="{{ prop.id }}" data-toggle="tooltip" data-content="{{ prop.id }}" data-placement="right">

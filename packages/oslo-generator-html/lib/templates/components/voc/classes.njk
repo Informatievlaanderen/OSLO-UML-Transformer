@@ -7,7 +7,7 @@
             <div class="region region--no-space-top">
                 <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
             </div>
-            {% for class in data.inPackageMerged | sort(attribute=sortattr) %}
+            {% for class in data.inPackageMerged %}
                 <div class="region region--no-space-top">
                     <h3 class="h3" id="{{ class.vocabularyLabel[language] }}">Klasse
                         <em>{{ class.vocabularyLabel[language] }}</em>

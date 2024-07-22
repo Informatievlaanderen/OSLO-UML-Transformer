@@ -25,7 +25,7 @@
                 <div class="grid">
                     <p>
                         |
-                        {% for class in data.inPackageMerged | sort(attribute=sortattr) %}
+                        {% for class in data.inPackageMerged %}
                             <a href="#{{ getAnchorTag(class.id) }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
                             |
                         {% endfor %}
@@ -39,7 +39,7 @@
                 <div class="grid">
                     <p>
                         |
-                        {% for prop in data.inPackageProperties | sort(attribute=sortattr) %}
+                        {% for prop in data.inPackageProperties %}
                             <a href="#{{ getAnchorTag(prop.id) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
                             |
                         {% endfor %}
