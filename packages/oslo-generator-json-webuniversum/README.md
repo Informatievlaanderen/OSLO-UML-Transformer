@@ -1,4 +1,4 @@
-# `oslo-generator-json-webuniversum` `OSLO JSON Webuniversum Generator
+# `oslo-generator-json-webuniversum` OSLO JSON Webuniversum Generator
 
 > This package transforms an OSLO JSON-LD file into a JSON configuration file which will be used by the Nuxt.JS Service to render vocabularies and application profiles
 
