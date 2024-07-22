@@ -1,6 +1,6 @@
 # `OSLO HTML Generator`
 
-> Given an OSLO-compliant RDF file, this tool generates an HTML file with the HTML layout
+> Given an OSLO Webuniversum JSON file, this tool generates an HTML file with the HTML layout
 
 ## Install
 
