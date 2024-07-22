@@ -22,7 +22,7 @@ The service is executed from the CLI and expects the following parameters:
 | Parameter | Description | Required | Possible values |
 | --------- | --------- | ----------- | --------------- |
 | `--input` | The URL or local file path of an OSLO-compliant RDF file | :heavy_check_mark: ||
-| `--output` | The name of the output file | No, defaults to `context.jsonld` ||
+| `--output` | The name of the output file | No, defaults to `index.html` ||
 | `--stakeholders` | The URL or local file path to the stakeholders json | :heavy_check_mark: ||
 | `--metadata` | The URL or local file path of the metadata config file | :heavy_check_mark: ||
 | `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|

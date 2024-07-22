@@ -35,19 +35,14 @@ export class HtmlGenerationServiceRunner extends AppRunner<
       })
       .option('specificationName', {
         describe: 'The name of the specification',
+        default: 'Applicatieprofiel',
       })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,
         boolean: true,
       })
-      .demandOption([
-        'input',
-        'metadata',
-        'language',
-        'specificationName',
-        'stakeholders',
-      ])
+      .demandOption(['input', 'metadata', 'language', 'stakeholders'])
       .help('h')
       .alias('h', 'help');
 
