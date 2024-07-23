@@ -42,6 +42,10 @@ export class HtmlGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('summary', {
+        describe: 'Input file containing the summary of the publication',
+        type: 'string',
+      })
       .demandOption(['input', 'metadata', 'language', 'stakeholders'])
       .help('h')
       .alias('h', 'help');

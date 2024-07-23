@@ -29,10 +29,12 @@ The service is executed from the CLI and expects the following parameters:
 | `--specificationName` | Title of the document | No ||
 | `--language` | The language in which the HTML file must be generated (labels) | :heavy_check_mark: ||
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
+| `--summary` | The URL or local file path to a custom jinja summary document | No | summary.j2 |
 
 ## Usage
 
 ```bash
 oslo-generator-html --input webuniversum-config.json --language nl --stakeholders stakeholders.json --metadata metadata.json
 oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json
+oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json --summary summary.j2
 ```
