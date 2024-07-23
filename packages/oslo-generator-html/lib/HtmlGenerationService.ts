@@ -37,13 +37,10 @@ export class HtmlGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    const [config, stakeholders, metadata, summary] = await Promise.all([
+    const [config, stakeholders, metadata] = await Promise.all([
       this.readConfigFile(this.configuration.input),
       this.readConfigFile(this.configuration.stakeholders),
       this.readConfigFile(this.configuration.metadata),
-      this.configuration.summary
-        ? this.readFile(this.configuration.summary)
-        : Promise.resolve(undefined),
     ]);
 
     const indexPath =
@@ -52,12 +49,6 @@ export class HtmlGenerationService implements IService {
         : 'application-profile/index.njk';
 
     let data: any = {};
-
-    // Remove any jinja tags from the summary since they can't be interpreted dynamically
-    if (summary) {
-      const cleanedSummary = summary.replace(/{%.*?%}/g, '');
-      data.summary = cleanedSummary;
-    }
 
     const languageKey: Languages =
       Languages[<keyof typeof Languages>this.configuration.language];

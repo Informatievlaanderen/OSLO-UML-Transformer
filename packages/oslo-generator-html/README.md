@@ -21,7 +21,7 @@ npm install -g @oslo-flanders/html-generator
 The service is executed from the CLI and expects the following parameters:
 | Parameter | Description | Required | Possible values |
 | --------- | --------- | ----------- | --------------- |
-| `--input` | The URL or local file path of an OSLO-compliant RDF file | :heavy_check_mark: ||
+| `--input` | The URL or local file path of an OSLO-webuniversum config | :heavy_check_mark: ||
 | `--output` | The name of the output file | No, defaults to `index.html` ||
 | `--stakeholders` | The URL or local file path to the stakeholders json | :heavy_check_mark: ||
 | `--metadata` | The URL or local file path of the metadata config file | :heavy_check_mark: ||
@@ -29,7 +29,6 @@ The service is executed from the CLI and expects the following parameters:
 | `--specificationName` | Title of the document | No ||
 | `--language` | The language in which the HTML file must be generated (labels) | :heavy_check_mark: ||
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
-| `--summary` | The URL or local file path to a custom jinja summary document | No | summary.j2 |
 
 ## Usage
 
@@ -38,3 +37,6 @@ oslo-generator-html --input webuniversum-config.json --language nl --stakeholder
 oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json
 oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json --summary summary.j2
 ```
+
+-- `custom` dir voor extra unknown templates vanuit de thema-repository. cfr.
+-- `root` flag meegeven ter vervanging van de default index.njk van ap/voc

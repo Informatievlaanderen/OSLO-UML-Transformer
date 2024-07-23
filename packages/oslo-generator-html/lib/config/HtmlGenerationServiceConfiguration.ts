@@ -41,9 +41,9 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   private _specificationName: string | undefined;
 
   /**
-   * Local path or URL to the summary jinja
+   * Local path or url to a folder with custom templates
    */
-  private _summary: string | undefined;
+  private _templates: string | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
@@ -51,7 +51,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
     this._stakeholders = <string>params.stakeholders;
     this._metadata = <string>params.metadata;
     this._language = <string>params.language;
-    this._summary = <string>params.summary;
+    this._templates = <string>params.templates;
     this._specificationType = this.getSpecificationType(
       <string>params.specificationType,
     );
@@ -117,8 +117,8 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
     return this._specificationName;
   }
 
-  public get summary(): string | undefined {
-    return this._summary;
+  public get templates(): string | undefined {
+    return this._templates;
   }
 
   private getSpecificationType(value: string): SpecificationType {

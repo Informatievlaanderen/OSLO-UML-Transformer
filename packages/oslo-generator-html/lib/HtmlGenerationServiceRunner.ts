@@ -42,8 +42,8 @@ export class HtmlGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
-      .option('summary', {
-        describe: 'Input file containing the summary of the publication',
+      .option('templates', {
+        describe: 'Link to an optional folder with custom templates',
         type: 'string',
       })
       .demandOption(['input', 'metadata', 'language', 'stakeholders'])
