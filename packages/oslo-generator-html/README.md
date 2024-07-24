@@ -29,14 +29,14 @@ The service is executed from the CLI and expects the following parameters:
 | `--specificationName` | Title of the document | No ||
 | `--language` | The language in which the HTML file must be generated (labels) | :heavy_check_mark: ||
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
+| `--templates` | path to local folder containing different templates that can be used for extending the root template | | |
+| `--rootTemplate` | Use a different template other than the default ones (ap2.j2 and voc2.j2) | No | |
 
 ## Usage
 
 ```bash
 oslo-generator-html --input webuniversum-config.json --language nl --stakeholders stakeholders.json --metadata metadata.json
 oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json
-oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json --summary summary.j2
+oslo-generator-html --input webuniversum-config.json --language nl --specificationType ApplicationProfile --specificationName "OSLO-Verkeersmetingen" --stakeholders stakeholders.json --metadata metadata.json
+oslo-generator-html --input ./webuniversum-config.json --language nl --stakeholders ./stakeholders.json --metadata ./metadata.json --specificationName "OSLO-verkeersmetingen" --specificationType Vocabulary --templates ./templates --rootTemplate vrachtwagenParkeren-voc.njk
 ```
-
--- `custom` dir voor extra unknown templates vanuit de thema-repository. cfr.
--- `root` flag meegeven ter vervanging van de default index.njk van ap/voc

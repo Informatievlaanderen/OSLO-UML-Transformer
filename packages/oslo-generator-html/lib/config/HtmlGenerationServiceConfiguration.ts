@@ -41,9 +41,14 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   private _specificationName: string | undefined;
 
   /**
-   * Local path or url to a folder with custom templates
+   * Local path to a folder with custom templates
    */
   private _templates: string | undefined;
+
+  /**
+   * Local path to a root template to use if custom templates are provided.
+   */
+  private _rootTemplate: string | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
@@ -52,6 +57,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
     this._metadata = <string>params.metadata;
     this._language = <string>params.language;
     this._templates = <string>params.templates;
+    this._rootTemplate = <string>params.rootTemplate;
     this._specificationType = this.getSpecificationType(
       <string>params.specificationType,
     );
@@ -119,6 +125,10 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
 
   public get templates(): string | undefined {
     return this._templates;
+  }
+
+  public get rootTemplate(): string | undefined {
+    return this._rootTemplate;
   }
 
   private getSpecificationType(value: string): SpecificationType {

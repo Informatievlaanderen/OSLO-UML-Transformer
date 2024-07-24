@@ -1,5 +1,6 @@
-import { writeFile, mkdir } from 'fs/promises';
-import { resolve, dirname } from 'path';
+import { writeFile, mkdir, readdir, stat, copyFile } from 'fs/promises';
+import util from 'util';
+import path, { resolve, dirname } from 'path';
 import { sortClasses, sortDataTypeProperties } from './utils/utils';
 import { IService, Scope } from '@oslo-flanders/core';
 import { Logger, ServiceIdentifier, fetchFileOrUrl } from '@oslo-flanders/core';
@@ -34,6 +35,13 @@ export class HtmlGenerationService implements IService {
   public async init(): Promise<void> {
     const env = nj.configure(resolve(`${__dirname}/templates`));
     env.addGlobal('getAnchorTag', this.getAnchorTag);
+    // Read any custom templates from the templates directory if they are provided
+    if (this.configuration.templates) {
+      await this.copyDir(
+        this.configuration.templates,
+        path.join(__dirname, 'templates'),
+      );
+    }
   }
 
   public async run(): Promise<void> {
@@ -44,9 +52,10 @@ export class HtmlGenerationService implements IService {
     ]);
 
     const indexPath =
-      this.configuration.specificationType === SpecificationType.Vocabulary
-        ? 'vocabulary/index.njk'
-        : 'application-profile/index.njk';
+      this.configuration.rootTemplate ||
+      (this.configuration.specificationType === SpecificationType.Vocabulary
+        ? 'voc2.j2'
+        : 'ap2.j2');
 
     let data: any = {};
 
@@ -148,14 +157,27 @@ export class HtmlGenerationService implements IService {
     }
   }
 
-  private async readFile(file: string): Promise<any> {
+  private copyDir = async (srcDir: string, destDir: string): Promise<void> => {
     try {
-      const buffer: Buffer = await fetchFileOrUrl(file);
-      const fileContent = buffer.toString();
-      return fileContent;
+      await mkdir(destDir, { recursive: true });
+      const files = await readdir(srcDir);
+
+      for (const file of files) {
+        const srcFile = path.join(srcDir, file);
+        const destFile = path.join(destDir, file);
+        const fileStat = await stat(srcFile);
+
+        if (fileStat.isDirectory()) {
+          await this.copyDir(srcFile, destFile);
+        } else {
+          await copyFile(srcFile, destFile);
+        }
+      }
     } catch (error) {
-      console.error('Error reading or parsing file:', error);
-      throw error;
+      console.error(
+        `Error copying directory from ${srcDir} to ${destDir}:`,
+        error,
+      );
     }
-  }
+  };
 }

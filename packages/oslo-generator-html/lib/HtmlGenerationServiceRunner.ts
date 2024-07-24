@@ -46,6 +46,11 @@ export class HtmlGenerationServiceRunner extends AppRunner<
         describe: 'Link to an optional folder with custom templates',
         type: 'string',
       })
+      .option('rootTemplate', {
+        describe: `Link to the root template to use if custom templates are provided. 
+          If not provided, the template is decided based on the specificationType.`,
+        type: 'string',
+      })
       .demandOption(['input', 'metadata', 'language', 'stakeholders'])
       .help('h')
       .alias('h', 'help');
