@@ -22,8 +22,9 @@ The service is executed from the CLI and expects the following parameters:
 | `--input`  | The URL or local file path of an OSLO stakeholders csv file |:heavy_check_mark:                |                 |
 | `--output` | Name of the output file                                     | No, default `webuniversum-config.json` |                 |
 | `--language` | The language in which the config must be generated | :heavy_check_mark: | |
+| `--publicationEnvironment` | The base URI of environment where the document will be published | :heavy_check_mark: | |
 
 ## Usage
 ```bash
-oslo-webuniversum-json-generator --input report.jsonld --language nl
+oslo-webuniversum-json-generator --input report.jsonld --language nl --publicationEnvironment https://data.vlaanderen.be
 ```
