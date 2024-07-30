@@ -1,27 +1,16 @@
-import { writeFile, mkdir, readdir, stat, copyFile } from 'fs/promises';
-import util from 'util';
-import path, { resolve, dirname } from 'path';
-import { sortClasses, sortDataTypeProperties } from './utils/utils';
-import { IService, Scope } from '@oslo-flanders/core';
+import { writeFile, mkdir } from 'fs/promises';
+import { resolve, dirname } from 'path';
+import { IService } from '@oslo-flanders/core';
 import { Logger, ServiceIdentifier, fetchFileOrUrl } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
 import { HtmlGenerationServiceConfiguration } from './config/HtmlGenerationServiceConfiguration';
 import { SpecificationType } from './utils/specificationTypeEnum';
-import { Class } from './types/Class';
-import { Languages } from './utils/languageEnum';
 
 @injectable()
 export class HtmlGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: HtmlGenerationServiceConfiguration;
-
-  isInPackage: (c: Class) => boolean = (c: Class) =>
-    c?.scope === Scope.InPackage;
-  isExternal = (c: Class) => c?.scope === Scope.External;
-  isInPublicationEnvironment = (c: Class) =>
-    c?.scope === Scope.InPublicationEnvironment;
-  isScoped = (c: Class) => !!c?.scope;
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
@@ -33,15 +22,21 @@ export class HtmlGenerationService implements IService {
   }
 
   public async init(): Promise<void> {
-    const env = nj.configure(resolve(`${__dirname}/templates`));
-    env.addGlobal('getAnchorTag', this.getAnchorTag);
-    // Read any custom templates from the templates directory if they are provided
+    const dirs: string[] = [resolve(`${__dirname}/templates`)];
     if (this.configuration.templates) {
-      await this.copyDir(
-        this.configuration.templates,
-        path.join(__dirname, 'templates'),
-      );
+      let templatesPath = this.configuration.templates;
+
+      // Ensure the path ends with a trailing slash
+      if (!templatesPath.endsWith('/')) {
+        templatesPath += '/';
+      }
+
+      const customTemplatesDir: string = resolve(templatesPath);
+      dirs.push(customTemplatesDir);
     }
+
+    const env = nj.configure(dirs);
+    env.addGlobal('getAnchorTag', this.getAnchorTag);
   }
 
   public async run(): Promise<void> {
@@ -59,45 +54,28 @@ export class HtmlGenerationService implements IService {
 
     let data: any = {};
 
-    const languageKey: Languages =
-      Languages[<keyof typeof Languages>this.configuration.language];
+    const {
+      entities,
+      inPackageClasses,
+      inPackageDataTypes,
+      scopedDataTypes,
+      externalProperties,
+      inPackageProperties,
+      inPackageMerged,
+    } = config;
 
-    const { classes, dataTypes } = config;
-
-    data.entities = this.filterEntities(classes);
-
-    data.scopedDataTypes = sortDataTypeProperties(
-      sortClasses(this.filterClasses(dataTypes, this.isScoped), languageKey),
-      languageKey,
-    );
-
-    data.inPackageDataTypes = this.filterClasses(dataTypes, this.isInPackage);
-    data.inPackageClasses = this.filterClasses(classes, this.isInPackage);
-    data.inPackageMerged = this.mergeAndSortClasses(
-      data.inPackageDataTypes,
-      data.inPackageClasses,
-      languageKey,
-    );
-    data.inPackageProperties = sortClasses(
-      this.filterAndFlattenProperties(data.inPackageMerged, this.isInPackage),
-      languageKey,
-    );
-
-    data.metadata = metadata;
-
-    data.externalClasses = this.filterClasses(classes, this.isExternal);
-    data.externalDataTypes = this.filterClasses(dataTypes, this.isExternal);
-    data.externalMerged = this.mergeAndSortClasses(
-      data.externalDataTypes,
-      data.externalClasses,
-      languageKey,
-    );
-    data.externalProperties = sortClasses(
-      this.filterAndFlattenProperties(data.externalMerged, this.isExternal),
-      languageKey,
-    );
-
-    data.stakeholders = stakeholders;
+    data = {
+      ...data,
+      entities,
+      inPackageMerged,
+      inPackageClasses,
+      scopedDataTypes,
+      inPackageDataTypes,
+      inPackageProperties,
+      externalProperties,
+      metadata,
+      stakeholders,
+    };
 
     const html = nj.render(indexPath, {
       specName: this.configuration.specificationName,
@@ -110,32 +88,6 @@ export class HtmlGenerationService implements IService {
 
     await writeFile(this.configuration.output, html);
   }
-
-  private filterEntities = (entities: Class[]): Class[] =>
-    entities.filter(
-      (c) => this.isInPackage(c) || this.isInPublicationEnvironment(c),
-    );
-
-  private mergeAndSortClasses = (
-    dataTypes: Class[],
-    classes: Class[],
-    language: Languages,
-  ): Class[] => {
-    const merged = [...dataTypes, ...classes];
-    return sortClasses(merged, language);
-  };
-
-  private filterAndFlattenProperties = (
-    entities: Class[],
-    filter: (entity: Class) => boolean,
-  ): Class[] => {
-    return entities.flatMap((entity) => entity.properties).filter(filter);
-  };
-
-  private filterClasses = (
-    classes: Class[],
-    filter: (c: Class) => boolean,
-  ): Class[] => classes.filter(filter);
 
   private getAnchorTag = (id: string, type: string) => {
     let domain: string = '';
@@ -156,28 +108,4 @@ export class HtmlGenerationService implements IService {
       throw error;
     }
   }
-
-  private copyDir = async (srcDir: string, destDir: string): Promise<void> => {
-    try {
-      await mkdir(destDir, { recursive: true });
-      const files = await readdir(srcDir);
-
-      for (const file of files) {
-        const srcFile = path.join(srcDir, file);
-        const destFile = path.join(destDir, file);
-        const fileStat = await stat(srcFile);
-
-        if (fileStat.isDirectory()) {
-          await this.copyDir(srcFile, destFile);
-        } else {
-          await copyFile(srcFile, destFile);
-        }
-      }
-    } catch (error) {
-      console.error(
-        `Error copying directory from ${srcDir} to ${destDir}:`,
-        error,
-      );
-    }
-  };
 }
