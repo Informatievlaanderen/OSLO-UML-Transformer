@@ -341,6 +341,20 @@
                       </div>
                     </div>
                   {% endif %}
+                  {% if ( ( data.externalProperties | length ) > 0 ) %}
+                    <div class="region region--no-space-top">
+                      <h3 class="h3">Externe terminologie</h3>
+                      <div class="grid">
+                        <p>
+                          |
+                          {% for prop in data.externalProperties %}
+                            <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                            |
+                          {% endfor %}
+                        </p>
+                      </div>
+                    </div>
+                  {% endif %}
                 </section>
               </div>
               <div class="region region--no-space-top">
