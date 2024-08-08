@@ -1,13 +1,14 @@
 import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
-import type { StakeholdersDocument, Stakeholder } from './interfaces/StakeholdersDocument';
+import type {
+  StakeholdersDocument,
+  Stakeholder,
+} from './interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';
 import { inject, injectable } from 'inversify';
-import {
-  StakeholdersConversionServiceConfiguration,
-} from './config/StakeholdersConversionServiceConfiguration';
+import { StakeholdersConversionServiceConfiguration } from './config/StakeholdersConversionServiceConfiguration';
 import { ContributorType } from './enums/ContributorType';
 import { context } from './utils/JsonLdContext';
 import { ToJsonTransformer } from './utils/ToJsonTransformer';
@@ -18,7 +19,8 @@ export class StakeholdersConversionService implements IService {
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
-    @inject(ServiceIdentifier.Configuration) config: StakeholdersConversionServiceConfiguration,
+    @inject(ServiceIdentifier.Configuration)
+    config: StakeholdersConversionServiceConfiguration,
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -32,13 +34,21 @@ export class StakeholdersConversionService implements IService {
     const data = await fetchFileOrUrl(this.configuration.input);
     const { authors, contributors, editors } = await this.parseData(data);
 
-    const doc: StakeholdersDocument = this.createDocument(authors, contributors, editors);
+    const doc: StakeholdersDocument = this.createDocument(
+      authors,
+      contributors,
+      editors,
+    );
 
     await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
   }
 
   // helper methods for creating the StakeholdersDocument in the different output formats
-  private createJsonLdDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
+  private createJsonLdDocument(
+    authors: Stakeholder[],
+    contributors: Stakeholder[],
+    editors: Stakeholder[],
+  ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     doc['@context'] = context;
     doc.contributors = contributors;
@@ -47,7 +57,11 @@ export class StakeholdersConversionService implements IService {
     return doc;
   }
 
-  private createJsonDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
+  private createJsonDocument(
+    authors: Stakeholder[],
+    contributors: Stakeholder[],
+    editors: Stakeholder[],
+  ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     doc.contributors = contributors;
     doc.authors = authors;
@@ -55,7 +69,11 @@ export class StakeholdersConversionService implements IService {
     return doc;
   }
 
-  private createDocument(authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[]): StakeholdersDocument {
+  private createDocument(
+    authors: Stakeholder[],
+    contributors: Stakeholder[],
+    editors: Stakeholder[],
+  ): StakeholdersDocument {
     switch (this.configuration.outputFormat) {
       case 'application/json':
         return this.createJsonDocument(authors, contributors, editors);
@@ -66,7 +84,17 @@ export class StakeholdersConversionService implements IService {
     }
   }
 
-  private async parseData(data: Buffer): Promise<{ authors: Stakeholder[], contributors: Stakeholder[], editors: Stakeholder[] }> {
+  private sortStakeholdersByLastName(
+    stakeholders: Stakeholder[],
+  ): Stakeholder[] {
+    return stakeholders.sort((a, b) => a.lastName.localeCompare(b.lastName));
+  }
+
+  private async parseData(data: Buffer): Promise<{
+    authors: Stakeholder[];
+    contributors: Stakeholder[];
+    editors: Stakeholder[];
+  }> {
     const parser = parse({ delimiter: ';', columns: true });
     const transformer = new ToJsonTransformer(this.configuration.outputFormat);
 
@@ -75,7 +103,8 @@ export class StakeholdersConversionService implements IService {
     const editors: Stakeholder[] = [];
 
     await new Promise<void>((resolve, reject) => {
-      parser.pipe(transformer)
+      parser
+        .pipe(transformer)
         .on('data', (object: any) => {
           switch (object.contributorType) {
             case ContributorType.Author:
@@ -88,7 +117,9 @@ export class StakeholdersConversionService implements IService {
               editors.push(object);
               break;
             default:
-              this.logger.error(`Unable to find the contributor type for "${object.firstName} ${object.lastName}."`);
+              this.logger.error(
+                `Unable to find the contributor type for "${object.firstName} ${object.lastName}."`,
+              );
           }
 
           delete object.contributorType;
@@ -100,6 +131,10 @@ export class StakeholdersConversionService implements IService {
       parser.end();
     });
 
-    return { authors, contributors, editors };
+    return {
+      authors: this.sortStakeholdersByLastName(authors),
+      contributors: this.sortStakeholdersByLastName(contributors),
+      editors: this.sortStakeholdersByLastName(editors),
+    };
   }
 }
