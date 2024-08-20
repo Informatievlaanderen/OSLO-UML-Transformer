@@ -79,6 +79,7 @@ export class HtmlGenerationService implements IService {
 
     const html = nj.render(indexPath, {
       specName: this.configuration.specificationName,
+      language: this.configuration.language,
       config,
       data,
     });
