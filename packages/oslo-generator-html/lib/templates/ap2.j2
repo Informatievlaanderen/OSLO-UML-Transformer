@@ -250,7 +250,7 @@
                       <div class="region region--no-space-top">
                         <p>In dit document wordt correct gebruik van de volgende entiteiten toegelicht: <br/> |
                           {%- for entity in data.entities %}
-                            <a href="#{{ getAnchorTag(entity.id) }}">
+                            <a href="#{{ entity.applicationProfileLabel[language] }}">
                               {{ entity.applicationProfileLabel[language] }}</a>
                             |
                           {%- endfor %}

@@ -309,7 +309,7 @@
                         <p>
                           |
                           {% for class in data.inPackageMerged %}
-                            <a href="#{{ getAnchorTag(class.id) }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
+                            <a href="#{{ class.vocabularyLabel[language] }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
                             |
                           {% endfor %}
                         </p>
@@ -323,7 +323,7 @@
                         <p>
                           |
                           {% for prop in data.inPackageProperties %}
-                            <a href="#{{ getAnchorTag(prop.id) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                            <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
                             |
                           {% endfor %}
                         </p>
