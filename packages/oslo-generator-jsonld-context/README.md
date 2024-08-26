@@ -23,6 +23,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--language` | The language in which the context must be generated (labels) | :heavy_check_mark: ||
 | `--addDomainPrefix` | Prefix every attribute with its domain | No | `true` or `false` (default) |
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
+| `--scopedContext` | Boolean that decides to keep the @context scoped or not | No | `true` or `false` (default) |
 
 ## Usage
 ```bash
