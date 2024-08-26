@@ -27,6 +27,7 @@ The service is executed from the CLI and expects the following parameters:
 
 ## Usage
 ```bash
-oslo-jsonld-context-generator --input https://data.vlaanderen.be/ns/adres.jsonld --language nl
 oslo-jsonld-context-generator --input report.jsonld --language nl
+oslo-jsonld-context-generator --input https://data.vlaanderen.be/ns/adres.jsonld --language nl
+oslo-jsonld-context-generator --input https://data.vlaanderen.be/ns/adres.jsonld --output context.jsonld --language nl --scopedContext true
 ```
