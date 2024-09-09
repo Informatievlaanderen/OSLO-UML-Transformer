@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-                                            http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                                                          http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     {% set name = data.metadata.title|lower|replace(' ', '-') %}
     <title>{{ data.metadata.title }}</title>
@@ -341,8 +341,13 @@
                                   </td>
                                   <td>
                                     {% if prop.range %}
-                                      <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
-                                        {{ prop.range.applicationProfileLabel[language] }}</a>
+                                      {% if prop.range.listedInDocument %}
+                                        <a href="#{{ prop.range.applicationProfileLabel[language] }}" data-toggle="tooltip" data-content="{{ prop.range.applicationProfileLabel[language] }}" data-placement="right">
+                                          {{ prop.range.applicationProfileLabel[language] }}</a>
+                                      {% else %}
+                                        <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
+                                          {{ prop.range.applicationProfileLabel[language] }}</a>
+                                      {% endif %}
                                     {% endif %}
                                   </td>
                                   <td>
@@ -596,4 +601,4 @@
       }
     </style>
   </body>
-</html>
+</html></html>

@@ -1,8 +1,11 @@
 import type { WebuniversumObject } from "./WebuniversumObject";
 
+type WebuniversumRange = Pick<WebuniversumObject, 'id' | 'vocabularyLabel' | 'applicationProfileLabel'> & {
+    listedInDocument?: boolean;
+};
 export interface WebuniversumProperty extends WebuniversumObject {
     domain: string;
-    range: Pick<WebuniversumObject, 'id' | 'vocabularyLabel' | 'applicationProfileLabel'>
+    range: WebuniversumRange;
     minCount?: string;
     maxCount?: string;
     codelist?: string;
