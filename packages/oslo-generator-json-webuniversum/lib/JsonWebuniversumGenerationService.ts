@@ -145,6 +145,22 @@ export class JsonWebuniversumGenerationService implements IService {
     );
   }
 
+  private filterByRangeListedInDocument(
+    rangeAssignedURI: string,
+  ): string | undefined {
+    const inPackageUri: string | undefined = [
+      ...this.store.getClassIds(),
+      ...this.store.getDatatypes(),
+    ]
+      .map((classId) => this.store.getAssignedUri(classId)?.value)
+      .find(
+        (value) =>
+          value === rangeAssignedURI && value.startsWith(this.getBaseURI()),
+      );
+
+    return inPackageUri;
+  }
+
   private getBaseURI(): string {
     const packageSubject: RDF.Term = <RDF.Term>(
       this.store.findQuad(null, ns.rdf('type'), ns.oslo('Package'))?.subject
@@ -307,7 +323,12 @@ export class JsonWebuniversumGenerationService implements IService {
       );
     }
 
-    propertyObject.range = { id: rangeAssignedURI.value };
+    propertyObject.range = {
+      id: rangeAssignedURI.value,
+      listedInDocument: !!this.filterByRangeListedInDocument(
+        rangeAssignedURI.value,
+      ),
+    };
 
     const rangeVocabularyLabel: RDF.Literal | undefined = getVocabularyLabel(
       range,
