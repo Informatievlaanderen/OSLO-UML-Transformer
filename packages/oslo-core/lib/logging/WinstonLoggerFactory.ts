@@ -4,9 +4,12 @@ import type { Logger } from './Logger';
 import type { LoggerFactory } from './LoggerFactory';
 import type { LogLevel } from './LogLevel';
 import { WinstonLogger } from './WinstonLogger';
-const { combine, colorize, printf } = format;
+const { combine, printf } = format;
 
-const messageFormat = printf(({ level, message, messageTimestamp }) => `${new Date(Date.now()).toISOString()} ${level}: ${message}`);
+const messageFormat = printf(
+  ({ level, message, messageTimestamp }) =>
+    `${new Date(Date.now()).toISOString()} ${level}: ${message}`,
+);
 
 export class WinstonLoggerFactory implements LoggerFactory {
   private readonly level: LogLevel;
@@ -16,14 +19,13 @@ export class WinstonLoggerFactory implements LoggerFactory {
   }
 
   public createLogger(label?: string): Logger {
-    return new WinstonLogger(createLogger({
-      level: this.level,
-      transports: this.createTransports(),
-      format: combine(
-        colorize(),
-        messageFormat,
-      ),
-    }));
+    return new WinstonLogger(
+      createLogger({
+        level: this.level,
+        transports: this.createTransports(),
+        format: combine(messageFormat),
+      }),
+    );
   }
 
   protected createTransports(): Transport[] {
