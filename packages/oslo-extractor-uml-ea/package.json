@@ -31,7 +31,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.14-alpha.0",
+    "@oslo-flanders/core": "^0.0.15-alpha.0",
     "alasql": "1.7.3",
     "inversify": "^6.0.1",
     "mdb-reader": "github:Informatievlaanderen/mdb-reader",
