@@ -40,5 +40,6 @@
   "devDependencies": {
     "@rdfjs/types": "^1.1.0"
   },
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
 }
