@@ -1,3 +1,4 @@
+import { TagValues } from '../../../oslo-converter-uml-ea/lib/enums/TagValues';
 import type { EaConnector } from '../types/EaConnector';
 import type { EaObject } from '../types/EaObject';
 import type { EaTag } from '../types/EaTag';
@@ -15,8 +16,8 @@ export function addEaTagsToElements(
   objectIdPropertyName: string,
   tagValueName: string,
 ): void {
-  tags.forEach(tag => {
-    const element = elements.find(x => x.id === tag[objectIdPropertyName]);
+  tags.forEach((tag) => {
+    const element = elements.find((x) => x.id === tag[objectIdPropertyName]);
 
     if (!element) {
       // TODO: log message
@@ -24,7 +25,12 @@ export function addEaTagsToElements(
       const eaTag: EaTag = {
         id: <number>tag.PropertyID,
         tagName: <string>tag.Property,
-        tagValue: <string>tag[tagValueName],
+        // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-335
+        // If there are NOTES, then the tag value is a note, otherwise it is the tag value.
+        tagValue:
+          <string>tag[tagValueName] === TagValues.NOTE
+            ? <string>tag.Notes
+            : <string>tag[tagValueName],
       };
 
       element.tags = element.tags ? [...element.tags, eaTag] : [eaTag];
@@ -41,14 +47,14 @@ export function addRoleTagsToElements(
   tags: any[],
   eaConnectors: EaConnector[],
 ): void {
-  eaConnectors.forEach(con => {
-    const connectorRoleTags = tags.filter(x => x.ElementID === con.eaGuid);
+  eaConnectors.forEach((con) => {
+    const connectorRoleTags = tags.filter((x) => x.ElementID === con.eaGuid);
 
     if (connectorRoleTags.length === 0) {
       return;
     }
 
-    connectorRoleTags.forEach(roleTag => {
+    connectorRoleTags.forEach((roleTag) => {
       const eaRoleTag: EaTag = {
         id: <string>roleTag.PropertyID,
         tagName: <string>roleTag.TagValue,
@@ -56,11 +62,15 @@ export function addRoleTagsToElements(
       };
 
       if (roleTag.BaseClass === 'ASSOCIATION_SOURCE') {
-        con.sourceRoleTags = con.sourceRoleTags ? [...con.sourceRoleTags, eaRoleTag] : [eaRoleTag];
+        con.sourceRoleTags = con.sourceRoleTags
+          ? [...con.sourceRoleTags, eaRoleTag]
+          : [eaRoleTag];
       }
 
       if (roleTag.BaseClass === 'ASSOCIATION_TARGET') {
-        con.destinationRoleTags = con.destinationRoleTags ? [...con.destinationRoleTags, eaRoleTag] : [eaRoleTag];
+        con.destinationRoleTags = con.destinationRoleTags
+          ? [...con.destinationRoleTags, eaRoleTag]
+          : [eaRoleTag];
       }
     });
   });
