@@ -1,7 +1,7 @@
+import { TagValues } from '../enums/TagValues';
 import type { EaConnector } from '../types/EaConnector';
 import type { EaObject } from '../types/EaObject';
 import type { EaTag } from '../types/EaTag';
-import { TagValues } from '../types/TagValues';
 
 /**
  * Iterates over tags and adds it to the corresponding object.
