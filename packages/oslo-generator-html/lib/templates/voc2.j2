@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-              http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{ data.metadata.title }}</title>
     <meta charset='utf-8'/>
@@ -57,594 +57,588 @@
           <div class="col--9-12 col--1-1--s">
             <div class="head" role="contentinfo" id="respecHeader">
               <h1 class="h1 title p-name" property="dcterms:title" id="title">{{ data.metadata.title }}</h1>
-              {% if data.metadata.prefix %}
-                <h2 class="h2" id="subtitle" property="bibo:subtitle">Specificatie van
-                  <em>{{ data.metadata.prefix }}</em>
-                </h2>
-              {% endif %}
+              {% if data.metadata.autotranslate %}
+                <div class="disclaimer">
+                  <p>Dit document is een vertaling van het {{ data.metadata.primaryLanguage }} naar het Nederlands.</p>
+                  <br></div>
+                {% endif %}
+                {% if data.metadata.prefix %}
+                  <h2 class="h2" id="subtitle" property="bibo:subtitle">Specificatie van
+                    <em>{{ data.metadata.prefix }}</em>
+                  </h2>
+                {% endif %}
+                <dl>
+                  <dt>Auteurs</dt>
+                  {% set sortedAuthors = (data.stakeholders.authors | sort(attribute='lastName')) %}
+                  {% for author in sortedAuthors %}
+                    <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                      <span typeof="foaf:Person">
+                        <span class="p-name fn" property="foaf:lastName">
+                          {{ author.lastName }}</span>,
+                        <span class="p-name fn" property="foaf:firstName">
+                          {{ author.firstName }}</span>
+                        {% if author.affiliation.homepage and author.affiliation.affiliationName %}
+                          -
+                          <a href="{{ author.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ author.affiliation.affiliationName }}</a>
+                        {% elif author.affiliation.affiliationName %}
+                          -
+                          <span class="p-org org h-org h-card">
+                            {{ author.affiliation.affiliationName }}</span>
+                        {% endif %}
+                      </span>
+                    </dd>
+                  {% endfor %}
+                  <dt>Editors</dt>
+                  {% set sortedEditors = (data.stakeholders.editors | sort(attribute='lastName')) %}
+                  {% for editor in sortedEditors %}
+                    <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                      <span typeof="foaf:Person">
+                        <span class="p-name fn" property="foaf:lastName">
+                          {{ editor.lastName }}</span>,
+                        <span class="p-name fn" property="foaf:firstName">
+                          {{ editor.firstName }}</span>
+                        {% if editor.affiliation.homepage and editor.affiliation.affiliationName %}
+                          -
+                          <a href="{{ editor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ editor.affiliation.affiliationName }}</a>
+                        {% elif editor.affiliation.affiliationName %}
+                          -
+                          <span class="p-org org h-org h-card">
+                            {{ editor.affiliation.affiliationName }}</span>
+                        {% endif %}
+                      </span>
+                    </dd>
+                  {% endfor %}
+                  <dt>Medewerkers</dt>
+                  {% set sortedContributors = (data.stakeholders.contributors | sort(attribute='lastName')) %}
+                  {% for contributor in sortedContributors %}
+                    <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
+                      <span typeof="foaf:Person">
+                        <span class="p-name fn" property="foaf:lastName">
+                          {{ contributor.lastName }}</span>,
+                        <span class="p-name fn" property="foaf:firstName">
+                          {{ contributor.firstName }}</span>
+                        {% if contributor.affiliation.homepage and contributor.affiliation.affiliationName %}
+                          -
+                          <a href="{{ contributor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
+                            {{ contributor.affiliation.affiliationName }}</a>
+                        {% elif contributor.affiliation.affiliationName %}
+                          -
+                          <span class="p-org org h-org h-card">
+                            {{ contributor.affiliation.affiliationName }}</span>
+                        {% endif %}
+                      </span>
+                    </dd>
+                  {% endfor %}
+                </dl>
+              </div>
+            </div>
+            <div class="head" role="metainfo" id="metainfo">
               <dl>
-                <dt>Auteurs</dt>
-                {% set sortedAuthors = (data.stakeholders.authors | sort(attribute='lastName')) %}
-                {% for author in sortedAuthors %}
-                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
-                    <span typeof="foaf:Person">
-                      <span class="p-name fn" property="foaf:lastName">
-                        {{ author.lastName }}</span>,
-                      <span class="p-name fn" property="foaf:firstName">
-                        {{ author.firstName }}</span>
-                      {% if author.affiliation.homepage and author.affiliation.affiliationName %}
-                        -
-                        <a href="{{ author.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
-                          {{ author.affiliation.affiliationName }}</a>
-                      {% elif author.affiliation.affiliationName %}
-                        -
-                        <span class="p-org org h-org h-card">
-                          {{ author.affiliation.affiliationName }}</span>
-                      {% endif %}
-                      {% if author.email %}
-                        -
-                        <span class="ed_mailto">
-                          <a href="mailto:{{ author.email }}" rel="foaf:mbox" class="u-email email">
-                            {{ author.email }}</a>
-                        </span>
-                      {% endif %}
-                    </span>
-                  </dd>
-                {% endfor %}
-                <dt>Editors</dt>
-                {% set sortedEditors = (data.stakeholders.editors | sort(attribute='lastName')) %}
-                {% for editor in sortedEditors %}
-                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
-                    <span typeof="foaf:Person">
-                      <span class="p-name fn" property="foaf:lastName">
-                        {{ editor.lastName }}</span>,
-                      <span class="p-name fn" property="foaf:firstName">
-                        {{ editor.firstName }}</span>
-                      {% if editor.affiliation.homepage and editor.affiliation.affiliationName %}
-                        -
-                        <a href="{{ editor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
-                          {{ editor.affiliation.affiliationName }}</a>
-                      {% elif editor.affiliation.affiliationName %}
-                        -
-                        <span class="p-org org h-org h-card">
-                          {{ editor.affiliation.affiliationName }}</span>
-                      {% endif %}
-                      {% if editor.email %}
-                        -
-                        <span class="ed_mailto">
-                          <a href="mailto:{{ editor.email }}" rel="foaf:mbox" class="u-email email">
-                            {{ editor.email }}</a>
-                        </span>
-                      {% endif %}
-                    </span>
-                  </dd>
-                {% endfor %}
-                <dt>Medewerkers</dt>
-                {% set sortedContributors = (data.stakeholders.contributors | sort(attribute='lastName')) %}
-                {% for contributor in sortedContributors %}
-                  <dd inlist="" rel="foaf:maker" class="p-author h-card vcard">
-                    <span typeof="foaf:Person">
-                      <span class="p-name fn" property="foaf:lastName">
-                        {{ contributor.lastName }}</span>,
-                      <span class="p-name fn" property="foaf:firstName">
-                        {{ contributor.firstName }}</span>
-                      {% if contributor.affiliation.homepage and contributor.affiliation.affiliationName %}
-                        -
-                        <a href="{{ contributor.affiliation.homepage }}" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">
-                          {{ contributor.affiliation.affiliationName }}</a>
-                      {% elif contributor.affiliation.affiliationName %}
-                        -
-                        <span class="p-org org h-org h-card">
-                          {{ contributor.affiliation.affiliationName }}</span>
-                      {% endif %}
-                      {% if contributor.email %}
-                        -
-                        <span class="ed_mailto">
-                          <a href="mailto:{{ contributor.email }}" rel="foaf:mbox" class="u-email email">
-                            {{ contributor.email }}</a>
-                        </span>
-                      {% endif %}
-                    </span>
-                  </dd>
-                {% endfor %}
+                <dt>Brondata</dt>
+                <dd>
+                  <a href="{{ data.metadata.repositoryurl }}">{{ data.metadata.repositoryurl }}</a>
+                </dd>
+                <dt>Changelog</dt>
+                <dd>
+                  <a href="{{ data.metadata.changelogurl }}">{{ data.metadata.changelogurl }}</a>
+                </dd>
+                <dt id="feedbackurl">Opmerkingen en feedback</dt>
+                <dd>
+                  <a href="{{ data.metadata.feedbackurl }}">{{ data.metadata.feedbackurl }}</a>
+                </dd>
+                <dt>Standaardenregister</dt>
+                <dd>
+                  <a href="{{ data.metadata.standaardregisterurl }}">{{ data.metadata.standaardregisterurl }}</a>
+                </dd>
+                <dt>Afhankelijkheden</dt>
+                <dd>
+                  {% for dep in data.metadata.dependencies %}
+                    <a href="{{ dep.packageurl }}">{{ dep.packagelabel }}</a>
+                  {% endfor %}
+                </dd>
               </dl>
             </div>
           </div>
-          <div class="head" role="metainfo" id="metainfo">
-            <dl>
-              <dt>Brondata</dt>
-              <dd>
-                <a href="{{ data.metadata.repositoryurl }}">{{ data.metadata.repositoryurl }}</a>
-              </dd>
-              <dt>Changelog</dt>
-              <dd>
-                <a href="{{ data.metadata.changelogurl }}">{{ data.metadata.changelogurl }}</a>
-              </dd>
-              <dt id="feedbackurl">Opmerkingen en feedback</dt>
-              <dd>
-                <a href="{{ data.metadata.feedbackurl }}">{{ data.metadata.feedbackurl }}</a>
-              </dd>
-              <dt>Standaardenregister</dt>
-              <dd>
-                <a href="{{ data.metadata.standaardregisterurl }}">{{ data.metadata.standaardregisterurl }}</a>
-              </dd>
-              <dt>Afhankelijkheden</dt>
-              <dd>
-                {% for dep in data.metadata.dependencies %}
-                  <a href="{{ dep.packageurl }}">{{ dep.packagelabel }}</a>
-                {% endfor %}
-              </dd>
-            </dl>
-          </div>
+          <!-- <p class="copyright">{{ metadata.rights }}</p> -->
         </div>
-        <!-- <p class="copyright">{{ metadata.rights }}</p> -->
       </div>
-    </div>
-    <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
-      <div class="region region--no-space-top">
-        <div class="layout layout--wide">
-          <div class="grid">
-            <div class="col--8-12 col--12-12--s">
-              <div class="region" id="introduction">
-                <div class="introduction typography">
-                  {% block introduction %}
-                    <p>Dit document beschrijft een
-                      <strong>vocabularium</strong>, in dit geval
-                      <strong>{{ data.metadata.title }}</strong>. Een vocabularium is een verzameling van herbruikbare termen, namelijk
-                        klassen en eigenschappen, waarvan hun betekenis is vastgelegd door middel van een label en definitie. Voor termen
-                        gedefinieerd in dit domein zijn er nog bijkomende formele afspraken beschikbaar. Voor externe termen worden de formele
-                        afspraken overgenomen van de externe bron.
-                    </p>
-                  {% endblock %}
+      <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
+        <div class="region region--no-space-top">
+          <div class="layout layout--wide">
+            <div class="grid">
+              <div class="col--8-12 col--12-12--s">
+                <div class="region" id="introduction">
+                  <div class="introduction typography">
+                    {% block introduction %}
+                      <p>Dit document beschrijft een
+                        <strong>vocabularium</strong>, in dit geval
+                        <strong>{{ data.metadata.title }}</strong>. Een vocabularium is een verzameling van herbruikbare termen, namelijk
+                          klassen en eigenschappen, waarvan hun betekenis is vastgelegd door middel van een label en definitie. Voor termen
+                          gedefinieerd in dit domein zijn er nog bijkomende formele afspraken beschikbaar. Voor externe termen worden de formele
+                          afspraken overgenomen van de externe bron.
+                      </p>
+                    {% endblock %}
+                  </div>
                 </div>
-              </div>
-              <div class="region region">
-                <section
-                  id="abstract"
-                  class="introductory"
-                  property="dcterms:abstract"
-                  datatype=""
-                  typeof="bibo:Chapter"
-                  resource="#ref"
-                  rel="bibo:Chapter">
-                  <h2 class="h2" aria-level="1" role="heading" id="h2_abstract">Samenvatting</h2>
-                  <div class="region region--no-space-top typography" id="summary">
-                    {{ block.super }}
-                    {% block summary %}
-                      <p>
-                        Het {{ data.metadata.title }} vocabularium specificeert een aantal klassen en eigenschappen om een
-                        {{ data.metadata.title | lower }} te beschrijven.
-                      </p>
-                      <p>
-                        {{ data.metadata.abstract[language] }}
-                      </p>
-                    {% endblock %}
-                  </div>
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section class="introductory" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
-                  <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">Status van dit document</h2>
-                  <div class="region region--no-space-top typography" id="status">
-                    {% block status %}
-                      <p>
-                        <em>Deze sectie beschrijft de status van dit document op het moment van publicatie. Het kan zijn dat er ondertussen al
-                          nieuwere versies zijn uitgebracht.</em>
-                      </p><br/>
-                      <p>Een lijst van de recentste vocabularia is terug te vinden op
-                        <a href="http://data.vlaanderen.be/ns">http://data.vlaanderen.be/ns</a>
-                      </p><br/>
-                      <p>Dit document is een offici&#235;le specificatie van een vocabularium en biedt een gedeeld begrippenkader voor
-                        bepaalde concepten. Deze specificatie dient om de definitie, gebruik, domein en bereik van de RDF termen binnen dit
-                        domein te verduidelijken. De termen gedefinieerd in dit vocabularium zijn persistent en zullen bijgevolg nooit
-                        verdwijnen, noch zullen de definities veranderen behalve dan om een bestaande definitie verder te verduidelijken. Termen
-                        kunnen echter wel als verouderd worden bestempeld en vervangen worden in nieuwere versies van deze specificatie.</p>
-                      {% if data.metadata.comment[language] %}
+                <div class="region region">
+                  <section
+                    id="abstract"
+                    class="introductory"
+                    property="dcterms:abstract"
+                    datatype=""
+                    typeof="bibo:Chapter"
+                    resource="#ref"
+                    rel="bibo:Chapter">
+                    <h2 class="h2" aria-level="1" role="heading" id="h2_abstract">Samenvatting</h2>
+                    <div class="region region--no-space-top typography" id="summary">
+                      {{ block.super }}
+                      {% block summary %}
                         <p>
-                          {{ data.metadata.comment[language] }}
+                          Het {{ data.metadata.title }} vocabularium specificeert een aantal klassen en eigenschappen om een
+                          {{ data.metadata.title | lower }} te beschrijven.
                         </p>
-                      {% endif %}
+                        <p>
+                          {{ data.metadata.abstract[language] }}
+                        </p>
+                      {% endblock %}
+                    </div>
+                  </section>
+                </div>
+                <div class="region region--no-space-top">
+                  <section class="introductory" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
+                    <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">Status van dit document</h2>
+                    <div class="region region--no-space-top typography" id="status">
+                      {% block status %}
+                        <p>
+                          <em>Deze sectie beschrijft de status van dit document op het moment van publicatie. Het kan zijn dat er ondertussen al
+                            nieuwere versies zijn uitgebracht.</em>
+                        </p>
+                        <p>
+                          Dit vocabularium heeft status
+                          <a href="{{ data.metadata.status }}">
+                            {{ data.metadata.statuslabel }}</a>
+                          en werd uitgegeven op {{ data.metadata.issued }}.
+                        </p>
+                        <p>Dit document is een offici&#235;le specificatie van een vocabularium en biedt een gedeeld begrippenkader voor
+                          bepaalde concepten. Deze specificatie dient om de definitie, gebruik, domein en bereik van de RDF termen binnen dit
+                          domein te verduidelijken. De termen gedefinieerd in dit vocabularium zijn persistent en zullen bijgevolg nooit
+                          verdwijnen, noch zullen de definities veranderen behalve dan om een bestaande definitie verder te verduidelijken. Termen
+                          kunnen echter wel als verouderd worden bestempeld en vervangen worden in nieuwere versies van deze specificatie.</p>
+                        {% if data.metadata.comment[language] %}
+                          <p>
+                            {{ data.metadata.comment[language] }}
+                          </p>
+                        {% endif %}
+                      {% endblock %}
+                    </div>
+                  </section>
+                </div>
+                <div class="region region--no-space-top">
+                  <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="license-and-liability">
+                    <h2 class="h2" id="licenseandliability" aria-level="1" role="heading">
+                      <span class="secno">1.
+                      </span>Licentie</h2>
+                    {% block license %}
+                      <p>
+                        <span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text" xmlns:dct="http://purl.org/dc/terms/">
+                          Deze specificatie</span>
+                        van
+                        <a
+                          rel="cc:attributionURL"
+                          property="cc:attributionName"
+                          href="http://vlaanderen.be/informatievlaanderen"
+                          xmlns:cc="http://creativecommons.org/ns#">Informatie Vlaanderen</a>
+                        is gepubliceerd onder de
+                        <a href="{{ data.metadata.license }}" rel="license">"Modellicentie Gratis Hergebruik - v1.0"</a>.</p>
                     {% endblock %}
+                  </section>
+                </div>
+                <div class="region region--no-space-top">
+                  <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="conformance-statement">
+                    <h2 class="h2" id="conformance" aria-level="1" role="heading">
+                      <span class="secno">2.
+                      </span>Conformiteit</h2>
+                    {% block conformance %}
+                      <p>Een uitwisseling van gegevens, op welke manier deze uitwisseling ook gebeurt, is conform aan dit vocabularium wanneer
+                        het de terminologie (klassen en eigenschappen) gebruikt op een manier die consistent is met de semantiek zoals opgesteld
+                        in de nieuwste versie van de specificatie (domein, bereik, definitie en gebruik) en het geen terminologie gebruikt uit
+                        andere vocabularia als alternatief voor de voorgestelde terminologie opgenomen in dit vocabularium.</p>
+                    {% endblock %}
+                  </section>
+                </div>
+                <div class="region region--no-space-top">
+                  <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="overview">
+                    <h2 class="h2" id="overview" aria-level="1" role="heading">
+                      <span class="secno">3.
+                      </span>Overzicht</h2>
+                    {% if data.metadata.autotranslate %}
+                      <div class="disclaimer">
+                        <p>Dit document is een vertaling van het {{ data.metadata.primaryLanguage }} naar het Nederlands.</p>
+                        <br></div>
+                      {% endif %}
+                      <div class="region region--no-space-top">
+                        <p>Deze sectie somt alle klassen en eigenschappen van het vocabularium op.</p>
+                        <p>
+                          {% if externalvocs %}
+                            Dit vocabularium verwijst verder naar termen uit de volgende vocabularia:
+                            <ul>
+                              {% for term in externalvocs %}
+                                <li>
+                                  <a href="{{ term.uri }}">{{ term.uri }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </p>
+                        <br/>
+                      </div>
+                      {% if ( ( data.inPackageMerged | length) > 0 ) %}
+                        <div class="region region--no-space-top">
+                          <h3 class="h3">Klassen</h3>
+                          <div class="grid">
+                            <p>
+                              |
+                              {% for class in data.inPackageMerged %}
+                                <a href="#{{ class.vocabularyLabel[language] }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
+                                |
+                              {% endfor %}
+                            </p>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% if ( ( data.inPackageProperties | length ) > 0 ) %}
+                        <div class="region region--no-space-top">
+                          <h3 class="h3">Eigenschappen</h3>
+                          <div class="grid">
+                            <p>
+                              |
+                              {% for prop in data.inPackageProperties %}
+                                <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                                |
+                              {% endfor %}
+                            </p>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% if ( ( data.externalProperties | length ) > 0 ) %}
+                        <div class="region region--no-space-top">
+                          <h3 class="h3">Externe terminologie</h3>
+                          <div class="grid">
+                            <p>
+                              |
+                              {% for prop in data.externalProperties %}
+                                <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                                |
+                              {% endfor %}
+                            </p>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </section>
                   </div>
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="license-and-liability">
-                  <h2 class="h2" id="licenseandliability" aria-level="1" role="heading">
-                    <span class="secno">1.
-                    </span>Licentie</h2>
-                  {% block license %}
-                    <p>
-                      <span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text" xmlns:dct="http://purl.org/dc/terms/">
-                        Deze specificatie</span>
-                      van
-                      <a
-                        rel="cc:attributionURL"
-                        property="cc:attributionName"
-                        href="http://vlaanderen.be/informatievlaanderen"
-                        xmlns:cc="http://creativecommons.org/ns#">Informatie Vlaanderen</a>
-                      is gepubliceerd onder de
-                      <a href="{{ data.metadata.license }}" rel="license">"Modellicentie Gratis Hergebruik - v1.0"</a>.</p>
-                  {% endblock %}
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="conformance-statement">
-                  <h2 class="h2" id="conformance" aria-level="1" role="heading">
-                    <span class="secno">2.
-                    </span>Conformiteit</h2>
-                  {% block conformance %}
-                    <p>Een uitwisseling van gegevens, op welke manier deze uitwisseling ook gebeurt, is conform aan dit vocabularium wanneer
-                      het de terminologie (klassen en eigenschappen) gebruikt op een manier die consistent is met de semantiek zoals opgesteld
-                      in de nieuwste versie van de specificatie (domein, bereik, definitie en gebruik) en het geen terminologie gebruikt uit
-                      andere vocabularia als alternatief voor de voorgestelde terminologie opgenomen in dit vocabularium.</p>
-                  {% endblock %}
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="overview">
-                  <h2 class="h2" id="overview" aria-level="1" role="heading">
-                    <span class="secno">3.
-                    </span>Overzicht</h2>
                   <div class="region region--no-space-top">
-                    <p>Deze sectie somt alle klassen en eigenschappen van het vocabularium op.</p>
-                    <p>
-                      {% if externalvocs %}
-                        Dit vocabularium verwijst verder naar termen uit de volgende vocabularia:
+                    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="classes">
+                      <h2 class="h2" id="classes" aria-level="1" role="heading">
+                        <span class="secno">4.
+                        </span>Klassen</h2>
+                      {% if data.inPackageMerged %}
+                        <div class="region region--no-space-top">
+                          <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
+                        </div>
+                        {% for class in data.inPackageMerged %}
+                          <div class="region region--no-space-top">
+                            <h3 class="h3" id="{{ class.vocabularyLabel[language] }}">Klasse
+                              <em>{{ class.vocabularyLabel[language] }}</em>
+                            </h3>
+                            <table class="definition">
+                              <tbody>
+                                <tr>
+                                  <th>Type</th>
+                                  <td>Klasse</td>
+                                </tr>
+                                <tr>
+                                  <th>URI</th>
+                                  <td>
+                                    <code>{{ class.id }}</code>
+                                  </td>
+                                </tr>
+                                {% if ( ( class.parents | length ) > 0) %}
+                                  <tr>
+                                    <th>Specialisatie van</th>
+                                    <td>
+                                      <ul>
+                                        {% for parent in class.parents|sort %}
+                                          <li>
+                                            <code>{{ parent.id }}</code>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                {% endif %}
+                                <tr>
+                                  <th>Definitie</th>
+                                  <td>{{ class.vocabularyDefinition[language] }}</td>
+                                </tr>
+                                {% if class.usage[language] %}
+                                  <tr>
+                                    <th>
+                                      <p>Gebruik</p>
+                                    </th>
+                                    <td>{{ class.vocabularyUsageNote[language] }}</td>
+                                  </tr>
+                                {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="region region--no-space-top">
+                          <p>In dit vocabularium zijn geen klassen gedefinieerd. Het is wel mogelijk dat klassen uit een gerelateerd vocabularium
+                            worden hergebruikt.</p>
+                        </div>
+                      {% endif %}
+                    </section>
+                  </div>
+                  <div class="region region--no-space-top">
+                    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="properties">
+                      <h2 class="h2" id="properties" aria-level="1" role="heading">
+                        <span class="secno">5.
+                        </span>Eigenschappen</h2>
+                      {% if data.inPackageProperties %}
+                        <div class="region region--no-space-top">
+                          <p>Deze sectie geeft een formele definitie aan elke eigenschap.</p>
+                        </div>
+                        {% for property in data.inPackageProperties %}
+                          <div class="region region--no-space-top">
+                            <h3 class="h3" id="{{ property.vocabularyLabel[language] }}">Eigenschap
+                              <em>{{ property.vocabularyLabel[language] }}</em>
+                            </h3>
+                            <table class="definition">
+                              <tbody>
+                                <tr>
+                                  <th>Type</th>
+                                  <td>Eigenschap</td>
+                                </tr>
+                                <tr>
+                                  <th>URI</th>
+                                  <td>
+                                    <code>{{ property.id }}</code>
+                                  </td>
+                                </tr>
+                                {% if ( ( property.domain  | length ) > 0 ) %}
+                                  <tr>
+                                    <th>Domein</th>
+                                    <td>
+                                      <code>
+                                        {{ property.domain }}
+                                      </code>
+                                    </td>
+                                  </tr>
+                                {% endif %}
+                                {% if (( property.range  | length ) > 0) %}
+                                  <tr>
+                                    <th>Bereik</th>
+                                    <td>
+                                      <code>
+                                        {{ property.range.id }}
+                                      </code>
+                                    </td>
+                                  </tr>
+                                {% endif %}
+                                {% if ( ( property.parents | length ) > 0 ) %}
+                                  <tr>
+                                    <th>Specialisatie van</th>
+                                    <td>
+                                      <ul>
+                                        {% for parent in property.parents|sort %}
+                                          <li>
+                                            <code>{{ parent }}</code>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                {% endif %}
+                                <tr>
+                                  <th>Definitie</th>
+                                  <td>{{ property.vocabularyDefinition[language] }}</td>
+                                </tr>
+                                {% if property.vocabularyUsageNote[language] %}
+                                  <tr>
+                                    <th>Gebruik</th>
+                                    <td>{{ property.vocabularyUsageNote[language] }}</td>
+                                  </tr>
+                                {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="region region--no-space-top">
+                          <p>In dit vocabularium zijn geen eigenschappen gedefinieerd. Het is wel mogelijk dat eigenschappen uit een gerelateerd
+                            vocabularium worden hergebruikt.</p>
+                        </div>
+                      {% endif %}
+                    </section>
+                  </div>
+                  <div class="region region--no-space-top">
+                    <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="external">
+                      <h2 class="h2" id="externals" aria-level="1" role="heading">
+                        <span class="secno">6.
+                        </span>Externe terminologie</h2>
+                      <div class="region region--no-space-top">
+                        <p>Deze sectie geeft een overzicht van terminologie uit andere vocabularia die relevant is voor dit domeinmodel samen
+                          met hun Nederlandstalige labels en definities.</p>
+                      </div>
+                      {% if data.externalProperties %}
+                        {% for external in data.externalProperties %}
+                          <div class="region region--no-space-top">
+                            <h3 class="h4" id="{{ external.vocabularyLabel[language] }}">
+                              <em>{{ external.vocabularyLabel[language] }}</em>
+                            </h3>
+                            <table class="definition">
+                              <tbody>
+                                <tr>
+                                  <th>URI</th>
+                                  <td>
+                                    <code>{{ external.id }}</code>
+                                  </td>
+                                </tr>
+                                {% if external.vocabularyDefinition[language] %}
+                                  <tr>
+                                    <th>Definitie</th>
+                                    <td>{{ external.vocabularyDefinition[language] }}</td>
+                                  </tr>
+                                {% endif %}
+                                {% if external.vocabularyUsageNote[language] %}
+                                  <tr>
+                                    <th>Gebruik</th>
+                                    <td>{{ external.vocabularyUsageNote[language] }}</td>
+                                  </tr>
+                                {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="region region--no-space-top">
+                          <p>In dit vocabularium zijn geen externe termen hergebruikt.</p>
+                        </div>
+                      {% endif %}
+                    </section>
+                  </div>
+                </div>
+                <div class="col--3-12 col--12-12--s col--4-12--m push--1-12 push--reset--m" id="sideNav">
+                  <nav class="side-navigation js-sticky" id="sideNav">
+                    <div class="side-navigation__content js-scrollspy">
+                      <div class="side-navigation__group">
                         <ul>
-                          {% for term in externalvocs %}
-                            <li>
-                              <a href="{{ term.uri }}">{{ term.uri }}</a>
-                            </li>
-                          {% endfor %}
+                          <li class="side-navigation__item">
+                            <a href="#abstract">Samenvatting</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#sotd">Status van dit document</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#license-and-liability">1. Licentie</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#conformance-statement">2. Conformiteit</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#overview">3. Overzicht</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#classes">4. Klassen</a>
+                          </li>
+                          <li class="side-navigation__item">
+                            <a href="#properties">5. Eigenschappen</a>
+                          </li>
+                          <li class="side-navigation__item side-navigation__item--parent">
+                            <a href="#external" data-child="external">6. Externe terminologie</a>
+                          </li>
                         </ul>
-                      {% endif %}
-                    </p>
-                    <br/>
-                  </div>
-                  {% if ( ( data.inPackageMerged | length) > 0 ) %}
-                    <div class="region region--no-space-top">
-                      <h3 class="h3">Klassen</h3>
-                      <div class="grid">
-                        <p>
-                          |
-                          {% for class in data.inPackageMerged %}
-                            <a href="#{{ class.vocabularyLabel[language] }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
-                            |
-                          {% endfor %}
-                        </p>
                       </div>
                     </div>
-                  {% endif %}
-                  {% if ( ( data.inPackageProperties | length ) > 0 ) %}
-                    <div class="region region--no-space-top">
-                      <h3 class="h3">Eigenschappen</h3>
-                      <div class="grid">
-                        <p>
-                          |
-                          {% for prop in data.inPackageProperties %}
-                            <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
-                            |
-                          {% endfor %}
-                        </p>
-                      </div>
-                    </div>
-                  {% endif %}
-                  {% if ( ( data.externalProperties | length ) > 0 ) %}
-                    <div class="region region--no-space-top">
-                      <h3 class="h3">Externe terminologie</h3>
-                      <div class="grid">
-                        <p>
-                          |
-                          {% for prop in data.externalProperties %}
-                            <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
-                            |
-                          {% endfor %}
-                        </p>
-                      </div>
-                    </div>
-                  {% endif %}
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="classes">
-                  <h2 class="h2" id="classes" aria-level="1" role="heading">
-                    <span class="secno">4.
-                    </span>Klassen</h2>
-                  {% if data.inPackageMerged %}
-                    <div class="region region--no-space-top">
-                      <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
-                    </div>
-                    {% for class in data.inPackageMerged %}
-                      <div class="region region--no-space-top">
-                        <h3 class="h3" id="{{ class.vocabularyLabel[language] }}">Klasse
-                          <em>{{ class.vocabularyLabel[language] }}</em>
-                        </h3>
-                        <table class="definition">
-                          <tbody>
-                            <tr>
-                              <th>Type</th>
-                              <td>Klasse</td>
-                            </tr>
-                            <tr>
-                              <th>URI</th>
-                              <td>
-                                <code>{{ class.id }}</code>
-                              </td>
-                            </tr>
-                            {% if ( ( class.parents | length ) > 0) %}
-                              <tr>
-                                <th>Specialisatie van</th>
-                                <td>
-                                  <ul>
-                                    {% for parent in class.parents|sort %}
-                                      <li>
-                                        <code>{{ parent.id }}</code>
-                                      </li>
-                                    {% endfor %}
-                                  </ul>
-                                </td>
-                              </tr>
-                            {% endif %}
-                            <tr>
-                              <th>Definitie</th>
-                              <td>{{ class.vocabularyDefinition[language] }}</td>
-                            </tr>
-                            {% if class.usage[language] %}
-                              <tr>
-                                <th>
-                                  <p>Gebruik</p>
-                                </th>
-                                <td>{{ class.vocabularyUsageNote[language] }}</td>
-                              </tr>
-                            {% endif %}
-                          </tbody>
-                        </table>
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <div class="region region--no-space-top">
-                      <p>In dit vocabularium zijn geen klassen gedefinieerd. Het is wel mogelijk dat klassen uit een gerelateerd vocabularium
-                        worden hergebruikt.</p>
-                    </div>
-                  {% endif %}
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="properties">
-                  <h2 class="h2" id="properties" aria-level="1" role="heading">
-                    <span class="secno">5.
-                    </span>Eigenschappen</h2>
-                  {% if data.inPackageProperties %}
-                    <div class="region region--no-space-top">
-                      <p>Deze sectie geeft een formele definitie aan elke eigenschap.</p>
-                    </div>
-                    {% for property in data.inPackageProperties %}
-                      <div class="region region--no-space-top">
-                        <h3 class="h3" id="{{ property.vocabularyLabel[language] }}">Eigenschap
-                          <em>{{ property.vocabularyLabel[language] }}</em>
-                        </h3>
-                        <table class="definition">
-                          <tbody>
-                            <tr>
-                              <th>Type</th>
-                              <td>Eigenschap</td>
-                            </tr>
-                            <tr>
-                              <th>URI</th>
-                              <td>
-                                <code>{{ property.id }}</code>
-                              </td>
-                            </tr>
-                            {% if ( ( property.domain  | length ) > 0 ) %}
-                              <tr>
-                                <th>Domein</th>
-                                <td>
-                                  <code>
-                                    {{ property.domain }}
-                                  </code>
-                                </td>
-                              </tr>
-                            {% endif %}
-                            {% if (( property.range  | length ) > 0) %}
-                              <tr>
-                                <th>Bereik</th>
-                                <td>
-                                  <code>
-                                    {{ property.range.id }}
-                                  </code>
-                                </td>
-                              </tr>
-                            {% endif %}
-                            {% if ( ( property.parents | length ) > 0 ) %}
-                              <tr>
-                                <th>Specialisatie van</th>
-                                <td>
-                                  <ul>
-                                    {% for parent in property.parents|sort %}
-                                      <li>
-                                        <code>{{ parent }}</code>
-                                      </li>
-                                    {% endfor %}
-                                  </ul>
-                                </td>
-                              </tr>
-                            {% endif %}
-                            <tr>
-                              <th>Definitie</th>
-                              <td>{{ property.vocabularyDefinition[language] }}</td>
-                            </tr>
-                            {% if property.vocabularyUsageNote[language] %}
-                              <tr>
-                                <th>Gebruik</th>
-                                <td>{{ property.vocabularyUsageNote[language] }}</td>
-                              </tr>
-                            {% endif %}
-                          </tbody>
-                        </table>
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <div class="region region--no-space-top">
-                      <p>In dit vocabularium zijn geen eigenschappen gedefinieerd. Het is wel mogelijk dat eigenschappen uit een gerelateerd
-                        vocabularium worden hergebruikt.</p>
-                    </div>
-                  {% endif %}
-                </section>
-              </div>
-              <div class="region region--no-space-top">
-                <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="external">
-                  <h2 class="h2" id="externals" aria-level="1" role="heading">
-                    <span class="secno">6.
-                    </span>Externe terminologie</h2>
-                  <div class="region region--no-space-top">
-                    <p>Deze sectie geeft een overzicht van terminologie uit andere vocabularia die relevant is voor dit domeinmodel samen
-                      met hun Nederlandstalige labels en definities.</p>
-                  </div>
-                  {% if data.externalProperties %}
-                    {% for external in data.externalProperties %}
-                      <div class="region region--no-space-top">
-                        <h3 class="h4" id="{{ external.vocabularyLabel[language] }}">
-                          <em>{{ external.vocabularyLabel[language] }}</em>
-                        </h3>
-                        <table class="definition">
-                          <tbody>
-                            <tr>
-                              <th>URI</th>
-                              <td>
-                                <code>{{ external.id }}</code>
-                              </td>
-                            </tr>
-                            {% if external.vocabularyDefinition[language] %}
-                              <tr>
-                                <th>Definitie</th>
-                                <td>{{ external.vocabularyDefinition[language] }}</td>
-                              </tr>
-                            {% endif %}
-                            {% if external.vocabularyUsageNote[language] %}
-                              <tr>
-                                <th>Gebruik</th>
-                                <td>{{ external.vocabularyUsageNote[language] }}</td>
-                              </tr>
-                            {% endif %}
-                          </tbody>
-                        </table>
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <div class="region region--no-space-top">
-                      <p>In dit vocabularium zijn geen externe termen hergebruikt.</p>
-                    </div>
-                  {% endif %}
-                </section>
-              </div>
-            </div>
-            <div class="col--3-12 col--12-12--s col--4-12--m push--1-12 push--reset--m" id="sideNav">
-              <nav class="side-navigation js-sticky" id="sideNav">
-                <div class="side-navigation__content js-scrollspy">
-                  <div class="side-navigation__group">
-                    <ul>
-                      <li class="side-navigation__item">
-                        <a href="#abstract">Samenvatting</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#sotd">Status van dit document</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#license-and-liability">1. Licentie</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#conformance-statement">2. Conformiteit</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#overview">3. Overzicht</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#classes">4. Klassen</a>
-                      </li>
-                      <li class="side-navigation__item">
-                        <a href="#properties">5. Eigenschappen</a>
-                      </li>
-                      <li class="side-navigation__item side-navigation__item--parent">
-                        <a href="#external" data-child="external">6. Externe terminologie</a>
-                      </li>
-                    </ul>
-                  </div>
+                  </nav>
                 </div>
-              </nav>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div
-    id="vlaanderen-footer">
-    <!-- insert your Vlaanderen-footer-code here -->
-    <script src="https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/widget/f1d7f80f-ad17-4f25-92b4-027a99785068/embed"></script>
-    <!-- End global footer-->
-  </div>
-  <script src="https://dij151upo6vad.cloudfront.net/2.latest/js/vlaanderen-ui.js"></script>
-  <style>
-    @media screen {
-      /* hide from IE3 */
-      a[href]:hover {
-        background: #ffa
-      }
-    }
-    table {
-      font-size: 12px;
-      color: #333333;
-      border-width: 1px;
-      border-color: #666666;
-      border-collapse: collapse;
-      margin-top: 2em;
-      width: 100%;
-    }
-    table th {
-      border-width: 1px;
-      padding: 8px;
-      border-style: solid;
-      border-color: #666666;
-      background-color: #dedede;
-      width: 110px;
-    }
-    table td {
-      border-width: 1px;
-      padding: 8px;
-      border-style: solid;
-      border-color: #666666;
-      background-color: #ffffff;
-    }
-    table tr:first-child {
-      font-weight: bold;
-    }
-    tr:nth-child(even) td {
-      background-color: #eee;
-    }
-    dt,
-    dd {
-      margin-top: 0;
-      margin-bottom: 0
-    } /* opera 3.50 */
-    dt {
-      font-weight: bold
-    }
-    pre,
-    code {
-      font-family: monospace
-    } /* navigator 4 requires this */
-    code {
-      color: black
-    }
-    em {
-      font-style: italic;
-    }
-    img {
-      width: 100%;
-    }
-    img.cc {
-      width: 88px;
-    }
-  </style>
-</body></html>
+        <div
+          id="vlaanderen-footer">
+          <!-- insert your Vlaanderen-footer-code here -->
+          <script src="https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/widget/f1d7f80f-ad17-4f25-92b4-027a99785068/embed"></script>
+          <!-- End global footer-->
+        </div>
+        <script src="https://dij151upo6vad.cloudfront.net/2.latest/js/vlaanderen-ui.js"></script>
+        <style>
+          @media screen {
+            /* hide from IE3 */
+            a[href]:hover {
+              background: #ffa
+            }
+          }
+          table {
+            font-size: 12px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+            margin-top: 2em;
+            width: 100%;
+          }
+          table th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+            width: 110px;
+          }
+          table td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+          }
+          table tr:first-child {
+            font-weight: bold;
+          }
+          tr:nth-child(even) td {
+            background-color: #eee;
+          }
+          dt,
+          dd {
+            margin-top: 0;
+            margin-bottom: 0
+          } /* opera 3.50 */
+          dt {
+            font-weight: bold
+          }
+          pre,
+          code {
+            font-family: monospace
+          } /* navigator 4 requires this */
+          code {
+            color: black
+          }
+          em {
+            font-style: italic;
+          }
+          img {
+            width: 100%;
+          }
+          img.cc {
+            width: 88px;
+          }
+        </style>
+      </body>
+    </html>
+  </html>
+</html>
