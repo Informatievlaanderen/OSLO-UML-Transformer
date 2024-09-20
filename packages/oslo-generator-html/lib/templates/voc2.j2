@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                                          http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{ data.metadata.title }}</title>
     <meta charset='utf-8'/>
@@ -494,35 +494,32 @@
                           met hun Nederlandstalige labels en definities.</p>
                       </div>
                       {% if data.externalProperties %}
-                        {% for external in data.externalProperties %}
-                          <div class="region region--no-space-top">
-                            <h3 class="h4" id="{{ external.vocabularyLabel[language] }}">
-                              <em>{{ external.vocabularyLabel[language] }}</em>
-                            </h3>
-                            <table class="definition">
-                              <tbody>
+                        <div class="region region--no-space-top">
+                          <table class="definition">
+                            <tbody>
+                              <tr>
+                                <th>Label</th>
+                                <th>Domein</th>
+                                <th>Definitie</th>
+                                <th>Gebruik</th>
+                              </tr>
+                              {% for external in data.externalProperties %}
                                 <tr>
-                                  <th>URI</th>
-                                  <td>
-                                    <code>{{ external.id }}</code>
+                                  <td id="{{ external.vocabularyLabel[language] }}">
+                                    <strong>
+                                      <a href="{{ external.id }}" data-toggle="tooltip" data-content="{{ external.id }}">{{ external.vocabularyLabel[language] }}</a>
+                                    </strong>
                                   </td>
+                                  <td>
+                                    <code>{{ external.domain }}</code>
+                                  </td>
+                                  <td>{{ external.vocabularyDefinition[language] }}</td>
+                                  <td>{{ external.vocabularyUsageNote[language] }}</td>
                                 </tr>
-                                {% if external.vocabularyDefinition[language] %}
-                                  <tr>
-                                    <th>Definitie</th>
-                                    <td>{{ external.vocabularyDefinition[language] }}</td>
-                                  </tr>
-                                {% endif %}
-                                {% if external.vocabularyUsageNote[language] %}
-                                  <tr>
-                                    <th>Gebruik</th>
-                                    <td>{{ external.vocabularyUsageNote[language] }}</td>
-                                  </tr>
-                                {% endif %}
-                              </tbody>
-                            </table>
-                          </div>
-                        {% endfor %}
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
                       {% else %}
                         <div class="region region--no-space-top">
                           <p>In dit vocabularium zijn geen externe termen hergebruikt.</p>
