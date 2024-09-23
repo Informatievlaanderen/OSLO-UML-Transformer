@@ -11,7 +11,7 @@ import { SpecificationType } from './utils/specificationTypeEnum';
 export class HtmlGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: HtmlGenerationServiceConfiguration;
-  public dirs: string[] = [resolve(`${__dirname}/templates`)];
+  public dirs: string[] = [];
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
@@ -33,6 +33,8 @@ export class HtmlGenerationService implements IService {
 
       const customTemplatesDir: string = resolve(templatesPath);
       this.dirs.push(customTemplatesDir);
+    } else {
+      this.dirs.push(resolve(`${__dirname}/templates`));
     }
 
     const env = nj.configure(this.dirs);
@@ -48,7 +50,7 @@ export class HtmlGenerationService implements IService {
     ]);
 
     if (this.configuration.templates && this.configuration.rootTemplate) {
-      indexPath = `${this.dirs[1]}/${this.configuration.rootTemplate}`;
+      indexPath = `${this.dirs[0]}/${this.configuration.rootTemplate}`;
     } else {
       indexPath =
         this.configuration.specificationType === SpecificationType.Vocabulary
