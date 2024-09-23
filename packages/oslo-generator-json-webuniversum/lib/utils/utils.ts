@@ -5,8 +5,13 @@ export const isInPackage: (classA: WebuniversumObject) => boolean = (
   classA: WebuniversumObject,
 ) => classA?.scope === Scope.InPackage;
 
-export const isInPublicationEnvironment: (
+export const isInPublication = (
   classA: WebuniversumObject,
+  publicationEnvironment: string,
+): boolean => classA?.id.includes(publicationEnvironment);
+
+export const isInPublicationEnvironment: (
+  classA: WebuniversumObject
 ) => boolean = (classA: WebuniversumObject) =>
   classA?.scope === Scope.InPublicationEnvironment;
 
@@ -31,5 +36,8 @@ export const sortWebuniversumObjects = (
 
 export const filterWebuniversumObjects = (
   classes: WebuniversumObject[],
-  filter: (c: WebuniversumObject) => boolean,
-): WebuniversumObject[] => classes.filter(filter);
+  filters: ((c: WebuniversumObject) => boolean)[],
+): WebuniversumObject[] =>
+  classes.filter((webuniversumObject: WebuniversumObject) =>
+    filters.every((filter) => filter(webuniversumObject)),
+  );

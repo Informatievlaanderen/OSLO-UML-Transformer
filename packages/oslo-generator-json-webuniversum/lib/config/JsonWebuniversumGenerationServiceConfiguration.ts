@@ -26,11 +26,17 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
   private _applyFiltering: boolean | undefined;
 
+  /**
+   * The base URI of the environment where the document will be published
+   */
+  private _publicationEnvironment: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
     this._applyFiltering = <boolean>params.applyFiltering;
+    this._publicationEnvironment = <string>params.publicationEnvironment;
   }
 
   public get input(): string {
@@ -56,5 +62,14 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
   public get applyFiltering(): boolean {
     return !!this._applyFiltering;
+  }
+
+  public get publicationEnvironment(): string {
+    if (!this._publicationEnvironment) {
+      throw new Error(
+        `Trying to access property "publicationEnvironment" before it was set.`
+      );
+    }
+    return this._publicationEnvironment;
   }
 }

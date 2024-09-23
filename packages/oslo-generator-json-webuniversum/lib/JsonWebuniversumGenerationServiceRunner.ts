@@ -3,7 +3,8 @@ import { AppRunner } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { 
-  JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
+  JsonWebuniversumGenerationServiceConfiguration,
+} from './config/JsonWebuniversumGenerationServiceConfiguration';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -34,7 +35,11 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
         default: true,
         boolean: true,
       })
-      .demandOption(['input', 'language'])
+      .option('publicationEnvironment', {
+        describe:
+          'The base URI of environment where the document will be published',
+      })
+      .demandOption(['input', 'language', 'publicationEnvironment'])
       .help('h')
       .alias('h', 'help');
 
