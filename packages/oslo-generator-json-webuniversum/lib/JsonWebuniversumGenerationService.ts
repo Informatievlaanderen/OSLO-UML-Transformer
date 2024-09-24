@@ -244,6 +244,8 @@ export class JsonWebuniversumGenerationService implements IService {
 
     const scope: string | undefined = this.store.getScope(entity)?.value;
 
+    const status: string | undefined = this.store.getStatus(entity)?.value;
+
     const entityData: WebuniversumObject = {
       id: assignedURI.value,
       ...(vocabularyLabel && {
@@ -279,6 +281,9 @@ export class JsonWebuniversumGenerationService implements IService {
       }),
       ...(scope && {
         scope: scope,
+      }),
+      ...(status && {
+        status: status,
       }),
     };
 

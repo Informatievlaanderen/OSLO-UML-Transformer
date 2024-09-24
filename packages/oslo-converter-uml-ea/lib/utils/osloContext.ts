@@ -106,5 +106,9 @@ export function getOsloContext(): any {
       '@id': 'oslo:codelist',
       '@type': '@id',
     },
+    status: {
+      '@id': 'oslo:status',
+      '@type': '@id',
+    },
   };
 }

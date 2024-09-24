@@ -1,7 +1,13 @@
 import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
-import type { DataRegistry, EaConnector, EaElement, EaPackage, EaTag } from '@oslo-flanders/ea-uml-extractor';
+import type {
+  DataRegistry,
+  EaConnector,
+  EaElement,
+  EaPackage,
+  EaTag,
+} from '@oslo-flanders/ea-uml-extractor';
 import { ConnectorType, ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
@@ -13,9 +19,9 @@ import { getTagValue, ignore, toPascalCase } from '../utils/utils';
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
   public async filterIgnoredObjects(
-    model: DataRegistry,
+    model: DataRegistry
   ): Promise<DataRegistry> {
-    model.elements = model.elements.filter(x => !ignore(x));
+    model.elements = model.elements.filter((x) => !ignore(x));
 
     return model;
   }
@@ -23,15 +29,16 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
   public async convert(
     model: DataRegistry,
     uriRegistry: UriRegistry,
-    store: QuadStore,
+    store: QuadStore
   ): Promise<QuadStore> {
     // All elements will be processed and receive a URI, but only elements on the target diagram
     // will be passed to the OutputHandler. This flow is necessary because element types could be
     // in other packages and their URIs are needed to refer to in the output file.
     model.elements
-      .filter(x => model.targetDiagram.elementIds.includes(x.id))
-      .forEach(object =>
-        store.addQuads(this.createQuads(object, uriRegistry, model)));
+      .filter((x) => model.targetDiagram.elementIds.includes(x.id))
+      .forEach((object) =>
+        store.addQuads(this.createQuads(object, uriRegistry, model))
+      );
 
     return store;
   }
@@ -42,18 +49,22 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
   public async assignUris(
     model: DataRegistry,
-    uriRegistry: UriRegistry,
+    uriRegistry: UriRegistry
   ): Promise<UriRegistry> {
     uriRegistry.elementIdUriMap = new Map<number, URL>();
     uriRegistry.elementNameToElementMap = new Map<string, EaElement[]>();
 
-    model.elements.forEach(element => {
-      const externalUri: string | null = getTagValue(element, TagNames.ExternalUri, null);
+    model.elements.forEach((element) => {
+      const externalUri: string | null = getTagValue(
+        element,
+        TagNames.ExternalUri,
+        null
+      );
 
       if (externalUri) {
         uriRegistry.elementIdUriMap.set(element.id, new URL(externalUri));
         uriRegistry.elementNameToElementMap.set(element.name, [
-          ...uriRegistry.elementNameToElementMap.get(element.name) || [],
+          ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
           element,
         ]);
 
@@ -64,7 +75,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       const packageTagValue: string | null = getTagValue(
         element,
         TagNames.DefiningPackage,
-        null,
+        null
       );
 
       if (packageTagValue) {
@@ -73,36 +84,36 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
         if (referencedPackages && referencedPackages.length > 1) {
           this.logger.warn(
-            `[ElementConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`,
+            `[ElementConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`
           );
         }
 
         if (!referencedPackages) {
           throw new Error(
-            `[ElementConverterHandler]: Package tag was defined for element ${element.path}, but unable to find the object for package ${packageTagValue}.`,
+            `[ElementConverterHandler]: Package tag was defined for element ${element.path}, but unable to find the object for package ${packageTagValue}.`
           );
         }
 
         elementBaseUri = uriRegistry.packageIdUriMap.get(
-          referencedPackages[0].packageId,
+          referencedPackages[0].packageId
         )!;
       } else if (uriRegistry.packageIdUriMap.has(element.packageId)) {
         elementBaseUri = uriRegistry.packageIdUriMap.get(element.packageId)!;
       } else {
         this.logger.warn(
-          `[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`,
+          `[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`
         );
         elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
       }
 
       const localName: string = toPascalCase(
-        getTagValue(element, TagNames.LocalName, null) ?? element.name,
+        getTagValue(element, TagNames.LocalName, null) ?? element.name
       );
       const elementUri = new URL(`${elementBaseUri}${localName}`);
 
       uriRegistry.elementIdUriMap.set(element.id, elementUri);
       uriRegistry.elementNameToElementMap.set(element.name, [
-        ...uriRegistry.elementNameToElementMap.get(element.name) || [],
+        ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
         element,
       ]);
     });
@@ -113,45 +124,50 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
   public createQuads(
     object: EaElement,
     uriRegistry: UriRegistry,
-    model: DataRegistry,
+    model: DataRegistry
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
     const objectInternalId: RDF.NamedNode = this.df.namedNode(
-      `${this.baseUrnScheme}:${object.osloGuid}`,
+      `${this.baseUrnScheme}:${object.osloGuid}`
     );
-    const objectUri: URL | undefined = uriRegistry.elementIdUriMap.get(object.id);
+    const objectUri: URL | undefined = uriRegistry.elementIdUriMap.get(
+      object.id
+    );
 
     if (!objectUri) {
       throw new Error(
-        `[ElementConverterHandler]: Unable to find URI for element (${object.path}).`,
+        `[ElementConverterHandler]: Unable to find URI for element (${object.path}).`
       );
     }
 
-    const objectUriNamedNode: RDF.NamedNode = this.df.namedNode(objectUri.toString());
+    const objectUriNamedNode: RDF.NamedNode = this.df.namedNode(
+      objectUri.toString()
+    );
 
     quads.push(
-      this.df.quad(objectInternalId, ns.oslo('assignedURI'), objectUriNamedNode),
+      this.df.quad(objectInternalId, ns.oslo('assignedURI'), objectUriNamedNode)
     );
 
     this.addDefinitions(
       object,
       objectInternalId,
       this.df.defaultGraph(),
-      quads,
+      quads
     );
     this.addLabels(object, objectInternalId, this.df.defaultGraph(), quads);
     this.addUsageNotes(object, objectInternalId, this.df.defaultGraph(), quads);
+    this.addStatus(object, objectInternalId, this.df.defaultGraph(), quads);
 
     // To be able to determine the scope of the element,
     // we need to compare it to the base URI of the package
     // which holds the target diagram.
     const packageBaseUri: URL | undefined = uriRegistry.packageIdUriMap.get(
-      model.targetDiagram.packageId,
+      model.targetDiagram.packageId
     );
 
     if (!packageBaseUri) {
       throw new Error(
-        `[ElementConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`,
+        `[ElementConverterHandler]: Unnable to find URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`
       );
     }
 
@@ -161,7 +177,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       packageBaseUri.toString(),
       uriRegistry.elementIdUriMap,
       this.df.defaultGraph(),
-      quads,
+      quads
     );
 
     quads.push(
@@ -169,8 +185,8 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         object,
         objectInternalId,
         uriRegistry,
-        model,
-      ),
+        model
+      )
     );
 
     quads.push(...this.getCodelistQuads(object, objectInternalId));
@@ -179,19 +195,19 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       case ElementType.Enumeration:
       case ElementType.Class:
         quads.push(
-          this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class')),
+          this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class'))
         );
         break;
 
       case ElementType.DataType:
         quads.push(
-          this.df.quad(objectInternalId, ns.rdf('type'), ns.rdfs('Datatype')),
+          this.df.quad(objectInternalId, ns.rdf('type'), ns.rdfs('Datatype'))
         );
         break;
 
       default:
         throw new Error(
-          `[ElementConverterHandler]: Object type (${object.type}) is not supported.`,
+          `[ElementConverterHandler]: Object type (${object.type}) is not supported.`
         );
     }
 
@@ -202,23 +218,23 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     object: EaElement,
     objectInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
-    model: DataRegistry,
+    model: DataRegistry
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
     // We search for a parent URI via the "parent" tag on the element
     // TODO: use function getTagValue to get parentURI tags
     const parentURITags: EaTag[] = object.tags.filter(
-      x => x.tagName === TagNames.ParentUri,
+      (x) => x.tagName === TagNames.ParentUri
     );
     if (parentURITags.length > 0) {
-      parentURITags.forEach(x => {
+      parentURITags.forEach((x) => {
         quads.push(
           this.df.quad(
             objectInternalId,
             ns.rdfs('subClassOf'),
-            this.df.namedNode(x.tagValue),
-          ),
+            this.df.namedNode(x.tagValue)
+          )
         );
       });
     }
@@ -226,28 +242,28 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     // We also search for parent relationships via connectors
     // Connectors array is used here, because NormalizedConnectors array doesn't have this type
     const parentClassConnectors: EaConnector[] = model.connectors.filter(
-      x =>
+      (x) =>
         x.type === ConnectorType.Generalization &&
-        x.sourceObjectId === object.id,
+        x.sourceObjectId === object.id
     );
 
-    parentClassConnectors.forEach(parentClassConnector => {
+    parentClassConnectors.forEach((parentClassConnector) => {
       const parentClassObject: EaElement | undefined = model.elements.find(
-        x => x.id === parentClassConnector.destinationObjectId,
+        (x) => x.id === parentClassConnector.destinationObjectId
       );
 
       if (!parentClassObject) {
         throw new Error(
-          `[ElementConverterHandler]: Unable to find parent object for class (${object.path}).`,
+          `[ElementConverterHandler]: Unable to find parent object for class (${object.path}).`
         );
       }
 
       const parentInternalId: RDF.NamedNode = this.df.namedNode(
-        `${this.baseUrnScheme}:${parentClassObject.osloGuid}`,
+        `${this.baseUrnScheme}:${parentClassObject.osloGuid}`
       );
 
       quads.push(
-        this.df.quad(objectInternalId, ns.rdfs('subClassOf'), parentInternalId),
+        this.df.quad(objectInternalId, ns.rdfs('subClassOf'), parentInternalId)
       );
 
       // In case the parent object is not visible on the target diagram
@@ -256,42 +272,44 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       if (
         !model.targetDiagram.connectorsIds.includes(parentClassConnector.id)
       ) {
-        const parentAssignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(
-          parentClassObject.id,
-        );
+        const parentAssignedUri: URL | undefined =
+          uriRegistry.elementIdUriMap.get(parentClassObject.id);
         if (!parentAssignedUri) {
           throw new Error(
-            `[ElementConverterHandler]: Unable to find the assigned URI for parent of class (${object.path}).`,
+            `[ElementConverterHandler]: Unable to find the assigned URI for parent of class (${object.path}).`
           );
         }
 
-        const referencedEntitiesGraph: RDF.NamedNode = this.df.namedNode('referencedEntities');
+        const referencedEntitiesGraph: RDF.NamedNode =
+          this.df.namedNode('referencedEntities');
 
         this.addDefinitions(
           parentClassObject,
           parentInternalId,
           referencedEntitiesGraph,
-          quads,
+          quads
         );
 
         this.addLabels(
           parentClassObject,
           parentInternalId,
           referencedEntitiesGraph,
-          quads,
+          quads
         );
 
         this.addUsageNotes(
           parentClassObject,
           parentInternalId,
           referencedEntitiesGraph,
-          quads,
+          quads
         );
 
-        const packageBaseUri = uriRegistry.packageIdUriMap.get(model.targetDiagram.packageId);
+        const packageBaseUri = uriRegistry.packageIdUriMap.get(
+          model.targetDiagram.packageId
+        );
         if (!packageBaseUri) {
           throw new Error(
-            `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${model.targetDiagram.path}) is placed.`,
+            `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${model.targetDiagram.path}) is placed.`
           );
         }
         this.addScope(
@@ -300,22 +318,22 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
           packageBaseUri.toString(),
           uriRegistry.elementIdUriMap,
           referencedEntitiesGraph,
-          quads,
-        )
+          quads
+        );
 
         quads.push(
           this.df.quad(
             parentInternalId,
             ns.rdf('type'),
             ns.owl('Class'),
-            referencedEntitiesGraph,
+            referencedEntitiesGraph
           ),
           this.df.quad(
             parentInternalId,
             ns.oslo('assignedURI'),
             this.df.namedNode(parentAssignedUri.toString()),
-            referencedEntitiesGraph,
-          ),
+            referencedEntitiesGraph
+          )
         );
       }
     });
@@ -325,20 +343,24 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
 
   private getCodelistQuads(
     object: EaElement,
-    objectInternalId: RDF.NamedNode,
+    objectInternalId: RDF.NamedNode
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
     // Get codelist information via "ap-codelist" tag
-    const codelistUri: string | null = getTagValue(object, TagNames.ApCodelist, null);
+    const codelistUri: string | null = getTagValue(
+      object,
+      TagNames.ApCodelist,
+      null
+    );
 
     if (codelistUri) {
       quads.push(
         this.df.quad(
           objectInternalId,
           ns.oslo('codelist'),
-          this.df.namedNode(codelistUri),
-        ),
+          this.df.namedNode(codelistUri)
+        )
       );
     }
 
