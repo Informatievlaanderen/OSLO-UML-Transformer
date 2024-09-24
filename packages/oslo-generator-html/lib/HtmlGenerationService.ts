@@ -11,18 +11,18 @@ import { SpecificationType } from './utils/specificationTypeEnum';
 export class HtmlGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: HtmlGenerationServiceConfiguration;
+  public dirs: string[] = [];
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
-    config: HtmlGenerationServiceConfiguration,
+    config: HtmlGenerationServiceConfiguration
   ) {
     this.logger = logger;
     this.configuration = config;
   }
 
   public async init(): Promise<void> {
-    const dirs: string[] = [resolve(`${__dirname}/templates`)];
     if (this.configuration.templates) {
       let templatesPath = this.configuration.templates;
 
@@ -32,25 +32,31 @@ export class HtmlGenerationService implements IService {
       }
 
       const customTemplatesDir: string = resolve(templatesPath);
-      dirs.push(customTemplatesDir);
+      this.dirs.push(customTemplatesDir);
+    } else {
+      this.dirs.push(resolve(`${__dirname}/templates`));
     }
 
-    const env = nj.configure(dirs);
+    const env = nj.configure(this.dirs);
     env.addGlobal('getAnchorTag', this.getAnchorTag);
   }
 
   public async run(): Promise<void> {
+    let indexPath: string = '';
     const [config, stakeholders, metadata] = await Promise.all([
       this.readConfigFile(this.configuration.input),
       this.readConfigFile(this.configuration.stakeholders),
       this.readConfigFile(this.configuration.metadata),
     ]);
 
-    const indexPath =
-      this.configuration.rootTemplate ||
-      (this.configuration.specificationType === SpecificationType.Vocabulary
-        ? 'voc2.j2'
-        : 'ap2.j2');
+    if (this.configuration.templates && this.configuration.rootTemplate) {
+      indexPath = `${this.dirs[0]}/${this.configuration.rootTemplate}`;
+    } else {
+      indexPath =
+        this.configuration.specificationType === SpecificationType.Vocabulary
+          ? `${this.dirs[0]}/voc2.j2`
+          : `${this.dirs[0]}/ap2.j2`;
+    }
 
     let data: any = {};
 
