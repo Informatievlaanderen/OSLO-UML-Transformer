@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-                                          http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                                                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{ data.metadata.title }}</title>
     <meta charset='utf-8'/>
@@ -192,7 +192,7 @@
                     resource="#ref"
                     rel="bibo:Chapter">
                     <h2 class="h2" aria-level="1" role="heading" id="h2_abstract">Samenvatting</h2>
-                    <div class="region region--no-space-top typography" id="summary">
+                    <div class="typography" id="summary">
                       {{ block.super }}
                       {% block summary %}
                         <p>
@@ -209,7 +209,7 @@
                 <div class="region region--no-space-top">
                   <section class="introductory" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
                     <h2 class="h2" aria-level="1" role="heading" id="h2_sotd">Status van dit document</h2>
-                    <div class="region region--no-space-top typography" id="status">
+                    <div class="typography" id="status">
                       {% block status %}
                         <p>
                           <em>Deze sectie beschrijft de status van dit document op het moment van publicatie. Het kan zijn dat er ondertussen al
@@ -390,6 +390,20 @@
                                     <td>{{ class.vocabularyUsageNote[language] }}</td>
                                   </tr>
                                 {% endif %}
+                                <tr>
+                                  <th>
+                                    <p>Status</p>
+                                  </th>
+                                  {% if class.status %}
+                                    <td>
+                                      <code>{{ class.status }}</code>
+                                    </td>
+                                  {% else %}
+                                    <td>
+                                      <code>{{ data.metadata.status }}</code>
+                                    </td>
+                                  {% endif %}
+                                </tr>
                               </tbody>
                             </table>
                           </div>
@@ -472,6 +486,20 @@
                                     <td>{{ property.vocabularyUsageNote[language] }}</td>
                                   </tr>
                                 {% endif %}
+                                <tr>
+                                  <th>
+                                    <p>Status</p>
+                                  </th>
+                                  {% if class.status %}
+                                    <td>
+                                      <code>{{ class.status }}</code>
+                                    </td>
+                                  {% else %}
+                                    <td>
+                                      <code>{{ data.metadata.status }}</code>
+                                    </td>
+                                  {% endif %}
+                                </tr>
                               </tbody>
                             </table>
                           </div>

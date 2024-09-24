@@ -26,9 +26,9 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   public readonly config!: EaUmlConverterConfiguration;
 
   public async filterIgnoredObjects(
-    model: DataRegistry,
+    model: DataRegistry
   ): Promise<DataRegistry> {
-    model.attributes = model.attributes.filter(x => !ignore(x));
+    model.attributes = model.attributes.filter((x) => !ignore(x));
 
     return model;
   }
@@ -36,21 +36,22 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   public async convert(
     model: DataRegistry,
     uriRegistry: UriRegistry,
-    store: QuadStore,
+    store: QuadStore
   ): Promise<QuadStore> {
     // Only attributes of elements that are on the target diagram will be passed to the output handler
     // and attributes that have a domain that is not an enumeration
     const enumerationClasses: EaElement[] = model.elements.filter(
-      x => x.type === ElementType.Enumeration,
+      (x) => x.type === ElementType.Enumeration
     );
     model.attributes
       .filter(
-        x =>
+        (x) =>
           model.targetDiagram.elementIds.includes(x.classId) &&
-          !enumerationClasses.some(y => y.id === x.classId),
+          !enumerationClasses.some((y) => y.id === x.classId)
       )
-      .forEach(object =>
-        store.addQuads(this.createQuads(object, uriRegistry, model)));
+      .forEach((object) =>
+        store.addQuads(this.createQuads(object, uriRegistry, model))
+      );
 
     return store;
   }
@@ -61,18 +62,18 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
   public async assignUris(
     model: DataRegistry,
-    uriRegistry: UriRegistry,
+    uriRegistry: UriRegistry
   ): Promise<UriRegistry> {
     uriRegistry.attributeIdUriMap = new Map<number, URL>();
 
-    model.attributes.forEach(attribute => {
+    model.attributes.forEach((attribute) => {
       const attributeClass: EaElement | undefined = model.elements.find(
-        x => x.id === attribute.classId,
+        (x) => x.id === attribute.classId
       );
 
       if (!attributeClass) {
         throw new Error(
-          `[AttributeConverterHandler]: Unable to find domain object for attribute (${attribute.path}).`,
+          `[AttributeConverterHandler]: Unable to find domain object for attribute (${attribute.path}).`
         );
       }
 
@@ -81,7 +82,11 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         return;
       }
 
-      const externalUri: string = getTagValue(attribute, TagNames.ExternalUri, null);
+      const externalUri: string = getTagValue(
+        attribute,
+        TagNames.ExternalUri,
+        null
+      );
       if (externalUri) {
         uriRegistry.attributeIdUriMap.set(attribute.id, new URL(externalUri));
         return;
@@ -91,7 +96,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       const packageTagValue: string | null = getTagValue(
         attribute,
         TagNames.DefiningPackage,
-        null,
+        null
       );
 
       if (packageTagValue) {
@@ -100,33 +105,33 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
 
         if (!packageObjects) {
           throw new Error(
-            `[AttributeConverterHandler]: Package tag was defined (${packageTagValue}), but unable to find a related package object for attribute (${attribute.path}).`,
+            `[AttributeConverterHandler]: Package tag was defined (${packageTagValue}), but unable to find a related package object for attribute (${attribute.path}).`
           );
         }
 
         if (packageObjects.length > 1) {
           this.logger.warn(
-            `[AttributeConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}" for attribute (${attribute.path}).`,
+            `[AttributeConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}" for attribute (${attribute.path}).`
           );
         }
 
         const packageURI: URL | undefined = uriRegistry.packageIdUriMap.get(
-          packageObjects[0].packageId,
+          packageObjects[0].packageId
         );
         if (!packageURI) {
           throw new Error(
-            `[AttributeConverterHandler]: Unable to find the URI of package (${packageObjects[0].parent}), but is needed as base URI.`,
+            `[AttributeConverterHandler]: Unable to find the URI of package (${packageObjects[0].parent}), but is needed as base URI.`
           );
         }
         attributeBaseURI = packageURI.toString();
       } else {
         const packageURI: URL | undefined = uriRegistry.packageIdUriMap.get(
-          attributeClass.packageId,
+          attributeClass.packageId
         );
 
         if (!packageURI) {
           throw new Error(
-            `[AttributeConverterHandler]: Unable to determine the package of attribute (${attribute.path}).`,
+            `[AttributeConverterHandler]: Unable to determine the package of attribute (${attribute.path}).`
           );
         }
 
@@ -136,11 +141,13 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       let localName: string = getTagValue(
         attribute,
         TagNames.LocalName,
-        attribute.name,
+        attribute.name
       );
 
       if (!localName) {
-        throw new Error(`[AttributeConverterHandler]: Unable to determine local name for attribute (${attribute.path}). If you used a "name" tag, did you set it correctly?`)
+        throw new Error(
+          `[AttributeConverterHandler]: Unable to determine local name for attribute (${attribute.path}). If you used a "name" tag, did you set it correctly?`
+        );
       }
 
       // Names on the diagram are not prefixed, so if this value contains
@@ -160,40 +167,44 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   public createQuads(
     object: EaAttribute,
     uriRegistry: UriRegistry,
-    model: DataRegistry,
+    model: DataRegistry
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
     const attributeInternalId: RDF.NamedNode = this.df.namedNode(
-      `${this.baseUrnScheme}:${object.osloGuid}`,
+      `${this.baseUrnScheme}:${object.osloGuid}`
     );
-    const attributeUri: URL | undefined = uriRegistry.attributeIdUriMap.get(object.id);
+    const attributeUri: URL | undefined = uriRegistry.attributeIdUriMap.get(
+      object.id
+    );
 
     if (!attributeUri) {
       throw new Error(
-        `[AttributeConverterHandler]: Unable to find URI for attribute (${object.path}).`,
+        `[AttributeConverterHandler]: Unable to find URI for attribute (${object.path}).`
       );
     }
 
-    const attributeUriNamedNode: RDF.NamedNode = this.df.namedNode(attributeUri.toString());
+    const attributeUriNamedNode: RDF.NamedNode = this.df.namedNode(
+      attributeUri.toString()
+    );
 
     quads.push(
       this.df.quad(
         attributeInternalId,
         ns.oslo('assignedURI'),
-        attributeUriNamedNode,
-      ),
+        attributeUriNamedNode
+      )
     );
 
-    // Adding definitions, labels and usage notes
+    // Adding definitions, labels, usage notes and status
     this.addEntityInformation(object, attributeInternalId, quads);
 
     const packageBaseUri: URL | undefined = uriRegistry.packageIdUriMap.get(
-      model.targetDiagram.packageId,
+      model.targetDiagram.packageId
     );
 
     if (!packageBaseUri) {
       throw new Error(
-        `[AttributeCOnverterHandler]: Unable to find the URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`,
+        `[AttributeCOnverterHandler]: Unable to find the URI for the package in which the target diagram (${model.targetDiagram.name}) was placed.`
       );
     }
 
@@ -203,23 +214,25 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       packageBaseUri.toString(),
       uriRegistry.attributeIdUriMap,
       this.df.defaultGraph(),
-      quads,
+      quads
     );
 
     // Determining the domain
-    const domainClass: EaElement | undefined = model.elements.find(x => x.id === object.classId);
+    const domainClass: EaElement | undefined = model.elements.find(
+      (x) => x.id === object.classId
+    );
     if (!domainClass) {
       throw new Error(
-        `[AttributeConverterHandler]: Unable to find the domain of attribute (${object.path}).`,
+        `[AttributeConverterHandler]: Unable to find the domain of attribute (${object.path}).`
       );
     }
 
     const domainInternalId: RDF.NamedNode = this.df.namedNode(
-      `${this.baseUrnScheme}:${domainClass.osloGuid}`,
+      `${this.baseUrnScheme}:${domainClass.osloGuid}`
     );
 
     quads.push(
-      this.df.quad(attributeInternalId, ns.rdfs('domain'), domainInternalId),
+      this.df.quad(attributeInternalId, ns.rdfs('domain'), domainInternalId)
     );
 
     // Determining the range
@@ -227,26 +240,35 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     let attributeType: PropertyType;
 
     if (rangeURI) {
-      const rangeIsLiteral: string = getTagValue(object, TagNames.IsLiteral, 'false');
+      const rangeIsLiteral: string = getTagValue(
+        object,
+        TagNames.IsLiteral,
+        'false'
+      );
       attributeType =
-        rangeIsLiteral === 'true' ?
-          PropertyType.DataTypeProperty :
-          PropertyType.ObjectProperty;
+        rangeIsLiteral === 'true'
+          ? PropertyType.DataTypeProperty
+          : PropertyType.ObjectProperty;
     } else {
       const rangeLabel: string = object.type;
       attributeType = PropertyType.Property;
 
-      if (object.rangeClassId && model.elements.some(x => x.id === object.rangeClassId)) {
-        const rangeElement: EaElement = model.elements.find(x => x.id === object.rangeClassId)!
+      if (
+        object.rangeClassId &&
+        model.elements.some((x) => x.id === object.rangeClassId)
+      ) {
+        const rangeElement: EaElement = model.elements.find(
+          (x) => x.id === object.rangeClassId
+        )!;
         const rangeIsLiteral: string = getTagValue(
           rangeElement,
           TagNames.IsLiteral,
-          'false',
+          'false'
         );
         attributeType =
-          rangeIsLiteral === 'true' ?
-            PropertyType.DataTypeProperty :
-            PropertyType.ObjectProperty;
+          rangeIsLiteral === 'true'
+            ? PropertyType.DataTypeProperty
+            : PropertyType.ObjectProperty;
         rangeURI = `${this.baseUrnScheme}:${rangeElement.osloGuid}`;
 
         if (!model.targetDiagram.elementIds.includes(rangeElement.id)) {
@@ -255,78 +277,85 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
               this.df.namedNode(rangeURI),
               uriRegistry,
               model,
-              rangeElement,
-            ),
+              rangeElement
+            )
           );
         }
       } else if (DataTypes.has(rangeLabel)) {
         attributeType = PropertyType.DataTypeProperty;
         const rangeAssignedURI: string = DataTypes.get(rangeLabel)!;
         rangeURI = `${this.baseUrnScheme}:${datatypeIdentifierToHash(
-          rangeAssignedURI,
+          rangeAssignedURI
         )}`;
 
         quads.push(
           ...this.getDatatypeQuads(
             this.df.namedNode(rangeURI),
             this.df.namedNode(rangeAssignedURI),
-            rangeLabel,
-          ),
+            rangeLabel
+          )
         );
       }
     }
 
     if (!rangeURI) {
       throw new Error(
-        `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`,
+        `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`
       );
     }
-
 
     quads.push(
       this.df.quad(
         attributeInternalId,
         ns.rdfs('range'),
-        this.df.namedNode(rangeURI),
+        this.df.namedNode(rangeURI)
       ),
       this.df.quad(
         attributeInternalId,
         ns.rdf('type'),
-        this.df.namedNode(attributeType),
+        this.df.namedNode(attributeType)
       ),
       this.df.quad(
         attributeInternalId,
         ns.shacl('minCount'),
-        this.df.literal(object.lowerBound),
+        this.df.literal(object.lowerBound)
       ),
       this.df.quad(
         attributeInternalId,
         ns.shacl('maxCount'),
-        this.df.literal(object.upperBound),
-      ),
+        this.df.literal(object.upperBound)
+      )
     );
 
     // Add parent information
-    const parentURI: string | null = getTagValue(object, TagNames.ParentUri, null);
+    const parentURI: string | null = getTagValue(
+      object,
+      TagNames.ParentUri,
+      null
+    );
     if (parentURI) {
       quads.push(
         this.df.quad(
           attributeInternalId,
           ns.rdfs('subPropertyOf'),
-          this.df.namedNode(parentURI),
-        ),
+          this.df.namedNode(parentURI)
+        )
       );
     }
 
     // Add codelist information
-    const codelistURI: string | null = getTagValue(object, TagNames.ApCodelist, null);
+    const codelistURI: string | null = getTagValue(
+      object,
+      TagNames.ApCodelist,
+      null
+    );
     if (codelistURI) {
       quads.push(
         this.df.quad(
           attributeInternalId,
           ns.oslo('codelist'),
-          this.df.namedNode(codelistURI),
-        ),
+          this.df.namedNode(codelistURI)
+        )
       );
     }
 
@@ -336,7 +365,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   private getDatatypeQuads(
     rangeInternalId: RDF.NamedNode,
     rangeAssignedURI: RDF.NamedNode,
-    rangeLabel: string,
+    rangeLabel: string
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
@@ -346,8 +375,8 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       this.df.quad(
         rangeInternalId,
         ns.oslo('diagramLabel'),
-        this.df.literal(rangeLabel),
-      ),
+        this.df.literal(rangeLabel)
+      )
     );
 
     return quads;
@@ -357,35 +386,45 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     rangeInternalId: RDF.NamedNode,
     uriRegistry: UriRegistry,
     dataRegistry: DataRegistry,
-    rangeElement: EaElement,
+    rangeElement: EaElement
   ): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
-    const referencedEntitiesGraph: RDF.NamedNode = this.df.namedNode('referencedEntities');
+    const referencedEntitiesGraph: RDF.NamedNode =
+      this.df.namedNode('referencedEntities');
 
     // TODO: switch to this.addEntityInformation?
     this.addDefinitions(
       <any>rangeElement,
       rangeInternalId,
       referencedEntitiesGraph,
-      quads,
+      quads
     );
     this.addLabels(
       <any>rangeElement,
       rangeInternalId,
       referencedEntitiesGraph,
-      quads,
+      quads
     );
     this.addUsageNotes(
       <any>rangeElement,
       rangeInternalId,
       referencedEntitiesGraph,
-      quads,
+      quads
     );
 
-    const assignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(rangeElement.id);
+    this.addStatus(
+      <any>rangeElement,
+      rangeInternalId,
+      referencedEntitiesGraph,
+      quads
+    );
+
+    const assignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(
+      rangeElement.id
+    );
     if (!assignedUri) {
       throw new Error(
-        `[AttributeConverterHandler]: Unable to find the assigned URI for the range (${rangeElement.path}) of attribute.`,
+        `[AttributeConverterHandler]: Unable to find the assigned URI for the range (${rangeElement.path}) of attribute.`
       );
     }
 
@@ -394,14 +433,16 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         rangeInternalId,
         ns.oslo('assignedURI'),
         this.df.namedNode(assignedUri.toString()),
-        referencedEntitiesGraph,
-      ),
+        referencedEntitiesGraph
+      )
     );
 
-    const packageBaseUri = uriRegistry.packageIdUriMap.get(dataRegistry.targetDiagram.packageId);
+    const packageBaseUri = uriRegistry.packageIdUriMap.get(
+      dataRegistry.targetDiagram.packageId
+    );
     if (!packageBaseUri) {
       throw new Error(
-        `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${dataRegistry.targetDiagram.path}) is placed.`,
+        `[AttributeConverterHandler]: Unable to find the URI of package where target diagram (${dataRegistry.targetDiagram.path}) is placed.`
       );
     }
 
@@ -411,18 +452,22 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       packageBaseUri.toString(),
       uriRegistry.elementIdUriMap,
       referencedEntitiesGraph,
-      quads,
-    )
+      quads
+    );
 
-    const skosCodelist: string | null = getTagValue(rangeElement, TagNames.ApCodelist, null);
+    const skosCodelist: string | null = getTagValue(
+      rangeElement,
+      TagNames.ApCodelist,
+      null
+    );
     if (skosCodelist) {
       quads.push(
         this.df.quad(
           rangeInternalId,
           ns.oslo('codelist'),
           this.df.namedNode(skosCodelist),
-          referencedEntitiesGraph,
-        ),
+          referencedEntitiesGraph
+        )
       );
     }
 
