@@ -29,16 +29,10 @@ Each package package is published on the NPM registry and can be installed globa
 
 ### How To Build
 
-To build the source code, the dependencies must first be installed:
+To build the source code, the dependencies must first be installed. We make use op npm workspaces, so the dependencies of all packages are installed as well. More information on workspaces can be found [here](https://docs.npmjs.com/cli/v10/using-npm/workspaces).
 
 ```bash
 npm install
-```
-
-Then, link the local packages together and install remaining package dependencies:
-
-```bash
-npm run bootstrap
 ```
 
 Finally, the source code can be built:
