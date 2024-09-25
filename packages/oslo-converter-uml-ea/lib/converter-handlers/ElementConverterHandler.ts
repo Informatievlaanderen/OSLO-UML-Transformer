@@ -253,9 +253,15 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       );
 
       if (!parentClassObject) {
-        throw new Error(
-          `[ElementConverterHandler]: Unable to find parent object for class (${object.path}).`
+        this.logger.warn(
+          `[ElementConverterHandler]: Unable to find parent object for class (${object.path}) with path ${parentClassConnector.path}.`
         );
+        return;
+        // OLD RULE. We decided to become more flexible and not throw an error in this case
+        // https://vlaamseoverheid.atlassian.net/browse/SDTT-338
+        // throw new Error(
+        //   `[ElementConverterHandler]: Unable to find parent object for class (${object.path}).`
+        // );
       }
 
       const parentInternalId: RDF.NamedNode = this.df.namedNode(
