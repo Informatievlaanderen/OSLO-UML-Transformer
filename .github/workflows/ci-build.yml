@@ -26,6 +26,5 @@ jobs:
         run: |
           npm install
           npx lerna exec -- npm i
-          npx lerna bootstrap
       - name: Build project
         run: npm run build
