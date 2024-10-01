@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-                                                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+                                                                                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{ data.metadata.title }}</title>
     <meta charset='utf-8'/>
@@ -301,7 +301,7 @@
                             <p>
                               |
                               {% for class in data.inPackageMerged %}
-                                <a href="#{{ class.vocabularyLabel[language] }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
+                                <a href="#{{ class.id | replaceBaseURI(data.baseURI) }}" rel="class">{{ class.vocabularyLabel[language] }}</a>
                                 |
                               {% endfor %}
                             </p>
@@ -315,7 +315,7 @@
                             <p>
                               |
                               {% for prop in data.inPackageProperties %}
-                                <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                                <a href="#{{ prop.id | replaceBaseURI(data.baseURI) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
                                 |
                               {% endfor %}
                             </p>
@@ -329,7 +329,7 @@
                             <p>
                               |
                               {% for prop in data.externalProperties %}
-                                <a href="#{{ prop.vocabularyLabel[language] }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
+                                <a href="#{{ prop.id | replaceBaseURI(data.baseURI) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
                                 |
                               {% endfor %}
                             </p>
@@ -349,7 +349,7 @@
                         </div>
                         {% for class in data.inPackageMerged %}
                           <div class="region region--no-space-top">
-                            <h3 class="h3" id="{{ class.vocabularyLabel[language] }}">Klasse
+                            <h3 class="h3" id="{{ class.id | replaceBaseURI(data.baseURI) }}">Klasse
                               <em>{{ class.vocabularyLabel[language] }}</em>
                             </h3>
                             <table class="definition">
@@ -427,7 +427,7 @@
                         </div>
                         {% for property in data.inPackageProperties %}
                           <div class="region region--no-space-top">
-                            <h3 class="h3" id="{{ property.vocabularyLabel[language] }}">Eigenschap
+                            <h3 class="h3" id="{{ property.id | replaceBaseURI(data.baseURI) }}">Eigenschap
                               <em>{{ property.vocabularyLabel[language] }}</em>
                             </h3>
                             <table class="definition">
@@ -533,7 +533,7 @@
                               </tr>
                               {% for external in data.externalProperties %}
                                 <tr>
-                                  <td id="{{ external.vocabularyLabel[language] }}">
+                                  <td id="{{ external.id | replaceBaseURI(data.baseURI) }}">
                                     <strong>
                                       <a href="{{ external.id }}" data-toggle="tooltip" data-content="{{ external.id }}">{{ external.vocabularyLabel[language] }}</a>
                                     </strong>
