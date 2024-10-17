@@ -32,14 +32,14 @@ npm install -g @oslo-flanders/shacl-template-generator
 ## Usage
 
 ```bash
-oslo-shacl-template-generator --input report.jsonld --language en
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --mode individual
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --constraint uniqueLanguages --constraint nodeKind
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --applicationProfileURL https://data.vlaanderen.be/doc/applicatieprofiel/verkeersmetingen
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --useUniqueURIs true
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --addCodelistRules true
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --addConstraintMessages true
-oslo-shacl-template-generator --input report.jsonld --language en --shapeBaseURI https://data.vlaanderen.be --addConstraintRuleNumbers true
+oslo-shacl-template-generator --input report.jsonld --language nl
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --mode individual
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --constraint uniqueLanguages --constraint nodeKind
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --applicationProfileURL https://data.vlaanderen.be/doc/applicatieprofiel/verkeersmetingen
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --useUniqueURIs true
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addCodelistRules true
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addConstraintMessages true
+oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addConstraintRuleNumbers true
 ```
 
