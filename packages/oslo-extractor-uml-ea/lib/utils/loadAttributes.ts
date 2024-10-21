@@ -24,8 +24,8 @@ export function loadAttributes(
             <number>attribute.Object_ID,
             <string>attribute.Type,
             <string>attribute.LowerBound,
-            <string>attribute.Notes,
             <string>attribute.UpperBound,
+            <string>attribute.Notes,
             Number.parseInt(attribute.Classifier, 10) || undefined,
           ),
         );
