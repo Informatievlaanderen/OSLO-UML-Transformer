@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDXHTML1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xml:lang="{{ language }}" lang="{{ language }}" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="{{ language }}" prefix="dcterms: http://purl.org/dc/terms/ bibo: http://purl.org/ontology/bibo/ schema: http://schema.org/ w3p:
-                                                                                      http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
+         http://www.w3.org/2001/02pd/rec54#" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{ data.metadata.title }}</title>
     <meta charset='utf-8'/>
@@ -62,11 +62,32 @@
                   <p>Dit document is een vertaling van het {{ data.metadata.primaryLanguage }} naar het Nederlands.</p>
                   <br></div>
                 {% endif %}
-                {% if data.metadata.prefix %}
-                  <h2 class="h2" id="subtitle" property="bibo:subtitle">Specificatie van
-                    <em>{{ data.metadata.prefix }}</em>
-                  </h2>
-                {% endif %}
+                <div class="head">
+                  <dl>
+                    <dt>Status</dt>
+                    <dd>
+                      <a href="{{ data.metadata.status }}">{{ data.metadata.statuslabel }}</a>
+                    </dd>
+                    <dt>Uitgegeven op</dt>
+                    <dd>{{ data.metadata.issued }}</dd>
+                    <dt>Deze versie</dt>
+                    <dd>
+                      <a href="{{ data.metadata.navigation.self }}">{{ data.metadata.navigation.self }}</a>
+                    </dd>
+                    {% if data.metadata.navigation.next %}
+                      <dt>Volgende versie</dt>
+                      <dd>
+                        <a href="{{ data.metadata.navigation.next }}">{{ data.metadata.navigation.next }}</a>
+                      </dd>
+                    {% endif %}
+                    {% if data.metadata.navigation.prev %}
+                      <dt>Vorige versie</dt>
+                      <dd>
+                        <a href="{{ data.metadata.navigation.prev }}">{{ data.metadata.navigation.prev }}</a>
+                      </dd>
+                    {% endif %}
+                  </dl>
+                </div>
                 <dl>
                   <dt>Auteurs</dt>
                   {% set sortedAuthors = (data.stakeholders.authors | sort(attribute='lastName')) %}
@@ -152,12 +173,14 @@
                 <dd>
                   <a href="{{ data.metadata.standaardregisterurl }}">{{ data.metadata.standaardregisterurl }}</a>
                 </dd>
-                <dt>Afhankelijkheden</dt>
-                <dd>
-                  {% for dep in data.metadata.dependencies %}
-                    <a href="{{ dep.packageurl }}">{{ dep.packagelabel }}</a>
-                  {% endfor %}
-                </dd>
+                {% if data.metadata.dependencies %}
+                  <dt>Afhankelijkheden</dt>
+                  <dd>
+                    {% for dep in data.metadata.dependencies %}
+                      <a href="{{ dep.packageurl }}">{{ dep.packagelabel }}</a>
+                    {% endfor %}
+                  </dd>
+                {% endif %}
               </dl>
             </div>
           </div>
@@ -225,7 +248,8 @@
                           bepaalde concepten. Deze specificatie dient om de definitie, gebruik, domein en bereik van de RDF termen binnen dit
                           domein te verduidelijken. De termen gedefinieerd in dit vocabularium zijn persistent en zullen bijgevolg nooit
                           verdwijnen, noch zullen de definities veranderen behalve dan om een bestaande definitie verder te verduidelijken. Termen
-                          kunnen echter wel als verouderd worden bestempeld en vervangen worden in nieuwere versies van deze specificatie.</p>
+                          kunnen echter wel als verouderd worden bestempeld en vervangen worden in nieuwere versies van deze specificatie.
+                        </p>
                         {% if data.metadata.comment[language] %}
                           <p>
                             {{ data.metadata.comment[language] }}
@@ -239,7 +263,8 @@
                   <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="license-and-liability">
                     <h2 class="h2" id="licenseandliability" aria-level="1" role="heading">
                       <span class="secno">1.
-                      </span>Licentie</h2>
+                      </span>Licentie
+                    </h2>
                     {% block license %}
                       <p>
                         <span rel="dct:type" property="dct:title" href="http://purl.org/dc/dcmitype/Text" xmlns:dct="http://purl.org/dc/terms/">
@@ -251,7 +276,8 @@
                           href="http://vlaanderen.be/informatievlaanderen"
                           xmlns:cc="http://creativecommons.org/ns#">Informatie Vlaanderen</a>
                         is gepubliceerd onder de
-                        <a href="{{ data.metadata.license }}" rel="license">"Modellicentie Gratis Hergebruik - v1.0"</a>.</p>
+                        <a href="{{ data.metadata.license }}" rel="license">"Modellicentie Gratis Hergebruik - v1.0"</a>.
+                      </p>
                     {% endblock %}
                   </section>
                 </div>
@@ -259,12 +285,14 @@
                   <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="conformance-statement">
                     <h2 class="h2" id="conformance" aria-level="1" role="heading">
                       <span class="secno">2.
-                      </span>Conformiteit</h2>
+                      </span>Conformiteit
+                    </h2>
                     {% block conformance %}
                       <p>Een uitwisseling van gegevens, op welke manier deze uitwisseling ook gebeurt, is conform aan dit vocabularium wanneer
                         het de terminologie (klassen en eigenschappen) gebruikt op een manier die consistent is met de semantiek zoals opgesteld
                         in de nieuwste versie van de specificatie (domein, bereik, definitie en gebruik) en het geen terminologie gebruikt uit
-                        andere vocabularia als alternatief voor de voorgestelde terminologie opgenomen in dit vocabularium.</p>
+                        andere vocabularia als alternatief voor de voorgestelde terminologie opgenomen in dit vocabularium.
+                      </p>
                     {% endblock %}
                   </section>
                 </div>
@@ -272,7 +300,8 @@
                   <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="overview">
                     <h2 class="h2" id="overview" aria-level="1" role="heading">
                       <span class="secno">3.
-                      </span>Overzicht</h2>
+                      </span>Overzicht
+                    </h2>
                     {% if data.metadata.autotranslate %}
                       <div class="disclaimer">
                         <p>Dit document is een vertaling van het {{ data.metadata.primaryLanguage }} naar het Nederlands.</p>
@@ -322,27 +351,14 @@
                           </div>
                         </div>
                       {% endif %}
-                      {% if ( ( data.externalProperties | length ) > 0 ) %}
-                        <div class="region region--no-space-top">
-                          <h3 class="h3">Externe terminologie</h3>
-                          <div class="grid">
-                            <p>
-                              |
-                              {% for prop in data.externalProperties %}
-                                <a href="#{{ prop.id | replaceBaseURI(data.baseURI) }}" rel="property">{{ prop.vocabularyLabel[language] }}</a>
-                                |
-                              {% endfor %}
-                            </p>
-                          </div>
-                        </div>
-                      {% endif %}
                     </section>
                   </div>
                   <div class="region region--no-space-top">
                     <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="classes">
                       <h2 class="h2" id="classes" aria-level="1" role="heading">
                         <span class="secno">4.
-                        </span>Klassen</h2>
+                        </span>Klassen
+                      </h2>
                       {% if data.inPackageMerged %}
                         <div class="region region--no-space-top">
                           <p>Deze sectie geeft een formele definitie aan elke klasse.</p>
@@ -411,7 +427,8 @@
                       {% else %}
                         <div class="region region--no-space-top">
                           <p>In dit vocabularium zijn geen klassen gedefinieerd. Het is wel mogelijk dat klassen uit een gerelateerd vocabularium
-                            worden hergebruikt.</p>
+                            worden hergebruikt.
+                          </p>
                         </div>
                       {% endif %}
                     </section>
@@ -420,7 +437,8 @@
                     <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="properties">
                       <h2 class="h2" id="properties" aria-level="1" role="heading">
                         <span class="secno">5.
-                        </span>Eigenschappen</h2>
+                        </span>Eigenschappen
+                      </h2>
                       {% if data.inPackageProperties %}
                         <div class="region region--no-space-top">
                           <p>Deze sectie geeft een formele definitie aan elke eigenschap.</p>
@@ -490,9 +508,9 @@
                                   <th>
                                     <p>Status</p>
                                   </th>
-                                  {% if class.status %}
+                                  {% if property.status %}
                                     <td>
-                                      <code>{{ class.status }}</code>
+                                      <code>{{ property.status }}</code>
                                     </td>
                                   {% else %}
                                     <td>
@@ -507,7 +525,8 @@
                       {% else %}
                         <div class="region region--no-space-top">
                           <p>In dit vocabularium zijn geen eigenschappen gedefinieerd. Het is wel mogelijk dat eigenschappen uit een gerelateerd
-                            vocabularium worden hergebruikt.</p>
+                            vocabularium worden hergebruikt.
+                          </p>
                         </div>
                       {% endif %}
                     </section>
@@ -516,43 +535,15 @@
                     <section typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" id="external">
                       <h2 class="h2" id="externals" aria-level="1" role="heading">
                         <span class="secno">6.
-                        </span>Externe terminologie</h2>
-                      <div class="region region--no-space-top">
-                        <p>Deze sectie geeft een overzicht van terminologie uit andere vocabularia die relevant is voor dit domeinmodel samen
-                          met hun Nederlandstalige labels en definities.</p>
-                      </div>
-                      {% if data.externalProperties %}
-                        <div class="region region--no-space-top">
-                          <table class="definition">
-                            <tbody>
-                              <tr>
-                                <th>Label</th>
-                                <th>Domein</th>
-                                <th>Definitie</th>
-                                <th>Gebruik</th>
-                              </tr>
-                              {% for external in data.externalProperties %}
-                                <tr>
-                                  <td id="{{ external.id | replaceBaseURI(data.baseURI) }}">
-                                    <strong>
-                                      <a href="{{ external.id }}" data-toggle="tooltip" data-content="{{ external.id }}">{{ external.vocabularyLabel[language] }}</a>
-                                    </strong>
-                                  </td>
-                                  <td>
-                                    <code>{{ external.domain }}</code>
-                                  </td>
-                                  <td>{{ external.vocabularyDefinition[language] }}</td>
-                                  <td>{{ external.vocabularyUsageNote[language] }}</td>
-                                </tr>
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                        </div>
-                      {% else %}
-                        <div class="region region--no-space-top">
-                          <p>In dit vocabularium zijn geen externe termen hergebruikt.</p>
-                        </div>
-                      {% endif %}
+                        </span>Externe terminologie
+                      </h2>
+                      Vanaf 2025 worden externe termen niet meer opgenomen als niet-normatieve mapping in vocabularia van
+                      data.vlaanderen.be.
+                      <p/> In plaats daarvan is er een tabel met welke externe URIs er worden gebruikt, toegevoegd aan elk applicatieprofiel.
+                      Dat vereenvoudigt de doelstelling van dit document. Namelijk het oplijsten en beheren van termen die gedefinieerd worden
+                      in deze namespace.
+                      <p/> Om toch een harmonisatie van het gebruik van externe terminologie te bekomen wordt er een algemene mapping
+                      gepubliceerd.
                     </section>
                   </div>
                 </div>
@@ -665,5 +656,5 @@
         </style>
       </body>
     </html>
-  </html>
+  </body>
 </html>
