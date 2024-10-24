@@ -1,0 +1,50 @@
+{
+  "name": "@oslo-flanders/examples-generator",
+  "version": "0.0.1-alpha.0",
+  "description": "Generates examples based on an OSLO JSON-LD file",
+  "author": "Kristof Vandenbroucke <kristof.vandenbroucke@vlaanderen.be>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-examples#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "oslo-examples-generator": "./bin/runner.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "bin": "bin",
+    "test": "test"
+  },
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "index.d.ts",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "tsc",
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-generator-examples/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-generator-examples/"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^0.0.16-alpha.0",
+    "inversify": "^6.0.1",
+    "n3": "^1.17.2",
+    "rdf-data-factory": "^1.1.2",
+    "reflect-metadata": "^0.2.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@rdfjs/types": "^1.1.0"
+  },
+  "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
+}
