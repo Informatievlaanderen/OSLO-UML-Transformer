@@ -226,10 +226,10 @@
                   {% endif %}
                   <div class="grid">
                     <div class="col--9-12 col--1-1--s typography">
-                      {% if ( ( data.entities | length > 0)   ) %}
+                      {% if ( ( data.classes | length > 0)   ) %}
                         <div class="region region--no-space-top">
                           <p>In dit document wordt correct gebruik van de volgende entiteiten toegelicht: <br/> |
-                            {%- for entity in data.entities %}
+                            {%- for entity in data.classes %}
                               <a href="#{{ entity.applicationProfileLabel[language] }}">
                                 {{ entity.applicationProfileLabel[language] }}</a>
                               |
