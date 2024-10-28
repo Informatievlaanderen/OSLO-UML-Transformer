@@ -3,8 +3,7 @@ import { AppRunner } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { 
-  JsonWebuniversumGenerationServiceConfiguration,
-} from './config/JsonWebuniversumGenerationServiceConfiguration';
+  JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -30,8 +29,8 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
         boolean: true,
       })
       .option('applyFiltering', {
-        describe: `Wether or not to apply filters on the generated output. 
-          The filters are used for the OSLO-frontend application(s)`,
+        describe: `Wether or not to apply filters on the generated output. The filters limit the generated classes, datatypes, 
+        entities and properties that will be shown. If you just want all possible values, you can set the value to false.`,
         default: true,
         boolean: true,
       })

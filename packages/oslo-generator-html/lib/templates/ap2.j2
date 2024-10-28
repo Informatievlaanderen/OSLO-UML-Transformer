@@ -237,11 +237,11 @@
                           </p>
                         </div>
                       {% endif %}
-                      {% if ( ( data.scopedDataTypes | length ) > 0 ) %}
+                      {% if ( ( data.dataTypes | length ) > 0 ) %}
                         <div class="region region--no-space-top">
                           <p>
                             In dit document worden de volgende datatypes toegelicht: <br/> |
-                            {%- for dataType in data.scopedDataTypes %}
+                            {%- for dataType in data.dataTypes %}
                               <a href="#{{ dataType.applicationProfileLabel[language] | replace(' ', '') }}">
                                 {{ dataType.applicationProfileLabel[language] }}</a>
                               |
@@ -361,11 +361,11 @@
                         {% endif %}
                       </div>
                     {% endfor %}
-                    {% if data.scopedDataTypes %}
+                    {% if data.dataTypes %}
                       <div class="region region--no-space-top">
                         <h2 class="h2">Datatypes</h2>
                       </div>
-                      {% for dataType in data.scopedDataTypes %}
+                      {% for dataType in data.dataTypes %}
                         <div class="region region--no-space-top">
                           <h3 class="h3" id="{{ dataType.id }}">
                             <a href="{{ dataType.id }}" data-toggle="tooltip" data-content="{{ dataType.id }}" id="{{ dataType.applicationProfileLabel[language] | replace(' ', '') }}" data-placement="right">

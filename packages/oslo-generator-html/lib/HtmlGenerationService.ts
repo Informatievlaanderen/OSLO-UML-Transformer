@@ -16,7 +16,7 @@ export class HtmlGenerationService implements IService {
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
-    config: HtmlGenerationServiceConfiguration,
+    config: HtmlGenerationServiceConfiguration
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -64,6 +64,9 @@ export class HtmlGenerationService implements IService {
     const {
       baseURI,
       entities,
+      classes,
+      dataTypes,
+      properties,
       inPackageClasses,
       inPackageDataTypes,
       scopedDataTypes,
@@ -76,6 +79,9 @@ export class HtmlGenerationService implements IService {
       ...data,
       baseURI,
       entities,
+      classes,
+      dataTypes,
+      properties,
       inPackageMerged,
       inPackageClasses,
       scopedDataTypes,

@@ -61,6 +61,9 @@ export class JsonWebuniversumGenerationService implements IService {
 
     const classes: WebuniversumObject[] = await Promise.all(classJobs);
     const dataTypes: WebuniversumObject[] = await Promise.all(datatypeJobs);
+    const properties = [...classes, ...dataTypes].flatMap((c) =>
+      filterWebuniversumObjects(c.properties || [], [])
+    );
 
     // Sort entities
     sortWebuniversumObjects(classes, this.configuration.language);
@@ -95,6 +98,7 @@ export class JsonWebuniversumGenerationService implements IService {
       const inPackageDataTypes = filterWebuniversumObjects(dataTypes, [
         isInPackage,
       ]);
+      console.log(inPackageDataTypes);
       const scopedDataTypes = filterWebuniversumObjects(dataTypes, [isScoped]);
 
       const externalProperties = [...classes, ...dataTypes].flatMap((c) =>
@@ -118,11 +122,13 @@ export class JsonWebuniversumGenerationService implements IService {
           inPackageClasses,
           this.configuration.language
         ),
+        // In package data types
         inPackageDataTypes: sortWebuniversumObjects(
           inPackageDataTypes,
           this.configuration.language
         ),
-        scopedDataTypes: sortWebuniversumObjects(
+        // scoped data types
+        dataTypes: sortWebuniversumObjects(
           scopedDataTypes,
           this.configuration.language
         ),
@@ -130,17 +136,26 @@ export class JsonWebuniversumGenerationService implements IService {
           externalProperties,
           this.configuration.language
         ),
-        inPackageProperties: sortWebuniversumObjects(
+
+        // Only the in package properties will be shown
+        properties: sortWebuniversumObjects(
           inPackageProperties,
           this.configuration.language
         ),
-        inPackageMerged: sortWebuniversumObjects(
+        // In package classes and in package data types are merged
+        classes: sortWebuniversumObjects(
           [...inPackageDataTypes, ...inPackageClasses],
           this.configuration.language
         ),
       };
     } else {
-      template = { ...template, classes: classes, dataTypes: dataTypes };
+      template = {
+        ...template,
+        entities: classes,
+        classes,
+        dataTypes,
+        properties,
+      };
     }
 
     await writeFile(
