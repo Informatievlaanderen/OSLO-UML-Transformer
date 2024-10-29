@@ -98,7 +98,6 @@ export class JsonWebuniversumGenerationService implements IService {
       const inPackageDataTypes = filterWebuniversumObjects(dataTypes, [
         isInPackage,
       ]);
-      console.log(inPackageDataTypes);
       const scopedDataTypes = filterWebuniversumObjects(dataTypes, [isScoped]);
 
       const externalProperties = [...classes, ...dataTypes].flatMap((c) =>
