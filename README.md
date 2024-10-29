@@ -18,6 +18,7 @@ This repository is managed as a monorepo, using Lerna. Each package in this repo
 - `oslo-generator-respec-html` generates an HTML page using the ReSpec template using an OSLO JSON-LD as input
 - `oslo-generator-json-webuniversum` generates a Webuniversum config file that can be used in the Nuxt projects using an OSLO JSON-LD as input
 - `oslo-generator-html` generates an HTML page using the Nunjucks template using an OSLO JSON-LD as input
+- `oslo-examples-generator` generate examples based on an OSLO JSON-LD file
 
 The packages `oslo-core` and `oslo-extractor-uml-ea` are not executable via the CLI, as their purpose is to be added as a depedency in other packages.
 
