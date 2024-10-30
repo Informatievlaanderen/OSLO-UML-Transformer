@@ -491,7 +491,7 @@ export class QuadStore {
 
   /**
    * Finds the status of a given RDF.Term
-   * @param subject The RDF.Term to find the parent of
+   * @param subject The RDF.Term to find the status of
    * @param store A N3 quad store
    * @returns An RDF.Term or undefined if not found
    */

@@ -16,9 +16,7 @@ import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import rdfSerializer from 'rdf-serialize';
 import streamifyArray from 'streamify-array';
-import {
-  RdfVocabularyGenerationServiceConfiguration,
-} from './config/RdfVocabularyGenerationServiceConfiguration';
+import { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
 
 @injectable()
 export class RdfVocabularyGenerationService implements IService {
@@ -29,8 +27,9 @@ export class RdfVocabularyGenerationService implements IService {
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
-    @inject(ServiceIdentifier.Configuration) config: RdfVocabularyGenerationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
+    @inject(ServiceIdentifier.Configuration)
+    config: RdfVocabularyGenerationServiceConfiguration,
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -58,198 +57,228 @@ export class RdfVocabularyGenerationService implements IService {
       this.createAttributeQuads(vocabularyUri),
     ]);
 
-    const quadStream = streamifyArray([...vocabularyInfoQuads, ...classQuads, ...propertyQuads]);
-    const textStream = rdfSerializer.serialize(quadStream, { contentType: this.configuration.contentType });
+    const quadStream = streamifyArray([
+      ...vocabularyInfoQuads,
+      ...classQuads,
+      ...propertyQuads,
+    ]);
+    const textStream = rdfSerializer.serialize(quadStream, {
+      contentType: this.configuration.contentType,
+    });
 
     const outputStream = createWriteStream(this.configuration.output);
     textStream.pipe(outputStream);
   }
 
-  private async createVocabularyInformationQuads(vocabularyUri: RDF.NamedNode): Promise<RDF.Quad[]> {
+  private async createVocabularyInformationQuads(
+    vocabularyUri: RDF.NamedNode
+  ): Promise<RDF.Quad[]> {
     const quads: RDF.Quad[] = [];
     quads.push(
-      this.dataFactory.quad(
-        vocabularyUri,
-        ns.rdf('type'),
-        ns.owl('Ontology'),
-      ),
+      this.dataFactory.quad(vocabularyUri, ns.rdf('type'), ns.owl('Ontology'))
     );
 
     return quads;
   }
 
-  private async extractClassQuads(vocabularyUri: RDF.NamedNode): Promise<RDF.Quad[]> {
+  private async extractClassQuads(
+    vocabularyUri: RDF.NamedNode
+  ): Promise<RDF.Quad[]> {
     const quads: RDF.Quad[] = [];
-    const classSubjects = this.store.getClassIds()
-      .filter(x => this.isInScope(x));
+    const classSubjects = this.store
+      .getClassIds()
+      .filter((x) => this.isInScope(x));
 
-    classSubjects.forEach(subject => {
+    classSubjects.forEach((subject) => {
       const assignedUri = this.store.getAssignedUri(subject);
 
       if (!assignedUri) {
-        this.logger.error(`Unable to find the assignedUri for class ${subject.value}.`);
+        this.logger.error(
+          `Unable to find the assignedUri for class ${subject.value}.`
+        );
         return;
       }
 
       quads.push(
-        this.dataFactory.quad(
-          assignedUri,
-          ns.rdf('type'),
-          ns.owl('Class'),
-        ),
+        this.dataFactory.quad(assignedUri, ns.rdf('type'), ns.owl('Class')),
         this.dataFactory.quad(
           assignedUri,
           ns.rdfs('isDefinedBy'),
-          vocabularyUri,
-        ),
+          vocabularyUri
+        )
       );
 
-      const definition = getVocabularyDefinition(subject, this.store, this.configuration.language);
+      const definition = getVocabularyDefinition(
+        subject,
+        this.store,
+        this.configuration.language
+      );
       if (!definition) {
-        this.logger.error(`Unable to find the definition for class ${subject.value}.`);
+        this.logger.error(
+          `Unable to find the definition for class ${subject.value}.`
+        );
       } else {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.rdfs('comment'),
-            definition,
-          ),
+          this.dataFactory.quad(assignedUri, ns.rdfs('comment'), definition)
         );
       }
 
       const parents = this.store.getParentsOfClass(subject);
-      parents.forEach(parent => {
+      parents.forEach((parent) => {
         const parentAssignedUri = this.store.getAssignedUri(parent);
 
         if (!parentAssignedUri) {
-          throw new Error(`Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`);
+          throw new Error(
+            `Unable to find the assigned URI for parent ${parent.value} of class ${subject.value}.`
+          );
         }
 
         quads.push(
           this.dataFactory.quad(
             assignedUri,
             ns.rdfs('subClassOf'),
-            parentAssignedUri,
-          ),
+            parentAssignedUri
+          )
         );
       });
 
-      const usageNote = getVocabularyUsageNote(subject, this.store, this.configuration.language);
+      const usageNote = getVocabularyUsageNote(
+        subject,
+        this.store,
+        this.configuration.language
+      );
       if (usageNote) {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.vann('usageNote'),
-            usageNote,
-          ),
+          this.dataFactory.quad(assignedUri, ns.vann('usageNote'), usageNote)
+        );
+      }
+
+      const status = this.store.getStatus(subject);
+      if (status) {
+        quads.push(
+          this.dataFactory.quad(assignedUri, ns.oslo('status'), status)
         );
       }
     });
+
     return quads;
   }
 
-  private async createAttributeQuads(vocabularyUri: RDF.NamedNode): Promise<RDF.Quad[]> {
+  private async createAttributeQuads(
+    vocabularyUri: RDF.NamedNode
+  ): Promise<RDF.Quad[]> {
     const quads: RDF.Quad[] = [];
 
-    const datatypePropertyIds = this.store.getDatatypePropertyIds()
-      .filter(x => this.isInScope(x));
+    const datatypePropertyIds = this.store
+      .getDatatypePropertyIds()
+      .filter((x) => this.isInScope(x));
 
-    const objectPropertyIds = this.store.getObjectPropertyIds()
-      .filter(x => this.isInScope(x));
+    const objectPropertyIds = this.store
+      .getObjectPropertyIds()
+      .filter((x) => this.isInScope(x));
 
-    [...datatypePropertyIds, ...objectPropertyIds].forEach(id => {
+    [...datatypePropertyIds, ...objectPropertyIds].forEach((id) => {
       const assignedUri = this.store.getAssignedUri(id);
       if (!assignedUri) {
-        this.logger.error(`Unable to find the assignedUri for property ${id.value}.`);
+        this.logger.error(
+          `Unable to find the assignedUri for property ${id.value}.`
+        );
         return;
       }
 
-      const subjectType = <RDF.NamedNode>this.store.findObject(id, ns.rdf('type'))!;
+      const subjectType = <RDF.NamedNode>(
+        this.store.findObject(id, ns.rdf('type'))!
+      );
 
       quads.push(
-        this.dataFactory.quad(
-          assignedUri,
-          ns.rdf('type'),
-          subjectType,
-        ),
+        this.dataFactory.quad(assignedUri, ns.rdf('type'), subjectType),
         this.dataFactory.quad(
           assignedUri,
           ns.rdfs('isDefinedBy'),
-          vocabularyUri,
-        ),
+          vocabularyUri
+        )
       );
 
       const domainWellKnownId = this.store.getDomain(id);
       if (!domainWellKnownId) {
-        this.logger.error(`Unable to find the domain well known id for property ${id.value}.`);
+        this.logger.error(
+          `Unable to find the domain well known id for property ${id.value}.`
+        );
         return;
       }
 
       const domainAssignedUri = this.store.getAssignedUri(domainWellKnownId);
       if (!domainAssignedUri) {
-        this.logger.error(`Unable to find the assigned URI for the domain of property ${id.value}.`);
+        this.logger.error(
+          `Unable to find the assigned URI for the domain of property ${id.value}.`
+        );
       } else {
         quads.push(
           this.dataFactory.quad(
             assignedUri,
             ns.rdfs('domain'),
-            domainAssignedUri,
-          ),
+            domainAssignedUri
+          )
         );
       }
 
       const rangeWellKnownId = this.store.getRange(id);
       if (!rangeWellKnownId) {
-        this.logger.error(`Unable to find the range well known id for property ${id.value}.`);
+        this.logger.error(
+          `Unable to find the range well known id for property ${id.value}.`
+        );
         return;
       }
 
       const rangeAssignedUri = this.store.getAssignedUri(rangeWellKnownId);
 
       if (!rangeAssignedUri) {
-        this.logger.error(`Unable to find assigned URI for range of property ${id.value}.`);
+        this.logger.error(
+          `Unable to find assigned URI for range of property ${id.value}.`
+        );
       } else {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.rdfs('range'),
-            rangeAssignedUri,
-          ),
+          this.dataFactory.quad(assignedUri, ns.rdfs('range'), rangeAssignedUri)
         );
       }
 
       const parent = this.store.getParentOfProperty(id);
       if (parent) {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.rdfs('subPropertyOf'),
-            parent,
-          ),
+          this.dataFactory.quad(assignedUri, ns.rdfs('subPropertyOf'), parent)
         );
       }
 
-      const definition = getVocabularyDefinition(id, this.store, this.configuration.language)
+      const definition = getVocabularyDefinition(
+        id,
+        this.store,
+        this.configuration.language
+      );
       if (!definition) {
-        this.logger.error(`Unable to find the definition for property ${id.value}.`);
+        this.logger.error(
+          `Unable to find the definition for property ${id.value}.`
+        );
       } else {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.rdfs('comment'),
-            definition,
-          ),
+          this.dataFactory.quad(assignedUri, ns.rdfs('comment'), definition)
         );
       }
 
-      const usageNote = getVocabularyUsageNote(id, this.store, this.configuration.language);
+      const usageNote = getVocabularyUsageNote(
+        id,
+        this.store,
+        this.configuration.language
+      );
       if (usageNote) {
         quads.push(
-          this.dataFactory.quad(
-            assignedUri,
-            ns.vann('usageNote'),
-            usageNote,
-          ),
+          this.dataFactory.quad(assignedUri, ns.vann('usageNote'), usageNote)
+        );
+      }
+
+      const status = this.store.getStatus(id);
+      if (status) {
+        quads.push(
+          this.dataFactory.quad(assignedUri, ns.oslo('status'), status)
         );
       }
     });
@@ -263,6 +292,8 @@ export class RdfVocabularyGenerationService implements IService {
       return false;
     }
 
-    return scope.value === 'https://data.vlaanderen.be/id/concept/scope/InPackage';
+    return (
+      scope.value === 'https://data.vlaanderen.be/id/concept/scope/InPackage'
+    );
   }
 }

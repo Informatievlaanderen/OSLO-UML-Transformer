@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/rdf-vocabulary-generator",
-  "version": "0.0.12-alpha.0",
+  "version": "0.0.13-alpha.0",
   "description": "Transform an Enterprise Architect UML diagram to RDF",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-rdf-vocabulary#readme",
