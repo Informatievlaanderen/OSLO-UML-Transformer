@@ -6,6 +6,7 @@ import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
 import { HtmlGenerationServiceConfiguration } from './config/HtmlGenerationServiceConfiguration';
 import { SpecificationType } from './utils/specificationTypeEnum';
+import { generateAnchorTag } from '@oslo-flanders/core/lib/utils/anchorTag';
 
 @injectable()
 export class HtmlGenerationService implements IService {
@@ -39,7 +40,7 @@ export class HtmlGenerationService implements IService {
 
     const env = nj.configure(this.dirs);
     env.addFilter('replaceBaseURI', this.replaceBaseURI);
-    env.addGlobal('getAnchorTag', this.getAnchorTag);
+    env.addFilter('generateAnchorTag', generateAnchorTag);
   }
 
   public async run(): Promise<void> {
@@ -104,14 +105,6 @@ export class HtmlGenerationService implements IService {
 
     await writeFile(this.configuration.output, html);
   }
-
-  private getAnchorTag = (id: string, type: string) => {
-    let domain: string = '';
-    if (id && id?.includes('#')) {
-      domain = `${id?.split('#').pop()}`;
-    }
-    return domain;
-  };
 
   private replaceBaseURI = (input: string, baseURI: string): string => {
     return input.replace(new RegExp(baseURI, 'g'), '');

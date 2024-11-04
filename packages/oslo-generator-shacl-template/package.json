@@ -37,7 +37,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.16-alpha.0",
+    "@oslo-flanders/core": "^0.0.17-alpha.0",
     "i18n": "^0.15.1",
     "inversify": "^6.0.1",
     "n3": "^1.17.2",

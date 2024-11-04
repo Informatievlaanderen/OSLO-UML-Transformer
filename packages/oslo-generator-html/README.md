@@ -32,6 +32,10 @@ The service is executed from the CLI and expects the following parameters:
 | `--templates` | path to local folder containing different templates that can be used for extending the root template | | |
 | `--rootTemplate` | Use a different template other than the default ones (ap2.j2 and voc2.j2) | No | |
 
+## Sidenote
+
+For the application profile from OSLO we use a function to generate our anchor tags. The anchor tags are formed based on the available label of each entity and/or the available label of the property. If the label is not available, we use the URI of the entity or property. The final result gets encoded using the [`encodeURIComponent`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) function. The function can be found [here](../oslo-core/lib/utils/anchorTag.ts).
+
 ## Usage
 
 ```bash
