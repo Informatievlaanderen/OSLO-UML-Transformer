@@ -500,7 +500,7 @@ export class QuadStore {
     graph: RDF.Term | null = null
   ): RDF.NamedNode | undefined {
     return <RDF.NamedNode | undefined>(
-      this.store.getObjects(subject, ns.oslo('status'), graph).shift()
+      this.store.getObjects(subject, ns.adms('status'), graph).shift()
     );
   }
 }

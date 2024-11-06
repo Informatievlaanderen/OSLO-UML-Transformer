@@ -156,7 +156,7 @@ export class RdfVocabularyGenerationService implements IService {
       const status = this.store.getStatus(subject);
       if (status) {
         quads.push(
-          this.dataFactory.quad(assignedUri, ns.oslo('status'), status)
+          this.dataFactory.quad(assignedUri, ns.adms('status'), status)
         );
       }
     });
@@ -278,7 +278,7 @@ export class RdfVocabularyGenerationService implements IService {
       const status = this.store.getStatus(id);
       if (status) {
         quads.push(
-          this.dataFactory.quad(assignedUri, ns.oslo('status'), status)
+          this.dataFactory.quad(assignedUri, ns.adms('status'), status)
         );
       }
     });

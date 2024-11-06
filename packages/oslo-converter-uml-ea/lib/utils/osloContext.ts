@@ -11,6 +11,7 @@ export function getOsloContext(): any {
     rec: 'http://www.w3.org/2001/02pd/rec54#',
     sh: 'http://www.w3.org/ns/shacl#',
     prov: 'http://www.w3.org/ns/prov#',
+    adms: 'http://www.w3.org/ns/adms#',
     packages: '@included',
     classes: '@included',
     datatypes: '@included',
@@ -107,7 +108,7 @@ export function getOsloContext(): any {
       '@type': '@id',
     },
     status: {
-      '@id': 'oslo:status',
+      '@id': 'adms:status',
       '@type': '@id',
     },
   };
