@@ -22,11 +22,9 @@ import { WebuniversumProperty } from './types/WebuniversumProperty';
 import {
   filterWebuniversumObjects,
   isInPackage,
-  isExternal,
   isInPublicationEnvironment,
   isScoped,
   sortWebuniversumObjects,
-  isInPublication,
 } from './utils/utils';
 
 @injectable()
@@ -95,17 +93,7 @@ export class JsonWebuniversumGenerationService implements IService {
         [isInPublicationEnvironment]
       );
 
-      const inPackageDataTypes = filterWebuniversumObjects(dataTypes, [
-        isInPackage,
-      ]);
       const scopedDataTypes = filterWebuniversumObjects(dataTypes, [isScoped]);
-
-      const externalProperties = [...classes, ...dataTypes].flatMap((c) =>
-        filterWebuniversumObjects(c.properties || [], [
-          isExternal,
-          () => !isInPublication(c, this.configuration.publicationEnvironment),
-        ])
-      );
 
       const inPackageProperties = [...classes, ...dataTypes].flatMap((c) =>
         filterWebuniversumObjects(c.properties || [], [isInPackage])
@@ -113,17 +101,9 @@ export class JsonWebuniversumGenerationService implements IService {
 
       template = {
         ...template,
-        entities: sortWebuniversumObjects(
-          [...inPackageClasses, ...inPublicationEnvironmentClasses],
-          this.configuration.language
-        ),
-        inPackageClasses: sortWebuniversumObjects(
-          inPackageClasses,
-          this.configuration.language
-        ),
-        // In package data types
-        inPackageDataTypes: sortWebuniversumObjects(
-          inPackageDataTypes,
+        // In package classes and in publication Environment classes
+        classes: sortWebuniversumObjects(
+          [...inPublicationEnvironmentClasses, ...inPackageClasses],
           this.configuration.language
         ),
         // scoped data types
@@ -131,26 +111,15 @@ export class JsonWebuniversumGenerationService implements IService {
           scopedDataTypes,
           this.configuration.language
         ),
-        externalProperties: sortWebuniversumObjects(
-          externalProperties,
-          this.configuration.language
-        ),
-
         // Only the in package properties will be shown
         properties: sortWebuniversumObjects(
           inPackageProperties,
-          this.configuration.language
-        ),
-        // In package classes and in package data types are merged
-        classes: sortWebuniversumObjects(
-          [...inPackageDataTypes, ...inPackageClasses],
           this.configuration.language
         ),
       };
     } else {
       template = {
         ...template,
-        entities: classes,
         classes,
         dataTypes,
         properties,

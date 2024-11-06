@@ -62,19 +62,7 @@ export class HtmlGenerationService implements IService {
 
     let data: any = {};
 
-    const {
-      baseURI,
-      entities,
-      classes,
-      dataTypes,
-      properties,
-      inPackageClasses,
-      inPackageDataTypes,
-      scopedDataTypes,
-      externalProperties,
-      inPackageProperties,
-      inPackageMerged,
-    } = config;
+    const { baseURI, entities, classes, dataTypes, properties } = config;
 
     data = {
       ...data,
@@ -83,12 +71,6 @@ export class HtmlGenerationService implements IService {
       classes,
       dataTypes,
       properties,
-      inPackageMerged,
-      inPackageClasses,
-      scopedDataTypes,
-      inPackageDataTypes,
-      inPackageProperties,
-      externalProperties,
       metadata,
       stakeholders,
     };
