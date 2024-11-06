@@ -24,10 +24,12 @@ The service is executed from the CLI and expects the following parameters:
 | `--language` | The language in which the config must be generated | :heavy_check_mark: | |
 | `--applyFiltering` | Wether or not to apply filters on the generated output. The filters limit the generated classes, datatypes, entities and properties that will be shown. If you just want all possible values, you can set the value to `false`. | No, default `true` | `true` or `false` |
 | `--publicationEnvironment` | The base URI of environment where the document will be published | :heavy_check_mark: | |
+| `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|
 
 ## Usage
 
 ```bash
 oslo-webuniversum-json-generator --input report.jsonld --language nl --publicationEnvironment https://data.vlaanderen.be
 oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be
+oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile
 ```

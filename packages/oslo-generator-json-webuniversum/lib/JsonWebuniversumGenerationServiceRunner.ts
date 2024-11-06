@@ -34,6 +34,12 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
         default: true,
         boolean: true,
       })
+      .option('specificationType', {
+        describe:
+          'The specification type to generate the webuniversum config for',
+        choices: ['ApplicationProfile', 'Vocabulary'],
+        default: 'Vocabulary',
+      })
       .option('publicationEnvironment', {
         describe:
           'The base URI of environment where the document will be published',

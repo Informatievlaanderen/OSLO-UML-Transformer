@@ -1,4 +1,5 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
+import { SpecificationType } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -31,12 +32,21 @@ export class JsonWebuniversumGenerationServiceConfiguration
    */
   private _publicationEnvironment: string | undefined;
 
+  /**
+   * The specification that must be generated: an application profile
+   * or vocabulary.
+   */
+  private _specificationType: SpecificationType | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
     this._applyFiltering = <boolean>params.applyFiltering;
     this._publicationEnvironment = <string>params.publicationEnvironment;
+    this._specificationType = this.getSpecificationType(
+      <string>params.specificationType
+    );
   }
 
   public get input(): string {
@@ -71,5 +81,29 @@ export class JsonWebuniversumGenerationServiceConfiguration
       );
     }
     return this._publicationEnvironment;
+  }
+
+  public get specificationType(): SpecificationType {
+    if (this._specificationType === undefined) {
+      throw new Error(
+        `Trying to access property "specificationType" before it was set.`
+      );
+    }
+    return this._specificationType;
+  }
+
+  private getSpecificationType(value: string): SpecificationType {
+    switch (value) {
+      case 'Vocabulary':
+        return SpecificationType.Vocabulary;
+
+      case 'ApplicationProfile':
+        return SpecificationType.ApplicationProfile;
+
+      default:
+        throw new Error(
+          `Unable to translate ${value} to a specification type.`
+        );
+    }
   }
 }

@@ -12,6 +12,7 @@ import {
   ns,
   getMinCount,
   getMaxCount,
+  SpecificationType,
 } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import { JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
@@ -101,10 +102,12 @@ export class JsonWebuniversumGenerationService implements IService {
 
       template = {
         ...template,
-        // In package classes and in publication Environment classes
-        classes: sortWebuniversumObjects(
-          [...inPublicationEnvironmentClasses, ...inPackageClasses],
-          this.configuration.language
+        classes: this.getFilteredClasses(
+          classes,
+          inPublicationEnvironmentClasses,
+          inPackageClasses,
+          this.configuration.language,
+          this.configuration.specificationType
         ),
         // scoped data types
         dataTypes: sortWebuniversumObjects(
@@ -147,6 +150,25 @@ export class JsonWebuniversumGenerationService implements IService {
       );
 
     return inPackageUri;
+  }
+
+  // AP needs to show all classes (no scope filtering)
+  // In package classes and in publication Environment classes
+  // Introduce a new parameter similar to html-generation-service
+  private getFilteredClasses(
+    classes: WebuniversumObject[],
+    inPublicationEnvironmentClasses: WebuniversumObject[],
+    inPackageClasses: WebuniversumObject[],
+    language: string,
+    specificationType: SpecificationType
+  ): WebuniversumObject[] {
+    if (specificationType === SpecificationType.ApplicationProfile) {
+      return sortWebuniversumObjects(classes, language);
+    }
+    return sortWebuniversumObjects(
+      [...inPublicationEnvironmentClasses, ...inPackageClasses],
+      language
+    );
   }
 
   private getBaseURI(): string {

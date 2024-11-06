@@ -1,9 +1,11 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
+import { SpecificationType } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
-import { SpecificationType } from '../utils/specificationTypeEnum';
 
 @injectable()
-export class HtmlRespecGenerationServiceConfiguration implements IConfiguration {
+export class HtmlRespecGenerationServiceConfiguration
+  implements IConfiguration
+{
   /**
    * Local path or URL to JSON-LD file to generate ReSpec HTML document from
    */
@@ -34,7 +36,9 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
-    this._specificationType = this.getSpecificationType(<string>params.specificationType);
+    this._specificationType = this.getSpecificationType(
+      <string>params.specificationType
+    );
     this._specificationName = <string>params.specificationName;
   }
 
@@ -55,7 +59,7 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
   public get language(): string {
     if (!this._language) {
       throw new Error(
-        `Trying to access property "language" before it was set.`,
+        `Trying to access property "language" before it was set.`
       );
     }
     return this._language;
@@ -63,7 +67,9 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
 
   public get specificationType(): SpecificationType {
     if (this._specificationType === undefined) {
-      throw new Error(`Trying to access property "specificationType" before it was set.`);
+      throw new Error(
+        `Trying to access property "specificationType" before it was set.`
+      );
     }
     return this._specificationType;
   }
@@ -71,7 +77,7 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
   public get specificationName(): string {
     if (!this._specificationName) {
       throw new Error(
-        `Trying to access property "specificationName" before it was set.`,
+        `Trying to access property "specificationName" before it was set.`
       );
     }
     return this._specificationName;
@@ -86,7 +92,9 @@ export class HtmlRespecGenerationServiceConfiguration implements IConfiguration 
         return SpecificationType.ApplicationProfile;
 
       default:
-        throw new Error(`Unable to translate ${value} to a specification type.`);
+        throw new Error(
+          `Unable to translate ${value} to a specification type.`
+        );
     }
   }
 }

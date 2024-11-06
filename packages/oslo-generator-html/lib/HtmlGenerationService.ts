@@ -62,12 +62,12 @@ export class HtmlGenerationService implements IService {
 
     let data: any = {};
 
-    const { baseURI, entities, classes, dataTypes, properties } = config;
+    
+    const { baseURI, classes, dataTypes, properties } = config;
 
     data = {
       ...data,
       baseURI,
-      entities,
       classes,
       dataTypes,
       properties,
