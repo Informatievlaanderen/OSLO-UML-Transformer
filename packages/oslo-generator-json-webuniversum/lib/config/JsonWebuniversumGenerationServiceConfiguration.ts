@@ -39,7 +39,6 @@ export class JsonWebuniversumGenerationServiceConfiguration
   private _specificationType: SpecificationType | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
-    console.log(params);
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
