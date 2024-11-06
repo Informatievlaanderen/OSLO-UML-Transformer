@@ -1,11 +1,10 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, dirname } from 'path';
-import { IService } from '@oslo-flanders/core';
+import { IService, SpecificationType } from '@oslo-flanders/core';
 import { Logger, ServiceIdentifier, fetchFileOrUrl } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
 import { HtmlGenerationServiceConfiguration } from './config/HtmlGenerationServiceConfiguration';
-import { SpecificationType } from './utils/specificationTypeEnum';
 import { generateAnchorTag } from '@oslo-flanders/core/lib/utils/anchorTag';
 
 @injectable()
