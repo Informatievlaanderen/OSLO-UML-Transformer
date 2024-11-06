@@ -86,29 +86,6 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
       JSON.stringify(
         {
           baseURI: 'http://example.org/ns/domain#',
-          entities: [
-            {
-              id: 'http://example.org/id/class/1',
-              vocabularyLabel: {
-                en: 'VocTestClass',
-              },
-              applicationProfileLabel: {
-                en: 'ApTestClass',
-              },
-              vocabularyDefinition: {
-                en: 'VocDefinition',
-              },
-              applicationProfileDefinition: {
-                en: 'ApDefinition',
-              },
-              vocabularyUsageNote: {
-                en: 'VocUsageNote',
-              },
-              applicationProfileUsageNote: {
-                en: 'ApUsageNote',
-              },
-            },
-          ],
           classes: [
             {
               id: 'http://example.org/id/class/1',
