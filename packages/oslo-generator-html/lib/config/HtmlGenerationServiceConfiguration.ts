@@ -1,6 +1,6 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
+import { SpecificationType } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
-import { SpecificationType } from '../utils/specificationTypeEnum';
 
 @injectable()
 export class HtmlGenerationServiceConfiguration implements IConfiguration {
@@ -59,7 +59,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
     this._templates = <string>params.templates;
     this._rootTemplate = <string>params.rootTemplate;
     this._specificationType = this.getSpecificationType(
-      <string>params.specificationType,
+      <string>params.specificationType
     );
     this._specificationName = <string>params.specificationName;
   }
@@ -81,7 +81,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   public get metadata(): string {
     if (!this._metadata) {
       throw new Error(
-        `Trying to access property "metadata" before it was set.`,
+        `Trying to access property "metadata" before it was set.`
       );
     }
     return this._metadata;
@@ -90,7 +90,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   public get stakeholders(): string {
     if (!this._stakeholders) {
       throw new Error(
-        `Trying to access property "stakeholders" before it was set.`,
+        `Trying to access property "stakeholders" before it was set.`
       );
     }
     return this._stakeholders;
@@ -99,7 +99,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   public get language(): string {
     if (!this._language) {
       throw new Error(
-        `Trying to access property "language" before it was set.`,
+        `Trying to access property "language" before it was set.`
       );
     }
     return this._language;
@@ -108,7 +108,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   public get specificationType(): SpecificationType {
     if (this._specificationType === undefined) {
       throw new Error(
-        `Trying to access property "specificationType" before it was set.`,
+        `Trying to access property "specificationType" before it was set.`
       );
     }
     return this._specificationType;
@@ -117,7 +117,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
   public get specificationName(): string {
     if (!this._specificationName) {
       throw new Error(
-        `Trying to access property "specificationName" before it was set.`,
+        `Trying to access property "specificationName" before it was set.`
       );
     }
     return this._specificationName;
@@ -141,7 +141,7 @@ export class HtmlGenerationServiceConfiguration implements IConfiguration {
 
       default:
         throw new Error(
-          `Unable to translate ${value} to a specification type.`,
+          `Unable to translate ${value} to a specification type.`
         );
     }
   }
