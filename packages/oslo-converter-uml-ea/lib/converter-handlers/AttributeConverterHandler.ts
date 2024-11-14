@@ -298,10 +298,10 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       }
     }
 
-    if (!rangeURI) {
-      throw new Error(
-        `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`
-      );
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-344
+    // Needed a way to log errors without throwing them so that the conversion process can continue
+    if (this.handleRangeError(object, rangeURI)) {
+      return [];
     }
 
     quads.push(
@@ -360,6 +360,22 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     }
 
     return quads;
+  }
+
+  private handleRangeError(
+    object: EaAttribute,
+    rangeURI: string | null
+  ): boolean {
+    if (!rangeURI) {
+      const error: string = `[AttributeConverterHandler]: Unable to determine the range for attribute (${object.path}).`;
+      if (this.config.debug) {
+        this.logger.error(error);
+        return true;
+      } else {
+        throw new Error(error);
+      }
+    }
+    return false;
   }
 
   private getDatatypeQuads(
