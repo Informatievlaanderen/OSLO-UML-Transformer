@@ -32,6 +32,10 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    * The base URI of the environment where the document will be published
    */
   private _publicationEnvironment: string | undefined;
+  /**
+   * A boolean to enable debug mode which is more resilient to errors
+   */
+  private _debug: boolean | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
@@ -40,6 +44,7 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._versionId = <string>params.versionId;
     this._outputFormat = <string>params.outputFormat;
     this._publicationEnvironment = <string>params.publicationEnvironment;
+    this._debug = <boolean>params.debug;
   }
 
   public get umlFile(): string {
@@ -51,36 +56,50 @@ export class EaUmlConverterConfiguration implements IConfiguration {
 
   public get diagramName(): string {
     if (!this._diagramName) {
-      throw new Error(`Trying to access property "diagramName" before it was set.`);
+      throw new Error(
+        `Trying to access property "diagramName" before it was set.`
+      );
     }
     return this._diagramName;
   }
 
   public get outputFile(): string {
     if (!this._outputFile) {
-      throw new Error(`Trying to access property "outputFile" before it was set.`);
+      throw new Error(
+        `Trying to access property "outputFile" before it was set.`
+      );
     }
     return this._outputFile;
   }
 
   public get versionId(): string {
     if (!this._versionId) {
-      throw new Error(`Trying to access property "versionId" before it was set.`);
+      throw new Error(
+        `Trying to access property "versionId" before it was set.`
+      );
     }
     return this._versionId;
   }
 
   public get outputFormat(): string {
     if (!this._outputFormat) {
-      throw new Error(`Trying to access property "outputFormat" before it was set.`);
+      throw new Error(
+        `Trying to access property "outputFormat" before it was set.`
+      );
     }
     return this._outputFormat;
   }
 
   public get publicationEnvironment(): string {
     if (!this._publicationEnvironment) {
-      throw new Error(`Trying to access property "publicationEnvironment" before it was set.`);
+      throw new Error(
+        `Trying to access property "publicationEnvironment" before it was set.`
+      );
     }
     return this._publicationEnvironment;
+  }
+
+  public get debug(): boolean {
+    return !!this._debug;
   }
 }
