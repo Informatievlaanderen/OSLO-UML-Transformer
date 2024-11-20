@@ -96,9 +96,9 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[];
   }> {
     const parser = parse({ delimiter: ';', columns: true });
-    parser.on('error', (error: unknown) => {
+    parser.on('error', (error: any) => {
       this.logger.error(
-        `[CsvConverterHandler] Unable to convert the provided csv into a stakeholders-file. ${error}`,
+        `[CsvConverterHandler] Unable to convert the provided csv into a stakeholders-file. ${error} for record ${error?.record}`,
       );
     });
     const transformer = new ToJsonTransformer(this.configuration.outputFormat);
