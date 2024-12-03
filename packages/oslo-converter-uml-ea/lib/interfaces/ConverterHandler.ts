@@ -116,7 +116,7 @@ export abstract class ConverterHandler<T extends EaObject> {
           object,
           <TagNames>tag.tagName,
         );
-        console.log(values);
+        // console.log(values);
         this.addValuesToQuads(
           values,
           objectInternalId,
