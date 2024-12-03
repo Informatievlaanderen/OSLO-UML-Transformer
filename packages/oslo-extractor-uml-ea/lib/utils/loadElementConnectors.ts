@@ -38,11 +38,6 @@ export function loadElementConnectors(
     WHERE source.Object_Type in ('Class', 'DataType', 'Enumeration')
       AND destination.Object_Type in ('Class', 'DataType', 'Enumeration')`;
 
-  const data = <any[]>alasql(query, [connectors, objects, objects]);
-  data.forEach((item) => {
-    console.log(item);
-  });
-
   model.connectors = (<any[]>alasql(query, [connectors, objects, objects])).map(
     (item) =>
       new EaConnector(
