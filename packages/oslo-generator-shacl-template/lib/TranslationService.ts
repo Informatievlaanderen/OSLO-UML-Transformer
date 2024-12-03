@@ -4,6 +4,7 @@ import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplate
 import { inject, injectable } from 'inversify';
 import { TranslationKey } from './enums/TranslationKey';
 import { TranslationConfig } from './types/TranslationConfig';
+import { Language } from '@oslo-flanders/core/lib/enums/Language';
 
 @injectable()
 export class TranslationService {
@@ -11,11 +12,11 @@ export class TranslationService {
   private readonly i18n: I18n;
 
   public constructor(
-    @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger
+    @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
   ) {
     this.logger = logger;
     this.i18n = new I18n({
-      locales: ['nl', 'en', 'fr', 'de'],
+      locales: <string[]>Object.values(Language),
       directory: `${__dirname}/locales`,
       defaultLocale: 'nl',
     });

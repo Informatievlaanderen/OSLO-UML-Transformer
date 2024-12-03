@@ -4,6 +4,7 @@
 import 'reflect-metadata';
 import { VoidLogger } from '@oslo-flanders/core';
 import type { Logger } from '@oslo-flanders/core';
+import { Language } from '@oslo-flanders/core/lib/enums/Language';
 import { I18n } from 'i18n';
 import { TranslationKey } from '../lib/enums/TranslationKey';
 import { TranslationService } from '../lib/TranslationService';
@@ -20,7 +21,7 @@ describe('TranslationService', () => {
     service = new TranslationService(logger);
 
     i18n = new I18n({
-      locales: ['nl', 'en', 'fr', 'de'],
+      locales: <string[]>Object.values(Language),
       directory: `${__dirname}/../lib/locales`,
       defaultLocale: 'nl',
     });
