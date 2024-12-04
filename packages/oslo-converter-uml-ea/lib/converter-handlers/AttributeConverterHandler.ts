@@ -50,10 +50,6 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
           !enumerationClasses.some((y) => y.id === x.classId),
       )
       .forEach((object) => {
-        if (object.name === 'herkomstType') {
-          console.log(object);
-        }
-
         store.addQuads(this.createQuads(object, uriRegistry, model));
       });
 

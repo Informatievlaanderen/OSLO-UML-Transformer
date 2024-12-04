@@ -27,10 +27,12 @@ The service is executed from the CLI and expects the following parameters:
 | `--versionId` | Version identifier for the document | :heavy_check_mark: ||
 | `--outputFile` | The name of the RDF output file | No, but if omitted, output is written to process.stdout ||
 | `--outputFormat` | RDF content-type specifiying the output format | :heavy_check_mark: | `application/ld+json` |
+| `--allTags` | Add all tags from EA to the generated output | No, default `false` | `true` or `false` |
 
 ## Usage
 
 ```bash
 oslo-converter-ea --umlFile path/to/uml/diagram.eap --diagramName "diagramName" --versionId "test/1" --outputFile path/to/output.jsonld --outputFormat application/ld+json --publicationEnvironment https://data.vlaanderen.be
 oslo-converter-ea --umlFile https://github.com/path/to/uml/diagram.eap --diagramName "My UML diagram" --versionId "test/1" --outputFormat application/ld+json --publicationEnvironment https://data.vlaanderen.be
+oslo-converter-ea --umlFile https://github.com/path/to/uml/diagram.eap --diagramName "My UML diagram" --versionId "test/1" --outputFormat application/ld+json --publicationEnvironment https://data.vlaanderen.be --allTags true
 ```

@@ -505,7 +505,7 @@ export class QuadStore {
   }
 
   /**
-   * Finds all the other tags. 
+   * Finds all the other tags.
    * This could be any tag that is not a label, definition, usage note, scope, minCardinality, maxCardinality, parent, range, domain, status or codelist
    * @param subject The RDF.Term to find the other tags for
    * @param store A N3 quad store
@@ -515,13 +515,41 @@ export class QuadStore {
     subject: RDF.Term,
     graph: RDF.NamedNode | null = null,
   ): RDF.Quad[] {
-    const any: RDF.Quad[] = this.store.getQuads(
+    const allQuads: RDF.Quad[] = this.store.getQuads(
       subject,
-      ns.oslo('any'),
+      null,
       null,
       graph,
     );
 
-    return any;
+    // Filter quads where the predicate includes 'any' partially
+    const anyQuads: RDF.Quad[] = allQuads.filter((quad) =>
+      quad.predicate.value.includes(ns.oslo('any').value),
+    );
+    return anyQuads;
+  }
+
+  /**
+   * Use the other tags method from earlier and sanitize the results so the ns('any') is removed
+   * @param subject The RDF.Term to find the other tags for
+   * @param store A N3 quad store
+   * @returns An array of RDF.Literals
+   */
+  public getSanitizedOtherTags(
+    subject: RDF.Term,
+    graph: RDF.NamedNode | null = null,
+  ): RDF.Quad[] {
+    const quads: RDF.Quad[] = this.getOtherTags(subject, graph);
+    return quads.map((quad) => {
+      const sanitizedPredicate = N3.DataFactory.namedNode(
+        quad.predicate.value.replace(`${ns.oslo('any').value}:`, ''),
+      );
+      return N3.DataFactory.quad(
+        quad.subject,
+        sanitizedPredicate,
+        quad.object,
+        quad.graph,
+      );
+    });
   }
 }

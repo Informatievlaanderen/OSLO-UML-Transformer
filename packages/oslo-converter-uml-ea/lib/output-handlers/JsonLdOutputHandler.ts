@@ -97,7 +97,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const parentQuads: RDF.NamedNode[] = store.getParentsOfClass(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
-      const other: RDF.Quad[] | undefined = store.getOtherTags(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
 
@@ -167,6 +168,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
         store.getMaxCardinality(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       return {
         '@id': subject.value,
@@ -177,7 +180,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labelQuads),
         ...this.mapDefinitions(definitionQuads),
         ...this.mapUsageNotes(usageNoteQuads),
-        // ...this.mapOtherTags()
+        ...this.mapOtherTags(other),
         ...(domainQuad && {
           domain: {
             '@id': domainQuad.value,
@@ -217,6 +220,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
       const scopeQuad: RDF.NamedNode | undefined = store.getScope(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       return {
         '@id': subject.value,
@@ -227,6 +232,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labelQuads),
         ...this.mapDefinitions(definitionQuads),
         ...this.mapUsageNotes(usageNoteQuads),
+        ...this.mapOtherTags(other),
         ...(scopeQuad && {
           scope: scopeQuad.value,
         }),
@@ -272,6 +278,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
         subject,
         referencedEntitiesGraph,
       );
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
       const scope: RDF.NamedNode | undefined = store.getScope(
         subject,
         referencedEntitiesGraph,
@@ -293,6 +301,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labels),
         ...this.mapDefinitions(definitions),
         ...this.mapUsageNotes(usageNotes),
+        ...this.mapOtherTags(other),
         ...this.mapStatuses(statuses),
         ...(scope && {
           scope: scope.value,
@@ -345,14 +354,13 @@ export class JsonLdOutputHandler implements IOutputHandler {
   }
 
   private mapOtherTags(other: RDF.Quad[]): any {
-    const otherTags: RDF.Quad[] = other.filter((x) =>
-      x.predicate.equals(ns.oslo('any')),
-    );
-    return {
-      ...(otherTags.length > 0 && {
-        other: otherTags.map((x) => this.mapToLiteral(x)),
-      }),
-    };
+    const result: any = {};
+
+    other.forEach((quad) => {
+      result[quad.predicate.value] = this.mapToLiteral(quad);
+    });
+
+    return result;
   }
 
   private mapUsageNotes(usageNotes: RDF.Quad[]): any {

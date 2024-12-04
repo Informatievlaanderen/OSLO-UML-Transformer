@@ -79,11 +79,11 @@ export abstract class ConverterHandler<T extends EaObject> {
     quads: RDF.Quad[],
     graph: RDF.Quad_Graph = this.df.defaultGraph(),
   ): void {
-    // this.addDefinitions(object, objectInternalId, graph, quads);
-    // this.addLabels(object, objectInternalId, graph, quads);
-    // this.addUsageNotes(object, objectInternalId, graph, quads);
-    // this.addStatus(object, objectInternalId, graph, quads);
-    // this.addOtherTags(object, objectInternalId, graph, quads);
+    this.addDefinitions(object, objectInternalId, graph, quads);
+    this.addLabels(object, objectInternalId, graph, quads);
+    this.addUsageNotes(object, objectInternalId, graph, quads);
+    this.addStatus(object, objectInternalId, graph, quads);
+    this.addOtherTags(object, objectInternalId, graph, quads);
   }
 
   public addOtherTags(
@@ -97,12 +97,10 @@ export abstract class ConverterHandler<T extends EaObject> {
 
     const unprocessedTags = allTags.filter((tag) => {
       // Remove the language code suffix if it matches a known language code
-      const parts: string[] = tag.tagName.split('-');
-      const languageCode: string = parts[parts.length - 1];
-      const knownLanguageCodes = <string[]>Object.values(Language);
-      const tagNameBase = knownLanguageCodes.includes(languageCode)
-        ? parts.slice(0, -1).join('-')
-        : tag.tagName;
+      const tagNameBase = this.getBaseTagName(
+        tag.tagName,
+        Object.values(Language),
+      );
       return !processedTagNames.has(tagNameBase);
     });
 
@@ -111,16 +109,20 @@ export abstract class ConverterHandler<T extends EaObject> {
         `[ElementConverterHandler]: Unprocessed tags for element (${object.path}): ${unprocessedTags?.map((item) => item.tagName).join(', ')}`,
       );
       unprocessedTags.forEach((tag) => {
+        const tagNameBase = this.getBaseTagName(
+          tag.tagName,
+          Object.values(Language),
+        );
         // Cast this unknown tag to a TagNames
         const values: RDF.Literal[] = this.getTagValue(
           object,
-          <TagNames>tag.tagName,
+          <TagNames>tagNameBase,
         );
-        // console.log(values);
+
         this.addValuesToQuads(
           values,
           objectInternalId,
-          ns.oslo('any'),
+          ns.oslo(`any:${tagNameBase}`),
           graph,
           quads,
         );
@@ -299,6 +301,20 @@ export abstract class ConverterHandler<T extends EaObject> {
         graph,
       ),
     );
+  }
+
+  /**
+   * Extract the value for a tag
+   * @param tagName - The name of the tag to extract the value for
+   * @param languages - An array of the possible LanguageCodes
+   * @returns - A string with the value of the tag without any language code suffix
+   */
+  private getBaseTagName(tagName: string, languages: string[]): string {
+    const parts: string[] = tagName.split('-');
+    const languageCode: string = parts[parts.length - 1];
+    return languages.includes(languageCode)
+      ? parts.slice(0, -1).join('-')
+      : tagName;
   }
 
   /**

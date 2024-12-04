@@ -163,8 +163,9 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     this.addUsageNotes(object, objectInternalId, this.df.defaultGraph(), quads);
     this.addStatus(object, objectInternalId, this.df.defaultGraph(), quads);
     // Add the remaining tags that are not in TagNames enum if the config requires so.
-    // TODO Link this behaviour to a flag
-    this.addOtherTags(object, objectInternalId, this.df.defaultGraph(), quads);
+    if (this.config.allTags) {
+      this.addOtherTags(object, objectInternalId, this.df.defaultGraph(), quads);
+    }
 
     // To be able to determine the scope of the element,
     // we need to compare it to the base URI of the package
