@@ -14,6 +14,7 @@ import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterService
 import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 import { Status } from '../enums/Status';
+import { Language } from '@oslo-flanders/core/lib/enums/Language';
 
 @injectable()
 export abstract class ConverterHandler<T extends EaObject> {
@@ -32,7 +33,7 @@ export abstract class ConverterHandler<T extends EaObject> {
   public abstract convert(
     model: DataRegistry,
     uriRegistry: UriRegistry,
-    store: QuadStore
+    store: QuadStore,
   ): Promise<QuadStore>;
 
   /**
@@ -45,7 +46,7 @@ export abstract class ConverterHandler<T extends EaObject> {
    */
   public abstract assignUris(
     normalizedModel: DataRegistry,
-    uriRegistry: UriRegistry
+    uriRegistry: UriRegistry,
   ): Promise<UriRegistry>;
 
   /**
@@ -54,7 +55,7 @@ export abstract class ConverterHandler<T extends EaObject> {
   public abstract createQuads(
     object: T,
     uriRegistry: UriRegistry,
-    model?: DataRegistry
+    model?: DataRegistry,
   ): RDF.Quad[];
 
   /**
@@ -62,7 +63,7 @@ export abstract class ConverterHandler<T extends EaObject> {
    * @param model - The data registry containing the entities
    */
   public abstract filterIgnoredObjects(
-    model: DataRegistry
+    model: DataRegistry,
   ): Promise<DataRegistry>;
 
   /**
@@ -76,42 +77,87 @@ export abstract class ConverterHandler<T extends EaObject> {
     object: T,
     objectInternalId: RDF.NamedNode,
     quads: RDF.Quad[],
-    graph: RDF.Quad_Graph = this.df.defaultGraph()
+    graph: RDF.Quad_Graph = this.df.defaultGraph(),
   ): void {
     this.addDefinitions(object, objectInternalId, graph, quads);
     this.addLabels(object, objectInternalId, graph, quads);
     this.addUsageNotes(object, objectInternalId, graph, quads);
     this.addStatus(object, objectInternalId, graph, quads);
+    this.addOtherTags(object, objectInternalId, graph, quads);
+  }
+
+  public addOtherTags(
+    object: T,
+    objectInternalId: RDF.NamedNode,
+    graph: RDF.Quad_Graph,
+    quads: RDF.Quad[],
+  ) {
+    const processedTagNames = new Set<string>(Object.values(TagNames));
+    const allTags: EaTag[] = object.tags || [];
+
+    const unknownTags = allTags.filter((tag) => {
+      // Remove the language code suffix if it matches a known language code
+      const tagNameBase = this.getBaseTagName(
+        tag.tagName,
+        Object.values(Language),
+      );
+      return !processedTagNames.has(tagNameBase);
+    });
+
+    if (unknownTags.length) {
+      this.logger.info(
+        `[ElementConverterHandler]: Unknown tags for element (${object.path}): ${unknownTags?.map((item) => item.tagName).join(', ')}. These tags will be added.`,
+      );
+      unknownTags.forEach((tag) => {
+        const tagNameBase = this.getBaseTagName(
+          tag.tagName,
+          Object.values(Language),
+        );
+        // Cast this unknown tag to a TagNames
+        const values: RDF.Literal[] = this.getTagValue(
+          object,
+          <TagNames>tagNameBase,
+        );
+
+        this.addValuesToQuads(
+          values,
+          objectInternalId,
+          ns.oslo(`any:${tagNameBase}`),
+          graph,
+          quads,
+        );
+      });
+    }
   }
 
   public addDefinitions(
     object: T,
     objectInternalId: RDF.NamedNode,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     const apDefinitions: RDF.Literal[] = this.getTagValue(
       object,
-      TagNames.ApDefinition
+      TagNames.ApDefinition,
     );
     this.addValuesToQuads(
       apDefinitions,
       objectInternalId,
       ns.oslo('apDefinition'),
       graph,
-      quads
+      quads,
     );
 
     const vocDefinitions: RDF.Literal[] = this.getTagValue(
       object,
-      TagNames.Definition
+      TagNames.Definition,
     );
     this.addValuesToQuads(
       vocDefinitions,
       objectInternalId,
       ns.oslo('vocDefinition'),
       graph,
-      quads
+      quads,
     );
   }
 
@@ -119,7 +165,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     object: T,
     objectInternalId: RDF.NamedNode,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     const apLabels: RDF.Literal[] = this.getTagValue(object, TagNames.ApLabel);
     this.addValuesToQuads(
@@ -127,7 +173,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       objectInternalId,
       ns.oslo('apLabel'),
       graph,
-      quads
+      quads,
     );
 
     const vocLabels: RDF.Literal[] = this.getTagValue(object, TagNames.Label);
@@ -136,7 +182,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       objectInternalId,
       ns.oslo('vocLabel'),
       graph,
-      quads
+      quads,
     );
 
     // The name of the object as it appears on the diagram is also provided
@@ -145,7 +191,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       objectInternalId,
       ns.oslo('diagramLabel'),
       graph,
-      quads
+      quads,
     );
   }
 
@@ -153,30 +199,30 @@ export abstract class ConverterHandler<T extends EaObject> {
     object: T,
     objectInternalId: RDF.NamedNode,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     const apUsageNotes: RDF.Literal[] = this.getTagValue(
       object,
-      TagNames.ApUsageNote
+      TagNames.ApUsageNote,
     );
     this.addValuesToQuads(
       apUsageNotes,
       objectInternalId,
       ns.oslo('apUsageNote'),
       graph,
-      quads
+      quads,
     );
 
     const vocUsageNotes: RDF.Literal[] = this.getTagValue(
       object,
-      TagNames.UsageNote
+      TagNames.UsageNote,
     );
     this.addValuesToQuads(
       vocUsageNotes,
       objectInternalId,
       ns.oslo('vocUsageNote'),
       graph,
-      quads
+      quads,
     );
   }
 
@@ -184,7 +230,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     object: T,
     objectInternalId: RDF.NamedNode,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     const status: RDF.Literal[] = this.getTagValue(object, TagNames.Status);
 
@@ -201,12 +247,12 @@ export abstract class ConverterHandler<T extends EaObject> {
           objectInternalId,
           ns.oslo('status'),
           this.df.namedNode(status[0].value),
-          graph
-        )
+          graph,
+        ),
       );
     } else {
       this.logger.warn(
-        `[ConverterHandler]: Incorrect status found for ${object.path}. The status will be ignored.`
+        `[ConverterHandler]: Incorrect status found for ${object.path}. The status will be ignored.`,
       );
     }
   }
@@ -225,7 +271,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     packageBaseUri: string,
     idUriMap: Map<number, URL>,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     const uri: URL | undefined = idUriMap.get(object.id);
 
@@ -233,7 +279,7 @@ export abstract class ConverterHandler<T extends EaObject> {
 
     if (!uri) {
       this.logger.warn(
-        `[ConverterHandler]: Unable to find the URI for object with path ${object.path}. Setting scope to "Undefined".`
+        `[ConverterHandler]: Unable to find the URI for object with path ${object.path}. Setting scope to "Undefined".`,
       );
       scope = Scope.Undefined;
       return;
@@ -252,9 +298,23 @@ export abstract class ConverterHandler<T extends EaObject> {
         objectInternalId,
         ns.oslo('scope'),
         this.df.namedNode(scope),
-        graph
-      )
+        graph,
+      ),
     );
+  }
+
+  /**
+   * Extract the value for a tag
+   * @param tagName - The name of the tag to extract the value for
+   * @param languages - An array of the possible LanguageCodes
+   * @returns - A string with the value of the tag without any language code suffix
+   */
+  private getBaseTagName(tagName: string, languages: string[]): string {
+    const parts: string[] = tagName.split('-');
+    const languageCode: string = parts[parts.length - 1];
+    return languages.includes(languageCode)
+      ? parts.slice(0, -1).join('-')
+      : tagName;
   }
 
   /**
@@ -280,9 +340,10 @@ export abstract class ConverterHandler<T extends EaObject> {
     objectInternalId: RDF.NamedNode,
     predicate: RDF.NamedNode,
     graph: RDF.Quad_Graph,
-    quads: RDF.Quad[]
+    quads: RDF.Quad[],
   ): void {
     values.forEach((value) => {
+      // console.log(value);
       quads.push(this.df.quad(objectInternalId, predicate, value, graph));
     });
   }
@@ -294,7 +355,7 @@ export abstract class ConverterHandler<T extends EaObject> {
    */
   private getLanguageDependentTag(object: T, name: TagNames): RDF.Literal[] {
     const tags: EaTag[] = object.tags.filter((x: EaTag) =>
-      x.tagName.startsWith(name)
+      x.tagName.startsWith(name),
     );
     const literals: RDF.Literal[] = [];
 
@@ -302,19 +363,26 @@ export abstract class ConverterHandler<T extends EaObject> {
 
     tags.forEach((tag: EaTag) => {
       const parts: string[] = tag.tagName.split('-');
-      const languageCode: string = parts[parts.length - 1];
+      let languageCode: string = parts[parts.length - 1];
+
+      // Add fallback for when the language is not defined to always pick the dutch language as default. Implemented as part of the
+      // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-343 solution
+      const knownLanguageCodes = <string[]>Object.values(Language);
+      languageCode = knownLanguageCodes.includes(languageCode)
+        ? languageCode
+        : Language.NL;
 
       const tagValue: string = tag.tagValue;
       if (!tagValue) {
         this.logger.warn(
-          `[ConverterHandler]: Entity with path ${object.path} has an empty value for tag ${tag.tagName}.`
+          `[ConverterHandler]: Entity with path ${object.path} has an empty value for tag ${tag.tagName}.`,
         );
         return;
       }
 
       if (languageToTagValueMap.has(languageCode)) {
         this.logger.warn(
-          `[ConverterHandler]: Entity with path ${object.path} has already a value for ${tag.tagName} in language ${languageCode}, but will be overwritten.`
+          `[ConverterHandler]: Entity with path ${object.path} has already a value for ${tag.tagName} in language ${languageCode}, but will be overwritten.`,
         );
       }
 

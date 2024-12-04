@@ -15,6 +15,7 @@ import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toPascalCase } from '../utils/utils';
+import { Language } from '@oslo-flanders/core/lib/enums/Language';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
@@ -179,6 +180,10 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     this.addLabels(object, objectInternalId, this.df.defaultGraph(), quads);
     this.addUsageNotes(object, objectInternalId, this.df.defaultGraph(), quads);
     this.addStatus(object, objectInternalId, this.df.defaultGraph(), quads);
+    // Add the remaining tags that are not in TagNames enum if the config requires so.
+    if (this.config.allTags) {
+      this.addOtherTags(object, objectInternalId, this.df.defaultGraph(), quads);
+    }
 
     // To be able to determine the scope of the element,
     // we need to compare it to the base URI of the package

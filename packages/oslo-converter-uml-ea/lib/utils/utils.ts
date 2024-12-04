@@ -71,6 +71,7 @@ export function updateNameTag(tags: EaTag[], connectorName: string): EaTag[] {
   return tags;
 }
 
+// Historical usage. Geert Thijs used a lot of carets in his models
 function removeCaret(text: string): string {
   return text.replace(/^\^/u, '');
 }

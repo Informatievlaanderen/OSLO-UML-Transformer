@@ -33,7 +33,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     const versionIdQuad: RDF.Quad | undefined = store.findQuad(
       null,
       ns.prov('generatedAtTime'),
-      null
+      null,
     );
 
     if (!versionIdQuad) {
@@ -47,22 +47,22 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getPackages(store: QuadStore): Promise<any> {
     const packageIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
-      ns.oslo('Package')
+      ns.oslo('Package'),
     );
     return packageIds.map((id) => {
       const packageQuads: RDF.Quad[] = store.findQuads(id, null, null);
 
       const baseURIValue: RDF.Quad | undefined = packageQuads.find((x) =>
-        x.predicate.equals(ns.oslo('baseURI'))
+        x.predicate.equals(ns.oslo('baseURI')),
       );
       if (!baseURIValue) {
         throw new Error(
-          `Unable to find base URI for package with internal id ${id.value}`
+          `Unable to find base URI for package with internal id ${id.value}`,
         );
       }
 
       const assignedURI: RDF.Quad | undefined = packageQuads.find((x) =>
-        x.predicate.equals(ns.oslo('assignedURI'))
+        x.predicate.equals(ns.oslo('assignedURI')),
       );
       return {
         '@id': id.value,
@@ -81,7 +81,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     const classIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
       ns.owl('Class'),
-      df.defaultGraph()
+      df.defaultGraph(),
     );
 
     return classIds.reduce<any[]>((jsonLdClasses, subject) => {
@@ -97,6 +97,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const parentQuads: RDF.NamedNode[] = store.getParentsOfClass(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
 
@@ -109,6 +111,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labelQuads),
         ...this.mapDefinitions(definitionQuads),
         ...this.mapUsageNotes(usageNoteQuads),
+        ...this.mapOtherTags(other),
         scope: scopeQuad?.value,
         ...(parentQuads.length > 0 && {
           parent: parentQuads.map((x) => ({ '@id': x.value })),
@@ -126,15 +129,15 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getAttributes(store: QuadStore): Promise<any> {
     const dataTypeAttributeIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
-      ns.owl('DatatypeProperty')
+      ns.owl('DatatypeProperty'),
     );
     const objectPropertyAttributeIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
-      ns.owl('ObjectProperty')
+      ns.owl('ObjectProperty'),
     );
     const propertyAttributeIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
-      ns.rdf('Property')
+      ns.rdf('Property'),
     );
 
     return [
@@ -147,7 +150,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const definitionQuads: RDF.Quad[] = store.getDefinitions(subject);
       const attributeTypeQuad: RDF.Term | undefined = store.findObject(
         subject,
-        ns.rdf('type')
+        ns.rdf('type'),
       );
 
       const labelQuads: RDF.Quad[] = store.getLabels(subject);
@@ -165,6 +168,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
         store.getMaxCardinality(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       return {
         '@id': subject.value,
@@ -175,6 +180,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labelQuads),
         ...this.mapDefinitions(definitionQuads),
         ...this.mapUsageNotes(usageNoteQuads),
+        ...this.mapOtherTags(other),
         ...(domainQuad && {
           domain: {
             '@id': domainQuad.value,
@@ -204,7 +210,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
   private async getDatatypes(store: QuadStore): Promise<any> {
     const datatypeIds: RDF.Term[] = store.findSubjects(
       ns.rdf('type'),
-      ns.rdfs('Datatype')
+      ns.rdfs('Datatype'),
     );
     return datatypeIds.map((subject) => {
       const assignedURI: RDF.NamedNode | undefined =
@@ -214,6 +220,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
       const scopeQuad: RDF.NamedNode | undefined = store.getScope(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
 
       return {
         '@id': subject.value,
@@ -224,6 +232,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labelQuads),
         ...this.mapDefinitions(definitionQuads),
         ...this.mapUsageNotes(usageNoteQuads),
+        ...this.mapOtherTags(other),
         ...(scopeQuad && {
           scope: scopeQuad.value,
         }),
@@ -241,7 +250,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       null,
       null,
       null,
-      referencedEntitiesGraph
+      referencedEntitiesGraph,
     );
 
     const subjects = new Set(quads.map((x) => x.subject));
@@ -250,33 +259,35 @@ export class JsonLdOutputHandler implements IOutputHandler {
     subjects.forEach((subject) => {
       const assignedURI: RDF.NamedNode | undefined = store.getAssignedUri(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
       const subjectType: RDF.Term | undefined = store.findObject(
         subject,
         ns.rdf('type'),
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
       const definitions: RDF.Quad[] = store.getDefinitions(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
       const labels: RDF.Quad[] = store.getLabels(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
       const usageNotes: RDF.Quad[] = store.getUsageNotes(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
+      const other: RDF.Quad[] | undefined =
+        store.getSanitizedOtherTags(subject);
       const scope: RDF.NamedNode | undefined = store.getScope(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
 
       const statuses: RDF.NamedNode | undefined = store.getStatus(
         subject,
-        referencedEntitiesGraph
+        referencedEntitiesGraph,
       );
 
       result.push({
@@ -290,6 +301,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapLabels(labels),
         ...this.mapDefinitions(definitions),
         ...this.mapUsageNotes(usageNotes),
+        ...this.mapOtherTags(other),
         ...this.mapStatuses(statuses),
         ...(scope && {
           scope: scope.value,
@@ -301,13 +313,13 @@ export class JsonLdOutputHandler implements IOutputHandler {
 
   private mapLabels(labels: RDF.Quad[]): any {
     const vocLabels: RDF.Quad[] = labels.filter((x) =>
-      x.predicate.equals(ns.oslo('vocLabel'))
+      x.predicate.equals(ns.oslo('vocLabel')),
     );
     const apLabels: RDF.Quad[] = labels.filter((x) =>
-      x.predicate.equals(ns.oslo('apLabel'))
+      x.predicate.equals(ns.oslo('apLabel')),
     );
     const diagramLabels: RDF.Quad[] = labels.filter((x) =>
-      x.predicate.equals(ns.oslo('diagramLabel'))
+      x.predicate.equals(ns.oslo('diagramLabel')),
     );
 
     return {
@@ -325,10 +337,10 @@ export class JsonLdOutputHandler implements IOutputHandler {
 
   private mapDefinitions(definitions: RDF.Quad[]): any {
     const vocDefinitions: RDF.Quad[] = definitions.filter((x) =>
-      x.predicate.equals(ns.oslo('vocDefinition'))
+      x.predicate.equals(ns.oslo('vocDefinition')),
     );
     const apDefinitions: RDF.Quad[] = definitions.filter((x) =>
-      x.predicate.equals(ns.oslo('apDefinition'))
+      x.predicate.equals(ns.oslo('apDefinition')),
     );
 
     return {
@@ -341,12 +353,22 @@ export class JsonLdOutputHandler implements IOutputHandler {
     };
   }
 
+  private mapOtherTags(other: RDF.Quad[]): any {
+    const result: any = {};
+
+    other.forEach((quad) => {
+      result[quad.predicate.value] = this.mapToLiteral(quad);
+    });
+
+    return result;
+  }
+
   private mapUsageNotes(usageNotes: RDF.Quad[]): any {
     const vocUsageNotes: RDF.Quad[] = usageNotes.filter((x) =>
-      x.predicate.equals(ns.oslo('vocUsageNote'))
+      x.predicate.equals(ns.oslo('vocUsageNote')),
     );
     const apUsageNotes: RDF.Quad[] = usageNotes.filter((x) =>
-      x.predicate.equals(ns.oslo('apUsageNote'))
+      x.predicate.equals(ns.oslo('apUsageNote')),
     );
 
     return {

@@ -111,5 +111,9 @@ export function getOsloContext(): any {
       '@id': 'adms:status',
       '@type': '@id',
     },
+    other: {
+      '@id': 'oslo:other',
+      '@type': '@id',
+    },
   };
 }

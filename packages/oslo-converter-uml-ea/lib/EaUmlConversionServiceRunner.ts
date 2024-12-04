@@ -43,6 +43,11 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         default: 'info',
         choices: LOG_LEVELS,
       })
+      .option('allTags', {
+        describe: 'Add all tags from EA to the generated output',
+        default: false,
+        boolean: true,
+      })
       .option('debug', {
         describe:
           'A flag to enable debug mode which is more resilient to errors',
