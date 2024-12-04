@@ -447,6 +447,13 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       quads,
     );
 
+    this.addOtherTags(
+      <any>rangeElement,
+      rangeInternalId,
+      referencedEntitiesGraph,
+      quads,
+    )
+
     const assignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(
       rangeElement.id,
     );

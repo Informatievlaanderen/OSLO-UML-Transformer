@@ -357,7 +357,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
     const result: any = {};
 
     other.forEach((quad) => {
-      result[quad.predicate.value] = this.mapToLiteral(quad);
+      result[quad.predicate.value] = [this.mapToLiteral(quad)];
     });
 
     return result;
