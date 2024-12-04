@@ -310,17 +310,10 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       }
     }
 
-<<<<<<< HEAD
-    if (!rangeURI) {
-      throw new Error(
-        `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`,
-      );
-=======
     // https://vlaamseoverheid.atlassian.net/browse/SDTT-344
     // Needed a way to log errors without throwing them so that the conversion process can continue
     if (this.handleRangeError(object, rangeURI)) {
       return [];
->>>>>>> main
     }
 
     quads.push(
