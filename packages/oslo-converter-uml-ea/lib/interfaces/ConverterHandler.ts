@@ -343,7 +343,6 @@ export abstract class ConverterHandler<T extends EaObject> {
     quads: RDF.Quad[],
   ): void {
     values.forEach((value) => {
-      // console.log(value);
       quads.push(this.df.quad(objectInternalId, predicate, value, graph));
     });
   }
