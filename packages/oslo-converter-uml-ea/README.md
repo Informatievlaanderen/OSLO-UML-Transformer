@@ -28,6 +28,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--outputFile` | The name of the RDF output file | No, but if omitted, output is written to process.stdout ||
 | `--outputFormat` | RDF content-type specifiying the output format | :heavy_check_mark: | `application/ld+json` |
 | `--allTags` | Add all tags from EA to the generated output | No, default `false` | `true` or `false` |
+| `--debug` | A flag to enable debug mode which is more resilient to errors | | `false` |
 
 ## Usage
 

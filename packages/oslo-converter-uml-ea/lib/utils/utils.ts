@@ -3,9 +3,19 @@ import type { EaObject, EaTag } from '@oslo-flanders/ea-uml-extractor';
 import { TagNames } from '../enums/TagNames';
 import type { UriRegistry } from '../UriRegistry';
 
+function toBoolean(value: any): boolean {
+  if (typeof value === 'boolean') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    return value.toLowerCase() === 'true';
+  }
+  return false;
+}
+
 export function ignore(object: EaObject): boolean {
   const ignoreObject = getTagValue(object, TagNames.Ignore, false);
-  return Boolean(ignoreObject);
+  return toBoolean(ignoreObject);
 }
 
 export function getTagValue(

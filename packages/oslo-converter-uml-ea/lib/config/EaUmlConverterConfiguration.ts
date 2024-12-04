@@ -32,6 +32,10 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    * The base URI of the environment where the document will be published
    */
   private _publicationEnvironment: string | undefined;
+  /**
+   * A boolean to enable debug mode which is more resilient to errors
+   */
+  private _debug: boolean | undefined;
 
   /**
    * A boolean that decided whether or not all tags will be added to the generated output
@@ -46,6 +50,7 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._outputFormat = <string>params.outputFormat;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._allTags = <boolean>params.allTags;
+    this._debug = <boolean>params.debug;
   }
 
   public get umlFile(): string {
@@ -102,5 +107,9 @@ export class EaUmlConverterConfiguration implements IConfiguration {
 
   public get allTags(): boolean {
     return !!this._allTags;
+  }
+
+  public get debug(): boolean {
+    return !!this._debug;
   }
 }

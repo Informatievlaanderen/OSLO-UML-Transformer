@@ -7,9 +7,7 @@ import type {
   EaPackage,
   NormalizedConnector,
 } from '@oslo-flanders/ea-uml-extractor';
-import {
-  ConnectorType,
-} from '@oslo-flanders/ea-uml-extractor';
+import { ConnectorType } from '@oslo-flanders/ea-uml-extractor';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
@@ -27,7 +25,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   public async filterIgnoredObjects(
     model: DataRegistry,
   ): Promise<DataRegistry> {
-    model.connectors = model.connectors.filter(x => !ignore(x));
+    model.connectors = model.connectors.filter((x) => !ignore(x));
 
     return model;
   }
@@ -38,19 +36,22 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     store: QuadStore,
   ): Promise<QuadStore> {
     model.normalizedConnectors
-      .filter(x => model.targetDiagram.connectorsIds.includes(x.originalId))
-      .forEach(object =>
-        store.addQuads(this.createQuads(object, uriRegistry, model)));
+      .filter((x) => model.targetDiagram.connectorsIds.includes(x.originalId))
+      .forEach((object) =>
+        store.addQuads(this.createQuads(object, uriRegistry, model)),
+      );
 
     return store;
   }
 
   public async normalize(model: DataRegistry): Promise<DataRegistry> {
     const tasks: Promise<NormalizedConnector[]>[] = model.connectors
-      .filter(x => model.targetDiagram.connectorsIds.includes(x.id))
-      .map(connector => this.connectorNormalisationService.normalise(connector, model));
+      .filter((x) => model.targetDiagram.connectorsIds.includes(x.id))
+      .map((connector) =>
+        this.connectorNormalisationService.normalise(connector, model),
+      );
 
-    model.normalizedConnectors = await Promise.all(tasks).then(x => x.flat());
+    model.normalizedConnectors = await Promise.all(tasks).then((x) => x.flat());
 
     return model;
   }
@@ -62,26 +63,36 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     uriRegistry.connectorOsloIdUriMap = new Map<number, URL>();
     const diagramConnectors: NormalizedConnector[] = [];
 
-    model.targetDiagram.connectorsIds.forEach(connectorId => {
+    model.targetDiagram.connectorsIds.forEach((connectorId) => {
       const filteredConnectors =
         model.normalizedConnectors.filter(
-          x => x.originalId === connectorId,
+          (x) => x.originalId === connectorId,
         ) || [];
       diagramConnectors.push(...filteredConnectors);
     });
 
-    diagramConnectors.forEach(connector => {
+    diagramConnectors.forEach((connector) => {
       // Inheritance related connectors do not get an URI.
       if (connector.originalType === ConnectorType.Generalization) {
         return;
       }
 
-      const externalUri: string | null = getTagValue(connector, TagNames.ExternalUri, null);
+      const externalUri: string | null = getTagValue(
+        connector,
+        TagNames.ExternalUri,
+        null,
+      );
       if (externalUri) {
-        uriRegistry.connectorOsloIdUriMap.set(
-          connector.id,
-          new URL(externalUri),
-        );
+        try {
+          uriRegistry.connectorOsloIdUriMap.set(
+            connector.id,
+            new URL(externalUri),
+          );
+        } catch (error: unknown) {
+          throw new Error(
+            `[ConnectorConverterHandler]: Invalid external URI (${externalUri}) for connector (${connector.path})`,
+          );
+        }
         return;
       }
 
@@ -93,7 +104,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       let baseUri: string | undefined;
       if (packageTagValue) {
         const packageObject: EaPackage | undefined = model.packages.find(
-          x => x.name === packageTagValue,
+          (x) => x.name === packageTagValue,
         );
 
         if (!packageObject) {
@@ -114,10 +125,10 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         baseUri = packageUri.toString();
       } else {
         const sourcePackage: EaElement | undefined = model.elements.find(
-          x => x.id === connector.sourceObjectId,
+          (x) => x.id === connector.sourceObjectId,
         );
         const destinationPackage: EaElement | undefined = model.elements.find(
-          x => x.id === connector.destinationObjectId,
+          (x) => x.id === connector.destinationObjectId,
         );
 
         if (
@@ -142,19 +153,27 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         connector.name,
       );
 
-      if(!localName){
-        throw new Error(`[ConnectorConverterHandler]: Unable to find local name for connector (${connector.path}).`);
+      if (!localName) {
+        throw new Error(
+          `[ConnectorConverterHandler]: Unable to find local name for connector (${connector.path}).`,
+        );
       }
 
       // Names on the diagram are not prefixed, so if this value contains
       // a prefix (by checking for a dot), we assume this value was added by the editor through
       // a name tag. We assume the spelling is correctly done and we do not camel case it.
-      if(!localName.includes('.')){
+      if (!localName.includes('.')) {
         localName = toCamelCase(localName);
       }
 
-      const connectorUri = new URL(`${baseUri}${localName}`);
-      uriRegistry.connectorOsloIdUriMap.set(connector.id, connectorUri);
+      try {
+        const connectorUri = new URL(`${baseUri}${localName}`);
+        uriRegistry.connectorOsloIdUriMap.set(connector.id, connectorUri);
+      } catch (error: unknown) {
+        throw new Error(
+          `[ConnectorConverterHandler]: Invalid URL (${baseUri}${localName}) for connector (${connector.path})`,
+        );
+      }
     });
 
     return uriRegistry;
@@ -170,7 +189,9 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     const connectorInternalId: RDF.NamedNode = this.df.namedNode(
       `${this.baseUrnScheme}:${object.osloGuid}`,
     );
-    const connectorUri: URL | undefined = uriRegistry.connectorOsloIdUriMap.get(object.id);
+    const connectorUri: URL | undefined = uriRegistry.connectorOsloIdUriMap.get(
+      object.id,
+    );
 
     if (!connectorUri) {
       throw new Error(
@@ -178,7 +199,9 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       );
     }
 
-    const connectorUriNamedNode: RDF.NamedNode = this.df.namedNode(connectorUri.toString());
+    const connectorUriNamedNode: RDF.NamedNode = this.df.namedNode(
+      connectorUri.toString(),
+    );
 
     quads.push(
       this.df.quad(
@@ -197,7 +220,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     this.addEntityInformation(object, connectorInternalId, quads);
 
     const domainObject: EaElement | undefined = model.elements.find(
-      x => x.id === object.sourceObjectId,
+      (x) => x.id === object.sourceObjectId,
     );
 
     if (domainObject) {
@@ -210,7 +233,7 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
     }
 
     const rangeObject: EaElement | undefined = model.elements.find(
-      x => x.id === object.destinationObjectId,
+      (x) => x.id === object.destinationObjectId,
     );
 
     if (rangeObject) {
@@ -270,7 +293,11 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       );
     }
 
-    const parentUri: string | null = getTagValue(object, TagNames.ParentUri, null);
+    const parentUri: string | null = getTagValue(
+      object,
+      TagNames.ParentUri,
+      null,
+    );
     if (parentUri) {
       quads.push(
         this.df.quad(

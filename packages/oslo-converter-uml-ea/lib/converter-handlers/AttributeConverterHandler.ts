@@ -49,9 +49,9 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
           model.targetDiagram.elementIds.includes(x.classId) &&
           !enumerationClasses.some((y) => y.id === x.classId),
       )
-      .forEach((object) => {
-        store.addQuads(this.createQuads(object, uriRegistry, model));
-      });
+      .forEach((object) =>
+        store.addQuads(this.createQuads(object, uriRegistry, model)),
+      );
 
     return store;
   }
@@ -88,7 +88,13 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         null,
       );
       if (externalUri) {
-        uriRegistry.attributeIdUriMap.set(attribute.id, new URL(externalUri));
+        try {
+          uriRegistry.attributeIdUriMap.set(attribute.id, new URL(externalUri));
+        } catch (error: unknown) {
+          throw new Error(
+            `[AttributeConverterHandler]: Invalid URL (${externalUri}) for attribute (${attribute.path})`,
+          );
+        }
         return;
       }
 
@@ -157,8 +163,14 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         localName = toCamelCase(localName);
       }
 
-      const attributeURI: URL = new URL(`${attributeBaseURI}${localName}`);
-      uriRegistry.attributeIdUriMap.set(attribute.id, attributeURI);
+      try {
+        const attributeURI: URL = new URL(`${attributeBaseURI}${localName}`);
+        uriRegistry.attributeIdUriMap.set(attribute.id, attributeURI);
+      } catch (error: unknown) {
+        throw new Error(
+          `[AttributeConverterHandler]: Invalid URL (${attributeBaseURI}${localName}) for attribute (${attribute.path})`,
+        );
+      }
     });
 
     return uriRegistry;
@@ -298,10 +310,17 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       }
     }
 
+<<<<<<< HEAD
     if (!rangeURI) {
       throw new Error(
         `[AttributeConverterHandler]: Unable to get the URI for the range of attribute (${object.path}).`,
       );
+=======
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-344
+    // Needed a way to log errors without throwing them so that the conversion process can continue
+    if (this.handleRangeError(object, rangeURI)) {
+      return [];
+>>>>>>> main
     }
 
     quads.push(
@@ -360,6 +379,22 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     }
 
     return quads;
+  }
+
+  private handleRangeError(
+    object: EaAttribute,
+    rangeURI: string | null,
+  ): boolean {
+    if (!rangeURI) {
+      const error: string = `[AttributeConverterHandler]: Unable to determine the range for attribute (${object.path}).`;
+      if (this.config.debug) {
+        this.logger.error(error);
+        return true;
+      } else {
+        throw new Error(error);
+      }
+    }
+    return false;
   }
 
   private getDatatypeQuads(

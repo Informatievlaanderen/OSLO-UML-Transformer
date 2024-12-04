@@ -4,10 +4,16 @@ import type { DataRegistry } from '../DataRegistry';
 import { EaTable } from '../enums/EaTable';
 import { EaConnector } from '../types/EaConnector';
 import type { EaElement } from '../types/EaElement';
-import { addEaTagsToElements, addRoleTagsToElements } from '../utils/assignTags';
+import {
+  addEaTagsToElements,
+  addRoleTagsToElements,
+} from '../utils/assignTags';
 import { convertToConnectorDirection } from '../utils/resolveConnectorDirection';
 
-export function loadElementConnectors(mdb: MDBReader, model: DataRegistry): DataRegistry {
+export function loadElementConnectors(
+  mdb: MDBReader,
+  model: DataRegistry,
+): DataRegistry {
   const connectors = mdb.getTable(EaTable.Connector).getData();
   const objects = mdb.getTable(EaTable.Object).getData();
 
@@ -24,29 +30,36 @@ export function loadElementConnectors(mdb: MDBReader, model: DataRegistry): Data
       connector.PDATA1, 
       connector.ea_guid, 
       connector.SourceCard, 
-      connector.DestCard
+      connector.DestCard,
+      source.Package_ID
     FROM ? connector
       INNER JOIN ? source ON connector.Start_Object_ID = source.Object_ID
       INNER JOIN ? destination ON connector.End_Object_ID = destination.Object_ID
     WHERE source.Object_Type in ('Class', 'DataType', 'Enumeration')
       AND destination.Object_Type in ('Class', 'DataType', 'Enumeration')`;
 
-  model.connectors = (<any[]>alasql(query, [connectors, objects, objects])).map(item => new EaConnector(
-    <number>item.Connector_ID,
-    <string>item.Name,
-    <string>item.ea_guid,
-    <string>item.Connector_Type,
-    <number>item.Start_Object_ID,
-    <number>item.End_Object_ID,
-    <string>item.SourceCard,
-    <string>item.DestCard,
-    <string>item.SourceRole,
-    <string>item.DestRole,
-    Number.parseInt(<string>item.PDATA1, 10) || null,
-    convertToConnectorDirection(<string>item.Direction),
-  ));
+  model.connectors = (<any[]>alasql(query, [connectors, objects, objects])).map(
+    (item) =>
+      new EaConnector(
+        <number>item.Connector_ID,
+        <string>item.Name,
+        <string>item.ea_guid,
+        <string>item.Connector_Type,
+        <number>item.Start_Object_ID,
+        <number>item.End_Object_ID,
+        <string>item.SourceCard,
+        <string>item.DestCard,
+        <string>item.SourceRole,
+        <string>item.DestRole,
+        <number>item.packageId,
+        Number.parseInt(<string>item.PDATA1, 10) || null,
+        convertToConnectorDirection(<string>item.Direction),
+      ),
+  );
 
-  model.connectors.forEach(connector => setElementConnectorLoaderPath(connector, model.elements));
+  model.connectors.forEach((connector) =>
+    setElementConnectorLoaderPath(connector, model.elements),
+  );
 
   const connectorTags = mdb.getTable(EaTable.ConnectorTag).getData();
   addEaTagsToElements(connectorTags, model.connectors, 'ElementID', 'VALUE');
@@ -57,9 +70,12 @@ export function loadElementConnectors(mdb: MDBReader, model: DataRegistry): Data
   return model;
 }
 
-function setElementConnectorLoaderPath(connector: EaConnector, elements: EaElement[]): void {
+function setElementConnectorLoaderPath(
+  connector: EaConnector,
+  elements: EaElement[],
+): void {
   let path: string;
-  const sourceObject = elements.find(x => x.id === connector.sourceObjectId);
+  const sourceObject = elements.find((x) => x.id === connector.sourceObjectId);
 
   if (!sourceObject) {
     // TODO: log message
@@ -69,7 +85,9 @@ function setElementConnectorLoaderPath(connector: EaConnector, elements: EaEleme
   if (connector.name) {
     path = `${sourceObject.path}:${connector.name}`;
   } else {
-    const destinationObject = elements.find(x => x.id === connector.destinationObjectId);
+    const destinationObject = elements.find(
+      (x) => x.id === connector.destinationObjectId,
+    );
 
     if (!destinationObject) {
       // TODO: log message

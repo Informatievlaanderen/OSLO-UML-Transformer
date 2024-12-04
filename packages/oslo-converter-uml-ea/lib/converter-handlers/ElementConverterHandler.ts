@@ -63,13 +63,19 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       );
 
       if (externalUri) {
-        uriRegistry.elementIdUriMap.set(element.id, new URL(externalUri));
-        uriRegistry.elementNameToElementMap.set(element.name, [
-          ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
-          element,
-        ]);
+        try {
+          uriRegistry.elementIdUriMap.set(element.id, new URL(externalUri));
+          uriRegistry.elementNameToElementMap.set(element.name, [
+            ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
+            element,
+          ]);
 
-        return;
+          return;
+        } catch (error: unknown) {
+          throw new Error(
+            `[ElementConverterHandler]: Invalid URL (${externalUri}) for element (${element.path}).`,
+          );
+        }
       }
 
       let elementBaseUri: URL;
@@ -104,19 +110,31 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         this.logger.warn(
           `[ElementConverterHandler]: Unable to find base URI for element (${element.path}).`,
         );
-        elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
+        try {
+          elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
+        } catch (error: unknown) {
+          throw new Error(
+            `[ElementConverterHandler]: Invalid URL (${externalUri}) for element (${element.path}).`,
+          );
+        }
       }
 
       const localName: string = toPascalCase(
         getTagValue(element, TagNames.LocalName, null) ?? element.name,
       );
-      const elementUri = new URL(`${elementBaseUri}${localName}`);
+      try {
+        const elementUri = new URL(`${elementBaseUri}${localName}`);
 
-      uriRegistry.elementIdUriMap.set(element.id, elementUri);
-      uriRegistry.elementNameToElementMap.set(element.name, [
-        ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
-        element,
-      ]);
+        uriRegistry.elementIdUriMap.set(element.id, elementUri);
+        uriRegistry.elementNameToElementMap.set(element.name, [
+          ...(uriRegistry.elementNameToElementMap.get(element.name) || []),
+          element,
+        ]);
+      } catch (error: unknown) {
+        throw new Error(
+          `[ElementConverterHandler]: Invalid URL (${externalUri}) for element (${element.path}).`,
+        );
+      }
     });
 
     return uriRegistry;

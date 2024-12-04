@@ -15,6 +15,7 @@ export class EaConnector extends EaObject {
   public readonly sourceRole: string;
   public readonly destinationRole: string;
   public readonly associationClassId: number | null;
+  public readonly packageId: number;
   public sourceRoleTags: EaTag[] = [];
   public destinationRoleTags: EaTag[] = [];
   public readonly direction: ConnectorDirection;
@@ -34,6 +35,8 @@ export class EaConnector extends EaObject {
     destinationCardinality: string,
     sourceRole: string,
     destinationRole: string,
+    packageId: number,
+    
     associationClassId: number | null,
     direction: ConnectorDirection = ConnectorDirection.Unspecified,
   ) {
@@ -46,9 +49,10 @@ export class EaConnector extends EaObject {
     this.destinationCardinality = destinationCardinality;
     this.sourceRole = sourceRole;
     this.destinationRole = destinationRole;
+    this.packageId = packageId;
+
     this.associationClassId = associationClassId;
     this.direction = direction;
-
     this.diagramGeometryDirection = direction;
     this.hidden = false;
 

@@ -48,6 +48,12 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('debug', {
+        describe:
+          'A flag to enable debug mode which is more resilient to errors',
+        default: false,
+        boolean: true,
+      })
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.',
