@@ -95,7 +95,7 @@ export abstract class ConverterHandler<T extends EaObject> {
     const processedTagNames = new Set<string>(Object.values(TagNames));
     const allTags: EaTag[] = object.tags || [];
 
-    const unprocessedTags = allTags.filter((tag) => {
+    const unknownTags = allTags.filter((tag) => {
       // Remove the language code suffix if it matches a known language code
       const tagNameBase = this.getBaseTagName(
         tag.tagName,
@@ -104,11 +104,11 @@ export abstract class ConverterHandler<T extends EaObject> {
       return !processedTagNames.has(tagNameBase);
     });
 
-    if (unprocessedTags.length) {
+    if (unknownTags.length) {
       this.logger.info(
-        `[ElementConverterHandler]: Unprocessed tags for element (${object.path}): ${unprocessedTags?.map((item) => item.tagName).join(', ')}`,
+        `[ElementConverterHandler]: Unknown tags for element (${object.path}): ${unknownTags?.map((item) => item.tagName).join(', ')}. These tags will be added.`,
       );
-      unprocessedTags.forEach((tag) => {
+      unknownTags.forEach((tag) => {
         const tagNameBase = this.getBaseTagName(
           tag.tagName,
           Object.values(Language),
