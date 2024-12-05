@@ -89,21 +89,27 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         const referencedPackages: EaPackage[] | undefined =
           uriRegistry.packageNameToPackageMap.get(packageTagValue);
 
+        if (
+          this.handleError(
+            referencedPackages,
+            `[ElementConverterHandler]: Package tag was defined for element ${element.path}, but unable to find the object for package ${packageTagValue}.`,
+          )
+        ) {
+          return [];
+        }
+
         if (referencedPackages && referencedPackages.length > 1) {
           this.logger.warn(
             `[ElementConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}".`,
           );
         }
-
-        if (!referencedPackages) {
-          throw new Error(
-            `[ElementConverterHandler]: Package tag was defined for element ${element.path}, but unable to find the object for package ${packageTagValue}.`,
-          );
+        // Set a default base URI if the package doesn't have one
+        elementBaseUri = new URL(uriRegistry.fallbackBaseUri);
+        if (referencedPackages && referencedPackages.length) {
+          elementBaseUri = uriRegistry.packageIdUriMap.get(
+            referencedPackages[0].packageId,
+          )!;
         }
-
-        elementBaseUri = uriRegistry.packageIdUriMap.get(
-          referencedPackages[0].packageId,
-        )!;
       } else if (uriRegistry.packageIdUriMap.has(element.packageId)) {
         elementBaseUri = uriRegistry.packageIdUriMap.get(element.packageId)!;
       } else {
@@ -182,7 +188,12 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     this.addStatus(object, objectInternalId, this.df.defaultGraph(), quads);
     // Add the remaining tags that are not in TagNames enum if the config requires so.
     if (this.config.allTags) {
-      this.addOtherTags(object, objectInternalId, this.df.defaultGraph(), quads);
+      this.addOtherTags(
+        object,
+        objectInternalId,
+        this.df.defaultGraph(),
+        quads,
+      );
     }
 
     // To be able to determine the scope of the element,

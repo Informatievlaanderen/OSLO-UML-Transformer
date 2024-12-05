@@ -109,27 +109,31 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         const packageObjects: EaPackage[] | undefined =
           uriRegistry.packageNameToPackageMap.get(packageTagValue);
 
-        if (!packageObjects) {
-          throw new Error(
+        if (
+          this.handleError(
+            packageObjects,
             `[AttributeConverterHandler]: Package tag was defined (${packageTagValue}), but unable to find a related package object for attribute (${attribute.path}).`,
-          );
+          )
+        ) {
+          return [];
         }
 
-        if (packageObjects.length > 1) {
+        if (packageObjects && packageObjects.length > 1) {
           this.logger.warn(
             `[AttributeConverterHandler]: Multiple packages discovered through name tag "${packageTagValue}" for attribute (${attribute.path}).`,
           );
         }
-
-        const packageURI: URL | undefined = uriRegistry.packageIdUriMap.get(
-          packageObjects[0].packageId,
-        );
-        if (!packageURI) {
-          throw new Error(
-            `[AttributeConverterHandler]: Unable to find the URI of package (${packageObjects[0].parent}), but is needed as base URI.`,
+        if (packageObjects && packageObjects.length > 0) {
+          const packageURI: URL | undefined = uriRegistry.packageIdUriMap.get(
+            packageObjects[0].packageId,
           );
+          if (!packageURI) {
+            throw new Error(
+              `[AttributeConverterHandler]: Unable to find the URI of package (${packageObjects[0].parent}), but is needed as base URI.`,
+            );
+          }
+          attributeBaseURI = packageURI.toString();
         }
-        attributeBaseURI = packageURI.toString();
       } else {
         const packageURI: URL | undefined = uriRegistry.packageIdUriMap.get(
           attributeClass.packageId,
@@ -310,9 +314,12 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       }
     }
 
-    // https://vlaamseoverheid.atlassian.net/browse/SDTT-344
-    // Needed a way to log errors without throwing them so that the conversion process can continue
-    if (this.handleRangeError(object, rangeURI)) {
+    if (
+      this.handleError(
+        rangeURI,
+        `[AttributeConverterHandler]: Unable to determine the range for attribute (${object.path}).`,
+      )
+    ) {
       return [];
     }
 
@@ -372,22 +379,6 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     }
 
     return quads;
-  }
-
-  private handleRangeError(
-    object: EaAttribute,
-    rangeURI: string | null,
-  ): boolean {
-    if (!rangeURI) {
-      const error: string = `[AttributeConverterHandler]: Unable to determine the range for attribute (${object.path}).`;
-      if (this.config.debug) {
-        this.logger.error(error);
-        return true;
-      } else {
-        throw new Error(error);
-      }
-    }
-    return false;
   }
 
   private getDatatypeQuads(

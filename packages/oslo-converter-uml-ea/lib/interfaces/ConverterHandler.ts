@@ -305,6 +305,22 @@ export abstract class ConverterHandler<T extends EaObject> {
     );
   }
 
+  // https://vlaamseoverheid.atlassian.net/browse/SDTT-344
+  // Needed a way to log errors without throwing them so that the conversion process can continue
+  public handleError(
+    value: string | any[] | undefined | null,
+    error: string,
+  ): boolean {
+    if (!value || (Array.isArray(value) && !value.length)) {
+      if (this.config.debug) {
+        this.logger.error(error);
+        return true;
+      }
+      throw new Error(error);
+    }
+    return false;
+  }
+
   /**
    * Extract the value for a tag
    * @param tagName - The name of the tag to extract the value for
