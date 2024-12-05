@@ -447,12 +447,14 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       quads,
     );
 
-    this.addOtherTags(
-      <any>rangeElement,
-      rangeInternalId,
-      referencedEntitiesGraph,
-      quads,
-    )
+    if (this.config.allTags) {
+      this.addOtherTags(
+        <any>rangeElement,
+        rangeInternalId,
+        referencedEntitiesGraph,
+        quads,
+      );
+    }
 
     const assignedUri: URL | undefined = uriRegistry.elementIdUriMap.get(
       rangeElement.id,

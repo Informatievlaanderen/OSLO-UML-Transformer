@@ -83,7 +83,9 @@ export abstract class ConverterHandler<T extends EaObject> {
     this.addLabels(object, objectInternalId, graph, quads);
     this.addUsageNotes(object, objectInternalId, graph, quads);
     this.addStatus(object, objectInternalId, graph, quads);
-    this.addOtherTags(object, objectInternalId, graph, quads);
+    if (this.config.allTags) {
+      this.addOtherTags(object, objectInternalId, graph, quads);
+    }
   }
 
   public addOtherTags(

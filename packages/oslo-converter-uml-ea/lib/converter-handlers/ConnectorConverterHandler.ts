@@ -265,12 +265,14 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
       quads,
     );
 
-    this.addOtherTags(
-      object,
-      connectorInternalId,
-      this.df.defaultGraph(),
-      quads,
-    );
+    if (this.config.allTags) {
+      this.addOtherTags(
+        object,
+        connectorInternalId,
+        this.df.defaultGraph(),
+        quads,
+      );
+    }
 
     let minCardinality: string;
     let maxCardinality: string;
