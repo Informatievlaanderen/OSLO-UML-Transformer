@@ -31,7 +31,7 @@ export class HtmlRespecGenerationService implements IService {
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
     config: HtmlRespecGenerationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -99,7 +99,7 @@ export class HtmlRespecGenerationService implements IService {
 
       if (!classObject) {
         this.logger.error(
-          `Unable to find a related class object for domain ${property.domain} of property ${property.assignedUri}.`
+          `Unable to find a related class object for domain ${property.domain} of property ${property.id}.`,
         );
         return;
       }
@@ -113,9 +113,21 @@ export class HtmlRespecGenerationService implements IService {
   }
 
   private async extractClassInformation(): Promise<any[]> {
+    const classJobs = this.store.getClassIds();
+
+    const datatypeJobs = this.store.findSubjects(
+      ns.rdf('type'),
+      ns.rdfs('Datatype'),
+    );
+
+    const classes: RDF.Term[] = await Promise.all(classJobs);
+    const dataTypes: RDF.Term[] = await Promise.all(datatypeJobs);
+    const entities = [...classes, ...dataTypes];
+    const uniqueEntities = Array.from(
+      new Map(entities.map((entity) => [entity.value, entity])).values(),
+    );
     return (
-      this.store
-        .findSubjects(ns.rdf('type'), ns.owl('Class'))
+      uniqueEntities
         // .filter(x => isInScope(<RDF.NamedNode>x, this.store))
         .map((subjectId) => {
           const assignedUri = this.store.getAssignedUri(subjectId);
@@ -127,12 +139,12 @@ export class HtmlRespecGenerationService implements IService {
               ? getApplicationProfileLabel(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 )
               : getVocabularyLabel(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 );
 
           const definition =
@@ -141,12 +153,12 @@ export class HtmlRespecGenerationService implements IService {
               ? getApplicationProfileDefinition(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 )
               : getVocabularyDefinition(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 );
 
           const usageNote =
@@ -155,12 +167,12 @@ export class HtmlRespecGenerationService implements IService {
               ? getApplicationProfileUsageNote(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 )
               : getVocabularyUsageNote(
                   subjectId,
                   this.store,
-                  this.configuration.language
+                  this.configuration.language,
                 );
 
           const parentAssignedUris: string[] = [];
@@ -169,7 +181,7 @@ export class HtmlRespecGenerationService implements IService {
 
             if (!parentAssignedUri) {
               this.logger.error(
-                `Unable to find the assigned URI of parent (${parent.value}) of class ${subjectId.value}.`
+                `Unable to find the assigned URI of parent (${parent.value}) of class ${subjectId.value}.`,
               );
             } else {
               parentAssignedUris.push(parentAssignedUri.value);
@@ -205,12 +217,12 @@ export class HtmlRespecGenerationService implements IService {
             ? getApplicationProfileLabel(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               )
             : getVocabularyLabel(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               );
 
         const definition =
@@ -219,12 +231,12 @@ export class HtmlRespecGenerationService implements IService {
             ? getApplicationProfileDefinition(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               )
             : getVocabularyDefinition(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               );
 
         const usageNote =
@@ -233,18 +245,18 @@ export class HtmlRespecGenerationService implements IService {
             ? getApplicationProfileUsageNote(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               )
             : getVocabularyUsageNote(
                 subjectId,
                 this.store,
-                this.configuration.language
+                this.configuration.language,
               );
 
         const domain = this.store.getDomain(subjectId);
         if (!domain) {
           throw new Error(
-            `Unable to find the domain of subject ${subjectId.value}.`
+            `Unable to find the domain of subject ${subjectId.value}.`,
           );
         }
         const domainAssignedUri = this.store.getAssignedUri(domain);
@@ -252,7 +264,7 @@ export class HtmlRespecGenerationService implements IService {
         const range = this.store.getRange(subjectId);
         if (!range) {
           throw new Error(
-            `Unable to find the range for subject ${subjectId.value}.`
+            `Unable to find the range for subject ${subjectId.value}.`,
           );
         }
 
@@ -260,7 +272,7 @@ export class HtmlRespecGenerationService implements IService {
 
         if (!rangeAssignedUri) {
           this.logger.error(
-            `Unable to find the assigned URI of range (${range.value}) of attribute ${subjectId.value}.`
+            `Unable to find the assigned URI of range (${range.value}) of attribute ${subjectId.value}.`,
           );
         }
 
