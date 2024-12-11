@@ -68,11 +68,7 @@ function loadDiagramConnectors(
   const diagramConnectors = reader.getTable(EaTable.DiagramLink).getData();
 
   diagramConnectors.forEach((diagramConnector) => {
-    const diagram = diagrams.find(
-      (x) =>
-        x.id === diagramConnector.DiagramID &&
-        x.packageId === diagramConnector.PackageID,
-    );
+    const diagram = diagrams.find((x) => x.id === diagramConnector.DiagramID);
 
     if (!diagram) {
       // TODO: log message
@@ -90,13 +86,14 @@ function loadDiagramConnectors(
     // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-347
     // Added a second check to only allow connectors from the active diagram
     const connector = elementConnectors.find(
-      (x) => x.id === diagramConnector.ConnectorID,
+      (x) => x.id === diagramConnector.ConnectorID && x.packageId === diagram.packageId,
     );
 
     if (!connector) {
       // TODO: log message
       return;
     }
+    console.log(connector);
 
     connector.diagramGeometryDirection = direction;
     connector.hidden = <boolean>diagramConnector.Hidden;

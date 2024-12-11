@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/ea-uml-extractor",
-  "version": "0.0.33-alpha.0",
+  "version": "0.0.34-alpha.0",
   "description": "Reads all the information from an Enterprise Architect UML diagram",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-extract-uml-ea#readme",

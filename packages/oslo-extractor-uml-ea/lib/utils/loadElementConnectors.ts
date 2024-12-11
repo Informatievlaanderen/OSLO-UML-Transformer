@@ -51,15 +51,15 @@ export function loadElementConnectors(
         <string>item.DestCard,
         <string>item.SourceRole,
         <string>item.DestRole,
-        <number>item.packageId,
+        <number>item.Package_ID,
         Number.parseInt(<string>item.PDATA1, 10) || null,
         convertToConnectorDirection(<string>item.Direction),
       ),
   );
 
-  model.connectors.forEach((connector) =>
-    setElementConnectorLoaderPath(connector, model.elements),
-  );
+  model.connectors.forEach((connector) => {
+    setElementConnectorLoaderPath(connector, model.elements);
+  });
 
   const connectorTags = mdb.getTable(EaTable.ConnectorTag).getData();
   addEaTagsToElements(connectorTags, model.connectors, 'ElementID', 'VALUE');
