@@ -86,14 +86,15 @@ function loadDiagramConnectors(
     // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-347
     // Added a second check to only allow connectors from the active diagram
     const connector = elementConnectors.find(
-      (x) => x.id === diagramConnector.ConnectorID && x.packageId === diagram.packageId,
+      (x) =>
+        x.id === diagramConnector.ConnectorID &&
+        x.packageId === diagram.packageId,
     );
 
     if (!connector) {
       // TODO: log message
       return;
     }
-    console.log(connector);
 
     connector.diagramGeometryDirection = direction;
     connector.hidden = <boolean>diagramConnector.Hidden;

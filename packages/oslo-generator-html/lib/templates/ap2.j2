@@ -382,8 +382,13 @@
                                           </td>
                                           <td>
                                              {% if prop.range %}
-                                             <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
-                                             {{ prop.range.applicationProfileLabel[language] }}</a>
+                                                {% if prop.range.listedInDocument %}
+                                                <a href="#{{ prop.range.applicationProfileLabel[language] | generateAnchorTag() }}" data-toggle="tooltip" data-content="{{ prop.range.applicationProfileLabel[language] }}" data-placement="right">
+                                                   {{ prop.range.applicationProfileLabel[language] }}</a>
+                                                {% else %}
+                                                <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
+                                                   {{ prop.range.applicationProfileLabel[language] }}</a>
+                                                {% endif %}
                                              {% endif %}
                                           </td>
                                           <td>
@@ -484,8 +489,13 @@
                                           </td>
                                           <td>
                                              {% if prop.range %}
-                                             <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
-                                             {{ prop.range.applicationProfileLabel[language] }}</a>
+                                             {% if prop.range.listedInDocument %}
+                                                <a href="#{{ prop.range.applicationProfileLabel[language] | generateAnchorTag() }}" data-toggle="tooltip" data-content="{{ prop.range.applicationProfileLabel[language] }}" data-placement="right">
+                                                   {{ prop.range.applicationProfileLabel[language] }}</a>
+                                                {% else %}
+                                                <a href="{{ prop.range.id }}" data-toggle="tooltip" data-content="{{ prop.range.id }}" data-placement="right">
+                                                   {{ prop.range.applicationProfileLabel[language] }}</a>
+                                                {% endif %}
                                              {% endif %}
                                           </td>
                                           <td>

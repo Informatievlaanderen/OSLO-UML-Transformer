@@ -16,7 +16,7 @@ export class HtmlGenerationService implements IService {
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
-    config: HtmlGenerationServiceConfiguration
+    config: HtmlGenerationServiceConfiguration,
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -39,6 +39,7 @@ export class HtmlGenerationService implements IService {
 
     const env = nj.configure(this.dirs);
     env.addFilter('replaceBaseURI', this.replaceBaseURI);
+    env.addFilter('replaceSpaces', this.replaceSpaces);
     env.addFilter('generateAnchorTag', generateAnchorTag);
   }
 
@@ -61,7 +62,6 @@ export class HtmlGenerationService implements IService {
 
     let data: any = {};
 
-    
     const { baseURI, classes, dataTypes, properties } = config;
 
     data = {
@@ -89,6 +89,11 @@ export class HtmlGenerationService implements IService {
 
   private replaceBaseURI = (input: string, baseURI: string): string => {
     return input.replace(new RegExp(baseURI, 'g'), '');
+  };
+
+  private replaceSpaces = (input: string): string => {
+    console.log(input);
+    return input.replace(' ', '');
   };
 
   private async readConfigFile(file: string): Promise<any> {
