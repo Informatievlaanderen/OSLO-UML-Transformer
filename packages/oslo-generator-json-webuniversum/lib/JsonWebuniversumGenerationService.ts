@@ -138,15 +138,15 @@ export class JsonWebuniversumGenerationService implements IService {
   }
 
   // Check to see if the range linked to the property is listed in the document's classes and datatypes
-  private filterDomainExists(domain: RDF.Term): boolean {
-    const parentDomain: RDF.Term | undefined = [
+  private filterRangeExists(range: RDF.Term): boolean {
+    const parentRange: RDF.Term | undefined = [
       ...this.store.getClassIds(),
       ...this.store.getDatatypes(),
     ]
-      .filter((classId) => classId.equals(domain))
+      .filter((classId) => classId.equals(range))
       .find((classId) => this.store.getAssignedUri(classId)?.value);
 
-    return !!parentDomain;
+    return !!parentRange;
   }
 
   // AP needs to show all classes (no scope filtering)
@@ -334,11 +334,10 @@ export class JsonWebuniversumGenerationService implements IService {
         `Unable to find the assigned URI for range ${range.value} of attribute ${subject.value}.`,
       );
     }
-    // console.log(getApplicationProfileDefinition(domainId, this.store, this.configuration.language));
 
     propertyObject.range = {
       id: rangeAssignedURI.value,
-      listedInDocument: this.filterDomainExists(domainId),
+      listedInDocument: this.filterRangeExists(range),
     };
 
     const rangeVocabularyLabel: RDF.Literal | undefined = getVocabularyLabel(

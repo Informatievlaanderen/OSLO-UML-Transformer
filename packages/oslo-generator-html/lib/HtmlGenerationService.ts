@@ -39,7 +39,6 @@ export class HtmlGenerationService implements IService {
 
     const env = nj.configure(this.dirs);
     env.addFilter('replaceBaseURI', this.replaceBaseURI);
-    env.addFilter('replaceSpaces', this.replaceSpaces);
     env.addFilter('generateAnchorTag', generateAnchorTag);
   }
 
@@ -89,11 +88,6 @@ export class HtmlGenerationService implements IService {
 
   private replaceBaseURI = (input: string, baseURI: string): string => {
     return input.replace(new RegExp(baseURI, 'g'), '');
-  };
-
-  private replaceSpaces = (input: string): string => {
-    console.log(input);
-    return input.replace(' ', '');
   };
 
   private async readConfigFile(file: string): Promise<any> {
