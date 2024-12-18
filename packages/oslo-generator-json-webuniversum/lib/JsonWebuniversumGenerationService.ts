@@ -320,7 +320,12 @@ export class JsonWebuniversumGenerationService implements IService {
     propertyObject: WebuniversumProperty,
     domainId: RDF.NamedNode,
   ): WebuniversumProperty {
-    propertyObject.domain = domainId.value;
+    const domainAssignedURI: string | undefined =
+      this.store.getAssignedUri(domainId)?.value;
+
+    if (domainAssignedURI) {
+      propertyObject.domain = domainAssignedURI;
+    }
 
     const range: RDF.NamedNode | undefined = this.store.getRange(subject);
     if (!range) {

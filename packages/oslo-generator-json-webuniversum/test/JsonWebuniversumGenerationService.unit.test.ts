@@ -9,8 +9,8 @@ import { QuadStore, VoidLogger } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
-import type { 
-  JsonWebuniversumGenerationServiceConfiguration } from '../lib/config/JsonWebuniversumGenerationServiceConfiguration';
+import type { JsonWebuniversumGenerationServiceConfiguration,
+} from '../lib/config/JsonWebuniversumGenerationServiceConfiguration';
 import { JsonWebuniversumGenerationService } from '../lib/JsonWebuniversumGenerationService';
 import {
   classWithParent,
@@ -185,7 +185,7 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
           applicationProfileLabel: {
             en: 'TestProperty',
           },
-          domain: 'http://example.org/.well-known/id/class/1',
+          domain: 'http://example.org/id/class/1',
           range: {
             id: 'http://example.org/id/class/2',
             listedInDocument: true,
