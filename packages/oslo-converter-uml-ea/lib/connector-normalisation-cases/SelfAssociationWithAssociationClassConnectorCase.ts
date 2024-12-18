@@ -5,9 +5,7 @@ import type {
   EaTag,
   EaElement,
 } from '@oslo-flanders/ea-uml-extractor';
-import {
-  NormalizedConnector,
-} from '@oslo-flanders/ea-uml-extractor';
+import { NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
@@ -15,7 +13,9 @@ import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormal
 import { getTagValue, toCamelCase, toPascalCase } from '../utils/utils';
 
 @injectable()
-export class SelfAssociationWithAssociationClassConnectorCase implements IConnectorNormalisationCase {
+export class SelfAssociationWithAssociationClassConnectorCase
+  implements IConnectorNormalisationCase
+{
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -45,11 +45,27 @@ export class SelfAssociationWithAssociationClassConnectorCase implements IConnec
       return [];
     }
 
+    // ASSOCIATION CLASS CONNECTORS WITH CUSTOM SOURCE AND TARGET TAGS
+    // Filter the prefixes from the tags to allow them to be used by the generators
+
+    const explicitSourceTags: EaTag[] = connector.sourceRoleTags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationSourcePrefix, ''),
+      }));
+
+    const explicitTargetTags: EaTag[] = connector.destinationRoleTags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationDestPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationDestPrefix, ''),
+      }));
+
     const normalisedConnectors: NormalizedConnector[] = [];
 
-    const associationClassObject: EaElement | undefined = dataRegistry.elements.find(
-      x => x.id === connector.associationClassId,
-    );
+    const associationClassObject: EaElement | undefined =
+      dataRegistry.elements.find((x) => x.id === connector.associationClassId);
 
     if (!associationClassObject) {
       throw new Error(
@@ -58,16 +74,15 @@ export class SelfAssociationWithAssociationClassConnectorCase implements IConnec
     }
 
     let associationClassName: string = associationClassObject.name;
-    const associationClassNameTag: EaTag | undefined = associationClassObject.tags.find(
-      x => x.tagName === TagNames.LocalName,
-    );
+    const associationClassNameTag: EaTag | undefined =
+      associationClassObject.tags.find((x) => x.tagName === TagNames.LocalName);
 
     if (associationClassNameTag) {
       associationClassName = associationClassNameTag.tagValue;
     }
 
     const baseClassObject: EaElement | undefined = dataRegistry.elements.find(
-      x => x.id === connector.sourceObjectId,
+      (x) => x.id === connector.sourceObjectId,
     );
 
     if (!baseClassObject) {
@@ -78,7 +93,7 @@ export class SelfAssociationWithAssociationClassConnectorCase implements IConnec
 
     let baseClassObjectName: string = baseClassObject.name;
     const baseClassObjectNameTag: EaTag | undefined = baseClassObject.tags.find(
-      x => x.tagName === TagNames.LocalName,
+      (x) => x.tagName === TagNames.LocalName,
     );
 
     if (baseClassObjectNameTag) {
@@ -86,6 +101,7 @@ export class SelfAssociationWithAssociationClassConnectorCase implements IConnec
     }
 
     const sourceBaseClassTags: EaTag[] = [
+      ...explicitSourceTags,
       {
         tagName: TagNames.LocalName,
         tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
@@ -95,6 +111,7 @@ export class SelfAssociationWithAssociationClassConnectorCase implements IConnec
     ];
 
     const targetBaseClassTags: EaTag[] = [
+      ...explicitTargetTags,
       {
         tagName: TagNames.LocalName,
         tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
