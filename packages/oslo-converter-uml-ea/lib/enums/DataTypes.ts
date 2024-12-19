@@ -2,28 +2,29 @@ const rdf = 'http://www.w3.org/1999/02/22-rdf-syntax-ns';
 const rdfs = 'http://www.w3.org/2000/01/rdf-schema';
 const xsd = 'http://www.w3.org/2001/XMLSchema';
 
-export const DataTypes: Map<string, string> = new Map<string, string>(
-  [
-    ['String', `${xsd}#string`],
-    ['Date', `${xsd}#date`],
-    ['Time', `${xsd}#time`],
-    ['DateTime', `${xsd}#dateTime`],
-    ['Int', `${xsd}#int`],
-    ['Integer', `${xsd}#integer`],
-    ['Decimal', `${xsd}#decimal`],
-    ['Double', `${xsd}#double`],
-    ['Boolean', `${xsd}#boolean`],
-    ['LangString', `${rdf}#langString`],
-    ['Literal', `${rdfs}#Literal`],
-    ['Year', `${xsd}#gYear`],
-    ['YearMonth', `${xsd}#gYearMonth`],
-    ['Month', `${xsd}#gMonth`],
-    ['MonthDay', `${xsd}#gMonthDay`],
-    ['Duration', `${xsd}#duration`],
-    ['HTML', `${rdf}#HTML`],
-    ['URI', `${xsd}#anyURI`],
-  ],
-);
+const DataTypes: Map<string, string> = new Map<string, string>([
+  ['string', `${xsd}#string`],
+  ['date', `${xsd}#date`],
+  ['time', `${xsd}#time`],
+  ['datetime', `${xsd}#dateTime`],
+  ['int', `${xsd}#int`],
+  ['integer', `${xsd}#integer`],
+  ['decimal', `${xsd}#decimal`],
+  ['double', `${xsd}#double`],
+  ['boolean', `${xsd}#boolean`],
+  ['langstring', `${rdf}#langString`],
+  ['literal', `${rdfs}#Literal`],
+  ['year', `${xsd}#gYear`],
+  ['yearmonth', `${xsd}#gYearMonth`],
+  ['month', `${xsd}#gMonth`],
+  ['monthday', `${xsd}#gMonthDay`],
+  ['duration', `${xsd}#duration`],
+  ['html', `${rdf}#HTML`],
+  ['uri', `${xsd}#anyURI`],
+]);
+
+export const getDataType = (key: string): string | undefined =>
+  DataTypes.get(key.toLowerCase());
 
 export const datatypeIdentifierToHash = (uri: string): number => {
   let hash = 0;

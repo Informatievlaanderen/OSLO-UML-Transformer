@@ -14,7 +14,7 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
-import { DataTypes, datatypeIdentifierToHash } from '../enums/DataTypes';
+import { getDataType, datatypeIdentifierToHash } from '../enums/DataTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
@@ -297,9 +297,9 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
             ),
           );
         }
-      } else if (DataTypes.has(rangeLabel)) {
+      } else if (getDataType(rangeLabel)) {
         attributeType = PropertyType.DataTypeProperty;
-        const rangeAssignedURI: string = DataTypes.get(rangeLabel)!;
+        const rangeAssignedURI: string = getDataType(rangeLabel)!;
         rangeURI = `${this.baseUrnScheme}:${datatypeIdentifierToHash(
           rangeAssignedURI,
         )}`;
