@@ -1,8 +1,8 @@
 export function generateAnchorTag(
-  entityLabel: string,
+  entityLabel?: string,
   propLabel?: string,
 ): string {
+  if (!entityLabel) return '';
   const label = propLabel ? `${entityLabel}:${propLabel}` : entityLabel;
-  const anchorHref = `${encodeURIComponent(label.replace(' ', ''))}`;
-  return anchorHref;
+  return encodeURIComponent(label.replace(/\s+/gu, ''));
 }

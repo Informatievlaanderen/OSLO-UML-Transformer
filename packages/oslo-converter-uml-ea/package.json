@@ -41,7 +41,7 @@
     "jest-runner-groups": "^2.2.0"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.19-alpha.0",
+    "@oslo-flanders/core": "^0.0.20-alpha.0",
     "@oslo-flanders/ea-uml-extractor": "^0.0.35-alpha.0",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
