@@ -124,6 +124,9 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
 
         baseUri = packageUri.toString();
       } else {
+        this.logger.warn(
+          `[ConnectorConverterHandler]: Connector (${connector.path}) does not have a package tag defined. Trying to determine the correct base URI based on the source and destination objects their package.`,
+        );
         const sourcePackage: EaElement | undefined = model.elements.find(
           (x) => x.id === connector.sourceObjectId,
         );
