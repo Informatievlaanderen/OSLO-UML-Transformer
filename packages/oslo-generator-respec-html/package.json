@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/html-respec-generator",
-  "version": "0.0.16-alpha.0",
+  "version": "0.0.17-alpha.0",
   "description": "Generates an HTML respec file using an OSLO-compliant RDF file",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-respec-html#readme",

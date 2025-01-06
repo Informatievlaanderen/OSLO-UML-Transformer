@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/examples-generator",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "description": "Generates examples based on an OSLO JSON-LD file",
   "author": "Kristof Vandenbroucke <kristof.vandenbroucke@vlaanderen.be>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-examples#readme",
