@@ -297,7 +297,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
             ),
           );
         }
-      } else if (getDataType(rangeLabel)) {
+      } else if (rangeLabel && getDataType(rangeLabel)) {
         attributeType = PropertyType.DataTypeProperty;
         const rangeAssignedURI: string = getDataType(rangeLabel)!;
         rangeURI = `${this.baseUrnScheme}:${datatypeIdentifierToHash(
