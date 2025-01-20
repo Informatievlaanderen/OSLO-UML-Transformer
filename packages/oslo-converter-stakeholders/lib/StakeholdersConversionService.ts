@@ -101,7 +101,10 @@ export class StakeholdersConversionService implements IService {
         `[CsvConverterHandler] Unable to convert the provided csv into a stakeholders-file. ${error} for record ${error?.record}`,
       );
     });
-    const transformer = new ToJsonTransformer(this.configuration.outputFormat);
+    const transformer = new ToJsonTransformer(
+      this.configuration.outputFormat,
+      this.configuration.contributorsColumn,
+    );
 
     const contributors: Stakeholder[] = [];
     const authors: Stakeholder[] = [];
@@ -122,8 +125,8 @@ export class StakeholdersConversionService implements IService {
               editors.push(object);
               break;
             default:
-              this.logger.error(
-                `Unable to find the contributor type for "${object.firstName} ${object.lastName}."`,
+              this.logger.warn(
+                `Unable to find the contributor type for "${object?.firstName} ${object?.lastName}" using column "${this.configuration.contributorsColumn}". Please make sure this column has a value set for this person.`,
               );
           }
 

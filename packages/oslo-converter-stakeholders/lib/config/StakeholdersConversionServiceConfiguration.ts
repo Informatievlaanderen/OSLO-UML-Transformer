@@ -2,7 +2,9 @@ import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
 
 @injectable()
-export class StakeholdersConversionServiceConfiguration implements IConfiguration {
+export class StakeholdersConversionServiceConfiguration
+  implements IConfiguration
+{
   /**
    * Local path or URL to an OSLO stakeholders csv file
    */
@@ -18,10 +20,16 @@ export class StakeholdersConversionServiceConfiguration implements IConfiguratio
    */
   private _outputFormat: string | undefined;
 
+  /**
+   * Name of the contributors column
+   */
+  private _contributorsColumn: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._outputFormat = <string>params.outputFormat;
+    this._contributorsColumn = <string>params.contributorsColumn;
   }
 
   public get input(): string {
@@ -40,8 +48,19 @@ export class StakeholdersConversionServiceConfiguration implements IConfiguratio
 
   public get outputFormat(): string {
     if (!this._outputFormat) {
-      throw new Error(`Trying to access property "outputFormat" before it was set.`);
+      throw new Error(
+        `Trying to access property "outputFormat" before it was set.`,
+      );
     }
     return this._outputFormat;
+  }
+
+  public get contributorsColumn(): string {
+    if (!this._contributorsColumn) {
+      throw new Error(
+        `Trying to access property "contributorsColumn" before it was set.`,
+      );
+    }
+    return this._contributorsColumn;
   }
 }
