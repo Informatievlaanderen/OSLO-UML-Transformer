@@ -3,17 +3,29 @@ import { Transform } from 'stream';
 import { ContributorType } from '../enums/ContributorType';
 
 export class ToJsonTransformer extends Transform {
-  private readonly columnNames = ['Voornaam', 'Naam', 'Affiliatie', 'E-mail', 'Website'];
+  private readonly columnNames = [
+    'Voornaam',
+    'Naam',
+    'Affiliatie',
+    'E-mail',
+    'Website',
+  ];
   private readonly outputFormat: string;
+  private readonly contributorsColumn: string;
 
-  public constructor(outputFormat: string) {
+  public constructor(outputFormat: string, contributorsColumn: string) {
     super({
       objectMode: true,
     });
     this.outputFormat = outputFormat;
+    this.contributorsColumn = contributorsColumn;
   }
 
-  public _transform(chunk: any, encoding: string, callback: TransformCallback): void {
+  public _transform(
+    chunk: any,
+    encoding: string,
+    callback: TransformCallback,
+  ): void {
     callback(null, this.createContributor(chunk));
   }
 
@@ -42,27 +54,24 @@ export class ToJsonTransformer extends Transform {
 
   private getContributorType(data: any): ContributorType {
     let contributorType = ContributorType.Unknown;
-    Object.keys(data).forEach(key => {
-      if (key !== '' && !this.columnNames.includes(key)) {
-        switch (data[key]) {
-          case 'A':
-            contributorType = ContributorType.Author;
-            break;
+    // use the column name to determine the contributor type as passed by the CLI to define which column to use for the contributor type
+    switch (data[this.contributorsColumn]) {
+      case 'A':
+        contributorType = ContributorType.Author;
+        break;
 
-          case 'C':
-            contributorType = ContributorType.Contributor;
-            break;
+      case 'C':
+        contributorType = ContributorType.Contributor;
+        break;
 
-          case 'E':
-            contributorType = ContributorType.Editor;
-            break;
+      case 'E':
+        contributorType = ContributorType.Editor;
+        break;
 
-          default:
-            contributorType = ContributorType.Unknown;
-            break;
-        }
-      }
-    });
+      default:
+        contributorType = ContributorType.Unknown;
+        break;
+    }
 
     return contributorType;
   }
