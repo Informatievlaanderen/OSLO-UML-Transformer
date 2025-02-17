@@ -27,7 +27,6 @@ import {
   isScoped,
   sortWebuniversumObjects,
 } from './utils/utils';
-import { NamedNode } from 'n3';
 
 @injectable()
 export class JsonWebuniversumGenerationService implements IService {
@@ -279,7 +278,10 @@ export class JsonWebuniversumGenerationService implements IService {
         },
       }),
       ...(parentObjects.length > 0 && {
-        parents: parentObjects,
+        parents: sortWebuniversumObjects(
+          parentObjects,
+          this.configuration.language,
+        ),
       }),
       ...(scope && {
         scope: scope,
