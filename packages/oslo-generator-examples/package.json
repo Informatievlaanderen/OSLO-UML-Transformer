@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/examples-generator",
-  "version": "0.0.5-alpha.0",
+  "version": "1.0.0",
   "description": "Generates examples based on an OSLO JSON-LD file",
   "author": "Kristof Vandenbroucke <kristof.vandenbroucke@vlaanderen.be>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-examples#readme",
@@ -36,7 +36,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^0.0.20-alpha.0",
+    "@oslo-flanders/core": "^1.0.0",
     "inversify": "^6.0.1",
     "n3": "^1.17.2",
     "rdf-data-factory": "^1.1.2",
