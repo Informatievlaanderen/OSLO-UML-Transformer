@@ -85,12 +85,14 @@ function loadDiagramConnectors(
 
     // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-347
     // Added a second check to only allow connectors from the active diagram
-    const connector = elementConnectors.find(
-      (x) =>
-        x.id === diagramConnector.ConnectorID &&
-        x.packageId === diagram.packageId,
-    );
 
+    // https://vlaamseoverheid.atlassian.net/jira/software/projects/SDTT/issues/SDTT-352
+    // The second check is not necessary anymore, as the diagram link table only contains links to the active diagram
+    // classes that are being imported from other packages are not shown in the diagram which means that we lose
+    // information about the connectors of the other diagram
+    const connector = elementConnectors.find(
+      (x) => x.id === diagramConnector.ConnectorID,
+    );
     if (!connector) {
       // TODO: log message
       return;
