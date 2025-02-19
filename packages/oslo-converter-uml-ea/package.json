@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@oslo-flanders/core": "^1.0.0",
-    "@oslo-flanders/ea-uml-extractor": "^0.0.35-alpha.0",
+    "@oslo-flanders/ea-uml-extractor": "^1.0.0-alpha.0",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
     "n3": "^1.16.2",
