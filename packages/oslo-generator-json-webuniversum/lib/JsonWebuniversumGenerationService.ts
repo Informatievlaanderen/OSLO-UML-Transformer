@@ -65,18 +65,28 @@ export class JsonWebuniversumGenerationService implements IService {
     );
 
     // Sort entities
-    sortWebuniversumObjects(classes, this.configuration.language);
+    sortWebuniversumObjects(
+      classes,
+      this.configuration.specificationType,
+      this.configuration.language,
+    );
     classes.forEach((classObject: WebuniversumObject) =>
       sortWebuniversumObjects(
         classObject.properties || [],
+        this.configuration.specificationType,
         this.configuration.language,
       ),
     );
 
-    sortWebuniversumObjects(dataTypes, this.configuration.language);
+    sortWebuniversumObjects(
+      dataTypes,
+      this.configuration.specificationType,
+      this.configuration.language,
+    );
     dataTypes.forEach((datatypeObject: WebuniversumObject) =>
       sortWebuniversumObjects(
         datatypeObject.properties || [],
+        this.configuration.specificationType,
         this.configuration.language,
       ),
     );
@@ -102,30 +112,48 @@ export class JsonWebuniversumGenerationService implements IService {
 
       template = {
         ...template,
-        classes: this.getFilteredClasses(
-          classes,
-          inPublicationEnvironmentClasses,
-          inPackageClasses,
-          this.configuration.language,
+        classes: sortWebuniversumObjects(
+          this.getFilteredClasses(
+            classes,
+            inPublicationEnvironmentClasses,
+            inPackageClasses,
+            this.configuration.language,
+            this.configuration.specificationType,
+          ),
           this.configuration.specificationType,
+          this.configuration.language,
         ),
         // scoped data types
         dataTypes: sortWebuniversumObjects(
           scopedDataTypes,
+          this.configuration.specificationType,
           this.configuration.language,
         ),
         // Only the in package properties will be shown
         properties: sortWebuniversumObjects(
           inPackageProperties,
+          this.configuration.specificationType,
           this.configuration.language,
         ),
       };
     } else {
       template = {
         ...template,
-        classes,
-        dataTypes,
-        properties,
+        classes: sortWebuniversumObjects(
+          classes,
+          this.configuration.specificationType,
+          this.configuration.language,
+        ),
+        dataTypes: sortWebuniversumObjects(
+          dataTypes,
+          this.configuration.specificationType,
+          this.configuration.language,
+        ),
+        properties: sortWebuniversumObjects(
+          properties,
+          this.configuration.specificationType,
+          this.configuration.language,
+        ),
       };
     }
 
@@ -159,10 +187,15 @@ export class JsonWebuniversumGenerationService implements IService {
     specificationType: SpecificationType,
   ): WebuniversumObject[] {
     if (specificationType === SpecificationType.ApplicationProfile) {
-      return sortWebuniversumObjects(classes, language);
+      return sortWebuniversumObjects(
+        classes,
+        this.configuration.specificationType,
+        language,
+      );
     }
     return sortWebuniversumObjects(
       [...inPublicationEnvironmentClasses, ...inPackageClasses],
+      this.configuration.specificationType,
       language,
     );
   }
@@ -280,6 +313,7 @@ export class JsonWebuniversumGenerationService implements IService {
       ...(parentObjects.length > 0 && {
         parents: sortWebuniversumObjects(
           parentObjects,
+          this.configuration.specificationType,
           this.configuration.language,
         ),
       }),

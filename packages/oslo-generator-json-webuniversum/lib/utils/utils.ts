@@ -1,4 +1,4 @@
-import { Scope } from '@oslo-flanders/core';
+import { SpecificationType, Scope } from '@oslo-flanders/core';
 import type { WebuniversumObject } from '../types/WebuniversumObject';
 
 export const isInPackage: (classA: WebuniversumObject) => boolean = (
@@ -11,7 +11,7 @@ export const isInPublication = (
 ): boolean => classA?.id.includes(publicationEnvironment);
 
 export const isInPublicationEnvironment: (
-  classA: WebuniversumObject
+  classA: WebuniversumObject,
 ) => boolean = (classA: WebuniversumObject) =>
   classA?.scope === Scope.InPublicationEnvironment;
 
@@ -25,13 +25,24 @@ export const isScoped: (classA: WebuniversumObject) => boolean = (
 
 export const sortWebuniversumObjects = (
   webuniversumObjects: WebuniversumObject[],
+  specificationType:
+    | SpecificationType.ApplicationProfile
+    | SpecificationType.Vocabulary,
   language: string,
 ): WebuniversumObject[] =>
   webuniversumObjects.sort(
-    (classA: WebuniversumObject, classB: WebuniversumObject) =>
-      (classA.vocabularyLabel?.[language] || '').localeCompare(
-        classB.vocabularyLabel?.[language] || '',
-      ),
+    (classA: WebuniversumObject, classB: WebuniversumObject) => {
+      const labelA =
+        specificationType === SpecificationType.Vocabulary
+          ? classA.vocabularyLabel?.[language]
+          : classA.applicationProfileLabel?.[language];
+      const labelB =
+        specificationType === SpecificationType.Vocabulary
+          ? classB.vocabularyLabel?.[language]
+          : classB.applicationProfileLabel?.[language];
+
+      return (labelA || '').localeCompare(labelB || '');
+    },
   );
 
 export const filterWebuniversumObjects = (
