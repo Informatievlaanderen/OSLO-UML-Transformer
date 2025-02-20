@@ -1,8 +1,10 @@
 export enum Status {
-  KandidaatStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard',
-  OntwerpStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard',
+  WerkgroepCharter = 'https://data.vlaanderen.be/id/concept/StandaardStatus/WerkgroepCharter',
   ErkendeStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/ErkendeStandaard',
-  HerroepenStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/HerroepenStandaard',
   VerouderdeStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/VerouderdeStandaard',
+  OntwerpStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard',
   VervangenStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/VervangenStandaard',
+  KandidaatStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard',
+  HerroepenStandaard = 'https://data.vlaanderen.be/id/concept/StandaardStatus/HerroepenStandaard',
+  NotaWerkgroep = 'https://data.vlaanderen.be/id/concept/StandaardStatus/NotaWerkgroep',
 }
