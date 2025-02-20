@@ -345,7 +345,7 @@
                                              </dt>
                                              <dd>
                                                 {%- for parent in entity['parents'] %}
-                                                   <a href="{{ parent.id }}">
+                                                   <a href="#{{ parent.applicationProfileLabel[language] | generateAnchorTag() }}">
                                                       {{ parent.applicationProfileLabel[language] }}</a>
                                                    {% if not loop.last %},
                                                    {% endif %}
@@ -474,7 +474,7 @@
                                              <dt>Subklasse van</dt>
                                              <dd>
                                                 {%- for parent in dataType['parents'] %}
-                                                   <a href="{{ parent.id }}">
+                                                   <a href="#{{ parent.applicationProfileLabel[language] | generateAnchorTag() }}">
                                                       {{ parent.applicationProfileLabel[language] }}</a>
                                                    {% if not loop.last %},
                                                    {% endif %}
