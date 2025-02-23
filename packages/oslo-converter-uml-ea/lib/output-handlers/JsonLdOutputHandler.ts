@@ -218,6 +218,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const definitionQuads: RDF.Quad[] = store.getDefinitions(subject);
       const labelQuads: RDF.Quad[] = store.getLabels(subject);
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
+      const parentQuads: RDF.NamedNode[] = store.getParentsOfClass(subject);
       const scopeQuad: RDF.NamedNode | undefined = store.getScope(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
       const other: RDF.Quad[] | undefined =
@@ -235,6 +236,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...this.mapOtherTags(other),
         ...(scopeQuad && {
           scope: scopeQuad.value,
+        }),
+        ...(parentQuads.length > 0 && {
+          parent: parentQuads.map((x) => ({ '@id': x.value })),
         }),
         ...this.mapStatuses(statuses),
       };
