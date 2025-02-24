@@ -365,27 +365,35 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
           quads,
         );
 
-	    switch (object.type) {
-	      case ElementType.Enumeration:
-	      case ElementType.Class:
-		quads.push(
-			this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class')), 
-			referencedEntitiesGraph
-	        );
-		break;
+        switch (object.type) {
+          case ElementType.Enumeration:
+          case ElementType.Class:
+            quads.push(
+              this.df.quad(
+                objectInternalId,
+                ns.rdf('type'),
+                ns.owl('Class'),
+                referencedEntitiesGraph,
+              ),
+            );
+            break;
 
-	      case ElementType.DataType:
-		quads.push(
-			this.df.quad(objectInternalId, ns.rdf('type'), ns.rdfs('DataType')), 
-			referencedEntitiesGraph
-	        );
-		break;
+          case ElementType.DataType:
+            quads.push(
+              this.df.quad(
+                objectInternalId,
+                ns.rdf('type'),
+                ns.rdfs('DataType'),
+                referencedEntitiesGraph,
+              ),
+            );
+            break;
 
-	      default:
-		throw new Error(
-		  `[ElementConverterHandler]: Object type (${object.type}) is not supported.`,
-		);
-	    }
+          default:
+            throw new Error(
+              `[ElementConverterHandler]: Object type (${object.type}) is not supported.`,
+            );
+        }
 
         quads.push(
           this.df.quad(
