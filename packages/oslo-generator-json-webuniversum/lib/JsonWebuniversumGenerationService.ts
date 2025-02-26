@@ -96,14 +96,6 @@ export class JsonWebuniversumGenerationService implements IService {
 
     // Filter entitities
     if (this.configuration.applyFiltering) {
-      const inPackageClasses = filterWebuniversumObjects(classes, [
-        isInPackage,
-      ]);
-      const inPublicationEnvironmentClasses = filterWebuniversumObjects(
-        classes,
-        [isInPublicationEnvironment],
-      );
-
       const scopedDataTypes = filterWebuniversumObjects(dataTypes, [isScoped]);
 
       const inPackageProperties = [...classes, ...dataTypes].flatMap((c) =>
@@ -113,10 +105,9 @@ export class JsonWebuniversumGenerationService implements IService {
       template = {
         ...template,
         classes: sortWebuniversumObjects(
-          this.getFilteredClasses(
+          this.getFilteredEntities(
             classes,
-            inPublicationEnvironmentClasses,
-            inPackageClasses,
+            dataTypes,
             this.configuration.language,
             this.configuration.specificationType,
           ),
@@ -179,13 +170,14 @@ export class JsonWebuniversumGenerationService implements IService {
   // AP needs to show all classes (no scope filtering)
   // In package classes and in publication Environment classes
   // Introduce a new parameter similar to html-generation-service
-  private getFilteredClasses(
+  // At the same time the VOC classes need to show both the classes in the package as well as Datatypes in the package
+  private getFilteredEntities(
     classes: WebuniversumObject[],
-    inPublicationEnvironmentClasses: WebuniversumObject[],
-    inPackageClasses: WebuniversumObject[],
+    dataTypes: WebuniversumObject[],
     language: string,
     specificationType: SpecificationType,
   ): WebuniversumObject[] {
+    // In an application profile, we have a separate list of classes and datatypes. There is no need to merge them, whereas in a vocabulary, we need to merge them.
     if (specificationType === SpecificationType.ApplicationProfile) {
       return sortWebuniversumObjects(
         classes,
@@ -193,8 +185,24 @@ export class JsonWebuniversumGenerationService implements IService {
         language,
       );
     }
+    // Filter the classes to just the ones that are in the package 
+    // If we're dealing with a vocabulary, showcase both classes and datatypes
+    const inPackageClasses = filterWebuniversumObjects(classes, [isInPackage]);
+    // const inPublicationEnvironmentClasses = filterWebuniversumObjects(classes, [
+    //   isInPublicationEnvironment,
+    // ]);
+    const inPackageDatatypes = filterWebuniversumObjects(dataTypes, [
+      isInPackage,
+    ]);
+    // const inPublicationEnvironmentDatatypes = filterWebuniversumObjects(
+    //   dataTypes,
+    //   [isInPublicationEnvironment],
+    // );
     return sortWebuniversumObjects(
-      [...inPublicationEnvironmentClasses, ...inPackageClasses],
+      [
+        ...inPackageClasses,
+        ...inPackageDatatypes,
+      ],
       this.configuration.specificationType,
       language,
     );
