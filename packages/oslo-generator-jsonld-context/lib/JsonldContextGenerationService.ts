@@ -125,7 +125,7 @@ export class JsonldContextGenerationService implements IService {
       .reduce((main, x: ClassMetadata) => {
         return {
           ...main,
-          [x.label.value]: {
+          [toPascalCase(x.label.value)]: {
             '@id': x.assignedURI.value,
             '@context': {
               ...propertyMetadata
@@ -177,7 +177,7 @@ export class JsonldContextGenerationService implements IService {
     const classContext = Object.fromEntries(
       classMetadata
         .sort((a, b) => a.label.value.localeCompare(b.label.value))
-        .map((x: ClassMetadata) => [x.label.value, x.assignedURI.value]),
+        .map((x: ClassMetadata) => [toPascalCase(x.label.value), x.assignedURI.value]),
     );
 
     const propertyContext = propertyMetadata.reduce(
@@ -226,8 +226,6 @@ export class JsonldContextGenerationService implements IService {
         }
 
         if (duplicates.includes(subject)) {
-          const uri: RDF.NamedNode | undefined =
-            this.store.getAssignedUri(subject);
           throw new Error(
             `Found ${subject.value} in duplicates, meaning "${label.value}" is used multiple times as label.`,
           );
