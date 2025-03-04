@@ -15,10 +15,15 @@ import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toPascalCase } from '../utils/utils';
-import { Language } from '@oslo-flanders/core/lib/enums/Language';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
+  public async filterHiddenObjects(model: DataRegistry): Promise<DataRegistry> {
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-359
+    // Hidden elements are currently not supported. Only connectors.
+    return model;
+  }
+
   public async filterIgnoredObjects(
     model: DataRegistry,
   ): Promise<DataRegistry> {

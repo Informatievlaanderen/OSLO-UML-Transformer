@@ -67,6 +67,14 @@ export abstract class ConverterHandler<T extends EaObject> {
   ): Promise<DataRegistry>;
 
   /**
+   * Removes objects that are set to hidden in the EA model
+   * @param model - The data registry containing the entities
+   */
+  public abstract filterHiddenObjects(
+    model: DataRegistry,
+  ): Promise<DataRegistry>;
+
+  /**
    * Adds information that was set via tags on an entity to the array of quads
    * @param object - The entity to extract the information from and add it to the array of quads
    * @param objectInternalId - An RDF.NamedNode representing the internal ID of the entity

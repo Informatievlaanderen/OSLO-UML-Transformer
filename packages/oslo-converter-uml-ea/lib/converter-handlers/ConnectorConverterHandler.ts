@@ -22,6 +22,22 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
   @inject(EaUmlConverterServiceIdentifier.ConnectorNormalisationService)
   private readonly connectorNormalisationService!: ConnectorNormalisationService;
 
+  public async filterHiddenObjects(model: DataRegistry): Promise<DataRegistry> {
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-359
+    // Hidden connectors are currently supported. Don't add them to the output.
+    model.connectors = model.connectors.filter((connector) => {
+      if (connector.hidden) {
+        this.logger.info(
+          `[ConnectorConverterHandler]: Ignoring hidden connector (${connector.path})`,
+        );
+        return false;
+      }
+      return true;
+    });
+
+    return model;
+  }
+
   public async filterIgnoredObjects(
     model: DataRegistry,
   ): Promise<DataRegistry> {

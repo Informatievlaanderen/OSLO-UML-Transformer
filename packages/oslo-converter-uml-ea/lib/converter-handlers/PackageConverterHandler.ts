@@ -11,6 +11,11 @@ import { getTagValue, ignore } from '../utils/utils';
 
 @injectable()
 export class PackageConverterHandler extends ConverterHandler<EaPackage> {
+  public async filterHiddenObjects(model: DataRegistry): Promise<DataRegistry> {
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-359
+    // Hidden packages are currently not supported. Only connectors.
+    return model;
+  }
   public async filterIgnoredObjects(
     model: DataRegistry,
   ): Promise<DataRegistry> {
