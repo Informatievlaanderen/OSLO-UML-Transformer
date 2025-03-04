@@ -1,5 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
- 
+
 import { Logger, ns } from '@oslo-flanders/core';
 import type { QuadStore, IService } from '@oslo-flanders/core';
 import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
@@ -18,8 +18,10 @@ export class EaUmlConversionService implements IService {
 
   public constructor(
     @inject(EaUmlConverterServiceIdentifier.Logger) logger: Logger,
-    @inject(EaUmlConverterServiceIdentifier.Configuration) config: EaUmlConverterConfiguration,
-    @inject(EaUmlConverterServiceIdentifier.OutputHandlerService) outputHandlerService: OutputHandlerService,
+    @inject(EaUmlConverterServiceIdentifier.Configuration)
+    config: EaUmlConverterConfiguration,
+    @inject(EaUmlConverterServiceIdentifier.OutputHandlerService)
+    outputHandlerService: OutputHandlerService,
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -37,20 +39,23 @@ export class EaUmlConversionService implements IService {
     await model.extract(this.configuration.umlFile);
     model.setTargetDiagram(this.configuration.diagramName);
 
-    const store = await converterHandler.filterIgnoredObjects(model)
+    const store = await converterHandler
+      .filterHiddenObjects(model)
+      .then(() => converterHandler.filterIgnoredObjects(model))
       .then(() => converterHandler.normalize(model))
       .then(() => converterHandler.assignUris(model))
-      .then(uriRegistry => converterHandler.convert(model, uriRegistry))
-      .then(_store => this.addDocumentInformation(_store));
+      .then((uriRegistry) => converterHandler.convert(model, uriRegistry))
+      .then((_store) => this.addDocumentInformation(_store));
 
     await this.outputHandlerService.write(store);
   }
 
   private async addDocumentInformation(store: QuadStore): Promise<QuadStore> {
     const df = new DataFactory();
-    const normalizedVersionBaseUri = this.configuration.publicationEnvironment.endsWith('/') ?
-      this.configuration.publicationEnvironment.slice(0, -1) :
-      this.configuration.publicationEnvironment;
+    const normalizedVersionBaseUri =
+      this.configuration.publicationEnvironment.endsWith('/')
+        ? this.configuration.publicationEnvironment.slice(0, -1)
+        : this.configuration.publicationEnvironment;
     const versionUri = `${normalizedVersionBaseUri}/${this.configuration.versionId}`;
 
     // The output handler will use this quad to set the id of the document

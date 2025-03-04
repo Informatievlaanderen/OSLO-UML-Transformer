@@ -25,6 +25,12 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
   @inject(EaUmlConverterServiceIdentifier.Configuration)
   public readonly config!: EaUmlConverterConfiguration;
 
+  public async filterHiddenObjects(model: DataRegistry): Promise<DataRegistry> {
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-359
+    // Hidden attributes are currently not supported. Only connectors.
+    return model;
+  }
+
   public async filterIgnoredObjects(
     model: DataRegistry,
   ): Promise<DataRegistry> {
