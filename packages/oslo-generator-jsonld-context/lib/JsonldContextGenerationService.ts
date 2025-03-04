@@ -53,14 +53,19 @@ export class JsonldContextGenerationService implements IService {
    * @returns an context object
    */
   private async generateContext(): Promise<any> {
-    const [classMetadata, propertyMetadata] = await Promise.all([
-      this.createClassMetadata(),
-      this.createPropertyMetadata(),
-    ]);
+    const [classMetadata, datatypeMetadata, propertyMetadata] =
+      await Promise.all([
+        this.createClassMetadata(),
+        this.createDatatypeMetadata(),
+        this.createPropertyMetadata(),
+      ]);
+
+    // Combine class and datatype metadata
+    const allTypeMetadata = [...classMetadata, ...datatypeMetadata];
 
     return this.configuration.scopedContext
-      ? this.createScopedContext(classMetadata, propertyMetadata)
-      : this.createRegularContext(classMetadata, propertyMetadata);
+      ? this.createScopedContext(allTypeMetadata, propertyMetadata)
+      : this.createRegularContext(allTypeMetadata, propertyMetadata);
   }
 
   /**
@@ -88,7 +93,7 @@ export class JsonldContextGenerationService implements IService {
     });
 
     const duplicates: RDF.NamedNode[] = [];
-    labelUriMap.forEach((subjects: RDF.NamedNode[], label: string) => {
+    labelUriMap.forEach((subjects: RDF.NamedNode[]) => {
       const uniqueUris: Set<string> = new Set();
       const uniqueSubjects: RDF.NamedNode[] = [];
 
@@ -177,7 +182,10 @@ export class JsonldContextGenerationService implements IService {
     const classContext = Object.fromEntries(
       classMetadata
         .sort((a, b) => a.label.value.localeCompare(b.label.value))
-        .map((x: ClassMetadata) => [toPascalCase(x.label.value), x.assignedURI.value]),
+        .map((x: ClassMetadata) => [
+          toPascalCase(x.label.value),
+          x.assignedURI.value,
+        ]),
     );
 
     const propertyContext = propertyMetadata.reduce(
@@ -201,6 +209,56 @@ export class JsonldContextGenerationService implements IService {
         a[0].localeCompare(b[0]),
       ),
     );
+  }
+
+  /**
+   * Creates an array of ClassMetadata objects for datatypes
+   * @returns An array of ClassMetadata objects for datatypes
+   */
+  private createDatatypeMetadata(): ClassMetadata[] {
+    const datatypeMetadata: ClassMetadata[] = [];
+    const datatypeSubjects: RDF.NamedNode[] = this.store.getDatatypes();
+    const duplicates = this.identifyDuplicateLabels(datatypeSubjects);
+
+    datatypeSubjects.forEach((subject) => {
+      try {
+        const label: RDF.Literal | undefined = getApplicationProfileLabel(
+          subject,
+          this.store,
+          this.configuration.language,
+        );
+        if (!label) {
+          throw new Error(
+            `No label found for datatype ${subject.value} in language ${this.configuration.language}.`,
+          );
+        }
+
+        if (duplicates.includes(subject)) {
+          throw new Error(
+            `Found ${subject.value} in duplicates, meaning "${label.value}" is used multiple times as label.`,
+          );
+        }
+
+        const assignedUri: RDF.NamedNode | undefined =
+          this.store.getAssignedUri(subject);
+
+        if (!assignedUri) {
+          throw new Error(
+            `Unable to find the assigned URI for datatype ${subject.value}.`,
+          );
+        }
+
+        datatypeMetadata.push({
+          osloId: subject,
+          assignedURI: assignedUri,
+          label: label,
+        });
+      } catch (error) {
+        this.logger.error((<Error>error).message);
+      }
+    });
+
+    return datatypeMetadata;
   }
 
   /**
