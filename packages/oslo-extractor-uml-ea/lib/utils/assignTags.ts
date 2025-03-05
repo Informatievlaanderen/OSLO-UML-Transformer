@@ -5,6 +5,17 @@ import type { EaTag } from '../types/EaTag';
 
 /**
  * Iterates over tags and adds it to the corresponding object.
+ * @param tagValue - The value of the tag which we will replace the note errors from.
+ */
+// https://vlaamseoverheid.atlassian.net/browse/SDTT-360
+// eslint-disable-next-line max-len
+// https://github.com/Informatievlaanderen/OSLO-EA-to-RDF/blob/multilingual/src/main/java/com/github/informatievlaanderen/oslo_ea_to_rdf/convert/TagHelper.java#L314
+function replaceNoteErrors(tagValue: string): string {
+  return tagValue?.replace('NOTE$ea_notes=', '');
+}
+
+/**
+ * Iterates over tags and adds it to the corresponding object.
  * @param tags - The tags to iterate. Could be element tags, package tags, attribute tags or connector tags.
  * @param elements - The elements to add the tags to. Could be EaElement, EaPackage, EaAttribute or EaConnector
  * @param objectIdPropertyName - The property name that contains the object id to whom the tag belongs.
@@ -29,7 +40,7 @@ export function addEaTagsToElements(
         // If there are NOTES, then the tag value is a note, otherwise it is the tag value.
         tagValue:
           <string>tag[tagValueName] === TagValues.NOTE
-            ? <string>tag.Notes
+            ? replaceNoteErrors(tag.Notes)
             : <string>tag[tagValueName],
       };
 
@@ -58,7 +69,7 @@ export function addRoleTagsToElements(
       const eaRoleTag: EaTag = {
         id: <string>roleTag.PropertyID,
         tagName: <string>roleTag.TagValue,
-        tagValue: <string>roleTag.Notes,
+        tagValue: replaceNoteErrors(roleTag.Notes),
       };
 
       if (roleTag.BaseClass === 'ASSOCIATION_SOURCE') {
