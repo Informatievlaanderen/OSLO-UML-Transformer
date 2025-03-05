@@ -4,9 +4,7 @@ import type {
   EaConnector,
   EaElement,
 } from '@oslo-flanders/ea-uml-extractor';
-import {
-  NormalizedConnector,
-} from '@oslo-flanders/ea-uml-extractor';
+import { NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
@@ -14,7 +12,9 @@ import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormal
 import { getTagValue, toCamelCase, toPascalCase } from '../utils/utils';
 
 @injectable()
-export class AssociationWithAssociationClassConnectorCase implements IConnectorNormalisationCase {
+export class AssociationWithAssociationClassConnectorCase
+  implements IConnectorNormalisationCase
+{
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -45,7 +45,7 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
 
     const normalisedConnectors: NormalizedConnector[] = [];
     const associationClassObject = dataRegistry.elements.find(
-      x => x.id === connector.associationClassId,
+      (x) => x.id === connector.associationClassId,
     );
 
     if (!associationClassObject) {
@@ -55,10 +55,11 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
     }
 
     const associationClassName: string =
-      getTagValue(associationClassObject, TagNames.LocalName, null) ?? associationClassObject.name;
+      getTagValue(associationClassObject, TagNames.LocalName, null) ??
+      associationClassObject.name;
 
     const sourceObject: EaElement | undefined = dataRegistry.elements.find(
-      x => x.id === connector.sourceObjectId,
+      (x) => x.id === connector.sourceObjectId,
     );
     if (!sourceObject) {
       throw new Error(
@@ -66,11 +67,16 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
       );
     }
 
-    const sourceObjectName: string = getTagValue(sourceObject, TagNames.LocalName, null) ?? sourceObject.name;
+    const sourceObjectName: string =
+      getTagValue(sourceObject, TagNames.LocalName, null) ?? sourceObject.name;
 
     const sourceLocalName = `${toPascalCase(
       associationClassName,
     )}.${toCamelCase(sourceObjectName)}`;
+
+    const sourceTags = connector.sourceRoleTags.filter((x) =>
+      x.tagName.startsWith(TagNames.DefiningPackage),
+    );
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -80,6 +86,7 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
         connector.sourceObjectId,
         '1',
         [
+          ...sourceTags,
           {
             tagName: TagNames.LocalName,
             tagValue: sourceLocalName,
@@ -89,7 +96,7 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
     );
 
     const destinationObject: EaElement | undefined = dataRegistry.elements.find(
-      x => x.id === connector.destinationObjectId,
+      (x) => x.id === connector.destinationObjectId,
     );
     if (!destinationObject) {
       throw new Error(
@@ -98,11 +105,16 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
     }
 
     const destinationObjectName: string =
-      getTagValue(destinationObject, TagNames.LocalName, null) ?? destinationObject.name;
+      getTagValue(destinationObject, TagNames.LocalName, null) ??
+      destinationObject.name;
 
     const destinationLocalName = `${toPascalCase(
       associationClassName,
     )}.${toCamelCase(destinationObjectName)}`;
+
+    const destinationTags = connector.destinationRoleTags.filter((x) =>
+      x.tagName.startsWith(TagNames.DefiningPackage),
+    );
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -112,6 +124,7 @@ export class AssociationWithAssociationClassConnectorCase implements IConnectorN
         connector.destinationObjectId,
         '1',
         [
+          ...destinationTags,
           {
             tagName: TagNames.LocalName,
             tagValue: destinationLocalName,
