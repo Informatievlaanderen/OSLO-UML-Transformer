@@ -42,7 +42,7 @@ export class AssociationWithAssociationClassConnectorCase
     if (ignoreImplicitGeneration) {
       return [];
     }
-
+    const defaultString: string = 'Verwijzing naar de verbonden klasse';
     const normalisedConnectors: NormalizedConnector[] = [];
     const associationClassObject = dataRegistry.elements.find(
       (x) => x.id === connector.associationClassId,
@@ -91,6 +91,10 @@ export class AssociationWithAssociationClassConnectorCase
             tagName: TagNames.LocalName,
             tagValue: sourceLocalName,
           },
+          {
+            tagName: TagNames.ApDefinition,
+            tagValue: defaultString,
+          },
         ],
       ),
     );
@@ -128,6 +132,10 @@ export class AssociationWithAssociationClassConnectorCase
           {
             tagName: TagNames.LocalName,
             tagValue: destinationLocalName,
+          },
+          {
+            tagName: TagNames.ApDefinition,
+            tagValue: defaultString,
           },
         ],
       ),
