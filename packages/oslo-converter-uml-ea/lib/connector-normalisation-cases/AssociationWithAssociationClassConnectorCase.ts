@@ -78,6 +78,20 @@ export class AssociationWithAssociationClassConnectorCase
       x.tagName.startsWith(TagNames.DefiningPackage),
     );
 
+
+    //
+    // propagate the tags on the association class to the implicit connectors.
+    // As the connectors (properties/relationships) are implicit one has to make a choice where to put this information.
+    // The connectors should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
+    // Because of the implicit relationships it is impossible to have the same class participate in two distinct association class relationships. 
+    // If one need that functionality, the only solution is to create duplicate classes and copy the information.
+    const sourceExtraTags = associationClassObject.getTags.filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix)).map((x) => mapRemovePrefix(TagNames.AssociationSourcePrefix, x));
+    const sTags = sourceTags.concat(sourceExtraTags) // Extending it with default values should be done after checking this list
+    //
+    // Better apply the new practice: values are explicit in the EA UML model. 
+    // Maybe the removal of the name is problematic as it might lead to invalid assigned URI
+    // In that case this has to be extended with the remove lines for the tagNames.LocalName 
+
     normalisedConnectors.push(
       new NormalizedConnector(
         connector,
@@ -85,17 +99,7 @@ export class AssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.sourceObjectId,
         '1',
-        [
-          ...sourceTags,
-          {
-            tagName: TagNames.LocalName,
-            tagValue: sourceLocalName,
-          },
-          {
-            tagName: TagNames.ApDefinition,
-            tagValue: defaultString,
-          },
-        ],
+        sTags,
       ),
     );
 
@@ -119,6 +123,8 @@ export class AssociationWithAssociationClassConnectorCase
     const destinationTags = connector.destinationRoleTags.filter((x) =>
       x.tagName.startsWith(TagNames.DefiningPackage),
     );
+    const destinationExtraTags = associationClassObject.getTags.filter((x) => x.tagName.startsWith(TagNames.AssociationDestPrefix)).map((x) => mapRemovePrefix(TagNames.AssociationDestPrefix, x));
+    const dTags = destinationTags.concat(destinationExtraTags) // Extending it with default values should be done after checking this list
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -127,20 +133,23 @@ export class AssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.destinationObjectId,
         '1',
-        [
-          ...destinationTags,
-          {
-            tagName: TagNames.LocalName,
-            tagValue: destinationLocalName,
-          },
-          {
-            tagName: TagNames.ApDefinition,
-            tagValue: defaultString,
-          },
+        dTags,
         ],
       ),
     );
 
     return normalisedConnectors;
+  }
+
+  // generic function to remove the prefix from the tagName 
+  private mapRemovePrefix(prefix, tag): any {
+
+	let reg = new RegExp(prefix, "g");
+	let name = tag.tagName.replace(reg,"");
+	let newtag = {...tag}
+	newtag.tagName = name
+	newtag.id = tag.id + 9990000 // ensure a new copy, unclear if this id is important for the next
+	return newtag
+
   }
 }
