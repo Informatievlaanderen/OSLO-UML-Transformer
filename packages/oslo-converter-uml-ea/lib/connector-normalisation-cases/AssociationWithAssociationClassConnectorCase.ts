@@ -81,14 +81,14 @@ export class AssociationWithAssociationClassConnectorCase
     // The connectors should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
     // Because of the implicit relationships it is impossible to have the same class participate in two distinct association class relationships.
     // If one need that functionality, the only solution is to create duplicate classes and copy the information.
-    const sourceExtraTags: EaTag[] = connector.sourceRoleTags
+    const sourceExtraTags: EaTag[] = associationClassObject.tags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix))
       .map((tag) => ({
         ...tag,
         tagName: tag.tagName.replace(TagNames.AssociationSourcePrefix, ''),
       }));
 
-    const destinationExtraTags: EaTag[] = connector.destinationRoleTags
+    const destinationExtraTags: EaTag[] = associationClassObject.tags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationDestPrefix))
       .map((tag) => ({
         ...tag,
