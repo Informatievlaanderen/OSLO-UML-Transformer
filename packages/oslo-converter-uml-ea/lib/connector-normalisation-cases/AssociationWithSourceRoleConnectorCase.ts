@@ -4,9 +4,7 @@ import type {
   DataRegistry,
   EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
-import {
-  NormalizedConnector,
-} from '@oslo-flanders/ea-uml-extractor';
+import { NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
@@ -14,7 +12,9 @@ import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormal
 import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
 
 @injectable()
-export class AssocationWithSourceRoleConnectorCase implements IConnectorNormalisationCase {
+export class AssocationWithSourceRoleConnectorCase
+  implements IConnectorNormalisationCase
+{
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -29,12 +29,22 @@ export class AssocationWithSourceRoleConnectorCase implements IConnectorNormalis
     connector: EaConnector,
     dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
-    if (!connector.sourceRole || connector.name) {
+    if (!connector.sourceRole) {
+      this.logger.info(
+        `Connector ${connector.path} is not an association with a source role. Ignoring this connector.`,
+      );
+      return [];
+    }
+    if (!connector.name) {
+      this.logger.info(
+        `Connector ${connector.path} has no name. Ignoring this connector.`,
+      );
       return [];
     }
 
-    const localName: string =
-      toCamelCase(getTagValue(connector, TagNames.LocalName, null) ?? connector.sourceRole);
+    const localName: string = toCamelCase(
+      getTagValue(connector, TagNames.LocalName, null) ?? connector.sourceRole,
+    );
 
     const tags: EaTag[] = structuredClone(connector.sourceRoleTags);
     updateNameTag(tags, localName);
