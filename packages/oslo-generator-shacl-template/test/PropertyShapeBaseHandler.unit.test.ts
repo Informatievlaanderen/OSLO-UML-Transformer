@@ -124,12 +124,12 @@ describe('PropertyShapeBaseHandler', () => {
       .toThrow(new Error(`Unable to find the label for subject "http://example.org/.well-known/id/property/1".`));
   });
 
-  it('should log an error when the description for subject is not found', async () => {
+  it('should log a warning when the description for subject is not found', async () => {
     store.addQuads(await parseJsonld(dataWithNoDescription));
-    jest.spyOn(logger, 'error');
+    jest.spyOn(logger, 'warn');
 
     handler.handle(df.namedNode('http://example.org/.well-known/id/property/1'), store, shaclStore)
-    expect(logger.error).toHaveBeenCalled();
+    expect(logger.warn).toHaveBeenCalled();
   });
 
   it('should throw an error when the range for subject is not found', async () => {

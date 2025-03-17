@@ -42,8 +42,10 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     const description: RDF.Literal | undefined = getApplicationProfileDefinition(subject, store, this.config.language);
 
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-363
+    // Relax the constraint to a warning
     if (!description) {
-      this.logger.error(`Unable to find the description for subject "${subject.value}".`);
+      this.logger.warn(`Unable to find the description for subject "${subject.value}".`);
     }
 
     const range: RDF.NamedNode | undefined = store.getRange(subject);
