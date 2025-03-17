@@ -52,3 +52,12 @@ export const filterWebuniversumObjects = (
   classes.filter((webuniversumObject: WebuniversumObject) =>
     filters.every((filter) => filter(webuniversumObject)),
   );
+
+/**
+ * Determines whether a URI is external based on its format
+ * @param uri The URI to check
+ * @returns Boolean indicating if the URI is external (true) or internal (false)
+ */
+export const isExternalUri = (uri: string): boolean =>
+  // URIs starting with "urn:" are considered internal
+  !uri.startsWith('urn:');
