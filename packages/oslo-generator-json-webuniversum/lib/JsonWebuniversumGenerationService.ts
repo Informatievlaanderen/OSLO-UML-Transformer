@@ -22,8 +22,8 @@ import { WebuniversumObject } from './types/WebuniversumObject';
 import { WebuniversumProperty } from './types/WebuniversumProperty';
 import {
   filterWebuniversumObjects,
+  isExternalUri,
   isInPackage,
-  isInPublicationEnvironment,
   isScoped,
   sortWebuniversumObjects,
 } from './utils/utils';
@@ -185,7 +185,7 @@ export class JsonWebuniversumGenerationService implements IService {
         language,
       );
     }
-    // Filter the classes to just the ones that are in the package 
+    // Filter the classes to just the ones that are in the package
     // If we're dealing with a vocabulary, showcase both classes and datatypes
     const inPackageClasses = filterWebuniversumObjects(classes, [isInPackage]);
     // const inPublicationEnvironmentClasses = filterWebuniversumObjects(classes, [
@@ -199,10 +199,7 @@ export class JsonWebuniversumGenerationService implements IService {
     //   [isInPublicationEnvironment],
     // );
     return sortWebuniversumObjects(
-      [
-        ...inPackageClasses,
-        ...inPackageDatatypes,
-      ],
+      [...inPackageClasses, ...inPackageDatatypes],
       this.configuration.specificationType,
       language,
     );
@@ -435,10 +432,26 @@ export class JsonWebuniversumGenerationService implements IService {
     const parentAssignedURI: RDF.NamedNode | undefined =
       this.store.getAssignedUri(subject);
 
+    // Remove debug log
+    // console.log(subject.value);
+
     if (!parentAssignedURI) {
-      throw new Error(
-        `Unable to find the assigned URI for class ${subject.value} which acts as a parent.`,
-      );
+      // Check if this is an external URI (doesn't start with "urn:")
+      if (isExternalUri(subject.value)) {
+        this.logger.warn(
+          `Unable to find the assigned URI for external class ${subject.value} which acts as a parent. Using original URI as fallback.`,
+        );
+
+        // Return a minimal object with just the ID to allow the process to continue
+        return {
+          id: subject.value,
+        };
+      } else {
+        // For internal URIs, throw an error since they should be resolvable
+        throw new Error(
+          `Unable to find the assigned URI for internal class ${subject.value} which acts as a parent.`,
+        );
+      }
     }
 
     const parentVocabularyLabel: RDF.Literal | undefined = getVocabularyLabel(
