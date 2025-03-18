@@ -38,6 +38,11 @@ export class JsonWebuniversumGenerationServiceConfiguration
    */
   private _specificationType: SpecificationType | undefined;
 
+  /**
+   * Whether to propagate properties from parent classes to their children
+   */
+  private _propagateParentProperties: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -45,8 +50,9 @@ export class JsonWebuniversumGenerationServiceConfiguration
     this._applyFiltering = <boolean>params.applyFiltering;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._specificationType = this.getSpecificationType(
-      <string>params.specificationType
+      <string>params.specificationType,
     );
+    this._propagateParentProperties = <boolean>params.propagateParentProperties;
   }
 
   public get input(): string {
@@ -77,7 +83,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
   public get publicationEnvironment(): string {
     if (!this._publicationEnvironment) {
       throw new Error(
-        `Trying to access property "publicationEnvironment" before it was set.`
+        `Trying to access property "publicationEnvironment" before it was set.`,
       );
     }
     return this._publicationEnvironment;
@@ -86,7 +92,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
   public get specificationType(): SpecificationType {
     if (this._specificationType === undefined) {
       throw new Error(
-        `Trying to access property "specificationType" before it was set.`
+        `Trying to access property "specificationType" before it was set.`,
       );
     }
     return this._specificationType;
@@ -102,8 +108,12 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
       default:
         throw new Error(
-          `Unable to translate ${value} to a specification type.`
+          `Unable to translate ${value} to a specification type.`,
         );
     }
+  }
+
+  public get propagateParentProperties(): boolean {
+    return !!this._propagateParentProperties;
   }
 }

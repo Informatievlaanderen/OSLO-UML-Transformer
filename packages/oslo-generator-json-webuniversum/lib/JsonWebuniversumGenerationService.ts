@@ -225,6 +225,96 @@ export class JsonWebuniversumGenerationService implements IService {
     return baseURIObject.value;
   }
 
+  /**
+   * Recursively collects properties from parent classes
+   */
+  private async collectParentProperties(
+    parentsIds: RDF.NamedNode[],
+    childEntityId: RDF.NamedNode,
+  ): Promise<WebuniversumProperty[]> {
+    if (!this.configuration.propagateParentProperties || !parentsIds.length) {
+      return [];
+    }
+
+    const allParentProperties: WebuniversumProperty[] = [];
+
+    // Process each parent
+    for (const parentId of parentsIds) {
+      // Get properties that have this parent as domain
+      const parentProps = this.store
+        .findSubjects(ns.rdfs('domain'), parentId)
+        .filter((property) => {
+          // Don't include properties that are already defined directly on the child
+          const directChildProps = this.store.findSubjects(
+            ns.rdfs('domain'),
+            childEntityId,
+          );
+          return !directChildProps.some((childProp) =>
+            childProp.equals(property),
+          );
+        });
+
+      // Process each property
+      const parentProperties = await Promise.all(
+        parentProps.map<Promise<WebuniversumProperty>>(
+          async (property: RDF.Term) => {
+            const propertyObj = await this.generateEntityData(
+              <RDF.NamedNode>property,
+              false,
+            );
+            const propWithSpecifics = this.addPropertySpecificInformation(
+              <RDF.NamedNode>property,
+              <WebuniversumProperty>propertyObj,
+              parentId,
+            );
+
+            // Mark as inherited property and indicate from which parent
+            const parentLabel =
+              getVocabularyLabel(
+                parentId,
+                this.store,
+                this.configuration.language,
+              )?.value ||
+              getApplicationProfileLabel(
+                parentId,
+                this.store,
+                this.configuration.language,
+              )?.value ||
+              this.store.getAssignedUri(parentId)?.value ||
+              parentId.value;
+
+            return {
+              ...propWithSpecifics,
+              inherited: true,
+              inheritedFrom: {
+                id:
+                  this.store.getAssignedUri(parentId)?.value || parentId.value,
+                label: parentLabel,
+              },
+            };
+          },
+        ),
+      );
+
+      allParentProperties.push(...parentProperties);
+
+      // Recursively get properties from the parent's parents
+      const grandParentsIds = this.store.getParentsOfClass(parentId);
+      const grandParentProperties = await this.collectParentProperties(
+        grandParentsIds,
+        parentId,
+      );
+      allParentProperties.push(...grandParentProperties);
+    }
+
+    // Remove duplicates based on property ID to avoid repeated properties from multiple inheritance paths
+    const uniqueProps = allParentProperties.filter(
+      (prop, index, self) => index === self.findIndex((p) => p.id === prop.id),
+    );
+
+    return uniqueProps;
+  }
+
   private async generateEntityData(
     entity: RDF.NamedNode,
     includeProperties: boolean = true,
@@ -331,6 +421,7 @@ export class JsonWebuniversumGenerationService implements IService {
     };
 
     if (includeProperties) {
+      // Get direct properties
       const jobs: Promise<WebuniversumProperty>[] = this.store
         .findSubjects(ns.rdfs('domain'), entity)
         .map<Promise<WebuniversumProperty>>(async (property: RDF.Term) => {
@@ -346,10 +437,19 @@ export class JsonWebuniversumGenerationService implements IService {
           );
         });
 
-      const properties: WebuniversumProperty[] = await Promise.all(jobs);
+      const directProperties: WebuniversumProperty[] = await Promise.all(jobs);
 
-      if (properties.length) {
-        entityData.properties = properties;
+      // Get inherited properties if enabled
+      const inheritedProperties = await this.collectParentProperties(
+        parentsIds,
+        entity,
+      );
+
+      // Combine direct and inherited properties
+      const allProperties = [...directProperties, ...inheritedProperties];
+
+      if (allProperties.length) {
+        entityData.properties = allProperties;
       }
     }
 

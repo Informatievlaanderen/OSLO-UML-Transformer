@@ -44,6 +44,12 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
         describe:
           'The base URI of environment where the document will be published',
       })
+      .option('propagateParentProperties', {
+        describe:
+          'Recursively propagate properties from parent classes to their children',
+        default: true,
+        boolean: true,
+      })
       .demandOption(['input', 'language', 'publicationEnvironment'])
       .help('h')
       .alias('h', 'help');
