@@ -34,8 +34,8 @@ export class AssociationWithDestinationRoleConnectorCase
         this.logger.info(
           `Connector ${connector.path} has name "${connector.name}". but no destination role. Ignoring therefore this connector. If required to be present add a role or cardinality.`,
         );
-        return [];
       }
+      return [];
     }
 
     if (!connector.sourceRole || connector.name) {
@@ -43,8 +43,8 @@ export class AssociationWithDestinationRoleConnectorCase
         this.logger.info(
           `Connector ${connector.path} has name "${connector.name}". but no source role. Ignoring therefore this connector. If required to be present add a role or cardinality.`,
         );
-        return [];
       }
+      return [];
     }
 
     const localName: string = toCamelCase(

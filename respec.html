@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8"/>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">var respecConfig = {"specStatus":"unofficial","editors":[{"name":"John Doe"}],"publishDate":"2024-12-10T09:01:06.457Z"}</script>
+  </head>
+
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th:first-child {
+      width: 15%;
+    }
+
+    table{
+      width: 100%;
+    }
+  </style> 
+  <body>
+    <h1 id="title">OSLO-Mobiliteit-Trips-En-Aanbod</h1>
+    <section id="abstract"></section>
+
+    <h1>Entities</h1>
+
+    
+      <h2>
+  3Dobject
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.opengis.net/ont/gml#Solid">http://www.opengis.net/ont/gml#Solid</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een 3-dimensionele geometrische primitieve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Agent
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://purl.org/dc/terms/Agent">http://purl.org/dc/terms/Agent</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Iemand die of iets dat kan handelen of een effect kan teweeg brengen.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Any
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2000/01/rdf-schema#Resource">http://www.w3.org/2000/01/rdf-schema#Resource</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Instanties van  om het even welk type.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  BO_CurveWaardepaar
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#BO_CurveWaardepaar">https://data.vlaanderen.be/ns/bodem-en-ondergrond#BO_CurveWaardepaar</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een Curvewaardepaar dat overeenstemt met een Profielelement.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>laag</td>
+    <td>https://data.vlaanderen.be/ns/bodem-en-ondergrond#Profielelement</td>
+    <td>Overeenstemmend Profielelement.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  BO_RuimtelijkBemonsteringsobject
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#BO_RuimtelijkBemonsteringsobject">https://data.vlaanderen.be/ns/bodem-en-ondergrond#BO_RuimtelijkBemonsteringsobject</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+RuimtelijkBemonsteringsobject met bijkomende kenmerken relevant voor het domein Bodem en Ondergrond.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>aanvangspeil</td>
+    <td>http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</td>
+    <td>Geeft aan waar tov het Maaiveld het Bemonsteringsobject start.</td>
+  </tr>
+  
+  <tr>
+    <td>diepte</td>
+    <td>http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</td>
+    <td>Geeft aan tot welke Diepte het Bemonsteringsobject reikt.</td>
+  </tr>
+  
+  <tr>
+    <td>ligging</td>
+    <td>http://www.w3.org/ns/prov#Location</td>
+    <td>De ligging vh Bemonsteringsobject.</td>
+  </tr>
+  
+  <tr>
+    <td>maaiveld</td>
+    <td>https://data.vlaanderen.be/ns/bodem-en-ondergrond#Maaiveld</td>
+    <td>Ligging van het grondoppervlak.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Bemonsteringscurve
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/SamplingCurve#SF_SamplingCurve">http://def.isotc211.org/iso19156/2011/SamplingCurve#SF_SamplingCurve</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een RuimtelijkBemonsteringsobject dat de vorm aanneemt van een Curve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Bemonsteringscurve
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/SamplingCurve#SF_SamplingCurve">http://def.isotc211.org/iso19156/2011/SamplingCurve#SF_SamplingCurve</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een RuimtelijkBemonsteringsobject dat de vorm aanneemt van een Curve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Bemonsteringsobject
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeature">http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeature</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Deel van het Object dat men wil observeren en dat representatief is voor dat Object.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Bemonsteringsobjecttype
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2004/02/skos/core#Concept">http://www.w3.org/2004/02/skos/core#Concept</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  BenoemdeWaarde
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/Observation#NamedValue">http://def.isotc211.org/iso19156/2011/Observation#NamedValue</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Generieke, zwak getypeerde waarde.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Besluit
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/besluit#Besluit">https://data.vlaanderen.be/ns/besluit#Besluit</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+De authentieke schriftelijke neerslag van een beslissing van een bestuursorgaan. Deze beslissing houdt een rechtshandeling in waarbij sprake is van een beoogd rechtsgevolg.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Boring
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Boring">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Boring</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Het aanbrengen van een gat in iets dmv een boor.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Curve
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.opengis.net/ont/sf#Curve">http://www.opengis.net/ont/sf#Curve</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een 1-dimensionele geometrische primitieve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  CurveWaardepaar
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19123/2005/CoverageCore#CV_CurveValuePair">http://def.isotc211.org/iso19123/2005/CoverageCore#CV_CurveValuePair</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Element van een DiscreetCurveBereik.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  CurveWaardepaar
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19123/2005/CoverageCore#CV_CurveValuePair">http://def.isotc211.org/iso19123/2005/CoverageCore#CV_CurveValuePair</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Element van een DiscreetCurveBereik.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  DateTime
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2001/XMLSchema#dateTime">http://www.w3.org/2001/XMLSchema#dateTime</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Dekking
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://purl.org/dc/elements/1.1/coverage">http://purl.org/dc/elements/1.1/coverage</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Gebied of periode waarop de data betrekking heeft
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  DirectePositie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/generiek#DirectePositie">https://data.vlaanderen.be/ns/generiek#DirectePositie</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Houder van de coördinaten van een positie in een coördinaatreferentiesysteem.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Erkenning
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Erkenning">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Erkenning</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Officiële toelating toegekend aan een Persoon of Organisatie om een bepaald soort activiteiten uit te oefenen.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Erkenningtype
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2004/02/skos/core#Concept">http://www.w3.org/2004/02/skos/core#Concept</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Fractiemeting
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemeting">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemeting</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Meetreeks waarbij het aandeel van iets varieert in functie van iets anders.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Fractiemetingresultaat
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemetingresultaat">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemetingresultaat</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Resultaat van een Fractiemeting.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>fractiemetingwaarde</td>
+    <td>https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemetingwaarde</td>
+    <td>Waarde ve individuele Meting in de Meetreeks..</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Fractiemetingwaarde
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemetingwaarde">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Fractiemetingwaarde</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een Meetreekswaarde met een waarde voor de fractie en een waarde voor de parameter.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>meetpuntBovengrens</td>
+    <td>http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</td>
+    <td>Bovengrens van een klasse van waarden van meetpunten.</td>
+  </tr>
+  
+  <tr>
+    <td>meetpuntOndergrens</td>
+    <td>http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</td>
+    <td>Ondergrens van een klasse van waarden van meetpunten.</td>
+  </tr>
+  
+  <tr>
+    <td>meetwaarde</td>
+    <td>http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</td>
+    <td>Waarde van de fractie.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Geometrie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/ns/locn#Geometry">http://www.w3.org/ns/locn#Geometry</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Vorm- en positiekenmerken van een object.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Herkomst
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19115/2006/DataQualityInformation#LI_Lineage">http://def.isotc211.org/iso19115/2006/DataQualityInformation#LI_Lineage</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Informatie over de bewerkingen die op de data plaatsvonden of de brondata die werd gebruikt bij het produceren van de data.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Identificator
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/ns/adms#Identifier">http://www.w3.org/ns/adms#Identifier</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Informatie gebruikt om een object uniek te identificeren.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Interpretatie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Interpretatie">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Interpretatie</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Persoonlijk beredeneerd oordeel over de betekenis van iets.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Interval
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/DomainSpecificSamplingFeatures#Interval">http://def.isotc211.org/iso19156/2011/DomainSpecificSamplingFeatures#Interval</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Curve, louter bepaald door zijn twee uiteinden.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Kenmerktype
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19109/2005/GeneralFeatureModel#GF_PropertyType">http://def.isotc211.org/iso19109/2005/GeneralFeatureModel#GF_PropertyType</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Klasse die kenmerken van instanties van om het even welk type vertegenwoordigt.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Laag
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Laag">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Laag</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Curve, bepaald door de uiteinden van de doorsnede van een Laagobject.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>waarde</td>
+    <td>http://www.w3.org/2000/01/rdf-schema#Resource</td>
+    <td>Verwijzing naar een record dat de laal beschrijft.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Literal
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2000/01/rdf-schema#Literal">http://www.w3.org/2000/01/rdf-schema#Literal</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Locatie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/ns/prov#Location">http://www.w3.org/ns/prov#Location</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Aanduiding van een geografische positie, dmv coördinaten, een toponiem, een adreslabel, een verwijzing naar een plaats/regio of verwijzing naar een adres.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Maaiveld
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Maaiveld">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Maaiveld</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Het grondoppervlak, waarvan de hoogte vaak opgegeven wordt ten opzichte van een nationaal nul-niveau.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>hoogte</td>
+    <td>https://data.vlaanderen.be/ns/generiek#DirectePositie</td>
+    <td>Verticale maat naar boven vanaf het grondoppervlak van het maaiveld.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Maaiveldtype
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2004/02/skos/core#Concept">http://www.w3.org/2004/02/skos/core#Concept</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Maat
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure">http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een (af)gemeten hoeveelheid ve bepaalde grootheid, uitgedrukt in een bepaalde eenheid.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Materiaalklasse
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2004/02/skos/core#Concept">http://www.w3.org/2004/02/skos/core#Concept</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Meetreeks
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreeks">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreeks</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Observatie waarbij wordt nagegaan hoe een bepaald kenmerk verandert in functie van een ander kenmerk.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>meetpuntparameter</td>
+    <td>http://def.isotc211.org/iso19109/2005/GeneralFeatureModel#GF_PropertyType</td>
+    <td>Het kenmerk in functie waarvan het geobserveerdKenmerk verandert.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Meetreeksresultaat
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreeksresultaat">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreeksresultaat</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Resultaat van een Meetreeksobservatie.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>meetreekswaarde</td>
+    <td>https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreekswaarde</td>
+    <td>Eén waarde in het resultaat van een Meetreeks.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Meetreekswaarde
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreekswaarde">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Meetreekswaarde</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een waardepaar in een Meetreeks met een waarde voor de het geobserveerdKenmerk en een waarde voor de parameter.
+
+<br>
+
+<table>
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Definition</th>
+    <th>Cardinality</th>
+  </tr>
+
+  
+  <tr>
+    <td>meetpunt</td>
+    <td>http://www.w3.org/2000/01/rdf-schema#Resource</td>
+    <td>Waarde van het meetpunt.</td>
+  </tr>
+  
+  <tr>
+    <td>meetwaarde</td>
+    <td>http://www.w3.org/2000/01/rdf-schema#Resource</td>
+    <td>Waarde van het geobserveerdKenmerk.</td>
+  </tr>
+  
+</table>
+
+
+    
+      <h2>
+  Object
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature">http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Klasse die instanties van om het even welk type vertegenwoordigt.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Object
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature">http://def.isotc211.org/iso19156/2011/GeneralFeatureInstance#GFI_Feature</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Klasse die instanties van om het even welk type vertegenwoordigt.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Observatie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/Observation#OM_Observation">http://def.isotc211.org/iso19156/2011/Observation#OM_Observation</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Het vaststellen van de waarde van een bepaald kenmerk van een Object op een bepaald tijdstip of tussen twee tijdstippen.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Observatie
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/Observation#OM_Observation">http://def.isotc211.org/iso19156/2011/Observation#OM_Observation</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Het vaststellen van de waarde van een bepaald kenmerk van een Object op een bepaald tijdstip of tussen twee tijdstippen.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Opdracht
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Opdracht">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Opdracht</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Toegewezen taak.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Opmeting
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/generiek#Opmeting">https://data.vlaanderen.be/ns/generiek#Opmeting</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Het bepalen van de precieze omvang van iets door het te meten.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Opmetingmethode
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2004/02/skos/core#Concept">http://www.w3.org/2004/02/skos/core#Concept</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+De methode waarmee opmetingen worden gedaan.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  PositioneleNauwkeurigheid
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19115/2006/DataQualityInformation#DQ_PositionalAccuracy">http://def.isotc211.org/iso19115/2006/DataQualityInformation#DQ_PositionalAccuracy</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Nauwkeurigheid van de positie van de data in een ruimtelijk referentiesysteem.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Proces
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/Observation#OM_Process">http://def.isotc211.org/iso19156/2011/Observation#OM_Process</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Opeenvolgende acties of stappen noodzakelijk om een resultaat te bekomen.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Profiel
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/DomainSpecificSamplingFeatures#Profile">http://def.isotc211.org/iso19156/2011/DomainSpecificSamplingFeatures#Profile</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Curve waarlangs een continu variërend fenomeen wordt beschreven.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Profielelement
+</h2>
+
+<b>URI</b>
+<br>
+<a href="https://data.vlaanderen.be/ns/bodem-en-ondergrond#Profielelement">https://data.vlaanderen.be/ns/bodem-en-ondergrond#Profielelement</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Onderdeel vh Profiel.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Punt
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.opengis.net/ont/sf#Point">http://www.opengis.net/ont/sf#Point</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een 0-dimensionele geometrische primitieve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Record
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19103/2005/RecordsAndClassMetadata#Record">http://def.isotc211.org/iso19103/2005/RecordsAndClassMetadata#Record</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Basis datastructuur bestaande uit een collectie van velden van mogelijk verschillende datatypes, typisch een vast aantal in een bepaalde volgorde.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  RuimtelijkBemonsteringsobject
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://def.isotc211.org/iso19156/2011/SpatialSamplingFeature#SF_SpatialSamplingFeature">http://def.isotc211.org/iso19156/2011/SpatialSamplingFeature#SF_SpatialSamplingFeature</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Ruimtelijk begrensd deel van het Object dat men observeert en dat representatief wordt geacht voor dat Object.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  String
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2001/XMLSchema#string</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+      <h2>
+  Vlak
+</h2>
+
+<b>URI</b>
+<br>
+<a href="http://www.opengis.net/ont/geosparql#Surface">http://www.opengis.net/ont/geosparql#Surface</a>
+
+<br>
+
+<b>Definition</b>
+<br>
+Een 2-dimensionele geometrische primitieve.
+
+<br>
+
+<p><b><i>No properties defined for this entity</b></i></p>
+
+
+    
+  </body>
+</html>

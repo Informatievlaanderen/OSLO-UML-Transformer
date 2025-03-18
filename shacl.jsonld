@@ -1,0 +1,1952 @@
+[
+  {
+    "@id": "https://data.vlaanderen.beBestuurseenheidShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_1"
+      }
+      ,
+      {
+        "@id": "_:df_8_23"
+      }
+      ,
+      {
+        "@id": "_:df_8_24"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beBestuursorgaan(inBestuursperiode)Shape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beBestuursorgaanShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_0"
+      }
+      ,
+      {
+        "@id": "_:df_8_22"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beDateShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#date"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beDatetimeShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beEntiteitShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Entity"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_25"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beFractieShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Fractie"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_11"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beGeboorteShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/persoon#Geboorte"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beIntegerShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beKandidatenlijstShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_12"
+      }
+      ,
+      {
+        "@id": "_:df_8_13"
+      }
+      ,
+      {
+        "@id": "_:df_8_31"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beLidmaatschapShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/ns/org#Membership"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_34"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beMandaatShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Mandaat"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_21"
+      }
+      ,
+      {
+        "@id": "_:df_8_37"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beMandatarisShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Mandataris"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_14"
+      }
+      ,
+      {
+        "@id": "_:df_8_15"
+      }
+      ,
+      {
+        "@id": "_:df_8_16"
+      }
+      ,
+      {
+        "@id": "_:df_8_32"
+      }
+      ,
+      {
+        "@id": "_:df_8_33"
+      }
+      ,
+      {
+        "@id": "_:df_8_38"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.bePersoonShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/ns/person#Person"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_2"
+      }
+      ,
+      {
+        "@id": "_:df_8_3"
+      }
+      ,
+      {
+        "@id": "_:df_8_4"
+      }
+      ,
+      {
+        "@id": "_:df_8_5"
+      }
+      ,
+      {
+        "@id": "_:df_8_6"
+      }
+      ,
+      {
+        "@id": "_:df_8_7"
+      }
+      ,
+      {
+        "@id": "_:df_8_8"
+      }
+      ,
+      {
+        "@id": "_:df_8_28"
+      }
+      ,
+      {
+        "@id": "_:df_8_29"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beRechtsgrondAanstellingShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beRechtsgrondBeëindigingShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_35"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beRechtsgrondShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#LegalResource"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_9"
+      }
+      ,
+      {
+        "@id": "_:df_8_10"
+      }
+      ,
+      {
+        "@id": "_:df_8_30"
+      }
+      ,
+      {
+        "@id": "_:df_8_39"
+      }
+      ,
+      {
+        "@id": "_:df_8_40"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beRechtstreekseVerkiezingShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_17"
+      }
+      ,
+      {
+        "@id": "_:df_8_18"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beStringShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beVerkiezingsresultaatShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_19"
+      }
+      ,
+      {
+        "@id": "_:df_8_20"
+      }
+      ,
+      {
+        "@id": "_:df_8_36"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beVersieShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/generiek#Versie"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#property": [
+      {
+        "@id": "_:df_8_26"
+      }
+      ,
+      {
+        "@id": "_:df_8_27"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.vlaanderen.beVersieVolgensGeldigeTijdShape",
+    "@type": [
+      "http://www.w3.org/ns/shacl#NodeShape"
+    ],
+    "http://www.w3.org/ns/shacl#targetClass": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/generiek#VersieVolgensGeldigeTijd"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#closed": [
+      {
+        "@value": "false",
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_0",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Naam van de eenheid.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_1",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Naam van de bestuurseenheid.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_10",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#first_date_entry_in_force"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "inwerkingtreding",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De datum waarop de regelgeving van kracht wordt.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#date"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_11",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/regorg#legalName"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De formele naam van de fractie.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_12",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "lijstnaam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De naam van de lijst onder dewelke de kandidaten gezamenlijk opkomen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_13",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#lijstnummer"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "lijstnummer",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het volgnummer van de lijst.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_14",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#einde"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "einde",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_15",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#rangorde"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "rangorde",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Duidt de plaats van de mandataris aan in de formeel vastgelegde volgorde van de mandatarissen binnen het bestuursorgaan waar de mandataris in zetelt.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_16",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#start"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "start",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Tijdstip vanaf wanneer de mandataris het mandaat opneemt.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#dateTime"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_17",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#datum"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "datum",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Datum waarop de verkiezing plaatsvond.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#date"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_18",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://purl.org/dc/terms/valid"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "geldigheid",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Datum waarop de verkiezing geldig verklaard werd.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#date"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_19",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#aantalNaamstemmen"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "aantal naamstemmen",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het aantal stemmen dat is uitgebracht op de kandidaat bij de verkiezing, zonder de lijststemmen in rekening te brengen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_2",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://xmlns.com/foaf/0.1/familyName"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "familienaam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_20",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#plaatsRangorde"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "plaats rangorde",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De positie in de volgorde op de lijst van effectief verkozenen of op de lijst van opvolgers, op basis van het aantal naamstemmen van de kandidaat plus het aantal overgedragen lijststemmen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_21",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#aantalHouders"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "aantal houders",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Maximale aantal agents die tegelijk deze positie kunnen invullen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#integer"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_22",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/org#classification"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "classificatie",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het type bestuursorgaan.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_23",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/org#classification"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "classificatie",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Classificatie van de bestuurseenheid.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_24",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/besluit#werkingsgebied"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "werkingsgebied",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Geografische gebied waarbinnen de bestuurseenheid bepaalde verantwoordelijkheden heeft waarbinnen het bestuurshandelingen kan stellen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Location"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_25",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/adms#identifier"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "identificator",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/ns/adms#Identifier"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_26",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/prov#qualifiedGeneration"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "gekwalificeerde creatie",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Generation"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_27",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/prov#qualifiedInvalidation"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "gekwalificeerde opheffing",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/ns/prov#Invalidation"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_28",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://schema.org/contactPoint"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "contactpunt",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Informatie zoals email, telefoon… die toelaat de Persoon te contacteren.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://schema.org/ContactPoint"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_29",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/persoon#geslacht"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "geslacht",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het feit of de persoon een man of een vrouw is.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_3",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/persoon#alternatieveNaam"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "alternatieve naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Alternatief voor de volledige naam vd persoon.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_30",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#type_document"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "type document",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het type van de rechtsgrond.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#ResourceType"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_31",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#lijsttype"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "lijsttype",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het type van de lijst.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_32",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#beleidsdomein"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "beleidsdomein",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Het thema of beleidsdomein dat toegewezen is aan een mandataris.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_33",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#status"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "status",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De gesteldheid van de mandataris.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_34",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/org#memberDuring"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "lid gedurende",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Periode waarin de Mandataris lid was vd Fractie.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://data.europa.eu/m8g/PeriodOfTime"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_35",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#redenVanBeeindiging"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "reden van beëindiging",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De reden waarom deze rechtsgrond werd beëindigd.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_36",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#gevolg"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "gevolg",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Persoonlijk gevolg van de uitslag voor de kandidaat dat vastlegt of de kandidaat al dan niet kan deelnemen aan het bestuursorgaan.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/2004/02/skos/core#Concept"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_37",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/org#role"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "bestuursfunctie",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Een code die de functie van het mandaat aangeeft.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://www.w3.org/ns/org#Role"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_38",
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#isTijdelijkVervangenDoor"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "is tijdelijk vervangen door",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://data.vlaanderen.be/ns/mandaat#Mandataris"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_39",
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#is_part_of"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "is deel van",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De rechtsgrond waar deze rechtsgrond onderdeel van uitmaakt.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#LegalResource"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_4",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/person#birthName"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "geboortenaam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_40",
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#has_part"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "heeft deel",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Duidt een rechtsgrond aan die een (fysiek) onderdeel voorstelt van deze rechtsgrond.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#class": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#LegalResource"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_5",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "gebruikte voornaam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "Belangrijkste vd voornamen ve persoon.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_6",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://www.w3.org/ns/person#patronymicName"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "patroniem",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_7",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "https://data.vlaanderen.be/ns/persoon#volledigeNaam"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "volledige naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De volledige naam vd persoon, doorgaans de combinatie van voornamen en achternaam.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_8",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://xmlns.com/foaf/0.1/givenName"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "gegeven naam",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "HELLO WORLD"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:df_8_9",
+    "http://www.w3.org/ns/shacl#maxCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#minCount": [
+      {
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#path": [
+      {
+        "@id": "http://data.europa.eu/eli/ontology#date_no_longer_in_force"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#name": [
+      {
+        "@value": "buitenwerkingtreding",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#description": [
+      {
+        "@value": "De laatste dag waarop de regelgeving nog van kracht is.",
+        "@language": "nl"
+      }
+    ],
+    "http://www.w3.org/ns/shacl#datatype": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#date"
+      }
+    ]
+  }
+]

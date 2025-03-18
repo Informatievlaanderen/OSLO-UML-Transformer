@@ -1,0 +1,19 @@
+{
+  "title": "Vrachtwagenparkeren (applicatieprofiel)",
+  "uri": "https://data.vlaanderen.be/ns/vrachtwagenparkeren",
+  "issued": "2023-11-30",
+  "baseURI": "https://data.vlaanderen.be/ns/vrachtwagenparkeren#",
+  "filename": "vrachtwagenParkeren-ap",
+  "navigation": {
+    "self": "https://data.vlaanderen.be/doc/applicatieprofiel/vrachtwagenparkeren/ontwerpstandaard/2023-11-30"
+  },
+  "license": "https://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0",
+  "documenttype": "ap",
+  "documentconfig": {},
+  "status": "https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard",
+  "statuslabel": "Ontwerp Standaard",
+  "repositoryurl": "https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/tree/cfe84f9cbcd70d7ab4776a4445d96aeb4c2be260",
+  "changelogurl": "https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/blob/cfe84f9cbcd70d7ab4776a4445d96aeb4c2be260/CHANGELOG",
+  "feedbackurl": "https://github.com/Informatievlaanderen/OSLOthema-vrachtwagenParkeren/issues",
+  "standaardregisterurl": "https://data.vlaanderen.be/doc/applicatieprofiel/vrachtwagenparkeren/ontwerpstandaard/2023-11-30"
+}
