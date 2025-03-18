@@ -3,7 +3,8 @@ import { AppRunner } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { 
-  JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
+  JsonWebuniversumGenerationServiceConfiguration,
+} from './config/JsonWebuniversumGenerationServiceConfiguration';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -45,9 +46,9 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
           'The base URI of environment where the document will be published',
       })
       .option('propagateParentProperties', {
-        describe:
-          'Recursively propagate properties from parent classes to their children',
-        default: true,
+        describe: `Recursively propagate properties from parent classes to their 
+          children meaning that all properties of a parent class will be added to the child class.`,
+        default: false,
         boolean: true,
       })
       .demandOption(['input', 'language', 'publicationEnvironment'])

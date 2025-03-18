@@ -25,6 +25,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--applyFiltering` | Wether or not to apply filters on the generated output. The filters limit the generated classes, datatypes, entities and properties that will be shown to a certain scopes. If you just want all possible values, you can set the value to `false`. | No, default `true` | `true` or `false` |
 | `--publicationEnvironment` | The base URI of environment where the document will be published | :heavy_check_mark: | |
 | `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|
+| `--propagateParentProperties` | Wether or not to propagate parent properties to the child classes | No, default `false` | `true` or `false` |
 
 ## Usage
 
@@ -32,4 +33,5 @@ The service is executed from the CLI and expects the following parameters:
 oslo-webuniversum-json-generator --input report.jsonld --language nl --publicationEnvironment https://data.vlaanderen.be
 oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be
 oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile
+oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile --propagateParentProperties true
 ```
