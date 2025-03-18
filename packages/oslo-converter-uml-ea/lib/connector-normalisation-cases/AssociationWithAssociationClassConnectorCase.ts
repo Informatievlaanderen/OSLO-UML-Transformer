@@ -3,13 +3,14 @@ import type {
   DataRegistry,
   EaConnector,
   EaElement,
+  EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
 import { NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
 import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
-import { getTagValue, toCamelCase, toPascalCase } from '../utils/utils';
+import { getTagValue } from '../utils/utils';
 
 @injectable()
 export class AssociationWithAssociationClassConnectorCase
@@ -42,7 +43,7 @@ export class AssociationWithAssociationClassConnectorCase
     if (ignoreImplicitGeneration) {
       return [];
     }
-    const defaultString: string = 'Verwijzing naar de verbonden klasse';
+
     const normalisedConnectors: NormalizedConnector[] = [];
     const associationClassObject = dataRegistry.elements.find(
       (x) => x.id === connector.associationClassId,
@@ -70,13 +71,34 @@ export class AssociationWithAssociationClassConnectorCase
     const sourceObjectName: string =
       getTagValue(sourceObject, TagNames.LocalName, null) ?? sourceObject.name;
 
-    const sourceLocalName = `${toPascalCase(
-      associationClassName,
-    )}.${toCamelCase(sourceObjectName)}`;
-
     const sourceTags = connector.sourceRoleTags.filter((x) =>
       x.tagName.startsWith(TagNames.DefiningPackage),
     );
+
+    //
+    // propagate the tags on the association class to the implicit connectors.
+    // As the connectors (properties/relationships) are implicit one has to make a choice where to put this information.
+    // The connectors should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
+    // Because of the implicit relationships it is impossible to have the same class participate in two distinct association class relationships.
+    // If one need that functionality, the only solution is to create duplicate classes and copy the information.
+    const sourceExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationSourcePrefix, ''),
+      }));
+
+    const destinationExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationDestPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationDestPrefix, ''),
+      }));
+    const sTags = sourceTags.concat(sourceExtraTags);
+    // Extending it with default values should be done after checking this list
+    // Better apply the new practice: values are explicit in the EA UML model.
+    // Maybe the removal of the name is problematic as it might lead to invalid assigned URI
+    // In that case this has to be extended with the remove lines for the tagNames.LocalName
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -85,17 +107,7 @@ export class AssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.sourceObjectId,
         '1',
-        [
-          ...sourceTags,
-          {
-            tagName: TagNames.LocalName,
-            tagValue: sourceLocalName,
-          },
-          {
-            tagName: TagNames.ApDefinition,
-            tagValue: defaultString,
-          },
-        ],
+        sTags,
       ),
     );
 
@@ -112,13 +124,11 @@ export class AssociationWithAssociationClassConnectorCase
       getTagValue(destinationObject, TagNames.LocalName, null) ??
       destinationObject.name;
 
-    const destinationLocalName = `${toPascalCase(
-      associationClassName,
-    )}.${toCamelCase(destinationObjectName)}`;
-
     const destinationTags = connector.destinationRoleTags.filter((x) =>
       x.tagName.startsWith(TagNames.DefiningPackage),
     );
+
+    const dTags = destinationTags.concat(destinationExtraTags); // Extending it with default values should be done after checking this list
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -127,17 +137,7 @@ export class AssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.destinationObjectId,
         '1',
-        [
-          ...destinationTags,
-          {
-            tagName: TagNames.LocalName,
-            tagValue: destinationLocalName,
-          },
-          {
-            tagName: TagNames.ApDefinition,
-            tagValue: defaultString,
-          },
-        ],
+        dTags,
       ),
     );
 
