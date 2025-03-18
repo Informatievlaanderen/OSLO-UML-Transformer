@@ -10,6 +10,7 @@ const DataTypes: Map<string, string> = new Map<string, string>([
   ['int', `${xsd}#int`],
   ['integer', `${xsd}#integer`],
   ['decimal', `${xsd}#decimal`],
+  ['float', `${xsd}#float`],
   ['double', `${xsd}#double`],
   ['boolean', `${xsd}#boolean`],
   ['langstring', `${rdf}#langString`],
