@@ -4,9 +4,7 @@ import type {
   DataRegistry,
   EaTag,
 } from '@oslo-flanders/ea-uml-extractor';
-import {
-  NormalizedConnector,
-} from '@oslo-flanders/ea-uml-extractor';
+import { NormalizedConnector } from '@oslo-flanders/ea-uml-extractor';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
@@ -14,7 +12,9 @@ import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormal
 import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
 
 @injectable()
-export class AssociationWithDestinationRoleConnectorCase implements IConnectorNormalisationCase {
+export class AssociationWithDestinationRoleConnectorCase
+  implements IConnectorNormalisationCase
+{
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -30,12 +30,26 @@ export class AssociationWithDestinationRoleConnectorCase implements IConnectorNo
     dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
     if (!connector.destinationRole || connector.name) {
-      return [];
+      if (connector.name) {
+        this.logger.info(
+          `Connector ${connector.path} has name "${connector.name}". but no destination role. Ignoring therefore this connector. If required to be present add a role or cardinality.`,
+        );
+        return [];
+      }
+    }
+
+    if (!connector.sourceRole || connector.name) {
+      if (connector.name) {
+        this.logger.info(
+          `Connector ${connector.path} has name "${connector.name}". but no source role. Ignoring therefore this connector. If required to be present add a role or cardinality.`,
+        );
+        return [];
+      }
     }
 
     const localName: string = toCamelCase(
       getTagValue(connector.destinationRoleTags, TagNames.LocalName, null) ??
-      connector.destinationRole,
+        connector.destinationRole,
     );
 
     const tags: EaTag[] = structuredClone(connector.destinationRoleTags);
