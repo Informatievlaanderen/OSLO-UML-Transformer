@@ -54,7 +54,7 @@ _Added soon - reverse prefixes_
 | --------------- | ----------------- | ------------------------------------------------- | ---------------------------------------- |
 | Source Prefix   | `source-`         | Used for source-end properties of an association. | `source-ap-label=Owner of a property`    |
 | Target Prefix   | `target-`         | Used for target-end properties of an association. | `target-ap-label=Owner of a property`    |
-| Source URI =    | `source-uri`      | URI for the source end property.                  | `source-uri=http://example.org/hasOwner` |
+| Source URI      | `source-uri`      | URI for the source end property.                  | `source-uri=http://example.org/hasOwner` |
 | Target Label    | `target-label`    | Label for the target end of an association.       | `target-label-en=owns`                   |
 | Target AP Label | `target-ap-label` | AP label for the target end.                      | `target-ap-label-nl=bezit`               |
 | Target URI      | `target-uri`      | URI for the target end property.                  | `target-uri=http://example.org/owns`     |
