@@ -38,15 +38,6 @@ export class AssociationWithDestinationRoleConnectorCase
       return [];
     }
 
-    if (!connector.sourceRole || connector.name) {
-      if (connector.name) {
-        this.logger.info(
-          `Connector ${connector.path} has name "${connector.name}". but no source role. Ignoring therefore this connector. If required to be present add a role or cardinality.`,
-        );
-      }
-      return [];
-    }
-
     const localName: string = toCamelCase(
       getTagValue(connector.destinationRoleTags, TagNames.LocalName, null) ??
         connector.destinationRole,
