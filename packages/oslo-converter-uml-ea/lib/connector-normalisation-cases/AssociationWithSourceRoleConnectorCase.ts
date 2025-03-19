@@ -29,15 +29,9 @@ export class AssocationWithSourceRoleConnectorCase
     connector: EaConnector,
     dataRegistry: DataRegistry,
   ): Promise<NormalizedConnector[]> {
-    if (!connector.sourceRole) {
+    if (!connector.sourceRole || connector.name) {
       this.logger.info(
         `Connector ${connector.path} is not an association with a source role. Ignoring this connector.`,
-      );
-      return [];
-    }
-    if (!connector.name) {
-      this.logger.info(
-        `Connector ${connector.path} has no name. Ignoring this connector.`,
       );
       return [];
     }
