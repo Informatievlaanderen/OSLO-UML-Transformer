@@ -196,7 +196,9 @@ export class JsonldContextGenerationService implements IService {
             ? `${toPascalCase(x.domainLabel.value)}.${toCamelCase(x.label.value)}`
             : toCamelCase(x.label.value)]: {
             '@id': x.assignedURI.value,
-            ...(x.rangeAssignedUri && { '@type': x.rangeAssignedUri.value }),
+            ...(x.rangeAssignedUri && {
+              '@type': x.isObjectProperty ? '@id' : x.rangeAssignedUri.value,
+            }),
             ...(x.addContainer === true && { '@container': '@set' }),
           },
         };
@@ -389,6 +391,7 @@ export class JsonldContextGenerationService implements IService {
             addPrefix:
               this.configuration.addDomainPrefix ||
               duplicates.includes(subject),
+            isObjectProperty: objectPropertySubjects.includes(subject),
           });
         } catch (error) {
           this.logger.error((<Error>error).message);
