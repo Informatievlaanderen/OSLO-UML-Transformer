@@ -9,7 +9,11 @@ import { inject, injectable } from 'inversify';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
 import { TagNames } from '../enums/TagNames';
 import type { IConnectorNormalisationCase } from '../interfaces/IConnectorNormalisationCase';
-import { getTagValue, toCamelCase, updateNameTag } from '../utils/utils';
+import {
+  getTagValueFromArray,
+  formatLocalName,
+  updateNameTag,
+} from '../utils/utils';
 
 @injectable()
 export class AssociationWithDestinationRoleConnectorCase
@@ -38,9 +42,12 @@ export class AssociationWithDestinationRoleConnectorCase
       return [];
     }
 
-    const localName: string = toCamelCase(
-      getTagValue(connector.destinationRoleTags, TagNames.LocalName, null) ??
-        connector.destinationRole,
+    const localName: string = formatLocalName(
+      getTagValueFromArray(
+        connector.destinationRoleTags,
+        TagNames.LocalName,
+        null,
+      ) ?? connector.destinationRole,
     );
 
     const tags: EaTag[] = structuredClone(connector.destinationRoleTags);
