@@ -48,7 +48,6 @@ The list of supported languages can be found in the `Language` enum [here](/pack
 
 ## Association Tags
 
-_Added soon - reverse prefixes_
 
 | Tag Name        | Enum Value        | Description                                       | Example                                  |
 | --------------- | ----------------- | ------------------------------------------------- | ---------------------------------------- |
