@@ -29,7 +29,7 @@ npm install -g @oslo-flanders/shacl-template-generator
 | `--addCodelistRules` | Add rules for codelists, if present | No, default `false` | |
 | `--addConstraintMessages` | Add additional messages in the configured language to the SHACL shapes | No, default `false` ||
 | `--addRuleNumbers` | Add extra entry for rule numbers, allowing editors to add a rule numbers across multiple specs | No, default `false` ||
-
+| `--addShapesContainer` | Creates a container shape that links to all generated shapes using rdfs:member properties. Useful for tools that need to discover all shapes in a document. | no, default `true` ||
 ## Usage
 
 ```bash
