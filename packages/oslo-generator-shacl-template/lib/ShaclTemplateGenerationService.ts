@@ -89,7 +89,51 @@ export class ShaclTemplateGenerationService implements IService {
       );
     }
 
+    // Add container shape with rdfs:member links if enabled
+    // https://vlaamseoverheid.atlassian.net/browse/SDTT-370
+    if (this.configuration.addShapesContainer) {
+      this.addShapesContainerToStore(
+        shaclStore,
+        classIdToShapeIdMap,
+        propertyIdToShapeIdMap,
+      );
+    }
+
     this.outputHandlerService.write(shaclStore);
+  }
+
+  private addShapesContainerToStore(
+    shaclStore: QuadStore,
+    classIdToShapeIdMap: Map<string, NamedOrBlankNode>,
+    propertyIdToShapeIdMap: Map<string, NamedOrBlankNode>,
+  ): void {
+    const df = new DataFactory();
+    const containerShapeId = df.namedNode(`${this.configuration.shapeBaseURI}`);
+
+    // Add type declaration for the container
+    shaclStore.addQuad(
+      df.quad(containerShapeId, ns.rdf('type'), ns.shacl('NodeShape')),
+    );
+
+    // Add rdfs:member links to all class shapes (non-blank nodes only)
+    for (const [, shapeId] of classIdToShapeIdMap) {
+      if (shapeId.termType === 'NamedNode') {
+        shaclStore.addQuad(
+          df.quad(containerShapeId, ns.rdfs('member'), shapeId),
+        );
+      }
+    }
+
+    // Add rdfs:member links to all property shapes. Currently disabled. CAn be activated if property shapes should be added to the container as well.
+    // if (this.configuration.mode !== GenerationMode.Grouped) {
+    //   for (const [, shapeId] of propertyIdToShapeIdMap) {
+    //     if (shapeId.termType === 'NamedNode') {
+    //       shaclStore.addQuad(
+    //         df.quad(containerShapeId, ns.rdfs('member'), shapeId),
+    //       );
+    //     }
+    //   }
+    // }
   }
 
   private generateFragmentIdentifier(
