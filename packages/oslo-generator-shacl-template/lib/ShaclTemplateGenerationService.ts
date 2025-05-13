@@ -110,11 +110,6 @@ export class ShaclTemplateGenerationService implements IService {
     const df = new DataFactory();
     const containerShapeId = df.namedNode(`${this.configuration.shapeBaseURI}`);
 
-    // Add type declaration for the container
-    shaclStore.addQuad(
-      df.quad(containerShapeId, ns.rdf('type'), ns.shacl('NodeShape')),
-    );
-
     // Add rdfs:member links to all class shapes (non-blank nodes only)
     for (const [, shapeId] of classIdToShapeIdMap) {
       if (shapeId.termType === 'NamedNode') {
