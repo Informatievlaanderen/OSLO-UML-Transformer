@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/jsonld-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validates the generated JSON-LD file to a set of validation rules",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-validator-jsonld#readme",
@@ -35,6 +35,14 @@
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^1.0.0",
+    "inversify": "^6.0.1",
+    "jsonld": "^4.0.0",
+    "n3": "^1.16.4",
+    "reflect-metadata": "^0.1.13",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
