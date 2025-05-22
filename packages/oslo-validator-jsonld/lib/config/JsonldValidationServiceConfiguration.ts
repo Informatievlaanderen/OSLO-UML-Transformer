@@ -8,8 +8,14 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
    */
   private _input: string | undefined;
 
+  /**
+   * Local path or URL to whitelist file (JSON array of URI prefixes)
+   */
+  private _whitelist: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
+    this._whitelist = <string>params.whitelist;
   }
 
   public get input(): string {
@@ -17,5 +23,9 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "input" before it was set.`);
     }
     return this._input;
+  }
+
+  public get whitelist(): string | undefined {
+    return this._whitelist;
   }
 }

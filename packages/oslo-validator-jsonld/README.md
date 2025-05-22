@@ -20,12 +20,14 @@ npm install -g @oslo-flanders/jsonld-validator
 
 ## API
 
-| Parameter | Description                      | Required           | Possible values |
-| --------- | -------------------------------- | ------------------ | --------------- |
-| `--input` | The path of an OSLO JSON-LD file | :heavy_check_mark: |                 |
+| Parameter     | Description                                                                             | Required           | Possible values  |
+| ------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------- |
+| `--input`     | The URL or local file path of an OSLO JSON-LD file                                      | :heavy_check_mark: |                  |
+| `--whitelist` | The URL or local file path to a whitelist json containing a set of allowed URI prefixes | :heavy_check_mark: | `whitelist.json` |
 
 ## Usage
 
 ```bash
-oslo-jsonld-validator --input report.jsonld
+oslo-jsonld-validator --input report.jsonld --whitelist whitelist.json
+oslo-jsonld-validator --input report.jsonld --whitelist https://raw.githubusercontent.com/Informatievlaanderen/OSLO-UML-Transformer/refs/heads/configuration/whitelist.json
 ```

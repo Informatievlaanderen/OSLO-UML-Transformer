@@ -29,7 +29,9 @@
   },
   "scripts": {
     "build": "npm run build:ts",
-    "build:ts": "tsc"
+    "build:ts": "tsc",
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-validator-jsonld/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-validator-jsonld/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
