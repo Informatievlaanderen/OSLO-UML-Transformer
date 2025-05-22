@@ -1,0 +1,62 @@
+import { IJsonLdContextNormalizedRaw } from "./JsonLdContext";
+/**
+ * A class exposing operations over a normalized JSON-LD context.
+ */
+export declare class JsonLdContextNormalized {
+    private readonly contextRaw;
+    constructor(contextRaw: IJsonLdContextNormalizedRaw);
+    /**
+     * @return The raw inner context.
+     */
+    getContextRaw(): IJsonLdContextNormalizedRaw;
+    /**
+     * Expand the term or prefix of the given term if it has one,
+     * otherwise return the term as-is.
+     *
+     * This will try to expand the IRI as much as possible.
+     *
+     * Iff in vocab-mode, then other references to other terms in the context can be used,
+     * such as to `myTerm`:
+     * ```
+     * {
+     *   "myTerm": "http://example.org/myLongTerm"
+     * }
+     * ```
+     *
+     * @param {string} term A term that is an URL or a prefixed URL.
+     * @param {boolean} expandVocab If the term is a predicate or type and should be expanded based on @vocab,
+     *                              otherwise it is considered a regular term that is expanded based on @base.
+     * @param {IExpandOptions} options Options that define the way how expansion must be done.
+     * @return {string} The expanded term, the term as-is, or null if it was explicitly disabled in the context.
+     * @throws If the term is aliased to an invalid value (not a string, IRI or keyword).
+     */
+    expandTerm(term: string, expandVocab?: boolean, options?: IExpandOptions): string | null;
+    /**
+     * Compact the given term using @base, @vocab, an aliased term, or a prefixed term.
+     *
+     * This will try to compact the IRI as much as possible.
+     *
+     * @param {string} iri An IRI to compact.
+     * @param {boolean} vocab If the term is a predicate or type and should be compacted based on @vocab,
+     *                        otherwise it is considered a regular term that is compacted based on @base.
+     * @return {string} The compacted term or the IRI as-is.
+     */
+    compactIri(iri: string, vocab?: boolean): string;
+}
+export interface IExpandOptions {
+    /**
+     * If compact IRI prefixes can end with any kind of character in simple term definitions,
+     * instead of only the default gen-delim characters (:,/,?,#,[,],@).
+     */
+    allowPrefixNonGenDelims: boolean;
+    /**
+     * If compact IRI prefixes ending with a non-gen-delim character
+     * can be forced as a prefix using @prefix: true.
+     */
+    allowPrefixForcing: boolean;
+    /**
+     * If @vocab values are allowed contain IRIs relative to @base.
+     */
+    allowVocabRelativeToBase: boolean;
+}
+export declare const defaultExpandOptions: IExpandOptions;

@@ -1,0 +1,33 @@
+{
+  "name": "eslint-plugin-extended",
+  "version": "0.2.0",
+  "description": "eslint-plugin-extended is a set of rules for ESLint.",
+  "contributors": [
+    {
+      "name": "Golo Roden",
+      "email": "golo.roden@thenativeweb.io"
+    },
+    {
+      "name": "Matthias Wagler",
+      "email": "matthias.wagler@thenativeweb.io"
+    }
+  ],
+  "main": "lib/extended.js",
+  "dependencies": {
+    "varname": "2.0.2"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "mocha": "2.4.5",
+    "roboter": "0.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thenativeweb/eslint-plugin-extended.git"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin"
+  ],
+  "license": "MIT"
+}

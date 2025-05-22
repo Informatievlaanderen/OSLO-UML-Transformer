@@ -1,0 +1,24 @@
+{
+  "name": "streamify-array",
+  "version": "1.0.1",
+  "description": "Converts an array into a Node readable stream",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubensworks/streamify-array.js.git"
+  },
+  "keywords": [
+    "array",
+    "stream",
+    "readable"
+  ],
+  "author": "Ruben Taelman <rubensworks@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rubensworks/streamify-array.js/issues"
+  },
+  "homepage": "https://github.com/rubensworks/streamify-array.js#readme"
+}

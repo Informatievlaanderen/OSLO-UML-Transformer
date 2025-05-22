@@ -1,0 +1,15 @@
+[
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  "http://www.w3.org/2000/01/rdf-schema#",
+  "http://www.w3.org/2001/XMLSchema#",
+  "http://www.w3.org/2002/07/owl#",
+  "http://www.w3.org/2004/02/skos/core#",
+  "http://purl.org/dc/terms/",
+  "https://data.vlaanderen.be/ns/",
+  "https://implementatie.data.vlaanderen.be/ns/",
+  "http://def.isotc211.org/",
+  "http://www.w3.org/ns/ssn/",
+  "http://www.w3.org/ns/sosa/",
+  "http://www.opengis.net/ont/geosparql",
+  "http://www.w3.org/ns/adms/"
+]

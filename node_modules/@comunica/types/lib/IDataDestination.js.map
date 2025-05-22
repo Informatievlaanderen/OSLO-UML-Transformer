@@ -1,0 +1,1 @@
+{"version":3,"file":"IDataDestination.js","sourceRoot":"","sources":["IDataDestination.ts"],"names":[],"mappings":"","sourcesContent":["import type * as RDF from '@rdfjs/types';\nimport type { IActionContext } from './IActionContext';\n\nexport type IDataDestination = string | RDF.Store | {\n  type?: string;\n  value: string | RDF.Store;\n  context?: IActionContext;\n};\n"]}
