@@ -34,3 +34,6 @@ export const datatypeIdentifierToHash = (uri: string): number => {
   }
   return hash > 0 ? hash : hash * -1;
 };
+
+export const isStandardDatatype = (uri: string): boolean =>
+  Array.from(DataTypes.values()).includes(uri);
