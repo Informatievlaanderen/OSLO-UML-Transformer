@@ -13,7 +13,6 @@ export * from './lib/config/DependencyInjectionConfig';
 export * from './lib/config/EaUmlConverterConfiguration';
 export * from './lib/config/EaUmlConverterServiceIdentifier';
 export * from './lib/enums/CasingTypes';
-export * from './lib/enums/DataTypes';
 export * from './lib/enums/TagNames';
 export * from './lib/interfaces/ConverterHandler';
 export * from './lib/utils/utils';
