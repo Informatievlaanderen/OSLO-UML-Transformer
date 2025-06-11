@@ -27,7 +27,7 @@ import {
   isScoped,
   sortWebuniversumObjects,
 } from './utils/utils';
-import { isStandardDatatype } from '../../oslo-converter-uml-ea/lib/enums/DataTypes';
+import { isStandardDatatype } from '@oslo-flanders/core';
 
 @injectable()
 export class JsonWebuniversumGenerationService implements IService {

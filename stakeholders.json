@@ -1,0 +1,296 @@
+{
+  "contributors": [
+    {
+      "firstName": "Katia",
+      "lastName": "De Vos",
+      "affiliation": {
+        "affiliationName": "Recht.gent",
+        "homepage": "https://recht.gent/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Mieke",
+      "lastName": "De Vreese",
+      "affiliation": {
+        "affiliationName": "Gemeente Aalter",
+        "homepage": "https://www.aalter.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Elke",
+      "lastName": "Demeulenaere",
+      "affiliation": {
+        "affiliationName": "Gemeente Destelbergen",
+        "homepage": "https://www.destelbergen.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Annelies",
+      "lastName": "Demeurie",
+      "affiliation": {
+        "affiliationName": "Gemeente Zulte",
+        "homepage": "https://www.zulte.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Ben",
+      "lastName": "Gilot",
+      "affiliation": {
+        "affiliationName": "Vereniging van Vlaamse Steden en Gemeenten",
+        "homepage": "https://www.vvsg.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Quinten",
+      "lastName": "Heldens",
+      "affiliation": {
+        "affiliationName": "Departement Financiën en Begroting",
+        "homepage": "https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-financien-en-begroting/departement-financien-en-begroting"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Barbara",
+      "lastName": "Ide",
+      "affiliation": {
+        "affiliationName": "Gemeente Zulte",
+        "homepage": "https://www.zulte.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Michèle",
+      "lastName": "Marichal",
+      "affiliation": {
+        "affiliationName": "Stad Roeselare",
+        "homepage": "https://www.roeselare.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Miet",
+      "lastName": "Remans",
+      "affiliation": {
+        "affiliationName": "Vereniging van Vlaamse Steden en Gemeenten",
+        "homepage": "https://www.vvsg.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Kurt",
+      "lastName": "Schelfhout",
+      "affiliation": {
+        "affiliationName": "Stad Aalst",
+        "homepage": "https://aalst.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Janis",
+      "lastName": "Sevens",
+      "affiliation": {
+        "affiliationName": "Agentschap Binnenlands Bestuur",
+        "homepage": "https://www.vlaanderen.be/agentschap-binnenlands-bestuur"
+      },
+      "email": "janis.sevens@vlaanderen.be"
+    },
+    {
+      "firstName": "Filip",
+      "lastName": "Staes",
+      "affiliation": {
+        "affiliationName": "Stad Leuven",
+        "homepage": "https://leuven.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Tina",
+      "lastName": "Tyteca",
+      "affiliation": {
+        "affiliationName": "Agentschap Binnenlands Bestuur",
+        "homepage": "https://www.vlaanderen.be/agentschap-binnenlands-bestuur"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Ben",
+      "lastName": "Van Damme",
+      "affiliation": {
+        "affiliationName": "Risolto",
+        "homepage": "https://risolto.be/en/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Wietske",
+      "lastName": "Van Gils",
+      "affiliation": {
+        "affiliationName": "SAM steunpunt Mens en Samenleving",
+        "homepage": "https://www.samvzw.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Robin",
+      "lastName": "Van Trigt",
+      "affiliation": {
+        "affiliationName": "SAM steunpunt Mens en Samenleving",
+        "homepage": "https://www.samvzw.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Sven",
+      "lastName": "Verbeeck",
+      "affiliation": {
+        "affiliationName": "Stad Antwerpen",
+        "homepage": "https://www.antwerpen.be/"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Joannes",
+      "lastName": "Verbeke",
+      "affiliation": {
+        "affiliationName": "Risolto",
+        "homepage": "https://risolto.be/en/"
+      },
+      "email": ""
+    }
+  ],
+  "authors": [
+    {
+      "firstName": "Stefan",
+      "lastName": "Somers",
+      "affiliation": {
+        "affiliationName": "Stad Gent",
+        "homepage": "https://stad.gent/nl"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Hans",
+      "lastName": "Van Den Brande",
+      "affiliation": {
+        "affiliationName": "Stad Gent",
+        "homepage": "https://stad.gent/nl"
+      },
+      "email": ""
+    },
+    {
+      "firstName": "Bert",
+      "lastName": "Verstraeten",
+      "affiliation": {
+        "affiliationName": "Stad Gent",
+        "homepage": "https://stad.gent/nl"
+      },
+      "email": ""
+    }
+  ],
+  "editors": [
+    {
+      "firstName": "Veerle",
+      "lastName": "Beyaert",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "veerle.beyaert@vlaanderen.be"
+    },
+    {
+      "firstName": "Raf",
+      "lastName": "Buyle",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "raf.buyle@vlaanderen.be"
+    },
+    {
+      "firstName": "Ben",
+      "lastName": "De Meester",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "ben.demeester@vlaanderen.be"
+    },
+    {
+      "firstName": "Els",
+      "lastName": "de Vleeschauwer",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "els.devleeschauwer@vlaanderen.be"
+    },
+    {
+      "firstName": "Kim",
+      "lastName": "Leemans",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "kim.leemans@vlaanderen.be"
+    },
+    {
+      "firstName": "Isabaut",
+      "lastName": "Martens",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "isabaut.martens@vlaanderen.be"
+    },
+    {
+      "firstName": "Mathieu",
+      "lastName": "Tulpinck",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "mathieu.tulpinck@vlaanderen.be"
+    },
+    {
+      "firstName": "Ziggy",
+      "lastName": "Vanlishout",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "ziggy.vanlishout@vlaanderen.be"
+    },
+    {
+      "firstName": "Aline",
+      "lastName": "Verbrugge",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "aline.verbrugge@vlaanderen.be"
+    },
+    {
+      "firstName": "Laurens",
+      "lastName": "Vercauteren",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "laurens.vercauteren@vlaanderen.be"
+    },
+    {
+      "firstName": "Eveline",
+      "lastName": "Vlassenroot",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "eveline.vlassenroot@vlaanderen.be"
+    }
+  ]
+}

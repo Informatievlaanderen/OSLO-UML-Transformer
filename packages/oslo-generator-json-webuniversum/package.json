@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/json-webuniversum-generator",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Generates a JSON file which is used to generate an HTML template using Webuniversum 3",
   "author": "Dwight Van Lancker <dwight.vanlancker@vlaanderen.be>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-json-webuniversum#readme",
@@ -30,7 +30,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^1.0.0",
+    "@oslo-flanders/core": "^1.0.1",
     "inversify": "^6.0.1",
     "n3": "^1.17.2",
     "rdf-data-factory": "^1.1.2",

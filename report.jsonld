@@ -1,0 +1,4986 @@
+{
+  "@context": {
+    "oslo": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rec": "http://www.w3.org/2001/02pd/rec54#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "packages": "@included",
+    "classes": "@included",
+    "datatypes": "@included",
+    "attributes": "@included",
+    "referencedEntities": "@included",
+    "baseURI": {
+      "@id": "oslo:baseURI",
+      "@type": "@id"
+    },
+    "vocDefinition": {
+      "@id": "oslo:vocDefinition",
+      "@container": "@set"
+    },
+    "apDefinition": {
+      "@id": "oslo:apDefinition",
+      "@container": "@set"
+    },
+    "vocLabel": {
+      "@id": "oslo:vocLabel",
+      "@container": "@set"
+    },
+    "apLabel": {
+      "@id": "oslo:apLabel",
+      "@container": "@set"
+    },
+    "diagramLabel": {
+      "@id": "oslo:diagramLabel"
+    },
+    "scope": {
+      "@id": "oslo:scope"
+    },
+    "vocUsageNote": {
+      "@id": "oslo:vocUsageNote",
+      "@container": "@set"
+    },
+    "apUsageNote": {
+      "@id": "oslo:apUsageNote",
+      "@container": "@set"
+    },
+    "domain": {
+      "@id": "rdfs:domain",
+      "@container": "@set"
+    },
+    "range": {
+      "@id": "rdfs:range"
+    },
+    "minCount": {
+      "@id": "sh:minCount"
+    },
+    "maxCount": {
+      "@id": "sh:maxCount"
+    },
+    "parent": {
+      "@id": "rdfs:subClassOf",
+      "@type": "owl:Class"
+    },
+    "generatedAtTime": {
+      "@id": "prov:generatedAtTime"
+    },
+    "Package": "oslo:Package",
+    "Class": {
+      "@id": "owl:Class"
+    },
+    "DatatypeProperty": {
+      "@id": "owl:DatatypeProperty"
+    },
+    "ObjectProperty": {
+      "@id": "owl:ObjectProperty"
+    },
+    "authors": {
+      "@type": "foaf:Person",
+      "@id": "foaf:maker"
+    },
+    "editors": {
+      "@type": "foaf:Person",
+      "@id": "rec:editor"
+    },
+    "contributors": {
+      "@type": "foaf:Person",
+      "@id": "dcterms:contributor"
+    },
+    "affiliation": {
+      "@id": "http://schema.org/affiliation"
+    },
+    "assignedURI": {
+      "@id": "oslo:assignedURI",
+      "@type": "@id"
+    },
+    "Datatype": {
+      "@id": "rdfs:Datatype"
+    },
+    "codelist": {
+      "@id": "oslo:codelist",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "adms:status",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://data.vlaanderen.be/test/1",
+  "generatedAtTime": "2025-06-11T08:40:53.114Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:4757c0fbbc21dc53dc62be5388c3b7da0b38f1dfb5c790e502132f48f8cdaeeb",
+      "@type": "Package",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats",
+      "baseURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#FysiekObject",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Fysiek object"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "FysiekObject"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De hoofdklasse waar alle objecten die geïnventariseerd kunnen worden van afgeleid worden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De hoofdklasse waar alle objecten die geïnventariseerd kunnen worden van afgeleid worden."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:2f659f0e03e3c38af3016acde7aa10c66a533a402ab931cd6ed070d0ba09d97c"
+        },
+        {
+          "@id": "urn:oslo-toolchain:4502c49461b64cf6e5e475ad4f08c0d4d3252a757ea13f89220ffb1d21eb4192"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#Terreindeel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Terreindeel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Terreindeel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Zichtbare laag van het aardoppervlak, met een gelijkaardige functie, dat geen deel uitmaakt van 'waterdeel'."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Zichtbare laag van het aardoppervlak, met een gelijkaardige functie, dat geen deel uitmaakt van 'waterdeel'."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:4fbc34b368daea2444e4742140ecae057a0461eae6d6223f64c34e6ac8f1e099"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:4fbc34b368daea2444e4742140ecae057a0461eae6d6223f64c34e6ac8f1e099",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#Deel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Deel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Deel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Homogeen gedeelte van het aardoppervlak, met een gelijkaardige hoofdfunctie en fysiek voorkomen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Homogeen gedeelte van het aardoppervlak, met een gelijkaardige hoofdfunctie en fysiek voorkomen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Straatmeubilair",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Straatmeubilair"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Straatmeubilair"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Straatmeubilair is  een diverse groep van objecten die in het algemeen in de openbare ruimte staan (zowel corridor- als surplusgebied)."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Straatmeubilair is  een diverse groep van objecten die in het algemeen in de openbare ruimte staan (zowel corridor- als surplusgebied)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infrastructuurelement",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Infrastructuurelement"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Infrastructuurelement"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Individueel object op het Openbaar Domein dat niet vegetatief is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Individueel object op het Openbaar Domein dat niet vegetatief is."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/ns/org#Organization",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Organisatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Organisatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een aantal mensen georganiseerd in een gemeenschap of andere sociale, commerciële of politieke structuur. De groep heeft een gemeenschappelijk doel of bestaanreden die de individuele leden ervan overstijgt en kan handelen als agent. Een organisatie heeft dikwijls een hiërarchische structuur."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#Gebied",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Gebied"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Gebied"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een ruimte met daarin objecten in de openbare ruimte die samen een hoofdfunctie hebben."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een ruimte met daarin objecten in de openbare ruimte die samen een hoofdfunctie hebben."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "De openbare ruimte wordt geïnterpreteerd zoals aangegeven in het GRB lexicon (Informatie Vlaanderen): \"Ruimte die ten dienste staat van iedereen (algemeen belang), zonder beperking naar specifieke gemeenschappen. De openbare ruimte is principieel voor iedereen toegankelijk\". Voorbeeld: een stadspark is parkzone, om hiermee aan te duiden dat de zone is ontworpen is om recreatie en natuur samen te laten plaatsvinden."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "De openbare ruimte wordt geïnterpreteerd zoals aangegeven in het GRB lexicon (Informatie Vlaanderen): \"Ruimte die ten dienste staat van iedereen (algemeen belang), zonder beperking naar specifieke gemeenschappen. De openbare ruimte is principieel voor iedereen toegankelijk\". Voorbeeld: een stadspark is parkzone, om hiermee aan te duiden dat de zone is ontworpen is om recreatie en natuur samen te laten plaatsvinden."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a10a4399e64de07bc72b091d63bc11dad13cf728dbc3fc9eb68eb38769ae9578",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Deksel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Deksel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Deksel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een object om een holte of hol voorwerp af te sluiten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een object om een holte of hol voorwerp af te sluiten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deksel voor een holte gelegen in het maaiveld. Naar Wikidata (https://www.wikidata.org/wiki/Q2488579)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deksel voor een holte gelegen in het maaiveld. Naar Wikidata (https://www.wikidata.org/wiki/Q2488579)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:c9363d20c381fac0c93627ffcb333d3caeb8ebff9bada8c7530e156c03aad7d1",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#FysiekVoorkomen",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Fysiek voorkomen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "FysiekVoorkomen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van het fysieke voorkomen van het object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van het fysieke voorkomen van het object."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:22b5e0f13bc1005c8a2978a92a55713903f87dd18f012bd27915e04fd2017fdb",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Afsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Afsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Afsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting (afgeleid)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting (afgeleid)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#Element",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Element"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Element"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Afzonderlijk te onderscheiden element dat ofwel direct of indirect bevestigd is aan het aardoppervlak."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Afzonderlijk te onderscheiden element dat ofwel direct of indirect bevestigd is aan het aardoppervlak."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1b5d3359cd6ed3a6d1569fe80298b08fbc995cb3640e33f252f931651d9777ef",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#TerreinVoorkomen",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Terrein voorkomen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TerreinVoorkomen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van het terrein voorkomen van het terreindeel."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van het terrein voorkomen van het terreindeel."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c9363d20c381fac0c93627ffcb333d3caeb8ebff9bada8c7530e156c03aad7d1"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:fb31ebbbd30b96f300e8870dde8b94d4f2b4a98d836e21512bd371449b7ac79f",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Rooster",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Rooster"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Rooster"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een rooster is een civieltechnische constructie, anders dan gebouw, opgetrokken uit duurzame materialen, en zichtbaar aan het aardoppervlak."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een rooster is een civieltechnische constructie, anders dan gebouw, opgetrokken uit duurzame materialen, en zichtbaar aan het aardoppervlak."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-basis - KNW6: Rooster (afgeleid)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-basis - KNW6: Rooster (afgeleid)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:c39ad7573478f8e9c2b45773b00ca9d0b229d99086724d1a2b29b97677e24a90",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#Collectie",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Collectie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Collectie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een verzameling van individuele objecten waartussen een functionele relatie bestaat."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een verzameling van individuele objecten waartussen een functionele relatie bestaat."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld, alle objecten op het openbaar domein die bij een verkeersplateau horen maar niet noodzakelijk een rechtstreekse ruimtelijke relatie hebben."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld, alle objecten op het openbaar domein die bij een verkeersplateau horen maar niet noodzakelijk een rechtstreekse ruimtelijke relatie hebben."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5145f0728378ee2a0c6959e2f499fd6fd8a11115b89551907c1471086b458e95",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#BestendigeAfsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bestendige afsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "BestendigeAfsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding die statisch is in vorm en geen doorgang toelaat."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding die statisch is in vorm en geen doorgang toelaat."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:22b5e0f13bc1005c8a2978a92a55713903f87dd18f012bd27915e04fd2017fdb"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:ef71b63a06576462933419d50a4d3086a4e465dc06795e31ea9e4ceb734e8369",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#SelectieveAfsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Selectieve afsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "SelectieveAfsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare afsluiting die gebruikt kan worden om selectief en/of periodiek toegang te verlenen aan voertuigen, fietsers en/of voetgangers."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare afsluiting die gebruikt kan worden om selectief en/of periodiek toegang te verlenen aan voertuigen, fietsers en/of voetgangers."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting (afgeleid)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting (afgeleid)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:22b5e0f13bc1005c8a2978a92a55713903f87dd18f012bd27915e04fd2017fdb"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1dc59369422ada0cc7607687c851ca876a3258c2ea80d9c83b2deb0ef7bf3c6f",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Slagboom",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Slagboom"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Slagboom"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluitingsmechanisme met slagboomarmen dat dient om controle uit te kunnen oefenen over het gebruik van een doorgang of een toegang."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluitingsmechanisme met slagboomarmen dat dient om controle uit te kunnen oefenen over het gebruik van een doorgang of een toegang."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WSB: Slagboom"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WSB: Slagboom"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:ef71b63a06576462933419d50a4d3086a4e465dc06795e31ea9e4ceb734e8369"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:de8cead4e070bafe6e666ffc96b9f6eb63ddeb5b43af02352fda8a6cc8420407",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Toegangspoort",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Toegangspoort"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Toegangspoort"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een object dat de toegang tot een gebied, zone of terreindeel periodiek kan afsluiten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een object dat de toegang tot een gebied, zone of terreindeel periodiek kan afsluiten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gerelateerd aan object: GRB WSP: Scharnierpunt hek/poort"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gerelateerd aan object: GRB WSP: Scharnierpunt hek/poort"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:ef71b63a06576462933419d50a4d3086a4e465dc06795e31ea9e4ceb734e8369"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:f75d4a1c1210bb081e84543c52f36e07786274ae924a6345e8d8525174f59dec",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Materialen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Materialen"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d94559d947c31a90566fd876d5523998ce37417dce44e4972a54ae491efb35f9",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#ZichtbaarDekselOfLuik",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Zichtbaar deksel of luik"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "ZichtbaarDekselOfLuik"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een zichtbaar deksel of luik is een merkteken dat zich in het vlak van de wegbaan bevindt. Het gaat om rechthoekige en veelhoekige luiken waarvan de zijde groter is dan 1,00m en cirkelvormige of vierkante deksels en luiken waarvan de zijde of diameter groter is dan 1,00m."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een zichtbaar deksel of luik is een merkteken dat zich in het vlak van de wegbaan bevindt. Het gaat om rechthoekige en veelhoekige luiken waarvan de zijde groter is dan 1,00m en cirkelvormige of vierkante deksels en luiken waarvan de zijde of diameter groter is dan 1,00m."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-basis - WRI1: Zichtbaar cirkelvormig putdeksel; WRI2: Zichtbaar vierkant putdeksel"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-basis - WRI1: Zichtbaar cirkelvormig putdeksel; WRI2: Zichtbaar vierkant putdeksel"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:a10a4399e64de07bc72b091d63bc11dad13cf728dbc3fc9eb68eb38769ae9578"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:605ed75bedef7d037f38f27a33d97056cafbd929f0623ce7885e5e6f2289e99d",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Verlichtingspaal",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Verlichtingspaal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Verlichtingspaal"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbare lichtpunt op een paal dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbare lichtpunt op een paal dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Geen lichtpunt (beperkte hoogte). Naar GRB-skeletaanvulling detail - WPI1: Paal; WPI102 verlichting"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Geen lichtpunt (beperkte hoogte). Naar GRB-skeletaanvulling detail - WPI1: Paal; WPI102 verlichting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:bc4d622fff09b485d0defd94e31a28de67eaf38e2a1482d7e025d8433324a81c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:bc4d622fff09b485d0defd94e31a28de67eaf38e2a1482d7e025d8433324a81c",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#OpenbareVerlichting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Openbare verlichting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "OpenbareVerlichting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbare lichtpunt dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbare lichtpunt dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI31: Openbare straatverlichting aan gevel/muur; WPI20: Lichtpunt"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI31: Openbare straatverlichting aan gevel/muur; WPI20: Lichtpunt"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:84d9140901484d0b5f5bb24bb1053a04a23e7863b99c25ac391a85c237410211",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#NormandischeAfsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Normandische afsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "NormandischeAfsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluiting die typisch bestaat uit betonnen palen met betonnen dwarsbalken."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluiting die typisch bestaat uit betonnen palen met betonnen dwarsbalken."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Normandische afsluiting"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Normandische afsluiting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:5145f0728378ee2a0c6959e2f499fd6fd8a11115b89551907c1471086b458e95"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:c4c40dc26caa4b108490a50e1fd372a623d1ad728983dd1e44b61214b2952360",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#OpenbareStraatverlichtingAanGevelOfMuur",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Openbare straatverlichting aan gevel of muur"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "OpenbareStraatverlichtingAanGevelOfMuur"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbaar lichtpunt dat is bevestigd aan de gevel van een gebouw of constructie of bevestigd is aan een muur en dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbaar lichtpunt dat is bevestigd aan de gevel van een gebouw of constructie of bevestigd is aan een muur en dat gebruikt wordt om de omgeving te verlichten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Omvat bijvoorbeeld ook de plafondverlichting in tunnels. Naar GRB-skeletaanvulling detail - WPI31: Openbare straatverlichting aan gevel/muur."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Omvat bijvoorbeeld ook de plafondverlichting in tunnels. Naar GRB-skeletaanvulling detail - WPI31: Openbare straatverlichting aan gevel/muur."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:bc4d622fff09b485d0defd94e31a28de67eaf38e2a1482d7e025d8433324a81c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:045c2c529b87ddcefcda028ced95d9afc90741656813a619cb9c5babc542c316",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Fietsstalling",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Fietsstalling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Fietsstalling"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een fietsstalling is het geheel aan palen en/of verankeringspunten van een constructie bestemd voor het vastmaken van fietsen, gelegen op het openbare domein."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een fietsstalling is het geheel aan palen en/of verankeringspunten van een constructie bestemd voor het vastmaken van fietsen, gelegen op het openbare domein."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI16: Fietsstalling. Met het attribuut overdekt als True: GRB-basis - WGA3: Overdekte fietsstalling."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI16: Fietsstalling. Met het attribuut overdekt als True: GRB-basis - WGA3: Overdekte fietsstalling."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:0d1e5d500edf4f7438421b481e03574f14ebd09cbfdf5d6655780fce41e4121c",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Lichtpunt",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Lichtpunt"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Lichtpunt"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk lichtpunt dat is ingewerkt in het maaiveld of op een paaltje op beperkte hoogte boven het maaiveld (tot 2 meter) en dat gebruikt wordt als randverlichting (bvb verlichting van monument, parking,...), naast de openbare straatverlichting"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk lichtpunt dat is ingewerkt in het maaiveld of op een paaltje op beperkte hoogte boven het maaiveld (tot 2 meter) en dat gebruikt wordt als randverlichting (bvb verlichting van monument, parking,...), naast de openbare straatverlichting"
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI20: Lichtpunt"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI20: Lichtpunt"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:bc4d622fff09b485d0defd94e31a28de67eaf38e2a1482d7e025d8433324a81c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:b090b703825b98fc78c72ab67e1ccb3fe8cb70da06ed74af2962306d6801e7c9",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Zitbank",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Zitbank"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Zitbank"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbaar zitmeubel, op een duurzame manier verbonden met het aardoppervlak en gelegen in parken of langsheen de openbare weg."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een openbaar zitmeubel, op een duurzame manier verbonden met het aardoppervlak en gelegen in parken of langsheen de openbare weg."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bron definitie: GRB-skeletaanvulling detail: WSM3: Niet-verplaatsbare zitbank."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bron definitie: GRB-skeletaanvulling detail: WSM3: Niet-verplaatsbare zitbank."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:9f63d7a824f316be7e68f53895144a12dc43dbf9f8b321b6ebf5dfb56df90dcf",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Draadafsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Draadafsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Draadafsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding, bestaande uit draad."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding, bestaande uit draad."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Verschillend van een spandraad of -ketting. Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Draadafsluiting"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Verschillend van een spandraad of -ketting. Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Draadafsluiting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:5145f0728378ee2a0c6959e2f499fd6fd8a11115b89551907c1471086b458e95"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:7bcf772787206c9e16f52145ff6f1024014ca6db205e952c4fffc939109024f4",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Straatkolk",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Straatkolk"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Straatkolk"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De hemelwaterinlaatconstructie, meestal geplaatst in de straatgoot of watergreppel, waarlangs het hemelwater van de verhardingen wordt afgevoerd."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De hemelwaterinlaatconstructie, meestal geplaatst in de straatgoot of watergreppel, waarlangs het hemelwater van de verhardingen wordt afgevoerd."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI9: Straatkolk"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI9: Straatkolk"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:fb31ebbbd30b96f300e8870dde8b94d4f2b4a98d836e21512bd371449b7ac79f"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:bb9c9b7ad0712d0eebca2fbd322aa342550906e1b13b185de8f8101e0950c5fb",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#Voetweg",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voetweg"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Voetweg"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Terreindeel, gebruikt als voetweg of pad, bedoeld om zwakke weggebruikers specifiek binnen surplusgebieden te laten circuleren."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Terreindeel, gebruikt als voetweg of pad, bedoeld om zwakke weggebruikers specifiek binnen surplusgebieden te laten circuleren."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:47a97aa4b3365e569a0d67a58d965b82dec42cae442c2201669686accf12067c",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#OpenbaarToilet",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Openbaar toilet"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "OpenbaarToilet"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een toilet dat bestemd is voor algemeen gebruik en dat zich bevindt in de openbare ruimte of op een locatie met veel passanten, zoals in trein- of benzinestations, of op een evenemententerrein."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een toilet dat bestemd is voor algemeen gebruik en dat zich bevindt in de openbare ruimte of op een locatie met veel passanten, zoals in trein- of benzinestations, of op een evenemententerrein."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar Wikidata (https://www.wikidata.org/wiki/Q813966)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar Wikidata (https://www.wikidata.org/wiki/Q813966)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:e77e230f34d42630bc0c708611bde3843e78542e193d6f9167fce48f213462c6",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Nauwkeurigheidsklassen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Nauwkeurigsheidsklassen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De nauwkeurigheid waarmee objecten opgemeten worden hangt af van de meetmethode (terrestrisch of via luchtfotogrammetrie) en van de precisie waarmee objecten op het terrein kunnen aangeduid worden. Het GRB definieert 6 nauwkeurigheidsklassen van A tot en met F. Daarnaast werden op basis van het IMKL datamodel ook nog de waarden 'tot 50cm' en 'tot 100cm' opgenomen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:59cf78ee56f2c165f3f8d258bba0f36ee432189f2a404f5eeca753f7c85a7e8a",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Infozuil",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Infozuil"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Infozuil"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "(Paalvormige en duurzame verankering van) signalisatie langsheen de openbare weg met allerlei aankondigingen, al of niet van commerciële aard, op te plakken."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "(Paalvormige en duurzame verankering van) signalisatie langsheen de openbare weg met allerlei aankondigingen, al of niet van commerciële aard, op te plakken."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voornamelijk ten behoeve van het verspreiden van informatie (Stratenplan, inforbord gemeente ...). Naar GRB-skeletaanvulling detail - WPI12: Paal signalisatie publiciteit."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voornamelijk ten behoeve van het verspreiden van informatie (Stratenplan, inforbord gemeente ...). Naar GRB-skeletaanvulling detail - WPI12: Paal signalisatie publiciteit."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:7921d2ba37ac4a5fd7ec3f6f4333565072ee24d61977f0a8f24d667c56a35033",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Aanplakbord",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Aanplakbord"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Aanplakbord"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "(Paalvormige en duurzame verankering van) signalisatie langsheen de openbare weg met allerlei aankondigingen, al of niet van commerciële aard, op te plakken"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "(Paalvormige en duurzame verankering van) signalisatie langsheen de openbare weg met allerlei aankondigingen, al of niet van commerciële aard, op te plakken"
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voornamelijk voor reclameborden en verkiezingsdrukwerk. Naar GRB-skeletaanvulling detail - WPI12: Paal signalisatie publiciteit en Wikidata (https://www.wikidata.org/wiki/Q4379881)."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voornamelijk voor reclameborden en verkiezingsdrukwerk. Naar GRB-skeletaanvulling detail - WPI12: Paal signalisatie publiciteit en Wikidata (https://www.wikidata.org/wiki/Q4379881)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:af408b501ff5a511b4e29109a629f037219b8c13bcaaca08083e744fc57dfe3a",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#Begraafplaats",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Begraafplaats"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Begraafplaats"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gebied waar stoffelijke resten van overledenen begraven, bijgezet of verstrooid worden, inclusief de gemeenschappelijk gebruikte ruimte."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gebied waar stoffelijke resten van overledenen begraven, bijgezet of verstrooid worden, inclusief de gemeenschappelijk gebruikte ruimte."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:45c9a3d9ed9104283c9f61602a5a268b9ef6d27bcc0e5f699c35dc951e8c2178",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#OpenbareVuilnisbak",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Openbare vuilnisbak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "OpenbareVuilnisbak"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Deels in de grond ingewerkte of verankerde vuilnisbak, bestemd voor het deponeren van afval van de voorbijgangers en gelegen op het openbare domein."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Deels in de grond ingewerkte of verankerde vuilnisbak, bestemd voor het deponeren van afval van de voorbijgangers en gelegen op het openbare domein."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI15: Openbare vuilnisbak"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WPI15: Openbare vuilnisbak"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:07eb14a751341bd36eed8180fd8e5a0f70dd32cdf0f8f07f0fc14de1bbc876ae",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#Groenvlak",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Groenvlak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Groenvlak"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Terreindeel met aangelegde en beheerde begroeiing, met een hoofdzakelijk visueel-structurerende functie."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Terreindeel met aangelegde en beheerde begroeiing, met een hoofdzakelijk visueel-structurerende functie."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:ecd17f8d13886547f31c172d8b555f2dcc79f0a94f8b53a8c854c9063f24af7f",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#Paneelafsluiting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Paneelafsluiting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Paneelafsluiting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluiting opgebouwd uit een of meerdere panelen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een afsluiting opgebouwd uit een of meerdere panelen."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting - houten paneel en afsluiting"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - AFS: Afsluiting - houten paneel en afsluiting"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:5145f0728378ee2a0c6959e2f499fd6fd8a11115b89551907c1471086b458e95"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:f423b875fd457086e4923315d98c8338d1324879864e250f0a9d926c72a4ae23",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#SpandraadKetting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Afsluiting spandraad en -ketting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "SpandraadKetting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding, bestaande uit spandraad en/of kettingen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Op het terrein ondubbelzinnig aanwijsbare en permanent verankerde scheiding, bestaande uit spandraad en/of kettingen."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Verschilt van een draadafsluiting. Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Spandraad en -ketting."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Verschilt van een draadafsluiting. Naar GRB-skeletaanvulling detail - AFS: Afsluiting - Spandraad en -ketting."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:5145f0728378ee2a0c6959e2f499fd6fd8a11115b89551907c1471086b458e95"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:8323bbccc8b53576536ba432781a05bf9710f26786d1b6699d182c9e78283fe9",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#Groendak",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Groendak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Groendak"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Dak dat doelbewust begroeid is met planten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Dak dat doelbewust begroeid is met planten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "cf. GRB Lexicon: kan deel uitmaken van particulier gebied"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "cf. GRB Lexicon: kan deel uitmaken van particulier gebied"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:113fb5cde712ee6ae0f782e0a330a27dda1d2288073d22e75a47ec0863a38a91",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#BegraafplaatsRij",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Begraafplaats rij"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "BegraafplaatsRij"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een rij is een verzameling graven van hetzelfde type. Een rij ligt typisch volledig binnen een bepaald blok."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een rij is een verzameling graven van hetzelfde type. Een rij ligt typisch volledig binnen een bepaald blok."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#Graf",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Graf"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Graf"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar iemand begraven ligt."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats waar iemand begraven ligt."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer: BPG1 Grafrand (afgeleid)"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer: BPG1 Grafrand (afgeleid)"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:32387ee0823fa3614eda7a6c988cb3db8012776a5f63b4b3a6ef377f36d36c51",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#Columbarium",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Columbarium"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Columbarium"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een columbarium is een muur met nissen waarin urnen geplaatst worden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een columbarium is een muur met nissen waarin urnen geplaatst worden."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer - BPU1: Columbarium"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer - BPU1: Columbarium"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:99077139efac962a9bd047497ebbda08d394de04b83a31775fdfcb6b07011a7d",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#Urnenveld",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Urnenveld"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Urnenveld"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een urnenveld is een constructie in of op de grond met nissen waarin urnen geplaatst worden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een urnenveld is een constructie in of op de grond met nissen waarin urnen geplaatst worden."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer - BPU2: Urnenveld"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletoptie groen- en begraafplaatsenbeheer - BPU2: Urnenveld"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:8e681fbfb32ccb9400195ce531b74d6ddbd78e3df845238c27132cb71b429dcd",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#Strooiweide",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Strooiweide"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Strooiweide"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats, meestal grasperkje, op het kerkhof waar assen van overledenen uitgestrooid worden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Plaats, meestal grasperkje, op het kerkhof waar assen van overledenen uitgestrooid worden."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:65ecd59cbcf704a32aef92c2e4ac8e029df9b390a10c31ba8ee0bd05e9119500",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Graftypes"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Graftypes"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Types graven."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:368d8485d6c6859bfbcf42cbe8c41709063202fc6182ce3fc394568688d3407a",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Straatkolktypes"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Straatkolktypes"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type straatkolk naar de GRB classificatie."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b03620ba1570ee913311580319bf19dc25732f0626aea56b3aa352b492438456",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#Trap",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Trap tussen 2 straatniveaus"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Trap"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Constructie, niet aanleunend bij een gebouw bestaande uit treden die de verbinding vormt tussen 2 straatpeilen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Constructie, niet aanleunend bij een gebouw bestaande uit treden die de verbinding vormt tussen 2 straatpeilen."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - KNW25: Trap tussen 2 straatniveaus"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - KNW25: Trap tussen 2 straatniveaus"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+        }
+      ]
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:b70fbe4d3504ce3cacc5bc75b364d9fb12e0f5fe537b943971851ad146ff112b",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#begindatum",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "begindatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "begindatum"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het gebied of object in gebruik wordt genomen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het gebied of object in gebruik wordt genomen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e66c3ce34e1c55a17814f2b74a6f1233e20f210eed23503d076cf75f9c15ca82",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#einddatum",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "einddatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "einddatum"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het gebied of object uit gebruik wordt genomen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het beheerobject uit gebruik wordt genomen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:857473d05945b4dfd95a0a87feb591ec080f7110157f4a5d80c1fe03168f263f",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#niveau",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "niveau"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het niveau waarop het object zich bevindt, relatief ten opzichte van andere objecten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het niveau waarop het object zich bevindt, relatief ten opzichte van andere objecten."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Negatieve waarden worden geassocieerd met ondergronds en positieve waarden met bovengronds. Nul wordt beschouwd als een absolute waarde om het maaiveld aan te duiden."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Negatieve waarden worden geassocieerd met ondergronds en positieve waarden met bovengronds. Nul wordt beschouwd als een absolute waarde om het maaiveld aan te duiden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1123686840"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d0e127cb2c4dc11788b91df79cf2f3bd4ee35e0da2e2d84bf43e3a48358e0520",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#grafteken",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "grafteken"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "grafteken"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of er al dan niet een grafteken, bijvoorbeeld een zerk, aanwezig is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of er al dan niet een grafteken, bijvoorbeeld een zerk, aanwezig is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:66a7def25f1d3269e4bbbcdd59dc969a2514ad0fa60167146b58947daca879ed",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#capaciteit",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "capaciteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "capaciteit"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft het aantal beschikbare plaatsen van een graf weer."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1607006999"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4fe5486c0ae54295e1f08d87b0e052baa7e980ea2c643bccdd65ae2939fa56d2",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "titel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "titel"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een titel voor de collectie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c39ad7573478f8e9c2b45773b00ca9d0b229d99086724d1a2b29b97677e24a90"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2e3b836d6c7197a25b1e65fd30efb1ac859b462988f90b3d54ed06ad11066510",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#bezetting",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "bezetting"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bezetting"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft de bezetting van een object weer op een bepaald tijdstip, bijvoorbeeld het aantal ingenomen parkeerplaatsen van een parking."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft het aantal bezette plaatsen van een graf weer."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1607006999"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f0cd5e45025046de04b294b69339e08e2da27625883e92f714ff292c553e2bac",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#grafkelderAanwezig",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "grafkelder aanwezig"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "grafkelderAanwezig"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het graf voorzien is van een ondergrondse of bovengrondse ruimte."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het graf voorzien is van een ondergrondse of bovengrondse ruimte."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fe5c39b224e6b60ebe5d81995f384064dc8f371214319e6f96d5980893f369b8",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#altLabel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "alternatieve naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "alternatieveNaam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Andere naam waaronder de organisatie bekend is."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld een commerciële naam of informele naam."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6ad10b6b9a4c0a950c5a250371feedb59a70859ead456dcf9e7bc017182c5426",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "voorkeursnaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "voorkeursnaam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam waarmee de organisatie bij voorkeur wordt aangeduid."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c8ad6885892c5fbb35df2efba3bfb221616452c35373d2e3a313a02d12ca77e2",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/unitText",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "eenheidtekst"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "eenheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "eenheid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De eenheid waarin de waarde is uitgedrukt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Te gebruiken als geen standaard eenheid gekend is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:44f24b655da3b78c6215ac51e7008e70bd83df2f507ae7af38ce160e59ac796f",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#begindatum",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "begindatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "begindatum"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het gebied of object in gebruik wordt genomen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het beheergebied in gebruik wordt genomen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b0756358662ae6324499f89ab6c33f47d8b935363c01b68b590ff16083965109",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#einddatum",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "einddatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "einddatum"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het gebied of object uit gebruik wordt genomen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum waarop de huidige versie van het beheergebied uit gebruik wordt genomen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:37b33ef993eb812b2c949492cd259f2e3a4986c87795f1f5fcd1f995b1faf918",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een naam voor het gebied."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:33a88c78db0ff2d32c6ae2ec10a4f9737f09268e67654e2e66f0ec7d6c43ab9f"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8d4675fd6f3e172834fff06a2786c1bdf791ba01be280ca67800cbeb315fbb45",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#actieveLijkbezorging",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "actieve lijkbezorging"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "actieveLijkbezorging"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of er al dan niet nog aan actieve lijkbezorging gedaan wordt op de begraafplaats."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of er al dan niet nog aan actieve lijkbezorging gedaan wordt op de begraafplaats."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:af408b501ff5a511b4e29109a629f037219b8c13bcaaca08083e744fc57dfe3a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ba9b7739166446442473c09e01e598613dcf849189dcaad4553d6cf9abbc96a8",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/gebied#lichteRecreatie",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "lichte recreatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "lichteRecreatie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan of de begraafplaats al dan niet geschikt is voor lichte recreatie."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan of de begraafplaats al dan niet geschikt is voor lichte recreatie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:af408b501ff5a511b4e29109a629f037219b8c13bcaaca08083e744fc57dfe3a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:85113e0ee03250db1a597e39ce09a6b416d0ec5b012c8b8a4e71b2c782592473",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#verplaatsbaar",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "verplaatsbaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "verplaatsbaar"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het element al dan niet verplaatsbaar is en dus niet permanent verankerd werd met het aardoppervlak."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het element al dan niet verplaatsbaar is en dus niet permanent verankerd werd met het aardoppervlak."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:aa3efa3d8219f9bb1dfac2a7dee9fa1bd49cba9eee57bf60ded98c82b199d11e"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:610da78539d2a1fbd9cdbbba703499fcee799099729098b15f3d6e1a0632d0cb",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#afsluitbaar",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "afsluitbaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "afsluitbaar"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het object al dan niet kan afgesloten worden om toegang voor onbevoegden te verhinderen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of de fietsstalling al dan niet kan afgesloten worden om toegang voor onbevoegden te verhinderen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:045c2c529b87ddcefcda028ced95d9afc90741656813a619cb9c5babc542c316"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e51bb7a73350a720563b8c2a7fcd05319533777953168efcec0a768f86af0076",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#overdekt",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "overdekt"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "overdekt"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of het object al dan niet overdekt is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of de fietsstalling al dan niet overdekt is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:045c2c529b87ddcefcda028ced95d9afc90741656813a619cb9c5babc542c316"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:54cdd193a45997b3f527f1c2f0fb6b4a15ec2f9023abe07ed9928e11b64fea21",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#capaciteit",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "capaciteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "capaciteit"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan hoeveel fietsen gestald kunnen worden aan of in de fietsenstalling."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan hoeveel fietsen gestald kunnen worden aan of in de fietsenstalling."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:045c2c529b87ddcefcda028ced95d9afc90741656813a619cb9c5babc542c316"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1607006999"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b54dfc77bd5925e2e474a5f89d2a0a520857c36320a95f2392a43e36d0948241",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2006/vcard/ns#honorific-prefix",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "aanschrijfprefix"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "aanschrijfvorm"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "aanschrijfvorm"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Titel waarmee iemand wordt aangeschreven of aangesproken of waarmee naar iemand wordt verwezen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb De heer/Mevrouw, Excellentie, Dokter..."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:db382963a901cef30531d8795e9ced0aaca58baa16aedfb321793bc3a00fd0a9"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0f83bfeaa38a6b7f16620bd2ac31d5b678de45dffc63b51dea5448dc29431a5d",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://xmlns.com/foaf/0.1/name",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "contactnaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "contactnaam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam van bvb de persoon die men kan contacteren."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dd6f4a35d0ce49fe0ca47c0b622eb95e2415eb05faef79a24c51fe2e71fa891a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/email",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "email"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "email"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Email-adres waarnaar men kan mailen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b2043c16e4535338823afd7c3dc725f8ba03deffc95526744159c18fdfe1a5c5",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/faxNumber",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "faxnummer"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "fax"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "fax"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Faxnummer waarnaar men kan faxen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:775d523d83094eda9ef1bdb0f22d6a2c98c985ee3f9380fb07f3c4f0bcbdeb55",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/openingHours",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "openingsuren"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "openingsuren"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Uren waarbinnen contact kan worden opgenomen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Syntax volgens schema.org voor openingsuren. Bv als contact kan worden opgenomen tussen 8 en 20u maandag tot zaterdag en tussen 8 en 18u op zondag wordt dit gecodeerd als Ma-za 08:00-20:00, zo 08:00-18:00."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3fc5d4c734067514effbd2cc50feb52bcd2072f6ea81de0e7c6c9f0cb3cb1ef7"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b8e612dc2190bcd68ae27a9e52cdb6cd3e0c12652d9723d5af1f4ae4a361b0e3",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/telephone",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "telefoon"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "telefoon"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Telefoonnummer waarop men kan bellen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7db918fba51578cfb847d82f6ef8f4ea5099b7c5844d82a4ac537eda2b153271",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://xmlns.com/foaf/0.1/page",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "pagina"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "website"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "website"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Website waarnaar men kan surfen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1008345369"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:810813d56692254e6917ad431b987509de2d3fd1e4a422e7337f58ae01c9da62",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.opengis.net/ont/geosparql#asGML",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "gml"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gml"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie uitgedrukt in gml-formaat."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie uitgedrukt in gml-formaat."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik http://www.opengis.net/ont/geosparql#gmlLiteral als datatype."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3fc5d4c734067514effbd2cc50feb52bcd2072f6ea81de0e7c6c9f0cb3cb1ef7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:abe6ef4aa9b496f8d26396bc7034f62ce4d32ae47660f5c935729870ae699b0b",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.opengis.net/ont/geosparql#asWKT",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "wkt"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "wkt"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie uitgedrukt in wkt-formaat."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik http://www.opengis.net/ont/geosparql#wktLiteral als datatype."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3fc5d4c734067514effbd2cc50feb52bcd2072f6ea81de0e7c6c9f0cb3cb1ef7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f3d15da9adc484c6704e00c462800cfed901f80ba2b0d051f849c2d291f40f55",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#bronnaam",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "bronnaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bronnaam"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De naam van de bron."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De naam van de bron."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0986fe4f05d6fa51cc3b43cda54a14498f1f4790c1b51be4ccfd4f078c1e24c4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2625ab1e6505e837e19d2709378b8bddb6654f84a5149936c0131270088a734a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#uuid",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "uuid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "uuid"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een globaal unieke identificator voor het object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een globaal unieke identificator voor het object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0986fe4f05d6fa51cc3b43cda54a14498f1f4790c1b51be4ccfd4f078c1e24c4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:de4106db250999456be9d1ffada1b7a9af32c8110e8fed78ca415240808e368d",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#verzinkbaar",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "verzinkbaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "verzinkbaar"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan dat het element ondergronds opgeborgen kan worden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan dat het element ondergronds opgeborgen kan worden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:47a97aa4b3365e569a0d67a58d965b82dec42cae442c2201669686accf12067c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ea7896d60fe258ce63aac6a2471b8a0293e9934a3b6f2396b9188c33b2acbe3a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#fietsdelen",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "fietsdelen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "fietsdelen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of de fietsstalling al dan niet gebruikt wordt voor deelfietsen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Duidt aan of de fietsstalling al dan niet gebruikt wordt voor deelfietsen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:045c2c529b87ddcefcda028ced95d9afc90741656813a619cb9c5babc542c316"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:286333439"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:63e57622a120a325eca9e8d4dfab5817d0330e72f3e67d4d66bc91925ee0b048",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://schema.org/width",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "breedte"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "breedte"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De breedte van het object. In geval van een ongelijkmatige breedte wordt de gemiddelde breedte opgenomen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2083cde6668f9c4083a193e60058c31b17b7abb1cf143a215887b2c1c021fcca",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://open.vocab.org/terms/length",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "lengte"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "lengte"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De lineare grootte van het object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fde70894fb1cd064586fcf3782d1a824ecb07941694de8321f3fe23359b571c3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#oppervlakte",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "oppervlakte"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "oppervlakte"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De afmeting van het object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De afmeting van het object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4fbc34b368daea2444e4742140ecae057a0461eae6d6223f64c34e6ac8f1e099"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:30e3dab11fdea4ebb3d0048b93d2335c015c497b43ddbc204cbe4ee9c640469b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/begraafplaats#graftype",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "graftype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "graftype"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type graf."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type graf."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c92641b077c73f6950d25bcb33029fdca8ef932a7263db37281a1e738383684d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:65ecd59cbcf704a32aef92c2e4ac8e029df9b390a10c31ba8ee0bd05e9119500"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/Graftypes"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b63ff41a7c3f136d68e7e7572d623c527aa8a4d4f9acc5db3a886c4436d8da3e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://schema.org/contactPoint",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "contactinfo"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "contactinfo"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie zoals email, telefoon ... die toelaat de Organisatie te contacteren."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c55dd20945d57df6b1dbba3769152a412421c885b21ca403b8699771455f2b64",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/unitCode",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "eenheidcode"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "standaard eenheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "standaardEenheid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De gestandaardiseerde eenheid waarin de waarde is uitgedrukt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b975435ff98178ab92aa85a853bdf2204b8d595213748be35b635a8aa178ff0b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:61eff4774d7488f99105311e58ee1acbb9bb460a0858719e3f57da157d9402fa",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#geometry",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geometrie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geometrie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De geometrie overeenkomstig met een bepaald object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De geometrie overeenkomstig met een bepaald gebied."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:68f7c96ff6f1c81b94bca93b71ad307db836422c601d56cd56cbec306b654bef"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c4816531047c06d3a0404be1d36f4bd1503ab2954625c380921cc2fcd2d7806c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#materiaal",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "materiaal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "materiaal"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Materiaal waar het object uit vervaardigd is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Materiaal waar het object uit vervaardigd is."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Als mogelijke waarden voor dit attributen verwijzen we naar de materialen thesaurus van Onroerend Erfgoed: https://thesaurus.onroerenderfgoed.be/conceptschemes/MATERIALEN"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:393059877902e24ed438e1c4842032c7a2ece9c7b839ab0f48560b8326a5f143"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f75d4a1c1210bb081e84543c52f36e07786274ae924a6345e8d8525174f59dec"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://thesaurus.onroerenderfgoed.be/conceptschemes/MATERIALEN"
+    },
+    {
+      "@id": "urn:oslo-toolchain:04ee625cd8acf6ac765e4bdea48fb933930960d111b71378a9641c644f7e3ee2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#nutsvoorzieningscode",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "nutsvoorzieningscode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "nutsvoorzieningscode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de soort nutsvoorziening."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de soort nutsvoorziening."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het GRB voorziet een codelijst: WNC nutsvoorzieningscode."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik de GRB codelijst: WNC nutsvoorzieningscode."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a10a4399e64de07bc72b091d63bc11dad13cf728dbc3fc9eb68eb38769ae9578"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:67e1f3e8a72c99adfd4119d98fe05ef7eeb9f90665c9c762bd49cde0763677d3"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/Nutsvoorzieningscodes"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7abbb8293d8cfa7de7d09b2a4c2533d14dedbe8c1260b78c13977c389ab7ffa5",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#dekselVorm",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "deksel vorm"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "dekselVorm"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De vorm van het deksel."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De vorm van het deksel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a10a4399e64de07bc72b091d63bc11dad13cf728dbc3fc9eb68eb38769ae9578"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:dd0f1e511af477dd67ba116267330570699f0699694b07bc79c0d546eb4ad334"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/DekselVorm"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6931dd9292a490b02edaebe2c3b47af6babdee8df30128ed9bf5b59b6d9d1088",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#nauwkeurigheid",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "nauwkeurigheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "nauwkeurigheid"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De precisie waarmee het object opgemeten werd."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De precisie waarmee het object opgemeten werd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e77e230f34d42630bc0c708611bde3843e78542e193d6f9167fce48f213462c6"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/Nauwkeurigsheidsklassen"
+    },
+    {
+      "@id": "urn:oslo-toolchain:59a1636469b6c334e0b021735f8cb2c2ca004e5fcdd77b2c4d873249dc765a20",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#rioleringscode",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "rioleringscode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "rioleringscode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De rioleringscode is een arbitraire notitie van waarneembare eigenschappen van het deksel m.b.t. de beheerder en de functie van de ondergrondse ioleringsleiding."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De rioleringscode is een arbitraire notitie van waarneembare eigenschappen van het deksel m.b.t. de beheerder en de functie van de ondergrondse ioleringsleiding."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het GRB voorziet een codelijst: WRC1: Rioleringscode."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik de GRB codelijst: WRC1: Rioleringscode."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a10a4399e64de07bc72b091d63bc11dad13cf728dbc3fc9eb68eb38769ae9578"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5f85ffbea68a34dccec263b1edbf27119342a127dde1d3cb0e18589f635dda5f"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/Rioleringscode"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1ea74b518e319018b03dad87b76a688cc6a21e3781c93f49de22110a1bffba2e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/value",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "waarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "waarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e715eca97611e13ee6d2bfaf4668d4e1f3a0978adf592c2872e3c4821cfd8d8e"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d1d67856d2155ef72b9219a82a5684daf7767ef918d0f501e08ba0dc426db96a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#geometry",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geometrie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geometrie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De geometrie overeenkomstig met een bepaald object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De geometrie overeenkomstig met een bepaald object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d6822dc92608452c8356c4a11164dcb4aa1f86615002c6933f87a519c66fab36",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#obstakels",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "obstakels"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "obstakels"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Eigenschap die aangeeft of er binnen het beheerdeel al dan niet objecten voorkomen die de vrije werking van machines of andere werktuigen kan verhinderen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Eigenschap die aangeeft of er binnen het beheerdeel al dan niet objecten voorkomen die de vrije werking van machines of andere werktuigen kan verhinderen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1b5d3359cd6ed3a6d1569fe80298b08fbc995cb3640e33f252f931651d9777ef"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3b5ead2c92b5ef34c5c2e0ee93eee770ad8fe902ee1cc20d64a5f67271f60185"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b38216440f15e2578184f820b0cd3f5e53054a8b3d01c094c675b0ec43bb4266",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/relation",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "relatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "relatie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar een object in een andere databank dat meer informatie kan verschaffen over het beheerobject."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar een object in een andere databank dat meer informatie kan verschaffen over het beheerobject."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld een verwijzing naar een object uit het wegenregister of grootschalig referentiebestand."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld een verwijzing naar een object uit het wegenregister of grootschalig referentiebestand."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0986fe4f05d6fa51cc3b43cda54a14498f1f4790c1b51be4ccfd4f078c1e24c4"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:796444ddd27e3f4b9bc182c6530e490686841214d6a297721cdfd5f8c748414e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#talud",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "talud"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "talud"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een talud is het kunstmatig gedeelte van een vlak van de wegbaan, dijken, spoorbanen, vestingswerken, ... dat een helling (min. 20%, max 80% voor kunstmatig verharde taluds) vertoont en bedoeld voor het opvangen van een hoogteverschil."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een talud is het kunstmatig gedeelte van een vlak van de wegbaan, dijken, spoorbanen, vestingswerken, ... dat een helling (min. 20%, max 80% voor kunstmatig verharde taluds) vertoont en bedoeld voor het opvangen van een hoogteverschil."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WTO1: Teen verharde talud; WTO2: Kruin verharde talud; WTO3: Teen onverharde talud; WTO4: Kruin onverharde talud"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Naar GRB-skeletaanvulling detail - WTO1: Teen verharde talud; WTO2: Kruin verharde talud; WTO3: Teen onverharde talud; WTO4: Kruin onverharde talud"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1b5d3359cd6ed3a6d1569fe80298b08fbc995cb3640e33f252f931651d9777ef"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d101b0a7c3371c6604438cfdd63519e4762ab417c6d944bd3c453ed9a6dc1d66"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/TaludWaarde"
+    },
+    {
+      "@id": "urn:oslo-toolchain:47c0b2c94c74d19c85e7d2cdf5286893adec3fafed6a33e7fd0b5bbcadd73518",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#address",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "adres"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "adres"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Adres dat men kan aanschrijven of bezoeken."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0011602b4ce0f5a37f8353bc6b9dcd0241c89b4f0281862d7f26fa9b1692b4fd"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3895a2f562b09f60dc5ead5b1ad8b9761b53e02d42d40643d8f230ef2875a045",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://schema.org/hoursAvailable",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "uren beschikbaarheid"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschikbaarheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschikbaarheid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Periode waarin contact kan worden opgenomen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv aanduiding van het seizoen waarin contact kan worden opgenomen. Begin- en einddatum volgens ISO8601 syntax."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a015068a101246cdbd4382b2491998be89a0a64378dbdd368192426723f4c8da"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:033141ab0d4c87ddc62c5dd68bd050d4292910802e710a2e9946255f75c0835f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/infrastructuur#straatkolktype",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "straatkolktype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "straatkolktype"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type straatkolk."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type straatkolk."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7bcf772787206c9e16f52145ff6f1024014ca6db205e952c4fffc939109024f4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:368d8485d6c6859bfbcf42cbe8c41709063202fc6182ce3fc394568688d3407a"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "codelist": "https://data.vlaanderen.be/id/conceptscheme/Straatkolktypes"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bb83fc34555f220cd052d76a057d8a2a71361d3888187e5a3286dc7a58c3a85a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#voorkomen",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "voorkomen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "voorkomen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar het fysiek voorkomen van het beheerobject."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar het fysiek voorkomen van het beheerdeel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4fbc34b368daea2444e4742140ecae057a0461eae6d6223f64c34e6ac8f1e099"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c9363d20c381fac0c93627ffcb333d3caeb8ebff9bada8c7530e156c03aad7d1"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:475e639dd49be92ccdcf7e24bc0cd819b53fcbf3580874d1cac23dc1a56cbe4e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#beheerder",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "beheerder"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beheerder"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Instantie die instaat voor het beheer van het gebied of object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Instantie die instaat voor het beheer van het gebied."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Tot op team- of dienstniveau."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a0afc4795212acf4fb740151540dfe2ae0caee081299b530b9edc3fb4f764d58",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#voorkomen",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "voorkomen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "voorkomen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijst naar het fysiek voorkomen van het beheerobject."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het voorkomen van het terreindeel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1b5d3359cd6ed3a6d1569fe80298b08fbc995cb3640e33f252f931651d9777ef"
+      },
+      "parent": {
+        "@id": "https://data.vlaanderen.be/ns/openbaardomein#voorkomen"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6f628b19c502708d896f344afa9dfc4a85aab18894cf1e5b8501f4659523b2fe",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#beheerder",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "beheerder"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beheerder"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Instantie die instaat voor het beheer van het gebied of object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Instantie die instaat voor het beheer van het object."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Tot op team- of dienstniveau."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:322edb9b0f1fca6a530aa9f23c9fadd20d2a1ebdfe10161c7b1c8b156e763878",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#eigenaar",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "eigenaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "eigenaar"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit (bv. de gemeente) die eigenaar is van het object of gebied."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit (bv. de gemeente) die eigenaar is van het object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3f88b6d5e616ccebe97b2d39d8d538e33f4fd98b54059d65ef5e1ec954484055",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#eigenaar",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "eigenaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "eigenaar"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit (bv. de gemeente) die eigenaar is van het object of gebied."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit (bv. de gemeente) die eigenaar is van het gebied."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:90b7da4135e6753e46f4f4793d60f217e51e367a4abb490aae36b9e2d34fc2f5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9da0122a4adf0ce3ee64a22cb87d467ecce9fd20d0bab924b16a183633350f5b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d8972d340533fd8d9cc39ab30f14ede42ba69f9cb745ad4f2e3fdc07f1cff145",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein#bevat",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "bevat"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bevat"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Relatie naar de objecten die deel uitmaken van de collectie."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Relatie naar de objecten die deel uitmaken van de collectie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c39ad7573478f8e9c2b45773b00ca9d0b229d99086724d1a2b29b97677e24a90"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a7dc8c8abe17ec0c95e2c0332dc11bc59487dea8962aa664ca9841f192ddfee3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/openbaardomein/terreindeel#heeftObstakel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft obstakel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftObstakel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het specifieke Element dat een obstakel vormt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7e911d0cb2f228610922beb44a85751032bde2b2ee55c89d3129517557834ed3"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c671396dad30a10d8cde679244abc146ea9aee7fa87f11b7bbfa2f6512d6be81"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "urn:oslo-toolchain:3ae2a6fb602b9dd2dd410259c178770217df01019920b45d9f2e3ebfd7be058e",
+      "@type": "Datatype",
+      "assignedURI": "https://schema.org/QuantitativeValue",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Kwantitatieve Waarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "KwantitatieveWaarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de kwantiteit van een bepaald kenmerk van een object."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv de hoogte van een object,het gewicht,de temperatuur etc. Het gaat om een kenmerk dat numeriek uitgedrukt kan worden en in een bepaalde eenheid. Kwalitatieve aanduidingen zoals hoog,laag ed vallen hier dus niet onder."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c",
+      "@type": "Datatype",
+      "assignedURI": "http://www.opengis.net/ont/geosparql#Geometry",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Geometrie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Geometrie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Vorm- en positiekenmerken van een object."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9162ca80f687155946a168f012d8a722a078fcc978d1a17977fc04e6a3db87c0",
+      "@type": "Datatype",
+      "assignedURI": "http://www.opengis.net/ont/sf#Point",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Punt"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Punt"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een 0-dimensioneel geometrisch object dat een bepaalde locatie in een coördinaatruimte voorstelt. Heeft een x-coördinaat en een y-coördinaat. Kan ook een z-coördinaat (hoogte) en een m-coördinaat (afstand langs een curve) hebben."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:49dd3611546a184db9762ede2bd43221c3762a5125e715be55b929d624ebc295",
+      "@type": "Datatype",
+      "assignedURI": "http://www.opengis.net/ont/sf#LineString",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Lijnstring"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Lijnstring"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Curve met lineaire interpolatie tussen de punten. Elk opeenvolgend paar punten vormt een lijnsegment. De lijnstring heeft ten minste twee punten."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een curve is een 1-dimensioneel geometrisch object gedefinieerd als een sequentie van punten. De interpolatie kan op verschillende manieren gebeuren (bv lineair bij een lijnstring)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:68f7c96ff6f1c81b94bca93b71ad307db836422c601d56cd56cbec306b654bef",
+      "@type": "Datatype",
+      "assignedURI": "http://www.opengis.net/ont/sf#Polygon",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Polygoon"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Polygoon"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Oppervlak bestaande uit 1 buitengrens en 0 of meer binnengrenzen. Elke binnengrens vormt een gat in de polygoon."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "De grenzen zijn zgn lineaire ringen, ttz het zijn gesloten (niet zelfsnijdende) lijnstringen. De buitengrens wordt onderscheiden vd binnengrens door resp de kloksgewijze en tegenkloksgewijze richting waarin de ring loopt."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:1922f3d2896c8ad49147e47df5a24d961fe353fbae5b5071bcf060565a01040c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:0986fe4f05d6fa51cc3b43cda54a14498f1f4790c1b51be4ccfd4f078c1e24c4",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Resource",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Relatie object"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "RelatieObject"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat dient om vanuit een beheerobject naar te verwijzen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Object dat dient om vanuit een beheerobject naar te verwijzen."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voorbeeld: een bepaalde GRACHT wordt in dit geval gedefinieerd door te verwijzen naar een relatieobject met volgende eigenschappen: UUID = 289130, bronNaam = GRB"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voorbeeld: een bepaalde GRACHT wordt in dit geval gedefinieerd door te verwijzen naar een relatieobject met volgende eigenschappen: UUID = 289130, bronNaam = GRB"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d14a129be7756208cbb5cddf12bfc4dfd3e81939968807bde9265579d606453a",
+      "@type": "Datatype",
+      "assignedURI": "http://schema.org/ContactPoint",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Contactpunt"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Contactinfo"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Contactinfo"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie zoals email, telefoon, adres die toelaat om iemand of iets te contacteren."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb een persoon of organisatie of dienstverlening... Mogelijke vormen van contact: bellen, mailen etc."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:33a88c78db0ff2d32c6ae2ec10a4f9737f09268e67654e2e66f0ec7d6c43ab9f",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Geografische Naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "GeografischeNaam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Benaming toegekend aan of gebruikt voor een geografisch object."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:499715870",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "diagramLabel": [
+        {
+          "@value": "DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1123686840",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#int",
+      "diagramLabel": [
+        {
+          "@value": "int"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:286333439",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#boolean",
+      "diagramLabel": [
+        {
+          "@value": "Boolean"
+        },
+        {
+          "@value": "boolean"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1607006999",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#integer",
+      "diagramLabel": [
+        {
+          "@value": "Integer"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:487667944",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#string",
+      "diagramLabel": [
+        {
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1008345369",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "diagramLabel": [
+        {
+          "@value": "URI"
+        }
+      ]
+    }
+  ],
+  "referencedEntities": [
+    {
+      "@id": "urn:oslo-toolchain:fb73fdaaac3b097076a62dce154f3dc6676e8a4324f7f25df1976339bf7ec5d1",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2f659f0e03e3c38af3016acde7aa10c66a533a402ab931cd6ed070d0ba09d97c",
+      "assignedURI": "http://schema.org/Thing",
+      "diagramLabel": [
+        {
+          "@value": "Ding"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4502c49461b64cf6e5e475ad4f08c0d4d3252a757ea13f89220ffb1d21eb4192",
+      "assignedURI": "http://www.w3.org/ns/prov#Entity",
+      "diagramLabel": [
+        {
+          "@value": "Object"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b975435ff98178ab92aa85a853bdf2204b8d595213748be35b635a8aa178ff0b",
+      "assignedURI": "https://data.vlaanderen.be/ns/generiek#StandaardEenheid",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Standaard Eenheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "StandaardEenheid"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Eenheid vastgelegd door een standaardiserende organisatie."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Datatype kan een URI zijn of een GetypeerdeString. In het eerste geval wordt verwezen naar op het web gepubliceerde eenheden, bij voorkeur deze van qudt, bv http://qudt.org/vocab/unit/M voor meter. In het geval van een  GetypeerdeString gaat de voorkeur naar de UCUM-codes, bv \"km/h\"^^http://w3id.org/lindt/custom_datatypes#ucumunit."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:67e1f3e8a72c99adfd4119d98fe05ef7eeb9f90665c9c762bd49cde0763677d3",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Nutsvoorzieningscodes"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Nutsvoorzieningscodes"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de soort nutsvoorziening. Naar GRB-skeletoptie wegbeheer - WNC: nutsvoorzieningscode."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dd0f1e511af477dd67ba116267330570699f0699694b07bc79c0d546eb4ad334",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Dekselvormwaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "DekselVorm"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De vorm van het deksel."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5f85ffbea68a34dccec263b1edbf27119342a127dde1d3cb0e18589f635dda5f",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Rioleringscode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Rioleringscode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De rioleringscode is een arbitraire notitie van waarneembare eigenschappen van het putdeksel m.b.t. de beheerder en de functie van de ondergrondse rioleringsleiding."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e715eca97611e13ee6d2bfaf4668d4e1f3a0978adf592c2872e3c4821cfd8d8e",
+      "assignedURI": "https://schema.org/Number",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Getal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Getal"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van een hoeveelheid."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In praktijk de primitieve datatypes waarmee een hoeveelheid kan worden aangeduid,zie xsd datatypes float,double,decimal,integer etc."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3b5ead2c92b5ef34c5c2e0ee93eee770ad8fe902ee1cc20d64a5f67271f60185",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Aantal Obstakels"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "AantalObstakels"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het aantal obstakels."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "De invulling hiervan kan o.a. klassen zijn (bv. 0-10, 11-20, ...) of een kwalitatieve gradatie (bv. weinig, matig, veel)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d101b0a7c3371c6604438cfdd63519e4762ab417c6d944bd3c453ed9a6dc1d66",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "TaludWaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TaludWaarde"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Codelijst voor de de hellingsgraad van een talud."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:db382963a901cef30531d8795e9ced0aaca58baa16aedfb321793bc3a00fd0a9",
+      "assignedURI": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Taalstring"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TaalString"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Combinatie van een string en de taal waarin de inhoud ervan is gesteld."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb 'Rue Mercator' als string en 'fr' als taal."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0011602b4ce0f5a37f8353bc6b9dcd0241c89b4f0281862d7f26fa9b1692b4fd",
+      "assignedURI": "http://www.w3.org/ns/locn#Address",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Adresvoorstelling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Adresvoorstelling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Meer leesbare voorstelling met enkel de basisgegevens van het adres,bedoeld voor het gebruik van een adres als attribuut van een ander object."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv als attribuut ve persoon of gebouw... De adresvoorstelling heeft niet enkel betrekking op Belgische adressen, ze kan gebruikt worden om buitenlandse adressen weer te geven (waar mogelijk andere adresaanduidingen dan huisnummer of busnummer worden gebruikt of waar adrescomponenten zoals adresgebieden voorkomen)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a015068a101246cdbd4382b2491998be89a0a64378dbdd368192426723f4c8da",
+      "assignedURI": "https://schema.org/OpeningHoursSpecification",
+      "diagramLabel": [
+        {
+          "@value": "OpeningsurenSpecificatie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3fc5d4c734067514effbd2cc50feb52bcd2072f6ea81de0e7c6c9f0cb3cb1ef7",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Getypeerde String"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "GetypeerdeString"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Combinatie van een string en het type van wat de string voorstelt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb '20170901' als string en 'datum' als type. Laat automatische interpretatie vd string toe."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ]
+}

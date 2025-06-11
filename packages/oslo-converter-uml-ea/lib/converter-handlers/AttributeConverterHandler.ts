@@ -1,6 +1,6 @@
 import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
-import { PropertyType, ns } from '@oslo-flanders/core';
+import { PropertyType, datatypeIdentifierToHash, getDataType, ns } from '@oslo-flanders/core';
 
 import { ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type {
@@ -14,7 +14,6 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from '../config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from '../config/EaUmlConverterServiceIdentifier';
-import { getDataType, datatypeIdentifierToHash } from '../enums/DataTypes';
 import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
