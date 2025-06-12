@@ -8,6 +8,7 @@ import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore } from '../utils/utils';
+import { MainPackage } from '../enums/MainPackage';
 
 @injectable()
 export class PackageConverterHandler extends ConverterHandler<EaPackage> {
@@ -17,7 +18,7 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     return model;
   }
   public async filterIgnoredObjects(
-    model: DataRegistry,
+    model: DataRegistry
   ): Promise<DataRegistry> {
     model.packages = model.packages.filter((x) => !ignore(x));
 
@@ -27,13 +28,13 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
   public async convert(
     model: DataRegistry,
     uriRegistry: UriRegistry,
-    store: QuadStore,
+    store: QuadStore
   ): Promise<QuadStore> {
     // Only the information of the target diagram's package is added to the output
     model.packages
       .filter((x) => x.packageId === model.targetDiagram.packageId)
       .forEach((object) =>
-        store.addQuads(this.createQuads(object, uriRegistry)),
+        store.addQuads(this.createQuads(object, uriRegistry))
       );
 
     return store;
@@ -45,7 +46,7 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
 
   public async assignUris(
     model: DataRegistry,
-    uriRegistry: UriRegistry,
+    uriRegistry: UriRegistry
   ): Promise<UriRegistry> {
     uriRegistry.packageIdUriMap = new Map<number, URL>();
     uriRegistry.packageIdOntologyUriMap = new Map<number, URL>();
@@ -60,13 +61,19 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       let packageUri: string | null = getTagValue(
         packageObject,
         TagNames.PackageBaseUri,
-        null,
+        null
       );
 
       if (!packageUri) {
-        this.logger.warn(
-          `[PackageConverterHandler]: No value found for tag "baseURI" in package (${packageObject.path}) and fallback URI (${uriRegistry.fallbackBaseUri}) will be assigned.`,
-        );
+        // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/145
+        // The main Model from EAP files does not have a base URI tag since it's not possible to assign tags to it.
+        // In this case, we assign the fallback URI from the UriRegistry but don't throw a warning but info instead.
+        const message: string = `[PackageConverterHandler]: No value found for tag "baseURI" in package (${packageObject.path}). Using fallback URI (${uriRegistry.fallbackBaseUri}) instead.`;
+        if (packageObject.name === MainPackage.Model) {
+          this.logger.info(message);
+        } else {
+          this.logger.warn(message);
+        }
         packageUri = uriRegistry.fallbackBaseUri;
       }
 
@@ -74,26 +81,26 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       const ontologyURI: string = getTagValue(
         packageObject,
         TagNames.PackageOntologyUri,
-        namespace,
+        namespace
       );
       try {
         uriRegistry.packageIdUriMap.set(
           packageObject.packageId,
-          new URL(packageUri),
+          new URL(packageUri)
         );
       } catch (error: unknown) {
         throw new Error(
-          `[PackageConverterHandler]: Unable to create URL from package URI (${packageUri}) for package (${packageObject.path}).`,
+          `[PackageConverterHandler]: Unable to create URL from package URI (${packageUri}) for package (${packageObject.path}).`
         );
       }
       try {
         uriRegistry.packageIdOntologyUriMap.set(
           packageObject.packageId,
-          new URL(ontologyURI),
+          new URL(ontologyURI)
         );
       } catch (error: unknown) {
         throw new Error(
-          `[PackageConverterHandler]: Unable to create URL from ontology URI (${ontologyURI}) for package (${packageObject.path}).`,
+          `[PackageConverterHandler]: Unable to create URL from ontology URI (${ontologyURI}) for package (${packageObject.path}).`
         );
       }
     });
@@ -106,26 +113,26 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
     const ontologyUri: URL | undefined =
       uriRegistry.packageIdOntologyUriMap.get(object.packageId);
     const baseUri: URL | undefined = uriRegistry.packageIdUriMap.get(
-      object.packageId,
+      object.packageId
     );
 
     if (!ontologyUri) {
       throw new Error(
-        `[PackageConverterHandler]: Unable to find ontology URI for package (${object.path}).`,
+        `[PackageConverterHandler]: Unable to find ontology URI for package (${object.path}).`
       );
     }
 
     if (!baseUri) {
       throw new Error(
-        `[PackageConverterHandler]: Unable to find base URI for package (${object.path}).`,
+        `[PackageConverterHandler]: Unable to find base URI for package (${object.path}).`
       );
     }
 
     const ontologyUriNamedNode: RDF.NamedNode = this.df.namedNode(
-      ontologyUri.toString(),
+      ontologyUri.toString()
     );
     const packageInternalId: RDF.NamedNode = this.df.namedNode(
-      `${this.baseUrnScheme}:${object.osloGuid}`,
+      `${this.baseUrnScheme}:${object.osloGuid}`
     );
 
     quads.push(
@@ -133,13 +140,13 @@ export class PackageConverterHandler extends ConverterHandler<EaPackage> {
       this.df.quad(
         packageInternalId,
         ns.oslo('assignedURI'),
-        ontologyUriNamedNode,
+        ontologyUriNamedNode
       ),
       this.df.quad(
         packageInternalId,
         ns.oslo('baseURI'),
-        this.df.namedNode(baseUri.toString()),
-      ),
+        this.df.namedNode(baseUri.toString())
+      )
     );
 
     return quads;
