@@ -37,16 +37,16 @@ export class ToJsonTransformer extends Transform {
       contributor['@type'] = 'Person';
     }
 
-    contributor.firstName = data.Voornaam;
-    contributor.lastName = data.Naam;
+    contributor.firstName = data.Voornaam?.trim();
+    contributor.lastName = data.Naam?.trim();
     contributor.affiliation = {};
-    contributor.affiliation.affiliationName = data.Affiliatie;
+    contributor.affiliation.affiliationName = data.Affiliatie?.trim();
 
     if (data.Website) {
-      contributor.affiliation.homepage = data.Website;
+      contributor.affiliation.homepage = data.Website?.trim();
     }
 
-    contributor.email = data['E-mail'];
+    contributor.email = data['E-mail']?.trim();
     contributor.contributorType = this.getContributorType(data);
 
     return contributor;
