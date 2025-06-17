@@ -16,8 +16,6 @@
   "files": [
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "lib/**/*.njk",
-    "lib/**/*.j2",
     "bin/**/*.d.ts",
     "bin/**/*.js",
     "index.d.ts",
