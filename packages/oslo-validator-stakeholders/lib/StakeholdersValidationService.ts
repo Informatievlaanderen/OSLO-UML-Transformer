@@ -61,15 +61,23 @@ export class StakeholdersValidationService implements IService {
       invalidStakeholders: []
     };
 
-    const predicate = ns.oslo('assignedURI');
-    const quads = this.store.findQuads(null, null, null);
+    /* Find all stakeholders */
+    const quads = this.store.findQuads(null, ns.rdf('type'), ns.foaf('Person'));
     for (const quad of quads) {
-      console.log(quad);
+      if (!this.validatePerson(person.subject)) {
+        result.invalidStakeholders.push(person.subject);
+      }
     }
-
 
     result.isValid = result.invalidStakeholders.length === 0;
     return result;
   }
 
+  private validatePerson(NamedNode uri): boolean {
+    let valid: boolean = false;
+    const person = this.store.findQuads(uri, null, null);
+    console.log(person);
+
+    return valid;
+  }
 }
