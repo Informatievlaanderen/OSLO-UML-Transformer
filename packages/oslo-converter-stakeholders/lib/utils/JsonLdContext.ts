@@ -1,5 +1,8 @@
 export const context = {
   foaf: 'http://xmlns.com/foaf/0.1/',
+  Person: {
+    '@id': 'foaf:Person'
+  }, 
   authors: {
     '@type': 'foaf:Person',
     '@id': 'foaf:maker',
