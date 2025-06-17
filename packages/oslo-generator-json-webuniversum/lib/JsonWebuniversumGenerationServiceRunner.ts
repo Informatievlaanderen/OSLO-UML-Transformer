@@ -3,7 +3,8 @@ import { AppRunner } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { 
-  JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
+  JsonWebuniversumGenerationServiceConfiguration,
+} from './config/JsonWebuniversumGenerationServiceConfiguration';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -39,6 +40,11 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
           'The specification type to generate the webuniversum config for',
         choices: ['ApplicationProfile', 'Vocabulary'],
         default: 'Vocabulary',
+      })
+      .option('inheritance', {
+        describe: 'Add all properties from the superclass to the child class',
+        default: false,
+        boolean: true,
       })
       .option('publicationEnvironment', {
         describe:

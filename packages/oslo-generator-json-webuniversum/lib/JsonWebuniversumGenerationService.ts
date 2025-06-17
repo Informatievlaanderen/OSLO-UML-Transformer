@@ -201,16 +201,9 @@ export class JsonWebuniversumGenerationService implements IService {
     // Filter the classes to just the ones that are in the package
     // If we're dealing with a vocabulary, showcase both classes and datatypes
     const inPackageClasses = filterWebuniversumObjects(classes, [isInPackage]);
-    // const inPublicationEnvironmentClasses = filterWebuniversumObjects(classes, [
-    //   isInPublicationEnvironment,
-    // ]);
     const inPackageDatatypes = filterWebuniversumObjects(dataTypes, [
       isInPackage,
     ]);
-    // const inPublicationEnvironmentDatatypes = filterWebuniversumObjects(
-    //   dataTypes,
-    //   [isInPublicationEnvironment],
-    // );
     return sortWebuniversumObjects(
       [...inPackageClasses, ...inPackageDatatypes],
       this.configuration.specificationType,
@@ -361,12 +354,71 @@ export class JsonWebuniversumGenerationService implements IService {
 
       const properties: WebuniversumProperty[] = await Promise.all(jobs);
 
+      if (this.configuration.inheritance) {
+        console.log(this.configuration.inheritance);
+        // Get inherited properties from parent classes
+        const inheritedProperties: WebuniversumProperty[] =
+          await this.getInheritedProperties(entity);
+        properties.push(...inheritedProperties);
+      }
+
       if (properties.length) {
         entityData.properties = properties;
       }
     }
 
     return entityData;
+  }
+
+  private getPropertiesOfClass(
+    classSubject: RDF.Term,
+    graph: RDF.Term | null = null
+  ): RDF.Term[] {
+    return <RDF.Term[]>(
+      this.store.findSubjects(ns.rdfs('domain'), classSubject, graph)
+    );
+  }
+
+  private async getInheritedProperties(
+    classSubject: RDF.NamedNode
+  ): Promise<WebuniversumProperty[]> {
+    const inheritedProperties: WebuniversumProperty[] = [];
+    const parents = this.store.getParentsOfClass(classSubject);
+
+    for (const parent of parents) {
+      // Get properties of parent class
+      const parentProperties = this.getPropertiesOfClass(parent);
+
+      // Convert each parent property to WebuniversumProperty
+      for (const propertySubject of parentProperties) {
+        try {
+          const propertyData = await this.generateEntityData(
+            <RDF.NamedNode>propertySubject,
+            false
+          );
+
+          const webuniversumProperty = this.addPropertySpecificInformation(
+            <RDF.NamedNode>propertySubject,
+            <WebuniversumProperty>propertyData,
+            parent
+          );
+
+          inheritedProperties.push(webuniversumProperty);
+        } catch (error) {
+          this.logger.warn(
+            `Failed to process inherited property ${propertySubject.value} from parent ${parent.value}: ${error}`
+          );
+        }
+      }
+
+      // Recursively get properties from parent's parents
+      const parentInheritedProperties = await this.getInheritedProperties(
+        parent
+      );
+      inheritedProperties.push(...parentInheritedProperties);
+    }
+
+    return inheritedProperties;
   }
 
   private addPropertySpecificInformation(
@@ -444,9 +496,6 @@ export class JsonWebuniversumGenerationService implements IService {
   > {
     const parentAssignedURI: RDF.NamedNode | undefined =
       this.store.getAssignedUri(subject);
-
-    // Remove debug log
-    // console.log(subject.value);
 
     if (!parentAssignedURI) {
       // Check if this is an external URI (doesn't start with "urn:")

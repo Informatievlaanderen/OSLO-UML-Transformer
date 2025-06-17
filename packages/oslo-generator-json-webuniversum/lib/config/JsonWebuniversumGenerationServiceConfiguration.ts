@@ -26,6 +26,11 @@ export class JsonWebuniversumGenerationServiceConfiguration
    */
 
   private _applyFiltering: boolean | undefined;
+  /**
+   * Boolean that indicates if the child class should inherit the properties from the parent
+   */
+
+  private _inheritance: boolean | undefined;
 
   /**
    * The base URI of the environment where the document will be published
@@ -43,6 +48,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
     this._output = <string>params.output;
     this._language = <string>params.language;
     this._applyFiltering = <boolean>params.applyFiltering;
+    this._inheritance = <boolean>params.inheritance;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._specificationType = this.getSpecificationType(
       <string>params.specificationType
@@ -72,6 +78,10 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
   public get applyFiltering(): boolean {
     return !!this._applyFiltering;
+  }
+
+  public get inheritance(): boolean {
+    return !!this._inheritance;
   }
 
   public get publicationEnvironment(): string {
