@@ -25,6 +25,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--applyFiltering` | Wether or not to apply filters on the generated output. The filters limit the generated classes, datatypes, entities and properties that will be shown to a certain scopes. If you just want all possible values, you can set the value to `false`. | No, default `true` | `true` or `false` |
 | `--publicationEnvironment` | The base URI of environment where the document will be published | :heavy_check_mark: | |
 | `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|
+| `--inheritance` | Add all properties from the superclass to the child class | No, default `false` | `true` or `false` |
 
 ## Usage
 
