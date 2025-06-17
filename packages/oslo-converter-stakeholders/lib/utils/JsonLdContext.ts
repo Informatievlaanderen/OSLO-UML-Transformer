@@ -1,5 +1,6 @@
 export const context = {
   foaf: 'http://xmlns.com/foaf/0.1/',
+  dcterms: 'http://purl.org/dc/terms/',
   Person: {
     '@id': 'foaf:Person'
   }, 
