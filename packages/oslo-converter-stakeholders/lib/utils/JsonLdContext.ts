@@ -1,6 +1,7 @@
 export const context = {
   foaf: 'http://xmlns.com/foaf/0.1/',
   dcterms: 'http://purl.org/dc/terms/',
+  schema: 'https://schema.org/',
   Person: {
     '@id': 'foaf:Person'
   }, 
@@ -10,14 +11,14 @@ export const context = {
   },
   editors: {
     '@type': 'foaf:Person',
-    '@id': 'rec:editor',
+    '@id': 'schema:editor',
   },
   contributors: {
     '@type': 'foaf:Person',
     '@id': 'dcterms:contributor',
   },
   affiliation: {
-    '@id': 'http://schema.org/affiliation',
+    '@id': 'schema:affiliation',
   },
   firstName: {
     '@id': 'foaf:firstName',
