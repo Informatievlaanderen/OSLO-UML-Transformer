@@ -5,17 +5,8 @@ export const context = {
   Person: {
     '@id': 'foaf:Person'
   }, 
-  authors: {
-    '@type': 'foaf:Person',
-    '@id': 'foaf:maker',
-  },
-  editors: {
-    '@type': 'foaf:Person',
-    '@id': 'schema:editor',
-  },
-  contributors: {
-    '@type': 'foaf:Person',
-    '@id': 'dcterms:contributor',
+  Organization: {
+    '@id': 'foaf:Organization'
   },
   affiliation: {
     '@id': 'schema:affiliation',
@@ -26,13 +17,22 @@ export const context = {
   lastName: {
     '@id': 'foaf:lastName',
   },
-  affiliationName: {
-    '@id': 'foaf:name',
-  },
-  homepage: {
-    '@id': 'foaf:homepage',
-  },
   email: {
     '@id': 'foaf:mbox',
   },
+  member: {
+    '@id': 'foaf:member'
+  },
+  author: {
+     '@id': 'schema:author'
+  },
+  contributor: {
+     '@id': 'schema:contributor'
+  },
+  editor: {
+     '@id': 'schema:editor'
+  },
+  name: {
+     '@id': 'foaf:name'
+  }
 };

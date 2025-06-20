@@ -50,10 +50,77 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[],
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
+    /*let authorList: Person[] = [];
+    let contributorList: Person[] = [];
+    let editorList: Person[] = [];
+    let organizationList: Organization[] = [];*/
+    let authorList = [];
+    let contributorList = [];
+    let editorList = [];
+    let organizationList = [];
+
+    /* Build foaf:Person for all */
+    for (const author of authors) {
+      authorList.push({
+	'@type': author['@type'],
+	'firstName': author['firstName'],
+	'lastName': author['lastName'],
+        'email': { '@id': `mailto:${author['email']}` },
+        'member': { '@id': author['affiliation']['homepage'] }
+      })
+
+      organizationList.push({
+        '@id': author['affiliation']['homepage'],
+        '@type': 'Organization',
+	'name': author['affiliation']['affiliationName']
+      });
+    }
+
+    for (const contributor of contributors) {
+      contributorList.push({
+	'@type': contributor['@type'],
+	'firstName': contributor['firstName'],
+	'lastName': contributor['lastName'],
+        'email': { '@id': `mailto:${contributor['email']}` },
+        'member': { '@id': contributor['affiliation']['homepage'] }
+      })
+
+      organizationList.push({
+        '@id': contributor['affiliation']['homepage'],
+        '@type': 'Organization',
+	'name': contributor['affiliation']['affiliationName']
+      });
+    }
+
+    for (const editor of editors) {
+      editorList.push({
+	'@type': editor['@type'],
+	'firstName': editor['firstName'],
+	'lastName': editor['lastName'],
+        'email': { '@id': `mailto:${editor['email']}` },
+        'member': { '@id': editor['affiliation']['homepage'] }
+      })
+
+      organizationList.push({
+        '@id': editor['affiliation']['homepage'],
+        '@type': 'Organization',
+	'name': editor['affiliation']['affiliationName']
+      });
+    }
+
+    /* Build JSON-LD document */
     doc['@context'] = context;
-    doc.contributors = contributors;
-    doc.authors = authors;
-    doc.editors = editors;
+    doc['@graph'] = [{
+      '@id': 'http://todo.com/MyDocumentURI',
+      '@type': 'DigitalDocument',
+      'author': authorList,
+      'contributor': contributorList,
+      'editor': editorList
+    }]
+    for (const organization of organizationList) {
+      doc['@graph'].push(organization);
+    }
+
     return doc;
   }
 
