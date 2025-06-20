@@ -3,6 +3,8 @@ import type { IService } from '@oslo-flanders/core';
 import type {
   StakeholdersDocument,
   Stakeholder,
+  Person,
+  Organization
 } from './interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
@@ -50,16 +52,12 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[],
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
-    /*let authorList: Person[] = [];
+    let authorList: Person[] = [];
     let contributorList: Person[] = [];
     let editorList: Person[] = [];
-    let organizationList: Organization[] = [];*/
-    let authorList = [];
-    let contributorList = [];
-    let editorList = [];
-    let organizationList = [];
+    let organizationList: Organization[] = [];
 
-    /* Build foaf:Person for all */
+    /* Build foaf:Person and foaf:Organization for all */
     for (const author of authors) {
       authorList.push({
 	'@type': author['@type'],
