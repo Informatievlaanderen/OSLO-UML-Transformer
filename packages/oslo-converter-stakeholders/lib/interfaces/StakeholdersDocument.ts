@@ -16,7 +16,7 @@ export interface Stakeholder {
         affiliationName: string;
         homepage?: string;
     };
-    email: string;
+    email?: string;
     contributorType: ContributorType;
 }
 
@@ -24,12 +24,12 @@ export interface Person {
     '@type'?: string;
     firstName: string;
     lastName: string;
-    email: object;
-    member: object;
+    email?: { '@id': string };
+    member?: { '@id': string };
 }
 
 export interface Organization {
-    '@id'?: string;
+    '@id': string;
     '@type'?: string;
     name: string;
 }

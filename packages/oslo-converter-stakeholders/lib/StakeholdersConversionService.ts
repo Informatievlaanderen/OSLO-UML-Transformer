@@ -59,51 +59,75 @@ export class StakeholdersConversionService implements IService {
 
     /* Build foaf:Person and foaf:Organization for all */
     for (const author of authors) {
-      authorList.push({
+      let person: Person = {
 	'@type': author['@type'],
 	'firstName': author['firstName'],
 	'lastName': author['lastName'],
-        'email': { '@id': `mailto:${author['email']}` },
-        'member': { '@id': author['affiliation']['homepage'] }
-      })
+      };
 
-      organizationList.push({
-        '@id': author['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': author['affiliation']['affiliationName']
-      });
+      if (author['email']) {
+        person.email = { '@id': `mailto:${author['email']}` };
+      }
+
+      if (author['affiliation']['homepage']) {
+        person.member = { '@id': author['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': author['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': author['affiliation']['affiliationName']
+        });
+      }
+
+      authorList.push(person);
     }
 
     for (const contributor of contributors) {
-      contributorList.push({
+      let person: Person = {
 	'@type': contributor['@type'],
 	'firstName': contributor['firstName'],
 	'lastName': contributor['lastName'],
-        'email': { '@id': `mailto:${contributor['email']}` },
-        'member': { '@id': contributor['affiliation']['homepage'] }
-      })
+      };
 
-      organizationList.push({
-        '@id': contributor['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': contributor['affiliation']['affiliationName']
-      });
+      if (person['email']) {
+        person.email = { '@id': `mailto:${contributor['email']}` };
+      }
+
+      if (contributor['affiliation']['homepage']) {
+        person.member = { '@id': contributor['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': contributor['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': contributor['affiliation']['affiliationName']
+        });
+      }
+
+      contributorList.push(person);
     }
 
     for (const editor of editors) {
-      editorList.push({
+      let person: Person = {
 	'@type': editor['@type'],
 	'firstName': editor['firstName'],
 	'lastName': editor['lastName'],
-        'email': { '@id': `mailto:${editor['email']}` },
-        'member': { '@id': editor['affiliation']['homepage'] }
-      })
+      };
 
-      organizationList.push({
-        '@id': editor['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': editor['affiliation']['affiliationName']
-      });
+      if (editor['email']) {
+        person.email = { '@id': `mailto:${editor['email']}` };
+      }
+
+      if (editor['affiliation']['homepage']) {
+        person.member = { '@id': editor['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': editor['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': editor['affiliation']['affiliationName']
+        });
+      }
+
+      editorList.push(person);
     }
 
     /* Build JSON-LD document */
