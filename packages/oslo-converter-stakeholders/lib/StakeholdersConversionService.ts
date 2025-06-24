@@ -45,6 +45,27 @@ export class StakeholdersConversionService implements IService {
     await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
   }
 
+  private createLDFromStakeholder(stakeholder: Stakeholder): { person: Person, organization: Organization | null } {
+    const { '@type': type, firstName, lastName, email, affiliation } = stakeholder;
+    let person: Person =  { '@type': type, firstName, lastName };
+    let organization: Organization | null = null;
+
+    if (email)
+      person.email = { '@id': `mailto:${email}` };
+
+    const organizationIRI = affiliation?.homepage;
+    if (organizationIRI) {
+      person.member = { '@id': organizationIRI };
+      organization = {
+        '@id': organizationIRI,
+	'@type': 'Organization',
+	name: affiliation.affiliationName
+      };
+    }
+
+    return { person: person, organization: organization };
+  }
+
   // helper methods for creating the StakeholdersDocument in the different output formats
   private createJsonLdDocument(
     authors: Stakeholder[],
@@ -52,58 +73,31 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[],
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
-    let authorList: Person[] = [];
-    let contributorList: Person[] = [];
-    let editorList: Person[] = [];
-    let organizationList: Organization[] = [];
+    let authorLD: Person[] = [];
+    let contributorLD: Person[] = [];
+    let editorLD: Person[] = [];
+    let organizationLD: Organization[] = [];
 
     /* Build foaf:Person and foaf:Organization for all */
     for (const author of authors) {
-      authorList.push({
-	'@type': author['@type'],
-	'firstName': author['firstName'],
-	'lastName': author['lastName'],
-        'email': { '@id': `mailto:${author['email']}` },
-        'member': { '@id': author['affiliation']['homepage'] }
-      })
-
-      organizationList.push({
-        '@id': author['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': author['affiliation']['affiliationName']
-      });
+      const { person, organization } = this.createLDFromStakeholder(author);
+      authorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
     }
 
     for (const contributor of contributors) {
-      contributorList.push({
-	'@type': contributor['@type'],
-	'firstName': contributor['firstName'],
-	'lastName': contributor['lastName'],
-        'email': { '@id': `mailto:${contributor['email']}` },
-        'member': { '@id': contributor['affiliation']['homepage'] }
-      })
-
-      organizationList.push({
-        '@id': contributor['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': contributor['affiliation']['affiliationName']
-      });
+      const { person, organization } = this.createLDFromStakeholder(contributor);
+      contributorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
     }
 
     for (const editor of editors) {
-      editorList.push({
-	'@type': editor['@type'],
-	'firstName': editor['firstName'],
-	'lastName': editor['lastName'],
-        'email': { '@id': `mailto:${editor['email']}` },
-        'member': { '@id': editor['affiliation']['homepage'] }
-      })
-
-      organizationList.push({
-        '@id': editor['affiliation']['homepage'],
-        '@type': 'Organization',
-	'name': editor['affiliation']['affiliationName']
-      });
+      const { person, organization } = this.createLDFromStakeholder(editor);
+      editorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
     }
 
     /* Build JSON-LD document */
@@ -111,11 +105,11 @@ export class StakeholdersConversionService implements IService {
     doc['@graph'] = [{
       '@id': 'http://todo.com/MyDocumentURI',
       '@type': 'DigitalDocument',
-      'author': authorList,
-      'contributor': contributorList,
-      'editor': editorList
+      'author': authorLD,
+      'contributor': contributorLD,
+      'editor': editorLD
     }]
-    for (const organization of organizationList) {
+    for (const organization of organizationLD) {
       doc['@graph'].push(organization);
     }
 
