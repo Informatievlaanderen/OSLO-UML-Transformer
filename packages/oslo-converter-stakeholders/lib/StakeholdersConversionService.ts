@@ -3,6 +3,8 @@ import type { IService } from '@oslo-flanders/core';
 import type {
   StakeholdersDocument,
   Stakeholder,
+  Person,
+  Organization
 } from './interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
@@ -50,10 +52,97 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[],
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
+    let authorList: Person[] = [];
+    let contributorList: Person[] = [];
+    let editorList: Person[] = [];
+    let organizationList: Organization[] = [];
+
+    /* Build foaf:Person and foaf:Organization for all */
+    for (const author of authors) {
+      let person: Person = {
+	'@type': author['@type'],
+	'firstName': author['firstName'],
+	'lastName': author['lastName'],
+      };
+
+      if (author['email']) {
+        person.email = { '@id': `mailto:${author['email']}` };
+      }
+
+      if (author['affiliation']['homepage']) {
+        person.member = { '@id': author['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': author['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': author['affiliation']['affiliationName']
+        });
+      }
+
+      authorList.push(person);
+    }
+
+    for (const contributor of contributors) {
+      let person: Person = {
+	'@type': contributor['@type'],
+	'firstName': contributor['firstName'],
+	'lastName': contributor['lastName'],
+      };
+
+      if (person['email']) {
+        person.email = { '@id': `mailto:${contributor['email']}` };
+      }
+
+      if (contributor['affiliation']['homepage']) {
+        person.member = { '@id': contributor['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': contributor['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': contributor['affiliation']['affiliationName']
+        });
+      }
+
+      contributorList.push(person);
+    }
+
+    for (const editor of editors) {
+      let person: Person = {
+	'@type': editor['@type'],
+	'firstName': editor['firstName'],
+	'lastName': editor['lastName'],
+      };
+
+      if (editor['email']) {
+        person.email = { '@id': `mailto:${editor['email']}` };
+      }
+
+      if (editor['affiliation']['homepage']) {
+        person.member = { '@id': editor['affiliation']['homepage'] };
+
+        organizationList.push({
+          '@id': editor['affiliation']['homepage'],
+          '@type': 'Organization',
+          'name': editor['affiliation']['affiliationName']
+        });
+      }
+
+      editorList.push(person);
+    }
+
+    /* Build JSON-LD document */
     doc['@context'] = context;
-    doc.contributors = contributors;
-    doc.authors = authors;
-    doc.editors = editors;
+    doc['@graph'] = [{
+      '@id': 'http://todo.com/MyDocumentURI',
+      '@type': 'DigitalDocument',
+      'author': authorList,
+      'contributor': contributorList,
+      'editor': editorList
+    }]
+    for (const organization of organizationList) {
+      doc['@graph'].push(organization);
+    }
+
     return doc;
   }
 

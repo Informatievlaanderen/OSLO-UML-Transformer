@@ -42,11 +42,15 @@ export class ToJsonTransformer extends Transform {
     contributor.affiliation = {};
     contributor.affiliation.affiliationName = data.Affiliatie?.trim();
 
+    // Optional properties
     if (data.Website) {
       contributor.affiliation.homepage = data.Website?.trim();
     }
 
-    contributor.email = data['E-mail']?.trim();
+    if (data['E-mail']) {
+      contributor.email = data['E-mail'].trim();
+    }
+
     contributor.contributorType = this.getContributorType(data);
 
     return contributor;
