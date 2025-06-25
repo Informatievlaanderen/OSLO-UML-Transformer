@@ -38,10 +38,18 @@ export class StakeholdersConversionServiceRunner extends AppRunner<
         default: 'application/ld+json',
         choices: ['application/ld+json', 'application/json'],
       })
+      .option('iri', {
+        describe: 'IRI of the specification of which these stakeholders are part of.',
+      })
       .demandOption(
         ['input'],
         'Please provide the necessary arguments to work with this tool.',
       )
+      .check((args) => {
+        if (args.outputFormat === 'application/ld+json') {
+          throw new Error('--iri is required when outputFormat is application/ld+json');
+	}
+      })
       .help('h')
       .alias('h', 'help');
 

@@ -103,7 +103,7 @@ export class StakeholdersConversionService implements IService {
     /* Build JSON-LD document */
     doc['@context'] = context;
     doc['@graph'] = [{
-      '@id': 'http://todo.com/MyDocumentURI',
+      '@id': this.configuration.iri,
       '@type': 'DigitalDocument',
       'author': authorLD,
       'contributor': contributorLD,

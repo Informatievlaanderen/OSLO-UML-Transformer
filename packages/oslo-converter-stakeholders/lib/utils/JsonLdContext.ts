@@ -8,6 +8,9 @@ export const context = {
   Organization: {
     '@id': 'foaf:Organization'
   },
+  DigitalDocument: {
+    '@id': 'schema:DigitalDocument'
+  },
   affiliation: {
     '@id': 'schema:affiliation',
   },
