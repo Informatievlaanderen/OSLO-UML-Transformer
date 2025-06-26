@@ -25,11 +25,17 @@ export class StakeholdersConversionServiceConfiguration
    */
   private _contributorsColumn: string | undefined;
 
+  /**
+   * IRI of the specification document
+   */
+  private _iri: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._outputFormat = <string>params.outputFormat;
     this._contributorsColumn = <string>params.contributorsColumn;
+    this._iri = <string>params.iri;
   }
 
   public get input(): string {
@@ -62,5 +68,12 @@ export class StakeholdersConversionServiceConfiguration
       );
     }
     return this._contributorsColumn;
+  }
+
+  public get iri(): string {
+    if (!this._iri) {
+      throw new Error(`Trying to access property "iri" before it was set.`);
+    }
+    return this._iri;
   }
 }

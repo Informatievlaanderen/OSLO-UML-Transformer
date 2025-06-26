@@ -3,6 +3,8 @@ import type { IService } from '@oslo-flanders/core';
 import type {
   StakeholdersDocument,
   Stakeholder,
+  Person,
+  Organization
 } from './interfaces/StakeholdersDocument';
 import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
 
@@ -43,6 +45,27 @@ export class StakeholdersConversionService implements IService {
     await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
   }
 
+  private createLDFromStakeholder(stakeholder: Stakeholder): { person: Person, organization: Organization | null } {
+    const { '@type': type, firstName, lastName, email, affiliation } = stakeholder;
+    let person: Person =  { '@type': type, firstName, lastName };
+    let organization: Organization | null = null;
+
+    if (email)
+      person.email = { '@id': `mailto:${email}` };
+
+    const organizationIRI = affiliation?.homepage;
+    if (organizationIRI) {
+      person.member = { '@id': organizationIRI };
+      organization = {
+        '@id': organizationIRI,
+	'@type': 'Organization',
+	name: affiliation.affiliationName
+      };
+    }
+
+    return { person: person, organization: organization };
+  }
+
   // helper methods for creating the StakeholdersDocument in the different output formats
   private createJsonLdDocument(
     authors: Stakeholder[],
@@ -50,10 +73,46 @@ export class StakeholdersConversionService implements IService {
     editors: Stakeholder[],
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
+    let authorLD: Person[] = [];
+    let contributorLD: Person[] = [];
+    let editorLD: Person[] = [];
+    let organizationLD: Organization[] = [];
+
+    /* Build foaf:Person and foaf:Organization for all */
+    for (const author of authors) {
+      const { person, organization } = this.createLDFromStakeholder(author);
+      authorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
+    }
+
+    for (const contributor of contributors) {
+      const { person, organization } = this.createLDFromStakeholder(contributor);
+      contributorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
+    }
+
+    for (const editor of editors) {
+      const { person, organization } = this.createLDFromStakeholder(editor);
+      editorLD.push(person);
+      if (organization)
+        organizationLD.push(organization);
+    }
+
+    /* Build JSON-LD document */
     doc['@context'] = context;
-    doc.contributors = contributors;
-    doc.authors = authors;
-    doc.editors = editors;
+    doc['@graph'] = [{
+      '@id': this.configuration.iri,
+      '@type': 'DigitalDocument',
+      'author': authorLD,
+      'contributor': contributorLD,
+      'editor': editorLD
+    }]
+    for (const organization of organizationLD) {
+      doc['@graph'].push(organization);
+    }
+
     return doc;
   }
 
