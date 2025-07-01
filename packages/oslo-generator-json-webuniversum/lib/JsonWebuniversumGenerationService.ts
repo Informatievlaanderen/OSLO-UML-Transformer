@@ -341,7 +341,7 @@ export class JsonWebuniversumGenerationService implements IService {
         .findSubjects(ns.rdfs('domain'), entity)
         .map<Promise<WebuniversumProperty>>(async (property: RDF.Term) => {
           return <Promise<WebuniversumProperty>>(
-            this.generateEntityData(<RDF.NamedNode>property, false).then(
+            this.generateEntityData(<RDF.NamedNode>property, true).then(
               (propertyObject) =>
                 this.addPropertySpecificInformation(
                   <RDF.NamedNode>property,
@@ -355,7 +355,6 @@ export class JsonWebuniversumGenerationService implements IService {
       const properties: WebuniversumProperty[] = await Promise.all(jobs);
 
       if (this.configuration.inheritance) {
-        console.log(this.configuration.inheritance);
         // Get inherited properties from parent classes
         const inheritedProperties: WebuniversumProperty[] =
           await this.getInheritedProperties(entity);
