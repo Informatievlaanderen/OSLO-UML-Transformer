@@ -150,7 +150,7 @@ describe('JsonldValidationService', () => {
       const result = (<any>service).validateUris();
 
       expect(result.isValid).toBe(true);
-      expect(result.invalidUris).toHaveLength(0);
+      expect(result.invalidEntries).toHaveLength(0);
     });
 
     it('should identify URIs that match the whitelist prefixes', async () => {
@@ -170,7 +170,7 @@ describe('JsonldValidationService', () => {
       const result = (<any>service).validateUris();
 
       expect(result.isValid).toBe(true);
-      expect(result.invalidUris).toHaveLength(0);
+      expect(result.invalidEntries).toHaveLength(0);
     });
 
     it('should identify URIs that do not match any whitelist entry', async () => {
@@ -190,10 +190,374 @@ describe('JsonldValidationService', () => {
       const result = (<any>service).validateUris();
 
       expect(result.isValid).toBe(false);
-      expect(result.invalidUris).toHaveLength(1);
-      expect(result.invalidUris[0].uri).toBe(
+      expect(result.invalidEntries).toHaveLength(1);
+      expect(result.invalidEntries[0].uri).toBe(
         'http://non-whitelisted.org/resource',
       );
+    });
+  });
+
+  describe('validateSentences', () => {
+    it('should detect empty strings', async () => {
+      // Mock findQuads to return a Literal as a definition without a capital at the beginning
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+          ),
+          df.literal(''),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+          ),
+          df.literal(''),
+        ),
+        df.quad(
+          df.namedNode('http://subject/apUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apUsageNote',
+          ),
+          df.literal(''),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocUsageNote',
+          ),
+          df.literal(''),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apDefinition');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocDefinition');
+      expect(result.invalidEntries[2].uri).toBe('http://subject/apUsageNote');
+      expect(result.invalidEntries[3].uri).toBe('http://subject/vocUsageNote');
+    });
+
+    it('should detect TODOs and FIXMEs', async () => {
+      // Mock findQuads to return a Literal as a definition without a capital at the beginning
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+          ),
+          df.literal('TODO'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+          ),
+          df.literal('FIXME'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/apUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apUsageNote',
+          ),
+          df.literal('todo'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocUsageNote',
+          ),
+          df.literal('fixme'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apDefinition');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocDefinition');
+      expect(result.invalidEntries[2].uri).toBe('http://subject/apUsageNote');
+      expect(result.invalidEntries[3].uri).toBe('http://subject/vocUsageNote');
+    });
+
+    it('should detect sentences without a capital letter at the beginning', async () => {
+      // Mock findQuads to return a Literal as a definition without a capital at the beginning
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+          ),
+          df.literal('ap Definition without a dot.'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+          ),
+          df.literal('voc Definition without a dot.'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/apUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apUsageNote',
+          ),
+          df.literal('ap Usage Note without a dot.'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocUsageNote',
+          ),
+          df.literal('voc Usage Note without a dot.'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apDefinition');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocDefinition');
+      expect(result.invalidEntries[2].uri).toBe('http://subject/apUsageNote');
+      expect(result.invalidEntries[3].uri).toBe('http://subject/vocUsageNote');
+    });
+
+    it('should detect sentences without a dot at the end', async () => {
+      // Mock findQuads to return a Literal as a definition without a dot at the end
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+          ),
+          df.literal('AP Definition without a dot'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocDefinition'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+          ),
+          df.literal('VOC Definition without a dot'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/apUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apUsageNote',
+          ),
+          df.literal('AP Usage Note without a dot'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocUsageNote'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocUsageNote',
+          ),
+          df.literal('VOC Usage Note without a dot'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apDefinition');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocDefinition');
+      expect(result.invalidEntries[2].uri).toBe('http://subject/apUsageNote');
+      expect(result.invalidEntries[3].uri).toBe('http://subject/vocUsageNote');
+    });
+  });
+
+  describe('validateLabels', () => {
+    it('should detect empty strings', async () => {
+      // Mock findQuads to return a Literal as an empty label
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal(''),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal(''),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apLabel');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
+    });
+
+    it('should detect TODOs and FIXMEs', async () => {
+      // Mock findQuads to return a Literal as a label with a TODO or FIXME
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('TODO'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('FIXME'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apLabel');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
+    });
+
+    it('should detect labels with a dot at the end', async () => {
+      // Mock findQuads to return a Literal as a definition without a dot at the end
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('ap-label.'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('voc-label.'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apLabel');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
+    });
+
+    it('should detect labels with non-alphanumeric characters', async () => {
+      // Mock findQuads to return a Literal as a definition without a dot at the end
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/apLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('ap label'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/vocLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('voc-label@'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateSentences();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/apLabel');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
+    });
+  });
+
+  describe('validateBaseURIs', () => {
+    it('should detect missing hash or dash at the end', async () => {
+      // Mock findQuads to return a Literal as an empty label
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/baseURIHash'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('https://data.vlaanderen.be/ns/missingHash'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/baseURIDash'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('https://data.vlaanderen.be/ns/missingDash'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/baseURIOKHash'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('https://data.vlaanderen.be/ns/OK#'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/baseURIOKDash'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('https://data.vlaanderen.be/ns/OK/'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateBaseURIs();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/baseURIHash');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/baseURIDash');
+    });
+
+    it('should detect TODOs and FIXMEs', async () => {
+      // Mock findQuads to return a Literal as a label with a TODO or FIXME
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/baseURI/TODO'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('TODO'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/baseURI/FIXME'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#baseURI',
+          ),
+          df.namedNode('FIXME'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateBaseURIs();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(2);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/baseURI/TODO');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/baseURI/FIXME');
     });
   });
 });
