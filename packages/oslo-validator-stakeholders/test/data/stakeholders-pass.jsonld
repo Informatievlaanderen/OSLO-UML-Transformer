@@ -1,0 +1,396 @@
+{
+  "@context": {
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "schema": "https://schema.org/",
+    "Person": {
+      "@id": "foaf:Person"
+    },
+    "Organization": {
+      "@id": "foaf:Organization"
+    },
+    "DigitalDocument": {
+      "@id": "schema:DigitalDocument"
+    },
+    "affiliation": {
+      "@id": "schema:affiliation"
+    },
+    "firstName": {
+      "@id": "foaf:firstName"
+    },
+    "lastName": {
+      "@id": "foaf:lastName"
+    },
+    "email": {
+      "@id": "foaf:mbox"
+    },
+    "member": {
+      "@id": "foaf:member"
+    },
+    "author": {
+      "@id": "schema:author"
+    },
+    "contributor": {
+      "@id": "schema:contributor"
+    },
+    "editor": {
+      "@id": "schema:editor"
+    },
+    "name": {
+      "@id": "foaf:name"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "http://todo.com/MyDocumentURI",
+      "@type": "DigitalDocument",
+      "author": [
+        {
+          "@type": "Person",
+          "firstName": "Stijn",
+          "lastName": "Heitzmann",
+          "email": {
+            "@id": "mailto:stijn.heitzmann@leuven.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002149"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Danny",
+          "lastName": "Lievens",
+          "email": {
+            "@id": "mailto:danny.lievens@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Karin",
+          "lastName": "Peeters",
+          "email": {
+            "@id": "mailto:karin.peeters@mortsel.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Janis",
+          "lastName": "Sevenis",
+          "email": {
+            "@id": "mailto:janis.sevens@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Simon",
+          "lastName": "Vander Elst",
+          "email": {
+            "@id": "mailto:simon.vanderelst@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Pieter-Jan",
+          "lastName": "Vanorshoven",
+          "email": {
+            "@id": "mailto:pieter-jan.vanorshoven@mortsel.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Saar",
+          "lastName": "Verhoogen",
+          "email": {
+            "@id": "mailto:saar.verhoogen@leuven.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002149"
+          }
+        }
+      ],
+      "contributor": [
+        {
+          "@type": "Person",
+          "firstName": "Lies",
+          "lastName": "Baarendse",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002172"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Niels",
+          "lastName": "Broodcoorens",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO001834"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Lander",
+          "lastName": "Dufour",
+          "member": {
+            "@id": "https://www.eyeondata.be/nl"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Luc",
+          "lastName": "Fillée",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002172"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Thomas",
+          "lastName": "Gottmann",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO046441"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Ruben",
+          "lastName": "Huylenbroeck",
+          "member": {
+            "@id": "https://www.vera.be/"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Koen",
+          "lastName": "Mertens",
+          "member": {
+            "@id": "https://www.pixeo.be/"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Stijn",
+          "lastName": "Missaen",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002037"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Lieve",
+          "lastName": "Wauteraerts",
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187"
+          }
+        }
+      ],
+      "editor": [
+        {
+          "@type": "Person",
+          "firstName": "Yaron",
+          "lastName": "Dassonneville",
+          "email": {
+            "@id": "mailto:yaron.dassonneville@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Jitse",
+          "lastName": "De Cock",
+          "email": {
+            "@id": "mailto:jitse.decock@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Els",
+          "lastName": "de Vleeschauwer",
+          "email": {
+            "@id": "mailto:Els.deVleeschauwer@ugent.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Isabaut",
+          "lastName": "Martens",
+          "email": {
+            "@id": "mailto:isabaut.martens@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Alexander",
+          "lastName": "Potloot",
+          "email": {
+            "@id": "mailto:alexander.potloot@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Geert",
+          "lastName": "Thijs",
+          "email": {
+            "@id": "mailto:geert.thijs@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        },
+        {
+          "@type": "Person",
+          "firstName": "Dylan",
+          "lastName": "Van Assche",
+          "email": {
+            "@id": "mailto:dylan.vanassche@vlaanderen.be"
+          },
+          "member": {
+            "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002149",
+      "@type": "Organization",
+      "name": "Stad Leuven"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187",
+      "@type": "Organization",
+      "name": "Lokaal bestuur Mortsel"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187",
+      "@type": "Organization",
+      "name": "Lokaal bestuur Mortsel"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002149",
+      "@type": "Organization",
+      "name": "Stad Leuven"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002172",
+      "@type": "Organization",
+      "name": "Stad Mechelen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO001834",
+      "@type": "Organization",
+      "name": "Agentschap Facilitair Bedrijf"
+    },
+    {
+      "@id": "https://www.eyeondata.be/nl",
+      "@type": "Organization",
+      "name": "Eye On Data"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002172",
+      "@type": "Organization",
+      "name": "Stad Mechelen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO046441",
+      "@type": "Organization",
+      "name": "Autonoom gemeentebedrijf Digipolis Antwerpen"
+    },
+    {
+      "@id": "https://www.vera.be/",
+      "@type": "Organization",
+      "name": "VERA"
+    },
+    {
+      "@id": "https://www.pixeo.be/",
+      "@type": "Organization",
+      "name": "Pixeo"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002037",
+      "@type": "Organization",
+      "name": "Stad Brugge"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002187",
+      "@type": "Organization",
+      "name": "Lokaal bestuur Mortsel"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    },
+    {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO002949",
+      "@type": "Organization",
+      "name": "Digitaal Vlaanderen"
+    }
+  ]
+}

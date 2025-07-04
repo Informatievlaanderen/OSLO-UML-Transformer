@@ -1,0 +1,382 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/stakeholders.schema.jsonld",
+  "title": "Stakeholders JSONSchema JSON-LD",
+  "description": "JSONSchema voor het valideren van OSLO stakeholders bestanden in JSON-LD formaat",
+  "type": "object",
+  "required": [
+    "@context",
+    "@graph"
+  ],
+  "properties": {
+    "@context": {
+      "description": "JSON-LD context",
+      "type": "object",
+      "properties": {
+        "foaf": {
+          "description": "FOAF prefix",
+          "type": "string",
+          "pattern": "http://xmlns.com/foaf/0.1/"
+        },
+        "dcterms": {
+          "description": "DCTerms prefix",
+          "type": "string",
+          "pattern": "http://purl.org/dc/terms/"
+        },
+        "schema": {
+          "description": "Schema.org prefix",
+          "type": "string",
+          "pattern": "https://schema.org/"
+        },
+        "Person": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:Person URI",
+              "type": "string",
+              "pattern": "foaf:Person"
+            }
+          }
+        },
+        "Organization": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@type": {
+              "description": "foaf:Organization URI",
+              "type": "string",
+              "pattern": "foaf:Organization"
+            }
+          }
+        },
+        "DigitalDocument": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "schema:DigitalDocument URI",
+              "type": "string",
+              "pattern": "schema:DigitalDocument"
+            }
+          }
+        },
+        "affiliation": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "schema:affiliation URI",
+              "type": "string",
+              "pattern": "schema:affiliation"
+            }
+          }
+        },
+        "firstName": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:firstName URI",
+              "type": "string",
+              "pattern": "foaf:firstName"
+            }
+          }
+        },
+        "lastName": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:lastName URI",
+              "type": "string",
+              "pattern": "foaf:lastName"
+            }
+          }
+        },
+        "email": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:mbox URI",
+              "type": "string",
+              "pattern": "foaf:mbox"
+            }
+          }
+        },
+        "member": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:member URI",
+              "type": "string",
+              "pattern": "foaf:member"
+            }
+          }
+        },
+        "author": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "schema:author URI",
+              "type": "string",
+              "pattern": "schema:author"
+            }
+          }
+        },
+        "contributor": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "schema:contributor URI",
+              "type": "string",
+              "pattern": "schema:contributor"
+            }
+          }
+        },
+        "editor": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "schema:editor URI",
+              "type": "string",
+              "pattern": "schema:editor"
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "properties": {
+            "@id": {
+              "description": "foaf:name URI",
+              "type": "string",
+              "pattern": "foaf:name"
+            }
+          }
+        }
+      }
+    },
+    "@graph": {
+      "description": "JSON-LD graph",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "properties": {
+              "@id": {
+                "description": "URI Organization",
+                "type": "string",
+                "format": "uri"
+              },
+              "@type": {
+                "description": "Type Organization",
+                "type": "string",
+                "pattern": "Organization"
+              },
+              "name": {
+                "description": "name Organization",
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "@id",
+              "@type",
+              "author",
+              "contributor",
+              "editor"
+            ],
+            "properties": {
+              "@id": {
+                "description": "URI Document",
+                "type": "string",
+                "format": "uri"
+              },
+              "@type": {
+                "description": "RDF type document",
+                "type": "string",
+                "pattern": "DigitalDocument"
+              },
+              "author": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "@type",
+                    "firstName",
+                    "lastName"
+                  ],
+                  "properties": {
+                    "@type": {
+                      "description": "RDF type Person",
+                      "type": "string",
+                      "pattern": "Person"
+                    },
+                    "firstName": {
+                      "description": "First name Person",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "description": "Last name Person",
+                      "type": "string"
+                    },
+                    "member": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "Organizations of which Person is member of",
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "email": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "email of the Person",
+                          "type": "string",
+                          "pattern": "mailto:.*"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "contributor": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "@type",
+                    "firstName",
+                    "lastName"
+                  ],
+                  "properties": {
+                    "@type": {
+                      "description": "RDF type Person",
+                      "type": "string",
+                      "pattern": "Person"
+                    },
+                    "firstName": {
+                      "description": "First name Person",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "description": "Last name Person",
+                      "type": "string"
+                    },
+                    "member": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "Organizations of which Person is member of",
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "email": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "email of the Person",
+                          "type": "string",
+                          "pattern": "mailto:.*"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "editor": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "@type",
+                    "firstName",
+                    "lastName"
+                  ],
+                  "properties": {
+                    "@type": {
+                      "description": "RDF type Person",
+                      "type": "string",
+                      "pattern": "Person"
+                    },
+                    "firstName": {
+                      "description": "First name Person",
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "description": "Last name Person",
+                      "type": "string"
+                    },
+                    "member": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "Organizations of which Person is member of",
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "email": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "description": "email of the Person",
+                          "type": "string",
+                          "pattern": "mailto:.*"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
