@@ -47,11 +47,12 @@ export class StakeholdersConversionServiceRunner extends AppRunner<
         'Please provide the necessary arguments to work with this tool.',
       )
       .check((args) => {
-        if (args.outputFormat === OutputFormat.JsonLd) {
+        if (args.outputFormat === OutputFormat.JsonLd && !args.iri) {
           throw new Error(
-            `--iri is required when outputFormat is ${OutputFormat.JsonLd}}`,
+            `--iri is required when outputFormat is ${OutputFormat.JsonLd}`,
           );
         }
+        return true; 
       })
       .help('h')
       .alias('h', 'help');
