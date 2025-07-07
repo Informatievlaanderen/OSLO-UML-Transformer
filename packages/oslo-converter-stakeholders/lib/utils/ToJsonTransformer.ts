@@ -1,6 +1,7 @@
 import type { TransformCallback } from 'stream';
 import { Transform } from 'stream';
 import { ContributorType } from '../enums/ContributorType';
+import { OutputFormat } from '@oslo-flanders/core';
 
 export class ToJsonTransformer extends Transform {
   private readonly columnNames = [
@@ -33,7 +34,7 @@ export class ToJsonTransformer extends Transform {
     const contributor: any = {};
 
     // If the output format is JSON-LD, we need to add the @type attribute
-    if (this.outputFormat === 'application/ld+json') {
+    if (this.outputFormat === OutputFormat.JsonLd) {
       contributor['@type'] = 'Person';
     }
 

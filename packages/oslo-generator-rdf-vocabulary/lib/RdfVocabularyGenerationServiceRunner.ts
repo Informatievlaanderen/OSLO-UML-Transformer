@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner } from '@oslo-flanders/core';
+import { AppRunner, OutputFormat } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
 import type { RdfVocabularyGenerationService } from '../lib/RdfVocabularyGenerationService';
@@ -19,8 +19,8 @@ export class RdfVocabularyGenerationServiceRunner extends
       .option('contentType',
         {
           describe: 'The serialization format',
-          default: 'text/turtle',
-          choices: ['text/turtle', 'application/n-quads', 'application/n-triples', 'application/ld+json'],
+          default: OutputFormat.turtle,
+          choices: [OutputFormat.turtle, OutputFormat.nquads, OutputFormat.ntriples, OutputFormat.JsonLd],
         })
       .option('silent',
         {

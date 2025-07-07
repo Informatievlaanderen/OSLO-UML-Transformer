@@ -3,13 +3,20 @@
  */
 import 'reflect-metadata';
 import type { Logger } from '@oslo-flanders/core';
-import { VoidLogger, ServiceIdentifier } from '@oslo-flanders/core';
+import { VoidLogger, ServiceIdentifier, OutputFormat } from '@oslo-flanders/core';
 import { container } from '../lib/config/DependencyInjectionConfig';
 import { ShaclTemplateGenerationServiceConfiguration } from
   '../lib/config/ShaclTemplateGenerationServiceConfiguration';
 import { PipelineService } from '../lib/PipelineService';
 import type { NamedOrBlankNode, ShaclHandler } from '../lib/types/IHandler';
 import type { Pipeline } from '../lib/types/Pipeline';
+
+jest.mock('@oslo-flanders/core', () => {
+  return {
+    ...jest.requireActual('@oslo-flanders/core'),
+    createN3Store: jest.fn(),
+  };
+});
 
 describe('PipelineService', () => {
   let params: any;
@@ -25,7 +32,7 @@ describe('PipelineService', () => {
     params = {
       input: 'test.jsonld',
       output: 'shacl.jsonld',
-      outputFormat: 'application/ld+json',
+      outputFormat: OutputFormat.JsonLd,
       language: 'en',
       shapeBaseURI: 'http://example.org/',
       mode: 'grouped',

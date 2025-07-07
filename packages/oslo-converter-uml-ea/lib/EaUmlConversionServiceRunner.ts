@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { LOG_LEVELS, AppRunner } from '@oslo-flanders/core';
+import { LOG_LEVELS, AppRunner, OutputFormat } from '@oslo-flanders/core';
 
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
@@ -26,8 +26,8 @@ export class EaUmlConversionServiceRunner extends AppRunner<
       .option('outputFormat', {
         describe:
           'RDF content-type in which the output must be written or to the console.',
-        choices: ['application/ld+json', 'application/trig'],
-        default: 'application/ld+json',
+        choices: [OutputFormat.JsonLd, OutputFormat.trig],
+        default: OutputFormat.JsonLd,
       })
       .option('publicationEnvironment', {
         describe:

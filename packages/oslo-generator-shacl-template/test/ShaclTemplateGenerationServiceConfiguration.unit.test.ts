@@ -4,8 +4,16 @@
  * @group unit
  */
 import 'reflect-metadata';
+import { OutputFormat } from '@oslo-flanders/core';
 import { ShaclTemplateGenerationServiceConfiguration } from '../lib/config/ShaclTemplateGenerationServiceConfiguration';
 import { GenerationMode } from '../lib/enums/GenerationMode';
+
+jest.mock('@oslo-flanders/core', () => {
+  return {
+    ...jest.requireActual('@oslo-flanders/core'),
+    createN3Store: jest.fn(),
+  };
+});
 
 describe('ShaclTemplateGenerationServiceConfiguration', () => {
   let params: any;
@@ -14,7 +22,7 @@ describe('ShaclTemplateGenerationServiceConfiguration', () => {
     params = {
       input: 'test.jsonld',
       output: 'shacl.jsonld',
-      outputFormat: 'application/ld+json',
+      outputFormat: OutputFormat.JsonLd,
       language: 'en',
       shapeBaseURI: 'http://example.org/',
       mode: 'grouped',
@@ -64,7 +72,7 @@ describe('ShaclTemplateGenerationServiceConfiguration', () => {
 
     expect(() => config.outputFormat).toThrow(new Error('Trying to access "outputFormat" before it was set.'));
     await config.createFromCli(params);
-    expect(config.outputFormat).toBe('application/ld+json');
+    expect(config.outputFormat).toBe(OutputFormat.JsonLd);
   })
 
   it('should throw an error when "language" is undefined or otherwise return its value', async () => {

@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner, LOG_LEVELS } from '@oslo-flanders/core';
+import { AppRunner, LOG_LEVELS, OutputFormat } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { StakeholdersConversionServiceConfiguration } from './config/StakeholdersConversionServiceConfiguration';
@@ -35,20 +35,23 @@ export class StakeholdersConversionServiceRunner extends AppRunner<
       })
       .option('outputFormat', {
         describe: 'Define the output format',
-        default: 'application/ld+json',
-        choices: ['application/ld+json', 'application/json'],
+        default: OutputFormat.JsonLd,
+        choices: [OutputFormat.JsonLd, OutputFormat.Json],
       })
       .option('iri', {
-        describe: 'IRI of the specification of which these stakeholders are part of.',
+        describe:
+          'IRI of the specification of which these stakeholders are part of.',
       })
       .demandOption(
         ['input'],
         'Please provide the necessary arguments to work with this tool.',
       )
       .check((args) => {
-        if (args.outputFormat === 'application/ld+json') {
-          throw new Error('--iri is required when outputFormat is application/ld+json');
-	}
+        if (args.outputFormat === OutputFormat.JsonLd) {
+          throw new Error(
+            `--iri is required when outputFormat is ${OutputFormat.JsonLd}}`,
+          );
+        }
       })
       .help('h')
       .alias('h', 'help');

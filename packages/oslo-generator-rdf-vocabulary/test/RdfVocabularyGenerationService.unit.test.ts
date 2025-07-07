@@ -4,7 +4,7 @@
 import 'reflect-metadata';
 import fs from 'fs';
 import { Readable, Writable } from 'stream';
-import { QuadStore, VoidLogger, ns } from '@oslo-flanders/core';
+import { OutputFormat, QuadStore, VoidLogger, ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
@@ -39,7 +39,7 @@ function parseJsonld(data: any): Promise<RDF.Quad[]> {
 
   return new Promise<RDF.Quad[]>((resolve, reject) => {
     const quads: RDF.Quad[] = [];
-    rdfParser.parse(textStream, { contentType: 'application/ld+json' })
+    rdfParser.parse(textStream, { contentType: OutputFormat.JsonLd })
       .on('data', (quad: RDF.Quad) => quads.push(quad))
       .on('error', (error: unknown) => reject(error))
       .on('end', () => resolve(quads));
@@ -56,7 +56,7 @@ describe('RdfVocabularyGenerationService', () => {
   beforeEach(() => {
     store = new QuadStore();
     service = <any>new RdfVocabularyGenerationService(
-      logger, <any>{ language: 'en', output: 'output.jsonld', contentType: 'text/turtle' }, store,
+      logger, <any>{ language: 'en', output: 'output.jsonld', contentType: OutputFormat.turtle }, store,
     );
 
     jest.mock('streamify-array', () => {

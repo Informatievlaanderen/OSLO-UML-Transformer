@@ -13,6 +13,7 @@ export * from './lib/enums/Scope';
 export * from './lib/enums/PropertyTypes';
 export * from './lib/enums/specificationType';
 export * from './lib/enums/DataTypes';
+export * from './lib/enums/OutputFormat';
 export * from './lib/logging/LogLevel';
 export * from './lib/logging/Logger';
 export * from './lib/logging/VoidLogger';

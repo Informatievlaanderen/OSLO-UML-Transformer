@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
  
 import { createWriteStream } from 'fs';
-import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
+import { OutputFormat, type IOutputHandler, type QuadStore } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
@@ -21,7 +21,7 @@ export class OutputHandlerService {
 
   private loadOutputHandler(config: EaUmlConverterConfiguration): IOutputHandler {
     switch (config.outputFormat) {
-      case 'application/ld+json':
+      case OutputFormat.JsonLd:
         return new JsonLdOutputHandler();
 
       default:
