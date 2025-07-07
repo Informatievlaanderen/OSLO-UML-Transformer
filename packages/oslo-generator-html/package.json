@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/html-generator",
-  "version": "1.0.5-beta.0",
+  "version": "2.0.1-beta.0",
   "description": "Generates an HTML file using an OSLO webuniversum config",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-html#readme",
