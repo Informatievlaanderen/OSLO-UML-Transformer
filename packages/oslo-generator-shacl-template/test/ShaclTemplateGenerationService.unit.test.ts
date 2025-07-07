@@ -3,7 +3,7 @@
  */
 import 'reflect-metadata';
 import type { Logger } from '@oslo-flanders/core';
-import { QuadStore, VoidLogger, ServiceIdentifier } from '@oslo-flanders/core';
+import { QuadStore, VoidLogger, ServiceIdentifier, OutputFormat } from '@oslo-flanders/core';
 import { SHA1 } from 'crypto-js';
 import { DataFactory } from 'rdf-data-factory';
 import { container } from '../lib/config/DependencyInjectionConfig';
@@ -36,6 +36,13 @@ describe('ShaclTemplateGenerationService', () => {
   let classIds: NamedOrBlankNode[];
   let propertyIds: NamedOrBlankNode[];
 
+  jest.mock('@oslo-flanders/core', () => {
+  return {
+    ...jest.requireActual('@oslo-flanders/core'),
+    createN3Store: jest.fn(),
+  };
+});
+
   beforeAll(() => {
     container.bind<Logger>(ServiceIdentifier.Logger).toConstantValue(logger);
   });
@@ -44,7 +51,7 @@ describe('ShaclTemplateGenerationService', () => {
     params = {
       input: 'test.jsonld',
       output: 'shacl.jsonld',
-      outputFormat: 'application/ld+json',
+      outputFormat: OutputFormat.JsonLd,
       language: 'en',
       shapeBaseURI: 'http://example.org/',
       mode: 'grouped',

@@ -2,7 +2,16 @@
  * @group unit
  */
 import 'reflect-metadata';
+import { OutputFormat } from '@oslo-flanders/core';
 import { RdfVocabularyGenerationServiceConfiguration } from '../lib/config/RdfVocabularyGenerationServiceConfiguration';
+
+jest.mock('@oslo-flanders/core', () => {
+  return {
+    ...jest.requireActual('@oslo-flanders/core'),
+    createN3Store: jest.fn(),
+  };
+});
+
 
 describe('RdfVocabularyGenerationServiceConfiguration', () => {
   let params: any;
@@ -12,7 +21,7 @@ describe('RdfVocabularyGenerationServiceConfiguration', () => {
       input: 'test.jsonld',
       output: 'output.jsonld',
       language: 'en',
-      contentType: 'application/ld+json',
+      contentType: OutputFormat.JsonLd,
     };
   });
 
@@ -55,6 +64,6 @@ describe('RdfVocabularyGenerationServiceConfiguration', () => {
 
     expect(() => config.contentType).toThrowError('Trying access property "contentType" before it was set.');
     await config.createFromCli(params);
-    expect(config.contentType).toBe('application/ld+json');
+    expect(config.contentType).toBe(OutputFormat.JsonLd);
   });
 });

@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner } from '@oslo-flanders/core';
+import { AppRunner, OutputFormat } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
@@ -22,11 +22,11 @@ export class ShaclTemplateGenerationServiceRunner extends AppRunner<
       })
       .option('outputFormat', {
         describe: 'The format of the output file.',
-        default: 'application/ld+json',
+        default: OutputFormat.JsonLd,
         choices: [
-          'application/ld+json',
-          'text/turtle',
-          'application/n-triples',
+          OutputFormat.JsonLd,
+          OutputFormat.turtle,
+          OutputFormat.ntriples,
         ],
       })
       .option('language', {

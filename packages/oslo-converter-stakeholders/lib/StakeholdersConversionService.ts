@@ -4,9 +4,14 @@ import type {
   StakeholdersDocument,
   Stakeholder,
   Person,
-  Organization
+  Organization,
 } from './interfaces/StakeholdersDocument';
-import { fetchFileOrUrl, Logger, ServiceIdentifier } from '@oslo-flanders/core';
+import {
+  fetchFileOrUrl,
+  Logger,
+  OutputFormat,
+  ServiceIdentifier,
+} from '@oslo-flanders/core';
 
 import { parse } from 'csv-parse';
 import { inject, injectable } from 'inversify';
@@ -22,7 +27,7 @@ export class StakeholdersConversionService implements IService {
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
-    config: StakeholdersConversionServiceConfiguration,
+    config: StakeholdersConversionServiceConfiguration
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -39,27 +44,35 @@ export class StakeholdersConversionService implements IService {
     const doc: StakeholdersDocument = this.createDocument(
       authors,
       contributors,
-      editors,
+      editors
     );
 
     await writeFile(this.configuration.output, JSON.stringify(doc, null, 2));
   }
 
-  private createLDFromStakeholder(stakeholder: Stakeholder): { person: Person, organization: Organization | null } {
-    const { '@type': type, firstName, lastName, email, affiliation } = stakeholder;
-    let person: Person =  { '@type': type, firstName, lastName };
+  private createLDFromStakeholder(stakeholder: Stakeholder): {
+    person: Person;
+    organization: Organization | null;
+  } {
+    const {
+      '@type': type,
+      firstName,
+      lastName,
+      email,
+      affiliation,
+    } = stakeholder;
+    let person: Person = { '@type': type, firstName, lastName };
     let organization: Organization | null = null;
 
-    if (email)
-      person.email = { '@id': `mailto:${email}` };
+    if (email) person.email = { '@id': `mailto:${email}` };
 
     const organizationIRI = affiliation?.homepage;
     if (organizationIRI) {
       person.member = { '@id': organizationIRI };
       organization = {
         '@id': organizationIRI,
-	'@type': 'Organization',
-	name: affiliation.affiliationName
+        '@type': 'Organization',
+        name: affiliation.affiliationName,
       };
     }
 
@@ -70,7 +83,7 @@ export class StakeholdersConversionService implements IService {
   private createJsonLdDocument(
     authors: Stakeholder[],
     contributors: Stakeholder[],
-    editors: Stakeholder[],
+    editors: Stakeholder[]
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     let authorLD: Person[] = [];
@@ -82,33 +95,33 @@ export class StakeholdersConversionService implements IService {
     for (const author of authors) {
       const { person, organization } = this.createLDFromStakeholder(author);
       authorLD.push(person);
-      if (organization)
-        organizationLD.push(organization);
+      if (organization) organizationLD.push(organization);
     }
 
     for (const contributor of contributors) {
-      const { person, organization } = this.createLDFromStakeholder(contributor);
+      const { person, organization } =
+        this.createLDFromStakeholder(contributor);
       contributorLD.push(person);
-      if (organization)
-        organizationLD.push(organization);
+      if (organization) organizationLD.push(organization);
     }
 
     for (const editor of editors) {
       const { person, organization } = this.createLDFromStakeholder(editor);
       editorLD.push(person);
-      if (organization)
-        organizationLD.push(organization);
+      if (organization) organizationLD.push(organization);
     }
 
     /* Build JSON-LD document */
     doc['@context'] = context;
-    doc['@graph'] = [{
-      '@id': this.configuration.iri,
-      '@type': 'DigitalDocument',
-      'author': authorLD,
-      'contributor': contributorLD,
-      'editor': editorLD
-    }]
+    doc['@graph'] = [
+      {
+        '@id': this.configuration.iri,
+        '@type': 'DigitalDocument',
+        author: authorLD,
+        contributor: contributorLD,
+        editor: editorLD,
+      },
+    ];
     for (const organization of organizationLD) {
       doc['@graph'].push(organization);
     }
@@ -119,7 +132,7 @@ export class StakeholdersConversionService implements IService {
   private createJsonDocument(
     authors: Stakeholder[],
     contributors: Stakeholder[],
-    editors: Stakeholder[],
+    editors: Stakeholder[]
   ): StakeholdersDocument {
     const doc: StakeholdersDocument = {};
     doc.contributors = contributors;
@@ -131,12 +144,12 @@ export class StakeholdersConversionService implements IService {
   private createDocument(
     authors: Stakeholder[],
     contributors: Stakeholder[],
-    editors: Stakeholder[],
+    editors: Stakeholder[]
   ): StakeholdersDocument {
     switch (this.configuration.outputFormat) {
-      case 'application/json':
+      case OutputFormat.Json:
         return this.createJsonDocument(authors, contributors, editors);
-      case 'application/ld+json':
+      case OutputFormat.JsonLd:
         return this.createJsonLdDocument(authors, contributors, editors);
       default:
         return this.createJsonLdDocument(authors, contributors, editors);
@@ -144,7 +157,7 @@ export class StakeholdersConversionService implements IService {
   }
 
   private sortStakeholdersByLastName(
-    stakeholders: Stakeholder[],
+    stakeholders: Stakeholder[]
   ): Stakeholder[] {
     return stakeholders.sort((a, b) => a.lastName.localeCompare(b.lastName));
   }
@@ -157,12 +170,12 @@ export class StakeholdersConversionService implements IService {
     const parser = parse({ delimiter: ';', columns: true });
     parser.on('error', (error: any) => {
       this.logger.error(
-        `[CsvConverterHandler] Unable to convert the provided csv into a stakeholders-file. ${error} for record ${error?.record}`,
+        `[CsvConverterHandler] Unable to convert the provided csv into a stakeholders-file. ${error} for record ${error?.record}`
       );
     });
     const transformer = new ToJsonTransformer(
       this.configuration.outputFormat,
-      this.configuration.contributorsColumn,
+      this.configuration.contributorsColumn
     );
 
     const contributors: Stakeholder[] = [];
@@ -185,7 +198,7 @@ export class StakeholdersConversionService implements IService {
               break;
             default:
               this.logger.warn(
-                `Unable to find the contributor type for "${object?.firstName} ${object?.lastName}" using column "${this.configuration.contributorsColumn}". Please make sure this column has a value set for this person.`,
+                `Unable to find the contributor type for "${object?.firstName} ${object?.lastName}" using column "${this.configuration.contributorsColumn}". Please make sure this column has a value set for this person.`
               );
           }
 
