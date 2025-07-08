@@ -271,7 +271,7 @@ export class JsonldValidationService implements IService {
           continue;
         }
 
-        if (!this.checkEndsWithDot(value)) {
+        if (this.checkEndsWithDot(value)) {
           this.logger.warn(
             `Labels must not end with a '.': '${value}' for subject: ${uri}`,
           );
