@@ -23,5 +23,5 @@
   "http://www.cidoc-crm.org/cidoc-crm/",
   "https://periodo.github.io/edtf-ontology/edtfo.ttl#",
   "https://schema.org/",
-  "http://schema.mobivoc.org#"
+  "http://schema.mobivoc.org/#"
 ]
