@@ -13,6 +13,8 @@
   "http://www.w3.org/2006/time#",
   "http://www.w3.org/2006/vcard/ns#",
   "http://www.w3.org/ns/prov#",
+  "http://www.w3.org/ns/person#",
+  "http://qudt.org/schema/qudt/",
   "http://purl.org/dc/terms/",
   "http://purl.org/vocab/cpsv#",
   "https://data.vlaanderen.be/ns/",
