@@ -1,0 +1,35 @@
+{
+  "contributors": [
+    {
+      "firstName": "Jan",
+      "lastName": "Jansens",
+      "affiliation": {
+        "affiliationName": "Bedrijf 2",
+        "homepage": "https://data.vlaanderen.be/doc/organisatie/OVO012345678910"
+      },
+      "email": "jan.jansens@example.org"
+    }
+  ],
+  "authors": [
+    {
+      "firstName": "Jefke",
+      "lastName": "Vermeulen",
+      "affiliation": {
+        "affiliationName": "Bedrijf",
+        "homepage": "https://data.vlaanderen.be/doc/organisatie/0123456789"
+      },
+      "email": "jefke.vermeulen@example.org"
+    }
+  ],
+  "editors": [
+    {
+      "firstName": "Jonny",
+      "lastName": "Cash",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://data.vlaanderen.be/doc/organisatie/OVO002949"
+      },
+      "email": "digitaal.vlaanderen@vlaanderen.be"
+    }
+  ]
+}

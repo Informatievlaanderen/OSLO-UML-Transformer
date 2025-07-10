@@ -1,0 +1,548 @@
+{
+  "contributors": [
+    {
+      "firstName": "Stijn",
+      "lastName": "Aerts",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "stijn.aerts@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Joren",
+      "lastName": "Barbé",
+      "affiliation": {
+        "affiliationName": "Stad Halle",
+        "homepage": "https://www.halle.be/"
+      },
+      "email": "joren.barbe@halle.be"
+    },
+    {
+      "firstName": "Ellen",
+      "lastName": "Biesmans",
+      "affiliation": {
+        "affiliationName": "SWECO Belgium",
+        "homepage": "NOT AN URI"
+      },
+      "email": "NOT A VALID E-MAIL"
+    },
+    {
+      "firstName": "Marijke",
+      "lastName": "Blondeel",
+      "email": "marijke.blondeel@stad.gent"
+    },
+    {
+      "lastName": "Boelaers",
+      "affiliation": {
+        "affiliationName": "Gemeente Peer",
+        "homepage": "https://www.peer.be/"
+      },
+      "email": "Marc.Boelaers@Peer.be"
+    },
+    {
+      "firstName": "Pieter",
+      "affiliation": {
+        "affiliationName": "Fluvius",
+        "homepage": "https://www.fluvius.be/nl"
+      },
+      "email": "pieter.braekevelt@fluvius.be"
+    },
+    {
+      "firstName": "Marijke",
+      "lastName": "Brondeel",
+      "affiliation": {
+        "homepage": "https://stad.gent/nl"
+      },
+      "email": "marijke.blondeel@stad.gent"
+    },
+    {
+      "firstName": "Patricia",
+      "lastName": "Bruynooghe",
+      "affiliation": {
+        "affiliationName": "Gemeente Heusden-Zolder"
+      },
+      "email": "patricia.bruynooghe@heusden-zolder.be"
+    },
+    {
+      "firstName": "Patty",
+      "lastName": "Cant",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      }
+    },
+    {
+      "firstName": "Michaël",
+      "lastName": "Casteels",
+      "affiliation": {
+        "affiliationName": "Aquafin",
+        "homepage": "https://www.aquafin.be/nl-be/particulieren"
+      },
+      "email": "michael.casteels@aquafin.be"
+    },
+    {
+      "firstName": "Joost",
+      "lastName": "Cosijn",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "joost.cosijn@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Peter",
+      "lastName": "De Paepe",
+      "affiliation": {
+        "affiliationName": "Fluvius",
+        "homepage": "https://www.fluvius.be/nl"
+      },
+      "email": "peter.depaepe@fluvius.be"
+    },
+    {
+      "firstName": "Roel",
+      "lastName": "De Ryck",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "roel.deryck@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Lieven",
+      "lastName": "De Sadeleer",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "lieven.desadeleer@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Els",
+      "lastName": "Denis",
+      "affiliation": {
+        "affiliationName": "Stad Mechelen",
+        "homepage": "https://www.mechelen.be/"
+      },
+      "email": "els.denis@mechelen.be"
+    },
+    {
+      "firstName": "Evelien",
+      "lastName": "Dewaele",
+      "affiliation": {
+        "affiliationName": "Landmeetkantoor Dewaele",
+        "homepage": "https://landmeetkantoordewaele.be/"
+      },
+      "email": "info@landmeetkantoordewaele.be"
+    },
+    {
+      "firstName": "Xynthia",
+      "lastName": "Dirven",
+      "affiliation": {
+        "affiliationName": "Stad Geel",
+        "homepage": "https://www.geel.be/"
+      },
+      "email": "xynthia.Dirven@geel.be"
+    },
+    {
+      "firstName": "Pauwel",
+      "lastName": "Emmerechts",
+      "affiliation": {
+        "affiliationName": "Landmeet- en expertisebureau Pauwel Emmerechts",
+        "homepage": "https://www.landmeters.immo/nld/landmeet-en-expertisebureau-pauwel-emmerechts"
+      },
+      "email": "pauwel.emmerechts@oost-vlaanderen.be"
+    },
+    {
+      "firstName": "Griet",
+      "lastName": "Fonteyne",
+      "affiliation": {
+        "affiliationName": "Gemeente Sint Katelijne Waver",
+        "homepage": "https://www.sintkatelijnewaver.be/"
+      },
+      "email": "griet.fonteyne@sintkatelijnewaver.be"
+    },
+    {
+      "firstName": "Isabel",
+      "lastName": "Franck",
+      "affiliation": {
+        "affiliationName": "Departement Mobiliteit en Openbare Werken",
+        "homepage": "https://www.vlaanderen.be/departement-mobiliteit-en-openbare-werken"
+      },
+      "email": "isabel.franck@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Cedric",
+      "lastName": "Heerman",
+      "affiliation": {
+        "affiliationName": "Stad Turnhout",
+        "homepage": "https://www.turnhout.be/"
+      },
+      "email": "cedric.heerman@turnhout.be"
+    },
+    {
+      "firstName": "Niels",
+      "lastName": "Indestege",
+      "affiliation": {
+        "affiliationName": "Gemeente Diepenbeek",
+        "homepage": "https://www.diepenbeek.be/"
+      },
+      "email": "niels.indestege@diepenbeek.be"
+    },
+    {
+      "firstName": "Luc",
+      "lastName": "Janssen",
+      "affiliation": {
+        "affiliationName": "Stad Mechelen",
+        "homepage": "https://www.mechelen.be/"
+      },
+      "email": "luc.janssen@mechelen.be"
+    },
+    {
+      "firstName": "Marlies",
+      "lastName": "Lernout",
+      "affiliation": {
+        "affiliationName": "Departement Mobiliteit en Openbare Werken",
+        "homepage": "https://www.vlaanderen.be/departement-mobiliteit-en-openbare-werken"
+      },
+      "email": "marlies.lernout@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Joris",
+      "lastName": "Maervoet",
+      "affiliation": {
+        "affiliationName": "DDS Streekregisseurs",
+        "homepage": "https://dds-streekregisseurs.be/"
+      },
+      "email": "joris.maervoet@dds-streekregisseurs.be"
+    },
+    {
+      "firstName": "Oliver",
+      "lastName": "May",
+      "affiliation": {
+        "affiliationName": "Vlaams Datanutsbedrijf (Athumi)",
+        "homepage": "https://athumi.be/"
+      },
+      "email": "oliver.may@athumi.eu"
+    },
+    {
+      "firstName": "Dimitri",
+      "lastName": "Melkebeke",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "dimitri.melkebeke@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Stefan",
+      "lastName": "Moons",
+      "affiliation": {
+        "affiliationName": "SWECO Belgium",
+        "homepage": "https://www.swecobelgium.be/"
+      },
+      "email": "stefan.Moons@swecobelgium.be"
+    },
+    {
+      "firstName": "Stefan",
+      "lastName": "Morel",
+      "affiliation": {
+        "affiliationName": "Stad Roeselare",
+        "homepage": "https://www.roeselare.be/"
+      },
+      "email": "Stefan.Morel@roeselare.be"
+    },
+    {
+      "firstName": "Robin",
+      "lastName": "Noulez",
+      "affiliation": {
+        "affiliationName": "Intercommunale Leiedal",
+        "homepage": "https://www.leiedal.be/"
+      },
+      "email": "robin.noulez@leiedal.be"
+    },
+    {
+      "firstName": "Timothy",
+      "lastName": "Nuttens",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "timothy.nuttens@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Sammy",
+      "lastName": "Parmentier",
+      "affiliation": {
+        "affiliationName": "Vlaams Datanutsbedrijf (Athumi)",
+        "homepage": "https://athumi.be/"
+      },
+      "email": "sammy.parmentier@athumi.eu"
+    },
+    {
+      "firstName": "Tom",
+      "lastName": "Theuwis",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "tom.theuwis@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Bjorn",
+      "lastName": "Van den Broeck",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "bjorn.vandenbroeck@mow.vlaanderen"
+    },
+    {
+      "firstName": "Jelle",
+      "lastName": "Van Heck",
+      "affiliation": {
+        "affiliationName": "Stad Roeselare",
+        "homepage": "https://www.roeselare.be/"
+      },
+      "email": "Jelle.VanHeck@roeselare.be"
+    },
+    {
+      "firstName": "Gert",
+      "lastName": "Van Oost",
+      "affiliation": {
+        "affiliationName": "Stad Antwerpen",
+        "homepage": "https://www.antwerpen.be/"
+      },
+      "email": "gert.vanoost@antwerpen.be"
+    },
+    {
+      "firstName": "Marc",
+      "lastName": "Van Opstal",
+      "affiliation": {
+        "affiliationName": "Studiebureau VanOpstal",
+        "homepage": "https://www.studiebureau-vanopstal.be/"
+      },
+      "email": "marc@studiebureau-vanopstal.be"
+    },
+    {
+      "firstName": "Sylvie",
+      "lastName": "Vandeputte",
+      "affiliation": {
+        "affiliationName": "Gemeente Zulte",
+        "homepage": "https://www.zulte.be/"
+      },
+      "email": "Sylvie.Vandeputte@zulte.be"
+    },
+    {
+      "firstName": "Willy",
+      "lastName": "Vander Donck",
+      "affiliation": {
+        "affiliationName": "Aquafin",
+        "homepage": "https://www.aquafin.be/nl-be/particulieren"
+      },
+      "email": "willy.vanderdonck@aquafin.be"
+    },
+    {
+      "firstName": "Patrick",
+      "lastName": "Vandijck",
+      "affiliation": {
+        "affiliationName": "Provincie Vlaams-Brabant",
+        "homepage": "https://www.vlaamsbrabant.be/nl"
+      },
+      "email": "patrick.vandijck@vlaamsbrabant.be"
+    },
+    {
+      "firstName": "Hans",
+      "lastName": "Vanroose",
+      "affiliation": {
+        "affiliationName": "Geomex",
+        "homepage": "https://www.geomex.be/"
+      },
+      "email": "hans.Vanroose@geomex.be"
+    },
+    {
+      "firstName": "Pieterjan",
+      "lastName": "Verhavert",
+      "affiliation": {
+        "affiliationName": "Stad Aalst",
+        "homepage": "https://aalst.be/"
+      },
+      "email": "pieterjan.verhavert@aalst.be"
+    },
+    {
+      "firstName": "Sanne",
+      "lastName": "Vervalle",
+      "affiliation": {
+        "affiliationName": "Stad Waregem",
+        "homepage": "https://www.waregem.be/"
+      },
+      "email": "sanne.vervalle@waregem.be"
+    },
+    {
+      "firstName": "Jef",
+      "lastName": "Vinken",
+      "affiliation": {
+        "affiliationName": "IOK Dienstverlening",
+        "homepage": "https://www.iok.be/voor-de-kempen/technische-dienstverlening"
+      },
+      "email": "jef.Vinken@iok.be"
+    }
+  ],
+  "authors": [
+    {
+      "firstName": "Xavier",
+      "lastName": "Buijs",
+      "affiliation": {
+        "affiliationName": "VVSG",
+        "homepage": "https://www.vvsg.be/"
+      },
+      "email": "xavier.buijs@VVSG.be"
+    },
+    {
+      "firstName": "Evelyne",
+      "lastName": "Devos",
+      "affiliation": {
+        "affiliationName": "Vlaams Datanutsbedrijf (Athumi)",
+        "homepage": "https://athumi.be/"
+      },
+      "email": "evelyne.devos@athumi.eu"
+    },
+    {
+      "firstName": "Astrid",
+      "lastName": "Forceville",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "astrid.forceville@vlaanderen.be"
+    },
+    {
+      "firstName": "Sara",
+      "lastName": "Kinds",
+      "affiliation": {
+        "affiliationName": "Agentschap Wegen en Verkeer",
+        "homepage": "https://wegenenverkeer.be/"
+      },
+      "email": "sara.kinds@mow.vlaanderen.be"
+    },
+    {
+      "firstName": "Danny",
+      "lastName": "Lievens",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "danny.lievens@vlaanderen.be"
+    },
+    {
+      "firstName": "Bavo",
+      "lastName": "Mannekens",
+      "affiliation": {
+        "affiliationName": "Vlaams Datanutsbedrijf (Athumi)",
+        "homepage": "https://athumi.be/"
+      },
+      "email": "bavo.mannekens@athumi.eu"
+    },
+    {
+      "firstName": "Janis",
+      "lastName": "Sevenis",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "janis.sevens@vlaanderen.be"
+    },
+    {
+      "firstName": "Erik",
+      "lastName": "Van Den Berghe",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "erik.vandenberghe@vlaanderen.be"
+    },
+    {
+      "firstName": "Hendrik",
+      "lastName": "Van Hemelryck",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "hendrik.vanhemelryck@vlaanderen.be"
+    },
+    {
+      "firstName": "Simon",
+      "lastName": "Vander Elst",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "simon.vanderelst@vlaanderen.be"
+    }
+  ],
+  "editors": [
+    {
+      "firstName": "Yaron",
+      "lastName": "Dassonneville",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "yaron.dassonneville@vlaanderen.be"
+    },
+    {
+      "firstName": "Jitse",
+      "lastName": "De Cock",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "jitse.decock@vlaanderen.be"
+    },
+    {
+      "firstName": "Pieter",
+      "lastName": "Heyvaert",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "pieter.heyvaert@ugent.be"
+    },
+    {
+      "firstName": "Isabaut",
+      "lastName": "Martens",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "isabaut.martens@vlaanderen.be"
+    },
+    {
+      "firstName": "Alexander",
+      "lastName": "Potloot",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "alexander.potloot@vlaanderen.be"
+    },
+    {
+      "firstName": "Geert",
+      "lastName": "Thijs",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "geert.thijs@vlaanderen.be"
+    },
+    {
+      "firstName": "Dylan",
+      "lastName": "Van Assche",
+      "affiliation": {
+        "affiliationName": "Digitaal Vlaanderen",
+        "homepage": "https://www.vlaanderen.be/digitaal-vlaanderen"
+      },
+      "email": "dylan.vanassche@vlaanderen.be"
+    }
+  ]
+}
