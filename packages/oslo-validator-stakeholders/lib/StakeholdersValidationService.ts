@@ -1,18 +1,15 @@
 import {
   IService,
   Logger,
+  OutputFormat,
   QuadStore,
   ServiceIdentifier,
   fetchFileOrUrl,
-  ns,
 } from '@oslo-flanders/core';
-import path from 'path';
 import { inject, injectable } from 'inversify';
-import type * as RDF from '@rdfjs/types';
 import { StakeholdersValidationServiceConfiguration } from './config/StakeholdersValidationServiceConfiguration';
 import { Ajv } from 'ajv';
 import addFormats from 'ajv-formats';
-import * as fs from 'fs';
 import { Schemas } from './enums/Schemas';
 
 @injectable()
@@ -25,7 +22,7 @@ export class StakeholdersValidationService implements IService {
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
     configuration: StakeholdersValidationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore
   ) {
     this.logger = logger;
     this.configuration = configuration;
@@ -39,10 +36,10 @@ export class StakeholdersValidationService implements IService {
     const format = this.configuration.format;
 
     switch (format) {
-      case 'application/json':
+      case OutputFormat.Json:
         await this.validateJSON(input);
         break;
-      case 'application/ld+json':
+      case OutputFormat.JsonLd:
         await this.validateJSONLD(input);
         break;
       default:
@@ -56,7 +53,7 @@ export class StakeholdersValidationService implements IService {
     const data: { [index: string]: any } = JSON.parse(bufferData.toString());
     const bufferSchema: Buffer = await fetchFileOrUrl(Schemas.Json);
     const schema: { [index: string]: any } = JSON.parse(
-      bufferSchema.toString(),
+      bufferSchema.toString()
     );
     const validator = new Ajv();
     addFormats(validator);
@@ -71,12 +68,16 @@ export class StakeholdersValidationService implements IService {
       for (const stakeholder of stakeholders) {
         if (!stakeholder['affiliation']['homepage'].includes('OVO'))
           this.logger.warn(
-            `Stakeholder does not have an OVO code: ${stakeholder['affiliation']['homepage']}`,
+            `Stakeholder does not have an OVO code: ${stakeholder['affiliation']['homepage']}`
           );
       }
     } else {
       throw new Error(
-        `Stakeholder\'s JSON data is invalid! ${JSON.stringify(validator.errors, null, 2)}`,
+        `Stakeholder\'s JSON data is invalid! ${JSON.stringify(
+          validator.errors,
+          null,
+          2
+        )}`
       );
     }
   }
@@ -86,7 +87,7 @@ export class StakeholdersValidationService implements IService {
     const data: { [index: string]: any } = JSON.parse(bufferData.toString());
     const bufferSchema: Buffer = await fetchFileOrUrl(Schemas.JsonLd);
     const schema: { [index: string]: any } = JSON.parse(
-      bufferSchema.toString(),
+      bufferSchema.toString()
     );
     const validator = new Ajv();
     addFormats(validator);
@@ -95,7 +96,11 @@ export class StakeholdersValidationService implements IService {
       this.logger.info("Stakeholder's JSON-LD data is valid!");
     } else {
       throw new Error(
-        `Stakeholder\'s JSON-LD data is invalid! ${JSON.stringify(validator.errors, null, 2)}`,
+        `Stakeholder\'s JSON-LD data is invalid! ${JSON.stringify(
+          validator.errors,
+          null,
+          2
+        )}`
       );
     }
   }

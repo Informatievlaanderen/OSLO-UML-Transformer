@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner } from '@oslo-flanders/core';
+import { AppRunner, OutputFormat } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { StakeholdersValidationServiceConfiguration } from './config/StakeholdersValidationServiceConfiguration';
@@ -16,7 +16,8 @@ export class StakeholdersValidationServiceRunner extends AppRunner<
         describe: 'Local path or URL to stakeholders file to validate.',
       })
       .option('format', {
-        describe: 'Input format of the stakeholders file: application/json or application/ld+json.',
+        describe: `Input format of the stakeholders file: ${OutputFormat.Json} or ${OutputFormat.JsonLd}.`,
+        choices: [OutputFormat.Json, OutputFormat.JsonLd],
       })
       .demandOption(['input'])
       .help('h')

@@ -3,7 +3,7 @@
  */
 import 'reflect-metadata';
 import * as path from 'path';
-import { QuadStore, VoidLogger } from '@oslo-flanders/core';
+import { QuadStore, VoidLogger, OutputFormat } from '@oslo-flanders/core';
 import { DataFactory } from 'rdf-data-factory';
 import { StakeholdersValidationServiceConfiguration } from '../lib/config/StakeholdersValidationServiceConfiguration';
 import { StakeholdersValidationService } from '../lib/StakeholdersValidationService';
@@ -28,7 +28,7 @@ describe('StakeholdersValidationService', () => {
         'data',
         'stakeholders-pass.json',
       );
-      (<any>config)._format = 'application/json';
+      (<any>config)._format = OutputFormat.Json;
 
       store = new QuadStore();
 
@@ -39,7 +39,7 @@ describe('StakeholdersValidationService', () => {
       jest.clearAllMocks();
     });
 
-    describe('Format application/json', () => {
+    describe(`Format ${OutputFormat.Json}`, () => {
       it('should validate JSON output against JSONSchema and pass', async () => {
         await service.run();
 
@@ -69,7 +69,7 @@ describe('StakeholdersValidationService', () => {
         'data',
         'stakeholders-ovo.json',
       );
-      (<any>config)._format = 'application/json';
+      (<any>config)._format = OutputFormat.Json;
 
       store = new QuadStore();
 
@@ -80,12 +80,12 @@ describe('StakeholdersValidationService', () => {
       jest.clearAllMocks();
     });
 
-    describe('Format application/json', () => {
+    describe(`Format ${OutputFormat.Json}`, () => {
       it('should validate JSON output against JSONSchema and log warning OVO code missing', async () => {
         await service.run();
 
         expect(logger.warn).toHaveBeenCalledWith(
-          "Stakeholder does not have an OVO code: https://data.vlaanderen.be/doc/organisatie/0123456789",
+          'Stakeholder does not have an OVO code: https://data.vlaanderen.be/doc/organisatie/0123456789',
         );
       });
     });
@@ -110,7 +110,7 @@ describe('StakeholdersValidationService', () => {
         'data',
         'stakeholders-fail.json',
       );
-      (<any>config)._format = 'application/json';
+      (<any>config)._format = OutputFormat.Json;
 
       store = new QuadStore();
 
@@ -121,7 +121,7 @@ describe('StakeholdersValidationService', () => {
       jest.clearAllMocks();
     });
 
-    describe('Format application/json', () => {
+    describe(`Format ${OutputFormat.Json}`, () => {
       it('should validate JSON output against JSONSchema and fail', async () => {
         try {
           await service.run();
@@ -151,7 +151,7 @@ describe('StakeholdersValidationService', () => {
         'data',
         'stakeholders-pass.jsonld',
       );
-      (<any>config)._format = 'application/ld+json';
+      (<any>config)._format = OutputFormat.JsonLd;
 
       store = new QuadStore();
 
@@ -162,7 +162,7 @@ describe('StakeholdersValidationService', () => {
       jest.clearAllMocks();
     });
 
-    describe('Format application/ld+json', () => {
+    describe(`Format ${OutputFormat.JsonLd}`, () => {
       it('should validate JSON-LD output against JSONSchema and pass', async () => {
         await service.run();
 
@@ -192,7 +192,7 @@ describe('StakeholdersValidationService', () => {
         'data',
         'stakeholders-fail.jsonld',
       );
-      (<any>config)._format = 'application/ld+json';
+      (<any>config)._format = OutputFormat.JsonLd;
 
       store = new QuadStore();
 
@@ -203,7 +203,7 @@ describe('StakeholdersValidationService', () => {
       jest.clearAllMocks();
     });
 
-    describe('Format application/ld+json', () => {
+    describe(`Format ${OutputFormat.JsonLd}`, () => {
       it('should validate JSON-LD output against JSONSchema and fail', async () => {
         try {
           await service.run();

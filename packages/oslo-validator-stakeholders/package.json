@@ -1,13 +1,13 @@
 {
-  "name": "@oslo-flanders/stakeholder-validator",
-  "version": "1.0.0",
+  "name": "@oslo-flanders/stakeholders-validator",
+  "version": "1.0.1",
   "description": "Validates the generated stakeholders file to a set of validation rules",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-validator-stakeholders#readme",
   "license": "MIT",
   "exports": "./index.js",
   "bin": {
-    "oslo-jsonld-validator": "./bin/runner.js"
+    "oslo-stakeholders-validator": "./bin/runner.js"
   },
   "directories": {
     "lib": "lib",
@@ -16,8 +16,6 @@
   "files": [
     "lib/**/*.d.ts",
     "lib/**/*.js",
-    "lib/**/*.njk",
-    "lib/**/*.j2",
     "bin/**/*.d.ts",
     "bin/**/*.js",
     "index.d.ts",
