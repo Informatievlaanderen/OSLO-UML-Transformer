@@ -14,9 +14,13 @@
   "http://www.w3.org/2006/vcard/ns#",
   "http://www.w3.org/ns/prov#",
   "http://www.w3.org/ns/person#",
+  "http://www.w3.org/ns/oa#",
+  "https://www.w3.org/ns/activitystreams#",
+  "http://www.w3.org/ns/dqv#",
   "http://qudt.org/schema/qudt/",
   "http://purl.org/dc/terms/",
   "http://purl.org/vocab/cpsv#",
+  "http://purl.org/dc/dcmitype/",
   "https://data.vlaanderen.be/ns/",
   "https://implementatie.data.vlaanderen.be/ns/",  
   "http://www.opengis.net/ont/geosparql#",
@@ -25,5 +29,7 @@
   "http://www.cidoc-crm.org/cidoc-crm/",
   "https://periodo.github.io/edtf-ontology/edtfo.ttl#",
   "https://schema.org/",
-  "http://schema.mobivoc.org/#"
+  "http://schema.mobivoc.org/#",
+  "http://datex2.eu/vocab/3/Situation#",
+  "http://dbpedia.org/ontology/"
 ]
