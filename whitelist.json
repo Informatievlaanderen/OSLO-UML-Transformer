@@ -21,9 +21,11 @@
   "http://purl.org/dc/terms/",
   "http://purl.org/vocab/cpsv#",
   "http://purl.org/dc/dcmitype/",
+  "http://purl.org/dc/elements/1.1/",
   "https://data.vlaanderen.be/ns/",
   "https://implementatie.data.vlaanderen.be/ns/",  
   "http://www.opengis.net/ont/geosparql#",
+  "http://www.opengis.net/ont/sf#",
   "http://data.europa.eu/m8g/",
   "http://xmlns.com/foaf/0.1/",
   "http://www.cidoc-crm.org/cidoc-crm/",
@@ -31,5 +33,10 @@
   "https://schema.org/",
   "http://schema.mobivoc.org/#",
   "http://datex2.eu/vocab/3/Situation#",
-  "http://dbpedia.org/ontology/"
+  "http://dbpedia.org/ontology/",
+  "https://saref.etsi.org/core/",
+  "https://saref.etsi.org/saref4bldg/",
+  "https://vocab.belgif.be/ns/utility-services#",
+  "https://vocab.belgif.be/ns/generic#",
+  "https://vocab.belgif.be/ns/network#"
 ]
