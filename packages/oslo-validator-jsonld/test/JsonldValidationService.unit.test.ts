@@ -569,4 +569,601 @@ describe('JsonldValidationService', () => {
       expect(result.invalidEntries[1].uri).toBe('http://subject/baseURI/FIXME');
     });
   });
+
+  describe('validateDefinitionExistence', () => {
+    beforeEach(() => {
+      // Reset any mocks
+      jest.clearAllMocks();
+    });
+
+    describe('data.vlaanderen.be domain entities', () => {
+      beforeEach(() => {
+        // Set publication environment for data.vlaanderen.be domain tests
+        (<any>config)._publicationEnvironment = 'data.vlaanderen.be';
+      });
+
+      it('should pass when entity with both labels has both definitions', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // VocLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // ApDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+            ),
+            df.literal('AP Definition.', 'en'),
+          ),
+          // VocDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should pass when entity with both labels is missing apDefinition but has vocDefinition', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // VocLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // Only vocDefinition, missing apDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should pass when entity with both labels is missing vocDefinition but has apDefinition', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // VocLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // Only apDefinition, missing vocDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+            ),
+            df.literal('AP Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should pass when entity with only apLabel has apDefinition', () => {
+        const mockQuads = [
+          // Only apLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // ApDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+            ),
+            df.literal('AP Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should log info when entity with only apLabel uses vocDefinition as fallback', () => {
+        const mockQuads = [
+          // Only apLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // Only vocDefinition (fallback)
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+        expect(logger.info).toHaveBeenCalledWith(
+          'Using vocDefinition as fallback for subject without apDefinition: http://subject1',
+        );
+      });
+
+      it('should pass when entity with only vocLabel has vocDefinition', () => {
+        const mockQuads = [
+          // Only vocLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // VocDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should fail when entity with only vocLabel is missing vocDefinition', () => {
+        const mockQuads = [
+          // Only vocLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in data.vlaanderen.be domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property'),
+          ),
+          // No definitions
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(false);
+        expect(result.invalidEntries).toHaveLength(1);
+        expect(result.invalidEntries[0].uri).toBe('http://subject1');
+        expect(result.invalidEntries[0].location).toContain(
+          'must have vocDefinition',
+        );
+      });
+    });
+
+    describe('external domain entities', () => {
+      it('should pass when external entity has apDefinition', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in external domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('http://schema.org/Property'),
+          ),
+          // ApDefinition
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+            ),
+            df.literal('AP Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+      });
+
+      it('should log info when external entity uses vocDefinition as fallback', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in external domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('http://schema.org/Property'),
+          ),
+          // Only vocDefinition (fallback)
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition.', 'en'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(true);
+        expect(result.invalidEntries).toHaveLength(0);
+        expect(logger.info).toHaveBeenCalledWith(
+          'Using vocDefinition as fallback for external entity without apDefinition: http://subject1',
+        );
+      });
+
+      it('should fail when external entity has no definitions at all', () => {
+        const mockQuads = [
+          // ApLabel
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // AssignedURI in external domain
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('http://schema.org/Property'),
+          ),
+          // No definitions
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(false);
+        expect(result.invalidEntries).toHaveLength(1);
+        expect(result.invalidEntries[0].uri).toBe('http://subject1');
+        expect(result.invalidEntries[0].location).toContain(
+          'must have either apDefinition or vocDefinition',
+        );
+      });
+    });
+
+    describe('multiple entities', () => {
+      it('should handle mixed valid and invalid entities', () => {
+        const mockQuads = [
+          // Entity 1 - valid (data.vlaanderen.be with both labels and definitions)
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel1', 'en'),
+          ),
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+            ),
+            df.literal('TestLabel1', 'en'),
+          ),
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('https://data.vlaanderen.be/ns/test#Property1'),
+          ),
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apDefinition',
+            ),
+            df.literal('AP Definition 1.', 'en'),
+          ),
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocDefinition',
+            ),
+            df.literal('VOC Definition 1.', 'en'),
+          ),
+
+          // Entity 2 - invalid (external domain with no definitions)
+          df.quad(
+            df.namedNode('http://subject2'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel2', 'en'),
+          ),
+          df.quad(
+            df.namedNode('http://subject2'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+            ),
+            df.namedNode('http://schema.org/Property2'),
+          ),
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(false);
+        expect(result.invalidEntries).toHaveLength(1);
+        expect(result.invalidEntries[0].uri).toBe('http://subject2');
+      });
+
+      it('should handle entities without assignedURI', () => {
+        const mockQuads = [
+          // Entity without assignedURI (should be treated as external)
+          df.quad(
+            df.namedNode('http://subject1'),
+            df.namedNode(
+              'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+            ),
+            df.literal('TestLabel', 'en'),
+          ),
+          // No assignedURI quad
+          // No definitions
+        ];
+
+        jest
+          .spyOn(store, 'findQuads')
+          .mockImplementation((subject, predicate) => {
+            return mockQuads.filter(
+              (quad) =>
+                (!subject || quad.subject.equals(subject)) &&
+                (!predicate || quad.predicate.equals(predicate)),
+            );
+          });
+
+        const result = (<any>service).validateDefinitionExistence();
+
+        expect(result.isValid).toBe(false);
+        expect(result.invalidEntries).toHaveLength(1);
+        expect(result.invalidEntries[0].uri).toBe('http://subject1');
+        expect(result.invalidEntries[0].location).toContain(
+          'must have either apDefinition or vocDefinition',
+        );
+      });
+    });
+  });
 });
