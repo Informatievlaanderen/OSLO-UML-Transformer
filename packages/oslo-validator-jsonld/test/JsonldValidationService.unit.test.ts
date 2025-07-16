@@ -31,6 +31,7 @@ describe('JsonldValidationService', () => {
     config = new JsonldValidationServiceConfiguration();
     (<any>config)._input = 'input.jsonld';
     (<any>config)._whitelist = 'whitelist.json';
+    (<any>config)._publicationEnvironment = 'https://data.vlaanderen.be';
 
     store = new QuadStore();
 
@@ -198,7 +199,7 @@ describe('JsonldValidationService', () => {
   });
 
   describe('validateSentences', () => {
-    it('should detect empty strings', async () => {
+    it('should detect empty strings and missing definitions', async () => {
       // Mock findQuads to return a Literal as a definition without a capital at the beginning
       const nonMatchingQuads = [
         df.quad(
@@ -229,17 +230,25 @@ describe('JsonldValidationService', () => {
           ),
           df.literal(''),
         ),
+        df.quad(
+          df.namedNode(''),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocUsageNote',
+          ),
+          df.literal(''),
+        ),
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
       const result = (<any>service).validateSentences();
       expect(result.isValid).toBe(false);
 
-      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries).toHaveLength(5);
       expect(result.invalidEntries[0].uri).toBe('http://subject/apDefinition');
       expect(result.invalidEntries[1].uri).toBe('http://subject/vocDefinition');
       expect(result.invalidEntries[2].uri).toBe('http://subject/apUsageNote');
       expect(result.invalidEntries[3].uri).toBe('http://subject/vocUsageNote');
+      expect(result.invalidEntries[4].uri).toBe('');
     });
 
     it('should detect TODOs and FIXMEs', async () => {

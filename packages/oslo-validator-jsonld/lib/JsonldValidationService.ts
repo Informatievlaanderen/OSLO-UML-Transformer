@@ -9,7 +9,7 @@ import {
 import { inject, injectable } from 'inversify';
 import type * as RDF from '@rdfjs/types';
 import { JsonldValidationServiceConfiguration } from './config/JsonldValidationServiceConfiguration';
-import { ValidationResult } from './types/Validation';
+import { InvalidEntry, ValidationResult } from './types/Validation';
 
 @injectable()
 export class JsonldValidationService implements IService {
@@ -22,7 +22,7 @@ export class JsonldValidationService implements IService {
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
     configuration: JsonldValidationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore
   ) {
     this.logger = logger;
     this.configuration = configuration;
@@ -45,41 +45,41 @@ export class JsonldValidationService implements IService {
 
     if (resultUris.isValid) {
       this.logger.info(
-        'Validation successful! All assigned URIs are whitelisted.',
+        'Validation successful! All assigned URIs are whitelisted.'
       );
     } else {
       this.logger.info(
-        `Validation found ${resultUris.invalidEntries.length} non-whitelisted assigned URIs`,
+        `Validation found ${resultUris.invalidEntries.length} non-whitelisted assigned URIs`
       );
     }
 
     if (resultSentences.isValid) {
       this.logger.info(
-        'Validation successful! All sentences seem to be valid, no spelling mistakes found.',
+        'Validation successful! All sentences seem to be valid, no spelling mistakes found.'
       );
     } else {
       this.logger.info(
-        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes.`,
+        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes or missing definition(s).`
       );
     }
 
     if (resultLabels.isValid) {
       this.logger.info(
-        'Validation successful! All labels seem to be valid, no spelling mistakes found.',
+        'Validation successful! All labels seem to be valid, no spelling mistakes found.'
       );
     } else {
       this.logger.info(
-        `Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes.`,
+        `Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes.`
       );
     }
 
     if (resultBaseURIs.isValid) {
       this.logger.info(
-        'Validation successful! All base URIs seem to be valid.',
+        'Validation successful! All base URIs seem to be valid.'
       );
     } else {
       this.logger.info(
-        `Validation found ${resultLabels.invalidEntries.length} invalid base URIs.`,
+        `Validation found ${resultLabels.invalidEntries.length} invalid base URIs.`
       );
     }
   }
@@ -93,22 +93,21 @@ export class JsonldValidationService implements IService {
 
       if (!Array.isArray(whitelistFromFile)) {
         throw new Error(
-          'Whitelist file must contain a JSON array of URI prefixes',
+          'Whitelist file must contain a JSON array of URI prefixes'
         );
       }
 
       if (!whitelistFromFile.length) {
         throw new Error(
-          'Whitelist is empty. Must contain at least one URI prefix',
+          'Whitelist is empty. Must contain at least one URI prefix'
         );
       }
 
       this.whitelist = whitelistFromFile;
       this.logger.info(
-        `Loaded ${this.whitelist.length} URI prefixes into whitelist`,
+        `Loaded ${this.whitelist.length} URI prefixes into whitelist`
       );
     } catch (error) {
-      console.log(error);
       throw new Error(`Failed to load whitelist from ${filePath}`);
     }
   }
@@ -137,7 +136,7 @@ export class JsonldValidationService implements IService {
   private validateTerm(
     term: RDF.Term,
     quad: RDF.Quad,
-    result: ValidationResult,
+    result: ValidationResult
   ): void {
     if (term.termType !== 'NamedNode') {
       return;
@@ -147,12 +146,12 @@ export class JsonldValidationService implements IService {
 
     // Check if URI is in whitelist
     const isWhitelisted = this.whitelist.some(
-      (prefix) => uri === prefix || uri.startsWith(prefix),
+      (prefix) => uri === prefix || uri.startsWith(prefix)
     );
 
     if (!isWhitelisted) {
       this.logger.warn(
-        `Found non-whitelisted assigned URI: ${uri} for subject: ${quad.subject.value}`,
+        `Found non-whitelisted assigned URI: ${uri} for subject: ${quad.subject.value}`
       );
       result.invalidEntries.push({
         uri,
@@ -167,65 +166,138 @@ export class JsonldValidationService implements IService {
       invalidEntries: [],
     };
 
-    // Find all quads with apDefinition, vocDefinition, apUsageNote, vocUsageNote predicate
-    const apDefinitionPredicate = ns.oslo('apDefinition');
-    const vocDefinitionPredicate = ns.oslo('vocDefinition');
-    const apUsageNotePredicate = ns.oslo('apUsageNote');
-    const vocUsageNotePredicate = ns.oslo('vocUsageNote');
-    let quads: any[] = [
-      ...this.store.findQuads(null, apDefinitionPredicate, null),
-      ...this.store.findQuads(null, vocDefinitionPredicate, null),
-      ...this.store.findQuads(null, apUsageNotePredicate, null),
-      ...this.store.findQuads(null, vocUsageNotePredicate, null),
+    // Find all quads with apLabel and vocLabel to get all entities
+    const apLabelPredicate = ns.oslo('apLabel');
+    const vocLabelPredicate = ns.oslo('vocLabel');
+
+    let labelQuads: RDF.Quad[] = [
+      ...this.store.findQuads(null, apLabelPredicate, null),
+      ...this.store.findQuads(null, vocLabelPredicate, null),
     ];
 
-    for (const quad of quads) {
-      if (quad.object.termType === 'Literal') {
-        const uri: string = quad.subject.value;
-        const value: string = quad.object.value;
+    // Get unique subjects from label quads
+    const uniqueSubjects = new Set(
+      labelQuads.map((quad) => quad.subject.value)
+    );
 
-        if (this.checkIsEmpty(value)) {
-          this.logger.warn(`Found empty sentence for subject: ${uri}`);
-          result.invalidEntries.push({
-            uri,
-            location: `Sentences may not be empty strings: ${value}`,
-          });
-          continue;
+    for (const subjectValue of uniqueSubjects) {
+      const subject = labelQuads.find(
+        (quad) => quad.subject.value === subjectValue
+      )?.subject;
+      if (!subject) continue;
+
+      // Check what types of labels exist for this subject
+      const hasApLabel =
+        this.store.findQuads(subject, ns.oslo('apLabel'), null).length > 0;
+      const hasVocLabel =
+        this.store.findQuads(subject, ns.oslo('vocLabel'), null).length > 0;
+
+      // Get the assignedURI for this subject to check domain
+      const assignedURIQuads = this.store.findQuads(
+        subject,
+        ns.oslo('assignedURI'),
+        null
+      );
+      const assignedURI =
+        assignedURIQuads.length > 0 ? assignedURIQuads[0].object.value : null;
+      const isInPublicationEnvironment: boolean = assignedURI
+        ? assignedURI.includes(this.configuration.publicationEnvironment)
+        : false;
+
+      // Check for definitions
+      const apDefinitions = this.store.findQuads(
+        subject,
+        ns.oslo('apDefinition'),
+        null
+      );
+      const vocDefinitions = this.store.findQuads(
+        subject,
+        ns.oslo('vocDefinition'),
+        null
+      );
+
+      // Check for usage notes (optional, but if present, must be valid)
+      const apUsageNotes = this.store.findQuads(
+        subject,
+        ns.oslo('apUsageNote'),
+        null
+      );
+      const vocUsageNotes = this.store.findQuads(
+        subject,
+        ns.oslo('vocUsageNote'),
+        null
+      );
+
+      // Validation logic based on domain and labels
+      if (isInPublicationEnvironment) {
+        // For publication environment domain: match definitions to labels
+        if (hasApLabel && hasVocLabel) {
+          // Both labels exist - At least one definition is required
+          if (!apDefinitions.length && !vocDefinitions.length) {
+            this.logger.warn(
+              `Missing either apDefinition or vocDefinition for ${this.configuration.publicationEnvironment} subject with both apLabel and vocLabel: ${subjectValue}`
+            );
+            result.invalidEntries.push({
+              uri: subjectValue,
+              location: `Entity with both apLabel and vocLabel from ${this.configuration.publicationEnvironment} domain must have either apDefinition or vocDefinition`,
+            });
+          }
+        } else if (hasApLabel && !hasVocLabel) {
+          // Only apLabel exists - apDefinition is required
+          if (!apDefinitions.length && !vocDefinitions.length) {
+            this.logger.warn(
+              `Missing apDefinition for ${this.configuration.publicationEnvironment} subject with apLabel: ${subjectValue}`
+            );
+            result.invalidEntries.push({
+              uri: subjectValue,
+              location: `Entity with apLabel from ${this.configuration.publicationEnvironment} domain must have apDefinition`,
+            });
+          } else if (vocDefinitions.length) {
+            // Using vocDefinition as fallback
+            this.logger.info(
+              `Using vocDefinition as fallback for subject without apDefinition: ${subjectValue}`
+            );
+          }
+        } else if (!hasApLabel && hasVocLabel) {
+          // Only vocLabel exists - vocDefinition is required
+          if (!vocDefinitions.length) {
+            this.logger.warn(
+              `Missing vocDefinition for ${this.configuration.publicationEnvironment} subject with vocLabel: ${subjectValue}`
+            );
+            result.invalidEntries.push({
+              uri: subjectValue,
+              location: `Entity with vocLabel from ${this.configuration.publicationEnvironment} domain must have vocDefinition`,
+            });
+          }
         }
-
-        if (this.checkHasTODO(value)) {
+      } else {
+        // For external domains: apDefinition is preferred, vocDefinition can be fallback
+        if (!apDefinitions.length && !vocDefinitions.length) {
           this.logger.warn(
-            `Found a TODO or FIXME in sentence: '${value}' for subject: ${uri}`,
+            `Missing either apDefinition or vocDefinition for external domain subject: ${subjectValue}`
           );
           result.invalidEntries.push({
-            uri,
-            location: `Sentences must not contain any TODOs or FIXMEs: ${value}`,
+            uri: subjectValue,
+            location: `Entity from external domain must have either apDefinition or vocDefinition`,
           });
-          continue;
-        }
-
-        if (!this.checkStartsWithCapital(value)) {
-          this.logger.warn(
-            `Found sentence without capital letter: '${value}' for subject: ${uri}`,
+        } else if (!apDefinitions.length && vocDefinitions.length) {
+          // Using vocDefinition as fallback for external entity
+          this.logger.info(
+            `Using vocDefinition as fallback for external entity without apDefinition: ${subjectValue}`
           );
-          result.invalidEntries.push({
-            uri,
-            location: `Sentence must start with a capital: ${value}`,
-          });
-          continue;
-        }
-
-        if (!this.checkEndsWithDot(value)) {
-          this.logger.warn(
-            `Found sentence without a '.': '${value}' for subject: ${uri}`,
-          );
-          result.invalidEntries.push({
-            uri,
-            location: `Sentence must end with a '.': ${value}`,
-          });
-          continue;
         }
       }
+
+      const allDefinitions = [...apDefinitions, ...vocDefinitions];
+      const allUsageNotes = [...apUsageNotes, ...vocUsageNotes];
+
+      result.invalidEntries = [
+        ...result.invalidEntries,
+        // Validate all existing definitions (same validation logic as before)
+        ...this.validateDefinitions(allDefinitions),
+        // Validate usage notes if they exist (same validation logic as before)
+        ...this.validateUsageNotes(allUsageNotes),
+      ];
     }
 
     result.isValid = !result.invalidEntries.length;
@@ -262,7 +334,7 @@ export class JsonldValidationService implements IService {
 
         if (this.checkHasTODO(value)) {
           this.logger.warn(
-            `Found a TODO or FIXME in label: '${value}' for subject: ${uri}`,
+            `Found a TODO or FIXME in label: '${value}' for subject: ${uri}`
           );
           result.invalidEntries.push({
             uri,
@@ -273,7 +345,7 @@ export class JsonldValidationService implements IService {
 
         if (this.checkEndsWithDot(value)) {
           this.logger.warn(
-            `Labels must not end with a '.': '${value}' for subject: ${uri}`,
+            `Labels must not end with a '.': '${value}' for subject: ${uri}`
           );
           result.invalidEntries.push({
             uri,
@@ -284,7 +356,7 @@ export class JsonldValidationService implements IService {
 
         if (!this.checkIsAlphanumeric(value)) {
           this.logger.warn(
-            `Labels must only contain alphabetical characters: '${value}' for subject: ${uri}`,
+            `Labels must only contain alphabetical characters: '${value}' for subject: ${uri}`
           );
           result.invalidEntries.push({
             uri,
@@ -338,8 +410,114 @@ export class JsonldValidationService implements IService {
     return result;
   }
 
+  private validateDefinitions(definitions: RDF.Quad[]): InvalidEntry[] {
+    const invalidEntries: InvalidEntry[] = [];
+    for (const quad of definitions) {
+      if (quad.object.termType === 'Literal') {
+        const uri: string = quad.subject.value;
+        const value: string = quad.object.value;
+
+        if (this.checkIsEmpty(value)) {
+          this.logger.warn(`Found empty definition for subject: ${uri}`);
+          invalidEntries.push({
+            uri,
+            location: `Definitions may not be empty strings: ${value}`,
+          });
+          continue;
+        }
+
+        if (this.checkHasTODO(value)) {
+          this.logger.warn(
+            `Found a TODO or FIXME in definition: '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Definitions must not contain any TODOs or FIXMEs: ${value}`,
+          });
+          continue;
+        }
+
+        if (!this.checkStartsWithCapital(value)) {
+          this.logger.warn(
+            `Found definition without capital letter: '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Definition must start with a capital: ${value}`,
+          });
+          continue;
+        }
+
+        if (!this.checkEndsWithDot(value)) {
+          this.logger.warn(
+            `Found definition without a '.': '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Definition must end with a '.': ${value}`,
+          });
+          continue;
+        }
+      }
+    }
+    return invalidEntries;
+  }
+
+  private validateUsageNotes(usageNotes: RDF.Quad[]): InvalidEntry[] {
+    const invalidEntries: InvalidEntry[] = [];
+    for (const quad of usageNotes) {
+      if (quad.object.termType === 'Literal') {
+        const uri: string = quad.subject.value;
+        const value: string = quad.object.value;
+
+        if (this.checkIsEmpty(value)) {
+          this.logger.warn(`Found empty usage note for subject: ${uri}`);
+          invalidEntries.push({
+            uri,
+            location: `Usage notes may not be empty strings: ${value}`,
+          });
+          continue;
+        }
+
+        if (this.checkHasTODO(value)) {
+          this.logger.warn(
+            `Found a TODO or FIXME in usage note: '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Usage notes must not contain any TODOs or FIXMEs: ${value}`,
+          });
+          continue;
+        }
+
+        if (!this.checkStartsWithCapital(value)) {
+          this.logger.warn(
+            `Found usage note without capital letter: '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Usage note must start with a capital: ${value}`,
+          });
+          continue;
+        }
+
+        if (!this.checkEndsWithDot(value)) {
+          this.logger.warn(
+            `Found usage note without a '.': '${value}' for subject: ${uri}`
+          );
+          invalidEntries.push({
+            uri,
+            location: `Usage note must end with a '.': ${value}`,
+          });
+          continue;
+        }
+      }
+    }
+    return invalidEntries;
+  }
+
   private checkIsEmpty(value: string): boolean {
-    return value.length === 0;
+    return !value.length;
   }
 
   private checkHasTODO(value: string): boolean {
