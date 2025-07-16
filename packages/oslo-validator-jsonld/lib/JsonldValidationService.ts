@@ -40,6 +40,7 @@ export class JsonldValidationService implements IService {
   public async run(): Promise<void> {
     const resultUris = this.validateUris();
     const resultSentences = this.validateSentences();
+    const resultDefinitionExistence = this.validateDefinitionExistence();
     const resultLabels = this.validateLabels();
     const resultBaseURIs = this.validateBaseURIs();
 
@@ -59,7 +60,17 @@ export class JsonldValidationService implements IService {
       );
     } else {
       this.logger.info(
-        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes or missing definition(s).`
+        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes`
+      );
+    }
+
+    if (resultDefinitionExistence.isValid) {
+      this.logger.info(
+        'Validation successful! All definitions seem to be present.'
+      );
+    } else {
+      this.logger.info(
+        `Validation found ${resultDefinitionExistence.invalidEntries.length} definitions with missing content`
       );
     }
 
@@ -160,7 +171,8 @@ export class JsonldValidationService implements IService {
     }
   }
 
-  private validateSentences(): ValidationResult {
+
+  private validateDefinitionExistence(): ValidationResult {
     const result: ValidationResult = {
       isValid: true,
       invalidEntries: [],
@@ -188,9 +200,9 @@ export class JsonldValidationService implements IService {
 
       // Check what types of labels exist for this subject
       const hasApLabel =
-        this.store.findQuads(subject, ns.oslo('apLabel'), null).length > 0;
+        this.store.findQuads(subject, ns.oslo('apLabel'), null).length === 1;
       const hasVocLabel =
-        this.store.findQuads(subject, ns.oslo('vocLabel'), null).length > 0;
+        this.store.findQuads(subject, ns.oslo('vocLabel'), null).length === 1;
 
       // Get the assignedURI for this subject to check domain
       const assignedURIQuads = this.store.findQuads(
@@ -213,18 +225,6 @@ export class JsonldValidationService implements IService {
       const vocDefinitions = this.store.findQuads(
         subject,
         ns.oslo('vocDefinition'),
-        null
-      );
-
-      // Check for usage notes (optional, but if present, must be valid)
-      const apUsageNotes = this.store.findQuads(
-        subject,
-        ns.oslo('apUsageNote'),
-        null
-      );
-      const vocUsageNotes = this.store.findQuads(
-        subject,
-        ns.oslo('vocUsageNote'),
         null
       );
 
@@ -287,18 +287,50 @@ export class JsonldValidationService implements IService {
           );
         }
       }
-
-      const allDefinitions = [...apDefinitions, ...vocDefinitions];
-      const allUsageNotes = [...apUsageNotes, ...vocUsageNotes];
-
-      result.invalidEntries = [
-        ...result.invalidEntries,
-        // Validate all existing definitions (same validation logic as before)
-        ...this.validateDefinitions(allDefinitions),
-        // Validate usage notes if they exist (same validation logic as before)
-        ...this.validateUsageNotes(allUsageNotes),
-      ];
     }
+
+    result.isValid = !result.invalidEntries.length;
+    return result;
+  }
+
+  private validateSentences(): ValidationResult {
+    const result: ValidationResult = {
+      isValid: true,
+      invalidEntries: [],
+    };
+
+    // Find all definition and usage note quads
+    const apDefinitionQuads = this.store.findQuads(
+      null,
+      ns.oslo('apDefinition'),
+      null
+    );
+    const vocDefinitionQuads = this.store.findQuads(
+      null,
+      ns.oslo('vocDefinition'),
+      null
+    );
+    const apUsageNoteQuads = this.store.findQuads(
+      null,
+      ns.oslo('apUsageNote'),
+      null
+    );
+    const vocUsageNoteQuads = this.store.findQuads(
+      null,
+      ns.oslo('vocUsageNote'),
+      null
+    );
+
+    const allDefinitions = [...apDefinitionQuads, ...vocDefinitionQuads];
+    const allUsageNotes = [...apUsageNoteQuads, ...vocUsageNoteQuads];
+
+    result.invalidEntries = [
+      ...result.invalidEntries,
+      // Validate all existing definitions for spelling/format issues
+      ...this.validateDefinitions(allDefinitions),
+      // Validate usage notes if they exist for spelling/format issues
+      ...this.validateUsageNotes(allUsageNotes),
+    ];
 
     result.isValid = !result.invalidEntries.length;
     return result;
