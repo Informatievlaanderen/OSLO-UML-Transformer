@@ -27,6 +27,7 @@
   "http://www.opengis.net/ont/geosparql#",
   "http://www.opengis.net/ont/sf#",
   "http://data.europa.eu/m8g/",
+  "http://data.europa.eu/it6/",
   "http://xmlns.com/foaf/0.1/",
   "http://www.cidoc-crm.org/cidoc-crm/",
   "https://periodo.github.io/edtf-ontology/edtfo.ttl#",
