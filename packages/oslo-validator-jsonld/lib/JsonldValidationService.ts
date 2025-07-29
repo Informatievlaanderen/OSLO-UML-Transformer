@@ -366,7 +366,7 @@ export class JsonldValidationService implements IService {
   }
 
   private checkIsAlphanumeric(value: string): boolean {
-    return value.match(/^[a-zA-Z0-9\s]+$/i) !== null;
+    return value.match(/^[a-z0-9éëïöü\s]+$/i) !== null;
   }
 
   private checkEndsWithHashOrDash(value: string): boolean {

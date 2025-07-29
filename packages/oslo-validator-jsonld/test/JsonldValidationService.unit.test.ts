@@ -477,6 +477,13 @@ describe('JsonldValidationService', () => {
           ),
           df.literal('voc-label@'),
         ),
+        df.quad(
+          df.namedNode('http://subject/vocLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('geïmplementeerd'),
+        ),
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
