@@ -250,12 +250,12 @@ describe('JsonLdOutputHandler', () => {
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('maxCount'),
-        df.literal('1'),
+        df.literal('1', ns.xsd('integer')),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
         ns.shacl('minCount'),
-        df.literal('1'),
+        df.literal('1', ns.xsd('integer')),
       ),
       df.quad(
         df.namedNode('urn:oslo-toolchain:property:1'),
@@ -300,8 +300,8 @@ describe('JsonLdOutputHandler', () => {
           parent: {
             '@id': 'http://example.org/id/property/2',
           },
-          minCount: '1',
-          maxCount: '1',
+          minCount: { '@value': '1', '@type': 'http://www.w3.org/2001/XMLSchema#integer' },
+          maxCount: { '@value': '1', '@type': 'http://www.w3.org/2001/XMLSchema#integer' },
           scope: 'http://example.org/id/scope/A',
         }),
       ]),

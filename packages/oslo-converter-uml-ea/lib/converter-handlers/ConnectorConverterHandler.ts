@@ -307,12 +307,12 @@ export class ConnectorConverterHandler extends ConverterHandler<NormalizedConnec
         this.df.quad(
           connectorInternalId,
           ns.shacl('minCount'),
-          this.df.literal(minCardinality),
+          this.df.literal(minCardinality, ns.xsd('integer')),
         ),
         this.df.quad(
           connectorInternalId,
           ns.shacl('maxCount'),
-          this.df.literal(maxCardinality),
+          this.df.literal(maxCardinality, ns.xsd('integer')),
         ),
       );
     } else {
