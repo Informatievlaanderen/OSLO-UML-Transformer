@@ -19,7 +19,11 @@ export class JsonldValidationServiceRunner extends AppRunner<
         describe:
           'Local path or URL to whitelist file (JSON array of URI prefixes).',
       })
-      .demandOption(['input', 'whitelist'])
+      .option('publicationEnvironment', {
+        describe:
+          'The base URI of environment where the document will be published',
+      })
+      .demandOption(['input', 'whitelist', 'publicationEnvironment'])
       .help('h')
       .alias('h', 'help');
 
