@@ -396,7 +396,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -424,7 +424,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -452,7 +452,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -468,7 +468,7 @@ describe('JsonldValidationService', () => {
           df.namedNode(
             'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
           ),
-          df.literal('ap label'),
+          df.literal('ap label&'),
         ),
         df.quad(
           df.namedNode('http://subject/vocLabel'),
@@ -477,10 +477,17 @@ describe('JsonldValidationService', () => {
           ),
           df.literal('voc-label@'),
         ),
+        df.quad(
+          df.namedNode('http://subject/accentLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('geïmplementeerd'),
+        ),
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
