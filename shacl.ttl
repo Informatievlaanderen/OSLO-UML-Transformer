@@ -1,0 +1,1404 @@
+<https://data.vlaanderen.be/> <http://www.w3.org/2000/01/rdf-schema#member> <https://data.vlaanderen.be/AgentShape>, <https://data.vlaanderen.be/PubliekeOrganisatieShape>, <https://data.vlaanderen.be/InfrastructuurreservatiedienstShape>, <https://data.vlaanderen.be/InfrastructuurreservatieShape>, <https://data.vlaanderen.be/FaciliteitShape>, <https://data.vlaanderen.be/InfrastructuurShape>, <https://data.vlaanderen.be/GebruikShape>, <https://data.vlaanderen.be/EigenaarschapShape>, <https://data.vlaanderen.be/DocumentShape>, <https://data.vlaanderen.be/ReservatieShape>, <https://data.vlaanderen.be/PubliekeDienstverleningShape>, <https://data.vlaanderen.be/BinnenruimteShape>, <https://data.vlaanderen.be/BuitenruimteShape>, <https://data.vlaanderen.be/ActiviteitShape>, <https://data.vlaanderen.be/OrganisatieShape>, <https://data.vlaanderen.be/EenheidShape>, <https://data.vlaanderen.be/ConceptShape>, <https://data.vlaanderen.be/PlaatsbeschrijvingShape>, <https://data.vlaanderen.be/CriteriumShape>, <https://data.vlaanderen.be/PlaatsShape>, <https://data.vlaanderen.be/PersoonShape>, <https://data.vlaanderen.be/LocatieShape>, <https://data.vlaanderen.be/MomentShape>, <https://data.vlaanderen.be/DatetimeShape>, <https://data.vlaanderen.be/PeriodeShape>, <https://data.vlaanderen.be/LiteralShape>, <https://data.vlaanderen.be/LangstringShape>, <https://data.vlaanderen.be/KwantitatievewaardeShape>, <https://data.vlaanderen.be/GeometrieShape>, <https://data.vlaanderen.be/ParkeercapaciteitShape>, <https://data.vlaanderen.be/IntegerShape>, <https://data.vlaanderen.be/BereikbaarheidShape>, <https://data.vlaanderen.be/BeschikbaarheidShape>, <https://data.vlaanderen.be/CapaciteitShape>, <https://data.vlaanderen.be/DimensieShape>, <https://data.vlaanderen.be/AdresvoorstellingShape>, <https://data.vlaanderen.be/OpeningsurenspecificatieShape>, <https://data.vlaanderen.be/UriShape>, <https://data.vlaanderen.be/TimeShape>, <https://data.vlaanderen.be/GeografischeNaamShape>, <https://data.vlaanderen.be/StringShape>, <https://data.vlaanderen.be/InfrastructuurreservatiestatusShape>, <https://data.vlaanderen.be/ContactpuntShape>, <https://data.vlaanderen.be/VoertuigShape>, <https://data.vlaanderen.be/ToegankelijkheidShape>.
+<https://data.vlaanderen.be/01b24de6b5ca31830151da69cea8038e98045f39> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.dimensie>;
+    <http://www.w3.org/ns/shacl#name> "dimensie"@nl;
+    <http://www.w3.org/ns/shacl#description> "De afmetingen in iedere richting van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Dimensie>;
+    <http://www.w3.org/ns/shacl#class> <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>.
+<https://data.vlaanderen.be/01cd87ee6b44db682f82cf551d76f8594ca79637> <http://www.w3.org/ns/shacl#path> <https://schema.org/openingHours>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdstip waarop de infrastructuur beschikbaar is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Openingsuren>.
+<https://data.vlaanderen.be/01cd87ee6b44db682f82cf551d76f8594ca79637-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/openingHours>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdstip waarop de infrastructuur beschikbaar is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Openingsuren>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/032b055e6336d9b661992ae010235e97684b8751> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#totalCapacity>;
+    <http://www.w3.org/ns/shacl#name> "totale capaciteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geeft de capaciteit van een hulpbron aan. Bijvoorbeeld: parkeervoorziening, auto, fiets etc."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.TotaleCapaciteit>.
+<https://data.vlaanderen.be/032b055e6336d9b661992ae010235e97684b8751-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#totalCapacity>;
+    <http://www.w3.org/ns/shacl#name> "totale capaciteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geeft de capaciteit van een hulpbron aan. Bijvoorbeeld: parkeervoorziening, auto, fiets etc."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.TotaleCapaciteit>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/032b055e6336d9b661992ae010235e97684b8751-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#totalCapacity>;
+    <http://www.w3.org/ns/shacl#name> "totale capaciteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geeft de capaciteit van een hulpbron aan. Bijvoorbeeld: parkeervoorziening, auto, fiets etc."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.TotaleCapaciteit>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/03dfa5779bca313942b6c5cf81b835fb91df198c> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#parkeercapaciteit>;
+    <http://www.w3.org/ns/shacl#name> "parkeercapaciteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het aantal voertuigen dat in een specifieke parkeervoorziening kan worden ondergebracht."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Bereikbaarheid.Parkeercapaciteit>;
+    <http://www.w3.org/ns/shacl#class> <http://schema.mobivoc.org/#Capacity>.
+<https://data.vlaanderen.be/07b5c1ec073b948c2876339adb3697bac1318eae> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#addressArea>;
+    <http://www.w3.org/ns/shacl#name> "adresgebied"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van een geografisch gebied of plaats die een aantal adresseerbare objecten groepeert om deze te adresseren zonder dat het gebied of de plaats een administratieve eenheid is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Adresgebied>.
+<https://data.vlaanderen.be/07b5c1ec073b948c2876339adb3697bac1318eae-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#addressArea>;
+    <http://www.w3.org/ns/shacl#name> "adresgebied"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van een geografisch gebied of plaats die een aantal adresseerbare objecten groepeert om deze te adresseren zonder dat het gebied of de plaats een administratieve eenheid is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Adresgebied>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/0907e3d55ff15a125d25dedbaad01ef0a2d47ffe> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#type>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuurreservatiestatustype"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Infrastructuurreservatiestatustype>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/0907e3d55ff15a125d25dedbaad01ef0a2d47ffe-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#type>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuurreservatiestatustype"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Infrastructuurreservatiestatustype>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/0907e3d55ff15a125d25dedbaad01ef0a2d47ffe-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#type>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuurreservatiestatustype"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Infrastructuurreservatiestatustype>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/0a7f43eec2298b6b80e0857a9d9fb991817e2e13> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#infrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "Onroerende of roerende voorziening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Infrastructuur>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/0a7f43eec2298b6b80e0857a9d9fb991817e2e13-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#infrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "Onroerende of roerende voorziening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Infrastructuur>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/0a7f43eec2298b6b80e0857a9d9fb991817e2e13-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#infrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "Onroerende of roerende voorziening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Infrastructuur>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/0a9255fe963ee22e4b02dab699b829a58ca4600a> <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
+    <http://www.w3.org/ns/shacl#name> "als GML"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie uitgedrukt in gml-formaat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Geometrie.AlsGml>.
+<https://data.vlaanderen.be/0a9255fe963ee22e4b02dab699b829a58ca4600a-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
+    <http://www.w3.org/ns/shacl#name> "als GML"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie uitgedrukt in gml-formaat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Geometrie.AlsGml>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/12acc1dcc40fc737d70eeb7d982a3f9110b2672a> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.capaciteit>;
+    <http://www.w3.org/ns/shacl#name> "capaciteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het bevattingsvermogen of de bezetting van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Capaciteit>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Capaciteit>.
+<https://data.vlaanderen.be/13371ceb6d39af1f5f2befddcf6c8915009cd170> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/PeriodOfTime>;
+    <http://www.w3.org/ns/shacl#name> "periode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdsinterval waarin een infrastructuur beschikbaar is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Periode>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/13371ceb6d39af1f5f2befddcf6c8915009cd170-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/PeriodOfTime>;
+    <http://www.w3.org/ns/shacl#name> "periode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdsinterval waarin een infrastructuur beschikbaar is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Periode>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/151c99b90d7f0068d5d075551ccaa73e17e45ada> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "voertuigtype"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het soort voertuig."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Voertuig.Voertuigtype>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/151c99b90d7f0068d5d075551ccaa73e17e45ada-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "voertuigtype"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het soort voertuig."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Voertuig.Voertuigtype>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/151c99b90d7f0068d5d075551ccaa73e17e45ada-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "voertuigtype"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het soort voertuig."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Voertuig.Voertuigtype>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/16973f3ea1d247df0e291ad4988dd72423af98be> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.gebruiker>;
+    <http://www.w3.org/ns/shacl#name> "gebruiker"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent die gebruik maakt van de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Gebruiker>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/1c33f2cfc603e85427302ac6a7182d2463b07546> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#buffer>;
+    <http://www.w3.org/ns/shacl#name> "buffer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode die tijd of ruimte creëert voor een proces of handeling."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Buffer>;
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/PeriodOfTime>.
+<https://data.vlaanderen.be/1ca443628d2837b5e5f8d77e2b6abcaaadecd859> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2000/01/rdf-schema#label>;
+    <http://www.w3.org/ns/shacl#name> "plaatsnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van de plaats of van het gebied."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaats.Plaatsnaam>.
+<https://data.vlaanderen.be/1ca443628d2837b5e5f8d77e2b6abcaaadecd859-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2000/01/rdf-schema#label>;
+    <http://www.w3.org/ns/shacl#name> "plaatsnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van de plaats of van het gebied."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaats.Plaatsnaam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/1ca443628d2837b5e5f8d77e2b6abcaaadecd859-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2000/01/rdf-schema#label>;
+    <http://www.w3.org/ns/shacl#name> "plaatsnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van de plaats of van het gebied."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaats.Plaatsnaam>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/223084aea0573518d23402bfceb2bfdb472312fa> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.periode>;
+    <http://www.w3.org/ns/shacl#name> "periode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Een bepaald tijdsbestek waarin een Infrastructuur wordt gebruikt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Periode>;
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/PeriodOfTime>.
+<https://data.vlaanderen.be/223084aea0573518d23402bfceb2bfdb472312fa-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.periode>;
+    <http://www.w3.org/ns/shacl#name> "periode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Een bepaald tijdsbestek waarin een Infrastructuur wordt gebruikt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Periode>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/PeriodOfTime>.
+<https://data.vlaanderen.be/24ac1e9e70f326c633887bb508ff3c840bc65bab> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Details van de plaatsbeschrijving."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Beschrijving>.
+<https://data.vlaanderen.be/24ac1e9e70f326c633887bb508ff3c840bc65bab-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Details van de plaatsbeschrijving."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Beschrijving>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/24ac1e9e70f326c633887bb508ff3c840bc65bab-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Details van de plaatsbeschrijving."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Beschrijving>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/2afb7273a17d5098872611991ebc6c26cc5b7a57> <http://www.w3.org/ns/shacl#path> <https://schema.org/hoursAvailable>;
+    <http://www.w3.org/ns/shacl#name> "uren beschikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode waarin contact kan worden opgenomen."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.UrenBeschikbaarheid>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/2afb7273a17d5098872611991ebc6c26cc5b7a57-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/hoursAvailable>;
+    <http://www.w3.org/ns/shacl#name> "uren beschikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode waarin contact kan worden opgenomen."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.UrenBeschikbaarheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/2e1a8934a54f9b22ea540b7c5e92b23a8ec198a3> <http://www.w3.org/ns/shacl#path> <https://schema.org/contactPoint>;
+    <http://www.w3.org/ns/shacl#name> "contactinfo"@nl;
+    <http://www.w3.org/ns/shacl#description> "Contactgegevens die al dan niet publiek zijn."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Persoon.Contactinfo>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/2e1a8934a54f9b22ea540b7c5e92b23a8ec198a3-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/contactPoint>;
+    <http://www.w3.org/ns/shacl#name> "contactinfo"@nl;
+    <http://www.w3.org/ns/shacl#description> "Contactgegevens die al dan niet publiek zijn."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Persoon.Contactinfo>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/2f805e492e0ebd8a1678f1e44fd588ed3cd7c4de> <http://www.w3.org/ns/shacl#path> <https://periodo.github.io/edtf-ontology/edtfo.ttl#hasEDTFDateTimeDescription>;
+    <http://www.w3.org/ns/shacl#name> "in EDTF"@nl;
+    <http://www.w3.org/ns/shacl#description> "Positie van een Moment, uitgedrukt in EDTF."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Moment.InEdtf>.
+<https://data.vlaanderen.be/2f805e492e0ebd8a1678f1e44fd588ed3cd7c4de-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://periodo.github.io/edtf-ontology/edtfo.ttl#hasEDTFDateTimeDescription>;
+    <http://www.w3.org/ns/shacl#name> "in EDTF"@nl;
+    <http://www.w3.org/ns/shacl#description> "Positie van een Moment, uitgedrukt in EDTF."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Moment.InEdtf>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/2fbdc437ccb15c7c8f50167a6671164d314a96dc> <http://www.w3.org/ns/shacl#path> <https://periodo.github.io/edtf-ontology/edtfo.ttl#hasEDTFDateTimeDescription>;
+    <http://www.w3.org/ns/shacl#name> "in EDTF"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode uitgedrukt in EDTF."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.InEdtf>.
+<https://data.vlaanderen.be/2fbdc437ccb15c7c8f50167a6671164d314a96dc-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://periodo.github.io/edtf-ontology/edtfo.ttl#hasEDTFDateTimeDescription>;
+    <http://www.w3.org/ns/shacl#name> "in EDTF"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode uitgedrukt in EDTF."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.InEdtf>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/2ff75fc949f69609e4fadc77c296c83214ff297d> <http://www.w3.org/ns/shacl#path> <https://schema.org/contactPoint>;
+    <http://www.w3.org/ns/shacl#name> "contactinfo"@nl;
+    <http://www.w3.org/ns/shacl#description> "Contactgegevens die al dan niet publiek zijn."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Organisatie.Contactinfo>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/2ff75fc949f69609e4fadc77c296c83214ff297d-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/contactPoint>;
+    <http://www.w3.org/ns/shacl#name> "contactinfo"@nl;
+    <http://www.w3.org/ns/shacl#description> "Contactgegevens die al dan niet publiek zijn."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Organisatie.Contactinfo>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/30c24886f822601476d2c03909c90f7b2e3c39e0> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/hasContactPoint>;
+    <http://www.w3.org/ns/shacl#name> "heeft contactpunt"@nl;
+    <http://www.w3.org/ns/shacl#description> "Informatie waarmee de publieke dienstverlening kan worden gecontacteerd."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.HeeftContactpunt>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/30c24886f822601476d2c03909c90f7b2e3c39e0-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/hasContactPoint>;
+    <http://www.w3.org/ns/shacl#name> "heeft contactpunt"@nl;
+    <http://www.w3.org/ns/shacl#description> "Informatie waarmee de publieke dienstverlening kan worden gecontacteerd."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.HeeftContactpunt>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/386da78c6c76398e3008ba3cc830cfd29022ac70> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#Gemeentenaam>;
+    <http://www.w3.org/ns/shacl#name> "gemeentenaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Gemeentenaam van het adres."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Gemeentenaam>.
+<https://data.vlaanderen.be/386da78c6c76398e3008ba3cc830cfd29022ac70-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#Gemeentenaam>;
+    <http://www.w3.org/ns/shacl#name> "gemeentenaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Gemeentenaam van het adres."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Gemeentenaam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/3c353e4eb8a9e4ac0fb8f89edca6177116cbb396> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#annuleringsvoorwaarden>;
+    <http://www.w3.org/ns/shacl#name> "annuleringsvoorwaarden"@nl;
+    <http://www.w3.org/ns/shacl#description> "De voorwaarde(n) die noodzakelijk is (zijn) om een bepaalde reservatie te annuleren."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Annuleringsvoorwaarden>.
+<https://data.vlaanderen.be/3c353e4eb8a9e4ac0fb8f89edca6177116cbb396-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#annuleringsvoorwaarden>;
+    <http://www.w3.org/ns/shacl#name> "annuleringsvoorwaarden"@nl;
+    <http://www.w3.org/ns/shacl#description> "De voorwaarde(n) die noodzakelijk is (zijn) om een bepaalde reservatie te annuleren."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Annuleringsvoorwaarden>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/3dbdcaa732cdddfd302fe75b4dbfc08b12d94570> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Soort publieke dienstverlening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/3dd160f436a666fd484321c47eb813c70fdca921> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort Buitenruimte verbonden aan de infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Buitenruimte.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/3f1c45b55c8eb5cb8577c6331009363894a6cf2d> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid.laasteOpenbaarVervoer>;
+    <http://www.w3.org/ns/shacl#name> "laatste openbaar vervoer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdstip waarop het openbaar vervoer ten laatste gebruikt kan worden op de bestemming."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Bereikbaarheid.LaatsteOpenbaarVervoer>.
+<https://data.vlaanderen.be/3f1c45b55c8eb5cb8577c6331009363894a6cf2d-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid.laasteOpenbaarVervoer>;
+    <http://www.w3.org/ns/shacl#name> "laatste openbaar vervoer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het tijdstip waarop het openbaar vervoer ten laatste gebruikt kan worden op de bestemming."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Bereikbaarheid.LaatsteOpenbaarVervoer>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/4217849c36aa4847caafbe2292b7dd935fff4dc2> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/hasCompetentAuthority>;
+    <http://www.w3.org/ns/shacl#name> "heeft verantwoordelijke"@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.HeeftVerantwoordelijke>;
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/PublicOrganisation>.
+<https://data.vlaanderen.be/4708a696983b478658e785723f76d3ceeed1ff3f> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/doelgericht-digitaal-transformeren#Gebruik.activiteit>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort activiteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Activiteit.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/47323cbb52f50e5c164beeb09ee5ba2bb46fc404> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
+    <http://www.w3.org/ns/shacl#name> "geometrie"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie van de plaats of het gebied."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaats.Geometrie>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Geometry>.
+<https://data.vlaanderen.be/47323cbb52f50e5c164beeb09ee5ba2bb46fc404-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
+    <http://www.w3.org/ns/shacl#name> "geometrie"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie van de plaats of het gebied."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaats.Geometrie>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Geometry>.
+<https://data.vlaanderen.be/48779cfe6628734340410a98a8b416472513bcd3> <http://www.w3.org/ns/shacl#path> <http://data.europa.eu/m8g/hasContactPoint>;
+    <http://www.w3.org/ns/shacl#name> "contactinfo"@nl;
+    <http://www.w3.org/ns/shacl#description> "Adres vd vestiging."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#PubliekeOrganisatie.Contactinfo>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/ContactPoint>.
+<https://data.vlaanderen.be/497addf23c3fd339be8412ba2cff1b1b37f41e08> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.bereikbaarheid>;
+    <http://www.w3.org/ns/shacl#name> "bereikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een Infrastructuur te bereiken is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Bereikbaarheid>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid>.
+<https://data.vlaanderen.be/497addf23c3fd339be8412ba2cff1b1b37f41e08-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.bereikbaarheid>;
+    <http://www.w3.org/ns/shacl#name> "bereikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een Infrastructuur te bereiken is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Bereikbaarheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid>.
+<https://data.vlaanderen.be/4c842da52b4549409ce12bcc353dcb39591e64f0> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#superInfrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "superinfrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "De infrastructuur die het groter geheel van infrastructuur vormt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Superinfrastructuur>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/4e5d4df988eb6a0250d3e9fcf01e8c89b42e2543> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+    <http://www.w3.org/ns/shacl#name> "ruimtelijke dekking"@nl;
+    <http://www.w3.org/ns/shacl#description> "Gebied waarin de publieke dienstverlening beschikbaar is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.RuimtelijkeDekking>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Location>.
+<https://data.vlaanderen.be/4fdc1c940d4855fb1b44d1129ad32785c04727cc> <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
+    <http://www.w3.org/ns/shacl#name> "als WKT"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie uitgedrukt in wkt-formaat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Geometrie.AlsWkt>.
+<https://data.vlaanderen.be/4fdc1c940d4855fb1b44d1129ad32785c04727cc-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
+    <http://www.w3.org/ns/shacl#name> "als WKT"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geometrie uitgedrukt in wkt-formaat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Geometrie.AlsWkt>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/507510ee866cf38ec389bdf722cf26886b23f498> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasEnd>;
+    <http://www.w3.org/ns/shacl#name> "tot"@nl;
+    <http://www.w3.org/ns/shacl#description> "Einde van de TemporeleEntiteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.Tot>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2006/time#Instant>.
+<https://data.vlaanderen.be/507510ee866cf38ec389bdf722cf26886b23f498-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasEnd>;
+    <http://www.w3.org/ns/shacl#name> "tot"@nl;
+    <http://www.w3.org/ns/shacl#description> "Einde van de TemporeleEntiteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.Tot>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2006/time#Instant>.
+<https://data.vlaanderen.be/50d64e5e7fcd561e6e3dd3ff810832001bd2cf8e> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "De numerieke hoeveelheid waarop de capaciteit betrekking heeft."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Waarde>.
+<https://data.vlaanderen.be/50d64e5e7fcd561e6e3dd3ff810832001bd2cf8e-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "De numerieke hoeveelheid waarop de capaciteit betrekking heeft."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Waarde>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/569ecfeda8cbd7676e503d4fc3d083c7027aa98d> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type van eigenaarschap verbonden aan de infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Eigenaarschap.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/569ecfeda8cbd7676e503d4fc3d083c7027aa98d-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type van eigenaarschap verbonden aan de infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Eigenaarschap.Type>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/5913ecbc33f32afff8f30e77f4a49c546740a5f7> <http://www.w3.org/ns/shacl#path> <http://purl.org/vocab/cpsv#produces>;
+    <http://www.w3.org/ns/shacl#name> "produceert"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het werkelijke resultaat van de uitvoering van de publieke dienstverlening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Produceert>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatie>.
+<https://data.vlaanderen.be/5ae4f557133ca1d0903e25e0926287199417f0ec> <http://www.w3.org/ns/shacl#path> <https://schema.org/validFrom>;
+    <http://www.w3.org/ns/shacl#name> "geldig van"@nl;
+    <http://www.w3.org/ns/shacl#description> "Datum vanaf wanneer de opgegeven openingsuren gelden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.GeldigVan>.
+<https://data.vlaanderen.be/5ae4f557133ca1d0903e25e0926287199417f0ec-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/validFrom>;
+    <http://www.w3.org/ns/shacl#name> "geldig van"@nl;
+    <http://www.w3.org/ns/shacl#description> "Datum vanaf wanneer de opgegeven openingsuren gelden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.GeldigVan>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/5f31c533149869d0b85329a687b90c6aad509379> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#infrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "infrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "Onroerende of roerende voorziening."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Infrastructuur>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/64b5675414c910835d0c0a51440e946c6f0edb37> <http://www.w3.org/ns/shacl#path> <https://schema.org/email>;
+    <http://www.w3.org/ns/shacl#name> "email"@nl;
+    <http://www.w3.org/ns/shacl#description> "Email-adres waarnaar men kan mailen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Email>.
+<https://data.vlaanderen.be/64b5675414c910835d0c0a51440e946c6f0edb37-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/email>;
+    <http://www.w3.org/ns/shacl#name> "email"@nl;
+    <http://www.w3.org/ns/shacl#description> "Email-adres waarnaar men kan mailen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Email>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/65931e97006e071390729a3479502cb9161596d8> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#veiligheidsvereisten>;
+    <http://www.w3.org/ns/shacl#name> "veiligheidsvereisten"@nl;
+    <http://www.w3.org/ns/shacl#description> "Expliciete voorwaarden en normen die zijn vastgesteld om ervoor te zorgen dat een product, systeem, dienst, of operatie geen risico's of schade oplevert voor mensen, eigendommen, de omgeving, of de integriteit van gegevens en processen."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Veiligheidsvereisten>;
+    <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Document>.
+<https://data.vlaanderen.be/6a5fc42266422f341bad2f677491ce780a25b479> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#postName>;
+    <http://www.w3.org/ns/shacl#name> "postnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postnaam>.
+<https://data.vlaanderen.be/6a5fc42266422f341bad2f677491ce780a25b479-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#postName>;
+    <http://www.w3.org/ns/shacl#name> "postnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postnaam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/6adb6fb432ce9ed5e12a057ed531cbd56d6cf9f9> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#altLabel>;
+    <http://www.w3.org/ns/shacl#name> "alternatieve label"@nl;
+    <http://www.w3.org/ns/shacl#description> "Andere naam waaronder de dienstverlening bekend is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.AlternatieveLabel>.
+<https://data.vlaanderen.be/6cfa015b7b8162144ed6a51773947b2179e5c42c> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Faciliteit.gebruiker>;
+    <http://www.w3.org/ns/shacl#name> "gebruiker"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type gebruiker en reden waarom er beroep wordt gedaan op de Faciliteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Faciliteit.Gebruiker>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/6f1f03f66e7403b9f06b896a163c7a40184a70b8> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.exclusiviteit>;
+    <http://www.w3.org/ns/shacl#name> "exclusiviteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin het gebruik van de Infrastructuur beperkt is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Exclusiviteit>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/6f1f03f66e7403b9f06b896a163c7a40184a70b8-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.exclusiviteit>;
+    <http://www.w3.org/ns/shacl#name> "exclusiviteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin het gebruik van de Infrastructuur beperkt is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Exclusiviteit>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/713056ce2c595bda265970dc08fe284d62a0d939> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#validForVehicle>;
+    <http://www.w3.org/ns/shacl#name> "geldig voor voertuig"@nl;
+    <http://www.w3.org/ns/shacl#description> "Soort voertuig waarvoor de parkeercapiciteit geldig is voor is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.GeldigVoorVoertuig>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/Vehicle>.
+<https://data.vlaanderen.be/713056ce2c595bda265970dc08fe284d62a0d939-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#validForVehicle>;
+    <http://www.w3.org/ns/shacl#name> "geldig voor voertuig"@nl;
+    <http://www.w3.org/ns/shacl#description> "Soort voertuig waarvoor de parkeercapiciteit geldig is voor is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.GeldigVoorVoertuig>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/Vehicle>.
+<https://data.vlaanderen.be/713056ce2c595bda265970dc08fe284d62a0d939-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://schema.mobivoc.org/#validForVehicle>;
+    <http://www.w3.org/ns/shacl#name> "geldig voor voertuig"@nl;
+    <http://www.w3.org/ns/shacl#description> "Soort voertuig waarvoor de parkeercapiciteit geldig is voor is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Parkeercapaciteit.GeldigVoorVoertuig>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/Vehicle>.
+<https://data.vlaanderen.be/717886234af8d3d6368d4a232208be4c51929ee5> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Beschikbaarheid.gebruiker>;
+    <http://www.w3.org/ns/shacl#name> "gebruiker"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type gebruiker dat over de infrastructuur mag beschikken."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Gebruiker>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/717886234af8d3d6368d4a232208be4c51929ee5-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Beschikbaarheid.gebruiker>;
+    <http://www.w3.org/ns/shacl#name> "gebruiker"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type gebruiker dat over de infrastructuur mag beschikken."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Beschikbaarheid.Gebruiker>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/7478d2b51eb70a990a4398af43b8f258fc370d9f> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/vcard/ns#honorific-prefix>;
+    <http://www.w3.org/ns/shacl#name> "aanschrijfprefix"@nl;
+    <http://www.w3.org/ns/shacl#description> "Titel waarmee iemand wordt aangeschreven of aangesproken of waarmee naar iemand wordt verwezen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Aanschrijfprefix>.
+<https://data.vlaanderen.be/7478d2b51eb70a990a4398af43b8f258fc370d9f-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/vcard/ns#honorific-prefix>;
+    <http://www.w3.org/ns/shacl#name> "aanschrijfprefix"@nl;
+    <http://www.w3.org/ns/shacl#description> "Titel waarmee iemand wordt aangeschreven of aangesproken of waarmee naar iemand wordt verwezen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Aanschrijfprefix>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/74d6c1f37ae06fc2c5e327e49e17e0dfae30a1f2> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#postCode>;
+    <http://www.w3.org/ns/shacl#name> "postcode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postcode>.
+<https://data.vlaanderen.be/74d6c1f37ae06fc2c5e327e49e17e0dfae30a1f2-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#postCode>;
+    <http://www.w3.org/ns/shacl#name> "postcode"@nl;
+    <http://www.w3.org/ns/shacl#description> "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postcode>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/7575298825c51e1992bba72b4d06715950242ac6> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.locatie>;
+    <http://www.w3.org/ns/shacl#name> "locatie"@nl;
+    <http://www.w3.org/ns/shacl#description> "De ligging van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Locatie>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/prov#Location>.
+<https://data.vlaanderen.be/7575298825c51e1992bba72b4d06715950242ac6-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.locatie>;
+    <http://www.w3.org/ns/shacl#name> "locatie"@nl;
+    <http://www.w3.org/ns/shacl#description> "De ligging van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Locatie>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/prov#Location>.
+<https://data.vlaanderen.be/7825d03647a817b6cd61b4ccb8244a3d95d141f8> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#land>;
+    <http://www.w3.org/ns/shacl#name> "land"@nl;
+    <http://www.w3.org/ns/shacl#description> "Land waarin het adres gelegen is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Land>.
+<https://data.vlaanderen.be/7825d03647a817b6cd61b4ccb8244a3d95d141f8-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#land>;
+    <http://www.w3.org/ns/shacl#name> "land"@nl;
+    <http://www.w3.org/ns/shacl#description> "Land waarin het adres gelegen is."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Land>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/7c3a8aef235f9feb8ab628b77beb2c1644bfc46d> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#Reservatie.periode>;
+    <http://www.w3.org/ns/shacl#name> "periode"@nl;
+    <http://www.w3.org/ns/shacl#description> "De hoeveelheid tijd waarvoor de Reservatie geldt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Periode>;
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/PeriodOfTime>.
+<https://data.vlaanderen.be/7cbda685803bfa85902f3761d2b641eea09776b4> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasBeginning>;
+    <http://www.w3.org/ns/shacl#name> "van"@nl;
+    <http://www.w3.org/ns/shacl#description> "Start van de TemporeleEntiteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.Van>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2006/time#Instant>.
+<https://data.vlaanderen.be/7cbda685803bfa85902f3761d2b641eea09776b4-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasBeginning>;
+    <http://www.w3.org/ns/shacl#name> "van"@nl;
+    <http://www.w3.org/ns/shacl#description> "Start van de TemporeleEntiteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Periode.Van>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2006/time#Instant>.
+<https://data.vlaanderen.be/7d72cef2f48c7144a3ae8ed45176184bb23c0836> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De eenheid waarin de waarde is uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Kwantitatievewaarde.Eenheid>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/7d72cef2f48c7144a3ae8ed45176184bb23c0836-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De eenheid waarin de waarde is uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Kwantitatievewaarde.Eenheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/7e241b1b373bd14423fd58fb384837ae9f8cd2aa> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/org#siteAddress>;
+    <http://www.w3.org/ns/shacl#name> "adres"@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Adres>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Address>.
+<https://data.vlaanderen.be/7e241b1b373bd14423fd58fb384837ae9f8cd2aa-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/org#siteAddress>;
+    <http://www.w3.org/ns/shacl#name> "adres"@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Adres>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Address>.
+<https://data.vlaanderen.be/7e241b1b373bd14423fd58fb384837ae9f8cd2aa-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/org#siteAddress>;
+    <http://www.w3.org/ns/shacl#name> "adres"@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Adres>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Address>.
+<https://data.vlaanderen.be/7e94afe267410a6fcec7f3b2739349736a8093d2> <http://www.w3.org/ns/shacl#path> <https://schema.org/validThrough>;
+    <http://www.w3.org/ns/shacl#name> "geldig tot"@nl;
+    <http://www.w3.org/ns/shacl#description> "Datum tot wanneer de opgegeven openingsuren gelden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.GeldigTot>.
+<https://data.vlaanderen.be/7e94afe267410a6fcec7f3b2739349736a8093d2-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/validThrough>;
+    <http://www.w3.org/ns/shacl#name> "geldig tot"@nl;
+    <http://www.w3.org/ns/shacl#description> "Datum tot wanneer de opgegeven openingsuren gelden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.GeldigTot>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/7f237fce761e48d03f37c3124f23fda99aa09c59> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#locatorDesignator>;
+    <http://www.w3.org/ns/shacl#name> "locatieaanduiding"@nl;
+    <http://www.w3.org/ns/shacl#description> "Alfanumerieke code die de adreslocator uniek identificeert binnen de straat, administratieve eenheid etc."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Locatieaanduiding>.
+<https://data.vlaanderen.be/837292b9663864b0727684a2c7099c1c2d177f2c> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Schriftelijke weergave van kenmerken van iets of iemand."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Beschrijving>.
+<https://data.vlaanderen.be/837292b9663864b0727684a2c7099c1c2d177f2c-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Schriftelijke weergave van kenmerken van iets of iemand."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Beschrijving>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/837292b9663864b0727684a2c7099c1c2d177f2c-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Schriftelijke weergave van kenmerken van iets of iemand."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Locatie.Beschrijving>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/862a2f1e266ae7450840aed5f3c5ef7a0427abb8> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#prefLabel>;
+    <http://www.w3.org/ns/shacl#name> "voorkeursnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam waarmee de organisatie bij voorkeur wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#PubliekeOrganisatie.Voorkeursnaam>.
+<https://data.vlaanderen.be/862a2f1e266ae7450840aed5f3c5ef7a0427abb8-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#prefLabel>;
+    <http://www.w3.org/ns/shacl#name> "voorkeursnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam waarmee de organisatie bij voorkeur wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#PubliekeOrganisatie.Voorkeursnaam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/862a2f1e266ae7450840aed5f3c5ef7a0427abb8-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2004/02/skos/core#prefLabel>;
+    <http://www.w3.org/ns/shacl#name> "voorkeursnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam waarmee de organisatie bij voorkeur wordt aangeduid."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#PubliekeOrganisatie.Voorkeursnaam>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/871906e056d954bba95e0da5e7840eb1a377ace6> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/page>;
+    <http://www.w3.org/ns/shacl#name> "pagina"@nl;
+    <http://www.w3.org/ns/shacl#description> "Website waarnaar men kan surfen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#anyURI>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Pagina>.
+<https://data.vlaanderen.be/871906e056d954bba95e0da5e7840eb1a377ace6-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/page>;
+    <http://www.w3.org/ns/shacl#name> "pagina"@nl;
+    <http://www.w3.org/ns/shacl#description> "Website waarnaar men kan surfen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#anyURI>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Pagina>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/89acbf3e7f912f8666fa0eb8f3819b340e327559> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#adminUnitL1>;
+    <http://www.w3.org/ns/shacl#name> "administratieve eenheid niveau 1"@nl;
+    <http://www.w3.org/ns/shacl#description> "Hoogste Administratieve eenheid van het adres, doorgaans een land."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.AdministratieveEenheidNiveau1>.
+<https://data.vlaanderen.be/89acbf3e7f912f8666fa0eb8f3819b340e327559-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#adminUnitL1>;
+    <http://www.w3.org/ns/shacl#name> "administratieve eenheid niveau 1"@nl;
+    <http://www.w3.org/ns/shacl#description> "Hoogste Administratieve eenheid van het adres, doorgaans een land."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.AdministratieveEenheidNiveau1>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/8c19ec12fc4cc34b427cc972c20795e83b7817e5> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#onderdeel>;
+    <http://www.w3.org/ns/shacl#name> "onderdeel"@nl;
+    <http://www.w3.org/ns/shacl#description> "Deel van de dienst of infrastructuur waarop de Toegankelijkheid betrekking heeft.."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Toegankelijkheid.Onderdeel>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/8d3bd3de3dcf3de261f69beea06101ad63aa5ca7> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/adms#status>;
+    <http://www.w3.org/ns/shacl#name> "status"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geeft aan of een publieke dienstverlening actief, inactief, in ontwikkeling etc is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Status>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/8d3bd3de3dcf3de261f69beea06101ad63aa5ca7-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/adms#status>;
+    <http://www.w3.org/ns/shacl#name> "status"@nl;
+    <http://www.w3.org/ns/shacl#description> "Geeft aan of een publieke dienstverlening actief, inactief, in ontwikkeling etc is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Status>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/8dd7712bb7e3d5068b6c7fea0618e72e1fbad099> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "De numerieke hoeveelheid waarop de capaciteit betrekking heeft."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Waarde>.
+<https://data.vlaanderen.be/8dd7712bb7e3d5068b6c7fea0618e72e1fbad099-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "De numerieke hoeveelheid waarop de capaciteit betrekking heeft."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Waarde>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/8ddc7566cae0c35024c712e767ec3e2410a4b729> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#poBox>;
+    <http://www.w3.org/ns/shacl#name> "postbus"@nl;
+    <http://www.w3.org/ns/shacl#description> "Postbusnummer in een postkantoor."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postbus>.
+<https://data.vlaanderen.be/8ddc7566cae0c35024c712e767ec3e2410a4b729-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#poBox>;
+    <http://www.w3.org/ns/shacl#name> "postbus"@nl;
+    <http://www.w3.org/ns/shacl#description> "Postbusnummer in een postkantoor."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Postbus>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/8e7be7b3c982789d501a4ae5d713a893cfba562d> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2000/01/rdf-schema#label>;
+    <http://www.w3.org/ns/shacl#name> "huisnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Huisnummer>.
+<https://data.vlaanderen.be/8e7be7b3c982789d501a4ae5d713a893cfba562d-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2000/01/rdf-schema#label>;
+    <http://www.w3.org/ns/shacl#name> "huisnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Huisnummer>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/8e94ddcad4ee2a84d69bb2a6f43c7f2764bf6c31> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Buitenruimte.verbondenAan>;
+    <http://www.w3.org/ns/shacl#name> "verbonden aan"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Buitenruimte gelinkt aan de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Buitenruimte.VerbondenAan>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/8e94ddcad4ee2a84d69bb2a6f43c7f2764bf6c31-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Buitenruimte.verbondenAan>;
+    <http://www.w3.org/ns/shacl#name> "verbonden aan"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Buitenruimte gelinkt aan de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Buitenruimte.VerbondenAan>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/901491e1bb6cd7eb219b08b1a630ab87a9c07ff7> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
+    <http://www.w3.org/ns/shacl#name> "titel"@nl;
+    <http://www.w3.org/ns/shacl#description> "Officiële naam van de publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Titel>.
+<https://data.vlaanderen.be/901491e1bb6cd7eb219b08b1a630ab87a9c07ff7-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
+    <http://www.w3.org/ns/shacl#name> "titel"@nl;
+    <http://www.w3.org/ns/shacl#description> "Officiële naam van de publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Titel>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/901491e1bb6cd7eb219b08b1a630ab87a9c07ff7-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
+    <http://www.w3.org/ns/shacl#name> "titel"@nl;
+    <http://www.w3.org/ns/shacl#description> "Officiële naam van de publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Titel>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/92c40446db5a8e5ecc48d7d96ee1c85964968f78> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.toegankelijkheid>;
+    <http://www.w3.org/ns/shacl#name> "toegankelijkheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een infrastructuur open of benaderbaar is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Toegankelijkheid>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Toegankelijkheid>.
+<https://data.vlaanderen.be/92c40446db5a8e5ecc48d7d96ee1c85964968f78-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.toegankelijkheid>;
+    <http://www.w3.org/ns/shacl#name> "toegankelijkheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een infrastructuur open of benaderbaar is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Toegankelijkheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Toegankelijkheid>.
+<https://data.vlaanderen.be/9309761f9fd2f2788186698386a6156202bf9653> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.faciliteit>;
+    <http://www.w3.org/ns/shacl#name> "faciliteit"@nl;
+    <http://www.w3.org/ns/shacl#description> "De voorziening van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Faciliteit>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Faciliteit>.
+<https://data.vlaanderen.be/9dd8544aa70ac646b7f4a695a5d768c604269a72> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#locatorName>;
+    <http://www.w3.org/ns/shacl#name> "locatienaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam of omschrijving van het het geografisch object dat de adreslocator aanduidt."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Locatienaam>.
+<https://data.vlaanderen.be/9e257e64739bbadd12f1c0ef514eca1eb3d6bc96> <http://www.w3.org/ns/shacl#path> <https://schema.org/openingHours>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Uren waarbinnen contact kan worden opgenomen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Openingsuren>.
+<https://data.vlaanderen.be/9e257e64739bbadd12f1c0ef514eca1eb3d6bc96-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/openingHours>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Uren waarbinnen contact kan worden opgenomen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Openingsuren>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/9e34740f4b62f5c50e49d87adb9c73d649edc8cc> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.eigenaar>;
+    <http://www.w3.org/ns/shacl#name> "eigenaar"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent die de Infrastructuur bezit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Eigenaar>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Eigenaarschap>.
+<https://data.vlaanderen.be/9e34740f4b62f5c50e49d87adb9c73d649edc8cc-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.eigenaar>;
+    <http://www.w3.org/ns/shacl#name> "eigenaar"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent die de Infrastructuur bezit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Eigenaar>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Eigenaarschap>.
+<https://data.vlaanderen.be/9e6f68a0b7d9c5b2e9ee2ba54a7c0d23d92dd812> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Beschrijving vd publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Beschrijving>.
+<https://data.vlaanderen.be/9e6f68a0b7d9c5b2e9ee2ba54a7c0d23d92dd812-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Beschrijving vd publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Beschrijving>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/9e6f68a0b7d9c5b2e9ee2ba54a7c0d23d92dd812-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Beschrijving vd publieke dienstverlening."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Beschrijving>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/9e90569a6d37086320c97adc0910772d8f7d4e49> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort Faciliteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Faciliteit.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/9e90569a6d37086320c97adc0910772d8f7d4e49-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort Faciliteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Faciliteit.Type>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/a0605b8dfd19ad9bc1670fc5651fedd568e928ae> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/name>;
+    <http://www.w3.org/ns/shacl#name> "naam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van bvb de persoon die men kan contacteren."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Naam>.
+<https://data.vlaanderen.be/a0605b8dfd19ad9bc1670fc5651fedd568e928ae-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/name>;
+    <http://www.w3.org/ns/shacl#name> "naam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Naam van bvb de persoon die men kan contacteren."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Naam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/a1ed2acc4942ffcf525a6179fa56d6c2685bf039> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.contactpersoon>;
+    <http://www.w3.org/ns/shacl#name> "contactpersoon"@nl;
+    <http://www.w3.org/ns/shacl#description> "De te raadplegen Agent verbonden aan een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Contactpersoon>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/a611882662f1623a6fb363b011dd10091ffa5571> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De eenheid waarin de waarde is uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Eenheid>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/a611882662f1623a6fb363b011dd10091ffa5571-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De eenheid waarin de waarde is uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Eenheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/a89f0a4a319bf66d4e8c7d6cc9ad251ab3766941> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort capaciteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/a89f0a4a319bf66d4e8c7d6cc9ad251ab3766941-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort capaciteit."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Type>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/abd29336300751ba2f6b8322c5d37d26d8f9ed7b> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.beschrijving>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "De tekstuele omschrijving van de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Beschrijving>;
+    <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Document>.
+<https://data.vlaanderen.be/ActiviteitShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.cidoc-crm.org/cidoc-crm/E7_Activity>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/4708a696983b478658e785723f76d3ceeed1ff3f>.
+<https://data.vlaanderen.be/AdresvoorstellingShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/locn#Address>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/89acbf3e7f912f8666fa0eb8f3819b340e327559>, <https://data.vlaanderen.be/b5e95a15676aa7b41c30549838ef5ae583fc9f6b>, <https://data.vlaanderen.be/07b5c1ec073b948c2876339adb3697bac1318eae>, <https://data.vlaanderen.be/fa6e8859f53003fcdef834ddb2307350f6794847>, <https://data.vlaanderen.be/386da78c6c76398e3008ba3cc830cfd29022ac70>, <https://data.vlaanderen.be/8e7be7b3c982789d501a4ae5d713a893cfba562d>, <https://data.vlaanderen.be/7825d03647a817b6cd61b4ccb8244a3d95d141f8>, <https://data.vlaanderen.be/7f237fce761e48d03f37c3124f23fda99aa09c59>, <https://data.vlaanderen.be/9dd8544aa70ac646b7f4a695a5d768c604269a72>, <https://data.vlaanderen.be/8ddc7566cae0c35024c712e767ec3e2410a4b729>, <https://data.vlaanderen.be/74d6c1f37ae06fc2c5e327e49e17e0dfae30a1f2>, <https://data.vlaanderen.be/6a5fc42266422f341bad2f677491ce780a25b479>, <https://data.vlaanderen.be/e1de7a7eedcf10e1a5a2cbc0bb43cbc710a0d984>, <https://data.vlaanderen.be/b30f872a18cbecc75c755a5fe5604f4476ad004f>.
+<https://data.vlaanderen.be/aeaa4920c65aa65a1d8e60e048cdf450378f192d> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.beschikbaarheid>;
+    <http://www.w3.org/ns/shacl#name> "beschikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een Infrastructuur gebruikt kan worden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Beschikbaarheid>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Beschikbaarheid>.
+<https://data.vlaanderen.be/aeaa4920c65aa65a1d8e60e048cdf450378f192d-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.beschikbaarheid>;
+    <http://www.w3.org/ns/shacl#name> "beschikbaarheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate waarin een Infrastructuur gebruikt kan worden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Beschikbaarheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Beschikbaarheid>.
+<https://data.vlaanderen.be/AgentShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://purl.org/dc/terms/Agent>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/b049aa398da89e8037f9a32016b4e3cd26d817bd> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.gebruik>;
+    <http://www.w3.org/ns/shacl#name> "gebruik"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het benutten van een Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Gebruik>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik>.
+<https://data.vlaanderen.be/b30f872a18cbecc75c755a5fe5604f4476ad004f> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#fullAddress>;
+    <http://www.w3.org/ns/shacl#name> "volledig adres"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het complete adres in één string, al dan niet geformatteerd."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.VolledigAdres>.
+<https://data.vlaanderen.be/b30f872a18cbecc75c755a5fe5604f4476ad004f-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#fullAddress>;
+    <http://www.w3.org/ns/shacl#name> "volledig adres"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het complete adres in één string, al dan niet geformatteerd."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.VolledigAdres>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/b439d85c096507099495c4f11dfb086714c32783> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Buitenruimte.verbondenAan>;
+    <http://www.w3.org/ns/shacl#name> "verbonden aan"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Buitenruimte gelinkt aan de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Binnenruimte.VerbondenAan>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/b439d85c096507099495c4f11dfb086714c32783-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Buitenruimte.verbondenAan>;
+    <http://www.w3.org/ns/shacl#name> "verbonden aan"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Buitenruimte gelinkt aan de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Binnenruimte.VerbondenAan>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/b499b71b3d719d575872f63c0fd89f81af894cdc> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De hoeveelheid waarin de capaciteit wordt uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Eenheid>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/b499b71b3d719d575872f63c0fd89f81af894cdc-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/unitCode>;
+    <http://www.w3.org/ns/shacl#name> "eenheid"@nl;
+    <http://www.w3.org/ns/shacl#description> "De hoeveelheid waarin de capaciteit wordt uitgedrukt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Eenheid>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/b5e95a15676aa7b41c30549838ef5ae583fc9f6b> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#adminUnitL2>;
+    <http://www.w3.org/ns/shacl#name> "administratieve eenheid niveau 2"@nl;
+    <http://www.w3.org/ns/shacl#description> "De regio van het adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.AdministratieveEenheidNiveau2>.
+<https://data.vlaanderen.be/b5e95a15676aa7b41c30549838ef5ae583fc9f6b-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#adminUnitL2>;
+    <http://www.w3.org/ns/shacl#name> "administratieve eenheid niveau 2"@nl;
+    <http://www.w3.org/ns/shacl#description> "De regio van het adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.AdministratieveEenheidNiveau2>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/b99f94891a2875f024eb02648e7465192cd7a918> <http://www.w3.org/ns/shacl#path> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Grootheid van de Dimensie."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/b99f94891a2875f024eb02648e7465192cd7a918-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Grootheid van de Dimensie."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Type>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/BereikbaarheidShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/3f1c45b55c8eb5cb8577c6331009363894a6cf2d>, <https://data.vlaanderen.be/ca8f896da317accaa9102e3395c538ed172700d0>, <https://data.vlaanderen.be/03dfa5779bca313942b6c5cf81b835fb91df198c>.
+<https://data.vlaanderen.be/BeschikbaarheidShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Beschikbaarheid>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/01cd87ee6b44db682f82cf551d76f8594ca79637>, <https://data.vlaanderen.be/717886234af8d3d6368d4a232208be4c51929ee5>, <https://data.vlaanderen.be/13371ceb6d39af1f5f2befddcf6c8915009cd170>.
+<https://data.vlaanderen.be/bf7890b7830702b3369287d2797762f51ca6cc8e> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Eigenaarschap.eigenaar>;
+    <http://www.w3.org/ns/shacl#name> "eigenaar"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent aan wie de Infrastructuur toebehoort."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Eigenaarschap.Eigenaar>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/bfee6ce7c34254309824bc49ea25f1602d6de5b6> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "De omschrijving van de capaciteit van een infrastructuur."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Beschrijving>.
+<https://data.vlaanderen.be/bfee6ce7c34254309824bc49ea25f1602d6de5b6-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "De omschrijving van de capaciteit van een infrastructuur."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Capaciteit.Beschrijving>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/BinnenruimteShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Binnenruimte>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/b439d85c096507099495c4f11dfb086714c32783>, <https://data.vlaanderen.be/ca05abd2a9887195cccc9f150f3471a58726d3ec>.
+<https://data.vlaanderen.be/BuitenruimteShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Buitenruimte>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/3dd160f436a666fd484321c47eb813c70fdca921>, <https://data.vlaanderen.be/8e94ddcad4ee2a84d69bb2a6f43c7f2764bf6c31>.
+<https://data.vlaanderen.be/c323b14318a23aba38d6caf4fd310b31f52389f1> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#inXSDDateTime>;
+    <http://www.w3.org/ns/shacl#name> "in XSD datumTijd"@nl;
+    <http://www.w3.org/ns/shacl#description> "Positie ve Moment, uitgedrukt dmv xsd:dateTime."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Moment.InXsdDatumtijd>.
+<https://data.vlaanderen.be/c323b14318a23aba38d6caf4fd310b31f52389f1-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#inXSDDateTime>;
+    <http://www.w3.org/ns/shacl#name> "in XSD datumTijd"@nl;
+    <http://www.w3.org/ns/shacl#description> "Positie ve Moment, uitgedrukt dmv xsd:dateTime."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Moment.InXsdDatumtijd>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/c4aa62b5f6fba1c88acd82324f47d6a41f4c378b> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Kwantitatievewaarde.Waarde>.
+<https://data.vlaanderen.be/c4aa62b5f6fba1c88acd82324f47d6a41f4c378b-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Kwantitatievewaarde.Waarde>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/c4aa62b5f6fba1c88acd82324f47d6a41f4c378b-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/value>;
+    <http://www.w3.org/ns/shacl#name> "waarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Kwantitatievewaarde.Waarde>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/c6c09e008a6ad99fd8f169cf8f2509d6f1117db9> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip van de infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Tijdstip>.
+<https://data.vlaanderen.be/c6c09e008a6ad99fd8f169cf8f2509d6f1117db9-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip van de infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Tijdstip>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/c6c09e008a6ad99fd8f169cf8f2509d6f1117db9-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip van de infrastructuurreservatiestatus."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiestatus.Tijdstip>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/c7cfb66896ab2b78f2d3871d712bee95fdcc83e5> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.naam>;
+    <http://www.w3.org/ns/shacl#name> "naam"@nl;
+    <http://www.w3.org/ns/shacl#description> "De benaming verbonden aan een Infrastructuur."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Naam>.
+<https://data.vlaanderen.be/ca05abd2a9887195cccc9f150f3471a58726d3ec> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het type Binnenruimte verbonden aan de Infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Binnenruimte.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/ca8f896da317accaa9102e3395c538ed172700d0> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid.mobiscore>;
+    <http://www.w3.org/ns/shacl#name> "mobiscore"@nl;
+    <http://www.w3.org/ns/shacl#description> "Een index die aangeeft hoe goed een locatie scoort op vlak van mobiliteit."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Bereikbaarheid.Mobiscore>.
+<https://data.vlaanderen.be/ca8f896da317accaa9102e3395c538ed172700d0-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Bereikbaarheid.mobiscore>;
+    <http://www.w3.org/ns/shacl#name> "mobiscore"@nl;
+    <http://www.w3.org/ns/shacl#description> "Een index die aangeeft hoe goed een locatie scoort op vlak van mobiliteit."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Bereikbaarheid.Mobiscore>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/CapaciteitShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Capaciteit>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/bfee6ce7c34254309824bc49ea25f1602d6de5b6>, <https://data.vlaanderen.be/8dd7712bb7e3d5068b6c7fea0618e72e1fbad099>, <https://data.vlaanderen.be/b499b71b3d719d575872f63c0fd89f81af894cdc>, <https://data.vlaanderen.be/a89f0a4a319bf66d4e8c7d6cc9ad251ab3766941>.
+<https://data.vlaanderen.be/cd2002c79f9b8e13ec6a725fbe28d23ea694e996> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#keyword>;
+    <http://www.w3.org/ns/shacl#name> "trefwoord"@nl;
+    <http://www.w3.org/ns/shacl#description> "Sleutelwoord, term, begrip dat de publieke dienst beschrijft."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Trefwoord>.
+<https://data.vlaanderen.be/ce4f7c74e006cba4134231c92f33e952a3227362> <http://www.w3.org/ns/shacl#path> <https://schema.org/opens>;
+    <http://www.w3.org/ns/shacl#name> "open"@nl;
+    <http://www.w3.org/ns/shacl#description> "Openingsuur van de plaats of dienst op de opgegeven dag vd week."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#time>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.Open>.
+<https://data.vlaanderen.be/ce4f7c74e006cba4134231c92f33e952a3227362-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/opens>;
+    <http://www.w3.org/ns/shacl#name> "open"@nl;
+    <http://www.w3.org/ns/shacl#description> "Openingsuur van de plaats of dienst op de opgegeven dag vd week."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#time>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.Open>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/ConceptShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/ContactpuntShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://schema.org/ContactPoint>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/7478d2b51eb70a990a4398af43b8f258fc370d9f>, <https://data.vlaanderen.be/a0605b8dfd19ad9bc1670fc5651fedd568e928ae>, <https://data.vlaanderen.be/64b5675414c910835d0c0a51440e946c6f0edb37>, <https://data.vlaanderen.be/d2bb0aee80a91127b191b3cc966ce804c3b36eeb>, <https://data.vlaanderen.be/9e257e64739bbadd12f1c0ef514eca1eb3d6bc96>, <https://data.vlaanderen.be/f6cea6d867e71e01403cb3f149ddd434306b6fff>, <https://data.vlaanderen.be/871906e056d954bba95e0da5e7840eb1a377ace6>, <https://data.vlaanderen.be/d5a7b4cf509d948a6bc35be6e42414022aa6320b>, <https://data.vlaanderen.be/2afb7273a17d5098872611991ebc6c26cc5b7a57>.
+<https://data.vlaanderen.be/CriteriumShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://data.europa.eu/m8g/#Criterion>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/d2bb0aee80a91127b191b3cc966ce804c3b36eeb> <http://www.w3.org/ns/shacl#path> <https://schema.org/faxNumber>;
+    <http://www.w3.org/ns/shacl#name> "faxnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Faxnummer waarnaar men kan faxen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Faxnummer>.
+<https://data.vlaanderen.be/d2bb0aee80a91127b191b3cc966ce804c3b36eeb-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/faxNumber>;
+    <http://www.w3.org/ns/shacl#name> "faxnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Faxnummer waarnaar men kan faxen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Faxnummer>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/d52f97af1da2324dee1bf9a8e1eeca0626247d77> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik.voorwaarde>;
+    <http://www.w3.org/ns/shacl#name> "voorwaarde"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het criterium verbonden aan het gebruik van de infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Gebruik.Voorwaarde>;
+    <http://www.w3.org/ns/shacl#class> <http://data.europa.eu/m8g/#Criterion>.
+<https://data.vlaanderen.be/d594b200b7cf7c7969605e96d3d57ab2b5ca1874> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/language>;
+    <http://www.w3.org/ns/shacl#name> "taal"@nl;
+    <http://www.w3.org/ns/shacl#description> "Taal waarin een publieke dienstverlening wordt aangeboden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatiedienst.Taal>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/d5a7b4cf509d948a6bc35be6e42414022aa6320b> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#address>;
+    <http://www.w3.org/ns/shacl#name> "adres"@nl;
+    <http://www.w3.org/ns/shacl#description> "Adres dat men kan aanschrijven of bezoeken."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Adres>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Address>.
+<https://data.vlaanderen.be/d5a7b4cf509d948a6bc35be6e42414022aa6320b-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#address>;
+    <http://www.w3.org/ns/shacl#name> "adres"@nl;
+    <http://www.w3.org/ns/shacl#description> "Adres dat men kan aanschrijven of bezoeken."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Adres>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/locn#Address>.
+<https://data.vlaanderen.be/d5b6479d4fe1caba270d1a4913ec3fdaa0e9aad6> <http://www.w3.org/ns/shacl#path> <http://www.cidoc-crm.org/cidoc-crm/P3_has_note>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Beschrijving van de Dimensie."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Dimensie.Beschrijving>.
+<https://data.vlaanderen.be/d63a11e27e7c3fc6177e6ec6640f3e44fea4f100> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.subinfrastructuur>;
+    <http://www.w3.org/ns/shacl#name> "subinfrastructuur"@nl;
+    <http://www.w3.org/ns/shacl#description> "De infrastructuur die onderdeel is van een groter geheel van infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Subinfrastructuur>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>.
+<https://data.vlaanderen.be/d6fbbb1550595071416762a30d0bc5edbbd13ee2> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Reservatie.gereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#name> "gereserveerd door"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent door wie de Infrastructuur is voorbehouden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.GereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/d6fbbb1550595071416762a30d0bc5edbbd13ee2-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Reservatie.gereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#name> "gereserveerd door"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent door wie de Infrastructuur is voorbehouden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.GereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/d6fbbb1550595071416762a30d0bc5edbbd13ee2-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Reservatie.gereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#name> "gereserveerd door"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Agent door wie de Infrastructuur is voorbehouden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.GereserveerdDoor>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Agent>.
+<https://data.vlaanderen.be/DatetimeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/def3ec22a2b350bf48a4d066a679fe6114c0bb4a> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.reservatie>;
+    <http://www.w3.org/ns/shacl#name> "reservatie"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het voorbehouden van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Reservatie>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatie>.
+<https://data.vlaanderen.be/def3ec22a2b350bf48a4d066a679fe6114c0bb4a-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.reservatie>;
+    <http://www.w3.org/ns/shacl#name> "reservatie"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het voorbehouden van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Reservatie>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatie>.
+<https://data.vlaanderen.be/def3ec22a2b350bf48a4d066a679fe6114c0bb4a-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.reservatie>;
+    <http://www.w3.org/ns/shacl#name> "reservatie"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het voorbehouden van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Reservatie>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatie>.
+<https://data.vlaanderen.be/df42565bec8d6cdff5e843288e72fb87f4aae2e7> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.openingsuren>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode waarin de infrastructuur geopend is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Openingsuren>;
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/df42565bec8d6cdff5e843288e72fb87f4aae2e7-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.openingsuren>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode waarin de infrastructuur geopend is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Openingsuren>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/df42565bec8d6cdff5e843288e72fb87f4aae2e7-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.openingsuren>;
+    <http://www.w3.org/ns/shacl#name> "openingsuren"@nl;
+    <http://www.w3.org/ns/shacl#description> "Periode waarin de infrastructuur geopend is."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Openingsuren>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://schema.org/OpeningHoursSpecification>.
+<https://data.vlaanderen.be/df6d65329a1e93742c4daf460aa07aca5d376bb0> <http://www.w3.org/ns/shacl#path> <https://schema.org/closes>;
+    <http://www.w3.org/ns/shacl#name> "gesloten"@nl;
+    <http://www.w3.org/ns/shacl#description> "Sluitingsuur van de plaats of dienst op de opgegeven dag vd week."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#time>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.Gesloten>.
+<https://data.vlaanderen.be/df6d65329a1e93742c4daf460aa07aca5d376bb0-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/closes>;
+    <http://www.w3.org/ns/shacl#name> "gesloten"@nl;
+    <http://www.w3.org/ns/shacl#description> "Sluitingsuur van de plaats of dienst op de opgegeven dag vd week."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#time>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.Gesloten>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/DimensieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.cidoc-crm.org/cidoc-crm/E54_Dimension>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/d5b6479d4fe1caba270d1a4913ec3fdaa0e9aad6>, <https://data.vlaanderen.be/50d64e5e7fcd561e6e3dd3ff810832001bd2cf8e>, <https://data.vlaanderen.be/a611882662f1623a6fb363b011dd10091ffa5571>, <https://data.vlaanderen.be/b99f94891a2875f024eb02648e7465192cd7a918>.
+<https://data.vlaanderen.be/DocumentShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://xmlns.com/foaf/0.1/Document>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/e08ef63d82d0f70cfffff62e27d10cd987564945> <http://www.w3.org/ns/shacl#path> <https://schema.org/dayOfWeek>;
+    <http://www.w3.org/ns/shacl#name> "dag van week"@nl;
+    <http://www.w3.org/ns/shacl#description> "Dag van de week waarvoor de openingsuren geldig zijn."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#anyURI>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.DagVanWeek>.
+<https://data.vlaanderen.be/e08ef63d82d0f70cfffff62e27d10cd987564945-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/dayOfWeek>;
+    <http://www.w3.org/ns/shacl#name> "dag van week"@nl;
+    <http://www.w3.org/ns/shacl#description> "Dag van de week waarvoor de openingsuren geldig zijn."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#anyURI>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Openingsurenspecificatie.DagVanWeek>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/e1de7a7eedcf10e1a5a2cbc0bb43cbc710a0d984> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#thoroughfare>;
+    <http://www.w3.org/ns/shacl#name> "straatnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Straatnaam van het adres."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Straatnaam>.
+<https://data.vlaanderen.be/e1de7a7eedcf10e1a5a2cbc0bb43cbc710a0d984-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#thoroughfare>;
+    <http://www.w3.org/ns/shacl#name> "straatnaam"@nl;
+    <http://www.w3.org/ns/shacl#description> "Straatnaam van het adres."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Straatnaam>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/e23f64c10f106e2b467916d9462439d566a690d0> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/references>;
+    <http://www.w3.org/ns/shacl#name> "document"@nl;
+    <http://www.w3.org/ns/shacl#description> "Verwijzing naar het document van de plaatsbeschrijving."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Document>;
+    <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Document>.
+<https://data.vlaanderen.be/e2a3f124988e9e0152b17dee39cef866977e3e9e> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip waarop de plaatsbeschrijving heeft plaatsgevonden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Tijdstip>.
+<https://data.vlaanderen.be/e2a3f124988e9e0152b17dee39cef866977e3e9e-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip waarop de plaatsbeschrijving heeft plaatsgevonden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Tijdstip>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/e2a3f124988e9e0152b17dee39cef866977e3e9e-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <http://www.w3.org/2006/time#hasTime>;
+    <http://www.w3.org/ns/shacl#name> "tijdstip"@nl;
+    <http://www.w3.org/ns/shacl#description> "Tijdstip waarop de plaatsbeschrijving heeft plaatsgevonden."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Plaatsbeschrijving.Tijdstip>;
+    <http://www.w3.org/ns/shacl#minCount> "1".
+<https://data.vlaanderen.be/e5a87d0e7efea159805d272f117e311f696a0203> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
+    <http://www.w3.org/ns/shacl#name> "beschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "De omschrijving van de Faciliteit."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Faciliteit.Beschrijving>.
+<https://data.vlaanderen.be/e6c140482502a1912336eb4d26afa61f111df224> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.openstelling>;
+    <http://www.w3.org/ns/shacl#name> "openstelling"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate van toegankelijkheid van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Openstelling>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/e6c140482502a1912336eb4d26afa61f111df224-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.openstelling>;
+    <http://www.w3.org/ns/shacl#name> "openstelling"@nl;
+    <http://www.w3.org/ns/shacl#description> "De mate van toegankelijkheid van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Openstelling>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/e8e102b4a8080e694d369fc5ee51cd48c8b84fa1> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#status>;
+    <http://www.w3.org/ns/shacl#name> "status"@nl;
+    <http://www.w3.org/ns/shacl#description> "Huidige toestand, positie, of situatie van een persoon, plaats, object, systeem, of proces op een bepaald moment."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Status>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatiestatus>.
+<https://data.vlaanderen.be/e8e102b4a8080e694d369fc5ee51cd48c8b84fa1-MinCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#status>;
+    <http://www.w3.org/ns/shacl#name> "status"@nl;
+    <http://www.w3.org/ns/shacl#description> "Huidige toestand, positie, of situatie van een persoon, plaats, object, systeem, of proces op een bepaald moment."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Status>;
+    <http://www.w3.org/ns/shacl#minCount> "1";
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatiestatus>.
+<https://data.vlaanderen.be/ea7219ea09b6db0cc4d67f2c51ed5d97b649a027> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#plaatsbeschrijving>;
+    <http://www.w3.org/ns/shacl#name> "plaatsbeschrijving"@nl;
+    <http://www.w3.org/ns/shacl#description> "Gedetailleerd en systematisch vastleggen van de kenmerken, toestand, en specifieke details van een locatie of ruimte."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.Plaatsbeschrijving>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Plaatsbeschrijving>.
+<https://data.vlaanderen.be/ebad257072c1b483f3d3dcfbb01325ce8d6efe9b> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.toegang>;
+    <http://www.w3.org/ns/shacl#name> "toegang"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het recht of de mogelijkheid om een gereserveerde ruimte te betreden en te gebruiken."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Toegang>;
+    <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Document>.
+<https://data.vlaanderen.be/ecd8e01f58e4169a60c21e984c9103cfe4126e7b> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/zaalreservatie#Reservatie.gereserveerdVoor>;
+    <http://www.w3.org/ns/shacl#name> "gereserveerd voor"@nl;
+    <http://www.w3.org/ns/shacl#description> "De Activiteit waarvoor de Infrastructuur is voorbehouden."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuurreservatie.GereserveerdVoor>;
+    <http://www.w3.org/ns/shacl#class> <http://www.cidoc-crm.org/cidoc-crm/E7_Activity>.
+<https://data.vlaanderen.be/ed072ebe2041ddabd77a627c2c0221dcfde10ecd> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Faciliteit.document>;
+    <http://www.w3.org/ns/shacl#name> "document"@nl;
+    <http://www.w3.org/ns/shacl#description> "Het geschrift dat de Faciliteit beschrijft."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Faciliteit.Document>;
+    <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Document>.
+<https://data.vlaanderen.be/EenheidShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://qudt.org/schema/qudt/Unit>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/efe000c6a0acdaa7c56f2fef8c4e1cce42c469fd> <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+    <http://www.w3.org/ns/shacl#name> "werkingsgebied"@nl;
+    <http://www.w3.org/ns/shacl#description> "Administratief gebied dat de Publieke Organisatie dekt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#PubliekeOrganisatie.Werkingsgebied>;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Location>.
+<https://data.vlaanderen.be/EigenaarschapShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Eigenaarschap>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/bf7890b7830702b3369287d2797762f51ca6cc8e>, <https://data.vlaanderen.be/569ecfeda8cbd7676e503d4fc3d083c7027aa98d>.
+<https://data.vlaanderen.be/f6168e9d2bb527cd37dec7968545ea638d3eeb34> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Toegankelijkheid.niveau>;
+    <http://www.w3.org/ns/shacl#name> "niveau"@nl;
+    <http://www.w3.org/ns/shacl#description> "De graad van toegankelijkheid van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Toegankelijkheid.Niveau>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/f6168e9d2bb527cd37dec7968545ea638d3eeb34-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Toegankelijkheid.niveau>;
+    <http://www.w3.org/ns/shacl#name> "niveau"@nl;
+    <http://www.w3.org/ns/shacl#description> "De graad van toegankelijkheid van een infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Toegankelijkheid.Niveau>;
+    <http://www.w3.org/ns/shacl#maxCount> "1";
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/f6cea6d867e71e01403cb3f149ddd434306b6fff> <http://www.w3.org/ns/shacl#path> <https://schema.org/telephone>;
+    <http://www.w3.org/ns/shacl#name> "telefoon"@nl;
+    <http://www.w3.org/ns/shacl#description> "Telefoonnummer waarop men kan bellen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Telefoon>.
+<https://data.vlaanderen.be/f6cea6d867e71e01403cb3f149ddd434306b6fff-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://schema.org/telephone>;
+    <http://www.w3.org/ns/shacl#name> "telefoon"@nl;
+    <http://www.w3.org/ns/shacl#description> "Telefoonnummer waarop men kan bellen."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Contactpunt.Telefoon>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/fa6e8859f53003fcdef834ddb2307350f6794847> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#busnummer>;
+    <http://www.w3.org/ns/shacl#name> "busnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Busnummer>.
+<https://data.vlaanderen.be/fa6e8859f53003fcdef834ddb2307350f6794847-MaxCountConstraint> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/adres#busnummer>;
+    <http://www.w3.org/ns/shacl#name> "busnummer"@nl;
+    <http://www.w3.org/ns/shacl#description> "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."@nl;
+    <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Adresvoorstelling.Busnummer>;
+    <http://www.w3.org/ns/shacl#maxCount> "1".
+<https://data.vlaanderen.be/FaciliteitShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Faciliteit>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/e5a87d0e7efea159805d272f117e311f696a0203>, <https://data.vlaanderen.be/9e90569a6d37086320c97adc0910772d8f7d4e49>, <https://data.vlaanderen.be/ed072ebe2041ddabd77a627c2c0221dcfde10ecd>, <https://data.vlaanderen.be/6cfa015b7b8162144ed6a51773947b2179e5c42c>.
+<https://data.vlaanderen.be/fc2fffe9abcf492b60efd078702fbc30222b0abd> <http://www.w3.org/ns/shacl#path> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur.type>;
+    <http://www.w3.org/ns/shacl#name> "type"@nl;
+    <http://www.w3.org/ns/shacl#description> "De soort infrastructuur."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Type>;
+    <http://www.w3.org/ns/shacl#class> <http://www.w3.org/2004/02/skos/core#Concept>.
+<https://data.vlaanderen.be/fc7a04a329cd0a06f28a10b4717df1c0b73f5387> <http://www.w3.org/ns/shacl#path> <http://purl.org/vocab/cpsv#physicallyAvailableAt>;
+    <http://www.w3.org/ns/shacl#name> "reservatiedienst"@nl;
+    <http://www.w3.org/ns/shacl#description> "De publieke dienstverlening die het reserveren van een infrastructuur aanbiedt."@nl;
+    <http://www.w3.org/2000/01/rdf-schema#seeAlso> <data.vlaanderen.be/doc/applicatieprofiel/zaalreservatie#Infrastructuur.Reservatiedienst>;
+    <http://www.w3.org/ns/shacl#class> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatiedienst>.
+<https://data.vlaanderen.be/GebruikShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Gebruik>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/6f1f03f66e7403b9f06b896a163c7a40184a70b8>, <https://data.vlaanderen.be/16973f3ea1d247df0e291ad4988dd72423af98be>, <https://data.vlaanderen.be/223084aea0573518d23402bfceb2bfdb472312fa>, <https://data.vlaanderen.be/d52f97af1da2324dee1bf9a8e1eeca0626247d77>.
+<https://data.vlaanderen.be/GeografischeNaamShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/GeometrieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/locn#Geometry>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/0a9255fe963ee22e4b02dab699b829a58ca4600a>, <https://data.vlaanderen.be/4fdc1c940d4855fb1b44d1129ad32785c04727cc>.
+<https://data.vlaanderen.be/InfrastructuurreservatiedienstShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatiedienst>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/901491e1bb6cd7eb219b08b1a630ab87a9c07ff7>, <https://data.vlaanderen.be/6adb6fb432ce9ed5e12a057ed531cbd56d6cf9f9>, <https://data.vlaanderen.be/9e6f68a0b7d9c5b2e9ee2ba54a7c0d23d92dd812>, <https://data.vlaanderen.be/cd2002c79f9b8e13ec6a725fbe28d23ea694e996>, <https://data.vlaanderen.be/3dbdcaa732cdddfd302fe75b4dbfc08b12d94570>, <https://data.vlaanderen.be/d594b200b7cf7c7969605e96d3d57ab2b5ca1874>, <https://data.vlaanderen.be/8d3bd3de3dcf3de261f69beea06101ad63aa5ca7>, <https://data.vlaanderen.be/4e5d4df988eb6a0250d3e9fcf01e8c89b42e2543>, <https://data.vlaanderen.be/30c24886f822601476d2c03909c90f7b2e3c39e0>, <https://data.vlaanderen.be/5f31c533149869d0b85329a687b90c6aad509379>, <https://data.vlaanderen.be/4217849c36aa4847caafbe2292b7dd935fff4dc2>, <https://data.vlaanderen.be/5913ecbc33f32afff8f30e77f4a49c546740a5f7>.
+<https://data.vlaanderen.be/InfrastructuurreservatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatie>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/d6fbbb1550595071416762a30d0bc5edbbd13ee2>, <https://data.vlaanderen.be/ecd8e01f58e4169a60c21e984c9103cfe4126e7b>, <https://data.vlaanderen.be/7c3a8aef235f9feb8ab628b77beb2c1644bfc46d>, <https://data.vlaanderen.be/e8e102b4a8080e694d369fc5ee51cd48c8b84fa1>, <https://data.vlaanderen.be/1c33f2cfc603e85427302ac6a7182d2463b07546>, <https://data.vlaanderen.be/ea7219ea09b6db0cc4d67f2c51ed5d97b649a027>, <https://data.vlaanderen.be/0a7f43eec2298b6b80e0857a9d9fb991817e2e13>.
+<https://data.vlaanderen.be/InfrastructuurreservatiestatusShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/zaalreservatie#Infrastructuurreservatiestatus>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/c6c09e008a6ad99fd8f169cf8f2509d6f1117db9>, <https://data.vlaanderen.be/0907e3d55ff15a125d25dedbaad01ef0a2d47ffe>.
+<https://data.vlaanderen.be/InfrastructuurShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Infrastructuur>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/3c353e4eb8a9e4ac0fb8f89edca6177116cbb396>, <https://data.vlaanderen.be/c7cfb66896ab2b78f2d3871d712bee95fdcc83e5>, <https://data.vlaanderen.be/497addf23c3fd339be8412ba2cff1b1b37f41e08>, <https://data.vlaanderen.be/aeaa4920c65aa65a1d8e60e048cdf450378f192d>, <https://data.vlaanderen.be/abd29336300751ba2f6b8322c5d37d26d8f9ed7b>, <https://data.vlaanderen.be/12acc1dcc40fc737d70eeb7d982a3f9110b2672a>, <https://data.vlaanderen.be/a1ed2acc4942ffcf525a6179fa56d6c2685bf039>, <https://data.vlaanderen.be/01b24de6b5ca31830151da69cea8038e98045f39>, <https://data.vlaanderen.be/9309761f9fd2f2788186698386a6156202bf9653>, <https://data.vlaanderen.be/b049aa398da89e8037f9a32016b4e3cd26d817bd>, <https://data.vlaanderen.be/7575298825c51e1992bba72b4d06715950242ac6>, <https://data.vlaanderen.be/e6c140482502a1912336eb4d26afa61f111df224>, <https://data.vlaanderen.be/92c40446db5a8e5ecc48d7d96ee1c85964968f78>, <https://data.vlaanderen.be/fc2fffe9abcf492b60efd078702fbc30222b0abd>, <https://data.vlaanderen.be/9e34740f4b62f5c50e49d87adb9c73d649edc8cc>, <https://data.vlaanderen.be/df42565bec8d6cdff5e843288e72fb87f4aae2e7>, <https://data.vlaanderen.be/ebad257072c1b483f3d3dcfbb01325ce8d6efe9b>, <https://data.vlaanderen.be/65931e97006e071390729a3479502cb9161596d8>, <https://data.vlaanderen.be/fc7a04a329cd0a06f28a10b4717df1c0b73f5387>, <https://data.vlaanderen.be/4c842da52b4549409ce12bcc353dcb39591e64f0>, <https://data.vlaanderen.be/d63a11e27e7c3fc6177e6ec6640f3e44fea4f100>, <https://data.vlaanderen.be/def3ec22a2b350bf48a4d066a679fe6114c0bb4a>.
+<https://data.vlaanderen.be/IntegerShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2001/XMLSchema#integer>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/KwantitatievewaardeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://schema.org/QuantitativeValue>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/c4aa62b5f6fba1c88acd82324f47d6a41f4c378b>, <https://data.vlaanderen.be/7d72cef2f48c7144a3ae8ed45176184bb23c0836>.
+<https://data.vlaanderen.be/LangstringShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/LiteralShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2000/01/rdf-schema#Literal>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/LocatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/prov#Location>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/837292b9663864b0727684a2c7099c1c2d177f2c>, <https://data.vlaanderen.be/7e241b1b373bd14423fd58fb384837ae9f8cd2aa>.
+<https://data.vlaanderen.be/MomentShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2006/time#Instant>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/c323b14318a23aba38d6caf4fd310b31f52389f1>, <https://data.vlaanderen.be/2f805e492e0ebd8a1678f1e44fd588ed3cd7c4de>.
+<https://data.vlaanderen.be/OpeningsurenspecificatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://schema.org/OpeningHoursSpecification>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/e08ef63d82d0f70cfffff62e27d10cd987564945>, <https://data.vlaanderen.be/7e94afe267410a6fcec7f3b2739349736a8093d2>, <https://data.vlaanderen.be/5ae4f557133ca1d0903e25e0926287199417f0ec>, <https://data.vlaanderen.be/df6d65329a1e93742c4daf460aa07aca5d376bb0>, <https://data.vlaanderen.be/ce4f7c74e006cba4134231c92f33e952a3227362>.
+<https://data.vlaanderen.be/OrganisatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/org#Organization>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/2ff75fc949f69609e4fadc77c296c83214ff297d>.
+<https://data.vlaanderen.be/ParkeercapaciteitShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://schema.mobivoc.org/#Capacity>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/032b055e6336d9b661992ae010235e97684b8751>, <https://data.vlaanderen.be/713056ce2c595bda265970dc08fe284d62a0d939>.
+<https://data.vlaanderen.be/PeriodeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2006/time#ProperInterval>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/2fbdc437ccb15c7c8f50167a6671164d314a96dc>, <https://data.vlaanderen.be/507510ee866cf38ec389bdf722cf26886b23f498>, <https://data.vlaanderen.be/7cbda685803bfa85902f3761d2b641eea09776b4>.
+<https://data.vlaanderen.be/PersoonShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/person#Person>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/2e1a8934a54f9b22ea540b7c5e92b23a8ec198a3>.
+<https://data.vlaanderen.be/PlaatsbeschrijvingShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/zaalreservatie#Plaatsbeschrijving>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/24ac1e9e70f326c633887bb508ff3c840bc65bab>, <https://data.vlaanderen.be/e2a3f124988e9e0152b17dee39cef866977e3e9e>, <https://data.vlaanderen.be/e23f64c10f106e2b467916d9462439d566a690d0>.
+<https://data.vlaanderen.be/PlaatsShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://purl.org/dc/terms/Location>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/1ca443628d2837b5e5f8d77e2b6abcaaadecd859>, <https://data.vlaanderen.be/47323cbb52f50e5c164beeb09ee5ba2bb46fc404>.
+<https://data.vlaanderen.be/PubliekeDienstverleningShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://purl.org/vocab/cpsv#PublicService>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/PubliekeOrganisatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://data.europa.eu/m8g/PublicOrganisation>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/862a2f1e266ae7450840aed5f3c5ef7a0427abb8>, <https://data.vlaanderen.be/48779cfe6628734340410a98a8b416472513bcd3>, <https://data.vlaanderen.be/efe000c6a0acdaa7c56f2fef8c4e1cce42c469fd>.
+<https://data.vlaanderen.be/ReservatieShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Reservatie>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/StringShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2001/XMLSchema#string>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/TimeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2001/XMLSchema#time>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/ToegankelijkheidShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://data.vlaanderen.be/ns/cultuur-en-jeugd/infrastructuur#Toegankelijkheid>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/f6168e9d2bb527cd37dec7968545ea638d3eeb34>, <https://data.vlaanderen.be/8c19ec12fc4cc34b427cc972c20795e83b7817e5>.
+<https://data.vlaanderen.be/UriShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/2001/XMLSchema#anyURI>;
+    <http://www.w3.org/ns/shacl#closed> false.
+<https://data.vlaanderen.be/VoertuigShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#targetClass> <https://schema.org/Vehicle>;
+    <http://www.w3.org/ns/shacl#closed> false;
+    <http://www.w3.org/ns/shacl#property> <https://data.vlaanderen.be/151c99b90d7f0068d5d075551ccaa73e17e45ada>.
