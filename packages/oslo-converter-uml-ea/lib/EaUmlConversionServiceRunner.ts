@@ -1,6 +1,7 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { LOG_LEVELS, AppRunner, OutputFormat } from '@oslo-flanders/core';
 
+import { InputFormat } from '@oslo-flanders/core/lib/enums/InputFormat';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
@@ -53,6 +54,11 @@ export class EaUmlConversionServiceRunner extends AppRunner<
           'A flag to enable debug mode which is more resilient to errors',
         default: false,
         boolean: true,
+      })
+      .option('inputFormat', {
+        describe: 'The format of the input file',
+        default: InputFormat.AccessDB,
+        choices: [InputFormat.AccessDB, InputFormat.Sqlite],
       })
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],

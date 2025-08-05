@@ -1,17 +1,10 @@
 import type { Logger } from '@oslo-flanders/core';
-import { fetchFileOrUrl } from '@oslo-flanders/core';
-import MDBReader from './MdbReaderWrapper';
 import type { EaAttribute } from './types/EaAttribute';
 import type { EaConnector } from './types/EaConnector';
 import type { EaDiagram } from './types/EaDiagram';
 import type { EaElement } from './types/EaElement';
 import type { EaPackage } from './types/EaPackage';
 import type { NormalizedConnector } from './types/NormalizedConnector';
-import { loadAttributes } from './utils/loadAttributes';
-import { loadDiagrams } from './utils/loadDiagrams';
-import { loadElementConnectors } from './utils/loadElementConnectors';
-import { loadElements } from './utils/loadElements';
-import { loadPackages } from './utils/loadPackage';
 
 export class DataRegistry {
   public readonly logger: Logger;
@@ -28,26 +21,19 @@ export class DataRegistry {
   private _normalizedConnectors: NormalizedConnector[] | undefined;
   private _targetDiagram: EaDiagram | undefined;
 
-  public async extract(umlFile: string): Promise<void> {
-    const buffer = await fetchFileOrUrl(umlFile);
-    const mdb = new MDBReader(buffer);
-
-    loadPackages(mdb, this);
-    loadElements(mdb, this);
-    loadAttributes(mdb, this);
-    loadElementConnectors(mdb, this);
-    loadDiagrams(mdb, this);
-  }
-
   public setTargetDiagram(name: string): void {
-    const filteredDiagrams = this.diagrams.filter(x => x.name === name);
+    const filteredDiagrams = this.diagrams.filter((x) => x.name === name);
 
     if (filteredDiagrams.length > 1) {
-      throw new Error(`Multiple diagrams share the same name '${name}'. Aborting conversion.`);
+      throw new Error(
+        `Multiple diagrams share the same name '${name}'. Aborting conversion.`,
+      );
     }
 
     if (filteredDiagrams.length === 0) {
-      throw new Error(`UML model does not contain a diagram with name ${name}.`);
+      throw new Error(
+        `UML model does not contain a diagram with name ${name}.`,
+      );
     }
 
     this.targetDiagram = filteredDiagrams[0];
@@ -124,7 +110,9 @@ export class DataRegistry {
 
   public get normalizedConnectors(): NormalizedConnector[] {
     if (!this._normalizedConnectors) {
-      throw new Error(`Trying to access normalized connectors before they were loaded.`);
+      throw new Error(
+        `Trying to access normalized connectors before they were loaded.`,
+      );
     }
     return this._normalizedConnectors;
   }

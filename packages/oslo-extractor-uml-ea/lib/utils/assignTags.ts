@@ -14,6 +14,18 @@ function replaceNoteErrors(tagValue: string): string {
   return tagValue?.replace('NOTE$ea_notes=', '');
 }
 
+
+/**
+ * Iterates over tags and converts the NOTES key to Notes.
+ * @param tags - The tags to iterate. Could be element tags, package tags, attribute tags or connector tags.
+ */
+// Change the key NOTES to Notes to be in line with the rest of the code
+export function convertNOTEStoNotes(tags: any[]): void {
+  tags.forEach((tag) => {
+    tag.Notes = tag.NOTES;
+  });
+}
+
 /**
  * Iterates over tags and adds it to the corresponding object.
  * @param tags - The tags to iterate. Could be element tags, package tags, attribute tags or connector tags.

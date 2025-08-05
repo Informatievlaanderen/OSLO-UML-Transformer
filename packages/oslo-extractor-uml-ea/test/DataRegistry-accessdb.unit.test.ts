@@ -2,29 +2,30 @@
  * @group unit
  */
 import { VoidLogger } from '@oslo-flanders/core';
-import { DataRegistry } from '../lib/DataRegistry';
+import { InputFormat } from '@oslo-flanders/core/lib/enums/InputFormat';
+import type { DataRegistry } from '../lib/DataRegistry';
+import { FileReaderService } from '../lib/FileReaderService';
 import { EaDiagram } from '../lib/types/EaDiagram';
-import * as attributes from '../lib/utils/loadAttributes';
-import * as diagrams from '../lib/utils/loadDiagrams';
-import * as connectors from '../lib/utils/loadElementConnectors';
-import * as elements from '../lib/utils/loadElements';
-import * as packages from '../lib/utils/loadPackage';
 
-describe('DataRegistry', () => {
+describe('DataRegistry (accessdb)', () => {
   let dataRegistry: DataRegistry;
 
-  beforeEach(() => {
-    dataRegistry = new DataRegistry(new VoidLogger());
+  beforeEach(async () => {
+    dataRegistry = await new FileReaderService(
+      InputFormat.AccessDB,
+      new VoidLogger(),
+    ).createDataRegistry(
+      // eslint-disable-next-line max-len
+      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein.EAP?raw=true',
+    );
   });
 
-  it('should throw an error when items in the data registry are not set', () => {
-    expect(() => dataRegistry.diagrams).toThrowError();
-    expect(() => dataRegistry.packages).toThrowError();
-    expect(() => dataRegistry.attributes).toThrowError();
-    expect(() => dataRegistry.elements).toThrowError();
-    expect(() => dataRegistry.connectors).toThrowError();
-    expect(() => dataRegistry.normalizedConnectors).toThrowError();
-    expect(() => dataRegistry.targetDiagram).toThrowError();
+  it('should return items when the default targetDiagram is set', () => {
+    expect(dataRegistry.diagrams.length).toBeGreaterThan(0);
+    expect(dataRegistry.packages.length).toBeGreaterThan(0);
+    expect(dataRegistry.attributes.length).toBeGreaterThan(0);
+    expect(dataRegistry.elements.length).toBeGreaterThan(0);
+    expect(dataRegistry.connectors.length).toBeGreaterThan(0)
   });
 
   it('should return items when they are set', () => {
@@ -67,7 +68,9 @@ describe('DataRegistry', () => {
     dataRegistry.diagrams = [mockDiagram, anotherMockDiagram];
 
     dataRegistry.setTargetDiagram('TestDiagram');
-    expect(() => dataRegistry.setTargetDiagram('NewTestDiagram')).toThrowError();
+    expect(() =>
+      dataRegistry.setTargetDiagram('NewTestDiagram'),
+    ).toThrowError();
   });
 
   it('should throw an error when a diagram can not be found set while setting the target diagram', () => {
@@ -83,22 +86,5 @@ describe('DataRegistry', () => {
     dataRegistry.diagrams = [mockDiagram, anotherMockDiagram];
 
     expect(() => dataRegistry.setTargetDiagram('TestDiagram')).toThrowError();
-  });
-
-  it('should extract all the data from an UML diagram', async () => {
-    const packageSpy = jest.spyOn(packages, 'loadPackages');
-    const diagramSpy = jest.spyOn(diagrams, 'loadDiagrams');
-    const elementSpy = jest.spyOn(elements, 'loadElements');
-    const attributeSpy = jest.spyOn(attributes, 'loadAttributes');
-    const connectorSpy = jest.spyOn(connectors, 'loadElementConnectors');
-
-    // eslint-disable-next-line max-len
-    await dataRegistry.extract('https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein.EAP?raw=true');
-
-    expect(packageSpy).toHaveBeenCalled();
-    expect(elementSpy).toHaveBeenCalled();
-    expect(diagramSpy).toHaveBeenCalled();
-    expect(attributeSpy).toHaveBeenCalled();
-    expect(connectorSpy).toHaveBeenCalled();
   });
 });
