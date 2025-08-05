@@ -113,7 +113,7 @@
     }
   },
   "@id": "https://data.vlaanderen.be/http://verison",
-  "generatedAtTime": "2025-08-05T13:46:59.978Z",
+  "generatedAtTime": "2025-08-05T13:45:48.228Z",
   "packages": [
     {
       "@id": "urn:oslo-toolchain:0ba8bd6937b352cc6ad95f6c5d265049d70cde0b6ed883063d2bb351d2b004a7",
