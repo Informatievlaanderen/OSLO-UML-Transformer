@@ -1,0 +1,3532 @@
+{
+  "@context": {
+    "oslo": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rec": "http://www.w3.org/2001/02pd/rec54#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "packages": "@included",
+    "classes": "@included",
+    "datatypes": "@included",
+    "attributes": "@included",
+    "referencedEntities": "@included",
+    "baseURI": {
+      "@id": "oslo:baseURI",
+      "@type": "@id"
+    },
+    "vocDefinition": {
+      "@id": "oslo:vocDefinition",
+      "@container": "@set"
+    },
+    "apDefinition": {
+      "@id": "oslo:apDefinition",
+      "@container": "@set"
+    },
+    "vocLabel": {
+      "@id": "oslo:vocLabel",
+      "@container": "@set"
+    },
+    "apLabel": {
+      "@id": "oslo:apLabel",
+      "@container": "@set"
+    },
+    "diagramLabel": {
+      "@id": "oslo:diagramLabel"
+    },
+    "scope": {
+      "@id": "oslo:scope"
+    },
+    "vocUsageNote": {
+      "@id": "oslo:vocUsageNote",
+      "@container": "@set"
+    },
+    "apUsageNote": {
+      "@id": "oslo:apUsageNote",
+      "@container": "@set"
+    },
+    "domain": {
+      "@id": "rdfs:domain",
+      "@container": "@set"
+    },
+    "range": {
+      "@id": "rdfs:range"
+    },
+    "minCount": {
+      "@id": "sh:minCount"
+    },
+    "maxCount": {
+      "@id": "sh:maxCount"
+    },
+    "parent": {
+      "@id": "rdfs:subClassOf",
+      "@type": "owl:Class"
+    },
+    "generatedAtTime": {
+      "@id": "prov:generatedAtTime"
+    },
+    "Package": "oslo:Package",
+    "Class": {
+      "@id": "owl:Class"
+    },
+    "DatatypeProperty": {
+      "@id": "owl:DatatypeProperty"
+    },
+    "ObjectProperty": {
+      "@id": "owl:ObjectProperty"
+    },
+    "authors": {
+      "@type": "foaf:Person",
+      "@id": "foaf:maker"
+    },
+    "editors": {
+      "@type": "foaf:Person",
+      "@id": "rec:editor"
+    },
+    "contributors": {
+      "@type": "foaf:Person",
+      "@id": "dcterms:contributor"
+    },
+    "affiliation": {
+      "@id": "http://schema.org/affiliation"
+    },
+    "assignedURI": {
+      "@id": "oslo:assignedURI",
+      "@type": "@id"
+    },
+    "Datatype": {
+      "@id": "rdfs:Datatype"
+    },
+    "codelist": {
+      "@id": "oslo:codelist",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "adms:status",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://data.vlaanderen.be/test/1",
+  "generatedAtTime": "2025-08-04T10:05:42.457Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:d375c9cf169a5c7a62229db67fbc54a11067c9df7cea6598a246095629580bf3",
+      "@type": "Package",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang",
+      "baseURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1",
+      "@type": "Class",
+      "assignedURI": "http://data.vlaanderen.be/ns/besluit#Vergunning",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Vergunning"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Vergunning"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechtshandeling, zijnde een beslissing, die toelating inhoudt voor een Activiteit."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c7dc62009ddf219ebacb74e14e7546133887f2cbf0bc093dbf66676e2509f6a6"
+        },
+        {
+          "@id": "urn:oslo-toolchain:162d2e83c702b39847a97e243503dbfc8e8b63a14aabdf817a2f4cc6fb7db70f"
+        },
+        {
+          "@id": "urn:oslo-toolchain:406af6a1f863d6dbc37db351fb921dffe680b9d45db2a3ac0bc4bcb918b5e49a"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Aanvraag",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Aanvraag"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Aanvraag"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanspraak op de uitoefening van een bevoegdheid; formeel verzoek van een rechtssubject aan een bevoegde instantie om informatie te verstrekken of een beslissing te nemen, in het bijzonder een beslissing om ergens toelating voor te verlenen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c7dc62009ddf219ebacb74e14e7546133887f2cbf0bc093dbf66676e2509f6a6"
+        },
+        {
+          "@id": "urn:oslo-toolchain:162d2e83c702b39847a97e243503dbfc8e8b63a14aabdf817a2f4cc6fb7db70f"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:5d2ece6c74ac49094fd7f7c2804d100f8969f083706c5ea4c011a16f299f5cb7",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Activiteit",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Activiteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Activiteit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geheel van handelingen die een of meerdere Rechtssubjecten binnen een welbepaald tijdsbestek en op een welbepaalde locatie ten uitvoer (willen) (laten) brengen en die gezien hun aard te kwalificeren zijn en dus geregeld zijn onder één of meer welbepaalde Juridische Categorieën."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Maakt het voorwerp uit van vergunningsaanvragen, meldingen, vergunningsbesluiten, vaststellingen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#Toegang",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Toegang"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Toegang"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Recht om een bepaalde zone binnen te mogen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "De bijhorende Activiteit bevat de Zone via de eigenschap \"locatie\"."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:406af6a1f863d6dbc37db351fb921dffe680b9d45db2a3ac0bc4bcb918b5e49a"
+        },
+        {
+          "@id": "urn:oslo-toolchain:1c84fc96c1073dd62b0015c1d016fe4e1fd9e6fd1d4df6d530e01a52990b3b83"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:5f27af7a668cdf287950bb7b76d43740d9d61e7aa67cab77e36eb01fd086fad9",
+      "@type": "Class",
+      "assignedURI": "https://schema.org/Vehicle",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voertuig"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Voertuig"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Apparaat dat is ontworpen of wordt gebruikt om mensen of vracht te vervoeren over land, water, lucht of door de ruimte."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:76753a71f341c452ce35cb47bf31c39dca7ff9fa2ecade0c254e6799d772ba00",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voertuigtype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Voertuigtype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#Weigering",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Weigering"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Weigering"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechtshandeling, zijnde een beslissing, die een Activiteit niet toelaat."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze Activiteit kan de inhoud zijn van een Aanvraag."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:c7dc62009ddf219ebacb74e14e7546133887f2cbf0bc093dbf66676e2509f6a6"
+        },
+        {
+          "@id": "urn:oslo-toolchain:162d2e83c702b39847a97e243503dbfc8e8b63a14aabdf817a2f4cc6fb7db70f"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:fe1f4b0f41f274bb72afefa45f91b2919eb6075acb125f282d5568e7204644a7",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit#Zone",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Zone"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Zone"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een geografische gebied waar een beperking is op de toegang."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:a880d597f366ef2b0d73402b5d414ab7391df570865478b00d5f79ea327774e4"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/m8g/Requirement",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Voorwaarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Iets dat nodig is of waarvan vereist is dat het gebeurt voordat iets anders gebeurt."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c220e4e6d3920d738680c6d1f99dfebbcf80279add36e16f1bc9760e242bbc78",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaardetype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Voorwaardetype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8a376b8245145fd13fb178326d9ee89b7b33edc3b93639712b44819b2b36fa50",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/dossier#Dossier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Dossier"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Dossier"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Samenhangend geheel van stukken die betrekking hebben op een bepaalde zaak."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f",
+      "@type": "Class",
+      "assignedURI": "http://dbpedia.org/ontology/Case",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Zaak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Zaak"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een zaak is het geheel aan werk gedaan om tot een bestuurlijke of zakelijke beslissing te komen. Een zaak slaat doorgaans neer in een verzameling documenten."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:399e8ba3f4d353381fa97ec87e743af32edf2c6fc563a3432740e8b12bac929c",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/dossier#Stuk",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Stuk"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Stuk"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Eenheid van bewijs ter ondersteuning van een feit."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:a76f1c02bc00d60f23bef6759779e82e779908c0d623c807d99f467b81d4b350"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:06d245ad63b3ce490ae573cd2c89a14f41be6974cda7bc04c5243f6e6c258e60",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#Voorwaardecollectie",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaardecollectie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "VoorwaardeCollectie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaarde die andere Voorwaarden verbindt via operaties, zoals AND en OR."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:ee7bd732ef5b4eecf575d76587ab93571f044f9eec0dc47a172ab4865a14325e",
+      "@type": "Class",
+      "assignedURI": "http://dbpedia.org/ontology/Project",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Project"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Project"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een project is een tijdelijke inspanning om bepaalde doelstellingen te bereiken."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b",
+      "@type": "Class",
+      "assignedURI": "http://purl.org/vocab/cpsv#PublicService",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Publiekedienstverlening"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "PubliekeDienstverlening"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een publieke dienstverlening is een geheel van verplichte of optioneel uitgevoerde of uitvoerbare acties door of in naam van een publieke organisatie. De dienstverlening is ten bate van een individu, een bedrijf, een andere publieke organisatie of groepen hiervan."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fb784d93436846e42439d66985466855293ec36ec736ab143eeef23ae45d3fb8",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Bewijstype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:88002bc8651e5b7b136c8e742711f27a5ff110466f2f05f5af018502bdf738c9",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/m8g/EvidenceTypeList",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstypelijst"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Bewijstypelijst"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Groep van Bewijstypes om aan een Voorwaarde te voldoen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a5dc567134de31e69c77f6a756b4f2e8f3a195c388bbf24e31304393665e3659",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/m8g/EvidenceType",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Bewijstype"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie over de kenmerken van een bewijs."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:31a20e5348dd617b7f3456ea78c8ebf6d9517e97bbba9998ade71d79b6a3f263",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Status"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Status"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/m8g/Evidence",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijs"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijs"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Bewijs"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk stuk waarmee kan worden aangetoond dat men aan een Voorwaarde voldoet."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In het kader van publieke dienstverlening gaat het meestal om administratieve documenten of ingevulde aanvraagformulieren. Zonder het nodige Bewijs kan de dienstverlening niet worden afgeleverd. Soms levert de Output van een Publieke Dienstverlening het Bewijs nodig voor een andere Publieke Dienstverlening."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:399e8ba3f4d353381fa97ec87e743af32edf2c6fc563a3432740e8b12bac929c"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:11db0c10cb061a55a35d95f61b42dcdf5fe133bdae705a03a3ec3689d0e1c2eb",
+      "@type": "Class",
+      "assignedURI": "https://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Toegangstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Toegangstype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bf5fd8f5000dd58ffc1d63c0ed5eb8de3fe755601167c646b88d05a10b60f63e",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Aanvraagtype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Aanvraagtype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cca1940b98e9eeb2fe36922c023a5cc791b0a0ea5384e3eefae328fcf4760e2a",
+      "@type": "Class",
+      "assignedURI": "https://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Activiteitstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Activiteitstype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8b640bb4527f0074e62f795b30351fbfa41a0eac8b3dcee52767b65fa2accb5e",
+      "@type": "Class",
+      "assignedURI": "https://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Logische operatie"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Logischeoperatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "LogischeOperatie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6a2263ed8138860e8bff3edbb99210046e6e03025e3d42c2345d9617c99f81f4",
+      "@type": "Class",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstypeclassificatietype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Bewijstypeclassificatietype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:f3a4430a764380a72bcbf77514000dd27015f2b9e31ad34b24d1d9f6c5fd0d24",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#ingangsdatum",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "ingangsdatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^ingangsdatum"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum vanaf dewelke de Vergunning rechtskracht krijgt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:474715019"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:458d4c79db810fd3879820c4514153176ccc37509f82e4c907732a3f2edfc1c1",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/description",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschrijving"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Korte uitleg over de aard, kenmerken, toepassingen of andere aanvullende informatie die helpt bij het verduidelijken van de Voorwaarde."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e4fe00e38266071bf806deebdc86d447513aa00fdf53e74a71b5f8b236ee54c7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2a76caffc081fa4e6be5979a9a4371e7baa676de6e8d4152fbcf6b66d257aeb3",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#label",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam van de Zone."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fe1f4b0f41f274bb72afefa45f91b2919eb6075acb125f282d5568e7204644a7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:2049156247"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:40d6750be4a027a7494c62e85c028acc167a4851e6b72dc74286cadad26a0302",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/description",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschrijving"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van het Bewijs."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e4fe00e38266071bf806deebdc86d447513aa00fdf53e74a71b5f8b236ee54c7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a7e4101840af02c19f9f66cd6b57143e6f362439b6e43e53eb53261df9f3654a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "titel"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Officiële naam van het Bewijs."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:e4fe00e38266071bf806deebdc86d447513aa00fdf53e74a71b5f8b236ee54c7"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:17a8e13cf76a05e5f87e8e8770d5ef6ec2a8f5926767be596147d7ad08e3c110",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#notation",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "identificator"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "String gebruikt om het object uniek te identificeren."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "String gebruikt om het object uniek te identificeren."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Type vd string slaat op het identificatiesysteem (incl de versie ervan), de string zelf op de eigenlijke identificator."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Type vd string slaat op het identificatiesysteem (incl de versie ervan), de string zelf op de eigenlijke identificator."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9f50e6d293494429115a031f97f17adc9da1d089f6235f9c3f6b16a4154c6c12"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:107a84541a5c2f1242261d85bb9af50844b07e9d563ad3641435b73b0c561f3d",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#schemaAgency",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegekendDoor"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegekendDoor"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegekendDoorString"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam van de agent die de identificator heeft toegekend."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam van de agent die de identificator heeft toegekend."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:29c356a875927094f1033600ceabc3a8d73f9b7c0e9d29adb338d5217f4ca9c7",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/issued",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "uitgegeven"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "uitgegeven"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegekendOp"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Tijdstip waarop de identificator werd uitgegeven."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Tijdstip waarop de identificator werd uitgegeven."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c182e1510f73a1f326e5385387b54605f97ef44e57da2d818450a761ae9bcbdf",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/2006/time#inXSDDateTime",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "inXSDDateTime"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "inXSDDateTime"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "inXSDDateTime"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Positie in de tijd uitgedrukt dmv xsd:dateTime."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Positie in de tijd uitgedrukt dmv xsd:dateTime."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d104ee5a00e3fe48891c17c355503bd554dfa190d2bb4fe649018b97afa2cf77"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:76835516779dc5f570b5fa39d7491b94bb01d35ff260385a4de884216a958044",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#verantwoordelijke",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "aanvrager"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "aanvrager"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechtssubject die de Aanvraag heeft ingediend."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8ef655595bb2b138a93fcbf892f508aae5971521d8e7d5b8eb5e9514e9cdd736"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cfa5695edb2c1c901b95c5aeaf4817a3847dcb87ae0480988170abe5b007712b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#ingangsdatum",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "ingangsdatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^ingangsdatum"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum vanaf dewelke de Aanvraag rechtskracht krijgt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:7c98b60427965d0c341981407dfaa7ddac9b738fe26e8870aa374c4ca690fd5b"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:62236be5dbf2e257a2509cc2cfd732f86e5e0e21db934dfb5d9243d6501ac12d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Classificering van het Voertuig aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5f27af7a668cdf287950bb7b76d43740d9d61e7aa67cab77e36eb01fd086fad9"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:76753a71f341c452ce35cb47bf31c39dca7ff9fa2ecade0c254e6799d772ba00"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8f6aa0d62ff199c9fceff81e5160d2d6815f7c5987509bf5764d1eb419ddd879",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "identificator"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Identificator van het Voertuig."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5f27af7a668cdf287950bb7b76d43740d9d61e7aa67cab77e36eb01fd086fad9"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e03cdc8a96d6a3f3b6d669d6d8ebbaaf73cc10e9ce24369966f80904d709b09c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Classificering van de Activiteit aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5d2ece6c74ac49094fd7f7c2804d100f8969f083706c5ea4c011a16f299f5cb7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cca1940b98e9eeb2fe36922c023a5cc791b0a0ea5384e3eefae328fcf4760e2a"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d4e794e1457a9044dfb0a338e4fc90939ee680be5f673318fcf2bc90629b5801",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#verantwoordelijke",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "verantwoordelijke"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^verantwoordelijke"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Publieke Organisatie die juridisch verantwoordelijk is voor de Vergunning."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c23cb20534aeca43b20dc14ab144af3bec4f3b727ad1e28caf9d6ab25857e1e6"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:898c8080f55b388c342c32015c9b75062ec510da01d32140c92d4c3845a59fd2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#procedure",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "procedure"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "procedure"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Procedure volgens dewelke de Zaak wordt afgehandeld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:7677fee91f356e721fd0a878554865b02a931c3a04481dedf1d935eebe0c9f56"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:43ead30f2fedb65fdf8e7fa9454567124f9ef0f2fb3831007da8f78c7eca6b0a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^identificator"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Identificator van de Weigering."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:baba2626e23ee7f5c89e8b04ebbd7a6b15f47fb464cf6250138aad551b5f8b52",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/extent",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "periode"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Periode van de Activiteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5d2ece6c74ac49094fd7f7c2804d100f8969f083706c5ea4c011a16f299f5cb7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:13637f497427cbfa06feb67a723fe1972bf6fc3a3730323201228e8b7b93b36c"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dd90fb29d00bb1a7e2a994779c49ed6dfb96740d9ab2361c87c60098e8d22d5f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#document",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "document"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^document"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Neerslag van de Vergunning in een Document."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f4973026a31fd9e2628daf44f7d81e349b5c7fb5f92d585d902172a9cc6793c6"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e468ad252281359e7c2e5c8249c06af0a5d2bd951bbbcda841fcc00faff62ecf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/hasCompetentAuthority",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft competente autoriteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftCompetenteAutoriteit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verbindt de Publieke Dienstverlening met een Publieke Organisatie, die verantwoordelijk is voor de levering van de dienst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c23cb20534aeca43b20dc14ab144af3bec4f3b727ad1e28caf9d6ab25857e1e6"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:84039d91871b80906e3189cceaf24228fe57a8565ef79ea0a9524f6df932a3de",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#status",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "status"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "status"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geeft aan of de Publieke Dienstverlening bijvoorbeeld actief, inactief, of in ontwikkeling is, op basis van een codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:31a20e5348dd617b7f3456ea78c8ebf6d9517e97bbba9998ade71d79b6a3f263"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:64686ad2dc12cf3023c5459625cbde7cd7ac0d32946f1b30e24c25ec2f45b1ee",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/extent",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "periode"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Periode van de Toegang."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:13637f497427cbfa06feb67a723fe1972bf6fc3a3730323201228e8b7b93b36c"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9247b6a68f0b6700b01fdb359220d71818978b33d2e84c31e18a3b60d76af2b8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^identificator"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Identificator van de Aanvraag."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9b0a3cca2a9835f29de4e75b6306503bc192c64fa0616baf0f59972509a6e514",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2006/time#hasEnd",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "tot"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "tot"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^tot"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Einde ve TemporeleEntiteit."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Einde ve TemporeleEntiteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:13637f497427cbfa06feb67a723fe1972bf6fc3a3730323201228e8b7b93b36c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d104ee5a00e3fe48891c17c355503bd554dfa190d2bb4fe649018b97afa2cf77"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ba28732fca2364aeb2791a44d3afeaf41710b096b27c53245b5200f83a5626a8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2006/time#hasBeginning",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "van"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^van"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Start ve TemporeleEntiteit."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Start ve TemporeleEntiteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:13637f497427cbfa06feb67a723fe1972bf6fc3a3730323201228e8b7b93b36c"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d104ee5a00e3fe48891c17c355503bd554dfa190d2bb4fe649018b97afa2cf77"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2f70b6d2e66d284dd463f5e010f516190d6f8909e19f1c977834deb1615e371e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Classificering van de Voorwaarde aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c220e4e6d3920d738680c6d1f99dfebbcf80279add36e16f1bc9760e242bbc78"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:19539ab489362e1f48cd5c777def879c3d5e09003c99b0755fefd133a886deda",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/publisher",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "uitgever"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "uitgever"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Agent die de Voorwaarde heeft uitgegeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:2c255300b252bbdf49c196ffa9f246c5b52d791414f497b9db37d357765b6479"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:63e02cb6267317bfb7d9db0f7cdf2913147b319c0db4790728f03e962ae85f09",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#geometry",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "geometrie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geometrie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Ruimtelijke voorstelling van de Zone."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:fe1f4b0f41f274bb72afefa45f91b2919eb6075acb125f282d5568e7204644a7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:121e806a0d9601a9548698ccc04abbf81a3d5ebb2b25ca24b919cf8f1995a421"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5a8d28cbd7b83c5ba1b555bfb72d7442b047aa360e72d065e18ed82b9d85030d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#operatie",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "operatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "operatie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Logische operatie die toegepast wordt op de Voorwaarden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:06d245ad63b3ce490ae573cd2c89a14f41be6974cda7bc04c5243f6e6c258e60"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8b640bb4527f0074e62f795b30351fbfa41a0eac8b3dcee52767b65fa2accb5e"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:287d932dbbf582968a7a7dc31d76c62ef6610601940411f1639f01c088adb0ea",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Classificering van de Toegang aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:11db0c10cb061a55a35d95f61b42dcdf5fe133bdae705a03a3ec3689d0e1c2eb"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:38a196fb9145c595fe2e45f77635e6bec937cf0e3f37093d43219048088df9a4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/evidenceTypeClassification",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "classificatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "classificatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Typering van het Bewijstype aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a5dc567134de31e69c77f6a756b4f2e8f3a195c388bbf24e31304393665e3659"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6a2263ed8138860e8bff3edbb99210046e6e03025e3d42c2345d9617c99f81f4"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cc6480663c8983995ad636aca89e4ae4230751cfa48cfebd35ff28395b62cb69",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://todo.com/Aanvraag.vergunningshouder",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "vergunningshouder"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "vergunningshouder"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechtssubject die de vergunning krijgt via de aanvraag."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8ef655595bb2b138a93fcbf892f508aae5971521d8e7d5b8eb5e9514e9cdd736"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dfbba4f8a8570270f4f162d9add746f34055bfd49f40f895574b0105429d07b9",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://todo.com/Vergunning.vergunningshouder",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "vergunningshouder"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "vergunningshouder"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechtssubject die de vergunning gekregen heeft."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8ef655595bb2b138a93fcbf892f508aae5971521d8e7d5b8eb5e9514e9cdd736"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a3aed84695f461bf4a42b1bee5f3248de5620273ca1af30b63fba6582f07b61b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "referentie"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "identificator"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Identificator van het object."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:33f75469279ce331e965998d0b3ab4d0fb7c9eff4bc0dd5405d27e7e9e61c995",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aard van het Bewijs."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het gebruik van een codelijst wordt aanbevolen. Illustratief wordt verwezen naar een eenvoudige codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fb784d93436846e42439d66985466855293ec36ec736ab143eeef23ae45d3fb8"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "codelist": "https://data.vlaanderen.be/doc/conceptscheme/BewijsType"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3bd825177087d0e275da00abdb7ebab544766a64641ce7f99c8b26dcc6d4606d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^identificator"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Identificator van de Vergunning."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e57fbde956e961618cbcdc1a1adafd8adaee1eeec080c22a6e89f64019e0cca7",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Classificering van de Aanvraag aan de hand van een gecontroleerde codelijst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bf5fd8f5000dd58ffc1d63c0ed5eb8de3fe755601167c646b88d05a10b60f63e"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:94ee94ba12f61342c38b26769b020cac742083dd20e33d4b665b90ed5d152e41",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#heeftOutputtype",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft outputtype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftOutputtype"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De types die de Output van de Publieke Dienstverlening heeft."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit kunnen meerdere types zijn omdat een Publieke Dienstverlening verschillende soorten Output kan produceren. Deze types kunnen vergeleken worden met de Bewijstypes van een Voorwaarde. Op die manier kan bepaald worden welke Publieke Dienstverlening Bewijzen levert die gebruikt kunnen worden door een andere Publieke Dienstverlening."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6a2263ed8138860e8bff3edbb99210046e6e03025e3d42c2345d9617c99f81f4"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:53a6753be8b71ccbd21eb7e01feb27a9a9ce5ba4629a0087a2b4be3fc17940ff",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/creator",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "maker"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "maker"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegekendDoor"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Link naar de agent die de identificator heeft uitgegeven."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Link naar de agent die de identificator heeft uitgegeven."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:2c255300b252bbdf49c196ffa9f246c5b52d791414f497b9db37d357765b6479"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6969395f6c16eba9ee2841778e4b30a94bc2e208a69719a9b8139053bfa0fadc",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#ingangsdatum",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "ingangsdatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^ingangsdatum"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum vanaf dewelke de Weigering rechtskracht krijgt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:7c98b60427965d0c341981407dfaa7ddac9b738fe26e8870aa374c4ca690fd5b"
+      },
+      "minCount": "1",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:64cf2f7888382396dcd17a3efa4f3d06a7b954cf74dbf2b6f800a4d9f6d3d154",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#inhoud",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "inhoud"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^inhoud"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Inhoud van de Aanvraag."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld de toegang om een autoluwe zone binnen te rijden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6a9c35c8093be312362b7ba809370a137907ec783ae5f85564614b5ae9829435",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/hasPart",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "procedurestap"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "procedurestap"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Procedurestappen die deel uitmaken van de Procedure."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:7677fee91f356e721fd0a878554865b02a931c3a04481dedf1d935eebe0c9f56"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6e3a0c04bad0ea70f6e1bf049461f23544986414027035093d5e1e18344fad66"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4d557caa27686047d902ec137409710f6f9d11745f2c84f6fdd8d556b4234c93",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/supportsRequirement",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "vervult"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "vervult"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaarde waaraan voldaan is door middel van het Bewijs."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ed3ce8b5811992b7f0f5a8669e3703ab92c72b7045db5ccd782436edd2f4de4a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/hasSupportingEvidence",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft ondersteunend bewijs"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isVervuldDoor"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Bewijs dat informatie/ondersteuning biedt voor de Voorwaarde."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:62539e7738858d89c2167b231a8b19b9e19d699ff0f719ccb4cdd640886d635d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#dossier",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "dossier"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "dossier"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het dossier waarin deze zaak wordt behandeld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8a376b8245145fd13fb178326d9ee89b7b33edc3b93639712b44819b2b36fa50"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8ff30deea83194dec3bc338c9283db6742f7a31dc3a10293d621a69e59594577",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#inhoud",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "inhoud"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^inhoud"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Inhoud van de Vergunning."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld de toegang om een autoluwe zone binnen te rijden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:583fc66afc235f44b47810fa417fc57eaacd3b9ff4e39df94e8f0dad40633774",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/isPartOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "is deel van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isDeelVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een gerelateerde entiteit waar de beschreven entiteit een fysiek of logisch onderdeel van is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ee7bd732ef5b4eecf575d76587ab93571f044f9eec0dc47a172ab4865a14325e"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c515a05ae1082960dd4f3ee0d2936176588647b78890abfd99cfadba0298b224",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://vocab.belgif.be/ns/publicservice#hasRequirement",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft voorwaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftVoorwaarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaarden aan voldaan moet worden om gebruik te maken van de Publieke Dienstverlening."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:01134c0d5c7813413e7659a6b994f8fc837f9be66b7a35e538768214a0f5c959",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/hasEvidenceTypeList",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft bewijstypelijst"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftBewijstypelijst"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstypelijst dat specificieert welke Bewijstypes nodig zijn om aan de Voorwaarde te voldoen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:88002bc8651e5b7b136c8e742711f27a5ff110466f2f05f5af018502bdf738c9"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2d1c9c0da32a676560ea6f257c2545471cfdfa5c54767fe20e85d7b69a2833da",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/specifiesEvidenceType",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "specificieert bewijstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "specificieertBewijstype"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Bewijstypes die in de Bewijstypelijst zitten."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:88002bc8651e5b7b136c8e742711f27a5ff110466f2f05f5af018502bdf738c9"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a5dc567134de31e69c77f6a756b4f2e8f3a195c388bbf24e31304393665e3659"
+      },
+      "minCount": "1",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d2f547baa3e171ca28785a429a10e501a4b3c9360ba41b4977a3be3961a6787f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaak",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaak"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De zaak waarin de Weigering wordt gesteld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4e46d8501f4b4694a13ff07e42b47a56c18d81d8b2d7186fe7864025f78e258c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaakhandeling",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaakhandeling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaakhandeling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Weigering die bij de Zaak hoort."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8e37bca1cc3d16cc2fbfde5ee7edfeb13abadc7232440f4351ca99398b7cc760",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#inhoud",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "inhoud"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^inhoud"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Inhoud van de Weigering."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld de toegang om een autoluwe zone binnen te rijden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5bc9581ebc3687518719358aaf5b57ae1c0c08df3c3de42e2248da6e83596248",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#voorwerp",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "voorwerp"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^voorwerp"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Activiteit waarvoor de Toegang nodig is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5d2ece6c74ac49094fd7f7c2804d100f8969f083706c5ea4c011a16f299f5cb7"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6a69ed683f3e88fc266e48a6bb26994bd81bf3bf6ddfe18c06310493e452cdb8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaakhandeling",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaakhandeling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaakhandeling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanvraag die bij de Zaak hoort."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b1184eff1439612a96b4b60259d1d2dac4bd7206c408652470e07a51a2fa835b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaak",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaak"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De zaak waarin de Aanvraag wordt gesteld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ca97408d7a8651976d08c98641ad9bf2aad76585b4509727d2906daef9045ba4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaakhandeling",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaakhandeling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaakhandeling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Vergunning die bij de Zaak hoort."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:76e352373dd7aa8f12e26fb6995d366256c2f2101037035948c6eb1f3a7d39af",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#zaak",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "zaak"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^zaak"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De zaak waarin de Vergunning wordt gesteld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ffe9c39ce5ac2b5adb4cdca747878e673dc9e5bb6d0f7f803245644c7be8775f"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0e4aeb91bf0eac38ebc2371cf4ebd32a52f34cebeff71480451df18038c862ef",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://vocab.belgif.be/ns/publicservice#isUsedAs",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gebruikt als"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^gebruiktAls"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Deze eigenschap kan worden gebruikt wanneer een Publieke Dienst de Vergunning als Bewijs gebruikt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5bf041be8968e66660d23de511283c5020d674ffb7efeb5cd1b9cba064a77ccc"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8c4ad2f705d0151312586a3877595dd6e4543483017eff66dbb62423bca3bf18",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/vocab/cpsv#produces",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "produceert"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^produceert"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Recht op toegang dat verkregen wordt als resultaat van de uitvoering van de Publieke Dienstverlening."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b249c9672995918d36fa47930646cc69edc00add2be87e15b30b93dd7f7cecf3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://test.data.vlaanderen.be/ns/citerra#geconsumeerdIn",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geconsumeerd in"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geconsumeerdIn"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Procedurestap waar de Publieke Dienstverlening geconsumeerd wordt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:4177087511b790553db49cc0748f6ccda09fcdd5d0e7ac598e1352b8f2057611"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6d1bd0cd2b27dafec09321da039a21c85d8703717fbc876c26817cdce5c4800f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://test.data.vlaanderen.be/ns/citerra#dienstverlening",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "dienstverlening"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "dienstverlening"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Publieke Dienstverlening die geconsumeerd wordt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:4177087511b790553db49cc0748f6ccda09fcdd5d0e7ac598e1352b8f2057611"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:28bdac0eb9a157cfb603c6a017d6d49becc3996edf994721a44fbd1118574527",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#location",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "locatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de plaats waar een Activiteit plaatsvindt, plaats zal vinden, of plaatsvond."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5d2ece6c74ac49094fd7f7c2804d100f8969f083706c5ea4c011a16f299f5cb7"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:fe1f4b0f41f274bb72afefa45f91b2919eb6075acb125f282d5568e7204644a7"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ee99b9014cc043aa877dd09638a88742920b5cdb545f250dc51912046fc18f8e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/dossier#Dossier.bestaatUit",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "bestaat uit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bestaatUit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een dossier bestaat uit dossierstukken."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:8a376b8245145fd13fb178326d9ee89b7b33edc3b93639712b44819b2b36fa50"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:399e8ba3f4d353381fa97ec87e743af32edf2c6fc563a3432740e8b12bac929c"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2ab343f2d4f1fe377af22113e7d57c3bc853366afc60709693685e5f2103aca2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/vocab/cpsv#produces",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "produceert"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^produceert"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Vergunning dat verkregen wordt als resultaat van de uitvoering van de Publieke Dienstverlening."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:a6ddd5caba53c66466a9f7e6c4012f11f9701d28616f3906d6d0d0a72dabd79b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:084b846246c795c804307e8b0dc5f28ea0807e9ced1b9bde0c468b39b83fd3a9",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#toegang",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegang"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegang"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Rechten voor toegang dewelke het Voertuig heeft."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5f27af7a668cdf287950bb7b76d43740d9d61e7aa67cab77e36eb01fd086fad9"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a630e76435591faee4d1db0692d8d87ebfe6062f520847b770fc75e40b059969",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#voertuig",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "voertuig"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "voertuig"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Voertuig waarvoor de Toegang geldt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5f27af7a668cdf287950bb7b76d43740d9d61e7aa67cab77e36eb01fd086fad9"
+      },
+      "minCount": "0",
+      "maxCount": "1",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3ce87b086e8a5affdb8aff61221aa80ce4a997e273268193c623bca52e21fb9a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/hasRequirement",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft voorwaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftVoorwaarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Subvoorwaarde van de Voorwaarde."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:06d245ad63b3ce490ae573cd2c89a14f41be6974cda7bc04c5243f6e6c258e60"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f4cf3ff05d5eb75ed5a67d277a63e9eae05f31374b25808d5dd884c020792161",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/m8g/isRequirementOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "is voorwaarde van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isVoorwaardeVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Supervoorwaarde van de Voorwaarde."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:cc71eb200bcfc5b21ff14ab1ab5a93e3a54d6939b78c43d87c996dd62a799f74"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:06d245ad63b3ce490ae573cd2c89a14f41be6974cda7bc04c5243f6e6c258e60"
+      },
+      "minCount": "0",
+      "maxCount": "*",
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "urn:oslo-toolchain:d19131658cf9a083d66c3690809a8bbdbf0880787cb9f7b3042b1630a8fc8068",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/ns/adms#Identifier",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Identificator"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Identificator"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie gebruikt om een object uniek te identificeren."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie gebruikt om een object uniek te identificeren."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Uitgangspunt hier is dat deze string door een organisatie wordt toegekend en dat dit gebeurt volgens een welbepaald systeem."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Uitgangspunt hier is dat deze string door een organisatie wordt toegekend en dat dit gebeurt volgens een welbepaald systeem."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:13637f497427cbfa06feb67a723fe1972bf6fc3a3730323201228e8b7b93b36c",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#ProperInterval",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Periode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit waarvan de omvang en duurtijd verschilt van nul,ttz waarvoor de begin- en eindwaarde verschillend zijn."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit waarvan de omvang en duurtijd verschilt van nul,ttz waarvoor de begin- en eindwaarde verschillend zijn."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7f3087f746e57347d2c377f4fbd17f7ab539212ae9bb27a4d1e1da196ea62820"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:7f3087f746e57347d2c377f4fbd17f7ab539212ae9bb27a4d1e1da196ea62820",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#TemporalEntity",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Abstracte klasse voor temporele objecten."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Abstracte klasse voor temporele objecten."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Die temporele objecten zijn temporele geometrische primitieven zoals Moment of Periode. Of het zijn composieten van temporele primitieven, bv om de geschiedenis van een fenomeen weer te geven (bv de opeenvolgende Periodes dat het fenomeen zich voordeed). Te gebruiken wanneer bvb beide temporele geometrische primitieven mogelijk zijn."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d104ee5a00e3fe48891c17c355503bd554dfa190d2bb4fe649018b97afa2cf77",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#Instant",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Moment"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Moment"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Moment"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Moment met omvang en duur nul."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Moment met omvang en duur nul."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:7f3087f746e57347d2c377f4fbd17f7ab539212ae9bb27a4d1e1da196ea62820"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:9f50e6d293494429115a031f97f17adc9da1d089f6235f9c3f6b16a4154c6c12",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Getypeerde String"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "GetypeerdeString"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Combinatie van een string en het type van wat de string voorstelt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb '20170901' als string en 'datum' als type. Laat automatische interpretatie vd string toe."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:e4fe00e38266071bf806deebdc86d447513aa00fdf53e74a71b5f8b236ee54c7",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "TaalString"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TaalString"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Combinatie van een string en de taal waarin de inhoud ervan is gesteld."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:474715019",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#date",
+      "diagramLabel": [
+        {
+          "@value": "Date"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:2049156247",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "diagramLabel": [
+        {
+          "@value": "Literal"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:487667944",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#string",
+      "diagramLabel": [
+        {
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:499715870",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "diagramLabel": [
+        {
+          "@value": "DateTime"
+        }
+      ]
+    }
+  ],
+  "referencedEntities": [
+    {
+      "@id": "urn:oslo-toolchain:35b5bc1d107853a4aacd2d805b9977ab29c321e479b74a26df8f4bccc1f06be1",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c7dc62009ddf219ebacb74e14e7546133887f2cbf0bc093dbf66676e2509f6a6",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Rechtshandeling",
+      "diagramLabel": [
+        {
+          "@value": "Rechtshandeling"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:162d2e83c702b39847a97e243503dbfc8e8b63a14aabdf817a2f4cc6fb7db70f",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Zaakhandeling",
+      "diagramLabel": [
+        {
+          "@value": "Zaakhandeling"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:406af6a1f863d6dbc37db351fb921dffe680b9d45db2a3ac0bc4bcb918b5e49a",
+      "assignedURI": "http://data.europa.eu/m8g/Output",
+      "diagramLabel": [
+        {
+          "@value": "Output"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5638dc7b5216548eba172a5a4bde9f7d6fcc695aaea8a4acd6472e2b83f90d66",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:99f37f520fee4a1c3d0a6cfa416a8a3300589c469df9f0f8f1e2cab12f7245bd",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1c84fc96c1073dd62b0015c1d016fe4e1fd9e6fd1d4df6d530e01a52990b3b83",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Recht",
+      "diagramLabel": [
+        {
+          "@value": "Recht"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a881504bef43fad4725c292a24ae0149a0ecdca988f3e70e495fcfeb457816dc",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fe1f4b0f41f274bb72afefa45f91b2919eb6075acb125f282d5568e7204644a7",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a880d597f366ef2b0d73402b5d414ab7391df570865478b00d5f79ea327774e4",
+      "assignedURI": "http://purl.org/dc/terms/Location",
+      "diagramLabel": [
+        {
+          "@value": "Locatie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:399e8ba3f4d353381fa97ec87e743af32edf2c6fc563a3432740e8b12bac929c",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a76f1c02bc00d60f23bef6759779e82e779908c0d623c807d99f467b81d4b350",
+      "assignedURI": "http://www.w3.org/ns/prov#Entity",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Entity"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Entity"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Iets met een duidelijk en onafhankelijk bestaan."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8ef655595bb2b138a93fcbf892f508aae5971521d8e7d5b8eb5e9514e9cdd736",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Rechtssubject",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Rechtssubject"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Rechtssubject"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7c98b60427965d0c341981407dfaa7ddac9b738fe26e8870aa374c4ca690fd5b",
+      "assignedURI": "http://todo.com/Date",
+      "diagramLabel": [
+        {
+          "@value": "Date"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c23cb20534aeca43b20dc14ab144af3bec4f3b727ad1e28caf9d6ab25857e1e6",
+      "assignedURI": "http://data.europa.eu/m8g/PublicOrganisation",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Publieke Organisatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "PubliekeOrganisatie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7677fee91f356e721fd0a878554865b02a931c3a04481dedf1d935eebe0c9f56",
+      "assignedURI": "https://data.vlaanderen.be/ns/omgevingsvergunning#Procedure",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Procedure"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Procedure"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Reeks stappen die de officiële of geaccepteerde manier is om iets te doen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f4973026a31fd9e2628daf44f7d81e349b5c7fb5f92d585d902172a9cc6793c6",
+      "assignedURI": "http://xmlns.com/foaf/0.1/Document",
+      "diagramLabel": [
+        {
+          "@value": "Document"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2c255300b252bbdf49c196ffa9f246c5b52d791414f497b9db37d357765b6479",
+      "assignedURI": "https://www.w3.org/ns/prov#Agent",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Agent"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Agent"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:121e806a0d9601a9548698ccc04abbf81a3d5ebb2b25ca24b919cf8f1995a421",
+      "assignedURI": "http://www.w3.org/ns/locn#Geometry",
+      "diagramLabel": [
+        {
+          "@value": "Geometrie"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ]
+}

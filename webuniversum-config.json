@@ -1,0 +1,2856 @@
+{
+  "baseURI": "http://data.vlaanderen.be/ns/mandaat#",
+  "classes": [
+    {
+      "id": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid",
+      "vocabularyLabel": {
+        "nl": "Bestuurseenheid"
+      },
+      "applicationProfileLabel": {
+        "nl": "Bestuurseenheid"
+      },
+      "vocabularyDefinition": {
+        "nl": "Publieke,bestuurlijke organisatie verbonden aan een territoriaal omschreven gebied met bepaalde verantwoordelijkheden waarbinnen het bestuurshandelingen kan stellen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Publieke,bestuurlijke organisatie verbonden aan een territoriaal omschreven gebied met bepaalde verantwoordelijkheden waarbinnen het bestuurshandelingen kan stellen."
+      },
+      "parents": [
+        {
+          "id": "http://data.europa.eu/m8g/PublicOrganisation",
+          "vocabularyLabel": {
+            "nl": "Publieke Organisatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Publieke Organisatie"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/org#classification",
+          "vocabularyLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Classificatie van de bestuurseenheid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "vocabularyLabel": {
+            "nl": "voorkeurslabel"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de bestuurseenheid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/besluit#werkingsgebied",
+          "vocabularyLabel": {
+            "nl": "werkingsgebied"
+          },
+          "applicationProfileLabel": {
+            "nl": "werkingsgebied"
+          },
+          "vocabularyDefinition": {
+            "nl": "Geografische gebied waarbinnen de bestuurseenheid bepaalde verantwoordelijkheden heeft waarbinnen het bestuurshandelingen kan stellen."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Geografische gebied waarbinnen de bestuurseenheid bepaalde verantwoordelijkheden heeft waarbinnen het bestuurshandelingen kan stellen."
+          },
+          "parents": [
+            {
+              "id": "http://purl.org/dc/terms/spatial"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid",
+          "range": {
+            "id": "http://www.w3.org/ns/prov#Location",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Locatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Locatie"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+      "vocabularyLabel": {
+        "nl": "Bestuursorgaan"
+      },
+      "applicationProfileLabel": {
+        "nl": "Bestuursorgaan"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een formeel orgaan van een rechtspersoon dat bevoegd is om rechtshandelingen te stellen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een formeel orgaan van een rechtspersoon dat bevoegd is om rechtshandelingen te stellen."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/org#Organization",
+          "vocabularyLabel": {
+            "nl": "Organisatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Organisatie"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/besluit#bestuurt",
+          "vocabularyLabel": {
+            "nl": "bestuurt"
+          },
+          "applicationProfileLabel": {
+            "nl": "bestuurt"
+          },
+          "vocabularyDefinition": {
+            "nl": "De bestuurseenheid die door het orgaan bestuurd wordt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De bestuurseenheid die door het orgaan bestuurd wordt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/besluit#Bestuurseenheid",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Bestuurseenheid"
+            },
+            "applicationProfileLabel": {
+              "nl": "Bestuurseenheid"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#classification",
+          "vocabularyLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "classificatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het type bestuursorgaan."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "vocabularyLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Naam van de eenheid."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+      "vocabularyLabel": {
+        "nl": "Bestuursorgaan (in bestuursperiode)"
+      },
+      "applicationProfileLabel": {
+        "nl": "Bestuursorgaan (in bestuursperiode)"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een bestuursorgaan,beperkt tot een bepaalde bestuursperiode."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/generiek#VersieVolgensGeldigeTijd",
+          "vocabularyLabel": {
+            "nl": "Versie volgens Geldige Tijd"
+          },
+          "applicationProfileLabel": {
+            "nl": "Versie volgens Geldige Tijd"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/org#hasPost",
+          "vocabularyLabel": {
+            "nl": "heeft positie"
+          },
+          "applicationProfileLabel": {
+            "nl": "bevat"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een mandaat binnen het orgaan."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandaat"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandaat"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/generiek#isTijdspecialisatieVan",
+          "vocabularyLabel": {
+            "nl": "is tijdspecialisatie van"
+          },
+          "applicationProfileLabel": {
+            "nl": "is tijdspecialisatie van"
+          },
+          "vocabularyDefinition": {
+            "nl": "Duidt de bronentiteit aan waarvan deze entiteit een tijdsgebonden specialisatie is. De specialisatie stelt de bron voor gedurende een bepaalde periode."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Duidt de bronentiteit aan waarvan deze entiteit een tijdsgebonden specialisatie is. De specialisatie stelt de bron voor gedurende een bepaalde periode."
+          },
+          "parents": [
+            {
+              "id": "http://www.w3.org/ns/prov#specializationOf"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Bestuursorgaan"
+            },
+            "applicationProfileLabel": {
+              "nl": "Bestuursorgaan"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#Fractie",
+      "vocabularyLabel": {
+        "nl": "Fractie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Fractie"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een fractie is een deel van een rechtstreeks verkozen volksvertegenwoordigend orgaan waarvan de leden op inhoudelijk en logistiek vlak willen samenwerken. Het formeel kader bepaalt wie samen een fractie kan vormen, doorgaans bestaat ze uit volksvertegenwoordigers die tot dezelfde politieke partij of stroming behoren."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een aantal mensen georganiseerd in een gemeenschap of andere sociale, commerciële of politieke structuur. De groep heeft een gemeenschappelijk doel of bestaansreden die de individuele leden ervan overstijgt en kan handelen als Agent. Een organisatie heeft dikwijls een hiërarchische structuur."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/org#Organization",
+          "vocabularyLabel": {
+            "nl": "Organisatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Organisatie"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/regorg#legalName",
+          "vocabularyLabel": {
+            "nl": "wettelijke naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "naam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De formele naam van de fractie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Fractie",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+      "vocabularyLabel": {
+        "nl": "Geboorte"
+      },
+      "applicationProfileLabel": {
+        "nl": "Geboorte"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het ter wereld komen vd persoon."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Stelt de geboorte van een persoon voor."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/persoon#Persoonsgebeurtenis",
+          "vocabularyLabel": {
+            "nl": "Persoonsgebeurtenis"
+          },
+          "applicationProfileLabel": {
+            "nl": "Persoonsgebeurtenis"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "https://data.vlaanderen.be/ns/persoon#datum",
+          "vocabularyLabel": {
+            "nl": "datum"
+          },
+          "applicationProfileLabel": {
+            "nl": "datum"
+          },
+          "vocabularyDefinition": {
+            "nl": "Datum waarop de gebeurtenis plaatsvond."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De geboortedatum."
+          },
+          "parents": [
+            {
+              "id": "http://purl.org/vocab/bio/0.1/date"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+          "range": {
+            "id": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "GetypeerdeString"
+            },
+            "applicationProfileLabel": {
+              "nl": "GetypeerdeString"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+      "vocabularyLabel": {
+        "nl": "Kandidatenlijst"
+      },
+      "applicationProfileLabel": {
+        "nl": "Kandidatenlijst"
+      },
+      "vocabularyDefinition": {
+        "nl": "Lijst met kandidaten voor een verkiezing."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Lijst met kandidaten voor een verkiezing."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#behoortTot",
+          "vocabularyLabel": {
+            "nl": "behoort tot"
+          },
+          "applicationProfileLabel": {
+            "nl": "behoort tot"
+          },
+          "vocabularyDefinition": {
+            "nl": "De verkiezing waar de lijst onderdeel van is."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De verkiezing waar de lijst onderdeel van is."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Rechtstreekse Verkiezing"
+            },
+            "applicationProfileLabel": {
+              "nl": "Rechtstreekse Verkiezing"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#heeftKandidaat",
+          "vocabularyLabel": {
+            "nl": "heeft kandidaat"
+          },
+          "applicationProfileLabel": {
+            "nl": "heeft kandidaat"
+          },
+          "vocabularyDefinition": {
+            "nl": "Een persoon die deel uitmaakt van de lijst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een persoon die deel uitmaakt van de lijst."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+          "range": {
+            "id": "http://www.w3.org/ns/person#Person",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Persoon"
+            },
+            "applicationProfileLabel": {
+              "nl": "Persoon"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+          "vocabularyLabel": {
+            "nl": "voorkeursnaam"
+          },
+          "applicationProfileLabel": {
+            "nl": "lijstnaam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De naam van de lijst onder dewelke de kandidaten gezamenlijk opkomen."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#lijstnummer",
+          "vocabularyLabel": {
+            "nl": "lijstnummer"
+          },
+          "applicationProfileLabel": {
+            "nl": "lijstnummer"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het volgnummer van de lijst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het volgnummer van de lijst."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#integer",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Integer"
+            },
+            "applicationProfileLabel": {
+              "nl": "Integer"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#lijsttype",
+          "vocabularyLabel": {
+            "nl": "lijsttype"
+          },
+          "applicationProfileLabel": {
+            "nl": "lijsttype"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het type van de lijst."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het type van de lijst."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Bijvoorbeeld: gemeenteraadsverkiezing, effectieven Vlaams Parlement."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bijvoorbeeld: gemeenteraadsverkiezing, effectieven Vlaams Parlement."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/ns/org#Membership",
+      "vocabularyLabel": {
+        "nl": "Lidmaatschap"
+      },
+      "applicationProfileLabel": {
+        "nl": "Lidmaatschap"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Geeft de kenmerken weer vh lidmaatschap van een Mandataris van een Fractie."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/org#memberDuring",
+          "vocabularyLabel": {
+            "nl": "lid gedurende"
+          },
+          "applicationProfileLabel": {
+            "nl": "lid gedurende"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Periode waarin de Mandataris lid was vd Fractie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/org#Membership",
+          "range": {
+            "id": "http://data.europa.eu/m8g/PeriodOfTime",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "TijdsInterval"
+            },
+            "applicationProfileLabel": {
+              "nl": "TijdsInterval"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+      "vocabularyLabel": {
+        "nl": "Mandaat"
+      },
+      "applicationProfileLabel": {
+        "nl": "Mandaat"
+      },
+      "vocabularyDefinition": {
+        "nl": "De bevoegdheid om gedurende een bepaalde periode een bestuursorgaan te vormen of er deel van uit te maken. Een mandaat kan één of meerdere zetels voorstellen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De bevoegdheid om gedurende een bepaalde periode een bestuursorgaan te vormen of er deel van uit te maken. Een mandaat kan één of meerdere zetels voorstellen."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/org#Post",
+          "vocabularyLabel": {
+            "nl": "Positie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Positie"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#aantalHouders",
+          "vocabularyLabel": {
+            "nl": "aantal houders"
+          },
+          "applicationProfileLabel": {
+            "nl": "aantal houders"
+          },
+          "vocabularyDefinition": {
+            "nl": "Maximale aantal agents die tegelijk deze positie kunnen invullen."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Maximale aantal mandatarissen dat tegelijk dit mandaat kan opnemen."
+          },
+          "parents": [
+            {
+              "id": "https://data.vlaanderen.be/ns/organisatie#aantalHouders"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#integer",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Integer"
+            },
+            "applicationProfileLabel": {
+              "nl": "Integer"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/org#role",
+          "vocabularyLabel": {
+            "nl": "rol"
+          },
+          "applicationProfileLabel": {
+            "nl": "bestuursfunctie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een code die de functie van het mandaat aangeeft."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+          "range": {
+            "id": "http://www.w3.org/ns/org#Role",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Rol"
+            },
+            "applicationProfileLabel": {
+              "nl": "Rol"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "vocabularyLabel": {
+        "nl": "Mandataris"
+      },
+      "applicationProfileLabel": {
+        "nl": "Mandataris"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een persoon in zijn rol als houder van een mandaat."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een persoon in zijn rol als houder van een mandaat."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/dc/terms/Agent",
+          "vocabularyLabel": {
+            "nl": "Agent"
+          },
+          "applicationProfileLabel": {
+            "nl": "Agent"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/org#holds",
+          "vocabularyLabel": {
+            "nl": "bekleedt"
+          },
+          "applicationProfileLabel": {
+            "nl": "bekleedt"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het mandaat dat deze mandataris bekleedt."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Deze eigenschap is verplicht als de mandataris geen tijdelijke vervanger is van een andere mandataris."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandaat"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandaat"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#beleidsdomein",
+          "vocabularyLabel": {
+            "nl": "beleidsdomein"
+          },
+          "applicationProfileLabel": {
+            "nl": "beleidsdomein"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het thema of beleidsdomein dat toegewezen is aan een mandataris."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het thema of beleidsdomein dat toegewezen is aan een mandataris."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#einde",
+          "vocabularyLabel": {
+            "nl": "einde"
+          },
+          "applicationProfileLabel": {
+            "nl": "einde"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isAangesteldDoor",
+          "vocabularyLabel": {
+            "nl": "is aangesteld door"
+          },
+          "applicationProfileLabel": {
+            "nl": "is aangesteld door"
+          },
+          "vocabularyDefinition": {
+            "nl": "De rechtsgrond die de aanstelling van de mandataris vastlegt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De rechtsgrond die de aanstelling van de mandataris vastlegt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Rechtsgrond Aanstelling"
+            },
+            "applicationProfileLabel": {
+              "nl": "Rechtsgrond Aanstelling"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan",
+          "vocabularyLabel": {
+            "nl": "is bestuurlijke alias van"
+          },
+          "applicationProfileLabel": {
+            "nl": "is bestuurlijke alias van"
+          },
+          "vocabularyDefinition": {
+            "nl": "De persoon die de mandatarisrol vervult."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De persoon die de mandatarisrol vervult."
+          },
+          "parents": [
+            {
+              "id": "http://www.w3.org/ns/prov#specializationOf"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/ns/person#Person",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Persoon"
+            },
+            "applicationProfileLabel": {
+              "nl": "Persoon"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isOntslagenDoor",
+          "vocabularyLabel": {
+            "nl": "is ontslagen door"
+          },
+          "applicationProfileLabel": {
+            "nl": "is ontslagen door"
+          },
+          "vocabularyDefinition": {
+            "nl": "De rechtsgrond die het ontslag van de mandataris vastlegt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De rechtsgrond die het ontslag van de mandataris vastlegt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Rechtsgrond Beëindiging"
+            },
+            "applicationProfileLabel": {
+              "nl": "Rechtsgrond Beëindiging"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isTijdelijkVervangenDoor",
+          "vocabularyLabel": {
+            "nl": "is tijdelijk vervangen door"
+          },
+          "applicationProfileLabel": {
+            "nl": "is tijdelijk vervangen door"
+          },
+          "vocabularyDefinition": {
+            "nl": "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen."
+          },
+          "vocabularyUsageNote": {
+            "nl": "De periode van vervanging komt overeen met de start-/einddatum van de opname van het mandaat van de vervanger."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "De periode van vervanging komt overeen met de start-/einddatum van de opname van het mandaat van de vervanger."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandataris"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandataris"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#rangorde",
+          "vocabularyLabel": {
+            "nl": "rangorde"
+          },
+          "applicationProfileLabel": {
+            "nl": "rangorde"
+          },
+          "vocabularyDefinition": {
+            "nl": "Duidt de plaats van de mandataris aan in de formeel vastgelegde volgorde van de mandatarissen binnen het bestuursorgaan waar de mandataris in zetelt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Duidt de plaats van de mandataris aan in de formeel vastgelegde volgorde van de mandatarissen binnen het bestuursorgaan waar de mandataris in zetelt."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "TaalString"
+            },
+            "applicationProfileLabel": {
+              "nl": "TaalString"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#start",
+          "vocabularyLabel": {
+            "nl": "start"
+          },
+          "applicationProfileLabel": {
+            "nl": "start"
+          },
+          "vocabularyDefinition": {
+            "nl": "Tijdstip vanaf wanneer de mandataris het mandaat opneemt."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Tijdstip vanaf wanneer de mandataris het mandaat opneemt."
+          },
+          "parents": [
+            {
+              "id": "http://data.vlaanderen.be/ns/mandaat#specialisatieStart"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#status",
+          "vocabularyLabel": {
+            "nl": "status"
+          },
+          "applicationProfileLabel": {
+            "nl": "status"
+          },
+          "vocabularyDefinition": {
+            "nl": "De gesteldheid van de mandataris."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De gesteldheid van de mandataris."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Voorbeelden: effectief, verhinderd, beëindigd, waarnemend."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Voorbeelden: effectief, verhinderd, beëindigd, waarnemend."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/ns/person#Person",
+      "vocabularyLabel": {
+        "nl": "Persoon"
+      },
+      "applicationProfileLabel": {
+        "nl": "Persoon"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Natuurlijk persoon."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "In de rechtspraak betreft het een persoon (in de wettelijke betekenis, ttz met eigen rechtspersoonlijkheid) van de menselijke soort, ttz een fysiek persoon. Tegenhanger is de rechtspersoon, een juridische constructie die een private of publieke Organisatie dezelfde rechtspersoonlijkheid geeft als een natuurlijk persoon (kan bv ook schulden hebben, contracten afsluiten, aangeklaagd worden etc)."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/dc/terms/Agent",
+          "vocabularyLabel": {
+            "nl": "Agent"
+          },
+          "applicationProfileLabel": {
+            "nl": "Agent"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://xmlns.com/foaf/0.1/familyName",
+          "vocabularyLabel": {
+            "nl": "familienaam"
+          },
+          "applicationProfileLabel": {
+            "nl": "achternaam"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De familienaam van de persoon."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://xmlns.com/foaf/0.1/name",
+          "vocabularyLabel": {
+            "nl": "alternatieve naam"
+          },
+          "applicationProfileLabel": {
+            "nl": "alternatieve naam"
+          },
+          "vocabularyDefinition": {
+            "nl": "Alternatief voor de volledige naam vd persoon."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een roepnaam van de persoon."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Indien aanwezig is het aan te raden deze naam te gebruiken voor visualisaties in plaats van voornaam en familienaam."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam",
+          "vocabularyLabel": {
+            "nl": "gebruikte voornaam"
+          },
+          "applicationProfileLabel": {
+            "nl": "gebruikte voornaam"
+          },
+          "vocabularyDefinition": {
+            "nl": "Belangrijkste vd voornamen ve persoon."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De te gebruiken voornaam van alle officiële voornamen van de persoon."
+          },
+          "parents": [
+            {
+              "id": "http://xmlns.com/foaf/0.1/givenName"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#string",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "String"
+            },
+            "applicationProfileLabel": {
+              "nl": "String"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/persoon#geslacht",
+          "vocabularyLabel": {
+            "nl": "geslacht"
+          },
+          "applicationProfileLabel": {
+            "nl": "geslacht"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het feit of de persoon een man of een vrouw is."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het officiële geslacht van de persoon."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Geslacht"
+            },
+            "applicationProfileLabel": {
+              "nl": "Geslacht"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1",
+          "codelist": "http://publications.europa.eu/mdr/authority/human-sex/"
+        },
+        {
+          "id": "https://data.vlaanderen.be/ns/persoon#heeftGeboorte",
+          "vocabularyLabel": {
+            "nl": "heeft geboorte"
+          },
+          "applicationProfileLabel": {
+            "nl": "heeft geboorte"
+          },
+          "vocabularyDefinition": {
+            "nl": "Verwijst naar de geboortegegevens vd persoon."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Duidt de geboorte van de persoon aan."
+          },
+          "parents": [
+            {
+              "id": "http://purl.org/vocab/bio/0.1/birth"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "https://data.vlaanderen.be/ns/persoon#Geboorte",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Geboorte"
+            },
+            "applicationProfileLabel": {
+              "nl": "Geboorte"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/adms#identifier",
+          "vocabularyLabel": {
+            "nl": "identificator"
+          },
+          "applicationProfileLabel": {
+            "nl": "identificator"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een identificator van de persoon."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Zie https://data.vlaanderen.be/doc/applicatieprofiel/generiek#Identificator."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://www.w3.org/ns/adms#Identifier",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Identificator"
+            },
+            "applicationProfileLabel": {
+              "nl": "Identificator"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isAangesteldAls",
+          "vocabularyLabel": {
+            "nl": "is aangesteld als"
+          },
+          "applicationProfileLabel": {
+            "nl": "is aangesteld als"
+          },
+          "vocabularyDefinition": {
+            "nl": "Een mandatarisrol die eigen is aan de persoon."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Een mandatarisrol die eigen is aan de persoon."
+          },
+          "parents": [
+            {
+              "id": "http://www.w3.org/ns/prov#generalizationOf"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://www.w3.org/ns/person#Person",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandataris"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandataris"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://data.europa.eu/eli/ontology#LegalResource",
+      "vocabularyLabel": {
+        "nl": "Rechtsgrond"
+      },
+      "applicationProfileLabel": {
+        "nl": "Rechtsgrond"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een legaal concept dat los staat van een bepaalde vorm (het achterliggende idee)."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Een rechtsgrond kan zowel een geheel (bvb: wet,besluit) voorstellen als een onderdeel eruit (bvb: artikel)."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/wetgeving#UnieRGLV",
+          "vocabularyLabel": {
+            "nl": "Unie RG LV"
+          },
+          "applicationProfileLabel": {
+            "nl": "Unie RG LV"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://data.europa.eu/eli/ontology#date_no_longer_in_force",
+          "vocabularyLabel": {
+            "nl": "datum buitenwerkingtreding"
+          },
+          "applicationProfileLabel": {
+            "nl": "buitenwerkingtreding"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De laatste dag waarop de regelgeving nog van kracht is."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.europa.eu/eli/ontology#LegalResource",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#date",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Date"
+            },
+            "applicationProfileLabel": {
+              "nl": "Date"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.europa.eu/eli/ontology#first_date_entry_in_force",
+          "vocabularyLabel": {
+            "nl": "datum inwerkingtreding"
+          },
+          "applicationProfileLabel": {
+            "nl": "inwerkingtreding"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De datum waarop de regelgeving van kracht wordt."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Dit is niet hetzelfde als wanneer de regelgeving toepasbaar (in de praktijk uitvoerbaar) wordt. De toepasbaarheid van de regelgeving kan op of na de inwerkingtreding liggen."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.europa.eu/eli/ontology#LegalResource",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#date",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Date"
+            },
+            "applicationProfileLabel": {
+              "nl": "Date"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.europa.eu/eli/ontology#type_document",
+          "vocabularyLabel": {
+            "nl": "type document"
+          },
+          "applicationProfileLabel": {
+            "nl": "type document"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het type van de rechtsgrond."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Bijvoorbeeld: reglement, wet, voorstel."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.europa.eu/eli/ontology#LegalResource",
+          "range": {
+            "id": "http://data.europa.eu/eli/ontology#ResourceType",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "ResourceType"
+            },
+            "applicationProfileLabel": {
+              "nl": "ResourceType"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling",
+      "vocabularyLabel": {
+        "nl": "Rechtsgrond Aanstelling"
+      },
+      "applicationProfileLabel": {
+        "nl": "Rechtsgrond Aanstelling"
+      },
+      "vocabularyDefinition": {
+        "nl": "De regelgeving,rechtshandeling en/of beleidskeuze waardoor de invulling van een of meerdere mandaten door een persoon vanaf een bepaalde datum (tijdelijk) start."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De regelgeving,rechtshandeling en/of beleidskeuze waardoor de invulling van een of meerdere mandaten door een persoon vanaf een bepaalde datum (tijdelijk) start."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/vocab/cpsv#FormalFramework",
+          "vocabularyLabel": {
+            "nl": "Formeel Kader"
+          },
+          "applicationProfileLabel": {
+            "nl": "Formeel Kader"
+          }
+        },
+        {
+          "id": "http://data.europa.eu/eli/ontology#LegalResource",
+          "vocabularyLabel": {
+            "nl": "Rechtsgrond"
+          },
+          "applicationProfileLabel": {
+            "nl": "Rechtsgrond"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#bekrachtigtAanstellingVan",
+          "vocabularyLabel": {
+            "nl": "bekrachtigt aanstelling van"
+          },
+          "applicationProfileLabel": {
+            "nl": "bekrachtigt aanstelling van"
+          },
+          "vocabularyDefinition": {
+            "nl": "De mandataris wiens aanstelling is bekrachtigd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De mandataris wiens aanstelling is bekrachtigd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandataris"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandataris"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+      "vocabularyLabel": {
+        "nl": "Rechtsgrond Beëindiging"
+      },
+      "applicationProfileLabel": {
+        "nl": "Rechtsgrond Beëindiging"
+      },
+      "vocabularyDefinition": {
+        "nl": "De regelgeving,rechtshandeling en/of beleidskeuze waardoor de invulling van één of meerdere mandaten door een persoon vanaf een bepaalde datum (tijdelijk) beëindigd wordt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De regelgeving,rechtshandeling en/of beleidskeuze waardoor de invulling van één of meerdere mandaten door een persoon vanaf een bepaalde datum (tijdelijk) beëindigd wordt."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/vocab/cpsv#FormalFramework",
+          "vocabularyLabel": {
+            "nl": "Formeel Kader"
+          },
+          "applicationProfileLabel": {
+            "nl": "Formeel Kader"
+          }
+        },
+        {
+          "id": "http://data.europa.eu/eli/ontology#LegalResource",
+          "vocabularyLabel": {
+            "nl": "Rechtsgrond"
+          },
+          "applicationProfileLabel": {
+            "nl": "Rechtsgrond"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#bekrachtigtOntslagVan",
+          "vocabularyLabel": {
+            "nl": "bekrachtigt ontslag van"
+          },
+          "applicationProfileLabel": {
+            "nl": "bekrachtigt ontslag van"
+          },
+          "vocabularyDefinition": {
+            "nl": "De mandataris wiens ontslag is bekrachtigd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De mandataris wiens ontslag is bekrachtigd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Mandataris"
+            },
+            "applicationProfileLabel": {
+              "nl": "Mandataris"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "*"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#redenVanBeeindiging",
+          "vocabularyLabel": {
+            "nl": "reden van beëindiging"
+          },
+          "applicationProfileLabel": {
+            "nl": "reden van beëindiging"
+          },
+          "vocabularyDefinition": {
+            "nl": "De reden waarom deze rechtsgrond werd beëindigd."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De reden waarom deze rechtsgrond werd beëindigd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+      "vocabularyLabel": {
+        "nl": "Rechtstreekse Verkiezing"
+      },
+      "applicationProfileLabel": {
+        "nl": "Rechtstreekse Verkiezing"
+      },
+      "vocabularyDefinition": {
+        "nl": "De uitvoering van een formele procedure waarbij stemgerechtigde burgers bepalen aan welke persoon een mandaat kan worden toegekend."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De uitvoering van een formele procedure waarbij stemgerechtigde burgers bepalen aan welke persoon een mandaat kan worden toegekend."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/prov#Activity",
+          "vocabularyLabel": {
+            "nl": "Activiteit"
+          },
+          "applicationProfileLabel": {
+            "nl": "Activiteit"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#datum",
+          "vocabularyLabel": {
+            "nl": "datum"
+          },
+          "applicationProfileLabel": {
+            "nl": "datum"
+          },
+          "vocabularyDefinition": {
+            "nl": "Datum waarop de verkiezing plaatsvond."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Datum waarop de verkiezing plaatsvond."
+          },
+          "parents": [
+            {
+              "id": "http://purl.org/dc/terms/date"
+            }
+          ],
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#date",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Date"
+            },
+            "applicationProfileLabel": {
+              "nl": "Date"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://purl.org/dc/terms/valid",
+          "vocabularyLabel": {
+            "nl": "geldig"
+          },
+          "applicationProfileLabel": {
+            "nl": "geldigheid"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Datum waarop de verkiezing geldig verklaard werd."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#date",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Date"
+            },
+            "applicationProfileLabel": {
+              "nl": "Date"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#steltSamen",
+          "vocabularyLabel": {
+            "nl": "stelt samen"
+          },
+          "applicationProfileLabel": {
+            "nl": "stelt samen"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het orgaan waarvan de samenstelling wordt bepaald door de verkiezing."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het orgaan waarvan de samenstelling wordt bepaald door de verkiezing."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Bestuursorgaan (in bestuursperiode)"
+            },
+            "applicationProfileLabel": {
+              "nl": "Bestuursorgaan (in bestuursperiode)"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "vocabularyLabel": {
+        "nl": "Verkiezingsresultaat"
+      },
+      "applicationProfileLabel": {
+        "nl": "Verkiezingsresultaat"
+      },
+      "vocabularyDefinition": {
+        "nl": "Individuele verkiezingsuitslag van een kandidaat."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Individuele verkiezingsuitslag van een kandidaat."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "properties": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#aantalNaamstemmen",
+          "vocabularyLabel": {
+            "nl": "aantal naamstemmen"
+          },
+          "applicationProfileLabel": {
+            "nl": "aantal naamstemmen"
+          },
+          "vocabularyDefinition": {
+            "nl": "Het aantal stemmen dat is uitgebracht op de kandidaat bij de verkiezing, zonder de lijststemmen in rekening te brengen."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het aantal stemmen dat is uitgebracht op de kandidaat bij de verkiezing, zonder de lijststemmen in rekening te brengen."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#integer",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Integer"
+            },
+            "applicationProfileLabel": {
+              "nl": "Integer"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#gevolg",
+          "vocabularyLabel": {
+            "nl": "gevolg"
+          },
+          "applicationProfileLabel": {
+            "nl": "gevolg"
+          },
+          "vocabularyDefinition": {
+            "nl": "Persoonlijk gevolg van de uitslag voor de kandidaat dat vastlegt of de kandidaat al dan niet kan deelnemen aan het bestuursorgaan."
+          },
+          "applicationProfileDefinition": {
+            "nl": "Persoonlijk gevolg van de uitslag voor de kandidaat dat vastlegt of de kandidaat al dan niet kan deelnemen aan het bestuursorgaan."
+          },
+          "vocabularyUsageNote": {
+            "nl": "Voorbeelden: niet verkozen, effectief, opvolger."
+          },
+          "applicationProfileUsageNote": {
+            "nl": "Voorbeelden: niet verkozen, effectief, opvolger."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+          "range": {
+            "id": "http://www.w3.org/2004/02/skos/core#Concept",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Code"
+            },
+            "applicationProfileLabel": {
+              "nl": "Code"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isResultaatVan",
+          "vocabularyLabel": {
+            "nl": "is resultaat van"
+          },
+          "applicationProfileLabel": {
+            "nl": "is resultaat van"
+          },
+          "vocabularyDefinition": {
+            "nl": "De persoon horende bij het resultaat."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De persoon horende bij het resultaat."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+          "range": {
+            "id": "http://www.w3.org/ns/person#Person",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Persoon"
+            },
+            "applicationProfileLabel": {
+              "nl": "Persoon"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#isResultaatVoor",
+          "vocabularyLabel": {
+            "nl": "is resultaat voor"
+          },
+          "applicationProfileLabel": {
+            "nl": "is resultaat voor"
+          },
+          "vocabularyDefinition": {
+            "nl": "De lijst waarop het resultaat betrekking heeft."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De lijst waarop het resultaat betrekking heeft."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+          "range": {
+            "id": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Kandidatenlijst"
+            },
+            "applicationProfileLabel": {
+              "nl": "Kandidatenlijst"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#plaatsRangorde",
+          "vocabularyLabel": {
+            "nl": "plaats rangorde"
+          },
+          "applicationProfileLabel": {
+            "nl": "plaats rangorde"
+          },
+          "vocabularyDefinition": {
+            "nl": "De positie in de volgorde op de lijst van effectief verkozenen of op de lijst van opvolgers, op basis van het aantal naamstemmen van de kandidaat plus het aantal overgedragen lijststemmen."
+          },
+          "applicationProfileDefinition": {
+            "nl": "De positie in de volgorde op de lijst van effectief verkozenen of op de lijst van opvolgers, op basis van het aantal naamstemmen van de kandidaat plus het aantal overgedragen lijststemmen."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+          "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#integer",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "Integer"
+            },
+            "applicationProfileLabel": {
+              "nl": "Integer"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/generiek#Versie",
+      "vocabularyLabel": {
+        "nl": "Versie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Versie"
+      },
+      "vocabularyDefinition": {
+        "nl": "Stelt een entiteit voor in één specifieke periode."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Stelt een entiteit voor in één specifieke periode."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/generiek#Object",
+          "vocabularyLabel": {
+            "nl": "Entiteit"
+          },
+          "applicationProfileLabel": {
+            "nl": "Entiteit"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/prov#qualifiedGeneration",
+          "vocabularyLabel": {
+            "nl": "gekwalificeerde creatie"
+          },
+          "applicationProfileLabel": {
+            "nl": "creatie"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Beschrijving vh ontstaan vd versie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/generiek#Versie",
+          "range": {
+            "id": "http://www.w3.org/ns/prov#Generation",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Creatie"
+            },
+            "applicationProfileLabel": {
+              "nl": "Creatie"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        },
+        {
+          "id": "http://www.w3.org/ns/prov#qualifiedInvalidation",
+          "vocabularyLabel": {
+            "nl": "gekwalificeerde opheffing"
+          },
+          "applicationProfileLabel": {
+            "nl": "opheffing"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Beschrijving vh verdwijnen vd versie."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "https://data.vlaanderen.be/ns/generiek#Versie",
+          "range": {
+            "id": "http://www.w3.org/ns/prov#Invalidation",
+            "listedInDocument": true,
+            "vocabularyLabel": {
+              "nl": "Opheffing"
+            },
+            "applicationProfileLabel": {
+              "nl": "Opheffing"
+            }
+          },
+          "minCount": "0",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "https://data.vlaanderen.be/ns/generiek#VersieVolgensGeldigeTijd",
+      "vocabularyLabel": {
+        "nl": "Versie volgens Geldige Tijd"
+      },
+      "applicationProfileLabel": {
+        "nl": "Versie volgens Geldige Tijd"
+      },
+      "vocabularyDefinition": {
+        "nl": "De versie stelt de entiteit voor gedurende een bepaalde periode in de gemodelleerde werkelijkheid."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De versie stelt de entiteit voor gedurende een bepaalde periode in de gemodelleerde werkelijkheid."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/generiek#Versie",
+          "vocabularyLabel": {
+            "nl": "Versie"
+          },
+          "applicationProfileLabel": {
+            "nl": "Versie"
+          }
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPublicationEnvironment"
+    }
+  ],
+  "dataTypes": [
+    {
+      "id": "http://www.w3.org/ns/prov#Generation",
+      "vocabularyLabel": {
+        "nl": "Creatie"
+      },
+      "applicationProfileLabel": {
+        "nl": "Creatie"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het voltooien vd productie ve nieuwe entiteit dmv een activiteit."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De entiteit bestond niet voorafgaand aan de creatie en is daarna beschikbaar voor gebruik."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/prov#atTime",
+          "vocabularyLabel": {
+            "nl": "op tijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "tijdstip"
+          },
+          "applicationProfileDefinition": {
+            "nl": "De start van de periode waarover de versie gedefinieerd is."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/prov#Generation",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "http://www.w3.org/ns/prov#Invalidation",
+      "vocabularyLabel": {
+        "nl": "Opheffing"
+      },
+      "applicationProfileLabel": {
+        "nl": "Opheffing"
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het starten vh vernietigen/beëindigen/uitdoven ve entiteit dmv een activiteit."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De entiteit is daarna niet meer beschikbaar voor gebruik of kan daarna niet meer vervallen. Gebruik of creatie gaan aan opheffing vooraf."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "properties": [
+        {
+          "id": "http://www.w3.org/ns/prov#atTime",
+          "vocabularyLabel": {
+            "nl": "op tijdstip"
+          },
+          "applicationProfileLabel": {
+            "nl": "tijdstip"
+          },
+          "applicationProfileDefinition": {
+            "nl": "Het einde van de periode waarover de versie gedefinieerd is."
+          },
+          "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+          "domain": "http://www.w3.org/ns/prov#Invalidation",
+          "range": {
+            "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "listedInDocument": false,
+            "vocabularyLabel": {
+              "nl": "DateTime"
+            },
+            "applicationProfileLabel": {
+              "nl": "DateTime"
+            }
+          },
+          "minCount": "1",
+          "maxCount": "1"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#aantalHouders",
+      "vocabularyLabel": {
+        "nl": "aantal houders"
+      },
+      "applicationProfileLabel": {
+        "nl": "aantal houders"
+      },
+      "vocabularyDefinition": {
+        "nl": "Maximale aantal agents die tegelijk deze positie kunnen invullen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Maximale aantal mandatarissen dat tegelijk dit mandaat kan opnemen."
+      },
+      "parents": [
+        {
+          "id": "https://data.vlaanderen.be/ns/organisatie#aantalHouders"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandaat",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#integer",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Integer"
+        },
+        "applicationProfileLabel": {
+          "nl": "Integer"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#aantalNaamstemmen",
+      "vocabularyLabel": {
+        "nl": "aantal naamstemmen"
+      },
+      "applicationProfileLabel": {
+        "nl": "aantal naamstemmen"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het aantal stemmen dat is uitgebracht op de kandidaat bij de verkiezing, zonder de lijststemmen in rekening te brengen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het aantal stemmen dat is uitgebracht op de kandidaat bij de verkiezing, zonder de lijststemmen in rekening te brengen."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#integer",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Integer"
+        },
+        "applicationProfileLabel": {
+          "nl": "Integer"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#behoortTot",
+      "vocabularyLabel": {
+        "nl": "behoort tot"
+      },
+      "applicationProfileLabel": {
+        "nl": "behoort tot"
+      },
+      "vocabularyDefinition": {
+        "nl": "De verkiezing waar de lijst onderdeel van is."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De verkiezing waar de lijst onderdeel van is."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Rechtstreekse Verkiezing"
+        },
+        "applicationProfileLabel": {
+          "nl": "Rechtstreekse Verkiezing"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#bekrachtigtAanstellingVan",
+      "vocabularyLabel": {
+        "nl": "bekrachtigt aanstelling van"
+      },
+      "applicationProfileLabel": {
+        "nl": "bekrachtigt aanstelling van"
+      },
+      "vocabularyDefinition": {
+        "nl": "De mandataris wiens aanstelling is bekrachtigd."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De mandataris wiens aanstelling is bekrachtigd."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Mandataris"
+        },
+        "applicationProfileLabel": {
+          "nl": "Mandataris"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#bekrachtigtOntslagVan",
+      "vocabularyLabel": {
+        "nl": "bekrachtigt ontslag van"
+      },
+      "applicationProfileLabel": {
+        "nl": "bekrachtigt ontslag van"
+      },
+      "vocabularyDefinition": {
+        "nl": "De mandataris wiens ontslag is bekrachtigd."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De mandataris wiens ontslag is bekrachtigd."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Mandataris"
+        },
+        "applicationProfileLabel": {
+          "nl": "Mandataris"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#beleidsdomein",
+      "vocabularyLabel": {
+        "nl": "beleidsdomein"
+      },
+      "applicationProfileLabel": {
+        "nl": "beleidsdomein"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het thema of beleidsdomein dat toegewezen is aan een mandataris."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het thema of beleidsdomein dat toegewezen is aan een mandataris."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Code"
+        },
+        "applicationProfileLabel": {
+          "nl": "Code"
+        }
+      },
+      "minCount": "0",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#datum",
+      "vocabularyLabel": {
+        "nl": "datum"
+      },
+      "applicationProfileLabel": {
+        "nl": "datum"
+      },
+      "vocabularyDefinition": {
+        "nl": "Datum waarop de verkiezing plaatsvond."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Datum waarop de verkiezing plaatsvond."
+      },
+      "parents": [
+        {
+          "id": "http://purl.org/dc/terms/date"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#date",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Date"
+        },
+        "applicationProfileLabel": {
+          "nl": "Date"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#einde",
+      "vocabularyLabel": {
+        "nl": "einde"
+      },
+      "applicationProfileLabel": {
+        "nl": "einde"
+      },
+      "vocabularyDefinition": {
+        "nl": "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Tijdstip vanaf wanneer de mandataris het mandaat niet langer opneemt."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "DateTime"
+        },
+        "applicationProfileLabel": {
+          "nl": "DateTime"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#gevolg",
+      "vocabularyLabel": {
+        "nl": "gevolg"
+      },
+      "applicationProfileLabel": {
+        "nl": "gevolg"
+      },
+      "vocabularyDefinition": {
+        "nl": "Persoonlijk gevolg van de uitslag voor de kandidaat dat vastlegt of de kandidaat al dan niet kan deelnemen aan het bestuursorgaan."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Persoonlijk gevolg van de uitslag voor de kandidaat dat vastlegt of de kandidaat al dan niet kan deelnemen aan het bestuursorgaan."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Voorbeelden: niet verkozen, effectief, opvolger."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Voorbeelden: niet verkozen, effectief, opvolger."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "range": {
+        "id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Code"
+        },
+        "applicationProfileLabel": {
+          "nl": "Code"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#heeftKandidaat",
+      "vocabularyLabel": {
+        "nl": "heeft kandidaat"
+      },
+      "applicationProfileLabel": {
+        "nl": "heeft kandidaat"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een persoon die deel uitmaakt van de lijst."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een persoon die deel uitmaakt van de lijst."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+      "range": {
+        "id": "http://www.w3.org/ns/person#Person",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Persoon"
+        },
+        "applicationProfileLabel": {
+          "nl": "Persoon"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isAangesteldAls",
+      "vocabularyLabel": {
+        "nl": "is aangesteld als"
+      },
+      "applicationProfileLabel": {
+        "nl": "is aangesteld als"
+      },
+      "vocabularyDefinition": {
+        "nl": "Een mandatarisrol die eigen is aan de persoon."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Een mandatarisrol die eigen is aan de persoon."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/prov#generalizationOf"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://www.w3.org/ns/person#Person",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Mandataris"
+        },
+        "applicationProfileLabel": {
+          "nl": "Mandataris"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isAangesteldDoor",
+      "vocabularyLabel": {
+        "nl": "is aangesteld door"
+      },
+      "applicationProfileLabel": {
+        "nl": "is aangesteld door"
+      },
+      "vocabularyDefinition": {
+        "nl": "De rechtsgrond die de aanstelling van de mandataris vastlegt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De rechtsgrond die de aanstelling van de mandataris vastlegt."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondAanstelling",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Rechtsgrond Aanstelling"
+        },
+        "applicationProfileLabel": {
+          "nl": "Rechtsgrond Aanstelling"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isBestuurlijkeAliasVan",
+      "vocabularyLabel": {
+        "nl": "is bestuurlijke alias van"
+      },
+      "applicationProfileLabel": {
+        "nl": "is bestuurlijke alias van"
+      },
+      "vocabularyDefinition": {
+        "nl": "De persoon die de mandatarisrol vervult."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De persoon die de mandatarisrol vervult."
+      },
+      "parents": [
+        {
+          "id": "http://www.w3.org/ns/prov#specializationOf"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/ns/person#Person",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Persoon"
+        },
+        "applicationProfileLabel": {
+          "nl": "Persoon"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isOntslagenDoor",
+      "vocabularyLabel": {
+        "nl": "is ontslagen door"
+      },
+      "applicationProfileLabel": {
+        "nl": "is ontslagen door"
+      },
+      "vocabularyDefinition": {
+        "nl": "De rechtsgrond die het ontslag van de mandataris vastlegt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De rechtsgrond die het ontslag van de mandataris vastlegt."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Rechtsgrond Beëindiging"
+        },
+        "applicationProfileLabel": {
+          "nl": "Rechtsgrond Beëindiging"
+        }
+      },
+      "minCount": "0",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isResultaatVan",
+      "vocabularyLabel": {
+        "nl": "is resultaat van"
+      },
+      "applicationProfileLabel": {
+        "nl": "is resultaat van"
+      },
+      "vocabularyDefinition": {
+        "nl": "De persoon horende bij het resultaat."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De persoon horende bij het resultaat."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "range": {
+        "id": "http://www.w3.org/ns/person#Person",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Persoon"
+        },
+        "applicationProfileLabel": {
+          "nl": "Persoon"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isResultaatVoor",
+      "vocabularyLabel": {
+        "nl": "is resultaat voor"
+      },
+      "applicationProfileLabel": {
+        "nl": "is resultaat voor"
+      },
+      "vocabularyDefinition": {
+        "nl": "De lijst waarop het resultaat betrekking heeft."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De lijst waarop het resultaat betrekking heeft."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Kandidatenlijst"
+        },
+        "applicationProfileLabel": {
+          "nl": "Kandidatenlijst"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#isTijdelijkVervangenDoor",
+      "vocabularyLabel": {
+        "nl": "is tijdelijk vervangen door"
+      },
+      "applicationProfileLabel": {
+        "nl": "is tijdelijk vervangen door"
+      },
+      "vocabularyDefinition": {
+        "nl": "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Duidt een mandataris aan die tijdelijk de uitvoering van het mandaat heeft overgenomen."
+      },
+      "vocabularyUsageNote": {
+        "nl": "De periode van vervanging komt overeen met de start-/einddatum van de opname van het mandaat van de vervanger."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "De periode van vervanging komt overeen met de start-/einddatum van de opname van het mandaat van de vervanger."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Mandataris"
+        },
+        "applicationProfileLabel": {
+          "nl": "Mandataris"
+        }
+      },
+      "minCount": "0",
+      "maxCount": "*"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#lijstnummer",
+      "vocabularyLabel": {
+        "nl": "lijstnummer"
+      },
+      "applicationProfileLabel": {
+        "nl": "lijstnummer"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het volgnummer van de lijst."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het volgnummer van de lijst."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#integer",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Integer"
+        },
+        "applicationProfileLabel": {
+          "nl": "Integer"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#lijsttype",
+      "vocabularyLabel": {
+        "nl": "lijsttype"
+      },
+      "applicationProfileLabel": {
+        "nl": "lijsttype"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het type van de lijst."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het type van de lijst."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Bijvoorbeeld: gemeenteraadsverkiezing, effectieven Vlaams Parlement."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Bijvoorbeeld: gemeenteraadsverkiezing, effectieven Vlaams Parlement."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Kandidatenlijst",
+      "range": {
+        "id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Code"
+        },
+        "applicationProfileLabel": {
+          "nl": "Code"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#plaatsRangorde",
+      "vocabularyLabel": {
+        "nl": "plaats rangorde"
+      },
+      "applicationProfileLabel": {
+        "nl": "plaats rangorde"
+      },
+      "vocabularyDefinition": {
+        "nl": "De positie in de volgorde op de lijst van effectief verkozenen of op de lijst van opvolgers, op basis van het aantal naamstemmen van de kandidaat plus het aantal overgedragen lijststemmen."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De positie in de volgorde op de lijst van effectief verkozenen of op de lijst van opvolgers, op basis van het aantal naamstemmen van de kandidaat plus het aantal overgedragen lijststemmen."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Verkiezingsresultaat",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#integer",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Integer"
+        },
+        "applicationProfileLabel": {
+          "nl": "Integer"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#rangorde",
+      "vocabularyLabel": {
+        "nl": "rangorde"
+      },
+      "applicationProfileLabel": {
+        "nl": "rangorde"
+      },
+      "vocabularyDefinition": {
+        "nl": "Duidt de plaats van de mandataris aan in de formeel vastgelegde volgorde van de mandatarissen binnen het bestuursorgaan waar de mandataris in zetelt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Duidt de plaats van de mandataris aan in de formeel vastgelegde volgorde van de mandatarissen binnen het bestuursorgaan waar de mandataris in zetelt."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "TaalString"
+        },
+        "applicationProfileLabel": {
+          "nl": "TaalString"
+        }
+      },
+      "minCount": "0",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#redenVanBeeindiging",
+      "vocabularyLabel": {
+        "nl": "reden van beëindiging"
+      },
+      "applicationProfileLabel": {
+        "nl": "reden van beëindiging"
+      },
+      "vocabularyDefinition": {
+        "nl": "De reden waarom deze rechtsgrond werd beëindigd."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De reden waarom deze rechtsgrond werd beëindigd."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#RechtsgrondBeeindiging",
+      "range": {
+        "id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Code"
+        },
+        "applicationProfileLabel": {
+          "nl": "Code"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#start",
+      "vocabularyLabel": {
+        "nl": "start"
+      },
+      "applicationProfileLabel": {
+        "nl": "start"
+      },
+      "vocabularyDefinition": {
+        "nl": "Tijdstip vanaf wanneer de mandataris het mandaat opneemt."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Tijdstip vanaf wanneer de mandataris het mandaat opneemt."
+      },
+      "parents": [
+        {
+          "id": "http://data.vlaanderen.be/ns/mandaat#specialisatieStart"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "DateTime"
+        },
+        "applicationProfileLabel": {
+          "nl": "DateTime"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#status",
+      "vocabularyLabel": {
+        "nl": "status"
+      },
+      "applicationProfileLabel": {
+        "nl": "status"
+      },
+      "vocabularyDefinition": {
+        "nl": "De gesteldheid van de mandataris."
+      },
+      "applicationProfileDefinition": {
+        "nl": "De gesteldheid van de mandataris."
+      },
+      "vocabularyUsageNote": {
+        "nl": "Voorbeelden: effectief, verhinderd, beëindigd, waarnemend."
+      },
+      "applicationProfileUsageNote": {
+        "nl": "Voorbeelden: effectief, verhinderd, beëindigd, waarnemend."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#Mandataris",
+      "range": {
+        "id": "http://www.w3.org/2004/02/skos/core#Concept",
+        "listedInDocument": false,
+        "vocabularyLabel": {
+          "nl": "Code"
+        },
+        "applicationProfileLabel": {
+          "nl": "Code"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    },
+    {
+      "id": "http://data.vlaanderen.be/ns/mandaat#steltSamen",
+      "vocabularyLabel": {
+        "nl": "stelt samen"
+      },
+      "applicationProfileLabel": {
+        "nl": "stelt samen"
+      },
+      "vocabularyDefinition": {
+        "nl": "Het orgaan waarvan de samenstelling wordt bepaald door de verkiezing."
+      },
+      "applicationProfileDefinition": {
+        "nl": "Het orgaan waarvan de samenstelling wordt bepaald door de verkiezing."
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "domain": "http://data.vlaanderen.be/ns/mandaat#RechtstreekseVerkiezing",
+      "range": {
+        "id": "http://data.vlaanderen.be/ns/besluit#Bestuursorgaan",
+        "listedInDocument": true,
+        "vocabularyLabel": {
+          "nl": "Bestuursorgaan (in bestuursperiode)"
+        },
+        "applicationProfileLabel": {
+          "nl": "Bestuursorgaan (in bestuursperiode)"
+        }
+      },
+      "minCount": "1",
+      "maxCount": "1"
+    }
+  ]
+}
