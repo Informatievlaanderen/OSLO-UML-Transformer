@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/ea-uml-extractor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Reads all the information from an Enterprise Architect UML diagram",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-extract-uml-ea#readme",
@@ -31,11 +31,15 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^1.0.0",
+    "@oslo-flanders/core": "^1.0.3",
     "alasql": "4.5.2",
+    "better-sqlite3": "^10.0.0",
     "inversify": "^6.0.1",
     "mdb-reader": "github:Informatievlaanderen/mdb-reader",
     "reflect-metadata": "^0.1.13"
   },
-  "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
+  "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13"
+  }
 }

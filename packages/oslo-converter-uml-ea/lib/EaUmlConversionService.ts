@@ -9,6 +9,7 @@ import { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguratio
 import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceIdentifier';
 import { ConverterHandlerService } from './ConverterHandlerService';
 import { OutputHandlerService } from './OutputHandlerService';
+import { FileReaderService } from '@oslo-flanders/ea-uml-extractor/lib/FileReaderService';
 
 @injectable()
 export class EaUmlConversionService implements IService {
@@ -33,10 +34,12 @@ export class EaUmlConversionService implements IService {
   }
 
   public async run(): Promise<void> {
-    const model = new DataRegistry(this.logger);
     const converterHandler = new ConverterHandlerService(this.logger);
+    const model: DataRegistry = await new FileReaderService(
+      this.configuration.inputFormat,
+      this.logger,
+    ).createDataRegistry(this.configuration.umlFile);
 
-    await model.extract(this.configuration.umlFile);
     model.setTargetDiagram(this.configuration.diagramName);
 
     const store = await converterHandler
