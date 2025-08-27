@@ -43,6 +43,11 @@ export class JsonWebuniversumGenerationServiceConfiguration
    */
   private _specificationType: SpecificationType | undefined;
 
+  private _allTags: boolean | undefined;
+  /**
+   * Boolean that indicates if all key values should be included for the generated classes, datatypes, entities and properties
+   */
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -51,8 +56,9 @@ export class JsonWebuniversumGenerationServiceConfiguration
     this._inheritance = <boolean>params.inheritance;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._specificationType = this.getSpecificationType(
-      <string>params.specificationType
+      <string>params.specificationType,
     );
+    this._allTags = <boolean>params.allTags;
   }
 
   public get input(): string {
@@ -87,7 +93,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
   public get publicationEnvironment(): string {
     if (!this._publicationEnvironment) {
       throw new Error(
-        `Trying to access property "publicationEnvironment" before it was set.`
+        `Trying to access property "publicationEnvironment" before it was set.`,
       );
     }
     return this._publicationEnvironment;
@@ -96,7 +102,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
   public get specificationType(): SpecificationType {
     if (this._specificationType === undefined) {
       throw new Error(
-        `Trying to access property "specificationType" before it was set.`
+        `Trying to access property "specificationType" before it was set.`,
       );
     }
     return this._specificationType;
@@ -112,8 +118,12 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
       default:
         throw new Error(
-          `Unable to translate ${value} to a specification type.`
+          `Unable to translate ${value} to a specification type.`,
         );
     }
+  }
+
+  public get allTags(): boolean {
+    return !!this._allTags;
   }
 }
