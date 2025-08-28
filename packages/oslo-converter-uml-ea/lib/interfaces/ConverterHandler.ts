@@ -132,7 +132,7 @@ export abstract class ConverterHandler<T extends EaObject> {
         this.addValuesToQuads(
           values,
           objectInternalId,
-          ns.oslo(`any:${tagNameBase}`),
+          ns.oslo(`extensions:${tagNameBase}`),
           graph,
           quads,
         );

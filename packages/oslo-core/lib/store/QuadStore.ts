@@ -503,46 +503,25 @@ export class QuadStore {
       this.store.getObjects(subject, ns.adms('status'), graph).shift()
     );
   }
-
   /**
-   * Finds all the other tags.
+   * Finds all the extension tags.
    * This could be any tag that is not a label, definition, usage note, scope, minCardinality, maxCardinality, parent, range, domain, status or codelist
-   * @param subject The RDF.Term to find the other tags for
+   * @param subject The RDF.Term to find the extension tags for
    * @param store A N3 quad store
    * @returns An array of RDF.Literals
    */
-  public getOtherTags(
+  public getExtensionTags(
     subject: RDF.Term,
     graph: RDF.NamedNode | null = null,
   ): RDF.Quad[] {
-    const allQuads: RDF.Quad[] = this.store.getQuads(
-      subject,
-      null,
-      null,
-      graph,
-    );
-
-    // Filter quads where the predicate includes 'any' partially
-    const anyQuads: RDF.Quad[] = allQuads.filter((quad) =>
-      quad.predicate.value.includes(ns.oslo('any').value),
-    );
-    return anyQuads;
-  }
-
-  /**
-   * Use the other tags method from earlier and sanitize the results so the ns('any') is removed
-   * @param subject The RDF.Term to find the other tags for
-   * @param store A N3 quad store
-   * @returns An array of RDF.Literals
-   */
-  public getSanitizedOtherTags(
-    subject: RDF.Term,
-    graph: RDF.NamedNode | null = null,
-  ): RDF.Quad[] {
-    const quads: RDF.Quad[] = this.getOtherTags(subject, graph);
+    const quads: RDF.Quad[] = this.store
+      .getQuads(subject, null, null, graph)
+      .filter((quad) =>
+        quad.predicate.value.includes(ns.oslo('extensions').value),
+      );
     return quads.map((quad) => {
       const sanitizedPredicate = N3.DataFactory.namedNode(
-        quad.predicate.value.replace(`${ns.oslo('any').value}:`, ''),
+        quad.predicate.value.replace(`${ns.oslo('extensions').value}:`, ''),
       );
       return N3.DataFactory.quad(
         quad.subject,
@@ -551,5 +530,52 @@ export class QuadStore {
         quad.graph,
       );
     });
+  }
+
+  /**
+   * Finds the oslo:key of a given RDF.Term
+   * @param subject The RDF.Term to find the oslo:key of
+   * @param store A N3 quad store
+   * @returns An RDF.Term or undefined if not found
+   */
+  public getExtension(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    console.log(this.store.getObjects(subject, ns.oslo('key'), graph).shift());
+    console.log(this.store.getObjects(subject, null, graph));
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('oslo:key'), graph).shift()
+    );
+  }
+
+  /**
+   * Finds the oslo:key of a given RDF.Term
+   * @param subject The RDF.Term to find the oslo:key of
+   * @param store A N3 quad store
+   * @returns An RDF.Term or undefined if not found
+   */
+  public getOsloExtensionKey(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('key'), graph).shift()
+    );
+  }
+
+  /**
+   * Finds the oslo:value of a given RDF.Term
+   * @param subject The RDF.Term to find the oslo:key of
+   * @param store A N3 quad store
+   * @returns An RDF.Term or undefined if not found
+   */
+  public getOsloExtensionValue(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.NamedNode | undefined {
+    return <RDF.NamedNode | undefined>(
+      this.store.getObjects(subject, ns.oslo('value'), graph).shift()
+    );
   }
 }
