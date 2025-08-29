@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner } from '@oslo-flanders/core';
+import { AppRunner, SpecificationType } from '@oslo-flanders/core';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { JsonldValidationServiceConfiguration } from './config/JsonldValidationServiceConfiguration';
@@ -14,6 +14,13 @@ export class JsonldValidationServiceRunner extends AppRunner<
       .usage('node ./bin/runner.js [args]')
       .option('input', {
         describe: 'Local path or URL to JSON-LD file to validate.',
+      })
+      .option('specificationType', {
+        describe: 'Type of the document.',
+        choices: [
+          SpecificationType.ApplicationProfile,
+          SpecificationType.Vocabulary,
+        ],
       })
       .option('whitelist', {
         describe:
