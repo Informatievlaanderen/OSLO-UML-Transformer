@@ -87,11 +87,11 @@ export class JsonldValidationService implements IService {
 
     if (resultMissingClasses.isValid) {
       this.logger.info(
-        'Validation successful! All referenced classes seem to be included.',
+        'Validation successful! All referenced classes and attributes seem to be included.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes.`,
+        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes or attributes.`,
       );
     }
   }
@@ -384,10 +384,12 @@ export class JsonldValidationService implements IService {
               continue;
             }
 
-            this.logger.error(`Found missing class (${value}): ${uri}`);
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
             result.invalidEntries.push({
               uri,
-              location: `Class (${value}) is missing: ${uri}`,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
             });
             continue;
           }
@@ -412,10 +414,12 @@ export class JsonldValidationService implements IService {
               continue;
             }
 
-            this.logger.error(`Found missing class (${value}): ${uri}`);
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
             result.invalidEntries.push({
               uri,
-              location: `Class (${value}) is missing: ${uri}`,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
             });
             continue;
           }
