@@ -87,11 +87,11 @@ export class JsonldValidationService implements IService {
 
     if (resultMissingClasses.isValid) {
       this.logger.info(
-        'Validation successful! All referenced classes seem to be included.',
+        'Validation successful! All referenced classes and attributes seem to be included.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes.`,
+        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes or attributes.`,
       );
     }
   }
@@ -368,28 +368,64 @@ export class JsonldValidationService implements IService {
         const value: string = quad.object.value;
 
         // When classes with a diagramLabel do not have vocLabel, they will not show up in the HTML
-        if (this.store.getVocLabel(quad.subject, 'nl', null) === undefined) {
-          const assignedURI = this.store.findQuad(
-            quad.subject,
-            ns.oslo('assignedURI'),
-            null,
-          );
+        if (this.configuration.specificationType === 'Vocabularium') {
+          if (this.store.getVocLabel(quad.subject, 'nl', null) === undefined) {
+            const assignedURI = this.store.findQuad(
+              quad.subject,
+              ns.oslo('assignedURI'),
+              null,
+            );
 
-          // Skip XSD datatypes as they are never included in specifications
-          if (
-            assignedURI !== undefined &&
-            isStandardDatatype(assignedURI.object.value)
-          ) {
+            // Skip XSD datatypes as they are never included in specifications
+            if (
+              assignedURI !== undefined &&
+              isStandardDatatype(assignedURI.object.value)
+            ) {
+              continue;
+            }
+
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
+            result.invalidEntries.push({
+              uri,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
+            });
             continue;
           }
+        } else if (
+          this.configuration.specificationType === 'ApplicationProfile'
+        ) {
+          if (
+            this.store.getApLabel(quad.subject, 'nl', null) === undefined &&
+            this.store.getVocLabel(quad.subject, 'nl', null) === undefined
+          ) {
+            const assignedURI = this.store.findQuad(
+              quad.subject,
+              ns.oslo('assignedURI'),
+              null,
+            );
 
-          this.logger.error(`Found missing class (${value}): ${uri}`);
-          result.invalidEntries.push({
-            uri,
-            location: `Class (${value}) is missing: ${uri}`,
-          });
-          continue;
-        }
+            // Skip XSD datatypes as they are never included in specifications
+            if (
+              assignedURI !== undefined &&
+              isStandardDatatype(assignedURI.object.value)
+            ) {
+              continue;
+            }
+
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
+            result.invalidEntries.push({
+              uri,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
+            });
+            continue;
+          }
+        } else {
+          throw new Error(`Unknown specification type: ${this.configuration.specificationType}`);
+	}
       }
     }
 

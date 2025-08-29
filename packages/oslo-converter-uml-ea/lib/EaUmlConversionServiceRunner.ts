@@ -23,6 +23,10 @@ export class EaUmlConversionServiceRunner extends AppRunner<
       .option('versionId', {
         describe: 'Relative URI used to identify this document.',
       })
+      .option('specifiationType', {
+        describe: 'Type of the document.',
+	choices: ['ApplicationProfile', 'Vocabularium']
+      })
       .option('outputFormat', {
         describe:
           'RDF content-type in which the output must be written or to the console.',
