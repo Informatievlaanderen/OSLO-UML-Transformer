@@ -13,9 +13,15 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
    */
   private _whitelist: string | undefined;
 
+  /**
+   * Type of document
+   */
+  private _specificationType: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._whitelist = <string>params.whitelist;
+    this._specificationType = <string>params.specificationType;
   }
 
   public get input(): string {
@@ -27,5 +33,9 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
 
   public get whitelist(): string | undefined {
     return this._whitelist;
+  }
+
+  public get specificationType(): string | undefined {
+    return this._specificationType;
   }
 }

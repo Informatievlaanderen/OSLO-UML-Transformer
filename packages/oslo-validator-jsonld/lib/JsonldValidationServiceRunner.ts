@@ -15,6 +15,10 @@ export class JsonldValidationServiceRunner extends AppRunner<
       .option('input', {
         describe: 'Local path or URL to JSON-LD file to validate.',
       })
+      .option('specificationType', {
+        describe: 'Type of the document.',
+	choices: ['ApplicationProfile', 'Vocabularium'],
+      })
       .option('whitelist', {
         describe:
           'Local path or URL to whitelist file (JSON array of URI prefixes).',
