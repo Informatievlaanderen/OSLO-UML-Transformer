@@ -1,4 +1,4 @@
 export enum SpecificationType {
-  ApplicationProfile,
-  Vocabulary,
+  ApplicationProfile = 'ApplicationProfile',
+  Vocabulary = 'Vocabulary',
 }
