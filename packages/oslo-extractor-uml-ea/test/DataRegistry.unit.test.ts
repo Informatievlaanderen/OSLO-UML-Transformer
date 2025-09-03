@@ -16,7 +16,7 @@ describe('DataRegistry equality', () => {
     );
 
     const sqliteRegistry = await new FileReaderService(
-      InputFormat.Sqlite,
+      InputFormat.SQLite,
       new VoidLogger(),
     ).createDataRegistry(
       // eslint-disable-next-line max-len

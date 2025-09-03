@@ -21,11 +21,16 @@ describe('DataRegistry (accessdb)', () => {
   });
 
   it('should return items when the default targetDiagram is set', () => {
-    expect(dataRegistry.diagrams.length).toBeGreaterThan(0);
-    expect(dataRegistry.packages.length).toBeGreaterThan(0);
-    expect(dataRegistry.attributes.length).toBeGreaterThan(0);
-    expect(dataRegistry.elements.length).toBeGreaterThan(0);
-    expect(dataRegistry.connectors.length).toBeGreaterThan(0)
+    console.log(dataRegistry.diagrams.length);
+    console.log(dataRegistry.packages.length);
+    console.log(dataRegistry.attributes.length);
+    console.log(dataRegistry.elements.length);
+    console.log(dataRegistry.connectors.length);
+    expect(dataRegistry.diagrams.length).toBe(1);
+    expect(dataRegistry.packages.length).toBe(3);
+    expect(dataRegistry.attributes.length).toBe(9);
+    expect(dataRegistry.elements.length).toBe(29);
+    expect(dataRegistry.connectors.length).toBe(19)
   });
 
   it('should return items when they are set', () => {

@@ -58,7 +58,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<
       .option('inputFormat', {
         describe: 'The format of the input file',
         default: InputFormat.AccessDB,
-        choices: [InputFormat.AccessDB, InputFormat.Sqlite],
+        choices: [InputFormat.AccessDB, InputFormat.SQLite],
       })
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],

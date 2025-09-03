@@ -26,7 +26,7 @@ export class FileReaderService<T extends MDBReader & SqliteDatabase> {
       case InputFormat.AccessDB:
         return new AccessDbFileReader();
 
-      case InputFormat.Sqlite:
+      case InputFormat.SQLite:
         return new SqliteFileReader();
 
       default:
