@@ -1,18 +1,12 @@
-import type MDBReader from 'mdb-reader';
-import type { DataRegistry } from '../DataRegistry';
-import { EaTable } from '../enums/EaTable';
 import { EaAttribute } from '../types/EaAttribute';
 import type { EaElement } from '../types/EaElement';
-import { addEaTagsToElements } from '../utils/assignTags';
 
-export function loadAttributes(
-  mdb: MDBReader,
-  model: DataRegistry,
-): DataRegistry {
-  const attributes = mdb.getTable(EaTable.Attribute).getData();
-  const elementIds = new Set(model.elements.map((x) => x.id));
-
-  model.attributes = attributes.reduce(
+export function mapToEaAttribute(
+  data: any[],
+  elements: EaElement[],
+): EaAttribute[] {
+  const elementIds = new Set(elements.map((x) => x.id));
+  const attributes = data.reduce(
     (attributesArray: EaAttribute[], attribute: any): EaAttribute[] => {
       // Verification that each attribute is linked to a class
       if (elementIds.has(<number>attribute.Object_ID)) {
@@ -36,23 +30,9 @@ export function loadAttributes(
     [],
   );
 
-  model.attributes.forEach((attribute) =>
-    setAttributePath(attribute, model.elements),
-  );
+  attributes.forEach((x) => setAttributePath(x, elements));
 
-  const attributeTags = mdb.getTable(EaTable.AttributeTag).getData();
-  convertNOTEStoNotes(attributeTags);
-
-  addEaTagsToElements(attributeTags, model.attributes, 'ElementID', 'VALUE');
-
-  return model;
-}
-
-// Change the key NOTES to Notes to be in line with the rest of the code
-function convertNOTEStoNotes(tags: any[]): void {
-  tags.forEach((tag) => {
-    tag.Notes = tag.NOTES;
-  });
+  return attributes;
 }
 
 function setAttributePath(attribute: EaAttribute, elements: EaElement[]): void {

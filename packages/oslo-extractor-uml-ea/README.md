@@ -11,9 +11,9 @@ npm install @oslo-flanders/ea-uml-extractor
 ```
 
 ## Usage
+
 ```node
-import { DataRegistry } from "@oslo-flanders/ea-uml-extractor";
+import { DataRegistry } from '@oslo-flanders/ea-uml-extractor';
 
 const model = new DataRegistry();
-await model.extract("path/to/uml/diagram");
 ```
