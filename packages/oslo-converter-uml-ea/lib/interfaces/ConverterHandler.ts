@@ -132,7 +132,7 @@ export abstract class ConverterHandler<T extends EaObject> {
         this.addValuesToQuads(
           values,
           objectInternalId,
-          ns.oslo(`any:${tagNameBase}`),
+          ns.oslo(`extensions:${tagNameBase}`),
           graph,
           quads,
         );
@@ -255,7 +255,7 @@ export abstract class ConverterHandler<T extends EaObject> {
       quads.push(
         this.df.quad(
           objectInternalId,
-          ns.oslo('status'),
+          ns.adms('status'),
           this.df.namedNode(status[0].value),
           graph,
         ),

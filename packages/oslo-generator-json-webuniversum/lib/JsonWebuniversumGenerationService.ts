@@ -39,7 +39,7 @@ export class JsonWebuniversumGenerationService implements IService {
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
     configuration: JsonWebuniversumGenerationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
     this.logger = logger;
     this.configuration = configuration;
@@ -62,34 +62,34 @@ export class JsonWebuniversumGenerationService implements IService {
     const classes: WebuniversumObject[] = await Promise.all(classJobs);
     const dataTypes: WebuniversumObject[] = await Promise.all(datatypeJobs);
     const properties = [...classes, ...dataTypes].flatMap((c) =>
-      filterWebuniversumObjects(c.properties || [], [])
+      filterWebuniversumObjects(c.properties || [], []),
     );
 
     // Sort entities
     sortWebuniversumObjects(
       classes,
       this.configuration.specificationType,
-      this.configuration.language
+      this.configuration.language,
     );
     classes.forEach((classObject: WebuniversumObject) =>
       sortWebuniversumObjects(
         classObject.properties || [],
         this.configuration.specificationType,
-        this.configuration.language
-      )
+        this.configuration.language,
+      ),
     );
 
     sortWebuniversumObjects(
       dataTypes,
       this.configuration.specificationType,
-      this.configuration.language
+      this.configuration.language,
     );
     dataTypes.forEach((datatypeObject: WebuniversumObject) =>
       sortWebuniversumObjects(
         datatypeObject.properties || [],
         this.configuration.specificationType,
-        this.configuration.language
-      )
+        this.configuration.language,
+      ),
     );
 
     const baseURI = this.getBaseURI();
@@ -100,7 +100,7 @@ export class JsonWebuniversumGenerationService implements IService {
       const scopedDataTypes = filterWebuniversumObjects(dataTypes, [isScoped]);
 
       const inPackageProperties = [...classes, ...dataTypes].flatMap((c) =>
-        filterWebuniversumObjects(c.properties || [], [isInPackage])
+        filterWebuniversumObjects(c.properties || [], [isInPackage]),
       );
 
       template = {
@@ -110,22 +110,22 @@ export class JsonWebuniversumGenerationService implements IService {
             classes,
             dataTypes,
             this.configuration.language,
-            this.configuration.specificationType
+            this.configuration.specificationType,
           ),
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
         // scoped data types
         dataTypes: sortWebuniversumObjects(
           scopedDataTypes,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
         // Only the in package properties will be shown
         properties: sortWebuniversumObjects(
           inPackageProperties,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
       };
     } else {
@@ -134,17 +134,17 @@ export class JsonWebuniversumGenerationService implements IService {
         classes: sortWebuniversumObjects(
           classes,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
         dataTypes: sortWebuniversumObjects(
           dataTypes,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
         properties: sortWebuniversumObjects(
           properties,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
       };
     }
@@ -152,7 +152,7 @@ export class JsonWebuniversumGenerationService implements IService {
     await writeFile(
       this.configuration.output,
       JSON.stringify(template, null, 2),
-      'utf-8'
+      'utf-8',
     );
   }
 
@@ -188,14 +188,14 @@ export class JsonWebuniversumGenerationService implements IService {
     classes: WebuniversumObject[],
     dataTypes: WebuniversumObject[],
     language: string,
-    specificationType: SpecificationType
+    specificationType: SpecificationType,
   ): WebuniversumObject[] {
     // In an application profile, we have a separate list of classes and datatypes. There is no need to merge them, whereas in a vocabulary, we need to merge them.
     if (specificationType === SpecificationType.ApplicationProfile) {
       return sortWebuniversumObjects(
         classes,
         this.configuration.specificationType,
-        language
+        language,
       );
     }
     // Filter the classes to just the ones that are in the package
@@ -207,7 +207,7 @@ export class JsonWebuniversumGenerationService implements IService {
     return sortWebuniversumObjects(
       [...inPackageClasses, ...inPackageDatatypes],
       this.configuration.specificationType,
-      language
+      language,
     );
   }
 
@@ -233,13 +233,13 @@ export class JsonWebuniversumGenerationService implements IService {
 
   private async generateEntityData(
     entity: RDF.NamedNode,
-    includeProperties: boolean = true
+    includeProperties: boolean = true,
   ): Promise<WebuniversumObject> {
     const assignedURI: RDF.NamedNode | undefined =
       this.store.getAssignedUri(entity);
     if (!assignedURI) {
       throw new Error(
-        `Unable to find the assigned URI for entity ${entity.value}.`
+        `Unable to find the assigned URI for entity ${entity.value}.`,
       );
     }
 
@@ -247,41 +247,41 @@ export class JsonWebuniversumGenerationService implements IService {
       fetchFunction: (
         subjectId: RDF.NamedNode,
         store: QuadStore,
-        language: string
+        language: string,
       ) => RDF.Literal | undefined,
-      subject: RDF.NamedNode
+      subject: RDF.NamedNode,
     ) => fetchFunction(subject, this.store, this.configuration.language)?.value;
 
     const vocabularyLabel: string | undefined = fetchProperty(
       getVocabularyLabel,
-      entity
+      entity,
     );
     const applicationProfileLabel: string | undefined = fetchProperty(
       getApplicationProfileLabel,
-      entity
+      entity,
     );
     const vocabularyDefinition: string | undefined = fetchProperty(
       getVocabularyDefinition,
-      entity
+      entity,
     );
     const applicationProfileDefinition: string | undefined = fetchProperty(
       getApplicationProfileDefinition,
-      entity
+      entity,
     );
     const vocabularyUsageNote: string | undefined = fetchProperty(
       getVocabularyUsageNote,
-      entity
+      entity,
     );
     const applicationProfileUsageNote: string | undefined = fetchProperty(
       getApplicationProfileUsageNote,
-      entity
+      entity,
     );
 
     const parentsIds: RDF.NamedNode[] = includeProperties
       ? this.store.getParentsOfClass(entity)
       : this.store.getParentOfProperty(entity) !== undefined
-      ? [this.store.getParentOfProperty(entity)!]
-      : [];
+        ? [this.store.getParentOfProperty(entity)!]
+        : [];
     const parentObjects: Pick<
       WebuniversumObject,
       'id' | 'vocabularyLabel' | 'applicationProfileLabel'
@@ -325,7 +325,7 @@ export class JsonWebuniversumGenerationService implements IService {
         parents: sortWebuniversumObjects(
           parentObjects,
           this.configuration.specificationType,
-          this.configuration.language
+          this.configuration.language,
         ),
       }),
       ...(scope && {
@@ -335,6 +335,12 @@ export class JsonWebuniversumGenerationService implements IService {
         status: status,
       }),
     };
+
+    if (this.configuration.allTags) {
+      const extensions = this.getExtensionsForEntity(entity);
+      // Add this line to actually apply the extensions:
+      Object.assign(entityData, extensions);
+    }
 
     if (includeProperties) {
       const jobs: Promise<WebuniversumProperty>[] = this.store
@@ -346,8 +352,8 @@ export class JsonWebuniversumGenerationService implements IService {
                 this.addPropertySpecificInformation(
                   <RDF.NamedNode>property,
                   <WebuniversumProperty>propertyObject,
-                  entity
-                )
+                  entity,
+                ),
             )
           );
         });
@@ -371,15 +377,52 @@ export class JsonWebuniversumGenerationService implements IService {
 
   private getPropertiesOfClass(
     classSubject: RDF.Term,
-    graph: RDF.Term | null = null
+    graph: RDF.Term | null = null,
   ): RDF.Term[] {
     return <RDF.Term[]>(
       this.store.findSubjects(ns.rdfs('domain'), classSubject, graph)
     );
   }
 
+  private getExtensionsForEntity(entity: RDF.NamedNode): Record<string, any> {
+    const extensionProperties: Record<string, any> = {};
+
+    // Get extensions from the QuadStore
+    const extensionQuads = this.store.getExtensionTags(entity);
+
+    extensionQuads.forEach((quad) => {
+      try {
+        const key = this.store.getOsloExtensionKey(quad.object)?.value;
+        if (!key) {
+          this.logger.warn(
+            `No key found for extension on entity ${entity.value}. Skipping this extension.`,
+          );
+          return;
+        }
+        const value = this.store.getOsloExtensionValue(quad.object)?.value;
+        if (!value) {
+          this.logger.warn(
+            `No value found for extension with key ${key} on entity ${entity.value}. Skipping this extension.`,
+          );
+          return;
+        }
+        extensionProperties[key] = {
+          [this.configuration.language]: value,
+        };
+
+        // Convert both single objects and arrays to a uniform array format
+      } catch (error) {
+        this.logger.warn(
+          `Failed to parse extensions for entity ${entity.value}: ${error}`,
+        );
+      }
+    });
+
+    return extensionProperties;
+  }
+
   private async getInheritedProperties(
-    classSubject: RDF.NamedNode
+    classSubject: RDF.NamedNode,
   ): Promise<WebuniversumProperty[]> {
     const inheritedProperties: WebuniversumProperty[] = [];
     const parents = this.store.getParentsOfClass(classSubject);
@@ -393,27 +436,26 @@ export class JsonWebuniversumGenerationService implements IService {
         try {
           const propertyData = await this.generateEntityData(
             <RDF.NamedNode>propertySubject,
-            false
+            false,
           );
 
           const webuniversumProperty = this.addPropertySpecificInformation(
             <RDF.NamedNode>propertySubject,
             <WebuniversumProperty>propertyData,
-            parent
+            parent,
           );
 
           inheritedProperties.push(webuniversumProperty);
         } catch (error) {
           this.logger.warn(
-            `Failed to process inherited property ${propertySubject.value} from parent ${parent.value}: ${error}`
+            `Failed to process inherited property ${propertySubject.value} from parent ${parent.value}: ${error}`,
           );
         }
       }
 
       // Recursively get properties from parent's parents
-      const parentInheritedProperties = await this.getInheritedProperties(
-        parent
-      );
+      const parentInheritedProperties =
+        await this.getInheritedProperties(parent);
       inheritedProperties.push(...parentInheritedProperties);
     }
 
@@ -423,7 +465,7 @@ export class JsonWebuniversumGenerationService implements IService {
   private addPropertySpecificInformation(
     subject: RDF.NamedNode,
     propertyObject: WebuniversumProperty,
-    domainId: RDF.NamedNode
+    domainId: RDF.NamedNode,
   ): WebuniversumProperty {
     const domainAssignedURI: string | undefined =
       this.store.getAssignedUri(domainId)?.value;
@@ -441,7 +483,7 @@ export class JsonWebuniversumGenerationService implements IService {
       this.store.getAssignedUri(range);
     if (!rangeAssignedURI) {
       throw new Error(
-        `Unable to find the assigned URI for range ${range.value} of attribute ${subject.value}.`
+        `Unable to find the assigned URI for range ${range.value} of attribute ${subject.value}.`,
       );
     }
 
@@ -453,13 +495,13 @@ export class JsonWebuniversumGenerationService implements IService {
     const rangeVocabularyLabel: RDF.Literal | undefined = getVocabularyLabel(
       range,
       this.store,
-      this.configuration.language
+      this.configuration.language,
     );
     const rangeApplicationProfileLabel: RDF.Literal | undefined =
       getApplicationProfileLabel(
         range,
         this.store,
-        this.configuration.language
+        this.configuration.language,
       );
     rangeVocabularyLabel &&
       (propertyObject.range.vocabularyLabel = {
@@ -488,7 +530,7 @@ export class JsonWebuniversumGenerationService implements IService {
   }
 
   private createParentObject(
-    subject: RDF.NamedNode
+    subject: RDF.NamedNode,
   ): Pick<
     WebuniversumObject,
     'id' | 'vocabularyLabel' | 'applicationProfileLabel'
@@ -500,7 +542,7 @@ export class JsonWebuniversumGenerationService implements IService {
       // Check if this is an external URI (doesn't start with "urn:")
       if (isExternalUri(subject.value)) {
         this.logger.warn(
-          `Unable to find the assigned URI for external class ${subject.value} which acts as a parent. Using original URI as fallback.`
+          `Unable to find the assigned URI for external class ${subject.value} which acts as a parent. Using original URI as fallback.`,
         );
 
         // Return a minimal object with just the ID to allow the process to continue
@@ -510,7 +552,7 @@ export class JsonWebuniversumGenerationService implements IService {
       } else {
         // For internal URIs, throw an error since they should be resolvable
         throw new Error(
-          `Unable to find the assigned URI for internal class ${subject.value} which acts as a parent.`
+          `Unable to find the assigned URI for internal class ${subject.value} which acts as a parent.`,
         );
       }
     }
@@ -518,13 +560,13 @@ export class JsonWebuniversumGenerationService implements IService {
     const parentVocabularyLabel: RDF.Literal | undefined = getVocabularyLabel(
       subject,
       this.store,
-      this.configuration.language
+      this.configuration.language,
     );
     const parentApplicationProfileLabel: RDF.Literal | undefined =
       getApplicationProfileLabel(
         subject,
         this.store,
-        this.configuration.language
+        this.configuration.language,
       );
 
     return {

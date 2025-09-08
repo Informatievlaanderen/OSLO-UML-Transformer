@@ -4,6 +4,7 @@ import { IService, SpecificationType } from '@oslo-flanders/core';
 import { Logger, ServiceIdentifier, fetchFileOrUrl } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import * as nj from 'nunjucks';
+import { marked } from 'marked';
 import { HtmlGenerationServiceConfiguration } from './config/HtmlGenerationServiceConfiguration';
 import { generateAnchorTag } from '@oslo-flanders/core/lib/utils/anchorTag';
 
@@ -40,6 +41,12 @@ export class HtmlGenerationService implements IService {
     const env = nj.configure(this.dirs);
     env.addFilter('replaceBaseURI', this.replaceBaseURI);
     env.addFilter('generateAnchorTag', generateAnchorTag);
+    env.addFilter('markdown', this.markdownFilter);
+
+    marked.setOptions({
+      gfm: true,
+      breaks: true,
+    });
   }
 
   public async run(): Promise<void> {
@@ -88,6 +95,19 @@ export class HtmlGenerationService implements IService {
 
   private replaceBaseURI = (input: string, baseURI: string): string => {
     return input.replace(new RegExp(baseURI, 'g'), '');
+  };
+
+  private markdownFilter = (markdownText: string): string => {
+    if (!markdownText || typeof markdownText !== 'string') {
+      return '';
+    }
+
+    try {
+      return marked.parse(markdownText) as string;
+    } catch (error) {
+      this.logger.warn(`Failed to parse markdown: ${error}`);
+      return markdownText; // Return original text if parsing fails
+    }
   };
 
   private async readConfigFile(file: string): Promise<any> {
