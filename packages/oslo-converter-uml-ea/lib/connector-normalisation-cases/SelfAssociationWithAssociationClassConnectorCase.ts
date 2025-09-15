@@ -100,6 +100,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
       baseClassObjectName = baseClassObjectNameTag.tagValue;
     }
 
+    // Create tags for the base class object (source). only source tags are used in self-association
     const sourceBaseClassTags: EaTag[] = [
       ...explicitSourceTags,
       {
@@ -110,15 +111,15 @@ export class SelfAssociationWithAssociationClassConnectorCase
       },
     ];
 
-    const targetBaseClassTags: EaTag[] = [
-      ...explicitTargetTags,
-      {
-        tagName: TagNames.LocalName,
-        tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
-          baseClassObjectName,
-        )}.target`,
-      },
-    ];
+    // Get reverse tags from association class
+    const sourceRevExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationSourceRevPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationSourceRevPrefix, ''),
+      }));
+
+    console.log(sourceBaseClassTags, sourceRevExtraTags);
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -127,15 +128,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.sourceObjectId,
         '1',
-        sourceBaseClassTags,
-      ),
-      new NormalizedConnector(
-        connector,
-        `${baseClassObjectName} (target)`,
-        connector.associationClassId,
-        connector.destinationObjectId,
-        '1',
-        targetBaseClassTags,
+        [...sourceBaseClassTags, ...sourceRevExtraTags],
       ),
     );
 
