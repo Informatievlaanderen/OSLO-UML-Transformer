@@ -1,6 +1,7 @@
 import {
   getApplicationProfileLabel,
   getApplicationProfileDefinition,
+  getApplicationProfileUsageNote,
   type Logger,
   type QuadStore,
 } from '@oslo-flanders/core';
@@ -57,6 +58,12 @@ export class ClassShapeBaseHandler extends ShaclHandler {
       );
     }
 
+    const usageNote: RDF.Literal | undefined = getApplicationProfileUsageNote(
+      subject,
+      store,
+      this.config.language,
+    );
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const shapeId = this.classIdToShapeIdMap.get(subject.value)!;
 
@@ -79,6 +86,9 @@ export class ClassShapeBaseHandler extends ShaclHandler {
       this.df.quad(<RDF.NamedNode>shapeId, ns.rdfs('label'), label),
       ...(description
         ? [this.df.quad(shapeId, ns.rdfs('comment'), description)]
+        : []),
+      ...(usageNote
+        ? [this.df.quad(shapeId, ns.vann('usageNote'), usageNote)]
         : []),
     ]);
 

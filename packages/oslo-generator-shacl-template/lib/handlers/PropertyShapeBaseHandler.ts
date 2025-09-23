@@ -1,6 +1,7 @@
 import {
   getApplicationProfileDefinition,
   getApplicationProfileLabel,
+  getApplicationProfileUsageNote,
   ns,
   type QuadStore,
 } from '@oslo-flanders/core';
@@ -65,6 +66,12 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
         `Unable to find the description for subject "${subject.value}".`,
       );
     }
+
+    const usageNote: RDF.Literal | undefined = getApplicationProfileUsageNote(
+      subject,
+      store,
+      this.config.language,
+    );
 
     const range: RDF.NamedNode | undefined = store.getRange(subject);
 
@@ -138,6 +145,16 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
               shapeId,
               ns.rdfs('comment'),
               description,
+              baseQuadsGraph,
+            ),
+          ]
+        : []),
+      ...(usageNote
+        ? [
+            this.df.quad(
+              shapeId,
+              ns.vann('usageNote'),
+              usageNote,
               baseQuadsGraph,
             ),
           ]
