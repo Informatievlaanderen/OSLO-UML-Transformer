@@ -1,8 +1,12 @@
-import type { Logger, QuadStore } from '@oslo-flanders/core';
+import {
+  getApplicationProfileLabel,
+  getApplicationProfileDefinition,
+  type Logger,
+  type QuadStore,
+} from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
-import { ShaclHandler }
-  from "../types/IHandler";
+import { ShaclHandler } from '../types/IHandler';
 import { inject } from 'inversify';
 import { TranslationService } from '../TranslationService';
 import { ShaclTemplateGenerationServiceConfiguration } from '../config/ShaclTemplateGenerationServiceConfiguration';
@@ -10,9 +14,11 @@ import { ShaclTemplateGenerationServiceIdentifier } from '../config/ShaclTemplat
 
 export class ClassShapeBaseHandler extends ShaclHandler {
   public constructor(
-    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration) config: ShaclTemplateGenerationServiceConfiguration,
+    @inject(ShaclTemplateGenerationServiceIdentifier.Configuration)
+    config: ShaclTemplateGenerationServiceConfiguration,
     @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
-    @inject(ShaclTemplateGenerationServiceIdentifier.TranslationService) translationService: TranslationService,
+    @inject(ShaclTemplateGenerationServiceIdentifier.TranslationService)
+    translationService: TranslationService,
   ) {
     super(config, logger, translationService);
   }
@@ -25,7 +31,30 @@ export class ClassShapeBaseHandler extends ShaclHandler {
     const assignedURI = store.getAssignedUri(subject);
 
     if (!assignedURI) {
-      throw new Error(`Unable to find the assigned URI for subject "${subject.value}".`);
+      throw new Error(
+        `Unable to find the assigned URI for subject "${subject.value}".`,
+      );
+    }
+
+    const label: RDF.Literal | undefined = getApplicationProfileLabel(
+      subject,
+      store,
+      this.config.language,
+    );
+
+    if (!label) {
+      throw new Error(
+        `Unable to find the label for subject "${subject.value}".`,
+      );
+    }
+
+    const description: RDF.Literal | undefined =
+      getApplicationProfileDefinition(subject, store, this.config.language);
+
+    if (!description) {
+      this.logger.warn(
+        `Unable to find the description for subject "${subject.value}".`,
+      );
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -47,7 +76,11 @@ export class ClassShapeBaseHandler extends ShaclHandler {
         ns.shacl('closed'),
         this.df.literal('false', ns.xsd('boolean')),
       ),
-    ])
+      this.df.quad(<RDF.NamedNode>shapeId, ns.rdfs('label'), label),
+      ...(description
+        ? [this.df.quad(shapeId, ns.rdfs('comment'), description)]
+        : []),
+    ]);
 
     super.handle(subject, store, shaclStore);
   }

@@ -125,11 +125,18 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     shaclStore.addQuads([
       this.df.quad(shapeId, ns.shacl('path'), assignedURI, baseQuadsGraph),
       this.df.quad(shapeId, ns.shacl('name'), label, baseQuadsGraph),
+      this.df.quad(shapeId, ns.rdfs('label'), label, baseQuadsGraph),
       ...(description
         ? [
             this.df.quad(
               shapeId,
               ns.shacl('description'),
+              description,
+              baseQuadsGraph,
+            ),
+            this.df.quad(
+              shapeId,
+              ns.rdfs('comment'),
               description,
               baseQuadsGraph,
             ),

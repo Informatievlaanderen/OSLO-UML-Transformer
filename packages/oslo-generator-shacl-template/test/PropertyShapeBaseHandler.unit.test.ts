@@ -73,7 +73,7 @@ describe('PropertyShapeBaseHandler', () => {
 
     const quads: RDF.Quad[] = shaclStore.findQuads(null, null, null, null);
 
-    expect(quads.length).toBe(4);
+    expect(quads.length).toBe(5);
     expect((quads.some((quad: RDF.Quad) =>
       quad.predicate.equals(df.namedNode('http://www.w3.org/ns/shacl#path')) &&
       quad.object.value === 'http://example.org/id/property/1')))
@@ -102,7 +102,7 @@ describe('PropertyShapeBaseHandler', () => {
     handler.handle(df.namedNode('http://example.org/.well-known/id/property/1'), store, shaclStore);
     const quads: RDF.Quad[] = shaclStore.findQuads(null, null, null, null);
 
-    expect(quads.length).toBe(5);
+    expect(quads.length).toBe(6);
     expect((quads.some((quad: RDF.Quad) =>
       quad.predicate.equals(df.namedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso')) &&
       quad.subject.equals(df.namedNode('http://example.org/id/property/shape/1')) &&
@@ -177,7 +177,7 @@ describe('PropertyShapeBaseHandler', () => {
     handler.handle(df.namedNode('http://example.org/.well-known/id/property/1'), store, shaclStore);
     const quads: RDF.Quad[] = shaclStore.findQuads(null, null, null, null);
 
-    expect(quads.length).toBe(5);
+    expect(quads.length).toBe(6);
     expect((quads.some((quad: RDF.Quad) =>
       quad.predicate.equals(df.namedNode('https://data.vlaanderen.be/ns/shacl#rule')) &&
       quad.subject.equals(df.namedNode('http://example.org/id/property/shape/1')) &&
