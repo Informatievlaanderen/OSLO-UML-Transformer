@@ -130,6 +130,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     // For these base quads, we add a graph so that every other handler can extract these base quads
     const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
     shaclStore.addQuads([
+      this.df.quad(shapeId, ns.rdf('type'), ns.shacl('PropertyShape'), baseQuadsGraph),
       this.df.quad(shapeId, ns.shacl('path'), assignedURI, baseQuadsGraph),
       this.df.quad(shapeId, ns.shacl('name'), label, baseQuadsGraph),
       this.df.quad(shapeId, ns.rdfs('label'), label, baseQuadsGraph),
