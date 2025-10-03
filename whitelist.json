@@ -5,6 +5,7 @@
   "http://www.w3.org/2002/07/owl#",
   "http://www.w3.org/2004/02/skos/core#",
   "http://www.w3.org/ns/org#",
+  "http://www.w3.org/ns/regorg#",
   "http://www.w3.org/ns/adms#",
   "http://www.w3.org/ns/ssn/",
   "http://www.w3.org/ns/sosa/",
@@ -43,5 +44,6 @@
   "https://saref.etsi.org/saref4bldg/",
   "https://vocab.belgif.be/ns/utility-services#",
   "https://vocab.belgif.be/ns/generic#",
-  "https://vocab.belgif.be/ns/network#"
+  "https://vocab.belgif.be/ns/network#",
+  "http://purl.org/vocab/bio/0.1/"
 ]
