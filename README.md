@@ -20,6 +20,7 @@ This repository is managed as a monorepo, using Lerna. Each package in this repo
 - `oslo-generator-html` generates an HTML page using the Nunjucks template using an OSLO JSON-LD as input
 - `oslo-examples-generator` generate examples based on an OSLO JSON-LD file
 - `oslo-validator-jsonld` validates the OSLO JSON-LD file
+- `oslo-validator-stakeholders` validates the generated stakeholders file
 
 The packages `oslo-core` and `oslo-extractor-uml-ea` are not executable via the CLI, as their purpose is to be added as a depedency in other packages.
 

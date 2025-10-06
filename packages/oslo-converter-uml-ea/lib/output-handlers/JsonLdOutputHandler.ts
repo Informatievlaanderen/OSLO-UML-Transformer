@@ -97,8 +97,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const parentQuads: RDF.NamedNode[] = store.getParentsOfClass(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
-      const other: RDF.Quad[] | undefined =
-        store.getSanitizedOtherTags(subject);
+      const other: RDF.Quad[] | undefined = store.getExtensionTags(subject);
 
       const usageNoteQuads: RDF.Quad[] = store.getUsageNotes(subject);
 
@@ -168,8 +167,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         store.getMaxCardinality(subject);
       const codelist: RDF.NamedNode | undefined = store.getCodelist(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
-      const other: RDF.Quad[] | undefined =
-        store.getSanitizedOtherTags(subject);
+      const other: RDF.Quad[] | undefined = store.getExtensionTags(subject);
 
       return {
         '@id': subject.value,
@@ -221,8 +219,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
       const parentQuads: RDF.NamedNode[] = store.getParentsOfClass(subject);
       const scopeQuad: RDF.NamedNode | undefined = store.getScope(subject);
       const statuses: RDF.NamedNode | undefined = store.getStatus(subject);
-      const other: RDF.Quad[] | undefined =
-        store.getSanitizedOtherTags(subject);
+      const other: RDF.Quad[] | undefined = store.getExtensionTags(subject);
 
       return {
         '@id': subject.value,
@@ -282,8 +279,7 @@ export class JsonLdOutputHandler implements IOutputHandler {
         subject,
         referencedEntitiesGraph,
       );
-      const other: RDF.Quad[] | undefined =
-        store.getSanitizedOtherTags(subject);
+      const other: RDF.Quad[] | undefined = store.getExtensionTags(subject);
       const scope: RDF.NamedNode | undefined = store.getScope(
         subject,
         referencedEntitiesGraph,
@@ -357,12 +353,30 @@ export class JsonLdOutputHandler implements IOutputHandler {
     };
   }
 
-  private mapOtherTags(other: RDF.Quad[]): any {
+  mapOtherTags(other: RDF.Quad[]): any {
     const result: any = {};
+    const extensions: any[] = [];
 
     other.forEach((quad) => {
-      result[quad.predicate.value] = [this.mapToLiteral(quad)];
+      const predicateValue = quad.predicate.value;
+
+      if (quad.object.termType === 'Literal') {
+        const literal = quad.object as RDF.Literal;
+
+        extensions.push({
+          '@type': 'oslo:extension',
+          'oslo:key': {
+            '@language': literal.language,
+            '@value': predicateValue,
+          },
+          'oslo:value': this.mapToLiteral(quad),
+        });
+      }
     });
+
+    if (extensions.length) {
+      result.extensions = extensions;
+    }
 
     return result;
   }

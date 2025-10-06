@@ -111,5 +111,9 @@ export function getOsloContext(): any {
       '@id': 'adms:status',
       '@type': '@id',
     },
+    extensions: {
+      '@id': 'oslo:extensions',
+      '@container': '@set',
+    },
   };
 }

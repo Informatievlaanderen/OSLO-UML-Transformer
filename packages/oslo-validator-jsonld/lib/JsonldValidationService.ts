@@ -5,6 +5,8 @@ import {
   ServiceIdentifier,
   fetchFileOrUrl,
   ns,
+  isStandardDatatype,
+  SpecificationType,
 } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import type * as RDF from '@rdfjs/types';
@@ -42,6 +44,7 @@ export class JsonldValidationService implements IService {
     const resultSentences = this.validateSentences();
     const resultLabels = this.validateLabels();
     const resultBaseURIs = this.validateBaseURIs();
+    const resultMissingClasses = this.validateMissingClasses();
 
     if (resultUris.isValid) {
       this.logger.info(
@@ -80,6 +83,16 @@ export class JsonldValidationService implements IService {
     } else {
       this.logger.info(
         `Validation found ${resultLabels.invalidEntries.length} invalid base URIs.`,
+      );
+    }
+
+    if (resultMissingClasses.isValid) {
+      this.logger.info(
+        'Validation successful! All referenced classes and attributes seem to be included.',
+      );
+    } else {
+      this.logger.info(
+        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes or attributes.`,
       );
     }
   }
@@ -338,6 +351,93 @@ export class JsonldValidationService implements IService {
     return result;
   }
 
+  private validateMissingClasses(): ValidationResult {
+    const result: ValidationResult = {
+      isValid: true,
+      invalidEntries: [],
+    };
+
+    // Find all quads with diagramLabel predicate
+    const diagramLabelPredicate = ns.oslo('diagramLabel');
+    let quads: any[] = [
+      ...this.store.findQuads(null, diagramLabelPredicate, null),
+    ];
+
+    for (const quad of quads) {
+      if (quad.subject.termType === 'NamedNode') {
+        const uri: string = quad.subject.value;
+        const value: string = quad.object.value;
+
+        // When classes with a diagramLabel do not have vocLabel, they will not show up in the HTML
+        if (
+          this.configuration.specificationType === SpecificationType.Vocabulary
+        ) {
+          if (this.store.getVocLabel(quad.subject, 'nl', null) === undefined) {
+            const assignedURI = this.store.findQuad(
+              quad.subject,
+              ns.oslo('assignedURI'),
+              null,
+            );
+
+            // Skip XSD datatypes as they are never included in specifications
+            if (
+              assignedURI !== undefined &&
+              isStandardDatatype(assignedURI.object.value)
+            ) {
+              continue;
+            }
+
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
+            result.invalidEntries.push({
+              uri,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
+            });
+            continue;
+          }
+        } else if (
+          this.configuration.specificationType === SpecificationType.ApplicationProfile
+        ) {
+          if (
+            this.store.getApLabel(quad.subject, 'nl', null) === undefined &&
+            this.store.getVocLabel(quad.subject, 'nl', null) === undefined
+          ) {
+            const assignedURI = this.store.findQuad(
+              quad.subject,
+              ns.oslo('assignedURI'),
+              null,
+            );
+
+            // Skip XSD datatypes as they are never included in specifications
+            if (
+              assignedURI !== undefined &&
+              isStandardDatatype(assignedURI.object.value)
+            ) {
+              continue;
+            }
+
+            this.logger.error(
+              `Found missing class or attribute (${value}): ${uri}`,
+            );
+            result.invalidEntries.push({
+              uri,
+              location: `Class or attribute (${value}) is missing: ${uri}`,
+            });
+            continue;
+          }
+        } else {
+          throw new Error(
+            `Unknown specification type: ${this.configuration.specificationType}`,
+          );
+        }
+      }
+    }
+
+    result.isValid = !result.invalidEntries.length;
+    return result;
+  }
+
   private checkIsEmpty(value: string): boolean {
     return value.length === 0;
   }
@@ -366,7 +466,7 @@ export class JsonldValidationService implements IService {
   }
 
   private checkIsAlphanumeric(value: string): boolean {
-    return value.match(/^[a-zA-Z0-9\s]+$/i) !== null;
+    return value.match(/^[a-z0-9éëïöü\s]+$/i) !== null;
   }
 
   private checkEndsWithHashOrDash(value: string): boolean {

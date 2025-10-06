@@ -4,7 +4,7 @@ import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { 
   JsonWebuniversumGenerationServiceConfiguration,
-} from './config/JsonWebuniversumGenerationServiceConfiguration';
+ } from './config/JsonWebuniversumGenerationServiceConfiguration';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -49,6 +49,11 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
       .option('publicationEnvironment', {
         describe:
           'The base URI of environment where the document will be published',
+      })
+      .option('allTags', {
+        describe: `Whether or not to make a selection of key values for the generated classes, datatypes entities and properties.`,
+        default: false,
+        boolean: true,
       })
       .demandOption(['input', 'language', 'publicationEnvironment'])
       .help('h')

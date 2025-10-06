@@ -69,6 +69,7 @@ export class HtmlRespecGenerationService implements IService {
 
     const html = nj.render(indexPath, {
       specName: this.configuration.specificationName,
+      shortName: this.configuration.specificationName,
       respecConfig: config,
       data,
     });

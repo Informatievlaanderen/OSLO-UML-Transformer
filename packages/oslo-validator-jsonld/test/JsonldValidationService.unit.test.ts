@@ -31,6 +31,7 @@ describe('JsonldValidationService', () => {
     config = new JsonldValidationServiceConfiguration();
     (<any>config)._input = 'input.jsonld';
     (<any>config)._whitelist = 'whitelist.json';
+    (<any>config)._specificationType = 'ApplicationProfile';
 
     store = new QuadStore();
 
@@ -396,7 +397,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -424,7 +425,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -452,7 +453,7 @@ describe('JsonldValidationService', () => {
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -468,7 +469,7 @@ describe('JsonldValidationService', () => {
           df.namedNode(
             'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
           ),
-          df.literal('ap label'),
+          df.literal('ap label&'),
         ),
         df.quad(
           df.namedNode('http://subject/vocLabel'),
@@ -477,10 +478,17 @@ describe('JsonldValidationService', () => {
           ),
           df.literal('voc-label@'),
         ),
+        df.quad(
+          df.namedNode('http://subject/accentLabel'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('geïmplementeerd'),
+        ),
       ];
       jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
 
-      const result = (<any>service).validateSentences();
+      const result = (<any>service).validateLabels();
       expect(result.isValid).toBe(false);
 
       expect(result.invalidEntries).toHaveLength(2);
@@ -558,6 +566,61 @@ describe('JsonldValidationService', () => {
       expect(result.invalidEntries).toHaveLength(2);
       expect(result.invalidEntries[0].uri).toBe('http://subject/baseURI/TODO');
       expect(result.invalidEntries[1].uri).toBe('http://subject/baseURI/FIXME');
+    });
+  });
+
+  describe('catchMissingClasses', () => {
+    it('should catch missing classes', async () => {
+      // Mock findQuads to return a class with only a diagram label
+      const diagramQuad = df.quad(
+        df.namedNode('http://subject/MissingClass'),
+        df.namedNode(
+          'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#diagramLabel',
+        ),
+        df.literal('Class with only diagram label'),
+      );
+      const assignedURIQuad = df.quad(
+        df.namedNode('http://subject/MissingClass'),
+        df.namedNode(
+          'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+        ),
+        df.namedNode('http://example.org/MyClass'),
+      );
+      jest
+        .spyOn(store, 'findQuads')
+        .mockReturnValueOnce([diagramQuad])
+        .mockReturnValueOnce([assignedURIQuad]);
+
+      const result = (<any>service).validateMissingClasses();
+      expect(result.isValid).toBe(false);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/MissingClass');
+      expect(result.invalidEntries).toHaveLength(1);
+    });
+
+    it('should not fail for XSD datatypes as they are never included', async () => {
+      // Mock findQuads to return a Literal for XSD Datatypes
+      const diagramQuad = df.quad(
+        df.namedNode('http://subject/MissingClassDatatype'),
+        df.namedNode(
+          'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#diagramLabel',
+        ),
+        df.literal('XSD Datatype Float'),
+      );
+      const assignedURIQuad = df.quad(
+        df.namedNode('http://subject/MissingClassDatatype'),
+        df.namedNode(
+          'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI',
+        ),
+        df.namedNode('http://www.w3.org/2001/XMLSchema#float'),
+      );
+      jest
+        .spyOn(store, 'findQuads')
+        .mockReturnValueOnce([diagramQuad])
+        .mockReturnValueOnce([assignedURIQuad]);
+
+      const result = (<any>service).validateMissingClasses();
+      expect(result.isValid).toBe(true);
+      expect(result.invalidEntries).toHaveLength(0);
     });
   });
 });
