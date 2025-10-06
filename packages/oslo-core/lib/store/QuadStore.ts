@@ -424,7 +424,7 @@ export class QuadStore {
 
   /**
    * Finds the shacl:minCardinality for a given subject
-   * @param subject The RDF.Term to find the shacl:minCardinaly for
+   * @param subject The RDF.Term to find the shacl:minCardinality for
    * @returns An RDF.Literal or undefined if not found
    */
   public getMinCardinality(
@@ -438,7 +438,7 @@ export class QuadStore {
 
   /**
    * Finds the shacl:maxCardinality for a given subject
-   * @param subject The RDF.Term to find the shacl:maxCardinaly for
+   * @param subject The RDF.Term to find the shacl:maxCardinality for
    * @returns An RDF.Literal or undefined if not found
    */
   public getMaxCardinality(
