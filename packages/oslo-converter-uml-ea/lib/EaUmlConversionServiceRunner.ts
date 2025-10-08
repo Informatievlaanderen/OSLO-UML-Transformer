@@ -5,6 +5,7 @@ import { InputFormat } from '@oslo-flanders/core/lib/enums/InputFormat';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
+import { IgnoredUris } from './constants/IgnoredUris';
 import type { EaUmlConversionService } from './EaUmlConversionService';
 
 export class EaUmlConversionServiceRunner extends AppRunner<
@@ -61,7 +62,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         choices: [InputFormat.AccessDB, InputFormat.SQLite],
       })
       .option('ignoreSkosConcept', {
-        describe: 'Ignore elements with SKOS Concept URI (http://www.w3.org/2004/02/skos/core#Concept)',
+        describe: `Ignore elements with SKOS Concept URI (${IgnoredUris.SKOS_CONCEPT})`,
         default: true,
         boolean: true,
       })
