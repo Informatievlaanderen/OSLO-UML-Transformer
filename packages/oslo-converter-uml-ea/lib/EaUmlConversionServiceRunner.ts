@@ -60,6 +60,11 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         default: InputFormat.AccessDB,
         choices: [InputFormat.AccessDB, InputFormat.SQLite],
       })
+      .option('ignoreSkosConcept', {
+        describe: 'Ignore elements with SKOS Concept URI (http://www.w3.org/2004/02/skos/core#Concept)',
+        default: true,
+        boolean: true,
+      })
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.',
