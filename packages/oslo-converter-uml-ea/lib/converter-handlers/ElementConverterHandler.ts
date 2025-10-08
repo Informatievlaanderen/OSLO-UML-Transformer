@@ -442,7 +442,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     return quads;
   }
 
-  // Ignore elements that have the skos:concept. In the future we could extend this logic to ignore more elements with different uris?
+  // Ignore elements that have the skos:Concept. In the future we could extend this logic to ignore more elements with different uris?
   private shouldProcessElement(
     element: EaElement,
     uriRegistry: UriRegistry,
@@ -452,7 +452,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     }
 
     if (element.type !== ElementType.Enumeration) {
-      // Only Enumeration elements need to be filtered for skos:concept. Dynamic element types could be added in the future.
+      // Only Enumeration elements need to be filtered for skos:Concept. Dynamic element types could be added in the future.
       return true;
     }
 
