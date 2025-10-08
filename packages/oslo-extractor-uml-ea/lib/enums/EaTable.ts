@@ -14,5 +14,6 @@ export enum EaTable {
   Package = 't_package',
   Object = 't_object',
   Attribute = 't_attribute',
-  AttributeTag = 't_attributetag'
+  AttributeTag = 't_attributetag',
+  XRef = 't_xref'
 }
