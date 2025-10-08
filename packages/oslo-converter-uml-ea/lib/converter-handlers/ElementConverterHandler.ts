@@ -451,6 +451,11 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
       return true;
     }
 
+    if (element.type !== ElementType.Enumeration) {
+      // Only Enumeration elements need to be filtered for skos:concept. Dynamic element types could be added in the future.
+      return true;
+    }
+
     const elementUri = uriRegistry.elementIdUriMap.get(element.id);
     const isSkosElement = elementUri?.toString() === IgnoredUris.SKOS_CONCEPT;
 
