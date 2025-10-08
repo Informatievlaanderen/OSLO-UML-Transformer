@@ -80,16 +80,20 @@ describe('ElementConverterHandler', () => {
       // IgnoreSkosConcept enabled
       (<any>config)._ignoreSkosConcept = true;
 
-      const skosElement = createMockElement(1, 'SkosConceptClass');
-      const regularElement = createMockElement(2, 'RegularClass');
-
-      mockDataRegistry.elements = [skosElement, regularElement];
-
-      mockUriRegistry.elementIdUriMap.set(1, new URL(IgnoredUris.SKOS_CONCEPT));
-      mockUriRegistry.elementIdUriMap.set(
+      const regularElement = createMockElement(1, 'RegularClass');
+      const skosEnumeration = createMockElement(
         2,
+        'SkosConceptEnumeration',
+        ElementType.Enumeration,
+      );
+
+      mockDataRegistry.elements = [regularElement, skosEnumeration];
+
+      mockUriRegistry.elementIdUriMap.set(
+        1,
         new URL('http://example.org/id/class/1'),
       );
+      mockUriRegistry.elementIdUriMap.set(2, new URL(IgnoredUris.SKOS_CONCEPT));
 
       jest
         .spyOn(handler, 'createQuads')
@@ -109,10 +113,10 @@ describe('ElementConverterHandler', () => {
 
       const quads = result.findQuads(null, null, null);
       expect(quads).toHaveLength(1);
-      expect(quads[0].subject.value).toBe('urn:oslo-toolchain:guid-2');
+      expect(quads[0].subject.value).toBe('urn:oslo-toolchain:guid-1');
 
       expect(logger.info).toHaveBeenCalledWith(
-        `[ElementConverterHandler]: Ignoring SKOS Concept element (${skosElement.path}) with URI ${IgnoredUris.SKOS_CONCEPT}`,
+        `[ElementConverterHandler]: Ignoring SKOS Concept element (${skosEnumeration.path}) with URI ${IgnoredUris.SKOS_CONCEPT}`,
       );
     });
 
@@ -120,16 +124,20 @@ describe('ElementConverterHandler', () => {
       // IsgnoreSkosConcept disabled
       (<any>config)._ignoreSkosConcept = false;
 
-      const skosElement = createMockElement(1, 'SkosConceptClass');
-      const regularElement = createMockElement(2, 'RegularClass');
-
-      mockDataRegistry.elements = [skosElement, regularElement];
-
-      mockUriRegistry.elementIdUriMap.set(1, new URL(IgnoredUris.SKOS_CONCEPT));
-      mockUriRegistry.elementIdUriMap.set(
+      const regularElement = createMockElement(1, 'RegularClass');
+      const skosEnumeration = createMockElement(
         2,
+        'SkosConceptEnumeration',
+        ElementType.Enumeration,
+      );
+
+      mockDataRegistry.elements = [regularElement, skosEnumeration];
+
+      mockUriRegistry.elementIdUriMap.set(
+        1,
         new URL('http://example.org/id/class/1'),
       );
+      mockUriRegistry.elementIdUriMap.set(2, new URL(IgnoredUris.SKOS_CONCEPT));
 
       jest
         .spyOn(handler, 'createQuads')
@@ -155,6 +163,58 @@ describe('ElementConverterHandler', () => {
       expect(subjects).toContain('urn:oslo-toolchain:guid-2'); // Regular element
 
       expect(logger.info).not.toHaveBeenCalled();
+    });
+
+    it('should include SKOS Concept class but not Enum', async () => {
+      // IgnoreSkosConcept enabled
+      (<any>config)._ignoreSkosConcept = true;
+      const regularElement = createMockElement(1, 'RegularClass');
+      const skosElement = createMockElement(2, 'SkosConceptClass');
+      const skosEnumeration = createMockElement(
+        3,
+        'SkosConceptEnumeration',
+        ElementType.Enumeration,
+      );
+
+      mockDataRegistry.elements = [
+        regularElement,
+        skosElement,
+        skosEnumeration,
+      ];
+
+      mockUriRegistry.elementIdUriMap.set(
+        1,
+        new URL('http://example.org/id/class/1'),
+      );
+      mockUriRegistry.elementIdUriMap.set(2, new URL(IgnoredUris.SKOS_CONCEPT));
+      mockUriRegistry.elementIdUriMap.set(3, new URL(IgnoredUris.SKOS_CONCEPT));
+
+      jest
+        .spyOn(handler, 'createQuads')
+        .mockImplementation((element) => [
+          df.quad(
+            df.namedNode(`urn:oslo-toolchain:guid-${element.id}`),
+            ns.rdf('type'),
+            ns.owl('Class'),
+          ),
+        ]);
+
+      const result = await handler.convert(
+        mockDataRegistry,
+        mockUriRegistry,
+        store,
+      );
+
+      const quads = result.findQuads(null, null, null);
+      expect(quads).toHaveLength(2);
+
+      const subjects = quads.map((q) => q.subject.value);
+      expect(subjects).toContain('urn:oslo-toolchain:guid-1'); // Regular element
+      expect(subjects).toContain('urn:oslo-toolchain:guid-2'); // SKOS element
+
+      expect(logger.info).toHaveBeenCalledWith(
+        `[ElementConverterHandler]: Ignoring SKOS Concept element (${skosEnumeration.path}) with URI ${IgnoredUris.SKOS_CONCEPT}`,
+      );
     });
   });
 });
