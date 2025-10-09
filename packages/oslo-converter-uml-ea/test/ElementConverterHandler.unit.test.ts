@@ -12,8 +12,6 @@ import { IgnoredUris } from '../lib/constants/IgnoredUris';
 import { ElementConverterHandler } from '../lib/converter-handlers/ElementConverterHandler';
 import type { UriRegistry } from '../lib/UriRegistry';
 
-// TODO: Extend on this to also include other configs such as allTags etc.
-
 describe('ElementConverterHandler', () => {
   let handler: ElementConverterHandler;
   let logger: VoidLogger;
@@ -29,6 +27,7 @@ describe('ElementConverterHandler', () => {
     name: string,
     type: ElementType = ElementType.Class,
     path = `TestPackage::${name}`,
+    tags: { tagName: string; tagValue: string }[] = [],
   ): EaElement => <EaElement>(<unknown>{
       id,
       name,
@@ -36,7 +35,7 @@ describe('ElementConverterHandler', () => {
       path,
       osloGuid: `guid-${id}`,
       packageId: 1,
-      tags: [],
+      tags,
     });
 
   beforeEach(() => {
@@ -214,6 +213,80 @@ describe('ElementConverterHandler', () => {
 
       expect(logger.info).toHaveBeenCalledWith(
         `[ElementConverterHandler]: Ignoring SKOS Concept element (${skosEnumeration.path}) with URI ${IgnoredUris.SKOS_CONCEPT}`,
+      );
+    });
+
+    it('should log unknown tags when allTags is enabled', async () => {
+      // Enable allTags
+      (<any>config)._allTags = true;
+
+      const elementWithUnknownTags = createMockElement(
+        1,
+        'ElementWithUnknownTags',
+        ElementType.Class,
+        'TestPackage::ElementWithUnknownTags',
+        [
+          { tagName: 'unknownTag1', tagValue: 'value1' },
+          { tagName: 'unknownTag2', tagValue: 'value2' },
+        ],
+      );
+
+      jest.spyOn(<any>handler, 'addDefinitions').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addLabels').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addUsageNotes').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addStatus').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addScope').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'getParentInformationQuads').mockReturnValue([]);
+
+      mockDataRegistry.elements = [elementWithUnknownTags];
+      mockUriRegistry.elementIdUriMap.set(
+        1,
+        new URL('http://example.org/id/class/1'),
+      );
+
+      await handler.convert(mockDataRegistry, mockUriRegistry, store);
+
+      expect(logger.info).toHaveBeenCalledWith(
+        expect.stringContaining(
+          '[ElementConverterHandler]: Unknown tags for element (TestPackage::ElementWithUnknownTags)',
+        ),
+      );
+    });
+
+    it('should not log unknown tags when allTags is disabled', async () => {
+      // Enable allTags
+      (<any>config)._allTags = false;
+
+      const elementWithUnknownTags = createMockElement(
+        1,
+        'ElementWithUnknownTags',
+        ElementType.Class,
+        'TestPackage::ElementWithUnknownTags',
+        [
+          { tagName: 'unknownTag1', tagValue: 'value1' },
+          { tagName: 'unknownTag2', tagValue: 'value2' },
+        ],
+      );
+
+      jest.spyOn(<any>handler, 'addDefinitions').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addLabels').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addUsageNotes').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addStatus').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'addScope').mockReturnValue([]);
+      jest.spyOn(<any>handler, 'getParentInformationQuads').mockReturnValue([]);
+
+      mockDataRegistry.elements = [elementWithUnknownTags];
+      mockUriRegistry.elementIdUriMap.set(
+        1,
+        new URL('http://example.org/id/class/1'),
+      );
+
+      await handler.convert(mockDataRegistry, mockUriRegistry, store);
+
+      expect(logger.info).not.toHaveBeenCalledWith(
+        expect.stringContaining(
+          '[ElementConverterHandler]: Unknown tags for element (TestPackage::ElementWithUnknownTags)',
+        ),
       );
     });
   });
