@@ -6,27 +6,46 @@ import type { CrossReferenceType } from '../enums/CrossReferenceType';
  * Represents a cross reference in Enterprise Architect
  */
 export class EaCrossReference extends EaObject {
-  public readonly type: CrossReferenceType;
-  public readonly packageId: number;
-  public readonly parentEaGuid: string;
+  private _type: CrossReferenceType;
+  private _packageId: number;
+  private _childOsloGuid: string;
+  private _parentOsloGuid: string;
 
   public constructor(
     id: number,
     name: string,
     guid: string,
-    parentEaGuid: string,
     packageId: number,
+    childId: number,
+    childName: string,
+    childGuid: string,
+    parentId: number,
+    parentName: string,
+    parentGuid: string,
     type: CrossReferenceType,
   ) {
     super(id, name, guid);
 
-    this.type = type;
-    this.packageId = packageId;
-    this.parentEaGuid = parentEaGuid;
     this.osloGuid = uniqueId(guid, name, id);
+    this._type = type;
+    this._packageId = packageId;
+    this._childOsloGuid = uniqueId(childGuid, childName, childId);
+    this._parentOsloGuid = uniqueId(parentGuid, parentName, parentId);
   }
 
-  public get childEaGuid(): string {
-    return this.eaGuid;
+  public get type(): CrossReferenceType {
+    return this._type;
+  }
+
+  public get packageId(): number {
+    return this._packageId;
+  }
+
+  public get childOsloGuid(): string {
+    return this._childOsloGuid;
+  }
+
+  public get parentOsloGuid(): string {
+    return this._parentOsloGuid;
   }
 }

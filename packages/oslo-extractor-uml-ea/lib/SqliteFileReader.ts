@@ -13,6 +13,7 @@ import {
 import { mapToEaElement } from './utils/elementUtils';
 import { mapToEaAttribute } from './utils/attributeUtils';
 import { mapToElementConnector } from './utils/elementConnectorUtils';
+import { mapToEaCrossReference } from './utils/elementCrossReferenceUtils';
 import {
   addConnectorIdsToDiagram,
   addElementIdsToDiagram,
@@ -20,6 +21,7 @@ import {
 } from './utils/diagramUtils';
 import { EaDiagram } from './types/EaDiagram';
 import { EaConnector } from './types/EaConnector';
+import { CrossReferenceType } from './enums/CrossReferenceType';
 
 export class SqliteFileReader implements IFileReader<SqliteDatabase> {
   public async initDataRegistry(
@@ -27,13 +29,15 @@ export class SqliteFileReader implements IFileReader<SqliteDatabase> {
     registry: DataRegistry,
   ): Promise<DataRegistry> {
     const buffer = await fetchFileOrUrl(path);
-    const db = new Database(buffer, { verbose: console.log });
+    const db = new Database(buffer);
 
     await this.loadPackages(db, registry)
       .then(() => this.loadElements(db, registry))
       .then(() => this.loadAttributes(db, registry))
       .then(() => this.loadElementConnectors(db, registry))
-      .then(() => this.loadDiagrams(db, registry));
+      .then(() => this.loadDiagrams(db, registry))
+      .then(() => this.loadRedefinedAttributes(db, registry))
+      .then(() => this.loadSubsettedAttributes(db, registry));
 
     return registry;
   }
@@ -56,6 +60,48 @@ export class SqliteFileReader implements IFileReader<SqliteDatabase> {
       .prepare(`SELECT * FROM ${EaTable.ClassAndPackageTag}`)
       .all();
     addEaTagsToElements(objectTags, registry.packages, 'Object_ID', 'Value');
+  }
+
+  public async loadRedefinedAttributes(
+    database: SqliteDatabase,
+    registry: DataRegistry,
+  ): Promise<void> {
+    const crossReferences = database.prepare(`
+    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, [x].[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
+    a1.Name AS ChildAttributeName, a1.ID AS ChildAttributeId, a1.ea_guid as ChildAttributeEaGuid,
+    a2.Name AS ParentAttributeName, a2.ID AS ParentAttributeId, a2.ea_guid as ParentAttributeEaGuid
+    FROM ${EaTable.XRef} x, ${EaTable.Attribute} a1, ${EaTable.Attribute} a2, ${EaTable.Object} o
+    WHERE x.Behavior = 'redefinedProperty' AND a1.ea_guid = x.Client AND a2.ea_guid = x.Description AND a2.Object_ID = o.Object_ID;
+    `);
+
+    registry.crossReferences = [
+      ...registry.crossReferences,
+      ...mapToEaCrossReference(
+        crossReferences.all(),
+        CrossReferenceType.Redefined,
+      ),
+    ];
+  }
+
+  public async loadSubsettedAttributes(
+    database: SqliteDatabase,
+    registry: DataRegistry,
+  ): Promise<void> {
+    const crossReferences = database.prepare(`
+    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, [x].[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
+    a1.Name AS ChildAttributeName, a1.ID AS ChildAttributeId, a1.ea_guid as ChildAttributeEaGuid,
+    a2.Name AS ParentAttributeName, a2.ID AS ParentAttributeId, a2.ea_guid as ParentAttributeEaGuid
+    FROM ${EaTable.XRef} x, ${EaTable.Attribute} a1, ${EaTable.Attribute} a2, ${EaTable.Object} o
+    WHERE x.Behavior = 'subsettedProperty' AND a1.ea_guid = x.Client AND a2.ea_guid = x.Description;
+    `);
+
+    registry.crossReferences = [
+      ...registry.crossReferences,
+      ...mapToEaCrossReference(
+        crossReferences.all(),
+        CrossReferenceType.Subsetted,
+      ),
+    ];
   }
 
   public async loadElements(

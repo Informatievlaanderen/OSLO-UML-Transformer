@@ -4,6 +4,7 @@ import type { EaConnector } from './types/EaConnector';
 import type { EaDiagram } from './types/EaDiagram';
 import type { EaElement } from './types/EaElement';
 import type { EaPackage } from './types/EaPackage';
+import type { EaCrossReference } from './types/EaCrossReference';
 import type { NormalizedConnector } from './types/NormalizedConnector';
 
 export class DataRegistry {
@@ -19,6 +20,7 @@ export class DataRegistry {
   private _elements: EaElement[] | undefined;
   private _connectors: EaConnector[] | undefined;
   private _normalizedConnectors: NormalizedConnector[] | undefined;
+  private _crossReferences: EaCrossReference[] | undefined;
   private _targetDiagram: EaDiagram | undefined;
 
   public setTargetDiagram(name: string): void {
@@ -119,5 +121,18 @@ export class DataRegistry {
 
   public set normalizedConnectors(value: NormalizedConnector[]) {
     this._normalizedConnectors = value;
+  }
+
+  public get crossReferences(): EaCrossReference[] {
+    if (!this._crossReferences) {
+      throw new Error(
+        `Trying to access cross references before they were loaded.`,
+      );
+    }
+    return this._crossReferences;
+  }
+
+  public set crossReferences(value: EaCrossReference[]) {
+    this._crossReferences = value;
   }
 }
