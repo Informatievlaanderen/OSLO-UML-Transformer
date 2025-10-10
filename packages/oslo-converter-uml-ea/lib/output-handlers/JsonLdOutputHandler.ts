@@ -7,14 +7,23 @@ import { getOsloContext } from '../utils/osloContext';
 
 export class JsonLdOutputHandler implements IOutputHandler {
   public async write(store: QuadStore, writeStream: any): Promise<void> {
-    const [packages, classes, attributes, dataTypes, referencedEntities] =
-      await Promise.all([
-        this.getPackages(store),
-        this.getClasses(store),
-        this.getAttributes(store),
-        this.getDatatypes(store),
-        this.getReferencedEntities(store),
-      ]);
+    const [
+      packages,
+      classes,
+      attributes,
+      dataTypes,
+      referencedEntities,
+      redefinedAttributes,
+      subsettedAttributes,
+    ] = await Promise.all([
+      this.getPackages(store),
+      this.getClasses(store),
+      this.getAttributes(store),
+      this.getDatatypes(store),
+      this.getReferencedEntities(store),
+      this.getRedefinedAttributes(store),
+      this.getSubsettedAttributes(store),
+    ]);
 
     const document: any = {};
     document['@context'] = getOsloContext();
@@ -25,6 +34,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.attributes = attributes;
     document.datatypes = dataTypes;
     document.referencedEntities = referencedEntities;
+    document.redefinedAttributes = redefinedAttributes;
+    document.subsettedAttributes = subsettedAttributes;
 
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
   }
@@ -321,6 +332,70 @@ export class JsonLdOutputHandler implements IOutputHandler {
     return result;
   }
 
+  private async getRedefinedAttributes(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const result: any[] = [];
+    const subjects: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('RedefinedAttribute'),
+      df.defaultGraph(),
+    );
+
+    subjects.forEach((subject) => {
+      const parentAttribute: RDF.Term | undefined = store.findObject(
+        subject,
+        ns.oslo('parentAttribute'),
+        df.defaultGraph(),
+      );
+      const childAttribute: RDF.Term | undefined = store.findObject(
+        subject,
+        ns.oslo('childAttribute'),
+        df.defaultGraph(),
+      );
+
+      result.push({
+        '@id': subject.value,
+        '@type': ns.oslo('RedefinedAttribute').value,
+        parentAttribute: { '@id': parentAttribute?.value },
+        childAttribute: { '@id': childAttribute?.value },
+      });
+    });
+
+    return result;
+  }
+
+  private async getSubsettedAttributes(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const result: any[] = [];
+    const subjects: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('SubsettedAttribute'),
+      df.defaultGraph(),
+    );
+
+    subjects.forEach((subject) => {
+      const parentAttribute: RDF.Term | undefined = store.findObject(
+        subject,
+        ns.oslo('parentAttribute'),
+        df.defaultGraph(),
+      );
+      const childAttribute: RDF.Term | undefined = store.findObject(
+        subject,
+        ns.oslo('childAttribute'),
+        df.defaultGraph(),
+      );
+
+      result.push({
+        '@id': subject.value,
+        '@type': ns.oslo('SubsettedAttribute').value,
+        parentAttribute: { '@id': parentAttribute?.value },
+        childAttribute: { '@id': childAttribute?.value },
+      });
+    });
+
+    return result;
+  }
+
   private mapLabels(labels: RDF.Quad[]): any {
     const vocLabels: RDF.Quad[] = labels.filter((x) =>
       x.predicate.equals(ns.oslo('vocLabel')),
@@ -344,7 +419,6 @@ export class JsonLdOutputHandler implements IOutputHandler {
       }),
     };
   }
-
   private mapDefinitions(definitions: RDF.Quad[]): any {
     const vocDefinitions: RDF.Quad[] = definitions.filter((x) =>
       x.predicate.equals(ns.oslo('vocDefinition')),
