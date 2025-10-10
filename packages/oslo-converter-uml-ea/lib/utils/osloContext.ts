@@ -12,6 +12,7 @@ export function getOsloContext(): any {
     sh: 'http://www.w3.org/ns/shacl#',
     prov: 'http://www.w3.org/ns/prov#',
     adms: 'http://www.w3.org/ns/adms#',
+    schema: 'https://schema.org/',
     packages: '@included',
     classes: '@included',
     datatypes: '@included',
@@ -94,7 +95,7 @@ export function getOsloContext(): any {
       '@id': 'dcterms:contributor',
     },
     affiliation: {
-      '@id': 'http://schema.org/affiliation',
+      '@id': 'schema:affiliation',
     },
     assignedURI: {
       '@id': 'oslo:assignedURI',
