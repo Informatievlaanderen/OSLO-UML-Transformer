@@ -18,6 +18,8 @@ export function getOsloContext(): any {
     datatypes: '@included',
     attributes: '@included',
     referencedEntities: '@included',
+    redefinedAttributes: '@included',
+    subsettedAttributes: '@included',
     baseURI: {
       '@id': 'oslo:baseURI',
       '@type': '@id',
@@ -115,6 +117,14 @@ export function getOsloContext(): any {
     extensions: {
       '@id': 'oslo:extensions',
       '@container': '@set',
+    },
+    parentAttribute: {
+      '@id': 'oslo:parentAttribute',
+      '@type': '@id',
+    },
+    childAttribute: {
+      '@id': 'oslo:childAttribute',
+      '@type': '@id',
     },
   };
 }
