@@ -52,6 +52,9 @@ describe('DataRegistry (accessdb)', () => {
     dataRegistry.normalizedConnectors = [];
     expect(dataRegistry.normalizedConnectors).toStrictEqual([]);
 
+    dataRegistry.crossReferences = [];
+    expect(dataRegistry.crossReferences).toStrictEqual([]);
+
     const mockDiagram = new EaDiagram(1, 'TestDiagram', 'guid', 1);
 
     dataRegistry.targetDiagram = mockDiagram;

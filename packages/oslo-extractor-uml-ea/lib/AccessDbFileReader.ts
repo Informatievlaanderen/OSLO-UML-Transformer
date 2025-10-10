@@ -15,12 +15,14 @@ import { mapToEaPackages } from './utils/packageUtils';
 import { mapToElementConnector } from './utils/elementConnectorUtils';
 import { mapToEaAttribute } from './utils/attributeUtils';
 import { mapToEaElement } from './utils/elementUtils';
+import { mapToEaCrossReference } from './utils/elementCrossReferenceUtils';
 import {
   addConnectorIdsToDiagram,
   addElementIdsToDiagram,
   mapToEaDiagram,
 } from './utils/diagramUtils';
 import { EaDiagram } from './types/EaDiagram';
+import { CrossReferenceType } from './enums/CrossReferenceType';
 
 export class AccessDbFileReader implements IFileReader<MDBReader> {
   public async initDataRegistry(
@@ -34,7 +36,9 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
       .then(() => this.loadElements(reader, registry))
       .then(() => this.loadAttributes(reader, registry))
       .then(() => this.loadElementConnectors(reader, registry))
-      .then(() => this.loadDiagrams(reader, registry));
+      .then(() => this.loadDiagrams(reader, registry))
+      .then(() => this.loadRedefinedAttributes(reader, registry))
+      .then(() => this.loadSubsettedAttributes(reader, registry));
 
     return registry;
   }
@@ -116,6 +120,46 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
       registry.attributes,
       'ElementID',
       'VALUE',
+    );
+  }
+
+  public async loadRedefinedAttributes(
+    database: MDBReader,
+    registry: DataRegistry,
+  ): Promise<void> {
+    const objects = database.getTable(EaTable.Object).getData();
+    const attributes = database.getTable(EaTable.Attribute).getData();
+    const crossReferences = database.getTable(EaTable.XRef).getData();
+    const query = `
+    SELECT a.Name AS AttributeName, a.ea_guid AS AttributeEaGuid, o.Name AS 'ClassName', o.Object_ID AS 'AttributeId', x.Description AS 'ParentGuid', o.Package_ID AS 'PackageId'
+    FROM ? o, ? a, ? x
+    WHERE o.Object_Type='Class' AND o.Object_ID = a.Object_ID AND x.Behavior='redefinedProperty' AND x.Client = a.ea_guid;
+    `;
+
+    const data = <any[]>alasql(query, [objects, attributes, crossReferences]);
+    registry.crossReferences = mapToEaCrossReference(
+      data,
+      CrossReferenceType.Redefined,
+    );
+  }
+
+  public async loadSubsettedAttributes(
+    database: MDBReader,
+    registry: DataRegistry,
+  ): Promise<void> {
+    const objects = database.getTable(EaTable.Object).getData();
+    const attributes = database.getTable(EaTable.Attribute).getData();
+    const crossReferences = database.getTable(EaTable.XRef).getData();
+    const query = `
+    SELECT a.Name AS AttributeName, a.ea_guid AS AttributeEaGuid, o.Name AS 'ClassName', o.Object_ID AS 'AttributeId', x.Description AS 'ParentGuid', o.Package_ID AS 'PackageId'
+    FROM ? o, ? a, ? x
+    WHERE o.Object_Type='Class' AND o.Object_ID = a.Object_ID AND x.Behavior='subsettedProperty' AND x.Client = a.ea_guid;
+    `;
+
+    const data = <any[]>alasql(query, [objects, attributes, crossReferences]);
+    registry.crossReferences = mapToEaCrossReference(
+      data,
+      CrossReferenceType.Subsetted,
     );
   }
 

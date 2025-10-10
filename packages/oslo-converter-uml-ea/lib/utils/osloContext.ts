@@ -12,11 +12,14 @@ export function getOsloContext(): any {
     sh: 'http://www.w3.org/ns/shacl#',
     prov: 'http://www.w3.org/ns/prov#',
     adms: 'http://www.w3.org/ns/adms#',
+    schema: 'https://schema.org/',
     packages: '@included',
     classes: '@included',
     datatypes: '@included',
     attributes: '@included',
     referencedEntities: '@included',
+    redefinedAttributes: '@included',
+    subsettedAttributes: '@included',
     baseURI: {
       '@id': 'oslo:baseURI',
       '@type': '@id',
@@ -94,7 +97,7 @@ export function getOsloContext(): any {
       '@id': 'dcterms:contributor',
     },
     affiliation: {
-      '@id': 'http://schema.org/affiliation',
+      '@id': 'schema:affiliation',
     },
     assignedURI: {
       '@id': 'oslo:assignedURI',
@@ -114,6 +117,14 @@ export function getOsloContext(): any {
     extensions: {
       '@id': 'oslo:extensions',
       '@container': '@set',
+    },
+    parentAttribute: {
+      '@id': 'oslo:parentAttribute',
+      '@type': '@id',
+    },
+    childAttribute: {
+      '@id': 'oslo:childAttribute',
+      '@type': '@id',
     },
   };
 }
