@@ -45,6 +45,7 @@ export function getOsloContext(): any {
     },
     scope: {
       '@id': 'oslo:scope',
+      '@type': '@id',
     },
     vocUsageNote: {
       '@id': 'oslo:vocUsageNote',
