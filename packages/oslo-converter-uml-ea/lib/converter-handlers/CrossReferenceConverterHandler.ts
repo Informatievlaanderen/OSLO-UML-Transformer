@@ -12,7 +12,7 @@ import type { UriRegistry } from '../UriRegistry';
 import { ignore } from '../utils/utils';
 
 @injectable()
-export class CrossConverterConverterHandler extends ConverterHandler<EaCrossReference> {
+export class CrossReferenceConverterHandler extends ConverterHandler<EaCrossReference> {
   public async filterHiddenObjects(model: DataRegistry): Promise<DataRegistry> {
     // https://vlaamseoverheid.atlassian.net/browse/SDTT-359
     // Hidden packages are currently not supported. Only connectors.

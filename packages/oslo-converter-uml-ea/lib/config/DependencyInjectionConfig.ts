@@ -2,27 +2,24 @@ import 'reflect-metadata';
 import type { IConfiguration, IService } from '@oslo-flanders/core';
 import type {
   EaAttribute,
+  EaCrossReference,
   EaElement,
   EaPackage,
   NormalizedConnector,
 } from '@oslo-flanders/ea-uml-extractor';
 import { Container } from 'inversify';
-import { AssociationWithAssociationClassConnectorCase }
-  from '../connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
-import { AssociationWithDestinationRoleConnectorCase } from
-  '../connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
-import {
-  AssociationWithNameConnectorCase,
-} from '../connector-normalisation-cases/AssociationWithNameConnectorCase';
-import { AssocationWithSourceRoleConnectorCase } from
-  '../connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
-import { SelfAssociationWithAssociationClassConnectorCase } from
-  '../connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
-import { SelfAssociationWithNameConnectorCase } from
-  '../connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
+/* eslint-disable max-len */
+import { AssociationWithAssociationClassConnectorCase } from '../connector-normalisation-cases/AssociationWithAssociationClassConnectorCase';
+import { AssociationWithDestinationRoleConnectorCase } from '../connector-normalisation-cases/AssociationWithDestinationRoleConnectorCase';
+import { AssociationWithNameConnectorCase } from '../connector-normalisation-cases/AssociationWithNameConnectorCase';
+import { AssocationWithSourceRoleConnectorCase } from '../connector-normalisation-cases/AssociationWithSourceRoleConnectorCase';
+import { SelfAssociationWithAssociationClassConnectorCase } from '../connector-normalisation-cases/SelfAssociationWithAssociationClassConnectorCase';
+import { SelfAssociationWithNameConnectorCase } from '../connector-normalisation-cases/SelfAssociationWithNameConnectorCase';
+/* eslint-enable max-len */
 import { ConnectorNormalisationService } from '../ConnectorNormalisationService';
 import { AttributeConverterHandler } from '../converter-handlers/AttributeConverterHandler';
 import { ConnectorConverterHandler } from '../converter-handlers/ConnectorConverterHandler';
+import { CrossReferenceConverterHandler } from '../converter-handlers/CrossReferenceConverterHandler';
 import { ElementConverterHandler } from '../converter-handlers/ElementConverterHandler';
 import { PackageConverterHandler } from '../converter-handlers/PackageConverterHandler';
 import { EaUmlConversionService } from '../EaUmlConversionService';
@@ -42,41 +39,61 @@ container
   .inSingletonScope();
 
 container
-  .bind<OutputHandlerService>(EaUmlConverterServiceIdentifier.OutputHandlerService)
+  .bind<OutputHandlerService>(
+    EaUmlConverterServiceIdentifier.OutputHandlerService,
+  )
   .to(OutputHandlerService);
 
 /**
  * Converter handlers
  */
 container
-  .bind<ConverterHandler<EaPackage>>(EaUmlConverterServiceIdentifier.ConverterHandler)
+  .bind<
+    ConverterHandler<EaPackage>
+  >(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(PackageConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('PackageConverterHandler');
 
 container
-  .bind<ConverterHandler<EaAttribute>>(EaUmlConverterServiceIdentifier.ConverterHandler)
+  .bind<
+    ConverterHandler<EaAttribute>
+  >(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(AttributeConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('AttributeConverterHandler');
 
 container
-  .bind<ConverterHandler<EaElement>>(EaUmlConverterServiceIdentifier.ConverterHandler)
+  .bind<
+    ConverterHandler<EaElement>
+  >(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(ElementConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ElementConverterHandler');
 
 container
-  .bind<ConverterHandler<NormalizedConnector>>(EaUmlConverterServiceIdentifier.ConverterHandler)
+  .bind<
+    ConverterHandler<NormalizedConnector>
+  >(EaUmlConverterServiceIdentifier.ConverterHandler)
   .to(ConnectorConverterHandler)
   .inSingletonScope()
   .whenTargetNamed('ConnectorConverterHandler');
+
+container
+  .bind<
+    ConverterHandler<EaCrossReference>
+  >(EaUmlConverterServiceIdentifier.ConverterHandler)
+  .to(CrossReferenceConverterHandler)
+  .inSingletonScope()
+  .whenTargetNamed('CrossReferenceConverterHandler');
 
 /**
  * Connector normalisation service and cases
  */
 container
-  .bind<ConnectorNormalisationService>(EaUmlConverterServiceIdentifier.ConnectorNormalisationService)
+  .bind<ConnectorNormalisationService>(
+    EaUmlConverterServiceIdentifier.ConnectorNormalisationService,
+  )
   .to(ConnectorNormalisationService)
   .inSingletonScope();
 
