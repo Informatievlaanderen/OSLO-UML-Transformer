@@ -102,7 +102,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/191
     let propertyTypePredicate: RDF.NamedNode;
     let propertyTypeValue: RDF.NamedNode;
-    
+
     if (rangeAssignedURI.equals(ns.rdfs('Literal'))) {
       propertyTypePredicate = ns.shacl('nodeKind');
       propertyTypeValue = ns.shacl('Literal');
@@ -140,7 +140,12 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     // For these base quads, we add a graph so that every other handler can extract these base quads
     const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
     shaclStore.addQuads([
-      this.df.quad(shapeId, ns.rdf('type'), ns.shacl('PropertyShape'), baseQuadsGraph),
+      this.df.quad(
+        shapeId,
+        ns.rdf('type'),
+        ns.shacl('PropertyShape'),
+        baseQuadsGraph,
+      ),
       this.df.quad(shapeId, ns.shacl('path'), assignedURI, baseQuadsGraph),
       this.df.quad(shapeId, ns.shacl('name'), label, baseQuadsGraph),
       this.df.quad(shapeId, ns.rdfs('label'), label, baseQuadsGraph),
@@ -178,7 +183,11 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
             this.df.quad(
               shapeId,
               propertyTypePredicate,
-              rangeAssignedURI,
+              // For rdfs:Literal, use the value 'sh:Literal' instead of 'rdfs:Literal'
+              rangeAssignedURI.equals(ns.rdfs('Literal'))
+                ? propertyTypeValue
+                : rangeAssignedURI,
+              //
               baseQuadsGraph,
             ),
           ]),
