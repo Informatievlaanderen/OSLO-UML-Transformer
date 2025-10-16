@@ -97,11 +97,21 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
         `Unable to find the type for subject "${subject.value}".`,
       );
     }
-    const propertyTypePredicate: RDF.NamedNode = propertyType.equals(
-      ns.owl('DatatypeProperty'),
-    )
-      ? ns.shacl('datatype')
-      : ns.shacl('class');
+
+    // Special handling for rdfs:Literal - use sh:nodeKind instead of sh:datatype
+    // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/191
+    let propertyTypePredicate: RDF.NamedNode;
+    let propertyTypeValue: RDF.NamedNode;
+    
+    if (rangeAssignedURI.equals(ns.rdfs('Literal'))) {
+      propertyTypePredicate = ns.shacl('nodeKind');
+      propertyTypeValue = ns.shacl('Literal');
+    } else {
+      propertyTypePredicate = propertyType.equals(ns.owl('DatatypeProperty'))
+        ? ns.shacl('datatype')
+        : ns.shacl('class');
+      propertyTypeValue = rangeAssignedURI;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const shapeId: NamedOrBlankNode = this.propertyIdToShapeIdMap.get(
