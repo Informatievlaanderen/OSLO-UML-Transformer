@@ -15,6 +15,7 @@ import { ShaclTemplateGenerationServiceIdentifier } from '../config/ShaclTemplat
 import { Logger } from '@oslo-flanders/core';
 import { ShaclTemplateGenerationServiceConfiguration } from '../config/ShaclTemplateGenerationServiceConfiguration';
 import { TranslationService } from '../TranslationService';
+import { shouldFilterUri } from '../constants/filteredUris';
 
 /**
  * Adds the base information for a property shape.
@@ -98,12 +99,12 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
       );
     }
 
-    // Special handling for rdfs:Literal - use sh:nodeKind instead of sh:datatype
+    // Special handling for filtered URIs (like rdfs:Literal) - use sh:nodeKind instead of sh:datatype
     // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/191
     let propertyTypePredicate: RDF.NamedNode;
     let propertyTypeValue: RDF.NamedNode;
 
-    if (rangeAssignedURI.equals(ns.rdfs('Literal'))) {
+    if (shouldFilterUri(rangeAssignedURI)) {
       propertyTypePredicate = ns.shacl('nodeKind');
       propertyTypeValue = ns.shacl('Literal');
     } else {

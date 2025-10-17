@@ -50,10 +50,19 @@ export class ShaclTemplateGenerationService implements IService {
 
   public async run(): Promise<void> {
     const shaclStore = new QuadStore();
+
+    // Filter out rdfs:Literal from datatypes before creating shape maps
+    // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/191
+    const datatypes = [...this.store.getDatatypes()].filter((datatype) => {
+      const assignedURI = this.store.getAssignedUri(datatype);
+      return !assignedURI?.equals(ns.rdfs('Literal'));
+    });
+
     const classIdToShapeIdMap = this.createSubjectToShapeIdMap(
-      [...this.store.getClassIds(), ...this.store.getDatatypes()],
+      [...this.store.getClassIds(), ...datatypes],
       false,
     );
+
     const propertyIdToShapeIdMap = this.createSubjectToShapeIdMap(
       [
         ...this.store.getDatatypePropertyIds(),
