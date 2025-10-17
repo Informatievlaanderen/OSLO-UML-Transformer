@@ -16,6 +16,7 @@ import { OutputHandlerService } from './OutputHandlerService';
 import { GenerationMode } from './enums/GenerationMode';
 import { toPascalCase } from './utils/utils';
 import { SHA1 } from 'crypto-js';
+import { shouldFilterUri } from './constants/filteredUris';
 
 @injectable()
 export class ShaclTemplateGenerationService implements IService {
