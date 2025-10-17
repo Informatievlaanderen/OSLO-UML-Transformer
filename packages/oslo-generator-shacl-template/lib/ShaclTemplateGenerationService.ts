@@ -55,7 +55,7 @@ export class ShaclTemplateGenerationService implements IService {
     // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues/191
     const datatypes = [...this.store.getDatatypes()].filter((datatype) => {
       const assignedURI = this.store.getAssignedUri(datatype);
-      return !assignedURI?.equals(ns.rdfs('Literal'));
+      return !assignedURI || !shouldFilterUri(assignedURI);
     });
 
     const classIdToShapeIdMap = this.createSubjectToShapeIdMap(
