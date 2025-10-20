@@ -194,8 +194,18 @@ export class JsonLdOutputHandler implements IOutputHandler {
             '@id': parentQuad.value,
           },
         }),
-        minCount: { '@value': minCardinalityQuad?.value, '@type': minCardinalityQuad?.datatype.value },
-        maxCount: { '@value': maxCardinalityQuad?.value, '@type': maxCardinalityQuad?.datatype.value },
+        ...(minCardinalityQuad && {
+          minCount: {
+            '@value': minCardinalityQuad.value,
+            '@type': minCardinalityQuad.datatype.value,
+          },
+        }),
+        ...(maxCardinalityQuad && {
+          maxCount: {
+            '@value': maxCardinalityQuad.value,
+            '@type': maxCardinalityQuad.datatype.value,
+          },
+        }),
         scope: scopeQuad?.value,
         ...(codelist && {
           codelist: codelist.value,
