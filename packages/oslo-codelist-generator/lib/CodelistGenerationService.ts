@@ -7,7 +7,7 @@ import {
   ns,
   fetchFileOrUrl,
 } from '@oslo-flanders/core';
-import { CodelistGenerationServiceConfiguration } from '../config/CodelistGenerationServiceConfiguration';
+import { CodelistGenerationServiceConfiguration } from './config/CodelistGenerationServiceConfiguration';
 import { parse } from 'csv-parse';
 import { Readable } from 'stream';
 import type * as RDF from '@rdfjs/types';

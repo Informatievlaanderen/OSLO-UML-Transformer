@@ -1,7 +1,7 @@
 import type { IConfiguration, IService } from '@oslo-flanders/core';
 import { QuadStore, ServiceIdentifier } from '@oslo-flanders/core';
 import { Container } from 'inversify';
-import { CodelistGenerationService } from '../lib/CodelistGenerationService';
+import { CodelistGenerationService } from '../CodelistGenerationService';
 import { CodelistGenerationServiceConfiguration } from './CodelistGenerationServiceConfiguration';
 
 export const container = new Container();
