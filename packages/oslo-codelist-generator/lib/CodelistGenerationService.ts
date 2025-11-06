@@ -73,8 +73,8 @@ export class CodelistGenerationService implements IService {
   private createQuadsFromRow(row: any): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
-    // Get the concept URI from the _id column
-    const conceptUri = this.df.namedNode(row._id);
+    // Get the concept URI from the @id column
+    const conceptUri = this.df.namedNode(row['@id']);
 
     // Type - only add if it's a Concept
     if (row['@type'] === 'http://www.w3.org/2004/02/skos/core#Concept') {
@@ -156,7 +156,7 @@ export class CodelistGenerationService implements IService {
         // Process ConceptScheme if it exists
         if (conceptSchemeIndex !== -1) {
           const schemeRow = rows[conceptSchemeIndex];
-          const conceptScheme = this.df.namedNode(schemeRow._id);
+          const conceptScheme = this.df.namedNode(schemeRow['@id']);
 
           // Create ConceptScheme quads
           quads.push(

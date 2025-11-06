@@ -44,7 +44,7 @@ The CSV file should have the following structure:
 
 ### Required Columns
 
-- `_id` - The URI of the concept
+- `@id` - The URI of the concept
 - `@type` - The RDF type (e.g., `http://www.w3.org/2004/02/skos/core#Concept` or `http://www.w3.org/2004/02/skos/core#ConceptScheme`)
 
 ### Optional Columns
@@ -68,7 +68,7 @@ These are mapped via the configuration parameters:
 ### Example CSV
 
 ```csv
-_id,@type,prefLabel,definition,inScheme,topConceptOf,notation,broader
+@id,@type,prefLabel,definition,inScheme,topConceptOf,notation,broader
 https://data.vlaanderen.be/id/concept/Status/Active,http://www.w3.org/2004/02/skos/core#Concept,Actief,Status dat aangeeft dat de resource actief is.,https://data.vlaanderen.be/id/conceptscheme/Status,https://data.vlaanderen.be/id/conceptscheme/Status,ACTIVE,
 https://data.vlaanderen.be/id/concept/Status/Inactive,http://www.w3.org/2004/02/skos/core#Concept,Inactief,Status dat aangeeft dat de resource inactief is.,https://data.vlaanderen.be/id/conceptscheme/Status,https://data.vlaanderen.be/id/conceptscheme/Status,INACTIVE,
 https://data.vlaanderen.be/id/conceptscheme/Status,http://www.w3.org/2004/02/skos/core#ConceptScheme,Status Conceptscheme,Een conceptschema voor verschillende statussen.,,,,
