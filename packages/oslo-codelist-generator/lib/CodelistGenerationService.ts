@@ -73,8 +73,22 @@ export class CodelistGenerationService implements IService {
   private createQuadsFromRow(row: any): RDF.Quad[] {
     const quads: RDF.Quad[] = [];
 
+    // Validate that @id is present and not empty
+    if (!row['@id'] || row['@id'].trim() === '') {
+      throw new Error(
+        `Missing or empty @id in row. Row data: ${JSON.stringify(row)}`,
+      );
+    }
+
     // Get the concept URI from the @id column
     const conceptUri = this.df.namedNode(row['@id']);
+
+    // Validate that @type is present and not empty
+    if (!row['@type'] || row['@type'].trim() === '') {
+      throw new Error(
+        `Missing or empty @type in row. Row data: ${JSON.stringify(row)}`,
+      );
+    }
 
     // Type - only add if it's a Concept
     if (row['@type'] === 'http://www.w3.org/2004/02/skos/core#Concept') {

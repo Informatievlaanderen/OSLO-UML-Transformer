@@ -160,16 +160,20 @@ export function extractNamespaces(
 }
 
 export function formatOutput(result: string): string {
-  // Extract only the @prefix declarations
+  // Extract all @prefix declarations
   const prefixRegex = /(@prefix\s+\w+:\s+<[^>]+>\s*\.)/gu;
-  const prefixMatch = prefixRegex.exec(result);
+  const prefixes = result.match(prefixRegex) || [];
 
-  const prefixSection = prefixMatch ? prefixMatch[0].trim() : '';
-  const quadsSection = prefixMatch
-    ? result.slice(prefixMatch[0].length)
-    : result;
+  // Build the prefix section with consistent formatting
+  const prefixSection = prefixes.map((prefix) => prefix.trim()).join('\n');
 
-  // Format only the quads - remove existing periods first, then add them back
+  // Remove prefix declarations from the result to get only the quads
+  let quadsSection = result;
+  for (const prefix of prefixes) {
+    quadsSection = quadsSection.replace(prefix, '');
+  }
+
+  // Format the quads - remove existing periods first, then add them back
   const formattedQuads = quadsSection
     .split('.\n')
     .filter((line) => line.trim() !== '')
@@ -180,6 +184,8 @@ export function formatOutput(result: string): string {
     })
     .join('');
 
-  // Recombine prefixes with formatted quads
-  return `${prefixSection}\n\n${formattedQuads}`;
+  // Recombine prefixes with a blank line, then quads
+  return prefixSection
+    ? `${prefixSection}\n\n${formattedQuads}`
+    : formattedQuads;
 }

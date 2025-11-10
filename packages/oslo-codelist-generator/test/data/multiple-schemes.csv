@@ -1,0 +1,5 @@
+@id,@type,prefLabel,definition,inScheme,topConceptOf,notation
+https://data.vlaanderen.be/id/concept/Type1/A,http://www.w3.org/2004/02/skos/core#Concept,Type A,Definition A,https://data.vlaanderen.be/id/conceptscheme/Type1,https://data.vlaanderen.be/id/conceptscheme/Type1,A
+https://data.vlaanderen.be/id/concept/Type2/B,http://www.w3.org/2004/02/skos/core#Concept,Type B,Definition B,https://data.vlaanderen.be/id/conceptscheme/Type2,https://data.vlaanderen.be/id/conceptscheme/Type2,B
+https://data.vlaanderen.be/id/conceptscheme/Type1,http://www.w3.org/2004/02/skos/core#ConceptScheme,Type1 Scheme,Type1 Description,,,
+https://data.vlaanderen.be/id/conceptscheme/Type2,http://www.w3.org/2004/02/skos/core#ConceptScheme,Type2 Scheme,Type2 Description,,,

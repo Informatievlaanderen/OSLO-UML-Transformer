@@ -28,7 +28,9 @@
   },
   "scripts": {
     "build": "npm run build:ts",
-    "build:ts": "tsc"
+    "build:ts": "tsc",
+    "test:integration": "node \"../../node_modules/jest/bin/jest.js\" --group=integration --config ../../jest.config.ts ./packages/oslo-codelist-generator/",
+    "test:unit": "node \"../../node_modules/jest/bin/jest.js\" --group=unit --config ../../jest.config.ts ./packages/oslo-codelist-generator/"
   },
   "bugs": {
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
