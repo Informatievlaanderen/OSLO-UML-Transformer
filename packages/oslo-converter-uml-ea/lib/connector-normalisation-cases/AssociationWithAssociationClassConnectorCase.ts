@@ -81,6 +81,7 @@ export class AssociationWithAssociationClassConnectorCase
     // The connectors should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
     // Because of the implicit relationships it is impossible to have the same class participate in two distinct association class relationships.
     // If one need that functionality, the only solution is to create duplicate classes and copy the information.
+    // Replacing the prefixes makes it that this is treated as a normal connector with known tags
     const sourceExtraTags: EaTag[] = associationClassObject.tags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix))
       .map((tag) => ({
@@ -95,6 +96,7 @@ export class AssociationWithAssociationClassConnectorCase
         tagName: tag.tagName.replace(TagNames.AssociationDestPrefix, ''),
       }));
     const sTags = sourceTags.concat(sourceExtraTags);
+
     // Extending it with default values should be done after checking this list
     // Better apply the new practice: values are explicit in the EA UML model.
     // Maybe the removal of the name is problematic as it might lead to invalid assigned URI
@@ -138,6 +140,44 @@ export class AssociationWithAssociationClassConnectorCase
         connector.destinationObjectId,
         '1',
         dTags,
+      ),
+    );
+
+    // reverse behaviour of the destination tags and source tags
+    const sourceRevExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationSourceRevPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationSourceRevPrefix, ''),
+      }));
+
+    const destinationRevExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationDestRevPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationDestRevPrefix, ''),
+      }));
+
+    // Push the reverse tags from the association class to the source and destination
+    normalisedConnectors.push(
+      new NormalizedConnector(
+        connector,
+        `${sourceObjectName}.${associationClassName}`,
+        connector.sourceObjectId,
+        connector.associationClassId,
+        '1',
+        sourceRevExtraTags,
+      ),
+    );
+
+    normalisedConnectors.push(
+      new NormalizedConnector(
+        connector,
+        `${sourceObjectName}.${associationClassName}`,
+        connector.destinationObjectId,
+        connector.associationClassId,
+        '1',
+        destinationRevExtraTags,
       ),
     );
 
