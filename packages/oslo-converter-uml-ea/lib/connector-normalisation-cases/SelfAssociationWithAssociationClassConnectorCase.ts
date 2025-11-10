@@ -47,6 +47,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
 
     // ASSOCIATION CLASS CONNECTORS WITH CUSTOM SOURCE AND TARGET TAGS
     // Filter the prefixes from the tags to allow them to be used by the generators
+    // // Replacing the prefixes makes it that this is treated as a normal connector with known tags
 
     const explicitSourceTags: EaTag[] = connector.sourceRoleTags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationSourcePrefix))
