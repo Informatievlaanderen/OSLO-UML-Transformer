@@ -1,3 +1,4 @@
+import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
 const PREFIX_CC_URL = 'https://prefix.cc/context';
@@ -19,11 +20,11 @@ export async function getPrefixes(): Promise<Record<string, string>> {
     console.error(`Error fetching prefixes: ${String(error)}`);
     // Fallback to a minimal set of prefixes if the fetch fails
     return {
-      skos: 'http://www.w3.org/2004/02/skos/core#',
-      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-      rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
-      dct: 'http://purl.org/dc/terms/',
-      xsd: 'http://www.w3.org/2001/XMLSchema#',
+      skos: ns.skos(''),
+      rdf: ns.rdf(''),
+      rdfs: ns.rdfs(''),
+      dct: ns.dcterms(''),
+      xsd: ns.xsd(''),
     };
   }
 }

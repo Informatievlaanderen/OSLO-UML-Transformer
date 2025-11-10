@@ -91,7 +91,7 @@ export class CodelistGenerationService implements IService {
     }
 
     // Type - only add if it's a Concept
-    if (row['@type'] === 'http://www.w3.org/2004/02/skos/core#Concept') {
+    if (row['@type'] === ns.skos('Concept').value) {
       quads.push(this.df.quad(conceptUri, ns.rdf('type'), ns.skos('Concept')));
     }
 
@@ -160,81 +160,139 @@ export class CodelistGenerationService implements IService {
       parser.on('error', (error) => reject(error));
 
       parser.on('end', () => {
-        // Find the ConceptScheme row (it has @type ConceptScheme)
-        const conceptSchemeIndex = rows.findIndex(
-          (row) =>
-            row['@type'] ===
-            'http://www.w3.org/2004/02/skos/core#ConceptScheme',
-        );
+        try {
+          // Find all ConceptScheme rows and group concepts by scheme
+          const conceptSchemeMap = new Map<
+            string,
+            { schemeRow: any; conceptRows: any[] }
+          >();
+          const conceptSchemeIndices = new Set<number>();
 
-        // Process ConceptScheme if it exists
-        if (conceptSchemeIndex !== -1) {
-          const schemeRow = rows[conceptSchemeIndex];
-          const conceptScheme = this.df.namedNode(schemeRow['@id']);
-
-          // Create ConceptScheme quads
-          quads.push(
-            this.df.quad(
-              conceptScheme,
-              ns.rdf('type'),
-              ns.skos('ConceptScheme'),
-            ),
-          );
-
-          // Add prefLabel for ConceptScheme
-          if (schemeRow.prefLabel) {
-            quads.push(
-              this.df.quad(
-                conceptScheme,
-                ns.skos('prefLabel'),
-                this.df.literal(
-                  schemeRow.prefLabel,
-                  this.configuration.language,
-                ),
-              ),
-            );
+          // First pass: identify scheme rows and group concepts
+          for (const [index, row] of rows.entries()) {
+            if (row['@type'] === ns.skos('ConceptScheme').value) {
+              conceptSchemeIndices.add(index);
+              conceptSchemeMap.set(row['@id'], {
+                schemeRow: row,
+                conceptRows: [],
+              });
+            }
           }
 
-          // Add definition for ConceptScheme
-          if (schemeRow.definition) {
-            quads.push(
-              this.df.quad(
-                conceptScheme,
-                ns.skos('definition'),
-                this.df.literal(
-                  schemeRow.definition,
-                  this.configuration.language,
-                ),
-              ),
-            );
-          }
-
-          // Add hasTopConcept relations
-          if (schemeRow.hasTopConcept) {
-            const topConcepts = schemeRow.hasTopConcept.split('|');
-            for (const topConcept of topConcepts) {
-              if (topConcept && topConcept.trim() !== 'null') {
-                quads.push(
-                  this.df.quad(
-                    conceptScheme,
-                    ns.skos('hasTopConcept'),
-                    this.df.namedNode(topConcept.trim()),
-                  ),
-                );
+          // Second pass: group concepts by their inScheme
+          for (const [index, row] of rows.entries()) {
+            if (!conceptSchemeIndices.has(index) && row.inScheme) {
+              const schemeEntry = conceptSchemeMap.get(row.inScheme);
+              if (schemeEntry) {
+                schemeEntry.conceptRows.push(row);
               }
             }
           }
+
+          // Process all ConceptScheme rows with their grouped concepts
+          for (const [
+            schemeId,
+            { schemeRow, conceptRows },
+          ] of conceptSchemeMap) {
+            // Validate ConceptScheme has @id
+            if (!schemeRow['@id'] || schemeRow['@id'].trim() === '') {
+              throw new Error(
+                `ConceptScheme row has missing or empty @id. Row data: ${JSON.stringify(schemeRow)}`,
+              );
+            }
+
+            const conceptScheme = this.df.namedNode(schemeRow['@id']);
+
+            // Create ConceptScheme quads
+            quads.push(
+              this.df.quad(
+                conceptScheme,
+                ns.rdf('type'),
+                ns.skos('ConceptScheme'),
+              ),
+            );
+
+            // Add prefLabel for ConceptScheme
+            if (schemeRow.prefLabel) {
+              quads.push(
+                this.df.quad(
+                  conceptScheme,
+                  ns.skos('prefLabel'),
+                  this.df.literal(
+                    schemeRow.prefLabel,
+                    this.configuration.language,
+                  ),
+                ),
+              );
+            }
+
+            // Add definition for ConceptScheme
+            if (schemeRow.definition) {
+              quads.push(
+                this.df.quad(
+                  conceptScheme,
+                  ns.skos('definition'),
+                  this.df.literal(
+                    schemeRow.definition,
+                    this.configuration.language,
+                  ),
+                ),
+              );
+            }
+
+            // Add hasTopConcept relations
+            if (schemeRow.hasTopConcept) {
+              const topConcepts = schemeRow.hasTopConcept.split('|');
+              for (const topConcept of topConcepts) {
+                if (topConcept && topConcept.trim() !== 'null') {
+                  quads.push(
+                    this.df.quad(
+                      conceptScheme,
+                      ns.skos('hasTopConcept'),
+                      this.df.namedNode(topConcept.trim()),
+                    ),
+                  );
+                }
+              }
+            }
+
+            // Process all concepts belonging to this scheme
+            for (const conceptRow of conceptRows) {
+              try {
+                const rowQuads = this.createQuadsFromRow(conceptRow);
+                quads.push(...rowQuads);
+              } catch (error) {
+                this.logger.error(
+                  `Error processing concept row: ${error instanceof Error ? error.message : String(error)}`,
+                );
+                throw error;
+              }
+            }
+          }
+
+          // Process any remaining concepts that don't belong to a scheme
+          for (const [index, row] of rows.entries()) {
+            if (
+              !conceptSchemeIndices.has(index) &&
+              !row.inScheme &&
+              row['@type'] === ns.skos('Concept').value
+            ) {
+              try {
+                const rowQuads = this.createQuadsFromRow(row);
+                quads.push(...rowQuads);
+              } catch (error) {
+                this.logger.error(
+                  `Error processing concept row: ${error instanceof Error ? error.message : String(error)}`,
+                );
+                throw error;
+              }
+            }
+          }
+
+          resolve(quads);
+        } catch (error) {
+          reject(error);
         }
-
-        // Process Concept rows (all except ConceptScheme)
-        for (const [i, row] of rows.entries()) {
-          if (i === conceptSchemeIndex) continue;
-
-          const rowQuads = this.createQuadsFromRow(row);
-          quads.push(...rowQuads);
-        }
-
-        resolve(quads);
       });
 
       const readable = Readable.from([csvData.toString()]);
