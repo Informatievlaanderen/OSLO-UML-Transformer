@@ -1,0 +1,176 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<https://data.vlaanderen.be/id/concept/Deeltrajecttype/Opleiding>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Deeltraject waarin een opleiding gevolgd is."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Opleiding"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> .
+
+<https://data.vlaanderen.be/id/concept/Deeltrajecttype/Oriëntering>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Deeltraject waarin men verschillende beroepen verkent."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Oriëntering"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> .
+
+<https://data.vlaanderen.be/id/concept/Deeltrajecttype/Tender>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Deeltraject waarin men een inschrijft om een beroep te verkrijgen."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Tender"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype> .
+
+<https://data.vlaanderen.be/id/concept/FinaliteitType/GPMI>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "GPMI."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/FinaliteitType> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "GPMI"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/FinaliteitType> .
+
+<https://data.vlaanderen.be/id/concept/FinaliteitType/SociaalOnderzoek>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Onderzoek van de sociale situatie van een persoon."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/FinaliteitType> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Sociaal Onderzoek"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/FinaliteitType> .
+
+<https://data.vlaanderen.be/id/concept/OrganisatieType/OCMW>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Openbaar Centrum voor Maatschappelijk Welzijn."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/OrganisatieType> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "OCMW"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/OrganisatieType> .
+
+<https://data.vlaanderen.be/id/concept/OrganisatieType/VDAB>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Vlaamse Dienst voor Arbeidsbemiddeling en Beroepsopleiding."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/OrganisatieType> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "VDAB"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/OrganisatieType> .
+
+<https://data.vlaanderen.be/id/concept/Participatietype/Begeleider>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Persoon die begeleiding geeft tijdens een traject."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Begeleider"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> .
+
+<https://data.vlaanderen.be/id/concept/Participatietype/Bemiddelaar>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Persoon die bemiddelt tijdens een traject."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Bemiddelaar"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> .
+
+<https://data.vlaanderen.be/id/concept/Participatietype/Contactpersoon>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Persoon die gecontacteerd kan worden voor vragen."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Contactpersoon"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> .
+
+<https://data.vlaanderen.be/id/concept/Participatietype/Werkzoekende>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Persoon die op zoek is naar werk."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Werkzoekende"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Participatietype> .
+
+<https://data.vlaanderen.be/id/concept/PubliekeDienstverleningType/ActiveringNaarWerk>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Activering van een persoon om deze aan het werk te krijgen."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/PubliekeDienstverleningType> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Activering Naar Werk"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/PubliekeDienstverleningType> .
+
+<https://data.vlaanderen.be/id/concept/Trajectstatustype/Actief>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Traject dat lopend is."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Actief"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> .
+
+<https://data.vlaanderen.be/id/concept/Trajectstatustype/Passief>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Traject dat passief lopend is."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Passief"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> .
+
+<https://data.vlaanderen.be/id/concept/Trajectstatustype/Stopgezet>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Traject dat werd stopgezet."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Stopgezet"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> .
+
+<https://data.vlaanderen.be/id/concept/Trajectstatustype/Uitgevoerd>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Traject dat uitgevoerd en afgesloten is."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Uitgevoerd"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype> .
+
+<https://data.vlaanderen.be/id/concept/Voorkeurtype/GewenstBeroep>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Beroep dat gewenst is om uit te voeren."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Gewenst Beroep"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> .
+
+<https://data.vlaanderen.be/id/concept/Voorkeurtype/TeLerenBeroep>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Beroep dat men wilt leren."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Te Leren Beroep"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> .
+
+<https://data.vlaanderen.be/id/concept/Voorkeurtype/TeVerkennenBeroep>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Beroep dat men wilt verkennen."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Te Verkennen Beroep"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> .
+
+<https://data.vlaanderen.be/id/concept/Voorkeurtype/UitgeslotenBeroep>
+    a <http://www.w3.org/2004/02/skos/core#Concept> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Beroep dat men niet wilt uitvoeren."@nl ;
+    <http://www.w3.org/2004/02/skos/core#inscheme> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Uitgesloten Beroep"@nl ;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype> .
+
+<https://data.vlaanderen.be/id/conceptscheme/Deeltrajecttype>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van deeltrajecten."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van deeltrajecten."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/FinaliteitType>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van Finaliteit."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van Finaliteit."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/OrganisatieType>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van Organisatie."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van Organisatie."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/Participatietype>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van Participatie."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van Participatie."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/PubliekeDienstverleningType>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van Publieke Dienstverleningen."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van Publieke Dienstverleningen."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/Trajectstatustype>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van de status van een traject."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van de status van een traject."@nl .
+
+<https://data.vlaanderen.be/id/conceptscheme/Voorkeurtype>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+    <http://www.w3.org/2004/02/skos/core#definition> "Codelijst voor type van voorkeuren."@nl ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Conceptscheme type van voorkeuren."@nl .

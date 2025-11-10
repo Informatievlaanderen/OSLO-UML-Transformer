@@ -1,0 +1,21 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+
+<https://data.vlaanderen.be/id/conceptscheme/Type1> a skos:ConceptScheme;
+    skos:prefLabel "Type1 Scheme"@nl;
+    skos:definition "Type1 Description"@nl.
+<https://data.vlaanderen.be/id/concept/Type1/A> a skos:Concept;
+    skos:prefLabel "Type A"@nl;
+    skos:definition "Definition A"@nl;
+    skos:notation "A";
+    skos:inScheme <https://data.vlaanderen.be/id/conceptscheme/Type1>;
+    skos:topConceptOf <https://data.vlaanderen.be/id/conceptscheme/Type1>.
+<https://data.vlaanderen.be/id/conceptscheme/Type2> a skos:ConceptScheme;
+    skos:prefLabel "Type2 Scheme"@nl;
+    skos:definition "Type2 Description"@nl.
+<https://data.vlaanderen.be/id/concept/Type2/B> a skos:Concept;
+    skos:prefLabel "Type B"@nl;
+    skos:definition "Definition B"@nl;
+    skos:notation "B";
+    skos:inScheme <https://data.vlaanderen.be/id/conceptscheme/Type2>;
+    skos:topConceptOf <https://data.vlaanderen.be/id/conceptscheme/Type2>.
