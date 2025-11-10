@@ -15,6 +15,7 @@ import { TagNames } from '../enums/TagNames';
 import { ConverterHandler } from '../interfaces/ConverterHandler';
 import type { UriRegistry } from '../UriRegistry';
 import { getTagValue, ignore, toPascalCase } from '../utils/utils';
+import { IgnoredUris } from '../constants/IgnoredUris';
 
 @injectable()
 export class ElementConverterHandler extends ConverterHandler<EaElement> {
@@ -42,6 +43,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     // in other packages and their URIs are needed to refer to in the output file.
     model.elements
       .filter((x) => model.targetDiagram.elementIds.includes(x.id))
+      .filter((element) => this.shouldProcessElement(element, uriRegistry))
       .forEach((object) =>
         store.addQuads(this.createQuads(object, uriRegistry, model)),
       );
@@ -438,5 +440,32 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     }
 
     return quads;
+  }
+
+  // Ignore elements that have the skos:Concept. In the future we could extend this logic to ignore more elements with different uris?
+  private shouldProcessElement(
+    element: EaElement,
+    uriRegistry: UriRegistry,
+  ): boolean {
+    if (!this.config.ignoreSkosConcept) {
+      return true;
+    }
+
+    if (element.type !== ElementType.Enumeration) {
+      // Only Enumeration elements need to be filtered for skos:Concept. Dynamic element types could be added in the future.
+      return true;
+    }
+
+    const elementUri = uriRegistry.elementIdUriMap.get(element.id);
+    const isSkosElement = elementUri?.toString() === IgnoredUris.SKOS_CONCEPT;
+
+    if (isSkosElement && elementUri) {
+      this.logger.info(
+        `[ElementConverterHandler]: Ignoring SKOS Concept element (${element.path}) with URI ${elementUri.toString()}`,
+      );
+      return false;
+    }
+
+    return true;
   }
 }

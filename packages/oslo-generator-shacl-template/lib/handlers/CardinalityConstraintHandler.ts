@@ -25,7 +25,6 @@ export class CardinalityConstraintHandler extends ShaclHandler {
     const shapeId: NamedOrBlankNode = this.propertyIdToShapeIdMap.get(subject.value)!;
     const maxCount = store.getMaxCardinality(subject);
     if (maxCount) {
-
       this.addCardinalityConstraintToStore(subject, shapeId, ns.shacl('maxCount'), maxCount, store, shaclStore);
     }
 
