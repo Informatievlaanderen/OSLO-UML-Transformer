@@ -1,0 +1,3 @@
+@id,@type,prefLabel,definition
+https://data.vlaanderen.be/id/concept/Test/1,http://www.w3.org/2004/02/skos/core#Concept,Test Concept,
+https://data.vlaanderen.be/id/concept/Test/2,http://www.w3.org/2004/02/skos/core#Concept,Another Concept,A definition

@@ -1,0 +1,4 @@
+@id,@type,prefLabel,definition,inScheme,topConceptOf,notation
+https://data.vlaanderen.be/id/concept/StandaardStatus/ErkendeStandaard,http://www.w3.org/2004/02/skos/core#Concept,Actief,Status dat aangeeft dat de standaard erkend is.,https://data.vlaanderen.be/id/conceptscheme/StandaardStatus,https://data.vlaanderen.be/id/conceptscheme/StandaardStatus,ACTIVE
+https://data.vlaanderen.be/id/concept/StandaardStatus/NietErkend,http://www.w3.org/2004/02/skos/core#Concept,Niet Erkend,Status dat aangeeft dat de standaard niet erkend is.,https://data.vlaanderen.be/id/conceptscheme/StandaardStatus,https://data.vlaanderen.be/id/conceptscheme/StandaardStatus,INACTIVE
+https://data.vlaanderen.be/id/conceptscheme/StandaardStatus,http://www.w3.org/2004/02/skos/core#ConceptScheme,StandaardStatus,Informatie over de status van het document.,,,
