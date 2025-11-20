@@ -119,12 +119,6 @@ export class ShaclTemplateGenerationService implements IService {
       classIdToShapeIdMap,
       propertyIdToShapeIdMap,
     );
-    this.handleSubsettedProperties(
-      this.store,
-      shaclStore,
-      classIdToShapeIdMap,
-      propertyIdToShapeIdMap,
-    );
 
     this.outputHandlerService.write(shaclStore);
   }
@@ -333,106 +327,19 @@ export class ShaclTemplateGenerationService implements IService {
 
       const xOneList = [this.df.blankNode(), this.df.blankNode()];
       const xOneValues = [
-        this.df.quad(xOneList[0], ns.shacl('property'), propertyShapeParent),
-        this.df.quad(xOneList[1], ns.shacl('property'), rdfTypeShapeId),
+        /* rdf:type filter */
         this.df.quad(
           rdfTypeShapeId,
           ns.shacl('class'),
           childClassId as NamedOrBlankNode,
         ),
         this.df.quad(rdfTypeShapeId, ns.rdf('type'), ns.shacl('PropertyShape')),
-        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild),
-      ];
-
-      shaclStore.addQuads([
-        this.df.quad(
-          parentNodeShapeId,
-          ns.shacl('xone'),
-          createList(xOneList, shaclStore, this.df),
-          baseQuadsGraph,
-        ),
-        ...xOneValues,
-      ]);
-    }
-  }
-
-  private handleSubsettedProperties(
-    store: QuadStore,
-    shaclStore: QuadStore,
-    classIdToShapeIdMap: Map<string, NamedOrBlankNode>,
-    propertyIdToShapeIdMap: Map<string, NamedOrBlankNode>,
-  ) {
-    for (const subsettedProperty of store.findSubjects(
-      ns.rdf('type'),
-      ns.oslo('SubsettedAttribute'),
-    )) {
-      const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
-      const child: RDF.Term | undefined = store.findObject(
-        subsettedProperty,
-        ns.oslo('childAttribute'),
-      );
-      const parent: RDF.Term | undefined = store.findObject(
-        subsettedProperty,
-        ns.oslo('parentAttribute'),
-      );
-
-      if (!child || !parent)
-        throw new Error('Child or parent is missing for cross reference!');
-
-      const childDomain: RDF.Term | undefined = store.getDomain(child);
-      const parentDomain: RDF.Term | undefined = store.getDomain(parent);
-
-      if (!childDomain || !parentDomain)
-        throw new Error('Child or parent domain is missing!');
-
-      const childNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
-        childDomain.value,
-      )!;
-      const parentNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
-        parentDomain.value,
-      )!;
-
-      const propertyShapeParent: NamedOrBlankNode | undefined =
-        propertyIdToShapeIdMap.get(parent.value);
-      const propertyShapeChild: NamedOrBlankNode | undefined =
-        propertyIdToShapeIdMap.get(child.value);
-
-      if (!propertyShapeParent || !propertyShapeChild)
-        throw new Error('Cannot find SHACL property shape for parent or child');
-
-      /*
-       * FIXME: figure out why the blanknode propertyShapeParent is not equal
-       * to the one in the SHACL Store so we can just call removeQuad() directly.
-       */
-      for (const q of shaclStore.findQuads(
-        parentNodeShapeId,
-        ns.shacl('property'),
-        null,
-      )) {
-        if (q.object.value === propertyShapeParent.value) {
-          shaclStore.removeQuad(q);
-          break;
-        }
-      }
-
-      const rdfTypeShapeId = this.df.blankNode();
-      const childClassId = shaclStore.findObject(
-        childNodeShapeId,
-        ns.shacl('targetClass'),
-      );
-      if (!childClassId) throw new Error('Cannot find child class ID');
-
-      const xOneList = [this.df.blankNode(), this.df.blankNode()];
-      const xOneValues = [
+        /* Parent: all targetClasses, except for the child, match not through rdf:type. */
         this.df.quad(xOneList[0], ns.shacl('property'), propertyShapeParent),
+        this.df.quad(xOneList[0], ns.shacl('not'), rdfTypeShapeId),
+        /* Child: only match with the child through rdf:type. */
         this.df.quad(xOneList[1], ns.shacl('property'), rdfTypeShapeId),
-        this.df.quad(
-          rdfTypeShapeId,
-          ns.shacl('class'),
-          childClassId as NamedOrBlankNode,
-        ),
-        this.df.quad(rdfTypeShapeId, ns.rdf('type'), ns.shacl('PropertyShape')),
-        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild),
+        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild)
       ];
 
       shaclStore.addQuads([
