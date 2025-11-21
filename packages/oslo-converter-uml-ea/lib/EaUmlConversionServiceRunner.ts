@@ -63,7 +63,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<
       })
       .option('ignoreSkosConcept', {
         describe: `Ignore elements with SKOS Concept URI (${IgnoredUris.SKOS_CONCEPT})`,
-        default: true,
+        default: false,
         boolean: true,
       })
       .demandOption(
