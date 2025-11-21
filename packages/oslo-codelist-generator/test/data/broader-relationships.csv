@@ -1,0 +1,4 @@
+@id,@type,prefLabel,definition,inScheme,topConceptOf,broader
+https://data.vlaanderen.be/id/concept/Vehicles/Car,http://www.w3.org/2004/02/skos/core#Concept,Car,A car,https://data.vlaanderen.be/id/conceptscheme/Vehicles,https://data.vlaanderen.be/id/conceptscheme/Vehicles,https://data.vlaanderen.be/id/concept/Vehicles/Vehicle
+https://data.vlaanderen.be/id/concept/Vehicles/Vehicle,http://www.w3.org/2004/02/skos/core#Concept,Vehicle,A vehicle,https://data.vlaanderen.be/id/conceptscheme/Vehicles,https://data.vlaanderen.be/id/conceptscheme/Vehicles,
+https://data.vlaanderen.be/id/conceptscheme/Vehicles,http://www.w3.org/2004/02/skos/core#ConceptScheme,Vehicles Scheme,Classification of vehicles,,,
