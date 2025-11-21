@@ -2,11 +2,12 @@ import { inject, injectable } from 'inversify';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
 import { OutputFormat, QuadStore } from '@oslo-flanders/core';
-import { createWriteStream } from 'fs';
+import { createWriteStream, writeFileSync } from 'fs';
 import rdfSerializer from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
 import { quadSort } from './utils/utils';
 import streamifyArray from 'streamify-array';
+import Serializer from '@rdfjs/serializer-turtle';
 
 @injectable()
 export class OutputHandlerService {
@@ -14,7 +15,7 @@ export class OutputHandlerService {
 
   public constructor(
     @inject(ShaclTemplateGenerationServiceIdentifier.Configuration)
-    config: ShaclTemplateGenerationServiceConfiguration
+    config: ShaclTemplateGenerationServiceConfiguration,
   ) {
     this.config = config;
   }
@@ -28,15 +29,21 @@ export class OutputHandlerService {
         .map((quad) => df.quad(quad.subject, quad.predicate, quad.object)),
     ].sort(quadSort);
 
-    const quadStream = streamifyArray(quads);
-    const outputStream = rdfSerializer.serialize(quadStream, {
-      contentType: this.config.outputFormat,
-    });
-
     let fileName: string = this.config.output
       ? this.config.output
       : `shacl.${this.getFileExtension()}`;
-    outputStream.pipe(createWriteStream(fileName));
+
+    if (this.config.outputFormat === 'text/turtle') {
+      const serializer = new Serializer();
+      const output = serializer.transform(quads);
+      writeFileSync(fileName, output);
+    } else {
+      const quadStream = streamifyArray(quads);
+      const outputStream = rdfSerializer.serialize(quadStream, {
+        contentType: this.config.outputFormat,
+      });
+      outputStream.pipe(createWriteStream(fileName));
+    }
   }
 
   private getFileExtension(): string {
@@ -52,7 +59,7 @@ export class OutputHandlerService {
 
       default:
         throw new Error(
-          `Output format '${this.config.outputFormat}' is not supported.`
+          `Output format '${this.config.outputFormat}' is not supported.`,
         );
     }
   }
