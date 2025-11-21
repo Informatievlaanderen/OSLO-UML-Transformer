@@ -16,7 +16,7 @@ describe('DataRegistry (sqlite)', () => {
       new VoidLogger(),
     ).createDataRegistry(
       // eslint-disable-next-line max-len
-      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein-qea.qea?raw=true',
+      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/0600d0d3af29b3f930fee4d965a29790243eb6f7/oslo-converter-uml-ea/01-AssociatiesMijnDomein.qea?raw=true',
     );
   });
 
@@ -26,6 +26,7 @@ describe('DataRegistry (sqlite)', () => {
     expect(dataRegistry.attributes.length).toBeGreaterThan(0);
     expect(dataRegistry.elements.length).toBeGreaterThan(0);
     expect(dataRegistry.connectors.length).toBeGreaterThan(0);
+    expect(dataRegistry.crossReferences.length).toBeGreaterThan(0);
   });
 
   it('should return items when they are set', () => {
@@ -46,6 +47,9 @@ describe('DataRegistry (sqlite)', () => {
 
     dataRegistry.normalizedConnectors = [];
     expect(dataRegistry.normalizedConnectors).toStrictEqual([]);
+
+    dataRegistry.crossReferences = [];
+    expect(dataRegistry.crossReferences).toStrictEqual([]);
 
     const mockDiagram = new EaDiagram(1, 'TestDiagram', 'guid', 1);
 

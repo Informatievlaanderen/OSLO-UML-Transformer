@@ -2,6 +2,7 @@ import {
   getApplicationProfileDefinition,
   getApplicationProfileLabel,
   getApplicationProfileUsageNote,
+  createList,
   ns,
   type QuadStore,
 } from '@oslo-flanders/core';
@@ -90,6 +91,10 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
       );
     }
 
+    /* Retrieve all subclasses possible for this class */
+    const rangeClasses: RDF.NamedNode[] = [rangeAssignedURI];
+    this.discoverRangeClasses(range, store, rangeClasses);
+
     const propertyType: RDF.NamedNode | undefined = <RDF.NamedNode | undefined>(
       store.findObject(subject, ns.rdf('type'))
     );
@@ -140,6 +145,39 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     // For these base quads, we add a graph so that every other handler can extract these base quads
     const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
+    const orList: RDF.Term[] = [];
+    const orValues: RDF.Quad[] = [];
+
+    for (const rangeURI of rangeClasses) {
+      const nodeList = this.df.blankNode();
+      orList.push(nodeList);
+      orValues.push(
+        this.df.quad(nodeList, propertyTypePredicate, rangeURI, baseQuadsGraph),
+      );
+    }
+
+    let rangeQuads = [];
+    if (orValues.length > 1) {
+      rangeQuads = [
+        this.df.quad(
+          shapeId,
+          ns.shacl('or'),
+          createList(orList, shaclStore, this.df),
+          baseQuadsGraph,
+        ),
+        ...orValues,
+      ];
+    } else {
+      rangeQuads = [
+        this.df.quad(
+          shapeId,
+          propertyTypePredicate,
+          rangeAssignedURI.equals(ns.rdfs('Literal'))? propertyTypeValue : rangeAssignedURI,
+          baseQuadsGraph,
+        ),
+      ];
+    }
+
     shaclStore.addQuads([
       this.df.quad(
         shapeId,
@@ -178,20 +216,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
         : []),
       // Only add datatype/class constraint if it's not a typed string property
       // https://vlaamseoverheid.atlassian.net/browse/SDTT-368
-      ...(isTypedStringProperty
-        ? []
-        : [
-            this.df.quad(
-              shapeId,
-              propertyTypePredicate,
-              // For rdfs:Literal, use the value 'sh:Literal' instead of 'rdfs:Literal'
-              rangeAssignedURI.equals(ns.rdfs('Literal'))
-                ? propertyTypeValue
-                : rangeAssignedURI,
-              //
-              baseQuadsGraph,
-            ),
-          ]),
+      ...(isTypedStringProperty ? [] : rangeQuads),
       this.df.quad(
         domainShapeId,
         ns.shacl('property'),
@@ -237,5 +262,49 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
     }
 
     super.handle(subject, store, shaclStore);
+  }
+
+  private discoverRangeClasses(
+    classId: RDF.NamedNode,
+    store: QuadStore,
+    rangeClasses: RDF.NamedNode[],
+  ) {
+    const assignedURI = store.findObject(classId, ns.oslo('assignedURI'));
+
+    if (!assignedURI)
+      throw new Error('Range class does not have an URI assigned!');
+
+    for (const id of store.findSubjects(ns.oslo('assignedURI'), assignedURI)) {
+      const subClasses: RDF.NamedNode[] = [];
+      this.discoverSubClasses(id as RDF.NamedNode, store, subClasses);
+
+      for (const s of subClasses) {
+        const found = rangeClasses.some(x => x.value === s.value);
+        if (!found)
+          rangeClasses.push(s);
+      }
+    }
+  }
+
+  private discoverSubClasses(
+    classId: RDF.NamedNode,
+    store: QuadStore,
+    targetClasses: RDF.NamedNode[],
+  ) {
+    for (const subClassId of store.findSubjects(
+      ns.rdfs('subClassOf'),
+      classId,
+    )) {
+      const subClassAssignedURI = store.findObject(
+        subClassId,
+        ns.oslo('assignedURI'),
+      );
+      targetClasses.push(subClassAssignedURI as RDF.NamedNode);
+      this.discoverSubClasses(
+        subClassId as RDF.NamedNode,
+        store,
+        targetClasses,
+      );
+    }
   }
 }
