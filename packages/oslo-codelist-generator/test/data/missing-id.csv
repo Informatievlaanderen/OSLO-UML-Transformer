@@ -1,0 +1,3 @@
+@id,@type,prefLabel,definition
+,http://www.w3.org/2004/02/skos/core#Concept,Incomplete Concept,Missing ID
+https://data.vlaanderen.be/id/concept/Valid,http://www.w3.org/2004/02/skos/core#Concept,Valid Concept,Valid entry
