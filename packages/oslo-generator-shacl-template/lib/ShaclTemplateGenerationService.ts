@@ -3,6 +3,7 @@ import {
   Logger,
   QuadStore,
   getApplicationProfileLabel,
+  createList,
   ns,
 } from '@oslo-flanders/core';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
@@ -25,6 +26,7 @@ export class ShaclTemplateGenerationService implements IService {
   public readonly store: QuadStore;
   private readonly pipelineService: PipelineService;
   private readonly outputHandlerService: OutputHandlerService;
+  private readonly df: DataFactory;
 
   public constructor(
     @inject(ShaclTemplateGenerationServiceIdentifier.Logger) logger: Logger,
@@ -42,6 +44,7 @@ export class ShaclTemplateGenerationService implements IService {
     this.store = store;
     this.pipelineService = pipelineService;
     this.outputHandlerService = outputHandlerService;
+    this.df = new DataFactory();
   }
 
   public async init(): Promise<void> {
@@ -109,6 +112,14 @@ export class ShaclTemplateGenerationService implements IService {
       );
     }
 
+    // Adjust SHACL to honor redefines and subsets of properties
+    this.handleRedefinedProperties(
+      this.store,
+      shaclStore,
+      classIdToShapeIdMap,
+      propertyIdToShapeIdMap,
+    );
+
     this.outputHandlerService.write(shaclStore);
   }
 
@@ -117,14 +128,15 @@ export class ShaclTemplateGenerationService implements IService {
     classIdToShapeIdMap: Map<string, NamedOrBlankNode>,
     propertyIdToShapeIdMap: Map<string, NamedOrBlankNode>,
   ): void {
-    const df = new DataFactory();
-    const containerShapeId = df.namedNode(`${this.configuration.shapeBaseURI}`);
+    const containerShapeId = this.df.namedNode(
+      `${this.configuration.shapeBaseURI}`,
+    );
 
     // Add rdfs:member links to all class shapes (non-blank nodes only)
     for (const [, shapeId] of classIdToShapeIdMap) {
       if (shapeId.termType === 'NamedNode') {
         shaclStore.addQuad(
-          df.quad(containerShapeId, ns.rdfs('member'), shapeId),
+          this.df.quad(containerShapeId, ns.rdfs('member'), shapeId),
         );
       }
     }
@@ -159,7 +171,6 @@ export class ShaclTemplateGenerationService implements IService {
     createBlankNodes: boolean,
   ): Map<string, NamedOrBlankNode> {
     const subjectToShapeIdMap: Map<string, NamedOrBlankNode> = new Map();
-    const df: DataFactory = new DataFactory();
 
     for (const subject of subjects) {
       const label = getApplicationProfileLabel(
@@ -176,7 +187,7 @@ export class ShaclTemplateGenerationService implements IService {
 
       let shapeId: NamedOrBlankNode;
       if (createBlankNodes) {
-        shapeId = df.blankNode();
+        shapeId = this.df.blankNode();
       } else {
         const subjectType = this.store.findObject(subject, ns.rdf('type'))!;
         const suffix =
@@ -218,7 +229,7 @@ export class ShaclTemplateGenerationService implements IService {
           );
         }
 
-        shapeId = df.namedNode(
+        shapeId = this.df.namedNode(
           `${this.configuration.shapeBaseURI}${fragmentIdentifier}`,
         );
       }
@@ -227,5 +238,119 @@ export class ShaclTemplateGenerationService implements IService {
     }
 
     return subjectToShapeIdMap;
+  }
+
+  private handleRedefinedProperties(
+    store: QuadStore,
+    shaclStore: QuadStore,
+    classIdToShapeIdMap: Map<string, NamedOrBlankNode>,
+    propertyIdToShapeIdMap: Map<string, NamedOrBlankNode>,
+  ) {
+    /*
+     * For each redefined property, extract the cross reference
+     * in the UML diagram which has a parent and a child attribute.
+     *
+     * The parent attribute points to the property that is redefined
+     * from the parent class by the child. The child attribute points
+     * to the redefined property in the child.
+     *
+     * The parent class gets a SHACL xone property which allows the
+     * parent to choose between the normal variant of the property
+     * (for all other classes) and the redefined variant of the property
+     * for this specific child. By enforcing that the redefined variant
+     * only applies to the child through rdf:type, other subclasses
+     * won't be affected.
+     *
+     * This redefined property is therefore removed from the list
+     * of properties (SHACL property attribute) to avoid that it
+     * is checked twice as this is already done in the SHACL xone.
+     */
+    for (const redefinedProperty of store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('RedefinedAttribute'),
+    )) {
+      const baseQuadsGraph = this.df.namedNode(`baseQuadsGraph`);
+      const child: RDF.Term | undefined = store.findObject(
+        redefinedProperty,
+        ns.oslo('childAttribute'),
+      );
+      const parent: RDF.Term | undefined = store.findObject(
+        redefinedProperty,
+        ns.oslo('parentAttribute'),
+      );
+
+      if (!child || !parent)
+        throw new Error('Child or parent is missing for cross reference!');
+
+      const childDomain: RDF.Term | undefined = store.getDomain(child);
+      const parentDomain: RDF.Term | undefined = store.getDomain(parent);
+
+      if (!childDomain || !parentDomain)
+        throw new Error('Child or parent domain is missing!');
+
+      const childNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
+        childDomain.value,
+      )!;
+      const parentNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
+        parentDomain.value,
+      )!;
+
+      const propertyShapeParent: NamedOrBlankNode | undefined =
+        propertyIdToShapeIdMap.get(parent.value);
+      const propertyShapeChild: NamedOrBlankNode | undefined =
+        propertyIdToShapeIdMap.get(child.value);
+
+      if (!propertyShapeParent || !propertyShapeChild)
+        throw new Error('Cannot find SHACL property shape for parent or child');
+
+      /*
+       * FIXME: figure out why the blanknode propertyShapeParent is not equal
+       * to the one in the SHACL Store so we can just call removeQuad() directly.
+       */
+      for (const q of shaclStore.findQuads(
+        parentNodeShapeId,
+        ns.shacl('property'),
+        null,
+      )) {
+        if (q.object.value === propertyShapeParent.value) {
+          shaclStore.removeQuad(q);
+          break;
+        }
+      }
+
+      const rdfTypeShapeId = this.df.blankNode();
+      const childClassId = shaclStore.findObject(
+        childNodeShapeId,
+        ns.shacl('targetClass'),
+      );
+      if (!childClassId) throw new Error('Cannot find child class ID');
+
+      const xOneList = [this.df.blankNode(), this.df.blankNode()];
+      const xOneValues = [
+        /* rdf:type filter */
+        this.df.quad(
+          rdfTypeShapeId,
+          ns.shacl('class'),
+          childClassId as NamedOrBlankNode,
+        ),
+        this.df.quad(rdfTypeShapeId, ns.rdf('type'), ns.shacl('PropertyShape')),
+        /* Parent: all targetClasses, except for the child, match not through rdf:type. */
+        this.df.quad(xOneList[0], ns.shacl('property'), propertyShapeParent),
+        this.df.quad(xOneList[0], ns.shacl('not'), rdfTypeShapeId),
+        /* Child: only match with the child through rdf:type. */
+        this.df.quad(xOneList[1], ns.shacl('property'), rdfTypeShapeId),
+        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild)
+      ];
+
+      shaclStore.addQuads([
+        this.df.quad(
+          parentNodeShapeId,
+          ns.shacl('xone'),
+          createList(xOneList, shaclStore, this.df),
+          baseQuadsGraph,
+        ),
+        ...xOneValues,
+      ]);
+    }
   }
 }
