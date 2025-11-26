@@ -120,8 +120,6 @@ export class SelfAssociationWithAssociationClassConnectorCase
         tagName: tag.tagName.replace(TagNames.AssociationSourceRevPrefix, ''),
       }));
 
-    console.log(sourceBaseClassTags, sourceRevExtraTags);
-
     normalisedConnectors.push(
       new NormalizedConnector(
         connector,

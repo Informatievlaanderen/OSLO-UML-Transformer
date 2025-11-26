@@ -14,8 +14,7 @@ import { getTagValue } from '../utils/utils';
 
 @injectable()
 export class AssociationWithAssociationClassConnectorCase
-  implements IConnectorNormalisationCase
-{
+  implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -159,27 +158,33 @@ export class AssociationWithAssociationClassConnectorCase
       }));
 
     // Push the reverse tags from the association class to the source and destination
-    normalisedConnectors.push(
-      new NormalizedConnector(
-        connector,
-        `${sourceObjectName}.${associationClassName}`,
-        connector.sourceObjectId,
-        connector.associationClassId,
-        '1',
-        sourceRevExtraTags,
-      ),
-    );
 
-    normalisedConnectors.push(
-      new NormalizedConnector(
-        connector,
-        `${sourceObjectName}.${associationClassName}`,
-        connector.destinationObjectId,
-        connector.associationClassId,
-        '1',
-        destinationRevExtraTags,
-      ),
-    );
+    if (sourceRevExtraTags.length) {
+      normalisedConnectors.push(
+        new NormalizedConnector(
+          connector,
+          `${sourceObjectName}.${associationClassName}`,
+          connector.sourceObjectId,
+          connector.associationClassId,
+          '1',
+          sourceRevExtraTags,
+        ),
+      );
+    }
+
+    if (destinationRevExtraTags.length) {
+
+      normalisedConnectors.push(
+        new NormalizedConnector(
+          connector,
+          `${sourceObjectName}.${associationClassName}`,
+          connector.destinationObjectId,
+          connector.associationClassId,
+          '1',
+          destinationRevExtraTags,
+        ),
+      );
+    }
 
     return normalisedConnectors;
   }
