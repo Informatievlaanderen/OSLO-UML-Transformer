@@ -1,0 +1,570 @@
+{
+  "@context": {
+    "oslo": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rec": "http://www.w3.org/2001/02pd/rec54#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "schema": "https://schema.org/",
+    "packages": "@included",
+    "classes": "@included",
+    "datatypes": "@included",
+    "attributes": "@included",
+    "referencedEntities": "@included",
+    "redefinedAttributes": "@included",
+    "subsettedAttributes": "@included",
+    "baseURI": {
+      "@id": "oslo:baseURI",
+      "@type": "@id"
+    },
+    "vocDefinition": {
+      "@id": "oslo:vocDefinition",
+      "@container": "@set"
+    },
+    "apDefinition": {
+      "@id": "oslo:apDefinition",
+      "@container": "@set"
+    },
+    "vocLabel": {
+      "@id": "oslo:vocLabel",
+      "@container": "@set"
+    },
+    "apLabel": {
+      "@id": "oslo:apLabel",
+      "@container": "@set"
+    },
+    "diagramLabel": {
+      "@id": "oslo:diagramLabel"
+    },
+    "scope": {
+      "@id": "oslo:scope",
+      "@type": "@id"
+    },
+    "vocUsageNote": {
+      "@id": "oslo:vocUsageNote",
+      "@container": "@set"
+    },
+    "apUsageNote": {
+      "@id": "oslo:apUsageNote",
+      "@container": "@set"
+    },
+    "domain": {
+      "@id": "rdfs:domain",
+      "@container": "@set"
+    },
+    "range": {
+      "@id": "rdfs:range"
+    },
+    "minCount": {
+      "@id": "sh:minCount"
+    },
+    "maxCount": {
+      "@id": "sh:maxCount"
+    },
+    "parent": {
+      "@id": "rdfs:subClassOf",
+      "@type": "owl:Class"
+    },
+    "generatedAtTime": {
+      "@id": "prov:generatedAtTime"
+    },
+    "Package": "oslo:Package",
+    "Class": {
+      "@id": "owl:Class"
+    },
+    "DatatypeProperty": {
+      "@id": "owl:DatatypeProperty"
+    },
+    "ObjectProperty": {
+      "@id": "owl:ObjectProperty"
+    },
+    "authors": {
+      "@type": "foaf:Person",
+      "@id": "foaf:maker"
+    },
+    "editors": {
+      "@type": "foaf:Person",
+      "@id": "rec:editor"
+    },
+    "contributors": {
+      "@type": "foaf:Person",
+      "@id": "dcterms:contributor"
+    },
+    "affiliation": {
+      "@id": "schema:affiliation"
+    },
+    "assignedURI": {
+      "@id": "oslo:assignedURI",
+      "@type": "@id"
+    },
+    "Datatype": {
+      "@id": "rdfs:Datatype"
+    },
+    "codelist": {
+      "@id": "oslo:codelist",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "adms:status",
+      "@type": "@id"
+    },
+    "extensions": {
+      "@id": "oslo:extensions",
+      "@container": "@set"
+    },
+    "parentAttribute": {
+      "@id": "oslo:parentAttribute",
+      "@type": "@id"
+    },
+    "childAttribute": {
+      "@id": "oslo:childAttribute",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://test.data.vlaanderen.be/https://test.data.vlaanderen.be/TEST/1",
+  "generatedAtTime": "2025-11-21T12:20:19.989Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:a6b208886e4a7b45b0e91bfd883808b9a79cb8cd048dcb3ad7660a63b12b0ed7",
+      "@type": "Package",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein",
+      "baseURI": "https://data.vlaanderen.be/ns/mijndomein#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3332f9fb2dbfc579e8b2ea7bf4ab7147df2468ce6216ac451d7ba79d992bf765",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28a",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28a"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28a"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28a."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:aa2b51432e1722446af761e1a7d07ed86d64342e4b1c5b9ecd7c076fcc5baba4",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28b",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28b"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28b"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28b."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:f829e55fc5d092792d54f702414192427d5807d4fcba5bae9ce09a7c49cfc7c5",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28c",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28c"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28c"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28c."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:bffd24b17b7af37b1a015daf21145e17370b5502ca4db6eb10aad6807455173f",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28d",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28d"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28d"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28d."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:aa2b51432e1722446af761e1a7d07ed86d64342e4b1c5b9ecd7c076fcc5baba4"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1289d08d633b0948c8753fa9356414942875a5513716d9621e749d8eef0cf09b",
+      "@type": "Class",
+      "assignedURI": "https://data.vlaanderen.be/ns/mijndomein#K28e",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "K28e"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "K28e"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie van K28e."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/InPackage",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:f829e55fc5d092792d54f702414192427d5807d4fcba5bae9ce09a7c49cfc7c5"
+        }
+      ]
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:23781eed39b2548dd0ccf39d389a1ccc5ee5efa90d3ef57ce8d2d2961403d40a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://example.org/attribuut1",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "attribuut1"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "attribuut1"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie attribuut1."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:55f6691873ef844988545f03958e467a01b91e5010ad9b201ff68a73b785f3d4",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://example.org/subsettedAttribuut1",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "subsettedAttribuut1"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "subsettedAttribuut1"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie subsetted attribuut 1."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:aa2b51432e1722446af761e1a7d07ed86d64342e4b1c5b9ecd7c076fcc5baba4"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:2049156247"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "2",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1f368b69664e4094d9e8394e35576167c4962c4bb9057a01aaef7691cad2072b",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://example.org/attribuut1",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "attribuut1"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "attribuut1"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Redefined attribuut 1."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:f829e55fc5d092792d54f702414192427d5807d4fcba5bae9ce09a7c49cfc7c5"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d379bd2a17e2907247851ed51034a7b767dd185255c3f1fb910dc574a98c40e9",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://example.org/attribuut2",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "attribuut2"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "attribuut2"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Definitie attribuut 2."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:77740c444dcb795e0d6d6ab811e93fceee59a026b3568bc518d7e394b76f0ad2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:634e2f6bf2096d915012220695fe502d16a2860b97ba183fd6f27291a81bc775",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://example.org/subsettedAttribuut1",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "subsettedAttribuut1"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "subsettedAttribuut1"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Redefined subsetted attribuut 1."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bffd24b17b7af37b1a015daf21145e17370b5502ca4db6eb10aad6807455173f"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "urn:oslo-toolchain:487667944",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#string",
+      "diagramLabel": [
+        {
+          "@value": "String"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:2049156247",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "diagramLabel": [
+        {
+          "@value": "Literal"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:499715870",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "diagramLabel": [
+        {
+          "@value": "DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1727880001",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "diagramLabel": [
+        {
+          "@value": "LangString"
+        }
+      ]
+    }
+  ],
+  "referencedEntities": [],
+  "redefinedAttributes": [
+    {
+      "@id": "urn:oslo-toolchain:66260cc11027450ba3799dd59e0bc83c74be676d3322b677af64e97c9fe95f04",
+      "@type": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#RedefinedAttribute",
+      "parentAttribute": {
+        "@id": "urn:oslo-toolchain:23781eed39b2548dd0ccf39d389a1ccc5ee5efa90d3ef57ce8d2d2961403d40a"
+      },
+      "childAttribute": {
+        "@id": "urn:oslo-toolchain:1f368b69664e4094d9e8394e35576167c4962c4bb9057a01aaef7691cad2072b"
+      }
+    },
+    {
+      "@id": "urn:oslo-toolchain:a6d4cda90d8b550b852d3d4eeaf83e6679fa816bda0b3434c331ffc8958a62ec",
+      "@type": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#RedefinedAttribute",
+      "parentAttribute": {
+        "@id": "urn:oslo-toolchain:55f6691873ef844988545f03958e467a01b91e5010ad9b201ff68a73b785f3d4"
+      },
+      "childAttribute": {
+        "@id": "urn:oslo-toolchain:634e2f6bf2096d915012220695fe502d16a2860b97ba183fd6f27291a81bc775"
+      }
+    }
+  ],
+  "subsettedAttributes": [
+    {
+      "@id": "urn:oslo-toolchain:7e1560f1afc59ef7817f59e8cc703cac75d5baa5bb0c5ada7cd0770a1d266093",
+      "@type": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#SubsettedAttribute",
+      "parentAttribute": {
+        "@id": "urn:oslo-toolchain:23781eed39b2548dd0ccf39d389a1ccc5ee5efa90d3ef57ce8d2d2961403d40a"
+      },
+      "childAttribute": {
+        "@id": "urn:oslo-toolchain:55f6691873ef844988545f03958e467a01b91e5010ad9b201ff68a73b785f3d4"
+      }
+    }
+  ]
+}
