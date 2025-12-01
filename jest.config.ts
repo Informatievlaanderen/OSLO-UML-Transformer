@@ -6,6 +6,8 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
+  // Mock data needed to mock the rdf libraries in Jest.
+  // Issue between module and ESM of the library and the used packages
   moduleNameMapper: {
     '^@rdfjs/serializer-turtle$':
       '<rootDir>/oslo-generator-shacl-template/test/__mocks__/@rdfjs/serializer-turtle.js',
