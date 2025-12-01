@@ -8,8 +8,9 @@ const config: Config.InitialOptions = {
   },
   moduleNameMapper: {
     '^@rdfjs/serializer-turtle$':
-      '<rootDir>/__mocks__/@rdfjs/serializer-turtle.js',
-    '^@rdfjs/sink$': '<rootDir>/__mocks__/@rdfjs/sink.js',
+      '<rootDir>/oslo-generator-shacl-template/test/__mocks__/@rdfjs/serializer-turtle.js',
+    '^@rdfjs/sink$':
+      '<rootDir>//oslo-generator-shacl-template/__mocks__/@rdfjs/sink.js',
   },
   testRegex: '/test/.*.test.ts$',
   moduleFileExtensions: ['ts', 'js'],
