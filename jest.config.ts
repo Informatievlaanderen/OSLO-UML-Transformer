@@ -7,11 +7,11 @@ const config: Config.InitialOptions = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^@rdfjs/serializer-turtle$': path.resolve(
+    '^@rdfjs/serializer-turtle$': path.join(
       __dirname,
       'test/__mocks__/@rdfjs/serializer-turtle.js',
     ),
-    '^@rdfjs/sink$': path.resolve(__dirname, 'test/__mocks__/@rdfjs/sink.js'),
+    '^@rdfjs/sink$': path.join(__dirname, 'test/__mocks__/@rdfjs/sink.js'),
   },
   testRegex: '/test/.*.test.ts$',
   moduleFileExtensions: ['ts', 'js'],
