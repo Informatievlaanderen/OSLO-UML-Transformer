@@ -1,4 +1,5 @@
 import type { Config } from '@jest/types';
+import path from 'path';
 
 const config: Config.InitialOptions = {
   runner: 'groups',
@@ -6,9 +7,11 @@ const config: Config.InitialOptions = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^@rdfjs/serializer-turtle$':
-      '<rootDir>/packages/oslo-generator-shacl-template/test/__mocks__/@rdfjs/serializer-turtle.js',
-    '^@rdfjs/sink$': '<rootDir>/packages/oslo-generator-shacl-template/test/__mocks__/@rdfjs/sink.js',
+    '^@rdfjs/serializer-turtle$': path.resolve(
+      __dirname,
+      'test/__mocks__/@rdfjs/serializer-turtle.js',
+    ),
+    '^@rdfjs/sink$': path.resolve(__dirname, 'test/__mocks__/@rdfjs/sink.js'),
   },
   testRegex: '/test/.*.test.ts$',
   moduleFileExtensions: ['ts', 'js'],
