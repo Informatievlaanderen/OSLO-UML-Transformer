@@ -22,6 +22,19 @@ const DataTypes: Map<string, string> = new Map<string, string>([
   ['duration', `${xsd}#duration`],
   ['html', `${rdf}#HTML`],
   ['uri', `${xsd}#anyURI`],
+  ['json', `${rdf}#JSON`],
+  ['short', `${xsd}#long`],
+  ['short', `${xsd}#short`],
+  ['byte', `${xsd}#byte`],
+  ['hexbinary', `${xsd}#hexBinary`],
+  ['base64binary', `${xsd}#base64Binary`],
+  ['nonnegativeinteger', `${xsd}#nonNegativeInteger`],
+  ['nonpositiveinteger', `${xsd}#nonPositiveInteger`],
+  ['negativeinteger', `${xsd}#negativeInteger`],
+  ['positiveinteger', `${xsd}#positiveInteger`],
+  ['unsignedshort', `${xsd}#unsignedLong`],
+  ['unsignedshort', `${xsd}#unsignedShort`],
+  ['unsignedbyte', `${xsd}#unsignedByte`],
 ]);
 
 export const getDataType = (key: string): string | undefined =>
