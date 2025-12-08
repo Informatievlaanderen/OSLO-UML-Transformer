@@ -7,7 +7,6 @@ import rdfSerializer from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
 import { quadSort } from './utils/utils';
 import streamifyArray from 'streamify-array';
-import Serializer from '@rdfjs/serializer-turtle';
 
 @injectable()
 export class OutputHandlerService {
@@ -34,6 +33,8 @@ export class OutputHandlerService {
       : `shacl.${this.getFileExtension()}`;
 
     if (this.config.outputFormat === 'text/turtle') {
+      // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
+      const { default: Serializer } = await import('@rdfjs/serializer-turtle');
       const serializer = new Serializer();
       const output = serializer.transform(quads);
       writeFileSync(fileName, output);
