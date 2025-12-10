@@ -19,7 +19,7 @@ export class AssociationWithAssociationClassConnectorCase
   public readonly logger!: Logger;
 
   /**
-   * Case: the connector is a self-association with an association class.
+   * Case: the connector has an association class and source-target is a different object.
    * @param connector The connector to normalise
    * @param dataRegistry The registry to use to extract relevant information from other elements
    * @returns An array of normalised connectors
@@ -44,6 +44,7 @@ export class AssociationWithAssociationClassConnectorCase
     }
 
     const normalisedConnectors: NormalizedConnector[] = [];
+    
     const associationClassObject = dataRegistry.elements.find(
       (x) => x.id === connector.associationClassId,
     );
@@ -173,7 +174,6 @@ export class AssociationWithAssociationClassConnectorCase
     }
 
     if (destinationRevExtraTags.length) {
-
       normalisedConnectors.push(
         new NormalizedConnector(
           connector,
