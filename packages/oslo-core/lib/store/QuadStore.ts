@@ -21,6 +21,14 @@ export class QuadStore {
     this.store.addQuad(quad);
   }
 
+  public removeQuads(quad: RDF.Quad[]): void {
+    this.store.removeQuads(quad);
+  }
+
+  public removeQuad(quad: RDF.Quad): void {
+    this.store.removeQuad(quad);
+  }
+
   public async addQuadsFromFile(file: string): Promise<void> {
     const buffer: Buffer = await fetchFileOrUrl(file);
     const textStream = require('streamify-string')(buffer.toString());
