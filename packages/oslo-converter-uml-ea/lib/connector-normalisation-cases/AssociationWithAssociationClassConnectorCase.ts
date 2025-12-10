@@ -44,7 +44,6 @@ export class AssociationWithAssociationClassConnectorCase
     }
 
     const normalisedConnectors: NormalizedConnector[] = [];
-    
     const associationClassObject = dataRegistry.elements.find(
       (x) => x.id === connector.associationClassId,
     );

@@ -71,6 +71,10 @@ export class SelfAssociationWithAssociationClassConnectorCase
       getTagValue(baseClassObject, TagNames.LocalName, null) ??
       baseClassObject.name;
 
+    const sourceTags = connector.sourceRoleTags.filter((x) =>
+      x.tagName.startsWith(TagNames.DefiningPackage),
+    );
+
     // propagate the tags on the association class to the implicit connector.
     // As the connector (properties/relationships) are implicit one has to make a choice where to put this information.
     // The connector should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
