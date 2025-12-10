@@ -113,7 +113,7 @@ export class SelfAssociationWithAssociationClassConnectorCase
     ];
 
     // Get reverse tags from association class
-    const sourceRevExtraTags: EaTag[] = associationClassObject.tags
+    const sourceRevExtraTags: EaTag[] = connector.tags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationSourceRevPrefix))
       .map((tag) => ({
         ...tag,
