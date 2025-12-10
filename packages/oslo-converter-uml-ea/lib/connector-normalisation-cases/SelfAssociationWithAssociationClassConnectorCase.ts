@@ -71,9 +71,9 @@ export class SelfAssociationWithAssociationClassConnectorCase
       getTagValue(baseClassObject, TagNames.LocalName, null) ??
       baseClassObject.name;
 
-    // propagate the tags on the association class to the implicit connectors.
-    // As the connectors (properties/relationships) are implicit one has to make a choice where to put this information.
-    // The connectors should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
+    // propagate the tags on the association class to the implicit connector.
+    // As the connector (properties/relationships) are implicit one has to make a choice where to put this information.
+    // The connector should only be created when the associationclass is present on the diagram, and therefore the tags are located on the association class.
     // Because of the implicit relationships it is impossible to have the same class participate in two distinct association class relationships.
     // If one need that functionality, the only solution is to create duplicate classes and copy the information.
     // Replacing the prefixes makes it that this is treated as a normal connector with known tags
