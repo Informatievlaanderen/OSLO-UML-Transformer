@@ -57,7 +57,7 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
     service = new JsonWebuniversumGenerationService(
       logger,
       <JsonWebuniversumGenerationServiceConfiguration>{
-        language: 'nl',
+        language: 'en',
         output: 'config.json',
       },
       store,
