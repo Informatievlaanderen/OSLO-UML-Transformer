@@ -21,11 +21,6 @@ describe('DataRegistry (accessdb)', () => {
   });
 
   it('should return items when the default targetDiagram is set', () => {
-    console.log(dataRegistry.diagrams.length);
-    console.log(dataRegistry.packages.length);
-    console.log(dataRegistry.attributes.length);
-    console.log(dataRegistry.elements.length);
-    console.log(dataRegistry.connectors.length);
     expect(dataRegistry.diagrams.length).toBe(1);
     expect(dataRegistry.packages.length).toBe(3);
     expect(dataRegistry.attributes.length).toBe(9);

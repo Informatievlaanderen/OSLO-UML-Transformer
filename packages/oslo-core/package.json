@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/core",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Core interfaces and utilities",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-core#readme",

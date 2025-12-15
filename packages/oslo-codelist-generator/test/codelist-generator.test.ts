@@ -164,8 +164,6 @@ describe('CodelistGenerationService Integration Tests', () => {
       const ttlContent = await fs.readFile(outputFile, 'utf-8');
       const quads = await parseRdf(ttlContent);
 
-      console.log(quads);
-
       // Verify both concept schemes exist
       expect(
         quads.filter(

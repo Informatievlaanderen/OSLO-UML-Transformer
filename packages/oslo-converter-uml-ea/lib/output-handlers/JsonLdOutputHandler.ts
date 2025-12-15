@@ -7,25 +7,31 @@ import { getOsloContext } from '../utils/osloContext';
 
 export class JsonLdOutputHandler implements IOutputHandler {
   public async write(store: QuadStore, writeStream: any): Promise<void> {
-    const [packages, classes, attributes, dataTypes, referencedEntities] =
-      await Promise.all([
-        this.getPackages(store),
-        this.getClasses(store),
-        this.getAttributes(store),
-        this.getDatatypes(store),
-        this.getReferencedEntities(store),
-      ]);
+    const [
+      packages,
+      classes,
+      attributes,
+      dataTypes,
+      referencedEntities,
+      enumerations,
+    ] = await Promise.all([
+      this.getPackages(store),
+      this.getClasses(store),
+      this.getAttributes(store),
+      this.getDatatypes(store),
+      this.getReferencedEntities(store),
+      this.getEnumerations(store),
+    ]);
 
     const document: any = {};
     document['@context'] = getOsloContext();
     this.addDocumentInformation(document, store);
-
     document.packages = packages;
     document.classes = classes;
     document.attributes = attributes;
     document.datatypes = dataTypes;
     document.referencedEntities = referencedEntities;
-
+    document.enumerations = enumerations;
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
   }
 
@@ -319,6 +325,20 @@ export class JsonLdOutputHandler implements IOutputHandler {
       });
     });
     return result;
+  }
+
+  private async getEnumerations(store: QuadStore): Promise<any> {
+    return store.getEnumerations().map((subject: RDF.Term) => {
+      const assignedURI: RDF.NamedNode | undefined =
+        store.getAssignedUri(subject);
+      return {
+        '@id': subject.value,
+        '@type': 'Enumeration',
+        ...(assignedURI && {
+          assignedURI: assignedURI.value,
+        }),
+      };
+    });
   }
 
   private mapLabels(labels: RDF.Quad[]): any {
