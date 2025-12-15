@@ -23,3 +23,4 @@ export * from './lib/logging/LoggerFactory';
 export * from './lib/logging/VoidLoggerFactory';
 export * from './lib/logging/WinstonLoggerFactory';
 export * from './lib/utils/storeUtils';
+export * from './lib/utils/prefixes';

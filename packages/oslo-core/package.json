@@ -33,7 +33,6 @@
     "crypto-js": "^4.1.1",
     "inversify": "^6.0.1",
     "n3": "^1.16.2",
-    "node-fetch": "^2.6.7",
     "rdf-data-factory": "^1.1.1",
     "rdf-parse": "^2.1.1",
     "reflect-metadata": "^0.1.13",
