@@ -116,6 +116,10 @@ export class QuadStore {
 
   /**
    * Finds all subjects where predicate is 'rdf:type' and object 'skos:Concept'
+   * We chose the skos:Concept here as enumerations have the skos:Concept uri in EA 
+   * There is no skos:ConceptScheme used in EA since we assume that it's only used to 
+   * represent a value from a skos:ConceptScheme instead of the conceptscheme as a whole
+   * https://github.com/Informatievlaanderen/OSLO-UML-Transformer/wiki/Technical-Guidelines#enumerations
    * @returns an array of RDF.NamedNodes
    */
   public getEnumerations(graph: RDF.Term | null = null): RDF.NamedNode[] {

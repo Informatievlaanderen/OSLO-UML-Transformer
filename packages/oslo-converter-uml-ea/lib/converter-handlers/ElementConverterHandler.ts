@@ -235,12 +235,13 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
     quads.push(...this.getCodelistQuads(object, objectInternalId));
 
     switch (object.type) {
+      // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/wiki/Technical-Guidelines#enumerations
       case ElementType.Enumeration:
         quads.push(
           this.df.quad(objectInternalId, ns.rdf('type'), ns.skos('Concept')),
         );
         // Push Enums also as a class to keep things backward compatible.
-        // If we push Enums only as ConceptScheme, it might break some behaviour
+        // If we push Enums only as Concept, it might break some behaviour
         quads.push(
           this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class')),
         );
@@ -379,6 +380,7 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         );
 
         switch (object.type) {
+          // https://github.com/Informatievlaanderen/OSLO-UML-Transformer/wiki/Technical-Guidelines#enumerations
           case ElementType.Enumeration:
             quads.push(
               this.df.quad(
