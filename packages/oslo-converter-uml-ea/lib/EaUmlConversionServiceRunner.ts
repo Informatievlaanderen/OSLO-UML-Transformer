@@ -5,7 +5,6 @@ import { InputFormat } from '@oslo-flanders/core/lib/enums/InputFormat';
 import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
-import { IgnoredUris } from './constants/IgnoredUris';
 import type { EaUmlConversionService } from './EaUmlConversionService';
 
 export class EaUmlConversionServiceRunner extends AppRunner<
@@ -60,11 +59,6 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         describe: 'The format of the input file',
         default: InputFormat.AccessDB,
         choices: [InputFormat.AccessDB, InputFormat.SQLite],
-      })
-      .option('ignoreSkosConcept', {
-        describe: `Ignore elements with SKOS Concept URI (${IgnoredUris.SKOS_CONCEPT})`,
-        default: false,
-        boolean: true,
       })
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],

@@ -27,6 +27,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--specificationType` | The type of specification | No, defaults to `Vocabulary` | `ApplicationProfile` or `Vocabulary`|
 | `--allTags` | Whether or not to make a selection of key values for the generated classes, datatypes entities and properties. | No, default `false` | `true` or `false` |
 | `--inheritance` | Add all properties from the superclass to the child class | No, default `false` | `true` or `false` |
+| `--ignoreSkosConcept` | Ignore enumerations with SKOS Concept URI | No, default `false` | `true` or `false` |
 
 ## Usage
 
@@ -34,4 +35,5 @@ The service is executed from the CLI and expects the following parameters:
 oslo-webuniversum-json-generator --input report.jsonld --language nl --publicationEnvironment https://data.vlaanderen.be
 oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be
 oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile
+oslo-webuniversum-json-generator --input report.jsonld --language nl --applyFiltering false --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile --allTags true --inheritance true --ignoreSkosConcept true
 ```

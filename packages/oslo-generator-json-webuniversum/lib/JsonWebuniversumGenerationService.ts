@@ -28,6 +28,7 @@ import {
   sortWebuniversumObjects,
 } from './utils/utils';
 import { isStandardDatatype } from '@oslo-flanders/core';
+import { IgnoredUris } from './constants/IgnoredUris';
 
 @injectable()
 export class JsonWebuniversumGenerationService implements IService {
@@ -53,10 +54,14 @@ export class JsonWebuniversumGenerationService implements IService {
   public async run(): Promise<void> {
     const classJobs = this.store
       .getClassIds()
+      .filter((classId) => this.shouldProcessElement(classId))
       .map((classId) => this.generateEntityData(classId));
 
     const datatypeJobs = this.store
       .findSubjects(ns.rdf('type'), ns.rdfs('Datatype'))
+      .filter((datatypeId) =>
+        this.shouldProcessElement(<RDF.NamedNode>datatypeId),
+      )
       .map((datatypeId) => this.generateEntityData(<RDF.NamedNode>datatypeId));
 
     const classes: WebuniversumObject[] = await Promise.all(classJobs);
@@ -582,5 +587,25 @@ export class JsonWebuniversumGenerationService implements IService {
         },
       }),
     };
+  }
+
+  // Ignore elements that have the skos:Concept. In the future we could extend this logic to ignore more elements with different uris?
+  private shouldProcessElement(element: RDF.NamedNode): boolean {
+    if (!this.configuration.ignoreSkosConcept) {
+      return true;
+    }
+
+    // Check if the element is in the enumerations list
+    const enumerations = this.store.getEnumerations();
+    const isEnumeration = enumerations.some((enumeration) =>
+      enumeration.equals(element),
+    );
+
+    if (isEnumeration) {
+      this.logger.info(`Ignoring SKOS Concept enumeration ${element.value}`);
+      return false;
+    }
+
+    return true;
   }
 }

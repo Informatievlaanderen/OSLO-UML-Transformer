@@ -26,10 +26,11 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getAttributes');
     jest.spyOn(<any>outputHandler, 'getDatatypes');
     jest.spyOn(<any>outputHandler, 'getReferencedEntities');
+    jest.spyOn(<any>outputHandler, 'getEnumerations');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      .mockImplementationOnce(() => { });
+      .mockImplementationOnce(() => {});
 
     jest.mock('../lib/utils/osloContext', () => {
       return {
@@ -44,6 +45,7 @@ describe('JsonLdOutputHandler', () => {
     document.attributes = [];
     document.datatypes = [];
     document.referencedEntities = [];
+    document.enumerations = [];
 
     await outputHandler.write(store, writeStream);
     expect(writeStream.write).toHaveBeenCalledWith(
@@ -71,7 +73,8 @@ describe('JsonLdOutputHandler', () => {
 
   it('should throw an error when the version id can not be found', async () => {
     expect(() =>
-      (<any>outputHandler).addDocumentInformation({}, store)).toThrowError();
+      (<any>outputHandler).addDocumentInformation({}, store),
+    ).toThrowError();
   });
 
   it('should get all packages from the quad store and return a JSON-LD object', async () => {
@@ -300,8 +303,14 @@ describe('JsonLdOutputHandler', () => {
           parent: {
             '@id': 'http://example.org/id/property/2',
           },
-          minCount: { '@value': '1', '@type': 'http://www.w3.org/2001/XMLSchema#integer' },
-          maxCount: { '@value': '1', '@type': 'http://www.w3.org/2001/XMLSchema#integer' },
+          minCount: {
+            '@value': '1',
+            '@type': 'http://www.w3.org/2001/XMLSchema#integer',
+          },
+          maxCount: {
+            '@value': '1',
+            '@type': 'http://www.w3.org/2001/XMLSchema#integer',
+          },
           scope: 'http://example.org/id/scope/A',
         }),
       ]),
@@ -386,13 +395,40 @@ describe('JsonLdOutputHandler', () => {
     ];
 
     store.addQuads(quads);
-    const referencedEntities = await (<any>outputHandler).getReferencedEntities(store);
+    const referencedEntities = await (<any>outputHandler).getReferencedEntities(
+      store,
+    );
 
     expect(referencedEntities).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           '@id': 'urn:oslo-toolchain:1',
           '@type': ns.owl('Class').value,
+        }),
+      ]),
+    );
+  });
+
+  it('should get all enumerations', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.rdf('type'),
+        ns.skos('Concept'),
+        df.namedNode('referencedEntities'),
+      ),
+    ];
+
+    store.addQuads(quads);
+    const referencedEntities = await (<any>outputHandler).getReferencedEntities(
+      store,
+    );
+
+    expect(referencedEntities).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          '@id': 'urn:oslo-toolchain:1',
+          '@type': ns.skos('Concept').value,
         }),
       ]),
     );

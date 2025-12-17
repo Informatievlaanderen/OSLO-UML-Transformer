@@ -5,6 +5,7 @@ import { container } from './config/DependencyInjectionConfig';
 import type { 
   JsonWebuniversumGenerationServiceConfiguration,
  } from './config/JsonWebuniversumGenerationServiceConfiguration';
+import { IgnoredUris } from './constants/IgnoredUris';
 import type { JsonWebuniversumGenerationService } from './JsonWebuniversumGenerationService';
 
 export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
@@ -52,6 +53,11 @@ export class JsonWebuniversumGenerationServiceRunner extends AppRunner<
       })
       .option('allTags', {
         describe: `Whether or not to make a selection of key values for the generated classes, datatypes entities and properties.`,
+        default: false,
+        boolean: true,
+      })
+      .option('ignoreSkosConcept', {
+        describe: `Ignore elements with SKOS Concept URI (${IgnoredUris.SKOS_CONCEPT})`,
         default: false,
         boolean: true,
       })

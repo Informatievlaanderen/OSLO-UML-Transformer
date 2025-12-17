@@ -10,8 +10,7 @@ import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
 import type { 
-  JsonWebuniversumGenerationServiceConfiguration,
- } from '../lib/config/JsonWebuniversumGenerationServiceConfiguration';
+  JsonWebuniversumGenerationServiceConfiguration } from '../lib/config/JsonWebuniversumGenerationServiceConfiguration';
 import { JsonWebuniversumGenerationService } from '../lib/JsonWebuniversumGenerationService';
 import {
   classWithParent,
@@ -292,5 +291,84 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
       'codelist',
       'http://example.org/codelist/1',
     );
+  });
+
+  it('should filter out enumerations when ignoreSkosConcept is true', async () => {
+    // Create a service with ignoreSkosConcept enabled
+    const serviceWithIgnore = new JsonWebuniversumGenerationService(
+      logger,
+      <JsonWebuniversumGenerationServiceConfiguration>{
+        language: 'nl',
+        output: 'config.json',
+        ignoreSkosConcept: true,
+      },
+      store,
+    );
+
+    // Create an enumeration element
+    const enumerationId = df.namedNode('urn:oslo-toolchain:test-enumeration');
+
+    // Add enumeration to store
+    jest.spyOn(store, 'getEnumerations').mockReturnValue([enumerationId]);
+
+    // Test that the enumeration is filtered out
+    const shouldProcess = (<any>serviceWithIgnore).shouldProcessElement(
+      enumerationId,
+    );
+
+    expect(shouldProcess).toBe(false);
+  });
+
+  it('should not filter out enumerations when ignoreSkosConcept is false', async () => {
+    // Create a service with ignoreSkosConcept disabled
+    const serviceWithoutIgnore = new JsonWebuniversumGenerationService(
+      logger,
+      <JsonWebuniversumGenerationServiceConfiguration>{
+        language: 'nl',
+        output: 'config.json',
+        ignoreSkosConcept: false,
+      },
+      store,
+    );
+
+    // Create an enumeration element
+    const enumerationId = df.namedNode('urn:oslo-toolchain:test-enumeration');
+
+    // Add enumeration to store
+    jest.spyOn(store, 'getEnumerations').mockReturnValue([enumerationId]);
+
+    // Test that the enumeration is NOT filtered out
+    const shouldProcess = (<any>serviceWithoutIgnore).shouldProcessElement(
+      enumerationId,
+    );
+
+    expect(shouldProcess).toBe(true);
+  });
+
+  it('should process non-enumeration elements even when ignoreSkosConcept is true', async () => {
+    // Create a service with ignoreSkosConcept enabled
+    const serviceWithIgnore = new JsonWebuniversumGenerationService(
+      logger,
+      <JsonWebuniversumGenerationServiceConfiguration>{
+        language: 'nl',
+        output: 'config.json',
+        ignoreSkosConcept: true,
+      },
+      store,
+    );
+
+    // Create a non-enumeration element
+    const regularClassId = df.namedNode('urn:oslo-toolchain:test-class');
+    const enumerationId = df.namedNode('urn:oslo-toolchain:test-enumeration');
+
+    // Only add the enumeration to the store's enumeration list
+    jest.spyOn(store, 'getEnumerations').mockReturnValue([enumerationId]);
+
+    // Test that a regular class is NOT filtered out
+    const shouldProcess = (<any>serviceWithIgnore).shouldProcessElement(
+      regularClassId,
+    );
+
+    expect(shouldProcess).toBe(true);
   });
 });
