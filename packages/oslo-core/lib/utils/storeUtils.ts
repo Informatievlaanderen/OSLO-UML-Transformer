@@ -127,3 +127,22 @@ export function getMaxCount(
 ): string | undefined {
     return store.findObject(subject, ns.shacl('maxCount'))?.value;
 }
+
+export function findAllAttributes(
+  subject: RDF.Term,
+  attributeIds: RDF.Term[],
+  store: QuadStore,
+): RDF.Term[] {
+  const parentIds = store.findObjects(subject, ns.rdfs('subClassOf'));
+
+  attributeIds = [
+    ...attributeIds,
+    ...store.findSubjects(ns.rdfs('domain'), subject),
+  ];
+
+  for (const parentId of parentIds) {
+    attributeIds = findAllAttributes(parentId, attributeIds, store);
+  }
+
+  return attributeIds;
+}
