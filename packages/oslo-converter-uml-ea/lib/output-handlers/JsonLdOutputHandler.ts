@@ -1,6 +1,6 @@
 import type { WriteStream } from 'fs';
 import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
-import { ns } from '@oslo-flanders/core';
+import { ns, getParentAttribute, getChildAttribute } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { getOsloContext } from '../utils/osloContext';
@@ -342,16 +342,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
     );
 
     subjects.forEach((subject) => {
-      const parentAttribute: RDF.Term | undefined = store.findObject(
-        subject,
-        ns.oslo('parentAttribute'),
-        df.defaultGraph(),
-      );
-      const childAttribute: RDF.Term | undefined = store.findObject(
-        subject,
-        ns.oslo('childAttribute'),
-        df.defaultGraph(),
-      );
+      const parentAttribute = store.getParentAttribute(subject);
+      const childAttribute = store.getChildAttribute(subject);
 
       result.push({
         '@id': subject.value,
@@ -374,16 +366,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
     );
 
     subjects.forEach((subject) => {
-      const parentAttribute: RDF.Term | undefined = store.findObject(
-        subject,
-        ns.oslo('parentAttribute'),
-        df.defaultGraph(),
-      );
-      const childAttribute: RDF.Term | undefined = store.findObject(
-        subject,
-        ns.oslo('childAttribute'),
-        df.defaultGraph(),
-      );
+      const parentAttribute = store.getParentAttribute(subject);
+      const childAttribute = store.getChildAttribute(subject);
 
       result.push({
         '@id': subject.value,
