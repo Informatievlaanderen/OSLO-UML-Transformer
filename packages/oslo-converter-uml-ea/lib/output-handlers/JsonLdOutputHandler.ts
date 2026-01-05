@@ -13,6 +13,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       attributes,
       dataTypes,
       referencedEntities,
+      redefinedAttributes,
+      subsettedAttributes,
       enumerations,
     ] = await Promise.all([
       this.getPackages(store),
@@ -20,6 +22,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       this.getAttributes(store),
       this.getDatatypes(store),
       this.getReferencedEntities(store),
+      this.getRedefinedAttributes(store),
+      this.getSubsettedAttributes(store),
       this.getEnumerations(store),
     ]);
 
@@ -31,6 +35,9 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.attributes = attributes;
     document.datatypes = dataTypes;
     document.referencedEntities = referencedEntities;
+    document.redefinedAttributes = redefinedAttributes;
+    document.subsettedAttributes = subsettedAttributes;
+
     document.enumerations = enumerations;
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
   }
@@ -327,6 +334,54 @@ export class JsonLdOutputHandler implements IOutputHandler {
     return result;
   }
 
+  private async getRedefinedAttributes(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const result: any[] = [];
+    const subjects: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('RedefinedAttribute'),
+      df.defaultGraph(),
+    );
+
+    subjects.forEach((subject) => {
+      const parentAttribute = store.getParentAttribute(subject);
+      const childAttribute = store.getChildAttribute(subject);
+
+      result.push({
+        '@id': subject.value,
+        '@type': ns.oslo('RedefinedAttribute').value,
+        parentAttribute: { '@id': parentAttribute?.value },
+        childAttribute: { '@id': childAttribute?.value },
+      });
+    });
+
+    return result;
+  }
+
+  private async getSubsettedAttributes(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const result: any[] = [];
+    const subjects: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('SubsettedAttribute'),
+      df.defaultGraph(),
+    );
+
+    subjects.forEach((subject) => {
+      const parentAttribute = store.getParentAttribute(subject);
+      const childAttribute = store.getChildAttribute(subject);
+
+      result.push({
+        '@id': subject.value,
+        '@type': ns.oslo('SubsettedAttribute').value,
+        parentAttribute: { '@id': parentAttribute?.value },
+        childAttribute: { '@id': childAttribute?.value },
+      });
+    });
+
+    return result;
+  }
+
   private async getEnumerations(store: QuadStore): Promise<any> {
     return store.getEnumerations().map((subject: RDF.Term) => {
       const assignedURI: RDF.NamedNode | undefined =
@@ -364,7 +419,6 @@ export class JsonLdOutputHandler implements IOutputHandler {
       }),
     };
   }
-
   private mapDefinitions(definitions: RDF.Quad[]): any {
     const vocDefinitions: RDF.Quad[] = definitions.filter((x) =>
       x.predicate.equals(ns.oslo('vocDefinition')),

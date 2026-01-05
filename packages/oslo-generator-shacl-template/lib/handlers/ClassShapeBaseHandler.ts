@@ -82,11 +82,6 @@ export class ClassShapeBaseHandler extends ShaclHandler {
       ),
       this.df.quad(
         <RDF.NamedNode>shapeId,
-        ns.shacl('targetClass'),
-        assignedURI,
-      ),
-      this.df.quad(
-        <RDF.NamedNode>shapeId,
         ns.shacl('closed'),
         this.df.literal('false', ns.xsd('boolean')),
       ),
@@ -99,6 +94,46 @@ export class ClassShapeBaseHandler extends ShaclHandler {
         : []),
     ]);
 
+    const targetClasses: RDF.NamedNode[] = [assignedURI];
+
+    /*
+     * Regular inheritance: recursive walk from child to all its parents
+     * by following the inverse path of the rdfs:subClassOf relation.
+     */
+    this.discoverTargetClasses(subject, store, targetClasses);
+
+    for (const targetClass of targetClasses) {
+      shaclStore.addQuads([
+        this.df.quad(
+          <RDF.NamedNode>shapeId,
+          ns.shacl('targetClass'),
+          targetClass,
+        ),
+      ]);
+    }
+
     super.handle(subject, store, shaclStore);
+  }
+
+  private discoverTargetClasses(
+    classId: RDF.NamedNode,
+    store: QuadStore,
+    targetClasses: RDF.NamedNode[],
+  ) {
+    for (const subClassId of store.findSubjects(
+      ns.rdfs('subClassOf'),
+      classId,
+    )) {
+      const subClassAssignedURI = store.findObject(
+        subClassId,
+        ns.oslo('assignedURI'),
+      );
+      targetClasses.push(subClassAssignedURI as RDF.NamedNode);
+      this.discoverTargetClasses(
+        subClassId as RDF.NamedNode,
+        store,
+        targetClasses,
+      );
+    }
   }
 }

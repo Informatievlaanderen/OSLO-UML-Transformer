@@ -16,16 +16,17 @@ describe('DataRegistry (accessdb)', () => {
       new VoidLogger(),
     ).createDataRegistry(
       // eslint-disable-next-line max-len
-      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein.EAP?raw=true',
+      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/8fa44ec84b901c60a70a64da3d1bb743c55d1aaf/oslo-converter-uml-ea/01-AssociatiesMijnDomein.EAP?raw=true',
     );
   });
 
   it('should return items when the default targetDiagram is set', () => {
     expect(dataRegistry.diagrams.length).toBe(1);
     expect(dataRegistry.packages.length).toBe(3);
-    expect(dataRegistry.attributes.length).toBe(9);
-    expect(dataRegistry.elements.length).toBe(29);
-    expect(dataRegistry.connectors.length).toBe(19)
+    expect(dataRegistry.attributes.length).toBe(14);
+    expect(dataRegistry.elements.length).toBe(35);
+    expect(dataRegistry.connectors.length).toBe(24);
+    expect(dataRegistry.crossReferences.length).toBe(3);
   });
 
   it('should return items when they are set', () => {
@@ -46,6 +47,9 @@ describe('DataRegistry (accessdb)', () => {
 
     dataRegistry.normalizedConnectors = [];
     expect(dataRegistry.normalizedConnectors).toStrictEqual([]);
+
+    dataRegistry.crossReferences = [];
+    expect(dataRegistry.crossReferences).toStrictEqual([]);
 
     const mockDiagram = new EaDiagram(1, 'TestDiagram', 'guid', 1);
 

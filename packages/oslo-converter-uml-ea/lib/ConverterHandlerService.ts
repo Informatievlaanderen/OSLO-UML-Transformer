@@ -104,6 +104,15 @@ export class ConverterHandlerService<T extends EaObject> {
 
       await Promise.all(tasks);
 
+      tasks = handlers
+        .filter(
+          (x) =>
+            x.constructor.name === 'CrossReferenceConverterHandler' 
+        )
+        .map((x) => x.convert(model, uriRegistry, store));
+
+      await Promise.all(tasks);
+
       resolve(store);
     });
   }

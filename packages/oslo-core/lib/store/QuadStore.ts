@@ -21,6 +21,14 @@ export class QuadStore {
     this.store.addQuad(quad);
   }
 
+  public removeQuads(quad: RDF.Quad[]): void {
+    this.store.removeQuads(quad);
+  }
+
+  public removeQuad(quad: RDF.Quad): void {
+    this.store.removeQuad(quad);
+  }
+
   public async addQuadsFromFile(file: string): Promise<void> {
     const buffer: Buffer = await fetchFileOrUrl(file);
     const textStream = require('streamify-string')(buffer.toString());
@@ -579,7 +587,7 @@ export class QuadStore {
   /**
    * Finds the oslo:value of a given RDF.Term
    * @param subject The RDF.Term to find the oslo:key of
-   * @param store A N3 quad store
+   * @param graph The RDF.Term of the named graph
    * @returns An RDF.Term or undefined if not found
    */
   public getOsloExtensionValue(
@@ -588,6 +596,34 @@ export class QuadStore {
   ): RDF.NamedNode | undefined {
     return <RDF.NamedNode | undefined>(
       this.store.getObjects(subject, ns.oslo('value'), graph).shift()
+    );
+  }
+
+  /**
+   * Find the parent attribute of an attribute
+   * @param subject The RDF.Term to find the parent attribute of
+   * @param graph The RDF.Term of the named graph
+   */
+  public getParentAttribute(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term | undefined {
+    return <RDF.Term | undefined>(
+      this.findObject(subject, ns.oslo('parentAttribute'))
+    );
+  }
+
+  /**
+   * Find the child attribute of an attribute
+   * @param subject The RDF.Term to find the parent attribute of
+   * @param graph The RDF.Term of the named graph
+   */
+  public getChildAttribute(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): RDF.Term | undefined {
+    return <RDF.Term | undefined>(
+      this.findObject(subject, ns.oslo('childAttribute'))
     );
   }
 }

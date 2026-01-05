@@ -26,6 +26,8 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getAttributes');
     jest.spyOn(<any>outputHandler, 'getDatatypes');
     jest.spyOn(<any>outputHandler, 'getReferencedEntities');
+    jest.spyOn(<any>outputHandler, 'getRedefinedAttributes');
+    jest.spyOn(<any>outputHandler, 'getSubsettedAttributes');
     jest.spyOn(<any>outputHandler, 'getEnumerations');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
@@ -45,6 +47,8 @@ describe('JsonLdOutputHandler', () => {
     document.attributes = [];
     document.datatypes = [];
     document.referencedEntities = [];
+    document.redefinedAttributes = [];
+    document.subsettedAttributes = [];
     document.enumerations = [];
 
     await outputHandler.write(store, writeStream);
@@ -312,6 +316,82 @@ describe('JsonLdOutputHandler', () => {
             '@type': 'http://www.w3.org/2001/XMLSchema#integer',
           },
           scope: 'http://example.org/id/scope/A',
+        }),
+      ]),
+    );
+  });
+
+  it('should get all cross references from the quad store and return an array of JSON-LD objects', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:redefinedAttribute:1'),
+        ns.rdf('type'),
+        ns.oslo('RedefinedAttribute'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:redefinedAttribute:1'),
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/id/redefinedAttribute/1'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:redefinedAttribute:1'),
+        ns.oslo('parentAttribute'),
+        df.namedNode('urn:oslo-toolchain:123456789-redefine'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:redefinedAttribute:1'),
+        ns.oslo('childAttribute'),
+        df.namedNode('urn:oslo-toolchain:abcdefghi-redefine'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:subsettedAttribute:1'),
+        ns.rdf('type'),
+        ns.oslo('SubsettedAttribute'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:subsettedAttribute:1'),
+        ns.oslo('assignedURI'),
+        df.namedNode('http://example.org/id/subsettedAttribute/1'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:subsettedAttribute:1'),
+        ns.oslo('parentAttribute'),
+        df.namedNode('urn:oslo-toolchain:123456789-subset'),
+      ),
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:subsettedAttribute:1'),
+        ns.oslo('childAttribute'),
+        df.namedNode('urn:oslo-toolchain:abcdefghi-subset'),
+      ),
+    ];
+
+    store.addQuads(quads);
+    const crossReferenceObjects = [
+      ...(await (<any>outputHandler).getRedefinedAttributes(store)),
+      ...(await (<any>outputHandler).getSubsettedAttributes(store)),
+    ];
+
+    expect(crossReferenceObjects).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          '@id': 'urn:oslo-toolchain:redefinedAttribute:1',
+          '@type': ns.oslo('RedefinedAttribute').value,
+          parentAttribute: {
+            '@id': df.namedNode('urn:oslo-toolchain:123456789-redefine').value,
+          },
+          childAttribute: {
+            '@id': df.namedNode('urn:oslo-toolchain:abcdefghi-redefine').value,
+          },
+        }),
+        expect.objectContaining({
+          '@id': 'urn:oslo-toolchain:subsettedAttribute:1',
+          '@type': ns.oslo('SubsettedAttribute').value,
+          parentAttribute: {
+            '@id': df.namedNode('urn:oslo-toolchain:123456789-subset').value,
+          },
+          childAttribute: {
+            '@id': df.namedNode('urn:oslo-toolchain:abcdefghi-subset').value,
+          },
         }),
       ]),
     );

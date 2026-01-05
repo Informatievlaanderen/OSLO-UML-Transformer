@@ -13,6 +13,7 @@ import type { NamedOrBlankNode } from '../lib/types/IHandler';
 import {
   baseData,
   baseDataWithoutAssignedURI,
+  baseDataWithSubClass,
 } from './data/classShapeBaseHandlerMockData';
 import { parseJsonld } from './test-utils';
 
@@ -118,5 +119,32 @@ describe('ClassShapeBaseHandler', () => {
         `Unable to find the assigned URI for subject "http://example.org/.well-known/id/class/1".`,
       ),
     );
+  });
+
+  it('should add target class to super class', async () => {
+    store.addQuads(await parseJsonld(baseDataWithSubClass));
+    handler.handle(
+      df.namedNode('http://example.org/.well-known/id/class/1'),
+      store,
+      shaclStore,
+    );
+
+    const shaclQuads: RDF.Quad[] = shaclStore.findQuads(null, null, null, null);
+
+    expect(
+      shaclQuads.some(
+        (quad: RDF.Quad) =>
+          quad.predicate.equals(ns.shacl('targetClass')) &&
+          quad.object.equals(df.namedNode('http://example.org/id/class/1')),
+      ),
+    ).toBe(true);
+
+    expect(
+      shaclQuads.some(
+        (quad: RDF.Quad) =>
+          quad.predicate.equals(ns.shacl('targetClass')) &&
+          quad.object.equals(df.namedNode('http://example.org/id/class/2')),
+      ),
+    ).toBe(true);
   });
 });

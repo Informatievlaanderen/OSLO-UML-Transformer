@@ -10,4 +10,6 @@ export interface IFileReader<T> {
   loadAttributes: (database: T, registry: DataRegistry) => Promise<void>;
   loadElementConnectors: (database: T, registry: DataRegistry) => Promise<void>;
   loadDiagrams: (database: T, registry: DataRegistry) => Promise<void>;
+  loadRedefinedAttributes: (database: T, registry: DataRegistry) => Promise<void>;
+  loadSubsettedAttributes: (database: T, registry: DataRegistry) => Promise<void>;
 }
