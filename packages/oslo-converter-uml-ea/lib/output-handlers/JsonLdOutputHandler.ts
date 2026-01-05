@@ -380,6 +380,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
     });
 
     return result;
+  }
+
   private async getEnumerations(store: QuadStore): Promise<any> {
     return store.getEnumerations().map((subject: RDF.Term) => {
       const assignedURI: RDF.NamedNode | undefined =
