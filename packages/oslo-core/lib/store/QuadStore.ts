@@ -123,6 +123,20 @@ export class QuadStore {
   }
 
   /**
+   * Finds all subjects where predicate is 'rdf:type' and object 'skos:Concept'
+   * We chose the skos:Concept here as enumerations have the skos:Concept uri in EA 
+   * There is no skos:ConceptScheme used in EA since we assume that it's only used to 
+   * represent a value from a skos:ConceptScheme instead of the conceptscheme as a whole
+   * https://github.com/Informatievlaanderen/OSLO-UML-Transformer/wiki/Technical-Guidelines#enumerations
+   * @returns an array of RDF.NamedNodes
+   */
+  public getEnumerations(graph: RDF.Term | null = null): RDF.NamedNode[] {
+    return <RDF.NamedNode[]>(
+      this.store.getSubjects(ns.rdf('type'), ns.skos('Concept'), graph)
+    );
+  }
+
+  /**
    * Finds all subjects where predicate is 'rdf:type' and object 'owl:DatatypeProperty'
    * @returns an array of RDF.NamedNodes
    */
@@ -550,8 +564,6 @@ export class QuadStore {
     subject: RDF.Term,
     graph: RDF.Term | null = null,
   ): RDF.NamedNode | undefined {
-    console.log(this.store.getObjects(subject, ns.oslo('key'), graph).shift());
-    console.log(this.store.getObjects(subject, null, graph));
     return <RDF.NamedNode | undefined>(
       this.store.getObjects(subject, ns.oslo('oslo:key'), graph).shift()
     );

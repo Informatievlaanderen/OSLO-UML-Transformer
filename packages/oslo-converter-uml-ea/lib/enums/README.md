@@ -74,4 +74,3 @@ The list of supported languages can be found in the `Language` enum [here](/pack
 | Ignore Implicit Generation | `ignoreImplicitGeneration` | Prevents automatic generation of implicit elements. | `ignoreImplicitGeneration=true` |
 | Is Literal                 | `literal`                  | Marks a class as a literal value (not an object).   | `literal=true`                  |
 | Range                      | `range`                    | Specifies the range of a property explicitly.       | `range=xsd:string`              |
-| Domain                     | `domain`                   | Specifies the domain of a property explicitly.      | `domain=Person`                 |

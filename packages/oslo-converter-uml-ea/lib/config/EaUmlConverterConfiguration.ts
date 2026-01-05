@@ -47,11 +47,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    */
   private _inputFormat: string | undefined;
 
-  /**
-   * A boolean that decides whether to ignore SKOS Concept elements
-   */
-  private _ignoreSkosConcept: boolean | undefined;
-
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
@@ -62,7 +57,6 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._allTags = <boolean>params.allTags;
     this._debug = <boolean>params.debug;
     this._inputFormat = <string>params.inputFormat;
-    this._ignoreSkosConcept = <boolean>params.ignoreSkosConcept;
   }
 
   public get umlFile(): string {
@@ -132,9 +126,5 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       );
     }
     return this._inputFormat;
-  }
-
-  public get ignoreSkosConcept(): boolean {
-    return !!this._ignoreSkosConcept;
   }
 }

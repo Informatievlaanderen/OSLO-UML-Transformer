@@ -29,7 +29,6 @@ The service is executed from the CLI and expects the following parameters:
 | `--outputFormat` | RDF content-type specifiying the output format | :heavy_check_mark: | `application/ld+json` |
 | `--inputFormat` | The format of the DBMS being used by the EA file | No, default `accessdb` | `sqlite`, `accessdb` |
 | `--allTags` | Add all tags from EA to the generated output | No, default `false` | `true` or `false` |
-| `--ignoreSkosConcept` | Ignore elements with SKOS Concept URI | No, default `true` | `true` or `false` |
 | `--debug` | A flag to enable debug mode which is more resilient to errors | | `false` |
 
 ## Usage

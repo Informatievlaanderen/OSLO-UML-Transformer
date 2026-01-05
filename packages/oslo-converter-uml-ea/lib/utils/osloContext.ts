@@ -20,6 +20,7 @@ export function getOsloContext(): any {
     referencedEntities: '@included',
     redefinedAttributes: '@included',
     subsettedAttributes: '@included',
+    enumerations: '@included',
     baseURI: {
       '@id': 'oslo:baseURI',
       '@type': '@id',
@@ -106,6 +107,9 @@ export function getOsloContext(): any {
     },
     Datatype: {
       '@id': 'rdfs:Datatype',
+    },
+    Enumeration: {
+      '@id': 'skos:Concept',
     },
     codelist: {
       '@id': 'oslo:codelist',

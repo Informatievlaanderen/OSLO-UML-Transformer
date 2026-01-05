@@ -48,6 +48,11 @@ export class JsonWebuniversumGenerationServiceConfiguration
    * Boolean that indicates if all key values should be included for the generated classes, datatypes, entities and properties
    */
 
+  /**
+   * A boolean that decides whether to ignore SKOS Concept elements
+   */
+  private _ignoreSkosConcept: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -59,6 +64,7 @@ export class JsonWebuniversumGenerationServiceConfiguration
       <string>params.specificationType,
     );
     this._allTags = <boolean>params.allTags;
+    this._ignoreSkosConcept = <boolean>params.ignoreSkosConcept;
   }
 
   public get input(): string {
@@ -125,5 +131,9 @@ export class JsonWebuniversumGenerationServiceConfiguration
 
   public get allTags(): boolean {
     return !!this._allTags;
+  }
+
+  public get ignoreSkosConcept(): boolean {
+    return !!this._ignoreSkosConcept;
   }
 }

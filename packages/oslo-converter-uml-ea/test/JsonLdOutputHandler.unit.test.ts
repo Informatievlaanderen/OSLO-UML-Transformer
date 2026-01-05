@@ -28,6 +28,7 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getReferencedEntities');
     jest.spyOn(<any>outputHandler, 'getRedefinedAttributes');
     jest.spyOn(<any>outputHandler, 'getSubsettedAttributes');
+    jest.spyOn(<any>outputHandler, 'getEnumerations');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
       // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -48,6 +49,7 @@ describe('JsonLdOutputHandler', () => {
     document.referencedEntities = [];
     document.redefinedAttributes = [];
     document.subsettedAttributes = [];
+    document.enumerations = [];
 
     await outputHandler.write(store, writeStream);
     expect(writeStream.write).toHaveBeenCalledWith(
@@ -482,6 +484,31 @@ describe('JsonLdOutputHandler', () => {
         expect.objectContaining({
           '@id': 'urn:oslo-toolchain:1',
           '@type': ns.owl('Class').value,
+        }),
+      ]),
+    );
+  });
+
+  it('should get all enumerations', async () => {
+    const quads = [
+      df.quad(
+        df.namedNode('urn:oslo-toolchain:1'),
+        ns.rdf('type'),
+        ns.skos('Concept'),
+        df.namedNode('referencedEntities'),
+      ),
+    ];
+
+    store.addQuads(quads);
+    const referencedEntities = await (<any>outputHandler).getReferencedEntities(
+      store,
+    );
+
+    expect(referencedEntities).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          '@id': 'urn:oslo-toolchain:1',
+          '@type': ns.skos('Concept').value,
         }),
       ]),
     );
