@@ -12,6 +12,7 @@ export class DataRegistry {
 
   public constructor(logger: Logger) {
     this.logger = logger;
+    this._crossReferences = [];
   }
 
   private _diagrams: EaDiagram[] | undefined;

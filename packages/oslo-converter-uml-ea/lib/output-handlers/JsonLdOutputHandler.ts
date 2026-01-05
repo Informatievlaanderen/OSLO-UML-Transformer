@@ -1,6 +1,6 @@
 import type { WriteStream } from 'fs';
 import type { IOutputHandler, QuadStore } from '@oslo-flanders/core';
-import { ns, getParentAttribute, getChildAttribute } from '@oslo-flanders/core';
+import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { getOsloContext } from '../utils/osloContext';
