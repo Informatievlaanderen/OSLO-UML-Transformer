@@ -192,11 +192,13 @@ export class SparqlGenerationService implements IService {
   }
 
   private async writeQueries(queries: any) {
+    // Require for importing due to limitations of the sparqljs library for importing in Typescript.
+    const SparqlGenerator = require('sparqljs').Generator;
+
     /* Create output directory */
     ensureOutputDirectory(this.configuration.output);
 
     /* Serialize SPARQL queries and write them to a file */
-    const SparqlGenerator = require('sparqljs').Generator;
     const generator = new SparqlGenerator();
     for (const i in queries) {
       const data = generator.stringify(queries[i]);
