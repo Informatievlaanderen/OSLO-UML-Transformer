@@ -21,7 +21,9 @@ enum Prefixes {
   prov = 'http://www.w3.org/ns/prov#',
   oslo = 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
   vl = 'https://data.vlaanderen.be/ns/shacl#',
-  schema = 'https://schema.org/'
+  schema = 'https://schema.org/',
+  cpov = 'http://data.europa.eu/m8g/',
+  locn = 'http://www.w3.org/ns/locn#'
 }
 
 export type Namespace = {
