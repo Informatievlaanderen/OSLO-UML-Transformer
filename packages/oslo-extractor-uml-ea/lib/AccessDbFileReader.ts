@@ -37,8 +37,8 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
       .then(() => this.loadAttributes(reader, registry))
       .then(() => this.loadElementConnectors(reader, registry))
       .then(() => this.loadDiagrams(reader, registry))
-      .then(() => this.loadRedefinedAttributes(reader, registry))
-      .then(() => this.loadSubsettedAttributes(reader, registry));
+      // .then(() => this.loadRedefinedAttributes(reader, registry))
+      // .then(() => this.loadSubsettedAttributes(reader, registry));
 
     return registry;
   }
