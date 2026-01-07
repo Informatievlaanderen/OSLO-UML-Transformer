@@ -37,8 +37,8 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
       .then(() => this.loadAttributes(reader, registry))
       .then(() => this.loadElementConnectors(reader, registry))
       .then(() => this.loadDiagrams(reader, registry))
-      // .then(() => this.loadRedefinedAttributes(reader, registry))
-      // .then(() => this.loadSubsettedAttributes(reader, registry));
+      .then(() => this.loadRedefinedAttributes(reader, registry))
+      .then(() => this.loadSubsettedAttributes(reader, registry));
 
     return registry;
   }
@@ -131,16 +131,20 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
     const crossReferences = database.getTable(EaTable.XRef).getData();
     const objects = database.getTable(EaTable.Object).getData();
     const query = `
-    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, [x].[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
+    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, x.[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
     a1.Name AS ChildAttributeName, a1.ID AS ChildAttributeId, a1.ea_guid as ChildAttributeEaGuid,
     a2.Name AS ParentAttributeName, a2.ID AS ParentAttributeId, a2.ea_guid as ParentAttributeEaGuid
-    FROM ? x, ? a1, ? a2, ? o
-    WHERE x.Behavior = 'redefinedProperty' AND a1.ea_guid = x.Client AND a2.ea_guid = x.Description AND a2.Object_ID = o.Object_ID;
+    FROM ? AS x
+    JOIN ? AS a1 ON a1.ea_guid = x.Client
+    JOIN ? AS a2 ON a2.ea_guid = x.Description
+    JOIN ? AS o ON a2.Object_ID = o.Object_ID
+    WHERE x.Behavior = 'redefinedProperty'
     `;
 
     const data = <any[]>(
       alasql(query, [crossReferences, attributes, attributes, objects])
     );
+
     registry.crossReferences = [
       ...registry.crossReferences,
       ...mapToEaCrossReference(data, CrossReferenceType.Redefined),
@@ -155,11 +159,14 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
     const crossReferences = database.getTable(EaTable.XRef).getData();
     const objects = database.getTable(EaTable.Object).getData();
     const query = `
-    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, [x].[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
+    SELECT x.XrefID AS CrossReferenceEaGuid, x.Name AS CrossReferenceName, x.[Partition] AS CrossReferenceId, o.Package_ID AS CrossReferencePackageId,
     a1.Name AS ChildAttributeName, a1.ID AS ChildAttributeId, a1.ea_guid as ChildAttributeEaGuid,
     a2.Name AS ParentAttributeName, a2.ID AS ParentAttributeId, a2.ea_guid as ParentAttributeEaGuid
-    FROM ? x, ? a1, ? a2, ? o
-    WHERE x.Behavior = 'subsettedProperty' AND a1.ea_guid = x.Client AND a2.ea_guid = x.Description AND a2.Object_ID = o.Object_ID;
+    FROM ? AS x
+    JOIN ? AS a1 ON a1.ea_guid = x.Client
+    JOIN ? AS a2 ON a2.ea_guid = x.Description
+    JOIN ? AS o ON a2.Object_ID = o.Object_ID
+    WHERE x.Behavior = 'subsettedProperty'
     `;
 
     const data = <any[]>(
