@@ -1,0 +1,6058 @@
+{
+  "@context": {
+    "oslo": "https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rec": "http://www.w3.org/2001/02pd/rec54#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "schema": "https://schema.org/",
+    "packages": "@included",
+    "classes": "@included",
+    "datatypes": "@included",
+    "attributes": "@included",
+    "referencedEntities": "@included",
+    "redefinedAttributes": "@included",
+    "subsettedAttributes": "@included",
+    "enumerations": "@included",
+    "baseURI": {
+      "@id": "oslo:baseURI",
+      "@type": "@id"
+    },
+    "vocDefinition": {
+      "@id": "oslo:vocDefinition",
+      "@container": "@set"
+    },
+    "apDefinition": {
+      "@id": "oslo:apDefinition",
+      "@container": "@set"
+    },
+    "vocLabel": {
+      "@id": "oslo:vocLabel",
+      "@container": "@set"
+    },
+    "apLabel": {
+      "@id": "oslo:apLabel",
+      "@container": "@set"
+    },
+    "diagramLabel": {
+      "@id": "oslo:diagramLabel"
+    },
+    "scope": {
+      "@id": "oslo:scope",
+      "@type": "@id"
+    },
+    "vocUsageNote": {
+      "@id": "oslo:vocUsageNote",
+      "@container": "@set"
+    },
+    "apUsageNote": {
+      "@id": "oslo:apUsageNote",
+      "@container": "@set"
+    },
+    "domain": {
+      "@id": "rdfs:domain",
+      "@container": "@set"
+    },
+    "range": {
+      "@id": "rdfs:range"
+    },
+    "minCount": {
+      "@id": "sh:minCount"
+    },
+    "maxCount": {
+      "@id": "sh:maxCount"
+    },
+    "parent": {
+      "@id": "rdfs:subClassOf",
+      "@type": "owl:Class"
+    },
+    "generatedAtTime": {
+      "@id": "prov:generatedAtTime"
+    },
+    "Package": "oslo:Package",
+    "Class": {
+      "@id": "owl:Class"
+    },
+    "DatatypeProperty": {
+      "@id": "owl:DatatypeProperty"
+    },
+    "ObjectProperty": {
+      "@id": "owl:ObjectProperty"
+    },
+    "authors": {
+      "@type": "foaf:Person",
+      "@id": "foaf:maker"
+    },
+    "editors": {
+      "@type": "foaf:Person",
+      "@id": "rec:editor"
+    },
+    "contributors": {
+      "@type": "foaf:Person",
+      "@id": "dcterms:contributor"
+    },
+    "affiliation": {
+      "@id": "schema:affiliation"
+    },
+    "assignedURI": {
+      "@id": "oslo:assignedURI",
+      "@type": "@id"
+    },
+    "Datatype": {
+      "@id": "rdfs:Datatype"
+    },
+    "Enumeration": {
+      "@id": "skos:Concept"
+    },
+    "codelist": {
+      "@id": "oslo:codelist",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "adms:status",
+      "@type": "@id"
+    },
+    "extensions": {
+      "@id": "oslo:extensions",
+      "@container": "@set"
+    },
+    "parentAttribute": {
+      "@id": "oslo:parentAttribute",
+      "@type": "@id"
+    },
+    "childAttribute": {
+      "@id": "oslo:childAttribute",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://data.vlaanderen.be/http://verison",
+  "generatedAtTime": "2026-01-07T12:10:49.431Z",
+  "packages": [
+    {
+      "@id": "urn:oslo-toolchain:a8d7045bf71a23507c0eaa6fa3ad947e4388387ff445d17b640080a15cea7a3a",
+      "@type": "Package",
+      "assignedURI": "https://data.vlaanderen.be/ns/leermiddelen",
+      "baseURI": "https://data.vlaanderen.be/ns/leermiddelen#"
+    }
+  ],
+  "classes": [
+    {
+      "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656",
+      "@type": "Class",
+      "assignedURI": "http://purl.org/dc/terms/Agent",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Agent"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Agent"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Iemand die of iets dat kan handelen of een effect kan teweeg brengen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/LearningActivity",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leeractiviteit"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leeractiviteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leeractiviteit"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk proces dat leidt tot het verwerven van kennis,vaardigheden of verantwoordelijkheid en zelfstandigheid."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk proces dat leidt tot het verwerven van kennis,vaardigheden of verantwoordelijkheid en zelfstandigheid."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze entitieit bevat de datapunten die te maken hebben met de deelname van een lerende aan een welbepaalde Leeropportuniteit."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze entitieit bevat de datapunten die te maken hebben met de deelname van een lerende aan een welbepaalde Leeropportuniteit."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:ece4cbd1975bb44c707b794518d90fa706b13bd8ea16bb07036f72ff58f00e26"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/LearningActivitySpecification",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leeractiviteitspecificatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leeractiviteitspecificatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De specificatie van een proces dat leidt tot het verwerven van kennis, vaardigheden of verantwoordelijkheid en autonomie."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het opleidingsaanbod geformaliseerd volgens een bepaalde specificatie,zoals de ECTS. Zowel een opleidingsonderdeel als een programma kunnen op deze manier gespecifieerd worden."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Het opleidingsaanbod geformaliseerd volgens een bepaalde specificatie,zoals de ECTS. Zowel een opleidingsonderdeel als een programma kunnen op deze manier gespecifieerd worden."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:a60bb451216ca120cc984fd5b4192e0dea7d5051acbba31ff72eb8fc27578627"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec",
+      "@type": "Class",
+      "assignedURI": "https://schema.org/LearningResource",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leermiddel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leermiddel"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk hulpmiddel dat wordt ingezet om het leerproces te ondersteunen, doelen te bereiken en zo kennis, vaardigheden en attitudes bij te brengen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze definitie is een specificatie gebaseerd op de definitie van de kwaliteitsalliantie, i.e.: Het overkoepelende begrip voor zowel papieren als digitale producten, al dan niet in combinatie, ongeacht wie ze ontwikkelt: leraren, niet-commerciële en commerciële aanbieders.\r\n\r\nTe substitueren door een meer specifiekere klasse van <a href=\"https://schema.org/CreativeWork\">Schema.org CreativeWork</a>. Bijvoorbeeld: Book in het geval van een boek dat bestaat uit verschillende hoofdstukken."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127",
+      "@type": "Class",
+      "assignedURI": "https://schema.org/CreativeWork",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "CreatiefWerk"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "CreatiefWerk"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een intellectueel of artistiek resultaat dat voorkomt uit originele inspanning of verbeelding."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Je kan ook DCTerms en DCAT gebruiken, zie <a href=\"https://www.w3.org/TR/vocab-dcat-3/#dcat-sdo\">W3C DCAT specificatie sectie over de alignering tussen DCAT en Schema.org<a/>."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d",
+      "@type": "Class",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/LearningAchievement",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Doel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Doel"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Beschrijving van wat een lerende moet weten, kunnen of welke houding deze moet hebben na het voltooien van een leeractiviteit of opleiding."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een Doel is hier gebruikt in de context van een Leerdoel of Onderwijsdoel."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:606ca1412f06b300948d5349b3a5e6e5e115fdc30b30f063798dcbdef0fe7a92",
+      "@type": "Class",
+      "assignedURI": "https://schema.org/CreativeWorkSeries",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "LeermiddelVerzameling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "LeermiddelVerzameling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Collectie van Leermiddelen met dezelfde kenmerken."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:d4537aa4da17463d4b613c0be4e4d9dae545259d00e88538a07875fbf0d73081"
+        },
+        {
+          "@id": "urn:oslo-toolchain:2c82160e42beb9d60c521c6f98eb3558f761233f8a6227070ba1a157eda78110"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:2c82160e42beb9d60c521c6f98eb3558f761233f8a6227070ba1a157eda78110",
+      "@type": "Class",
+      "assignedURI": "http://purl.org/dc/dcmitype/Collection",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Verzameling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Verzameling"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een verzameling van resources."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b29768b46da60810e17a90d420fb4063cb2e0a3ef468ae1dfef8b5390a2fb854",
+      "@type": "Class",
+      "assignedURI": "http://purl.org/dc/terms/LicenseDocument",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Licentie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Licentie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een formele toestemming of recht om iets te gebruiken, te reproduceren, of te verspreiden volgens bepaalde voorwaarden."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "https://schema.org/CreatiefWerk"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:f377d413ed884f0570c6e6ae53067fadb1adeb441386aa90c1c5661e5754b6cb",
+      "@type": "Class",
+      "assignedURI": "https://qudt.org/schema/qudt/Unit",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Eenheid"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Eenheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Eenheid"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Maat waarin een hoeveelheid van een bepaalde grootheid wordt uitgedrukt."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Maat waarin een hoeveelheid van een bepaalde grootheid wordt uitgedrukt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Te gebruiken ipv Concept als een voorgedefinieerde eenheid van QUDT beschikbaar is, bvb <a href=\"http://qudt.org/vocab/unit/M\">meter</a>. Zie <a href=\"https://www.qudt.org/doc/DOC_VOCAB-UNITS.html\">QUDT-units</a> voor meer info."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:861eae5937c38c3bfbd857302ac39707d9076a71664cdefa9ad2b269b8c4aae3",
+      "@type": "Class",
+      "assignedURI": "http://qudt.org/schema/qudt/CurrencyUnit",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Valuta"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Valuta"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Valuta"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gebruikt voor elke eenheid die een munteenheid uitdrukt."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gebruikt voor elke eenheid die een munteenheid uitdrukt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Te gebruiken ipv Concept als een voorgedefinieerde eenheid van QUDT beschikbaar is, bvb <a href=\"http://qudt.org/vocab/currency/EUR\">Euro</a>. Zie <a href=\"https://www.qudt.org/doc/DOC_VOCAB-UNITS-CURRENCY.html\">QUDT-currency-units</a> voor meer info."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:f377d413ed884f0570c6e6ae53067fadb1adeb441386aa90c1c5661e5754b6cb"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:d241dee0e1f2b6996447f906f4a19a8fa68567dd33fb60ab585ea846bec8f8c2",
+      "@type": "Class",
+      "assignedURI": "https://schema.org/CreativeWork",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "LeermiddelElement"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "LeermiddelElement"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een element waaruit een Leermiddel bestaat"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Te substitueren door een meer specifiekere klasse van <a href=\"https://schema.org/CreativeWork\">Schema.org CreativeWork</a>. Bijvoorbeeld: Chapter voor hoofdstukken van een boek."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:d4537aa4da17463d4b613c0be4e4d9dae545259d00e88538a07875fbf0d73081"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d",
+      "@type": "Class",
+      "assignedURI": "http://purl.org/dc/dcmitype/Collection",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "DoelCollectie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "DoelCollectie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Collectie van Doelen met dezelfde kenmerken."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een DoelCollectie is geen Doel op zich, vandaar het verschil met verzameling. Bijvoorbeeld: een Leerplan dat bestaat uit verschillende Doelen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "attributes": [
+    {
+      "@id": "urn:oslo-toolchain:1ef08011db8a2df6ebf826f64bfb0961a947bd1c89f15b56d633a3d7770efa61",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/description",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschrijving"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een textuele beschrijving die de inhoud weergeeft van een Competentie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cddbb593cdbd35f047509eadcdb7e11e00c78e4a9b451b49894714e014523696",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De aanduiding of titel waarmee een Competentie wordt geïdentificeerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:70f66f65bc502220e90690e56d80a7650002d9735f171739b4e191f83ac52739",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/copyrightYear",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "auteursrechtJaar"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "auteursrechtJaar"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het jaar waarin het geclaimde auteursrecht voor het CreatiefWerk voor het eerst werd geclaimd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:474715019"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:61ba603810ee03b0622212f8fc995cd29c439c47739d2e5269aacac8249b7800",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/version",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "versie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "versie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De versie van het CreatiefWerk."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bbc7b4baa5defc067411c2dd1705ee4ed29614e03e29165ab419f3570b837511",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/datePublished",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "publicatiedatum"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "publicatiedatum"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum van eerste publicatie of uitzending."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit kan bijvoorbeeld de datum zijn waarop een CreatiefWerk werd uitgezonden of een Certification werd uitgegeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:369f74c18870a32835984d74bb82de91e14d47da70978a3e94944efdc91f1b24",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/value",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "waarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "waarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Getal waarmee de kwantiteit van het kenmerk kan worden uitgedrukt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:12c825c7add2ea0f85d15a7d0e02766bd19afd6233527563279f0d617cf707b2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:2049156247"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3dca73e6531ae95a8e0fe3c6ca74da806469701fe8ae7680cd7e22c0aea914eb",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/description",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschrijving"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een textuele beschrijving die de inhoud of het doel van een Leermiddel verklaart."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1b23de4b4497ad49c473249d0349460b3195878ab4aa30c203ed8f170ee7c414",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/description",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "beschrijving"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "beschrijving"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een duidelijke formulering van het Doel."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een duidelijke formulering van het Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3f2f516ed8c5dfc374b776d3a912163266a66ec5ad229aaf33179cb01317aacf",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/instructionalMethod",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "instructie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "instructie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een reeks aanwijzingen die nodig zijn om een Leermiddel correct uit te voeren of te gebruiken."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit kan bijvoorbeeld ook een URL zijn die verwijst naar een bepaalde handleiding."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3d1b0fb63eb0199e57831ed8e4d9bacad6d0d7873684f8aa4bf308ad249e747c",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De aanduiding of titel waarmee een Leermiddel wordt geïdentificeerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ee9cfe0eea8860f9da792281e396feb6b875b51fcb29aa31a92c6019ebba8c0c",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/opens",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "open"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "open"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Openingsuur vd plaats of dienst op de opgegeven dag vd week."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:474230892"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7cc32b8548b857d89262475044d130b87584e7ec5b87119d13a3090b7756ec7f",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/closes",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "gesloten"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gesloten"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Sluitingsuur vd plaats of dienst op de opgegeven dag vd week."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:474230892"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0172cf620bdd16150eea25f8dc72ec563ea20d361c09f2a54a24bf5ddcbe5f25",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/dayOfWeek",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "dag van week"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "dag van de week"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "dagVanDeWeek"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Dag van de week waarvoor de openingsuren geldig zijn."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Zie https://schema.org/DayOfWeek voor lijst van mogelijke waarden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1008345369"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:cce3ce75f91d7df4430de6592ad48ce344d910bc468607595cf07e6a2d794489",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/validFrom",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geldig van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geldigVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum vanaf wanneer de opgegeven openingsuren gelden."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:78385e7b413ac08ef5a4c7306da996d075044ed0ce2852d137864303f5e43daf",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://schema.org/validThrough",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geldig tot"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geldigTot"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Datum tot wanneer de opgegeven openingsuren gelden."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:499715870"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:04fcbb56311759e8adf0758eecc3902ce0dbcb919416de000a8c1c929bfc3cf3",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/requires",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "vereiste"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "vereiste"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Voorwaarde die moet worden vervuld om toegang of gebruik mogelijk te maken, zonder gewag te maken van een vergoeding."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f47e3919f42284d624a62fd2c23212294b07d66280875feed1b0b7e4212f84dd",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://vocab.belgif.be/ns/address#AddressRepresentation.boxNumber",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "busnummer"
+        },
+        {
+          "@language": "en",
+          "@value": "box number"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "busnummer"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "busnummer"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."
+        },
+        {
+          "@language": "en",
+          "@value": "Officially assigned alphanumeric code added to the house number to distinguish multiple building units, pitches, moorings or plots that have the same house number."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Officieel toegekende alfanumerieke code die wordt toegevoegd aan het huisnummer om meerdere gebouweenheden, standplaatsen, ligplaatsen of percelen te onderscheiden die eenzelfde huisnummer hebben."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Specialisatie van Adresvoorstelling.locatieaanduiding tbv Belgische adressen."
+        },
+        {
+          "@language": "en",
+          "@value": "Specialisation of Address Presentation:location indication for Belgian addresses."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "parent": {
+        "@id": "http://www.w3.org/ns/locn#locatorDesignator"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:29f82a3b87d680591fe408fd171740943463c9ccdd40a089d241890510daee48",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#locatorName",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatienaam"
+        },
+        {
+          "@language": "en",
+          "@value": "location name"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatienaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "locatienaam"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam of omschrijving van het het geografisch object dat de adreslocator aanduidt."
+        },
+        {
+          "@language": "en",
+          "@value": "Name or description of the geographic object the address locator designates."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam of omschrijving van het het geografisch object dat de adreslocator aanduidt."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:950bdc15278fbf28ad7dfa7128e58c0f45db15d21133b289113a76ad53afab1a",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#addressArea",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "adresgebied"
+        },
+        {
+          "@language": "en",
+          "@value": "address area"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "adresgebied"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "adresgebied"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam ve geografisch gebied of plaats die een aantal adresseerbare objecten groepeert om deze te adresseren zonder dat het gebied of de plaats een administratieve eenheid is"
+        },
+        {
+          "@language": "en",
+          "@value": "Name of a geographic area or place that groups a number of addressable objects to address them without the area or place being an administrative unit."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam ve geografisch gebied of plaats die een aantal adresseerbare objecten groepeert om deze te adresseren zonder dat het gebied of de plaats een administratieve eenheid is"
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb de naam van het gehucht waarin het adres ligt."
+        },
+        {
+          "@language": "en",
+          "@value": "For example the name of the hamlet in which the address is located."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bvb de naam van het gehucht waarin het adres ligt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bc4396b4f62570616c64a7300249392eb519fadfad3788fe1f1628c90fc06a25",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#postName",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "postnaam"
+        },
+        {
+          "@language": "en",
+          "@value": "postal name"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "postnaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "postnaam"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."
+        },
+        {
+          "@language": "en",
+          "@value": "Name denoting the geographical area that groups addresses for postal purposes."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Naam waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:204e0464c08313cc0d1840162957b8f2ddfae1ca4869edd8104e3f4fa73c237d",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://vocab.belgif.be/ns/address#municipalityName",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "gemeentenaam"
+        },
+        {
+          "@language": "en",
+          "@value": "municipality name"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gemeentenaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gemeentenaam"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gemeentenaam van het adres."
+        },
+        {
+          "@language": "en",
+          "@value": "Municipal name from address."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Gemeentenaam van het adres."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "parent": {
+        "@id": "http://www.w3.org/ns/locn#postName"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2f2aeb71dbf27b047a77364199fdf80ec44467d98340a54d2f2fe62f7e9ce734",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#adminUnitL2",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "administratieve eenheid niveau 2"
+        },
+        {
+          "@language": "en",
+          "@value": "administrative unit level 2"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "administratieve eenheid niveau 2"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "administratieveeenheidniveau2"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De regio van het adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."
+        },
+        {
+          "@language": "en",
+          "@value": "The region of address, usually a province or state or similar area that typically includes several places."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De regio van het adres, doorgaans een provincie of deelstaat of gelijkaardig gebied dat typisch meerdere plaatsen omvat."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4eb5fff61723b39c0f17410cc8711abad39f4e095e396e8644c2d798f7d81aae",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#adminUnitL1",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "administratieve eenheid niveau 1"
+        },
+        {
+          "@language": "en",
+          "@value": "administrative unit level 1"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "administratieve eenheid niveau 1"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "administratieveeenheidniveau1"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Hoogste Administratieve eenheid van het adres, doorgaans een land."
+        },
+        {
+          "@language": "en",
+          "@value": "Highest Administrative Unit of the address, usually a country."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Hoogste Administratieve eenheid van het adres, doorgaans een land."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6a5bf0fe9b4c8fa89782646591f2969c247e71e36bc086d0479f38460e4001c9",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://vocab.belgif.be/ns/address#country",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "land"
+        },
+        {
+          "@language": "en",
+          "@value": "country"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "land"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "land"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Land waarin het adres gelegen is."
+        },
+        {
+          "@language": "en",
+          "@value": "Country in which the address is located."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Land waarin het adres gelegen is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "parent": {
+        "@id": "http://www.w3.org/ns/locn#adminUnitL1"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4a76fd190ed8cc443cd78faae332d1c9f2e1ba970cf1e077831c3b11e9d41f22",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#postCode",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "postcode"
+        },
+        {
+          "@language": "en",
+          "@value": "postal code"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "postcode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "postcode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."
+        },
+        {
+          "@language": "en",
+          "@value": "Code denoting the geographical area that groups addresses for postal purposes."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Code waarmee het geografisch gebied dat adressen voor postale doeleinden groepeert wordt aangeduid."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7a7bc0bf6f70fff890d8fe809f11b1bb9b53eb2e8c36d38f03108795f95f2bcf",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/material",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "benodigdMateriaal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "benodigdMateriaal"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een overzicht van de fysieke of digitale elementen die nodig zijn om een Leermiddel uit te kunnen voeren of te gebruiken."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:38a2a965ba82440a8741ecb09f9af333d90d8bdbb47e015ce07cf10df4f1dcbf",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#fullAddress",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "volledig Adres"
+        },
+        {
+          "@language": "en",
+          "@value": "full address"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "volledig Adres"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "volledigAdres"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het complete adres in één string, al dan niet geformatteerd."
+        },
+        {
+          "@language": "en",
+          "@value": "The complete address in one string, formatted or not."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het complete adres in één string, al dan niet geformatteerd."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Vermijdt fouten tgv het opsplitsen ve adres in zijn onderdelen. Geeft de voorgeschreven volgorde vd verschillende onderdelen weer."
+        },
+        {
+          "@language": "en",
+          "@value": "Avoids errors when splitting an address into its components. Displays the prescribed order of the different parts."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Vermijdt fouten tgv het opsplitsen ve adres in zijn onderdelen. Geeft de voorgeschreven volgorde vd verschillende onderdelen weer."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:16b5ef4c830178babc02531c2699397c1bd61c93519706b10eae4bd488aebeae",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#poBox",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "postbus"
+        },
+        {
+          "@language": "en",
+          "@value": "PO box"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "postbus"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "postbus"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Postbusnummer in een postkantoor."
+        },
+        {
+          "@language": "en",
+          "@value": "PO Box number in a post office."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Postbusnummer in een postkantoor."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5b889b383226c7d15ba16103d676263960306f3e38b3c286f06f04bf9a3b6cb2",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#thoroughfare",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "straatnaam"
+        },
+        {
+          "@language": "en",
+          "@value": "street name"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "straatnaam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "straatnaam"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Straatnaam van het adres."
+        },
+        {
+          "@language": "en",
+          "@value": "Street name of address."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Straatnaam van het adres."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a8047471c75223778240e49f8044f4536c31ede20bece1b42816f5228768ed2f",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://www.w3.org/ns/locn#locatorDesignator",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatieaanduiding"
+        },
+        {
+          "@language": "en",
+          "@value": "location indication"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatieaanduiding"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "locatieaanduiding"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Alfanumerieke code die de adreslocator uniek identificeert binnen de straat, administratieve eenheid etc."
+        },
+        {
+          "@language": "en",
+          "@value": "Alphanumeric code that uniquely identifies the address locator within the street, administrative unit, etc."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Alfanumerieke code die de adreslocator uniek identificeert binnen de straat, administratieve eenheid etc."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": ""
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8e87dc3685020ca4eed0c86a2b7e9911cf8cf5ca7d6625fcd8a31297aab082fa",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://vocab.belgif.be/ns/address#AddressRepresentation.houseNumber",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "huisnummer"
+        },
+        {
+          "@language": "en",
+          "@value": "house number"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "huisnummer"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "huisnummer"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."
+        },
+        {
+          "@language": "en",
+          "@value": "Alphanumeric code officially assigned to building units, moorings, pitches or plots."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Alfanumerieke code officieel toegekend aan gebouweenheden, ligplaatsen, standplaatsen of percelen."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Specialisatie van Adresvoorstelling:locatieaanduiding tbv Belgische adressen."
+        },
+        {
+          "@language": "en",
+          "@value": "Specialization of Address representation: location indication for Belgian addresses."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:487667944"
+      },
+      "parent": {
+        "@id": "http://www.w3.org/ns/locn#locatorDesignator"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:51381e0e46c5eec687498f16579a638746f6431ecf57da13ea99c41a3db48886",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "http://purl.org/dc/terms/title",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "naam"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "naam"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De naam van de DoelCollectie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8f755f0f306a8f3a8ff6957e4dd7a8ea342fde90ef989d6a63ec0caba0e01d5c",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "assignedURI": "https://schema.org/keywords",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "sleutelwoord"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "sleutelwoord"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een kernbegrip dat wordt gebruikt om de inhoud van een Leermiddel te beschrijven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1727880001"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0d6214bc4560d899d43618cd751fc7b8f7835d0e09c956801ad3cb5aa549e975",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/valid",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "geldigheid"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "geldigheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "geldigheid"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De periode waarin het Doel als actueel en toepasbaar wordt beschouwd."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De periode waarin het Doel als actueel en toepasbaar wordt beschouwd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a5d651436d0fe8163bcefe7524a003e2514cfc15c7ba4260ee4eff8722d340c3"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:25ad4ef033c985a983f412af95a8d82fb1d4f1c1d44f44df3a80d6e1957fc34d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/subject",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "onderwerp"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "onderwerp"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het onderwerp waarin het Leermiddel aangeboden wordt."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In het onderwijslandschap kan dit verwijzen naar het vak, module, leergebied, ...."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In het onderwijslandschap kan dit verwijzen naar het vak, module, leergebied, ...."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:482bc9d73bc9ad65a73ee3d380318e0b9a0a19e573ed2fa9703192631dbf63a6"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5f6369f969d4170235cb236aca4bea06f9afea49db48d7512c2d5a7a298ed3a1",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/ns/adms#identifier",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "identificator"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een unieke aanduiding die wordt gebruikt om het Doel te onderscheiden."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een unieke aanduiding die wordt gebruikt om het Doel te onderscheiden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:517d2cf626fb91cc4278dd19b0b34957d6ac9caa75d22c4ad12c20bd8960417b"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d15801abb31e518e89dde5fe5223847b2c020a51d466c4909e75c0639ddcdb8a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/accessibilityFeature",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegankelijkheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegankelijkheid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De mate waarin een Leermiddel bruikbaar is voor personen met verschillende behoeften of beperkingen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f437fa4c65fbee49bdeef60cf89056ab22cc4a1c6c2ba63bb098189a161f15bc"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2bd798f503239cb239c948bdc3e2deb64e54e89c2ca5abb5fb5a7d3a2d799460",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "leeftijdstype"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "leeftijdstype"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "leeftijdstype"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die de specifieke leeftijdsgroep van de individuen binnen de doelgroep aangeeft, en helpt bij het afstemmen van de Leeractiviteit van die leeftijdsgroep."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die de specifieke leeftijdsgroep van de individuen binnen de doelgroep aangeeft, en helpt bij het afstemmen van de Leeractiviteit van die leeftijdsgroep."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9df77340e964cf7eaf57b6d04e4bb7e19fef51154c8e7c750689c681935fe945"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:1de0499527eea1903effcfa63f07e178fff71a0606187317c97e856655497a8b"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4a305bfaeee4c0e0931d696e95b684d1bcddd8142d6723085ed63026f38dd9ea",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/type",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "doelgroep"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "doelgroep"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een groep van individuen met gezamenlijke kenmerken, behoeften of interesses, waarop een Leermiddel of Doel is gericht om effectief in te spelen op hun verwachtingen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een groep van individuen met gezamenlijke kenmerken, behoeften of interesses, waarop een Leermiddel of Doel is gericht om effectief in te spelen op hun verwachtingen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9df77340e964cf7eaf57b6d04e4bb7e19fef51154c8e7c750689c681935fe945"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bd12f5b1a4c0b9cb81036768df2f9e270624c505960594f1cfc242d9a4602e20"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b9d1f94461a48867178ce8e1987fdf978db011c424ee1a08b1456edea4c4a1ec",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/educationLevel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "onderwijsniveau"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "onderwijsniveau"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "opleidingsniveau"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het Onderwijsniveau waarmee een Doelgroep verbonden is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het Onderwijsniveau waarmee een Doelgroep verbonden is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9df77340e964cf7eaf57b6d04e4bb7e19fef51154c8e7c750689c681935fe945"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3babc22030f4b3617e93eea5bb95a7e3cb997aa331f24ad1dc566ddf2d05e3aa"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:18002a8d78a892922f7e150471a967ccbd8e1d46cafe4bd4884853a68375b23e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De algemene categorie of classificatie waartoe een Leermiddel behoort."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:db4318edea62d8548535f018869d485cfa3e29d00acd44dc9c16c24000c7e7b1"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81a9e04bc06278ae793c5152477450129a83889c8cee44547dd8d1afcfb135da",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/educationLevel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "niveau"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het (Opleidings)niveau waartoe het Doel betrekking heeft."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het (Opleiding)sniveau waartoe het Doel betrekking heeft."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit verwijst bijvoorbeeld naar Leerlabel."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit verwijst bijvoorbeeld naar Leerlabel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3babc22030f4b3617e93eea5bb95a7e3cb997aa331f24ad1dc566ddf2d05e3aa"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2658e2430cad5c1fc1b917f279ea0aeee9b988b5fead0e57e66d3581d8b3bc34",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/interactivityType",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "interactieType"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "interactieType"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De aard van de wederzijdse actie of communicatie tussen gebruiker en systeem."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Dit kan bijvoorbeeld interactief of niet-interactief zijn."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:32df8932aab5d1fe6bfbc5f94eb196bba4be1d7852582a39f72d1030eae5728f"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:799b4fdc96b272fd4d500a140cc66d7b9baea5d5751443d519307580e281290d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/hasPart",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft deel"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeft deel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftDeel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Kleinere activiteitseenheden, die bij combinatie deze activiteit vormen."
+        },
+        {
+          "@language": "en",
+          "@value": "Smaller units of activity, which when combined make up this activity."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Kleinere activiteitseenheden, die bij combinatie deze activiteit vormen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f4b5d686396c3b4e5b8cb9d186dceefe9b60df7614c1f6ac975ae912ebc815f3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/directedBy",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "ingericht door"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "ingericht door"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "ingerichtDoor"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De organisatie, of een deel van een organisatie zoals een afdeling of faculteit, die de leeractiviteit heeft geleid."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De organisatie, of een deel van een organisatie zoals een afdeling of faculteit, die de leeractiviteit heeft geleid."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:eb72c39ca5cc9a42314fd561720b8a12d3989d5b6561cbaf19aa6949fdf8bef6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/isPartOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "isDeelVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isDeelVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteit waar deze Leeractiviteit onderdeel van uitmaakt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3dbd14bfc51265420b8f7fab26539242c0fcb3de2e7e0423b3b924c9958153e3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/location",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "locatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "locatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De locatie waar de activiteit plaatsvindt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c038a438ac1d8cad07beb5f4f80ea2b07b534651e85671d7fcd9e990dfff4960",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/language",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "instructietaal"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "instructietaal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "instructietaal"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Taal waarin het Leermiddel wordt gegeven."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Taal waarin het Leermiddel wordt gegeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:990626280dfacb47215214e8742c5c2ec65f37655eeeeb31ebf0dc393462feef"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:57ee6c999c84d8417bfc866a5eca02ad9e2b9a9c189a17e3505a2894e219dcb6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/temporal",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "periode"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "periode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "en",
+          "@value": "The temporal duration, associated with a period of time."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De tijdelijke duur, geassocieerd met een periode van tijd waarin een Leeractiviteit plaatsvindt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:a5d651436d0fe8163bcefe7524a003e2514cfc15c7ba4260ee4eff8722d340c3"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:87f5029519f5c15e5af71350167371330d1fe5b94b5dd21a9539e17bbcc9d10d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/specifiedBy",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "specificatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "specificatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De specificatie die gebruikt is om de Leeractiviteit te specifiëren volgens een bepaalde standaard of patroon."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d890513770ccb5bfe6e35db5083cf3720a162f338905b683c322d087647b4f4f",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/workload",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "werklast"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "werklast"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De feitelijke werklast in aantal uren dat de lerende aan de activiteit heeft besteed. Dit omvat het aantal uren in de klas, in groepsverband, in practica, alsook het aantal uren dat de lerende aan zelfstudie heeft besteed."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5e1cba97b7e737a1d4f9c674865bd3627aff9d93674dcbde80903ffc080ea2dc"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6a4ff4bb00058d0063924b64317473020ae44fc9a13ea8345928f3f019846667",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/result",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "resultaat"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "resultaat"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De algemene categorie of classificatie waarin een resultaat van het doorlopen van een Leermiddel kan worden ingedeeld."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:82cba58fc0813a63e77d21154310a233beff07e423f9293cc92d26b4be4e50e4"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:609b003520bbbfd3463069771dc42962b6769fcc7e6242fa3eb6a1b8ae702836",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/author",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "auteur"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "auteur"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De naam van de auteur van het Creatief Werk."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ed54fd5c6860d8980e538752023de710b0e7546e727ddf2118f2db441100615d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/creator",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "gedefinieerdDoor"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gedefinieerdDoor"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gedefinieerdDoor"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit die verantwoordelijk is voor het vaststellen van het Doel."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit die verantwoordelijk is voor het vaststellen van het Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:841f61f898afda329e1b955f455bce577a7300cd13e241b136f232dd0d6f7172",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die de aard en het niveau van een specifieke vaardigheid of kennisgebied beschrijft, zoals basis-, geavanceerde of expertcompetenties."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8adbe6a345541821b026afe5e637a3da18a78f3b4a5fd79170de35accb285892"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:02fe0b98021eef5a0defc24786c10bb691d112a7876a1801c08edbc7c01a0a47",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/subject",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "onderwerp"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "onderwerp"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "onderwerp"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een onderdeel waarin het Doel aangeboden wordt."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een onderdeel waarin het Doel aangeboden wordt."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In het onderwijslandschap kan dit bijvoorbeeld verwijzen naar het vak, module of leergebied."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In het onderwijslandschap kan dit bijvoorbeeld verwijzen naar het vak, module of leergebied."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:482bc9d73bc9ad65a73ee3d380318e0b9a0a19e573ed2fa9703192631dbf63a6"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:737de37b1326c2c8b44799c6f6def7798ba6807492defa883fd8291526a613e9",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/educationLevel",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "niveau"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het (Opleidings)niveau waarvoor een Leermiddel ontwikkeld werd."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het (Opleidings)niveau waarvoor een Leermiddel ontwikkeld werd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3babc22030f4b3617e93eea5bb95a7e3cb997aa331f24ad1dc566ddf2d05e3aa"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8886835d5666c2b0006e56f05c6e837ad9fdcec357fa36beca77a5cc80090c47",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/copyrightHolder",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "auteursrechtHouder"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "auteursrechtHouder"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De partij die het wettelijke auteursrecht op het CreatiefWerk bezit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:2302dbcd13f226c4bc97a026ef39ce8275ea21aa599fad3d306255cab93d19bb",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/inLanguage",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "taal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "taal"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De taal waarin het CreatiefWerk ontwikkeld werd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:990626280dfacb47215214e8742c5c2ec65f37655eeeeb31ebf0dc393462feef"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d665dbbb4e12f45eab0d32c745c70f9389c69e09434264bb22098ca45ff5e1b4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "licentieType"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die aangeeft onder welke juridische voorwaarden een leermiddel mag worden gebruikt, gedeeld of aangepast."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die aangeeft onder welke juridische voorwaarden een leermiddel mag worden gebruikt, gedeeld of aangepast."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voorbeelden zijn Creative Commons BY, Creative Commons BY-NC, publieke domein, gesloten licentie."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Voorbeelden zijn Creative Commons BY, Creative Commons BY-NC, publieke domein, gesloten licentie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b29768b46da60810e17a90d420fb4063cb2e0a3ef468ae1dfef8b5390a2fb854"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:efaf285f090b45a4fee6778a735ef32714e1f0cba3d193ce3a1044e85a7f0f47"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:13b008d10f4b178dff3f2f1f58e2b6ef62f97f462871b90fa093ab93fa54f093",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/contactHour",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "contacturen"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "contacturen"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "contacturen"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De contacturen."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De contacturen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:36e55b77475e486e873d7a44dae946647bd825c70a129bb9442d3c6733e54cfe",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/generalisationOf",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "generalisatie van"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "generalisatie van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "generalisatieVan"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een activiteitspecificatie (bijvoorbeeld een standaard) waarvan deze specificatie een generalisatie is."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een activiteitspecificatie (bijvoorbeeld een standaard) waarvan deze specificatie een generalisatie is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4c9de59fe8d262068a7f83f8c97ea8c22b8a1de0986bdae0acadacf3288d5571",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/hasPart",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeftDeel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftDeel"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een specificatie van leeractiviteit kan worden samengesteld uit kleinere leeractiviteitspecificaties, die bij combinatie deze specificatie van deze leeractiviteit verzinnen."
+        },
+        {
+          "@language": "en",
+          "@value": "A learning activity specification can be composed of smaller learning activity specifications, which when combined make up this learning activity specification."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteitsspecificatie van Leeractiviteit kan worden samengesteld uit kleinere Leeractiviteitspecificaties, die bij combinatie deze specificatie van deze Leeractiviteit verzinnen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c6b89a5c4a0a0bafe450e675a971e47cc1d42ef3c5d8187121dbd2daca7c29d4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/language",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "instructietaal"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "instructietaal"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De gebruikte instructietaal."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:990626280dfacb47215214e8742c5c2ec65f37655eeeeb31ebf0dc393462feef"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:dc61999b42d5caeb2e61305d9a9ddaa8522a20f5b4c6786ea4da6d626b32f2bf",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/isPartOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "isDeelVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isDeelVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteitsspecificatie, waar deze leeractiviteitsspecificatie onderdeel van uitmaakt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:28781596623cf0100edb6bf8e43afaf83de44f5793732e11f871d134aab2c9b3",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/specialisationOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "specialisatieVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "specialisatieVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteitspecificatie (bijvoorbeeld een standaard) waarvan deze specificatie een specialisatie is."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:91f498376a544266013c20c6f95ddb15606ec5ba8e52a385aa0ef59ad6fa32c6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type van Leeractiviteitspecificatie."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het type van Leeractiviteitspecificatie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:81f3cf8b2726b646157e5fd9256d50980ef508ca43d6f537809029a0194d4fbd"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f2ab631afed196c5636c1f65f3d43a9e3a887a53287c2f36cb82655b663c1bd6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/unitCode",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "eenheid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "eenheid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De eenheid waarin de waarde is uitgedrukt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:12c825c7add2ea0f85d15a7d0e02766bd19afd6233527563279f0d617cf707b2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:f377d413ed884f0570c6e6ae53067fadb1adeb441386aa90c1c5661e5754b6cb"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a0e291586904bc486e4616eef65d527f68234b75b0639717415e9f4192ce9cd4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De categorie waartoe het Doel behoort."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld: Onderwijsdoel, Leerdoel, etc."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:bb875baf3364fda1ef520c59d3d1bba658dfe805c7c24ba25448c73c7e73cc1a"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7783632b2e06c85dfd92aafe4b8dd31f87f90cbcc73da0e86165be2f5654d224",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/source",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "bron"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "bron"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bron"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De herkomst of referentie naar de oorsprong van een Doel."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De herkomst of referentie naar de oorsprong van een Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ec2d17dde02f5b246498b96be40a5285cf34c26593e472c313cf6b51c7d254d0"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:88ead682c6ea77cca70e0e4f96fe5b05f301dbfab1ee56a7147bf52532087dae",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/estimatedCost",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "kost"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "kost"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het bedrag aan middelen, vaak uitgedrukt in geld, dat nodig is voor het gebruik van het Leermiddel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:8f2db0bc8a801ca13687d6cca6714b328cfdc9b02c1b3965d1c1251389ddfe3a"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:351bb2af2e9d66d15cb4fd317add759023d5f78cad48f7666e01a9dddec50ab7",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/format",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "formaat"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "formaat"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De fysieke of digitale structuur waarin een Leermiddel wordt gepresenteerd."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:25265f51ccd5ffea032f67a3c8a3dc2919a4b5770715da581b32b705a88cc946"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:24ceaa26c8f5a39467514e0a8c5346d967de499af9bc0835f75b72ab9a837095",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2006/time#hasEnd",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "tot"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "tot"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^tot"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Einde ve TemporeleEntiteit."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Einde ve Temporele Entiteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5838fed78d504d5111f9cfddcb843288069e1de82ac7f96b28f25da68c11c439"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:68b17cbea9fd50d2b928e3348d3beb3e23825460a53acd6cb070605f926f5c6c"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f00deba381b20c253aae271a68f767b26ac16fe05a8c484829216a73ea0a2ea8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2006/time#hasBeginning",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "van"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "van"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "^van"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Start ve TemporeleEntiteit."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Start ve Temporele Entiteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:5838fed78d504d5111f9cfddcb843288069e1de82ac7f96b28f25da68c11c439"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:68b17cbea9fd50d2b928e3348d3beb3e23825460a53acd6cb070605f926f5c6c"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0caaae415fbe69061da551c13dfd9857ff3543524915686872227036df1bcd8e",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.cidoc-crm.org/cidoc-crm/P180_has_currency",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "valuta"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "valuta"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Munteenheid waarin een bedrag uitgedrukt is."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Gebruik Concept of de subklasse Valuta."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:8f2db0bc8a801ca13687d6cca6714b328cfdc9b02c1b3965d1c1251389ddfe3a"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:861eae5937c38c3bfbd857302ac39707d9076a71664cdefa9ad2b269b8c4aae3"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:0cd71ec5a4860069a8fb61c5d6f5ea302121d6668c95e99094ede840112bbea2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/audience",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "doelgroep"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "doelgroep"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De groep van individuen waarop het Doel is gericht."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9df77340e964cf7eaf57b6d04e4bb7e19fef51154c8e7c750689c681935fe945"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6e5a405543f717cd8cbf206fb93866ad68126dd13defe3b98ff95453aae393c5",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een classificatie die het soort Leeractiviteit beschrijft, zoals zelfstandig leren, groepswerk, praktijkoefeningen of klassikale instructie, en die bijdraagt aan het afstemmen van onderwijsmethoden op leerdoelen en de voorkeuren van lerenden."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:c5159c1b7585bbb69b6052999fc86aca5fbb78c3b3d7f46bea61d4cb77cbf6b6"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:44936e77cc0b893c1262074e263a666d358597916d563f11661a39f7e2cc3fbd",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/timeRequired",
+      "diagramLabel": [
+        {
+          "@value": "vereisteTijd"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De tijd die nodig is om het Leermiddel te begrijpen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:5e1cba97b7e737a1d4f9c674865bd3627aff9d93674dcbde80903ffc080ea2dc"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:39587bc5f33683385e816b475afd569051822f83c83784c2c543831da52b23b6",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/assesses",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "competentie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "competentie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een specifiek geheel van kennis, vaardigheden en attitudes die door een lerende moet worden beheerst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4d471fab694cc5a09fac216c1ec765209edfafe28aad084d700c4637c7013383",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/assesses",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "competentie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "competentie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een specifiek geheel van kennis, vaardigheden en attitudes die door een lerende moet worden beheerst."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b878b3d5b4a1d6a5c2695a9f16708c1756de7e2580b70542e7b8224f53543fcc",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/source",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "bron"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bron"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De herkomst of referentie waaruit het Leermiddel is afgeleid."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:ec2d17dde02f5b246498b96be40a5285cf34c26593e472c313cf6b51c7d254d0"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8f3f00cadda88167ac8d6d8bdbf5c6e01001fb9a9d73c58aef41fe18c8b9b8d4",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/elements/1.1/creator",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gedefinieerdDoor"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gedefinieerdDoor"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De entiteit die verantwoordelijk is voor het vaststellen van de DoelCollectie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:75ee7957080313a5d55f86e95dd7b0ba165ce915d529f6e05b3656112d849b7b",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/educationLevel",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "niveau"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "niveau"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het (Opleiding)sniveau waartoe de DoelCollectie betrekking heeft."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:3babc22030f4b3617e93eea5bb95a7e3cb997aa331f24ad1dc566ddf2d05e3aa"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1c053e4d3f5577e23a1043216dde19f18d82e5748f70e00d165a7dae56105171",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/type",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "type"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "type"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De categorie waartoe het DoelCollectie behoort."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bijvoorbeeld: Leerplan"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b8ff77b7449d72a55049110ea6f310dee3c6c5cb6f8e8fb2954ffd9f6753f0d7"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a1606391e86838963ec74366271c83ef6670b355a45482c6536ea904c11fc60d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/creator",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegekend door"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "toegekend door"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "toegekendDoor"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Link naar de agent die de identificator heeft uitgegeven."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Link naar de agent die de identificator heeft uitgegeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:517d2cf626fb91cc4278dd19b0b34957d6ac9caa75d22c4ad12c20bd8960417b"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#string"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:294bff7cce430b668f4225acc852ad53b925122bf63c80be7d23af6331fc56a9",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/license",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "licentie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "licentie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De licentie die rust op het gebruik van de Interactieve Resource."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:b29768b46da60810e17a90d420fb4063cb2e0a3ef468ae1dfef8b5390a2fb854"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:33fb7048b4f35376894c216a844dc15f0cfe222c546039506b80edf666b45c60",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/references",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "leermiddel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "leermiddel"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Het Leermiddel dat gebruikt tijdens de Leeractiviteit."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b970ade0b8d8ce172cece0a0b05a74082fba79bc2e53c112db821509371ed55c",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/educationalUse",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "dient"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "dient"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Welk Leerdoel het Leermiddel ondersteunt of aan bijdraagt."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:97a13e6672b6a7be7efb1032f7694bc98908221894ff855829dbc1e7556f4110",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/hasPart",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeftLid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftLid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een DoelCollectie bestaat uit 0 tot oneindig aantal Doelen."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7f60a8c20c69c1133da9b59e253c000e231f8e7cee84bcd1d6fe9ef12beae3a2",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/isPartOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "isLidVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isLidVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Doel is een onderdeel van een DoelCollectie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:9163ce9b428b6260edfae1c3e1ab60fb9dbb2ffee5300628779177d147b5202d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c639db0460390b42605e70e35e66aa1cf08e174a2bd81dcabe56378a5e1a159a",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#related",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gerelateerdAan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gerelateerdAan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Specificeert of dit Doel verwant of gekoppeld is aan andere Doelen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze relatie mag niet gebruikt worden voor versiebeheer. Versiebeheer hoort in een implementatiemodel waar je bijvoorbeeld dcterms:isReplacedBy en dcterms:replaces kan gebruiken als attributen voor deze relatie."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:175d583ff632788a576e7ca2c87cf279b0d14903e65f7777fdb0c01f87c18333",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/contributor",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "draagtBijAanHetBehalenVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "draagtBijAanHetBehalenVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteitspecificatie draagt bij aan het behalen van een Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:36f2ebb282cb76049c1c1f24afa956b0dabae50722dd48af0802f253f10fc994",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/references",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "schrijftVoor"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "schrijftVoor"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leeractiviteitspecificatie schrijft een bepaald Leermiddel voor."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d97929e47a52a8bc0bab88d2abb632b8fba6f5dc38ad419d345fa5c65f117d10",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/contributor",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "draagtBijAanHetBehalenVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "draagtBijAanHetBehalenVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De bijdrage van een Leeractiviteit om een Doel te behalen"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:05cd046968417612bc2bbe923b1e1227a1ac7448c601d2496f08a4f72947a200",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/author",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "producent"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "producent"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Agent die het CreatiefWerk geproduceert heeft."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:4fde52654926911f7aa59a695e542746d1124201d17460dbb688844f4e2bc57d",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/publisher",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "uitgever"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "uitgever"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "De Agent die het CreatiefWerk uitgeeft."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:1326354994b50e29bee61497416949abcb330bf57a03fcd6db2287a8af280127"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:50dfbacf4623c8d7ec68bd35541fb685e7c5ec2697d6685e30a757ef89247656"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:7b7c0e529653af50d842374b8f6310e0647ef0dd610817cda6730bacc225c7b1",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#narrower",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeftSpecialisatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isSpecialisatieVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Specifieerd of een Doel een gespecialiseerd is een ander Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:96c80c38a53d02a4185458c0f2a0580b760aae89fe3f601172947b2508f8bbfd",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#broader",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "isBrederDan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isBrederDan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Specificeert of een Doel een bredere variant is van een ander Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bd62010c2bb61e6722c6a04f2bd8c34ae44b531819002ce8017066957769fb83",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://purl.org/dc/terms/hasPart",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "bestaatUit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "bestaatUit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Subleerdoelen van een Doel."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:28f9d9ab5773fad8ce9a700366398e74e7bd9509221cb94d2b4c96b8c6677d38",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/hasPart",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "heeftLid"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "heeftLid"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leermiddelverzameling bestaat uit 0 tot oneindig aantal Leermiddelen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Leermiddelen kunnen verzameld worden per categorie, vak, etc. afhankelijk van de gebruiker. Hiervoor kan een LeermiddelVerzameling gebruikt worden. Onderdelen van een Leermiddel worden enkel met LeermiddelElementen aangeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:606ca1412f06b300948d5349b3a5e6e5e115fdc30b30f063798dcbdef0fe7a92"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c2bff43b50322c6c1101bb144fc5db9a7d6bea8200178ba7b22c7fc071662d72",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/isPartOf",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "isLidVan"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "isLidVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een Leermiddel is een onderdeel van een LeermiddelVerzameling."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Leermiddelen kunnen verzameld worden per categorie, vak, etc. afhankelijk van de gebruiker. Hiervoor kan een LeermiddelVerzameling gebruikt worden. Onderdelen van een Leermiddel worden enkel met LeermiddelElementen aangeven."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:606ca1412f06b300948d5349b3a5e6e5e115fdc30b30f063798dcbdef0fe7a92"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81f649809fc06ecc92c3a4c10a5c3f186fe9b3008cf18337561e4c1edbd21d44",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#closeMatch",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "gelijkaardig"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "gelijkaardig"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Verwijzing naar gelijkaardige andere Doelen die bijna hetzelfde zijn."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:0e1750c91e21070d4632003f46d2463a03710c90ba3eac07774e945af785fc9d"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81bc25dd2b50d4bb2d4115af23c33a1cfab9c9ebc7a89fb905494f39b059d6d8",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/isPartOf",
+      "diagramLabel": [
+        {
+          "@value": "onderdeelVan"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "LeermiddelenElement is een onderdeel van een Leermiddel."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Je kan ook dcterms:"
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:d241dee0e1f2b6996447f906f4a19a8fa68567dd33fb60ab585ea846bec8f8c2"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "1",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:fad6835f400673d59833faf807064426b5963497c9eacb1169480edc015e0cb0",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "assignedURI": "https://schema.org/hasPart",
+      "diagramLabel": [
+        {
+          "@value": "bestaatUit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "LeermiddelenElementen waaruit dit Leermiddel bestaat."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een Leermiddel zoals een boek kan bestaan uit verschillende LeermiddelElementen zoals hoofdstukken, externe filmpjes, etc. Een verzameling van Leermiddelen worden aangeven met een LeermiddelVerzameling."
+        }
+      ],
+      "domain": {
+        "@id": "urn:oslo-toolchain:96029ebe2ff0152d81257f4b58c836fceefaffe6839163c604ff2cc19c70f6ec"
+      },
+      "range": {
+        "@id": "urn:oslo-toolchain:d241dee0e1f2b6996447f906f4a19a8fa68567dd33fb60ab585ea846bec8f8c2"
+      },
+      "minCount": {
+        "@value": "0",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "maxCount": {
+        "@value": "*",
+        "@type": "http://www.w3.org/2001/XMLSchema#integer"
+      },
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "datatypes": [
+    {
+      "@id": "urn:oslo-toolchain:5e1cba97b7e737a1d4f9c674865bd3627aff9d93674dcbde80903ffc080ea2dc",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#Duration",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Tijdsduur"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Tijdsduur"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Tijdsduur"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een maat voor de tijd die nodig is om een specifieke taak of activiteit te voltooien, doorgaans uitgedrukt in eenheden zoals seconden, minuten of uren."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een maat voor de tijd die nodig is om een specifieke taak of activiteit te voltooien, doorgaans uitgedrukt in eenheden zoals seconden, minuten of uren."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:ea817fe7d910f6f2b4e13096785971e0be5bf9afff54d89a0876181d3661cac5"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:ea817fe7d910f6f2b4e13096785971e0be5bf9afff54d89a0876181d3661cac5",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#TemporalEntity",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "TemporeleEntiteit"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Abstracte klasse voor temporele objecten."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Die temporele objecten zijn temporele geometrische primitieven zoals Moment of Periode. OPMERKING: Dit datatype is Abstract, gebruik een van de subklassen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:6bf9edebd501978400e505857cbf1d3efd7a63f0c02542c98716ffd04d778a97",
+      "@type": "Datatype",
+      "assignedURI": "https://ec.europa.eu/esco/lod/static/model.html#Skill",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Competentie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Competentie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een specifiek geheel van kennis, vaardigheden en attitudes die door een lerende moet worden beheerst."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In deze context gaat het om sleutelcompetenties, wetenschapsdomeinen en beroepskwalificaties."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9df77340e964cf7eaf57b6d04e4bb7e19fef51154c8e7c750689c681935fe945",
+      "@type": "Datatype",
+      "assignedURI": "https://schema.org/Audience",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Doelgroep"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Doelgroep"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een groep van individuen met gezamenlijke kenmerken, behoeften of interesses, waarop een Doel is gericht om effectief in te spelen op hun verwachtingen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:5838fed78d504d5111f9cfddcb843288069e1de82ac7f96b28f25da68c11c439",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2006/time#ProperInterval",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Periode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "TemporeleEntiteit waarvan de omvang en duurtijd verschilt van nul,ttz waarvoor de begin- en eindwaarde verschillend zijn."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Temporele Entiteit waarvan de omvang en duurtijd verschilt van nul, ttz waarvoor de begin- en eindtijd verschillend zijn."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:ea817fe7d910f6f2b4e13096785971e0be5bf9afff54d89a0876181d3661cac5"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:12c825c7add2ea0f85d15a7d0e02766bd19afd6233527563279f0d617cf707b2",
+      "@type": "Datatype",
+      "assignedURI": "https://schema.org/QuantitativeValue",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "KwantitatieveWaarde"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "KwantitatieveWaarde"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van de kwantiteit van een bepaald kenmerk van een object."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv de hoogte van een object,het gewicht,de temperatuur etc. Het gaat om een kenmerk dat numeriek uitgedrukt kan worden en in een bepaalde eenheid. Kwalitatieve aanduidingen zoals hoog,laag ed vallen hier dus niet onder."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:9da5e7aca6718868cfabb8f1ac7ddd152e0eabb4680401afc781139fd6e5c334",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/ns/prov#Location",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Locatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Locatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Aanduiding van een geografische positie, dmv coördinaten, een toponiem, een adreslabel, een verwijzing naar een plaats/regio of verwijzing naar een adres."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Te gebruiken als de manier waarop de geografische positie wordt aangeduid pas zal worden vastgelegd bij implementatie. Is deze manier nu al gekend dan moet dit datatype gesubstitueerd worden door klassen of datatypes zoals Geometrie, GeografischeNaam, Adres etc. OPMERKING: Meer info over deze klassen/datatypes in het applicatieprofiel <a href=\"https://data.vlaanderen.be/doc/applicatieprofiel/generiek-basis/\">OSLO Generiek - basis</a>."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bd900c543bebebfa5322af29daeb210033a7eb6448f8c9d523a53a2a0cf08286",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/ns/locn#Address",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Adresvoorstelling"
+        },
+        {
+          "@language": "en",
+          "@value": "Address Representation"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Adresvoorstelling"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Adresvoorstelling"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Meer leesbare voorstelling met enkel de basisgegevens van het adres,bedoeld voor het gebruik van een adres als attribuut van een ander object."
+        },
+        {
+          "@language": "en",
+          "@value": "More readable representation containing only the basic data of the address,intended for using an address as an attribute of another object."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Meer leesbare voorstelling met enkel de basisgegevens van het adres,bedoeld voor het gebruik van een adres als attribuut van een ander object."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv als attribuut ve persoon of gebouw. De adresvoorstelling heeft niet enkel betrekking op Belgische adressen, ze kan gebruikt worden om buitenlandse adressen weer te geven (waar mogelijk andere adresaanduidingen dan huisnummer of busnummer worden gebruikt of waar adrescomponenten zoals adresgebieden voorkomen)."
+        },
+        {
+          "@language": "en",
+          "@value": "Eg as attribute ve person or building. The address representation does not only refer to Belgian addresses, it can be used to represent foreign addresses (where address designations other than house number or bus number may be used or where address components such as address areas occur)."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Bv als attribuut ve persoon of gebouw. De adresvoorstelling heeft niet enkel betrekking op Belgische adressen, ze kan gebruikt worden om buitenlandse adressen weer te geven (waar mogelijk andere adresaanduidingen dan huisnummer of busnummer worden gebruikt of waar adrescomponenten zoals adresgebieden voorkomen)."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:9da5e7aca6718868cfabb8f1ac7ddd152e0eabb4680401afc781139fd6e5c334"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:517d2cf626fb91cc4278dd19b0b34957d6ac9caa75d22c4ad12c20bd8960417b",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/ns/adms#Identifier",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Identificator"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Identificator"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Identificator"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie gebruikt om een object uniek te identificeren."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie gebruikt om een object uniek te identificeren."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Uitgangspunt hier is dat deze string door een organisatie wordt toegekend en dat dit gebeurt volgens een welbepaald systeem."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Uitgangspunt hier is dat deze string door een organisatie wordt toegekend en dat dit gebeurt volgens een welbepaald systeem."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c35947b4ea05516bd3bdc5d373f83fca2365977e85d9c60794973d5a680a9f64",
+      "@type": "Datatype",
+      "assignedURI": "http://schema.org/OpeningHoursSpecification",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Openingsurenspecificatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "OpeningsurenSpecificatie"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Informatie over de openingsuren ve plaats of dienst."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8f2db0bc8a801ca13687d6cca6714b328cfdc9b02c1b3965d1c1251389ddfe3a",
+      "@type": "Datatype",
+      "assignedURI": "https://schema.org/MonetaryAmount",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Geldbedrag"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Geldbedrag"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Geldwaarde."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Uitdrukking van de waarde in valuta zoals Euro."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External",
+      "parent": [
+        {
+          "@id": "urn:oslo-toolchain:12c825c7add2ea0f85d15a7d0e02766bd19afd6233527563279f0d617cf707b2"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1727880001",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+      "diagramLabel": [
+        {
+          "@value": "LangString"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:474715019",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#date",
+      "diagramLabel": [
+        {
+          "@value": "Date"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:499715870",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "diagramLabel": [
+        {
+          "@value": "DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:2049156247",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "diagramLabel": [
+        {
+          "@value": "Literal"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:474230892",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#time",
+      "diagramLabel": [
+        {
+          "@value": "Time"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:1008345369",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "diagramLabel": [
+        {
+          "@value": "URI"
+        }
+      ]
+    },
+    {
+      "@id": "urn:oslo-toolchain:487667944",
+      "@type": "Datatype",
+      "assignedURI": "http://www.w3.org/2001/XMLSchema#string",
+      "diagramLabel": [
+        {
+          "@value": "String"
+        }
+      ]
+    }
+  ],
+  "referencedEntities": [
+    {
+      "@id": "urn:oslo-toolchain:9c96992a596f567a50f41d4bfc327255b6d4665a3c237db3935f56d869253ccd",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ece4cbd1975bb44c707b794518d90fa706b13bd8ea16bb07036f72ff58f00e26",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/Claim",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leerclaim"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leerclaim"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een claim gemaakt door een uitgever."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Een leerclaim is een stelling gemaakt door een onderwijsinstelling t.o.v. een natuurlijke persoon,in de meeste gevallen een student. Deze stelling kan slaan op de ingeschreven opleidingen van de student of de behaalde opleidingen."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b3e58ee7e1dc892d6fa594062ef7685af0285191d9947e9301cb2e41298075ac",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a60bb451216ca120cc984fd5b4192e0dea7d5051acbba31ff72eb8fc27578627",
+      "assignedURI": "http://data.europa.eu/snb/model/elm/Specification",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leerspecificatie"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leerspecificatie"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Een beschrijving van wat een persoon kan leren door gebruik te maken van de opportuniteit,uitgedrukt als leeruitkomsten. Een specificatie van het leren."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:606ca1412f06b300948d5349b3a5e6e5e115fdc30b30f063798dcbdef0fe7a92",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d4537aa4da17463d4b613c0be4e4d9dae545259d00e88538a07875fbf0d73081",
+      "assignedURI": "https://schema.org/LearningResource",
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Leermiddel"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Leermiddel"
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Elk hulpmiddel dat wordt ingezet om het leerproces te ondersteunen,doelen te bereiken en zo kennis,vaardigheden en attitudes bij te brengen."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Deze definitie is een specificatie gebaseerd op de definitie van de kwaliteitsalliantie, i.e.: Het overkoepelende begrip voor zowel papieren als digitale producten, al dan niet in combinatie, ongeacht wie ze ontwikkelt: leraren, niet-commerciële en commerciële aanbieders."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:d241dee0e1f2b6996447f906f4a19a8fa68567dd33fb60ab585ea846bec8f8c2",
+      "@type": "http://www.w3.org/2002/07/owl#Class"
+    },
+    {
+      "@id": "urn:oslo-toolchain:a5d651436d0fe8163bcefe7524a003e2514cfc15c7ba4260ee4eff8722d340c3",
+      "assignedURI": "http://data.europa.eu/m8g/PeriodOfTime",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Periode"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Periode"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Min of meer afgebakende tijdsduur."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Min of meer afgebakende tijdsduur."
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Typisch volgt de duur uit het opgeven ve begin- en eindtijdstip."
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Typisch volgt de duur uit het opgeven ve begin- en eindtijdstip."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:482bc9d73bc9ad65a73ee3d380318e0b9a0a19e573ed2fa9703192631dbf63a6",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "OnderwerpType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:f437fa4c65fbee49bdeef60cf89056ab22cc4a1c6c2ba63bb098189a161f15bc",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "ToegankelijkheidsType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:1de0499527eea1903effcfa63f07e178fff71a0606187317c97e856655497a8b",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "LeeftijdsType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bd12f5b1a4c0b9cb81036768df2f9e270624c505960594f1cfc242d9a4602e20",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "Doelgroep"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:3babc22030f4b3617e93eea5bb95a7e3cb997aa331f24ad1dc566ddf2d05e3aa",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "OpleidingsniveauType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:db4318edea62d8548535f018869d485cfa3e29d00acd44dc9c16c24000c7e7b1",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "LeermiddelType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:32df8932aab5d1fe6bfbc5f94eb196bba4be1d7852582a39f72d1030eae5728f",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "InteractieType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:990626280dfacb47215214e8742c5c2ec65f37655eeeeb31ebf0dc393462feef",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "Taal"
+        }
+      ],
+      "apUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "Zie het EU vocabularium voor een lijst van alle talen: <a href=\"https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/language\">https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/language</a>."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:82cba58fc0813a63e77d21154310a233beff07e423f9293cc92d26b4be4e50e4",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "ResultaatType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:8adbe6a345541821b026afe5e637a3da18a78f3b4a5fd79170de35accb285892",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "CompetentieType"
+        }
+      ],
+      "vocUsageNote": [
+        {
+          "@language": "nl",
+          "@value": "In deze context gaat het om de specifieke sleutelcompetentie, wetenschapsdomein of beroepskwalificatie dat van toepassing is."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:efaf285f090b45a4fee6778a735ef32714e1f0cba3d193ce3a1044e85a7f0f47",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "LicentieType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:81f3cf8b2726b646157e5fd9256d50980ef508ca43d6f537809029a0194d4fbd",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "Leeractiviteitspecificatietype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:bb875baf3364fda1ef520c59d3d1bba658dfe805c7c24ba25448c73c7e73cc1a",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "DoelType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:ec2d17dde02f5b246498b96be40a5285cf34c26593e472c313cf6b51c7d254d0",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "BronType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:25265f51ccd5ffea032f67a3c8a3dc2919a4b5770715da581b32b705a88cc946",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "FormaatType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:68b17cbea9fd50d2b928e3348d3beb3e23825460a53acd6cb070605f926f5c6c",
+      "assignedURI": "http://www.w3.org/2006/time#Instant",
+      "vocLabel": [
+        {
+          "@language": "nl",
+          "@value": "Moment"
+        }
+      ],
+      "apLabel": [
+        {
+          "@language": "nl",
+          "@value": "Moment"
+        }
+      ],
+      "diagramLabel": [
+        {
+          "@value": "Moment"
+        }
+      ],
+      "vocDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Moment met omvang en duur nul."
+        }
+      ],
+      "apDefinition": [
+        {
+          "@language": "nl",
+          "@value": "Moment met omvang en duur nul."
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:c5159c1b7585bbb69b6052999fc86aca5fbb78c3b3d7f46bea61d4cb77cbf6b6",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "Leeractiviteittype"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    },
+    {
+      "@id": "urn:oslo-toolchain:b8ff77b7449d72a55049110ea6f310dee3c6c5cb6f8e8fb2954ffd9f6753f0d7",
+      "assignedURI": "http://www.w3.org/2004/02/skos/core#Concept",
+      "diagramLabel": [
+        {
+          "@value": "DoelCollectieType"
+        }
+      ],
+      "scope": "https://data.vlaanderen.be/id/concept/scope/External"
+    }
+  ],
+  "redefinedAttributes": [],
+  "subsettedAttributes": [],
+  "enumerations": []
+}

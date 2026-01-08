@@ -331,7 +331,7 @@ export class SwaggerGenerationService implements IService {
             items: {
               type: 'string',
               description: `${label} type`,
-              enum: [label],
+              /* enum validation breaks codegen, see https://vlaamseoverheid.atlassian.net/browse/DATAST-46 */
             },
             minItems: 1,
           },
