@@ -229,3 +229,34 @@ export function findAllAttributes(
 
   return attributeIds;
 }
+
+export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
+  const quads2 = store2.findQuads(null, null, null, null);
+  const quads1 = store1.findQuads(null, null, null, null);
+
+  // Quick check: different sizes means not equal
+  // Second check allows store2 to have more quads than store1 if it has all quads of store1 plus more
+  if (quads1.length !== quads2.length) {
+    return false;
+  }
+
+  // Check if every quad in store1 exists in store2
+  // If there is a variation in quads, we know something is up
+  for (const quad1 of quads1) {
+    const matchingQuad = store2.findQuad(
+      quad1.subject,
+      quad1.predicate,
+      quad1.object,
+      quad1.graph,
+    );
+
+    if (!matchingQuad) {
+      console.log('failing quad');
+      return false;
+    }
+  }
+
+  console.log('I get here');
+
+  return true;
+}
