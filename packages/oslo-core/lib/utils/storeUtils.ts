@@ -237,7 +237,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
   // Second check allows store2 to have more quads than store1 if it has all quads of store1 plus more
   if (quads1.length !== quads2.length) {
     console.log(
-      `[QUadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
+      `[QuadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
     );
     return false;
   }
@@ -254,7 +254,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
 
     if (!matchingQuad) {
       console.log(
-        `[QUadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
+        `[QuadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
       );
       return false;
     }
