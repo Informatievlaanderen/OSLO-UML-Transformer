@@ -26,8 +26,8 @@ The service is executed from the CLI and expects the following parameters:
 | `--labelColumn`      | The name of the CSV column containing the preferred labels for concepts    | :heavy_check_mark: | Column name from CSV header       |
 | `--definitionColumn` | The name of the CSV column containing definitions for concepts             | No                 | Column name from CSV header       |
 | `--notationColumn`   | The name of the CSV column containing notation codes for concepts          | No                 | Column name from CSV header       |
-| `--narrowerColumn`   | The name of the CSV column containing narrower references (pipe-separated) | No                 | Column name from CSV header       |
-| `--broaderColumn`    | The name of the CSV column containing broader references (pipe-separated)  | No                 | Column name from CSV header       |
+| `--narrowerColumn`   | The name of the CSV column containing narrower references                  | No                 | Column name from CSV header       |
+| `--broaderColumn`    | The name of the CSV column containing broader references                   | No                 | Column name from CSV header       |
 | `--statusColumn`     | The name of the CSV column containing status URIs for concepts             | No                 | Column name from CSV header       |
 | `--datasetColumn`    | The name of the CSV column containing dataset/catalog URIs                 | No                 | Column name from CSV header       |
 
