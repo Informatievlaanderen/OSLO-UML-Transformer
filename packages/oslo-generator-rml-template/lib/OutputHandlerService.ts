@@ -8,6 +8,7 @@ import {
   Logger,
   ensureOutputDirectory,
   ns,
+  getPrefixes,
 } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { createWriteStream, writeFileSync } from 'fs';
@@ -28,6 +29,21 @@ export class OutputHandlerService {
   ) {
     this.config = config;
     this.logger = logger;
+  }
+
+  private async generatePrefixMap(): Promise<Map<String, RDF.NamedNode>> {
+    const prefixes = await getPrefixes();
+    const map = new Map();
+    const df = new DataFactory();
+
+    for (const [prefix, url] of Object.entries(prefixes)) {
+      //prefixList.push([prefix, df.namedNode(url)]);
+      map.set(prefix, df.namedNode(url));
+    }
+
+    return map;
+    //return new Map(prefixList);
+    //return new Map([['rml', ns.rml('')]]);
   }
 
   public async write(store: QuadStore): Promise<void> {
@@ -67,7 +83,11 @@ export class OutputHandlerService {
           '@rdfjs/serializer-turtle'
         );
 
-        const serializer = new Serializer();
+        const serializer = new Serializer({
+          baseIRI: 'https://data.vlaanderen.be/mapping/',
+          // Override typechecking due to lacking of Typescript typing
+          prefixes: (await this.generatePrefixMap()) as any,
+        });
         const output = serializer.transform(quads);
         writeFileSync(fileName, output);
       } else {
