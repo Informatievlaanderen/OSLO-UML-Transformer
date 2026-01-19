@@ -1,7 +1,7 @@
 import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
-const PREFIX_CC_URL = 'https://prefix.cc/context';
+const PREFIX_CC_URL = 'http://prefix.cc/context';
 
 export async function getPrefixes(): Promise<Record<string, string>> {
   const url = PREFIX_CC_URL;
