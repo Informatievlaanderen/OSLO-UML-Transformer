@@ -77,18 +77,18 @@ describe('SparqlGenerationService', () => {
     await service.run();
 
     const sparqlParticipatie = readFileSync(
-      'queriesDirectory/Participatie.sparql',
+      'queriesDirectory/CPOVParticipatie.sparql',
       'utf8',
     );
     expect(sparqlParticipatie).toBe(mockSparqlParticipatie);
-    unlinkSync('queriesDirectory/Participatie.sparql');
+    unlinkSync('queriesDirectory/CPOVParticipatie.sparql');
 
     const sparqlAdresvoorstelling = readFileSync(
-      'queriesDirectory/Adresvoorstelling.sparql',
+      'queriesDirectory/LOCNAdresvoorstelling.sparql',
       'utf8',
     );
     expect(sparqlAdresvoorstelling).toBe(mockSparqlAdresvoorstelling);
-    unlinkSync('queriesDirectory/Adresvoorstelling.sparql');
+    unlinkSync('queriesDirectory/LOCNAdresvoorstelling.sparql');
 
     rmSync('queriesDirectory', { recursive: true, force: true });
   });
