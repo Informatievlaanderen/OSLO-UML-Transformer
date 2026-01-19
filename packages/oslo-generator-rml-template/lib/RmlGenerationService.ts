@@ -9,6 +9,7 @@ import {
   toCamelCase,
   findAllAttributes,
   DataTypes,
+  splitUri,
 } from '@oslo-flanders/core';
 import { writeFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
@@ -49,12 +50,12 @@ export class RmlGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    const mappings = this.generateMappings();
+    const mappings = await this.generateMappings();
 
     this.writeMappings(mappings);
   }
 
-  private generateMappings(): any {
+  private async generateMappings(): Promise<any> {
     const mappings: any = {};
 
     /* Create a RML mapping file for each class and datatype in the diagram */
@@ -85,6 +86,13 @@ export class RmlGenerationService implements IService {
           `Unknown assigned URI for subject ${classId.value}, cannot generate mapping`,
         );
         continue;
+      }
+
+      /* TriplesMaps must have a prefix if available to avoid duplicate labels, for example: foaf:Person and person:Person */
+      const splittedUri = await splitUri(assignedUri);
+      if (splittedUri) {
+        const prefix = splittedUri.prefix.toUpperCase();
+        label = `${prefix}${label}`
       }
 
       /* Class matches a SubjectMap in RML*/

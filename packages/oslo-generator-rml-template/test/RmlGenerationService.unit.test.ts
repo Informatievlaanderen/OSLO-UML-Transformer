@@ -15,7 +15,6 @@ import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
 import { OutputHandlerService } from '../lib/OutputHandlerService';
 import { RmlGenerationService } from '../lib/RmlGenerationService';
-import { quadSort } from '../lib/utils/utils';
 import {
   RmlClassJoinMockData,
   RmlLangStringMockData,
@@ -219,9 +218,9 @@ describe('RmlGenerationService', () => {
   });
 
   it('should generate a valid RML mapping (SKOS:Concept as xsd:anyURI)', async () => {
-    const triplesMapId = df.blankNode('TriplesMapConceptLabel');
+    const triplesMapId = df.blankNode('TriplesMapSKOSConceptLabel');
     const triplesMap2Id = df.blankNode('TriplesMapDomainClassLabel');
-    const subjectMapId = df.blankNode('SubjectMapConceptLabel');
+    const subjectMapId = df.blankNode('SubjectMapSKOSConceptLabel');
     const subjectMap2Id = df.blankNode('SubjectMapDomainClassLabel');
     const predicateObjectMap2Id = df.blankNode('PredicateObjectMapDomainClassLabel.propertyConceptURI');
     const predicateMap2Id = df.blankNode('PredicateMapDomainClassLabel.propertyConceptURI');
@@ -229,12 +228,12 @@ describe('RmlGenerationService', () => {
     const expectedStore = new QuadStore();
     expectedStore.addQuads([
       df.quad(triplesMapId, ns.rdf('type'), ns.rml('TriplesMap')),
-      df.quad(triplesMapId, ns.rdfs('label'), df.literal('TriplesMapConceptLabel')),
+      df.quad(triplesMapId, ns.rdfs('label'), df.literal('TriplesMapSKOSConceptLabel')),
       df.quad(triplesMapId, ns.rml('subjectMap'), subjectMapId),
       df.quad(
         subjectMapId,
         ns.rml('template'),
-        df.literal('https://data.vlaanderen.be/id/ConceptLabel/{id}'),
+        df.literal('https://data.vlaanderen.be/id/SKOSConceptLabel/{id}'),
       ),
       df.quad(
         subjectMapId,
