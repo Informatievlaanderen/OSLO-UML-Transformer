@@ -5,3 +5,21 @@ export interface RmlPredicateObjectMap {
   datatype: string | undefined;
   language: string | undefined;
 }
+
+export interface RmlMappingVariable {
+  key: string;
+  value: string;
+}
+
+export type RmlMappingDatasource = Record<string, RmlMappingDatasourceValue>;
+
+export interface RmlMappingDatasourceValue {
+  source: string;
+  referenceFormulation: string;
+  iterator?: string;
+}
+
+export interface RmlMappingConfig {
+  variables: RmlMappingVariable[];
+  datasources: RmlMappingDatasource;
+}

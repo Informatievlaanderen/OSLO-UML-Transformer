@@ -14,12 +14,17 @@ export class RmlGenerationServiceRunner extends AppRunner<
     const yargv = yargs(argv.slice(2))
       .usage('node ./bin/runner.js [args]')
       .option('input', {
-        describe:
-          'The input file to generate RML mapping templates from.',
+        describe: 'The input file to generate RML mapping templates from.',
         default: 'input.jsonld',
       })
+      .option('mapping', {
+        describe:
+          'The mapping file to specify the RML mapping reference formulations for the data source.',
+        default: 'mapping.json',
+      })
       .option('output', {
-        describe: 'Name of the output directory where all the mapping templates will be written to.',
+        describe:
+          'Name of the output directory where all the mapping templates will be written to.',
         default: 'mappings',
       })
       .option('language', {
@@ -35,10 +40,7 @@ export class RmlGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
-      .demandOption([
-        'input',
-        'output',
-      ])
+      .demandOption(['input', 'mapping', 'output'])
       .help('h')
       .alias('h', 'help');
 

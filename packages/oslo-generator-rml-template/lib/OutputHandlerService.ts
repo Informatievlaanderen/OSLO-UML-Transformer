@@ -37,13 +37,10 @@ export class OutputHandlerService {
     const df = new DataFactory();
 
     for (const [prefix, url] of Object.entries(prefixes)) {
-      //prefixList.push([prefix, df.namedNode(url)]);
       map.set(prefix, df.namedNode(url));
     }
 
     return map;
-    //return new Map(prefixList);
-    //return new Map([['rml', ns.rml('')]]);
   }
 
   public async write(store: QuadStore): Promise<void> {
