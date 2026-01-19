@@ -9,6 +9,11 @@ export class RmlGenerationServiceConfiguration implements IConfiguration {
   private _input: string | undefined;
 
   /**
+   * Local path or URL to mapping file to generate a RML mapping from
+   */
+  private _mapping: string | undefined;
+
+  /**
    * Local path to write the JSON-LD context to
    */
   private _output: string | undefined;
@@ -25,6 +30,7 @@ export class RmlGenerationServiceConfiguration implements IConfiguration {
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
+    this._mapping = <string>params.mapping;
     this._output = <string>params.output;
     this._language = <string>params.language;
     this._outputFormat = <string>params.outputFormat;
@@ -35,6 +41,13 @@ export class RmlGenerationServiceConfiguration implements IConfiguration {
       throw new Error(`Trying to access property "input" before it was set.`);
     }
     return this._input;
+  }
+
+  public get mapping(): string {
+    if (!this._mapping) {
+      throw new Error(`Trying to access property "mapping" before it was set.`);
+    }
+    return this._mapping;
   }
 
   public get output(): string {

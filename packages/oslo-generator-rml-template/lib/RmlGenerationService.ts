@@ -11,12 +11,12 @@ import {
   DataTypes,
   splitUri,
 } from '@oslo-flanders/core';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { RmlGenerationServiceConfiguration } from './config/RmlGenerationServiceConfiguration';
-import { RmlPredicateObjectMap } from './types/Rml';
+import { RmlPredicateObjectMap, RmlMappingConfig } from './types/Rml';
 import { RmlGenerationServiceIdentifier } from './config/RmlGenerationServiceIdentifier';
 import { OutputHandlerService } from './OutputHandlerService';
 
@@ -28,6 +28,7 @@ export class RmlGenerationService implements IService {
   private readonly store: QuadStore;
   private readonly rmlStore: QuadStore;
   private readonly outputHandlerService: OutputHandlerService;
+  private mapping: RmlMappingConfig | undefined;
 
   public constructor(
     @inject(RmlGenerationServiceIdentifier.Logger) logger: Logger,
@@ -42,17 +43,50 @@ export class RmlGenerationService implements IService {
     this.store = store;
     this.rmlStore = new QuadStore();
     this.df = new DataFactory();
+    this.mapping = {
+      variables: [],
+      datasources: {},
+    };
     this.outputHandlerService = outputHandlerService;
   }
 
   public async init(): Promise<void> {
+    this.mapping = JSON.parse(
+      readFileSync(this.configuration.mapping).toString(),
+    );
     return this.store.addQuadsFromFile(this.configuration.input);
   }
 
   public async run(): Promise<void> {
     const mappings = await this.generateMappings();
-
+    this.replaceVariables(mappings);
     this.writeMappings(mappings);
+  }
+
+  private async replaceVariables(mappings: any): Promise<any> {
+    if (!this.mapping) return;
+
+    for (const variable of this.mapping.variables) {
+      for (const label in mappings) {
+        const triplesMap = mappings[label];
+
+        /* Subject Map */
+        if (triplesMap.subjectMap.template === variable['key']) {
+          triplesMap.subjectMap.template = variable['value'];
+        }
+
+        /* Predicate Object Maps */
+        for (const pom of triplesMap.predicateObjectMaps) {
+          const object = pom.join ? pom.join : pom.object;
+          if (object === variable['key']) {
+            if (pom.join) pom.join = variable['value'];
+            else pom.object = variable['value'];
+          }
+        }
+      }
+    }
+
+    return mappings;
   }
 
   private async generateMappings(): Promise<any> {
@@ -90,15 +124,15 @@ export class RmlGenerationService implements IService {
 
       /* TriplesMaps must have a prefix if available to avoid duplicate labels, for example: foaf:Person and person:Person */
       const splittedUri = await splitUri(assignedUri);
-      if (splittedUri) {
+      if (splittedUri?.prefix) {
         const prefix = splittedUri.prefix.toUpperCase();
-        label = `${prefix}${label}`
+        label = `${prefix}${label}`;
       }
 
       /* Class matches a SubjectMap in RML*/
       mappings[label] = {
         subjectMap: {
-          template: `https://data.vlaanderen.be/id/${label}/{id}`,
+          template: `$${label}`,
           class: assignedUri,
         },
         predicateObjectMaps: [],
@@ -168,14 +202,12 @@ export class RmlGenerationService implements IService {
         /* Add datatype for primitive datatypes and SKOS Concepts. Otherwise, add joins for classes */
         if (Array.from(DataTypes.values()).includes(attributeDatatypeId)) {
           pom['datatype'] = attributeDatatypeId;
-          pom['object'] = attributeLabel;
+          pom['object'] = `$${label}.${attributeLabel}`;
         } else if (attributeDatatypeId === ns.skos('Concept').value) {
           pom['datatype'] = ns.xsd('anyURI').value;
-          pom['object'] = attributeLabel;
+          pom['object'] = `$${label}.${attributeLabel}`;
         } else {
-          pom['join'] =
-            `https://data.vlaanderen.be/id/${attributeDatatypeLabel}/{id}`;
-          pom['object'] = attributeLabel;
+          pom['join'] = `$${label}.${attributeLabel}`;
         }
 
         mappings[label].predicateObjectMaps.push(pom);
@@ -187,14 +219,75 @@ export class RmlGenerationService implements IService {
 
   private writeMappings(mappings: any) {
     for (const label in mappings) {
-      const triplesMapId: RDF.BlankNode = this.df.blankNode(
-        `TriplesMap${label}`,
-      );
-      const subjectMapId: RDF.BlankNode = this.df.blankNode(
-        `SubjectMap${label}`,
-      );
+      const triplesMapId: RDF.BlankNode = this.df.blankNode(`_:TM.${label}`);
+      const subjectMapId: RDF.BlankNode = this.df.blankNode(`_:SM.${label}`);
+      const logicalSourceId: RDF.BlankNode = this.df.blankNode(`_:LS.${label}`);
+      const sourceId: RDF.BlankNode = this.df.blankNode(`_:S.${label}`);
       const predicateObjectMapIds: RDF.BlankNode[] = [];
       const subjectMapData = mappings[label]['subjectMap'];
+
+      /* Logical Source: CSV as example if not specified in mapping configuration */
+      let source = `test.csv`;
+      let referenceFormulation = ns.rml('CSV').value;
+      let iterator: string | undefined = undefined;
+
+      const datasourceKey = `$${label}`;
+      if (this.mapping && datasourceKey in this.mapping.datasources) {
+        const datasourceSource =
+          this.mapping?.datasources[datasourceKey].source;
+        const datasourceReferenceFormulation =
+          this.mapping?.datasources[datasourceKey].referenceFormulation;
+        const datasourceIterator =
+          this.mapping?.datasources[datasourceKey].iterator;
+
+        if (this.mapping?.datasources[datasourceKey].source) {
+          if (datasourceReferenceFormulation === 'csv') {
+            source = datasourceSource;
+            referenceFormulation = ns.rml('CSV').value;
+            iterator = undefined;
+          } else if (datasourceReferenceFormulation === 'json') {
+            source = datasourceSource;
+            referenceFormulation = ns.rml('JSONPath').value;
+            iterator = datasourceIterator;
+          } else if (datasourceReferenceFormulation === 'xml') {
+            source = datasourceSource;
+            referenceFormulation = ns.rml('XPath').value;
+            iterator = datasourceIterator;
+          } else {
+            console.error(
+              `Reference Formulation "${datasourceReferenceFormulation}" not implemented`,
+            );
+          }
+        }
+      }
+
+      this.rmlStore.addQuads([
+        this.df.quad(logicalSourceId, ns.rdf('type'), ns.rml('LogicalSource')),
+        this.df.quad(logicalSourceId, ns.rml('source'), sourceId),
+        this.df.quad(
+          logicalSourceId,
+          ns.rml('referenceFormulation'),
+          this.df.namedNode(referenceFormulation),
+        ),
+        this.df.quad(sourceId, ns.rdf('type'), ns.rml('Source')),
+        this.df.quad(sourceId, ns.rdf('type'), ns.rml('FilePath')),
+        this.df.quad(sourceId, ns.rml('path'), this.df.literal(source)),
+        this.df.quad(
+          sourceId,
+          ns.rml('root'),
+          ns.rml('CurrentWorkingDirectory'),
+        ),
+      ]);
+
+      /* CSV or SQL do not need an iterator (defaults to row), other formats do */
+      if (iterator)
+        this.rmlStore.addQuad(
+          this.df.quad(
+            logicalSourceId,
+            ns.rml('iterator'),
+            this.df.literal(iterator),
+          ),
+        );
 
       /* Subject Map */
       this.rmlStore.addQuads([
@@ -214,15 +307,11 @@ export class RmlGenerationService implements IService {
       /* Predicate Object Maps */
       mappings[label]['predicateObjectMaps'].forEach(
         (pom: any, index: number) => {
-          const predicateObjectMapId = this.df.blankNode(
-            `PredicateObjectMap${label}.${pom.object}`,
-          );
-          const predicateMapId = this.df.blankNode(
-            `PredicateMap${label}.${pom.object}`,
-          );
-          const objectMapId = this.df.blankNode(
-            `ObjectMap${label}.${pom.object}`,
-          );
+          let object = pom.object ? pom.object : pom.join;
+          object = object.replace('$', '');
+          const predicateObjectMapId = this.df.blankNode(`_:POM.${object}`);
+          const predicateMapId = this.df.blankNode(`_:PM.${object}`);
+          const objectMapId = this.df.blankNode(`_:OM.${object}`);
           predicateObjectMapIds.push(predicateObjectMapId);
 
           /* Predicate Object Map: link both Predicate and Object Maps */
@@ -323,8 +412,13 @@ export class RmlGenerationService implements IService {
       /* Triples Map */
       this.rmlStore.addQuads([
         this.df.quad(triplesMapId, ns.rdf('type'), ns.rml('TriplesMap')),
-        this.df.quad(triplesMapId, ns.rdfs('label'), this.df.literal(`TriplesMap${label}`)),
+        this.df.quad(
+          triplesMapId,
+          ns.rdfs('label'),
+          this.df.literal(`TriplesMap${label}`),
+        ),
         this.df.quad(triplesMapId, ns.rml('subjectMap'), subjectMapId),
+        this.df.quad(triplesMapId, ns.rml('logicalSource'), logicalSourceId),
       ]);
       for (const predicateObjectMapId of predicateObjectMapIds) {
         this.rmlStore.addQuad(
