@@ -1,5 +1,10 @@
-import { getPrefixes } from '@oslo-flanders/core';
-import type { SplittedUri } from '../types/Sparql';
+import { getPrefixes } from '../constants/prefixes';
+
+export interface SplittedUri {
+  prefix: string;
+  uri: string;
+  element: string;
+}
 
 export async function splitUri(uri: string): Promise<SplittedUri | undefined> {
   /* Extract prefix and element by finding the last occurrence of # or / */
