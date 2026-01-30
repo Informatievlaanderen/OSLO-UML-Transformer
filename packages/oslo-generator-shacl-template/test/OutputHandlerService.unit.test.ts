@@ -2,10 +2,11 @@
  * @group unit
  */
 import 'reflect-metadata';
-import fs from 'fs';
+import * as fs from 'fs';
 import { Writable } from 'stream';
 import { QuadStore, OutputFormat } from '@oslo-flanders/core';
 import { DataFactory } from 'rdf-data-factory';
+import rdfSerializer from 'rdf-serialize';
 import { ShaclTemplateGenerationServiceConfiguration } from '../lib/config/ShaclTemplateGenerationServiceConfiguration';
 import { OutputHandlerService } from '../lib/OutputHandlerService';
 
@@ -16,6 +17,12 @@ jest.mock('@oslo-flanders/core', () => {
   };
 });
 
+jest.mock('fs', () => ({
+  ...jest.requireActual('fs'),
+  writeFileSync: jest.fn(),
+  createWriteStream: jest.fn(),
+}));
+
 describe('OutputHandlerService', () => {
   let service: OutputHandlerService;
   let config: ShaclTemplateGenerationServiceConfiguration;
@@ -23,8 +30,8 @@ describe('OutputHandlerService', () => {
   let df: DataFactory;
 
   const params: any = {
-    outputFormat: OutputFormat.turtle,
-    output: 'output.ttl',
+    outputFormat: OutputFormat.ntriples,
+    output: 'output.nt',
     mode: 'grouped',
     constraint: [],
   };
@@ -46,22 +53,22 @@ describe('OutputHandlerService', () => {
     service = new OutputHandlerService(config);
   });
 
-  // @Dylan, can you fix this test?
+  it('should write to a file', async () => {
+    const serializerSpy = jest.spyOn(rdfSerializer, 'serialize');
+    const mockStream = new Writable({
+      write(chunk, encoding, callback) {
+        callback();
+      },
+    });
 
-  // It('should write to a file', async () => {
-  //   const serializerSpy = jest.spyOn(rdfSerializer, 'serialize')
-  //   const mockStream = new Writable({
-  //     write(chunk, encoding, callback) {
-  //       callback();
-  //     },
-  //   });
+    const createWriteStreamSpy = jest
+      .spyOn(fs, 'createWriteStream')
+      .mockReturnValue(<any>mockStream);
 
-  //   const createWriteStreamSpy = jest.spyOn(fs, 'createWriteStream').mockReturnValue(<any>mockStream);
-
-  //   await service.write(store);
-  //   expect(serializerSpy).toHaveBeenCalled()
-  //   expect(createWriteStreamSpy).toHaveBeenCalledWith('output.ttl');
-  // });
+    await service.write(store);
+    expect(serializerSpy).toHaveBeenCalled();
+    expect(createWriteStreamSpy).toHaveBeenCalledWith('output.nt');
+  });
 
   it('should write to the default file is no output is provided', async () => {
     params.output = '';
