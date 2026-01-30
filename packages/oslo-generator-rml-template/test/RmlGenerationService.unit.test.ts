@@ -112,7 +112,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMapId,
         ns.rml('template'),
-        df.literal('$DatatypeClassLabel'),
+        df.literal('DatatypeClassLabel'),
       ),
       df.quad(
         subjectMapId,
@@ -146,7 +146,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMap2Id,
         ns.rml('template'),
-        df.literal('$DomainClassLabel'),
+        df.literal('DomainClassLabel'),
       ),
       df.quad(
         subjectMap2Id,
@@ -168,7 +168,7 @@ describe('RmlGenerationService', () => {
       df.quad(predicateMap2Id, ns.rdf('type'), ns.rml('PredicateMap')),
       df.quad(
         predicateMap2Id,
-        ns.rml('predicate'),
+        ns.rml('constant'),
         df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(predicateObjectMap2Id, ns.rml('objectMap'), objectMap2Id),
@@ -176,7 +176,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         objectMap2Id,
         ns.rml('template'),
-        df.literal('$DomainClassLabel.propertyLabel'),
+        df.literal('DomainClassLabel.propertyLabel'),
       ),
       df.quad(objectMap2Id, ns.rml('termType'), ns.rml('IRI')),
     ]);
@@ -217,7 +217,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMap2Id,
         ns.rml('template'),
-        df.literal('$DomainClassLabel'),
+        df.literal('DomainClassLabel'),
       ),
       df.quad(
         subjectMap2Id,
@@ -240,7 +240,7 @@ describe('RmlGenerationService', () => {
       df.quad(predicateMap2Id, ns.rdf('type'), ns.rml('PredicateMap')),
       df.quad(
         predicateMap2Id,
-        ns.rml('predicate'),
+        ns.rml('constant'),
         df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(predicateObjectMap2Id, ns.rml('objectMap'), objectMap2Id),
@@ -248,7 +248,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         objectMap2Id,
         ns.rml('reference'),
-        df.literal('$DomainClassLabel.propertyLabel'),
+        df.literal('DomainClassLabel.propertyLabel'),
       ),
       df.quad(objectMap2Id, ns.rml('language'), df.literal('nl')),
       df.quad(objectMap2Id, ns.rml('termType'), ns.rml('Literal')),
@@ -290,7 +290,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMap2Id,
         ns.rml('template'),
-        df.literal('$DomainClassLabel'),
+        df.literal('DomainClassLabel'),
       ),
       df.quad(
         subjectMap2Id,
@@ -313,7 +313,7 @@ describe('RmlGenerationService', () => {
       df.quad(predicateMap2Id, ns.rdf('type'), ns.rml('PredicateMap')),
       df.quad(
         predicateMap2Id,
-        ns.rml('predicate'),
+        ns.rml('constant'),
         df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(predicateObjectMap2Id, ns.rml('objectMap'), objectMap2Id),
@@ -321,7 +321,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         objectMap2Id,
         ns.rml('reference'),
-        df.literal('$DomainClassLabel.propertyLabel'),
+        df.literal('DomainClassLabel.propertyLabel'),
       ),
       df.quad(objectMap2Id, ns.rml('datatype'), ns.xsd('integer')),
       df.quad(objectMap2Id, ns.rml('termType'), ns.rml('Literal')),
@@ -377,7 +377,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMapId,
         ns.rml('template'),
-        df.literal('$SKOSConceptLabel'),
+        df.literal('SKOSConceptLabel'),
       ),
       df.quad(
         subjectMapId,
@@ -397,7 +397,7 @@ describe('RmlGenerationService', () => {
       df.quad(
         subjectMap2Id,
         ns.rml('template'),
-        df.literal('$DomainClassLabel'),
+        df.literal('DomainClassLabel'),
       ),
       df.quad(
         subjectMap2Id,
@@ -419,15 +419,15 @@ describe('RmlGenerationService', () => {
       df.quad(predicateMap2Id, ns.rdf('type'), ns.rml('PredicateMap')),
       df.quad(
         predicateMap2Id,
-        ns.rml('predicate'),
+        ns.rml('constant'),
         df.namedNode('http://example.org/id/property/1'),
       ),
       df.quad(predicateObjectMap2Id, ns.rml('objectMap'), objectMap2Id),
       df.quad(objectMap2Id, ns.rdf('type'), ns.rml('ObjectMap')),
       df.quad(
         objectMap2Id,
-        ns.rml('reference'),
-        df.literal('$DomainClassLabel.propertyConceptURI'),
+        ns.rml('template'),
+        df.literal('DomainClassLabel.propertyConceptURI'),
       ),
       df.quad(objectMap2Id, ns.rml('termType'), ns.rml('IRI')),
     ]);

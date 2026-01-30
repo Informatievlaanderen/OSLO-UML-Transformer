@@ -4,11 +4,13 @@ export interface RmlPredicateObjectMap {
   join: string | undefined;
   datatype: string | undefined;
   language: string | undefined;
+  referenceType: string | undefined;
 }
 
 export interface RmlMappingVariable {
   key: string;
   value: string;
+  referenceType?: string;
 }
 
 export type RmlMappingDatasource = Record<string, RmlMappingDatasourceValue>;

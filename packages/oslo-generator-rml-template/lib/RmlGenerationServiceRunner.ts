@@ -31,6 +31,11 @@ export class RmlGenerationServiceRunner extends AppRunner<
         describe: 'Language tag to use.',
         default: 'nl',
       })
+      .option('baseIRI', {
+        describe:
+          'Base IRI to use for the generated RML mappings.',
+        default: 'https://data.vlaanderen.be/mappings/',
+      })
       .option('outputFormat', {
         describe: 'Output format to use for the RML mappings.',
         default: 'text/turtle',
