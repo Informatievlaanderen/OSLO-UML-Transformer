@@ -3,7 +3,6 @@ import {
   QuadStore,
   ns,
   Logger,
-  ServiceIdentifier,
   getApplicationProfileLabel,
   toPascalCase,
   toCamelCase,
@@ -11,7 +10,7 @@ import {
   DataTypes,
   splitUri,
 } from '@oslo-flanders/core';
-import { writeFileSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
@@ -73,6 +72,9 @@ export class RmlGenerationService implements IService {
         /* Subject Map */
         if (triplesMap.subjectMap.template === variable['key']) {
           triplesMap.subjectMap.template = variable['value'];
+          if ('referenceType' in variable) {
+            triplesMap.subkectMap.referenceType = variable['referenceType'];
+          }
         }
 
         /* Predicate Object Maps */
@@ -81,6 +83,7 @@ export class RmlGenerationService implements IService {
           if (object === variable['key']) {
             if (pom.join) pom.join = variable['value'];
             else pom.object = variable['value'];
+            pom.referenceType = variable['referenceType'];
           }
         }
       }
@@ -132,7 +135,7 @@ export class RmlGenerationService implements IService {
       /* Class matches a SubjectMap in RML*/
       mappings[label] = {
         subjectMap: {
-          template: `$${label}`,
+          template: `${label}`,
           class: assignedUri,
         },
         predicateObjectMaps: [],
@@ -193,6 +196,7 @@ export class RmlGenerationService implements IService {
           join: undefined,
           datatype: undefined,
           language: undefined,
+          referenceType: undefined,
         };
 
         /* Add language tag for RDF LangStrings */
@@ -202,12 +206,12 @@ export class RmlGenerationService implements IService {
         /* Add datatype for primitive datatypes and SKOS Concepts. Otherwise, add joins for classes */
         if (Array.from(DataTypes.values()).includes(attributeDatatypeId)) {
           pom['datatype'] = attributeDatatypeId;
-          pom['object'] = `$${label}.${attributeLabel}`;
+          pom['object'] = `${label}.${attributeLabel}`;
         } else if (attributeDatatypeId === ns.skos('Concept').value) {
           pom['datatype'] = ns.xsd('anyURI').value;
-          pom['object'] = `$${label}.${attributeLabel}`;
+          pom['object'] = `${label}.${attributeLabel}`;
         } else {
-          pom['join'] = `$${label}.${attributeLabel}`;
+          pom['join'] = `${label}.${attributeLabel}`;
         }
 
         mappings[label].predicateObjectMaps.push(pom);
@@ -231,7 +235,7 @@ export class RmlGenerationService implements IService {
       let referenceFormulation = ns.rml('CSV').value;
       let iterator: string | undefined = undefined;
 
-      const datasourceKey = `$${label}`;
+      const datasourceKey = `${label}`;
       if (this.mapping && datasourceKey in this.mapping.datasources) {
         const datasourceSource =
           this.mapping?.datasources[datasourceKey].source;
@@ -290,11 +294,12 @@ export class RmlGenerationService implements IService {
         );
 
       /* Subject Map */
+      const referenceType = subjectMapData.referenceType;
       this.rmlStore.addQuads([
         this.df.quad(subjectMapId, ns.rdf('type'), ns.rml('SubjectMap')),
         this.df.quad(
           subjectMapId,
-          ns.rml('template'),
+          ns.rml(referenceType ? referenceType : 'template'),
           this.df.literal(subjectMapData.template),
         ),
         this.df.quad(
@@ -307,8 +312,7 @@ export class RmlGenerationService implements IService {
       /* Predicate Object Maps */
       mappings[label]['predicateObjectMaps'].forEach(
         (pom: any, index: number) => {
-          let object = pom.object ? pom.object : pom.join;
-          object = object.replace('$', '');
+          const object = pom.object ? pom.object : pom.join;
           const predicateObjectMapId = this.df.blankNode(`_:POM.${object}`);
           const predicateMapId = this.df.blankNode(`_:PM.${object}`);
           const objectMapId = this.df.blankNode(`_:OM.${object}`);
@@ -342,7 +346,7 @@ export class RmlGenerationService implements IService {
             ),
             this.df.quad(
               predicateMapId,
-              ns.rml('predicate'),
+              ns.rml('constant'),
               this.df.namedNode(pom.predicate),
             ),
           ]);
@@ -357,7 +361,7 @@ export class RmlGenerationService implements IService {
             this.rmlStore.addQuads([
               this.df.quad(
                 objectMapId,
-                ns.rml('template'),
+                ns.rml(pom.referenceType ? pom.referenceType : 'template'),
                 this.df.literal(pom.join),
               ),
               this.df.quad(objectMapId, ns.rml('termType'), ns.rml('IRI')),
@@ -367,7 +371,7 @@ export class RmlGenerationService implements IService {
             this.rmlStore.addQuads([
               this.df.quad(
                 objectMapId,
-                ns.rml('reference'),
+                ns.rml(pom.referenceType ? pom.referenceType : 'template'),
                 this.df.literal(pom.object),
               ),
               this.df.quad(objectMapId, ns.rml('termType'), ns.rml('IRI')),
@@ -377,7 +381,7 @@ export class RmlGenerationService implements IService {
             this.rmlStore.addQuads([
               this.df.quad(
                 objectMapId,
-                ns.rml('reference'),
+                ns.rml(pom.referenceType ? pom.referenceType : 'reference'),
                 this.df.literal(pom.object),
               ),
               this.df.quad(
@@ -392,7 +396,7 @@ export class RmlGenerationService implements IService {
             this.rmlStore.addQuads([
               this.df.quad(
                 objectMapId,
-                ns.rml('reference'),
+                ns.rml(pom.referenceType ? pom.referenceType : 'reference'),
                 this.df.literal(pom.object),
               ),
               this.df.quad(

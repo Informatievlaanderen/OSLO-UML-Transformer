@@ -24,15 +24,22 @@ export class RmlGenerationServiceConfiguration implements IConfiguration {
   private _language: string | undefined;
 
   /**
-   * The output format of the RML mappings
+   * The base IRI to use for the generated RML mappings
+   */
+  private _baseIRI: string | undefined;
+
+  /**
+   * The output format to use for generating RML mappings
    */
   private _outputFormat: string | undefined;
+
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._mapping = <string>params.mapping;
     this._output = <string>params.output;
     this._language = <string>params.language;
+    this._baseIRI = <string>params.baseIRI;
     this._outputFormat = <string>params.outputFormat;
   }
 
@@ -66,11 +73,16 @@ export class RmlGenerationServiceConfiguration implements IConfiguration {
     return this._language;
   }
 
+  public get baseIRI(): string {
+    if (!this._baseIRI) {
+      throw new Error(`Trying to access property "baseIRI" before it was set.`);
+    }
+    return this._baseIRI;
+  }
+
   public get outputFormat(): string {
     if (!this._outputFormat) {
-      throw new Error(
-        `Trying to access property "outputFormat" before it was set.`,
-      );
+      throw new Error(`Trying to access property "outputFormat" before it was set.`);
     }
     return this._outputFormat;
   }

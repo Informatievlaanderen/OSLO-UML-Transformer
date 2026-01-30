@@ -37,6 +37,8 @@ export class OutputHandlerService {
     const df = new DataFactory();
 
     for (const [prefix, url] of Object.entries(prefixes)) {
+      /* generic vlaanderen prefix conflicts, for example: vlaanderen:persoon#GeregistreerdPersoon */
+      if (prefix === 'vlaanderen') continue;
       map.set(prefix, df.namedNode(url));
     }
 
@@ -74,14 +76,14 @@ export class OutputHandlerService {
         `${triplesMapLabel}.${this.getFileExtension()}`,
       );
 
-      if (this.config.outputFormat === 'text/turtle') {
+      if (this.config.outputFormat === OutputFormat.turtle) {
         // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
         const { default: Serializer } = await import(
           '@rdfjs/serializer-turtle'
         );
 
         const serializer = new Serializer({
-          baseIRI: 'https://data.vlaanderen.be/mapping/',
+          baseIRI: this.config.baseIRI,
           // Override typechecking due to lacking of Typescript typing
           prefixes: (await this.generatePrefixMap()) as any,
         });
