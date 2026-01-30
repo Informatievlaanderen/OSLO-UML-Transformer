@@ -29,22 +29,3 @@ export function getConstraints(constraintStrings: string[]): Constraint[] {
 		}
 	});
 }
-
-export const toPascalCase = (str: string): string => str
-	.split(' ')
-	.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-	.join('')
-
-/**
- * Sort function used on an array of quads. First sorts named nodes alphabetically, then blank nodes alphabetically.
- * @param quadA An RDF.Quad
- * @param quadB An RDF.Quad
- * @returns a number
- */
-export const quadSort = (quadA: RDF.Quad, quadB: RDF.Quad): number => {
-	if (quadA.subject.termType === quadB.subject.termType) {
-		return quadA.subject.value.localeCompare(quadB.subject.value);
-	}
-
-	return quadA.subject.termType === 'BlankNode' ? 1 : -1;
-}
