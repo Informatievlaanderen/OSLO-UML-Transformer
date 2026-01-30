@@ -26,4 +26,5 @@ export * from './lib/utils/storeUtils';
 export * from './lib/utils/fileSystem';
 export * from './lib/utils/strings';
 export * from './lib/types/splitUri';
+export * from './lib/utils/quadSort';
 export * from './lib/constants/prefixes';
