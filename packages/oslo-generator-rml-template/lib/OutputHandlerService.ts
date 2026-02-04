@@ -125,8 +125,10 @@ export class OutputHandlerService {
     for (const q of store.findQuads(nodeId, null, null)) {
       quads.push(q);
       if (
-        q.object.termType === 'NamedNode' ||
-        q.object.termType === 'BlankNode'
+        (q.object.termType === 'NamedNode' ||
+          q.object.termType === 'BlankNode') &&
+        store.findObject(q.object, ns.rdf('type'))?.value !=
+          ns.rml('TriplesMap').value
       )
         this.discoverTriplesMap(q.object, quads, store);
     }
