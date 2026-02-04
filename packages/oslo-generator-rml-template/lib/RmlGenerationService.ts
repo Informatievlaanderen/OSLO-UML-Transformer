@@ -193,7 +193,9 @@ export class RmlGenerationService implements IService {
         const pom: RmlPredicateObjectMap = {
           predicate: attributeAssignedUri,
           object: undefined,
-          join: undefined,
+          child: undefined,
+          parent: undefined,
+          parentTriplesMap: undefined,
           datatype: undefined,
           language: undefined,
           referenceType: undefined,
@@ -211,7 +213,9 @@ export class RmlGenerationService implements IService {
           pom['datatype'] = ns.xsd('anyURI').value;
           pom['object'] = `${label}.${attributeLabel}`;
         } else {
-          pom['join'] = `${label}.${attributeLabel}`;
+          pom['child'] = `Join${label}.${attributeLabel}`;
+          pom['parent'] = `Join${label}.${attributeDatatypeLabel}`;
+          pom['parentTriplesMap'] = `${this.configuration.baseIRI}TM.${attributeDatatypeLabel}`;
         }
 
         mappings[label].predicateObjectMaps.push(pom);
@@ -223,7 +227,7 @@ export class RmlGenerationService implements IService {
 
   private writeMappings(mappings: any) {
     for (const label in mappings) {
-      const triplesMapId: RDF.BlankNode = this.df.blankNode(`_:TM.${label}`);
+      const triplesMapId: RDF.NamedNode = this.df.namedNode(`${this.configuration.baseIRI}TM.${label}`);
       const subjectMapId: RDF.BlankNode = this.df.blankNode(`_:SM.${label}`);
       const logicalSourceId: RDF.BlankNode = this.df.blankNode(`_:LS.${label}`);
       const sourceId: RDF.BlankNode = this.df.blankNode(`_:S.${label}`);
@@ -312,10 +316,12 @@ export class RmlGenerationService implements IService {
       /* Predicate Object Maps */
       mappings[label]['predicateObjectMaps'].forEach(
         (pom: any, index: number) => {
-          const object = pom.object ? pom.object : pom.join;
+          const object = pom.object ? pom.object : pom.child;
           const predicateObjectMapId = this.df.blankNode(`_:POM.${object}`);
           const predicateMapId = this.df.blankNode(`_:PM.${object}`);
-          const objectMapId = this.df.blankNode(`_:OM.${object}`);
+          let objectMapId = this.df.blankNode(`_:OM.${object}`);
+          if (pom.parentTriplesMap)
+            objectMapId = this.df.blankNode(`_:OM.${pom.child}${pom.parent}`);
           predicateObjectMapIds.push(predicateObjectMapId);
 
           /* Predicate Object Map: link both Predicate and Object Maps */
@@ -352,19 +358,31 @@ export class RmlGenerationService implements IService {
           ]);
 
           /* Object Map: specify which object such as literal, URI, or joining with other Triples Map */
-          this.rmlStore.addQuad(
-            this.df.quad(objectMapId, ns.rdf('type'), ns.rml('ObjectMap')),
-          );
-
-          if (pom.join) {
+          if (pom.parentTriplesMap) {
+            const joinConditionId = this.df.blankNode();
             /* Joining with other Triples Map or datasets: through URIs instead of join condition */
             this.rmlStore.addQuads([
               this.df.quad(
                 objectMapId,
-                ns.rml(pom.referenceType ? pom.referenceType : 'template'),
-                this.df.literal(pom.join),
+                ns.rml('parentTriplesMap'),
+                this.df.namedNode(pom.parentTriplesMap),
               ),
-              this.df.quad(objectMapId, ns.rml('termType'), ns.rml('IRI')),
+              this.df.quad(
+                objectMapId,
+                ns.rml('joinCondition'),
+                joinConditionId,
+              ),
+              this.df.quad(
+                joinConditionId,
+                ns.rml('child'),
+                this.df.literal(pom.child),
+              ),
+              this.df.quad(
+                joinConditionId,
+                ns.rml('parent'),
+                this.df.literal(pom.parent),
+              ),
+              this.df.quad(objectMapId, ns.rdf('type'), ns.rml('RefObjectMap')),
             ]);
           } else if (pom.datatype == ns.xsd('anyURI').value) {
             /* Literals with anyURI datatype expect IRIs as term type */
@@ -375,6 +393,7 @@ export class RmlGenerationService implements IService {
                 this.df.literal(pom.object),
               ),
               this.df.quad(objectMapId, ns.rml('termType'), ns.rml('IRI')),
+              this.df.quad(objectMapId, ns.rdf('type'), ns.rml('ObjectMap')),
             ]);
           } else if (pom.language) {
             /* String literal with language tag */
@@ -390,6 +409,7 @@ export class RmlGenerationService implements IService {
                 this.df.literal(pom.language),
               ),
               this.df.quad(objectMapId, ns.rml('termType'), ns.rml('Literal')),
+              this.df.quad(objectMapId, ns.rdf('type'), ns.rml('ObjectMap')),
             ]);
           } else if (pom.datatype) {
             /* Primitive datatype */
@@ -405,6 +425,7 @@ export class RmlGenerationService implements IService {
                 this.df.namedNode(pom.datatype),
               ),
               this.df.quad(objectMapId, ns.rml('termType'), ns.rml('Literal')),
+              this.df.quad(objectMapId, ns.rdf('type'), ns.rml('ObjectMap')),
             ]);
           } else {
             console.error(`Cannot generate Object Map for ${label}`);

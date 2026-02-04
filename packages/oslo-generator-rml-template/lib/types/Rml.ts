@@ -1,7 +1,9 @@
 export interface RmlPredicateObjectMap {
   predicate: string;
   object: string | undefined;
-  join: string | undefined;
+  child: string | undefined;
+  parent: string | undefined;
+  parentTriplesMap: string | undefined;
   datatype: string | undefined;
   language: string | undefined;
   referenceType: string | undefined;
