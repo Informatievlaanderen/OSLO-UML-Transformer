@@ -158,7 +158,8 @@ export class SelfAssociationWithAssociationClassConnectorCase
           `${baseClassObjectName}.${associationClassName}`,
           connector.sourceObjectId,
           connector.associationClassId,
-          '1',
+          // The cardinality for the reverse relationship is not explicitly defined in EA, as the relationship is implicit. We use the cardinality of the connector with '1' as a fallback.
+          connector.destinationCardinality ?? '1',
           sourceRevExtraTags,
         ),
       );
@@ -171,7 +172,8 @@ export class SelfAssociationWithAssociationClassConnectorCase
           `${baseClassObjectName}.${associationClassName}`,
           connector.destinationObjectId,
           connector.associationClassId,
-          '1',
+          // The cardinality for the reverse relationship is not explicitly defined in EA, as the relationship is implicit. We use the cardinality of the connector with '1' as a fallback.
+          connector.destinationCardinality ?? '1',
           destinationRevExtraTags,
         ),
       );
