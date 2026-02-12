@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/codelist-generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generates OSLO codelists from a CSV file",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-codelist-generator#readme",

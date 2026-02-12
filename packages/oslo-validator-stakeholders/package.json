@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/stakeholders-validator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Validates the generated stakeholders file to a set of validation rules",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-validator-stakeholders#readme",
