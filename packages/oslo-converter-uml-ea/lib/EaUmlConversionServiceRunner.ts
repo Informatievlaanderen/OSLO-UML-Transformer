@@ -2,7 +2,6 @@ import type { CliArgv } from '@oslo-flanders/core';
 import { LOG_LEVELS, AppRunner, OutputFormat } from '@oslo-flanders/core';
 
 import { InputFormat } from '@oslo-flanders/core/lib/enums/InputFormat';
-import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { EaUmlConverterConfiguration } from './config/EaUmlConverterConfiguration';
 import type { EaUmlConversionService } from './EaUmlConversionService';
@@ -12,8 +11,7 @@ export class EaUmlConversionServiceRunner extends AppRunner<
   EaUmlConverterConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('umlFile', { describe: 'URL or local path to an EAP file.' })
       .option('diagramName', {
         describe: 'Name of the diagram within the EAP file.',

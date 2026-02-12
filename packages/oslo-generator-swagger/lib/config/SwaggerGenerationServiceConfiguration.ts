@@ -74,6 +74,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
   private _licenseURL: string | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
+    console.log(params.title)
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;

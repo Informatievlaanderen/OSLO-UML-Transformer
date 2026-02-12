@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/swagger-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate OpenAPI Swagger YAML documentation.",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-swagger#readme",

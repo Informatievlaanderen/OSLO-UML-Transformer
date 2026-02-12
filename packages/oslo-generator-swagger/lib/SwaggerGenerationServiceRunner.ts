@@ -1,7 +1,6 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
 
-import yargs from 'yargs';
 import type { SwaggerGenerationService } from '../lib/SwaggerGenerationService';
 import { container } from './config/DependencyInjectionConfig';
 import type { SwaggerGenerationServiceConfiguration } from './config/SwaggerGenerationServiceConfiguration';
@@ -11,8 +10,7 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
   SwaggerGenerationServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
         describe:
           'The input file to generate a Swagger OpenAPI JSON file from.',
@@ -27,8 +25,12 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
       })
       .option('versionAPI', { describe: 'API version.' })
       .option('language', { describe: 'API language tag.', default: 'nl' })
-      .option('title', { describe: 'API title.' })
-      .option('description', { describe: 'API description.' })
+      .option('title', {
+        describe: 'API title.',
+        type: 'string',
+        array: false,
+      })
+      .option('description', { describe: 'API description.', array: false })
       .option('contextURL', { describe: 'API JSON-LD Context URL.' })
       .option('baseURL', { describe: 'API base URL.' })
       .option('contactName', { describe: 'API contact name.' })
