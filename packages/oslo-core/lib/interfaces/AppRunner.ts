@@ -29,6 +29,7 @@ export abstract class AppRunner<T extends IService, K extends IConfiguration> {
       })
       .usage('node ./bin/runner.js [args]');
   }
+
   public runCliSync(process: NodeJS.Process): void {
     this.runCli(process.argv).catch((error): never => {
       stderr.write(error.message);
