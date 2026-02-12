@@ -20,7 +20,7 @@ describe('DataRegistry equality', () => {
       new VoidLogger(),
     ).createDataRegistry(
       // eslint-disable-next-line max-len
-      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein-qea.qea?raw=true',
+      'https://github.com/Informatievlaanderen/OSLO-UML-Transformer/blob/integration-test-files/oslo-converter-uml-ea/01-AssociatiesMijnDomein.qea?raw=true',
     );
     
     expect(accessdbRegistry.diagrams.length).toEqual(
@@ -30,17 +30,17 @@ describe('DataRegistry equality', () => {
       sqliteRegistry.packages.length,
     );
     /* TODO: disable until SQLite variant is updated as well */
-    /*expect(accessdbRegistry.elements.length).toEqual(
-      sqliteRegistry.elements.length,
-    );*/
-    /*expect(accessdbRegistry.connectors.length).toEqual(
-      sqliteRegistry.connectors.length,
-    );
-    expect(accessdbRegistry.attributes.length).toEqual(
-      sqliteRegistry.attributes.length,
-    );
-    expect(accessdbRegistry.crossReferences.length).toEqual(
-      sqliteRegistry.crossReferences.length,
-    );*/
+    // expect(accessdbRegistry.elements.length).toEqual(
+    // sqliteRegistry.elements.length,
+    // );
+    // expect(accessdbRegistry.connectors.length).toEqual(
+    // sqliteRegistry.connectors.length,
+    // );
+    // expect(accessdbRegistry.attributes.length).toEqual(
+    // sqliteRegistry.attributes.length,
+    // );
+    // expect(accessdbRegistry.crossReferences.length).toEqual(
+    // sqliteRegistry.crossReferences.length,
+    // );
   });
 });
