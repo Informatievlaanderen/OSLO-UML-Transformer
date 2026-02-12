@@ -14,8 +14,7 @@ import { getTagValue } from '../utils/utils';
 
 @injectable()
 export class AssociationWithAssociationClassConnectorCase
-  implements IConnectorNormalisationCase
-{
+  implements IConnectorNormalisationCase {
   @inject(EaUmlConverterServiceIdentifier.Logger)
   public readonly logger!: Logger;
 
@@ -167,9 +166,8 @@ export class AssociationWithAssociationClassConnectorCase
           `${sourceObjectName}.${associationClassName}`,
           connector.sourceObjectId,
           connector.associationClassId,
-          // The cardinality for the reverse relationship is not explicitly defined in EA
-          // as the relationship is implicit. We use the cardinality of the connector's destination with '1' as a fallback.
-          connector.destinationCardinality ?? '1',
+          // The cardinality for the reverse relationship is not explicitly defined in EA, as the relationship is implicit. We use the cardinality of the connector with '1' as a fallback.
+          connector.sourceCardinality ?? '1',
           sourceRevExtraTags,
         ),
       );
@@ -182,9 +180,8 @@ export class AssociationWithAssociationClassConnectorCase
           `${sourceObjectName}.${associationClassName}`,
           connector.destinationObjectId,
           connector.associationClassId,
-          // The cardinality for the reverse relationship is not explicitly defined in EA
-          // as the relationship is implicit. We use the cardinality of the connector's source with '1' as a fallback.
-          connector.sourceCardinality ?? '1',
+          // The cardinality for the reverse relationship is not explicitly defined in EA, as the relationship is implicit. We use the cardinality of the connector with '1' as a fallback.
+          connector.destinationCardinality ?? '1',
           destinationRevExtraTags,
         ),
       );
