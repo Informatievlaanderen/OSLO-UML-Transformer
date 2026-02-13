@@ -73,17 +73,30 @@ export class RmlGenerationService implements IService {
         if (triplesMap.subjectMap.template === variable['key']) {
           triplesMap.subjectMap.template = variable['value'];
           if ('referenceType' in variable) {
-            triplesMap.subkectMap.referenceType = variable['referenceType'];
+            triplesMap.subjectMap.referenceType = variable['referenceType'];
+          }
+
+          if ('termType' in variable) {
+            triplesMap.subjectMap.termType = variable['termType'];
           }
         }
 
         /* Predicate Object Maps */
         for (const pom of triplesMap.predicateObjectMaps) {
-          const object = pom.join ? pom.join : pom.object;
-          if (object === variable['key']) {
-            if (pom.join) pom.join = variable['value'];
-            else pom.object = variable['value'];
-            pom.referenceType = variable['referenceType'];
+          if (pom.parentTriplesMap) {
+            if (pom.child === variable['key']) {
+              pom.child = variable['value'];
+            } else if (pom.parent === variable['key']) {
+              pom.parent = variable['value'];
+            } else if (pom.object === variable['key']) {
+              pom.object = variable['value'];
+              pom.referenceType = variable['referenceType'];
+            }
+          } else {
+            if (pom.object === variable['key']) {
+              pom.object = variable['value'];
+              pom.referenceType = variable['referenceType'];
+            }
           }
         }
       }
@@ -94,6 +107,7 @@ export class RmlGenerationService implements IService {
 
   private async generateMappings(): Promise<any> {
     const mappings: any = {};
+    const parentTriplesMaps: any = {};
 
     /* Create a RML mapping file for each class and datatype in the diagram */
     for (const quad of [
@@ -133,10 +147,12 @@ export class RmlGenerationService implements IService {
       }
 
       /* Class matches a SubjectMap in RML*/
-      mappings[label] = {
+      mappings[`${this.configuration.baseIRI}TM.${label}`] = {
+        label: label,
         subjectMap: {
           template: `${label}`,
           class: assignedUri,
+          termType: 'IRI',
         },
         predicateObjectMaps: [],
       };
@@ -213,12 +229,70 @@ export class RmlGenerationService implements IService {
           pom['datatype'] = ns.xsd('anyURI').value;
           pom['object'] = `${label}.${attributeLabel}`;
         } else {
-          pom['child'] = `Join${label}.${attributeLabel}`;
-          pom['parent'] = `Join${label}.${attributeDatatypeLabel}`;
-          pom['parentTriplesMap'] = `${this.configuration.baseIRI}TM.${attributeDatatypeLabel}`;
+          pom['child'] = `JC${label}.${attributeLabel}`;
+          pom['parent'] = `JC${label}.${attributeDatatypeLabel}`;
+          pom['object'] = `${label}.${attributeLabel}`;
+
+          const splittedUri = await splitUri(attributeDatatypeId);
+          let prefix = '';
+          if (splittedUri?.prefix) prefix = splittedUri.prefix.toUpperCase();
+
+          pom['parentTriplesMap'] =
+            `${this.configuration.baseIRI}TM.${prefix}${attributeDatatypeLabel}`;
+          if (!parentTriplesMaps[pom['parentTriplesMap']])
+            parentTriplesMaps[pom['parentTriplesMap']] = [];
+
+          parentTriplesMaps[pom['parentTriplesMap']].push({
+            subKey: `${label}.${attributeLabel}`,
+            origin: `${this.configuration.baseIRI}TM.${label}`,
+            property: attributeAssignedUri,
+          });
         }
 
-        mappings[label].predicateObjectMaps.push(pom);
+        mappings[
+          `${this.configuration.baseIRI}TM.${label}`
+        ].predicateObjectMaps.push(pom);
+      }
+    }
+
+    /* Duplicate mappings if class or datatype is re-used for separate sources */
+    for (const parentTriplesMap in parentTriplesMaps) {
+      if (parentTriplesMaps[parentTriplesMap].length > 1) {
+        if (!mappings.hasOwnProperty(parentTriplesMap)) {
+          console.error(
+            `Parent Triples Map ${parentTriplesMap} is not specified in diagram`,
+          );
+          continue;
+        }
+        const mappingData = mappings[parentTriplesMap];
+        for (const data of parentTriplesMaps[parentTriplesMap]) {
+          const subKey = data['subKey'];
+          const origin = data['origin'];
+          const property = data['property'];
+          mappings[`${parentTriplesMap}(${subKey})`] = {
+            label: `${mappingData['label']}(${subKey})`,
+            subjectMap: {
+              template: mappingData['subjectMap']['template'],
+              class: mappingData['subjectMap']['class'],
+              termType: mappingData['subjectMap']['termType'],
+            },
+            predicateObjectMaps: mappingData['predicateObjectMaps'],
+          };
+
+          for (const triplesMap in mappings) {
+            if (triplesMap !== origin) continue;
+
+            for (const pom of mappings[triplesMap].predicateObjectMaps) {
+              if (
+                pom.predicate === property &&
+                pom.parentTriplesMap === parentTriplesMap
+              ) {
+                pom.parentTriplesMap = `${parentTriplesMap}(${subKey})`;
+              }
+            }
+          }
+        }
+        delete mappings[parentTriplesMap];
       }
     }
 
@@ -226,13 +300,17 @@ export class RmlGenerationService implements IService {
   }
 
   private writeMappings(mappings: any) {
-    for (const label in mappings) {
-      const triplesMapId: RDF.NamedNode = this.df.namedNode(`${this.configuration.baseIRI}TM.${label}`);
-      const subjectMapId: RDF.BlankNode = this.df.blankNode(`_:SM.${label}`);
-      const logicalSourceId: RDF.BlankNode = this.df.blankNode(`_:LS.${label}`);
-      const sourceId: RDF.BlankNode = this.df.blankNode(`_:S.${label}`);
+    for (const triplesMap in mappings) {
+      const triplesMapId: RDF.NamedNode = this.df.namedNode(
+        //`${this.configuration.baseIRI}TM.${label}`,
+        triplesMap,
+      );
+      const label: string = mappings[triplesMap]['label'];
+      const subjectMapId: RDF.BlankNode = this.df.blankNode(`SM.${label}`);
+      const logicalSourceId: RDF.BlankNode = this.df.blankNode(`LS.${label}`);
+      const sourceId: RDF.BlankNode = this.df.blankNode(`S.${label}`);
       const predicateObjectMapIds: RDF.BlankNode[] = [];
-      const subjectMapData = mappings[label]['subjectMap'];
+      const subjectMapData = mappings[triplesMap]['subjectMap'];
 
       /* Logical Source: CSV as example if not specified in mapping configuration */
       let source = `test.csv`;
@@ -311,17 +389,25 @@ export class RmlGenerationService implements IService {
           ns.rml('class'),
           this.df.namedNode(subjectMapData.class),
         ),
+        this.df.quad(
+          subjectMapId,
+          ns.rml('termType'),
+          ns.rml(subjectMapData.termType ? subjectMapData.termType : 'IRI'),
+        ),
       ]);
 
       /* Predicate Object Maps */
-      mappings[label]['predicateObjectMaps'].forEach(
+      mappings[triplesMap]['predicateObjectMaps'].forEach(
         (pom: any, index: number) => {
-          const object = pom.object ? pom.object : pom.child;
-          const predicateObjectMapId = this.df.blankNode(`_:POM.${object}`);
-          const predicateMapId = this.df.blankNode(`_:PM.${object}`);
-          let objectMapId = this.df.blankNode(`_:OM.${object}`);
-          if (pom.parentTriplesMap)
-            objectMapId = this.df.blankNode(`_:OM.${pom.child}${pom.parent}`);
+          const object = pom.parentTriplesMap
+            ? `${pom.child}-${pom.parent}-${pom.parentTriplesMap}`
+            : pom.object;
+          /*const predicateObjectMapId = this.df.blankNode(`POM.${object}`);
+          const predicateMapId = this.df.blankNode(`PM.${object}`);
+          const objectMapId = this.df.blankNode(`OM.${object}`);*/
+          const predicateObjectMapId = this.df.blankNode();
+          const objectMapId = this.df.blankNode();
+          const predicateMapId = this.df.blankNode();
           predicateObjectMapIds.push(predicateObjectMapId);
 
           /* Predicate Object Map: link both Predicate and Object Maps */
@@ -359,31 +445,47 @@ export class RmlGenerationService implements IService {
 
           /* Object Map: specify which object such as literal, URI, or joining with other Triples Map */
           if (pom.parentTriplesMap) {
-            const joinConditionId = this.df.blankNode();
-            /* Joining with other Triples Map or datasets: through URIs instead of join condition */
-            this.rmlStore.addQuads([
-              this.df.quad(
-                objectMapId,
-                ns.rml('parentTriplesMap'),
-                this.df.namedNode(pom.parentTriplesMap),
-              ),
-              this.df.quad(
-                objectMapId,
-                ns.rml('joinCondition'),
-                joinConditionId,
-              ),
-              this.df.quad(
-                joinConditionId,
-                ns.rml('child'),
-                this.df.literal(pom.child),
-              ),
-              this.df.quad(
-                joinConditionId,
-                ns.rml('parent'),
-                this.df.literal(pom.parent),
-              ),
-              this.df.quad(objectMapId, ns.rdf('type'), ns.rml('RefObjectMap')),
-            ]);
+            if (pom.referenceType) {
+              this.rmlStore.addQuads([
+                this.df.quad(
+                  objectMapId,
+                  ns.rml(pom.referenceType ? pom.referenceType : 'template'),
+                  this.df.literal(pom.object),
+                ),
+                this.df.quad(objectMapId, ns.rml('termType'), ns.rml('IRI')),
+                this.df.quad(objectMapId, ns.rdf('type'), ns.rml('ObjectMap')),
+              ]);
+            } else {
+              const joinConditionId = this.df.blankNode();
+              /* Joining with other Triples Map or datasets: through URIs instead of join condition */
+              this.rmlStore.addQuads([
+                this.df.quad(
+                  objectMapId,
+                  ns.rml('parentTriplesMap'),
+                  this.df.namedNode(`${pom.parentTriplesMap}`),
+                ),
+                this.df.quad(
+                  objectMapId,
+                  ns.rml('joinCondition'),
+                  joinConditionId,
+                ),
+                this.df.quad(
+                  joinConditionId,
+                  ns.rml('child'),
+                  this.df.literal(pom.child),
+                ),
+                this.df.quad(
+                  joinConditionId,
+                  ns.rml('parent'),
+                  this.df.literal(pom.parent),
+                ),
+                this.df.quad(
+                  objectMapId,
+                  ns.rdf('type'),
+                  ns.rml('RefObjectMap'),
+                ),
+              ]);
+            }
           } else if (pom.datatype == ns.xsd('anyURI').value) {
             /* Literals with anyURI datatype expect IRIs as term type */
             this.rmlStore.addQuads([
