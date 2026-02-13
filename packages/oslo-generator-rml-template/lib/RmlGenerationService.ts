@@ -18,6 +18,7 @@ import { RmlGenerationServiceConfiguration } from './config/RmlGenerationService
 import { RmlPredicateObjectMap, RmlMappingConfig } from './types/Rml';
 import { RmlGenerationServiceIdentifier } from './config/RmlGenerationServiceIdentifier';
 import { OutputHandlerService } from './OutputHandlerService';
+import { ReferenceFormulation } from './enums/ReferenceFormulation';
 
 @injectable()
 export class RmlGenerationService implements IService {
@@ -320,15 +321,15 @@ export class RmlGenerationService implements IService {
           this.mapping?.datasources[datasourceKey].iterator;
 
         if (this.mapping?.datasources[datasourceKey].source) {
-          if (datasourceReferenceFormulation === 'csv') {
+          if (datasourceReferenceFormulation === ReferenceFormulation.Csv) {
             source = datasourceSource;
             referenceFormulation = ns.rml('CSV').value;
             iterator = undefined;
-          } else if (datasourceReferenceFormulation === 'json') {
+          } else if (datasourceReferenceFormulation === ReferenceFormulation.Json) {
             source = datasourceSource;
             referenceFormulation = ns.rml('JSONPath').value;
             iterator = datasourceIterator;
-          } else if (datasourceReferenceFormulation === 'xml') {
+          } else if (datasourceReferenceFormulation === ReferenceFormulation.Xml) {
             source = datasourceSource;
             referenceFormulation = ns.rml('XPath').value;
             iterator = datasourceIterator;
