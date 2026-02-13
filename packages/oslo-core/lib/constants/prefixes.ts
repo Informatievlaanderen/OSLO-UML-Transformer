@@ -2,9 +2,15 @@ import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
 const PREFIX_CC_URL = 'http://prefix.cc/context';
+let cached: Record<string, string> = {};
 
 export async function getPrefixes(): Promise<Record<string, string>> {
   const url = PREFIX_CC_URL;
+
+  if (Object.keys(cached).length > 0) {
+    return cached;
+  }
+
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -13,6 +19,7 @@ export async function getPrefixes(): Promise<Record<string, string>> {
 
     const data = await response.json();
     if (data['@context']) {
+      cached = data['@context'];
       return data['@context'];
     }
     throw new Error('Invalid context format received from prefix.cc');
