@@ -208,13 +208,6 @@ export class RmlGenerationService implements IService {
 
         const pom: RmlPredicateObjectMap = {
           predicate: attributeAssignedUri,
-          object: undefined,
-          child: undefined,
-          parent: undefined,
-          parentTriplesMap: undefined,
-          datatype: undefined,
-          language: undefined,
-          referenceType: undefined,
         };
 
         /* Add language tag for RDF LangStrings */
