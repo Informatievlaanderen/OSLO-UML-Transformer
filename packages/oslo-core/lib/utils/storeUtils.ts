@@ -216,16 +216,32 @@ export function findAllAttributes(
   attributeIds: RDF.Term[],
   store: QuadStore,
 ): RDF.Term[] {
-  const parentIds = store.findObjects(subject, ns.rdfs('subClassOf'));
+  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
 
+  /* Merge all referenced dummy parents with the real one based on assigned URI */
+  let additionalParentIds: RDF.Term[] = [];
+  for (const parentId of parentIds) {
+    const assignedUri = store.findObject(parentId, ns.oslo('assignedURI'));
+    if (!assignedUri) continue;
+
+    additionalParentIds = [
+      ...additionalParentIds,
+      ...store
+        .findSubjects(ns.oslo('assignedURI'), assignedUri)
+        .filter((item) => item.value !== subject.value),
+    ];
+  }
+  parentIds = [...parentIds, ...additionalParentIds];
+
+  /* Collect all attributes */
   attributeIds = [
     ...attributeIds,
     ...store.findSubjects(ns.rdfs('domain'), subject),
   ];
 
-  for (const parentId of parentIds) {
+  /* Recursive search further for attributes */
+  for (const parentId of parentIds)
     attributeIds = findAllAttributes(parentId, attributeIds, store);
-  }
 
   return attributeIds;
 }
