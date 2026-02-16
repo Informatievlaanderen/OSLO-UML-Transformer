@@ -1,5 +1,4 @@
 import { ns } from '@oslo-flanders/core';
-import { RE_DOT, RE_SLASH } from '../constants/Swagger';
 
 /* eslint-disable */
 const Properties: Map<string, object> = new Map<string, object>([
@@ -37,9 +36,20 @@ export const mapProperties = (datatype: string, label: string, baseURI: string):
  
   return {
     '@id': {
-      type: 'string',
-      format: 'uri',
-      pattern: `^${baseURI.replace(RE_SLASH, '\\/').replace(RE_DOT, '\\.')}id\\/${label}\\/\\d`,
+      anyOf: [
+        {
+          type: 'string',
+          format: 'uri',
+        },
+        {
+          type: 'string',
+          format: 'blanknode',
+        },
+/* Swagger editors and tooling crash with too much recursive references, disabled for now */
+//      {
+//        $ref: `${baseURI}swagger/components/schemas/${label}.json`
+//      }
+      ],
     },
   };
 }
