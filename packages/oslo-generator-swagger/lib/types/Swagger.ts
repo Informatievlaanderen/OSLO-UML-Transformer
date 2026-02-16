@@ -3,7 +3,7 @@ export interface SwaggerRoot {
   info: SwaggerInfo;
   servers: SwaggerServer[];
   paths: SwaggerPaths;
-  components: SwaggerComponents;
+  components?: SwaggerComponents;
 }
 
 export interface SwaggerInfo {
