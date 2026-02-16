@@ -11,7 +11,12 @@ import {
   getMinCount,
   getMaxCount,
   OutputFormat,
+  ensureOutputDirectory,
+  findAllAttributes,
+  toPascalCase,
+  toCamelCase,
 } from '@oslo-flanders/core';
+import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
@@ -23,12 +28,6 @@ import {
   SwaggerInfoLicense,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
-import {
-  findAllAttributes,
-  toPascalCase,
-  toCamelCase,
-} from './utils/swaggerUtils';
-import { RE_DOT, RE_SLASH } from './constants/Swagger';
 
 @injectable()
 export class SwaggerGenerationService implements IService {
@@ -92,14 +91,28 @@ export class SwaggerGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    /* Create Swagger as JSON */
-    const swagger = this.createSwagger();
+    /* Create Swagger schemas */
+    const schemas: any = this.createSchemas();
+    for (const label of Object.keys(schemas))
+      await this.writeJSON(
+        schemas[label],
+        `swagger/components/schemas/${label}.json`,
+      );
 
-    /* Write Swagger to file */
-    await this.writeSwagger(swagger);
+    /* Create Swagger links */
+    const links: any = this.createLinks();
+    for (const label of Object.keys(links))
+      await this.writeJSON(
+        links[label],
+        `swagger/components/links/${label}.json`,
+      );
+
+    /* Create Swagger endpoint paths as example */
+    const swagger = this.createSwagger(schemas, links);
+    await this.writeJSON(swagger, 'swagger/example.json');
   }
 
-  public createSwagger(): Object {
+  public createSwagger(schemas: any, links: any): Object {
     const swagger: SwaggerRoot = {
       openapi: this.configuration.versionSwagger,
       info: {
@@ -116,13 +129,9 @@ export class SwaggerGenerationService implements IService {
         },
       ],
       paths: {},
-      components: {
-        schemas: {},
-      },
     };
 
     /* Create endpoint for each Class */
-    let links: any = {};
     for (const classId of this.store.findSubjects(
       ns.rdf('type'),
       ns.owl('Class'),
@@ -158,7 +167,6 @@ export class SwaggerGenerationService implements IService {
 
       attributes[label] = [];
       requiredAttributes[label] = [];
-      links[label] = {};
 
       /* Find all attributes for object */
       for (const attributeId of attributeIds) {
@@ -195,7 +203,7 @@ export class SwaggerGenerationService implements IService {
 
         const attributeDatatypeId =
           this.store.getAssignedUri(attributeRangeId)?.value;
-        const attributeDatatypeLabel = getApplicationProfileLabel(
+        let attributeDatatypeLabel = getApplicationProfileLabel(
           attributeRangeId,
           this.store,
           this.configuration.language,
@@ -207,6 +215,7 @@ export class SwaggerGenerationService implements IService {
           );
           continue;
         }
+        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
 
         if (!attributeMinCount || !attributeMaxCount) {
           this.logger.error(
@@ -256,18 +265,11 @@ export class SwaggerGenerationService implements IService {
         /* Only require properties which are not arrays since those have their own cardinality checks */
         if (attributeMinCount == '1')
           requiredAttributes[label].push(`${label}.${attributeLabel}`);
+      }
 
-        /* Create all possible links for endpoint */
-        if (!isStandardDatatype(attributeDatatypeId)) {
-          links[label][`${attributeDatatypeLabel}GET`] = {
-            operationId: `${attributeDatatypeLabel}GET`,
-            parameters: {
-              /* Referring to response body always starts with the same prefix */
-              id: `$response.body#/${label}.${attributeLabel}/@id`,
-            },
-            description: `Het \`@id\` attribuut van de waarde van \`${label}.${attributeLabel}\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
-          };
-        }
+      const filteredLinks: any = {};
+      for (const key of Object.keys(links)) {
+        if (key.startsWith(`${label}.`)) filteredLinks[key] = links[key];
       }
 
       /* Create an endpoint for each object to have PURIs for each object */
@@ -294,11 +296,11 @@ export class SwaggerGenerationService implements IService {
               content: {
                 [OutputFormat.JsonLd]: {
                   schema: {
-                    $ref: `#/components/schemas/${label}`,
+                    $ref: `${this.configuration.baseURL}swagger/components/schemas/${label}.json`,
                   },
                 },
               },
-              links: links[label],
+              links: filteredLinks,
             },
             400: {
               description: `Ontbrekende informatie bij het opvragen een ${label} object.`,
@@ -309,9 +311,149 @@ export class SwaggerGenerationService implements IService {
           },
         },
       };
+    }
+
+    return swagger;
+  }
+
+  public createSchemas(): Object {
+    const schemas: { [key: string]: any } = {};
+
+    /* Create schema for each Class and Datatype */
+    let links: any = {};
+    for (const classId of [
+      ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
+      ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
+    ]) {
+      let label = getApplicationProfileLabel(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+      const definition = getApplicationProfileDefinition(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+      let attributes: any = {};
+      let requiredAttributes: any = {};
+
+      /* Get all attributes in a recursive manner for inheritance */
+      let attributeIds: RDF.Term[] = [];
+      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+
+      if (!label) {
+        this.logger.error(`Unknown class label for ${classId.value}`);
+        continue;
+      }
+      /* Class labels should be always pascal cased */
+      label = toPascalCase(label);
+
+      attributes[label] = [];
+      requiredAttributes[label] = [];
+
+      /* Find all attributes for object */
+      for (const attributeId of attributeIds) {
+        let attributeLabel = getApplicationProfileLabel(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+        const attributeMinCount = getMinCount(attributeId, this.store);
+        const attributeMaxCount = getMaxCount(attributeId, this.store);
+        const attributeRangeId = this.store.getRange(attributeId);
+        const attributeDefinition = getApplicationProfileDefinition(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+        const attributeUsageNote = getApplicationProfileUsageNote(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeLabel) {
+          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
+          continue;
+        }
+        /* Attribute labels should be always camel cased */
+        attributeLabel = toCamelCase(attributeLabel);
+
+        if (!attributeRangeId) {
+          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
+          continue;
+        }
+
+        const attributeDatatypeId =
+          this.store.getAssignedUri(attributeRangeId)?.value;
+        let attributeDatatypeLabel = getApplicationProfileLabel(
+          attributeRangeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeDatatypeId || !attributeDatatypeLabel) {
+          this.logger.error(
+            `Unknown datatype for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
+
+        if (!attributeMinCount || !attributeMaxCount) {
+          this.logger.error(
+            `Unknown cardinality for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+
+        /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
+        const type = 'object';
+        const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
+        const properties = mapProperties(
+          attributeDatatypeId,
+          attributeDatatypeLabel,
+          this.configuration.baseURL,
+        );
+        const requiredProperties = properties
+          ? Object.keys(properties)
+          : undefined;
+
+        if (attributeMaxCount != '0' && attributeMaxCount != '1') {
+          attributes[label][`${label}.${attributeLabel}`] = {
+            type: 'array',
+            description: `Lijst van ${attributeDatatypeLabel} items.`,
+            items: {
+              type: type,
+              description: description,
+              properties: properties,
+              required: requiredProperties,
+            },
+            minItems: parseInt(attributeMinCount),
+            maxItems:
+              attributeMaxCount == '*'
+                ? undefined
+                : parseInt(attributeMaxCount),
+          };
+          /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
+        } else {
+          attributes[label][`${label}.${attributeLabel}`] = {
+            type: type,
+            description: description,
+            properties: properties,
+            required: requiredProperties,
+          };
+        }
+
+        /* Only require properties which are not arrays since those have their own cardinality checks */
+        if (attributeMinCount == '1')
+          requiredAttributes[label].push(`${label}.${attributeLabel}`);
+      }
 
       /* Create components for each schema */
-      swagger.components.schemas[label] = {
+      schemas[label] = {
+        title: label,
         type: 'object',
         description: definition,
         properties: {
@@ -323,7 +465,6 @@ export class SwaggerGenerationService implements IService {
           '@id': {
             type: 'string',
             format: 'uri',
-            pattern: `^${this.configuration.baseURL.replace(RE_SLASH, '\\/').replace(RE_DOT, '\\.')}id\\/${label}\\/\\d`,
           },
           '@type': {
             type: 'array',
@@ -341,12 +482,98 @@ export class SwaggerGenerationService implements IService {
       };
     }
 
-    return swagger;
+    return schemas;
   }
 
-  public async writeSwagger(swagger: Object) {
-    const data = JSON.stringify(swagger, null, 2);
+  public createLinks(): Object {
+    let links: any = {};
 
-    await writeFile(this.configuration.output, data);
+    /* Create link for each Class, datatypes are always nested. */
+    for (const classId of this.store.findSubjects(
+      ns.rdf('type'),
+      ns.owl('Class'),
+    )) {
+      let label = getApplicationProfileLabel(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      /* Get all attributes in a recursive manner for inheritance */
+      let attributeIds: RDF.Term[] = [];
+      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+
+      if (!label) {
+        this.logger.error(`Unknown class label for ${classId.value}`);
+        continue;
+      }
+      /* Class labels should be always pascal cased */
+      label = toPascalCase(label);
+
+      /* Find all attributes for object */
+      for (const attributeId of attributeIds) {
+        let attributeLabel = getApplicationProfileLabel(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+        const attributeRangeId = this.store.getRange(attributeId);
+        const attributeDefinition = getApplicationProfileDefinition(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeLabel) {
+          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
+          continue;
+        }
+        /* Attribute labels should be always camel cased */
+        attributeLabel = toCamelCase(attributeLabel);
+
+        if (!attributeRangeId) {
+          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
+          continue;
+        }
+
+        const attributeDatatypeId =
+          this.store.getAssignedUri(attributeRangeId)?.value;
+        let attributeDatatypeLabel = getApplicationProfileLabel(
+          attributeRangeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeDatatypeId || !attributeDatatypeLabel) {
+          this.logger.error(
+            `Unknown datatype for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
+
+        /* Create all possible links for endpoint */
+        if (!isStandardDatatype(attributeDatatypeId)) {
+          links[`${label}.${attributeLabel}`] = {
+            operationId: `${label}GET`,
+            parameters: {
+              /* Referring to response body always starts with the same prefix */
+              id: `$response.body#/${label}.${attributeLabel}/@id`,
+            },
+            description: `De waarde van het attribuut \`@id\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
+          };
+        }
+      }
+    }
+
+    return links;
+  }
+
+  public async writeJSON(json: Object, outputPath: string) {
+    const data = JSON.stringify(json, null, 2);
+    const filePath = path.join(this.configuration.output, outputPath);
+
+    ensureOutputDirectory(path.dirname(filePath));
+    await writeFile(filePath, data);
   }
 }
