@@ -3,6 +3,7 @@ import { ns } from '@oslo-flanders/core';
 /* eslint-disable */
 const Properties: Map<string, object> = new Map<string, object>([
   [ns.rdf('langString').value, { '@value': { type: 'string' }, '@language': { type: 'string', enum: ['nl'] } }],
+  [ns.rdfs('Literal').value, { '@value': { type: 'string' } }],
   [ns.xsd('string').value, { '@value': { type: 'string' } }],
   [ns.xsd('anyURI').value, { '@id': { type: 'string', format: 'uri' } }],
   [ns.xsd('dateTime').value, { '@value': { type: 'string', format: 'date-time' }, '@type': { type: 'string', enum: ['DateTime'] } }],
