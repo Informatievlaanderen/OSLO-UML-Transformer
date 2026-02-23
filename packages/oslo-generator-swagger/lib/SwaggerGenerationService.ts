@@ -74,18 +74,6 @@ export class SwaggerGenerationService implements IService {
     };
   }
 
-  private getTag(subject: RDF.Term): string {
-    if (
-      this.store
-        .getAssignedUri(subject)
-        ?.value.startsWith(this.configuration.baseURL)
-    ) {
-      return 'OSLO datastandaarden';
-    }
-
-    return 'Externe datastandaarden';
-  }
-
   public async init(): Promise<void> {
     return this.store.addQuadsFromFile(this.configuration.input);
   }
@@ -278,7 +266,6 @@ export class SwaggerGenerationService implements IService {
           summary: definition,
           description: usageNote,
           operationId: `${label}GET`,
-          tags: [this.getTag(classId)],
           parameters: [
             {
               name: 'id',
@@ -296,7 +283,7 @@ export class SwaggerGenerationService implements IService {
               content: {
                 [OutputFormat.JsonLd]: {
                   schema: {
-                    $ref: `${this.configuration.baseURL}swagger/components/schemas/${label}.json`,
+                    $ref: `#/components/schemas/${label}`,
                   },
                 },
               },
@@ -312,6 +299,13 @@ export class SwaggerGenerationService implements IService {
         },
       };
     }
+
+    /* Inline schemas */
+    swagger.components = {
+      schemas: {},
+    };
+    for (const schemaLabel of Object.keys(schemas))
+      swagger.components.schemas[schemaLabel] = schemas[schemaLabel];
 
     return swagger;
   }
