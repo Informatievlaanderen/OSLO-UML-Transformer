@@ -1,5 +1,6 @@
 export enum OutputFormat {
   JsonLd = 'application/ld+json',
+  JsonProblem = 'application/problem+json',
   Json = 'application/json',
   trig = 'application/trig',
   turtle = 'text/turtle',
