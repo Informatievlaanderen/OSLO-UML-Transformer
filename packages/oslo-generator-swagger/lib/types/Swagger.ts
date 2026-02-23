@@ -98,6 +98,7 @@ export type SwaggerComponentsSchemas = Record<
 >;
 
 export interface SwaggerComponentsSchemasValue {
+  title?: string;
   type?: string;
   description?: string;
   properties?: SwaggerComponentsValueProperties;
@@ -111,6 +112,7 @@ export type SwaggerComponentsValueProperties = Record<
 
 export interface SwaggerComponentsValuePropertiesValue {
   type: string;
+  format?: string;
   description?: string;
   enum?: string[];
   items?: SwaggerComponentsValuePropertiesValueItems;
