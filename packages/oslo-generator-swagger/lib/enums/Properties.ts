@@ -36,20 +36,7 @@ export const mapProperties = (datatype: string, label: string, baseURI: string):
  
   return {
     '@id': {
-      anyOf: [
-        {
-          type: 'string',
-          format: 'uri',
-        },
-        {
-          type: 'string',
-          format: 'blanknode',
-        },
-/* Swagger editors and tooling crash with too much recursive references, disabled for now */
-//      {
-//        $ref: `${baseURI}swagger/components/schemas/${label}.json`
-//      }
-      ],
+      $ref: `#/components/schemas/${label}`,
     },
   };
 }
