@@ -15,6 +15,7 @@ import {
   findAllAttributes,
   toPascalCase,
   toCamelCase,
+  DataTypes,
 } from '@oslo-flanders/core';
 import * as path from 'path';
 import { writeFile } from 'fs/promises';
@@ -45,6 +46,29 @@ export class SwaggerGenerationService implements IService {
     this.logger = logger;
     this.configuration = config;
     this.store = store;
+  }
+
+  private getProbleemdetailsContent(): any {
+    return {
+      [OutputFormat.JsonProblem]: {
+        schema: {
+          $ref: '#/components/schemas/ProbleemDetails',
+        },
+      },
+    };
+  }
+
+  private getProbleemdetailsLink(label: string): any {
+    return {
+      'ProbleemDetails.type': {
+        operationId: `${label}GET`,
+        parameters: {
+          type: `$response.body#/type`,
+        },
+        description:
+          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+      },
+    };
   }
 
   private getContact(): SwaggerInfoContact | undefined {
@@ -251,7 +275,7 @@ export class SwaggerGenerationService implements IService {
         }
 
         /* Only require properties which are not arrays since those have their own cardinality checks */
-        if (attributeMinCount == '1')
+        if (attributeMinCount == '1' && requiredAttributes[label])
           requiredAttributes[label].push(`${label}.${attributeLabel}`);
       }
 
@@ -289,11 +313,51 @@ export class SwaggerGenerationService implements IService {
               },
               links: filteredLinks,
             },
+            /* Error codes follow the RFC 7807 */
             400: {
-              description: `Ontbrekende informatie bij het opvragen een ${label} object.`,
+              description: 'Invalid data supplied.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            401: {
+              description: 'Invalid authorization.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            403: {
+              description: 'Authentication failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
             },
             404: {
-              description: `${label} object met gegeven ID niet gevonden.`,
+              description: 'Resource not found.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            412: {
+              description: 'Pre-condition failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            500: {
+              description: 'Unexpected Server Error.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            502: {
+              description: 'Bad Gateway.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            503: {
+              description: 'Service unavailable.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            504: {
+              description: 'Gateway Timeout.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
             },
           },
         },
@@ -302,7 +366,43 @@ export class SwaggerGenerationService implements IService {
 
     /* Inline schemas */
     swagger.components = {
-      schemas: {},
+      schemas: {
+        ProbleemDetails: {
+          title: 'ProbleemDetails',
+          type: 'object',
+          description:
+            'Een weergave van een algemene foutmelding zoals gedefinieerd in RFC 7807.',
+          properties: {
+            type: {
+              type: 'string',
+              format: 'uri',
+              description:
+                'URI referentie die het probleem identificeert. Deze specificatie moedigt aan om, wanneer de referentie wordt verwijderd, een leesbare documentatie te bieden voor het probleemtype. Als dit element niet aanwezig is, wordt aangenomen dat de waarde about:blank is.',
+            },
+            title: {
+              type: 'string',
+              description:
+                'Een korte, voor mensen leesbare samenvatting van het probleemtype. Het MAG NIET veranderen tussen verschillende voorkomens van de fout, behalve voor doeleinden van lokalisatie.',
+            },
+            status: {
+              type: 'string',
+              description:
+                'De HTTP-statuscode die is gegenereerd door de oorspronkelijke server voor dit optreden van het probleem.',
+            },
+            detail: {
+              type: 'string',
+              description:
+                'Een voor mensen leesbare uitleg die specifiek is voor dit optreden van het probleem',
+            },
+            instance: {
+              type: 'string',
+              description:
+                'Een URI-referentie die het specifieke optreden van het probleem identificeert. Het kan al dan niet meer informatie opleveren als de referentie wordt verwijderd.',
+            },
+          },
+          required: ['detail', 'title'],
+        },
+      },
     };
     for (const schemaLabel of Object.keys(schemas))
       swagger.components.schemas[schemaLabel] = schemas[schemaLabel];
@@ -319,6 +419,11 @@ export class SwaggerGenerationService implements IService {
       ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
       ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
     ]) {
+      const assignedUri = this.store.getAssignedUri(classId);
+
+      if (assignedUri && [...DataTypes.values()].includes(assignedUri.value)) 
+        continue;
+
       let label = getApplicationProfileLabel(
         classId,
         this.store,
@@ -393,6 +498,8 @@ export class SwaggerGenerationService implements IService {
           );
           continue;
         }
+
+        /* Labels are always pascal cased */
         attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
 
         if (!attributeMinCount || !attributeMaxCount) {
@@ -444,6 +551,9 @@ export class SwaggerGenerationService implements IService {
         if (attributeMinCount == '1')
           requiredAttributes[label].push(`${label}.${attributeLabel}`);
       }
+
+      /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
+      requiredAttributes[label] = [...new Set(requiredAttributes[label])];
 
       /* Create components for each schema */
       schemas[label] = {
