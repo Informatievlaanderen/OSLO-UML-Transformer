@@ -186,6 +186,7 @@ export class SwaggerGenerationService implements IService {
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
 
+      /* Only keep links which are related to the class */
       for (const key of Object.keys(links)) {
         if (key.startsWith(`${label}.`)) filteredLinks[key] = links[key];
       }
@@ -402,6 +403,7 @@ export class SwaggerGenerationService implements IService {
         const attributeMinCount = getMinCount(attributeId, this.store);
         const attributeMaxCount = getMaxCount(attributeId, this.store);
         const attributeRangeId = this.store.getRange(attributeId);
+        const attributeDomainId = this.store.getDomain(attributeId);
         const attributeDefinition = getApplicationProfileDefinition(
           attributeId,
           this.store,
@@ -424,6 +426,19 @@ export class SwaggerGenerationService implements IService {
           this.logger.error(`Unknown range for attribute ${attributeId.value}`);
           continue;
         }
+
+        if (!attributeDomainId) {
+          this.logger.error(
+            `Unknown domain for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+
+        const attributeClassLabel = getApplicationProfileLabel(
+          attributeDomainId,
+          this.store,
+          this.configuration.language,
+        )?.value;
 
         const attributeDatatypeId =
           this.store.getAssignedUri(attributeRangeId)?.value;
@@ -496,7 +511,7 @@ export class SwaggerGenerationService implements IService {
         }
 
         if (attributeMaxCount != '0' && attributeMaxCount != '1') {
-          attributes[label][`${label}.${attributeLabel}`] = {
+          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = {
             type: 'array',
             description: `Lijst van ${attributeDatatypeLabel} items.`,
             items: item,
@@ -508,7 +523,7 @@ export class SwaggerGenerationService implements IService {
           };
           /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
         } else {
-          attributes[label][`${label}.${attributeLabel}`] = item;
+          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = item;
         }
 
         /* Only require properties which are not arrays since those have their own cardinality checks */
@@ -529,23 +544,20 @@ export class SwaggerGenerationService implements IService {
             type: 'string',
             format: 'uri',
           },
+          /* Do not allow double typing for strict validation and problems with Swagger tooling (discriminator keyword) */
           '@type': {
-            type: 'array',
-            description: 'Lijst van object types (klasse)',
-            items: {
-              type: 'string',
-              description: `${label} type`,
-              pattern: `^${label}\$`,
-            },
-            minItems: 1,
+            type: 'object',
+            description: `Object type (klasse ${label})`,
+            pattern: `^${label}\$`,
           },
           ...attributes[label],
         },
-        required: ['@context', '@id', '@type', ...requiredAttributes[label]],
+        required: ['@id', '@type', ...requiredAttributes[label]],
       };
 
-      /* Create components with JSON-LD enveloppe for each schema */
-      schemas[`${label}JsonLd`] = schemas[label];
+      /* Create components with JSON-LD enveloppe for each schema, use deep-copy to avoid @context in original schema */
+      schemas[`${label}JsonLd`] = JSON.parse(JSON.stringify(schemas[label]));
+      schemas[`${label}JsonLd`].required.push('@context');
       schemas[`${label}JsonLd`].properties['@context'] = {
         type: 'string',
         format: 'uri',
