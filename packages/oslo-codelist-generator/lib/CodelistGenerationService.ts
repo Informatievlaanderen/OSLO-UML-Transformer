@@ -179,8 +179,6 @@ export class CodelistGenerationService implements IService {
             }
           }
 
-          console.log(conceptSchemeIndices, 'lol');
-
           // Second pass: group concepts by their inScheme
           for (const [index, row] of rows.entries()) {
             if (!conceptSchemeIndices.has(index) && row.inScheme) {
