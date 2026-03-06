@@ -1,7 +1,5 @@
 import * as path from 'path';
-import { inject, injectable } from 'inversify';
-import { RmlGenerationServiceConfiguration } from './config/RmlGenerationServiceConfiguration';
-import { RmlGenerationServiceIdentifier } from './config/RmlGenerationServiceIdentifier';
+
 import {
   OutputFormat,
   QuadStore,
@@ -12,10 +10,14 @@ import {
 } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { createWriteStream, writeFileSync } from 'fs';
-import rdfSerializer from 'rdf-serialize';
+import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
-import { quadSort } from './utils/utils';
+import rdfSerializer from 'rdf-serialize';
 import streamifyArray from 'streamify-array';
+
+import { RmlGenerationServiceConfiguration } from './config/RmlGenerationServiceConfiguration';
+import { RmlGenerationServiceIdentifier } from './config/RmlGenerationServiceIdentifier';
+import { quadSort } from './utils/utils';
 
 @injectable()
 export class OutputHandlerService {
@@ -31,7 +33,7 @@ export class OutputHandlerService {
     this.logger = logger;
   }
 
-  private async generatePrefixMap(): Promise<Map<String, RDF.NamedNode>> {
+  private async generatePrefixMap(): Promise<Map<string, RDF.NamedNode>> {
     const prefixes = await getPrefixes();
     const map = new Map();
     const df = new DataFactory();
@@ -46,7 +48,8 @@ export class OutputHandlerService {
   }
 
   public async write(store: QuadStore): Promise<void> {
-    const df: DataFactory = new DataFactory();
+    ensureOutputDirectory(this.config.output);
+
     for (const triplesMapId of store.findSubjects(
       ns.rdf('type'),
       ns.rml('TriplesMap'),
@@ -63,28 +66,23 @@ export class OutputHandlerService {
         continue;
       }
 
-      let quads: RDF.Quad[] = [];
+      const quads: RDF.Quad[] = [];
       this.discoverTriplesMap(triplesMapId as RDF.NamedNode, quads, store);
       quads.sort(quadSort);
 
-      /* Create output directory */
-      ensureOutputDirectory(this.config.output);
-
-      /* Construct filename */
-      let fileName: string = path.join(
+      const fileName: string = path.join(
         this.config.output,
         `${triplesMapLabel}.${this.getFileExtension()}`,
       );
 
       if (this.config.outputFormat === OutputFormat.turtle) {
-        // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
+        // Dynamic import required due to ESM/CommonJS compatibility issues
         const { default: Serializer } = await import(
           '@rdfjs/serializer-turtle'
         );
 
         const serializer = new Serializer({
           baseIRI: this.config.baseIRI,
-          // Override typechecking due to lacking of Typescript typing
           prefixes: (await this.generatePrefixMap()) as any,
         });
         const output = serializer.transform(quads);
@@ -121,16 +119,17 @@ export class OutputHandlerService {
     nodeId: RDF.NamedNode | RDF.BlankNode,
     quads: RDF.Quad[],
     store: QuadStore,
-  ) {
+  ): void {
     for (const q of store.findQuads(nodeId, null, null)) {
       quads.push(q);
       if (
         (q.object.termType === 'NamedNode' ||
           q.object.termType === 'BlankNode') &&
-        store.findObject(q.object, ns.rdf('type'))?.value !=
+        store.findObject(q.object, ns.rdf('type'))?.value !==
           ns.rml('TriplesMap').value
-      )
+      ) {
         this.discoverTriplesMap(q.object, quads, store);
+      }
     }
   }
 }
