@@ -11,7 +11,13 @@ import {
   getMinCount,
   getMaxCount,
   OutputFormat,
+  ensureOutputDirectory,
+  findAllAttributes,
+  toPascalCase,
+  toCamelCase,
+  DataTypes,
 } from '@oslo-flanders/core';
+import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
@@ -23,12 +29,6 @@ import {
   SwaggerInfoLicense,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
-import {
-  findAllAttributes,
-  toPascalCase,
-  toCamelCase,
-} from './utils/swaggerUtils';
-import { RE_DOT, RE_SLASH } from './constants/Swagger';
 
 @injectable()
 export class SwaggerGenerationService implements IService {
@@ -46,6 +46,29 @@ export class SwaggerGenerationService implements IService {
     this.logger = logger;
     this.configuration = config;
     this.store = store;
+  }
+
+  private getProbleemdetailsContent(): any {
+    return {
+      [OutputFormat.JsonProblem]: {
+        schema: {
+          $ref: '#/components/schemas/ProbleemDetails',
+        },
+      },
+    };
+  }
+
+  private getProbleemdetailsLink(label: string): any {
+    return {
+      'ProbleemDetails.type': {
+        operationId: `${label}GET`,
+        parameters: {
+          type: `$response.body#/type`,
+        },
+        description:
+          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+      },
+    };
   }
 
   private getContact(): SwaggerInfoContact | undefined {
@@ -75,31 +98,47 @@ export class SwaggerGenerationService implements IService {
     };
   }
 
-  private getTag(subject: RDF.Term): string {
-    if (
-      this.store
-        .getAssignedUri(subject)
-        ?.value.startsWith(this.configuration.baseURL)
-    ) {
-      return 'OSLO datastandaarden';
-    }
-
-    return 'Externe datastandaarden';
-  }
-
   public async init(): Promise<void> {
     return this.store.addQuadsFromFile(this.configuration.input);
   }
 
   public async run(): Promise<void> {
-    /* Create Swagger as JSON */
-    const swagger = this.createSwagger();
+    /* Create Swagger schemas */
+    const schemas: any = this.createSchemas();
+    for (const label of Object.keys(schemas))
+      await this.writeJSON(
+        schemas[label],
+        `swagger/components/schemas/${label}.json`,
+      );
 
-    /* Write Swagger to file */
-    await this.writeSwagger(swagger);
+    /* Create Swagger links */
+    const links: any = this.createLinks();
+    for (const label of Object.keys(links))
+      await this.writeJSON(
+        links[label],
+        `swagger/components/links/${label}.json`,
+      );
+
+    /* Create self-standing referenceable components */
+    const components: any = {
+      openapi: this.configuration.versionSwagger,
+      info: {
+        title: `Components of ${this.configuration.title}`,
+        description: this.configuration.description,
+        contact: this.getContact(),
+        license: this.getLicense(),
+        version: this.configuration.versionAPI,
+      },
+      components: { schemas, links },
+    };
+    await this.writeJSON(components, `swagger/components.json`);
+
+    /* Create Swagger endpoint paths as example */
+    const swagger = this.createSwagger(schemas, links);
+    await this.writeJSON(swagger, 'swagger/example.json');
   }
 
-  public createSwagger(): Object {
+  public createSwagger(schemas: any, links: any): Object {
     const swagger: SwaggerRoot = {
       openapi: this.configuration.versionSwagger,
       info: {
@@ -116,17 +155,14 @@ export class SwaggerGenerationService implements IService {
         },
       ],
       paths: {},
-      components: {
-        schemas: {},
-      },
     };
 
     /* Create endpoint for each Class */
-    let links: any = {};
     for (const classId of this.store.findSubjects(
       ns.rdf('type'),
       ns.owl('Class'),
     )) {
+      const filteredLinks: any = {};
       let label = getApplicationProfileLabel(
         classId,
         this.store,
@@ -138,6 +174,204 @@ export class SwaggerGenerationService implements IService {
         this.configuration.language,
       )?.value;
       const usageNote = getApplicationProfileDefinition(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      if (!label) {
+        this.logger.error(`Unknown class label for ${classId.value}`);
+        continue;
+      }
+      /* Class labels should be always pascal cased */
+      label = toPascalCase(label);
+
+      /* Only keep links which are related to the class */
+      for (const key of Object.keys(links)) {
+        if (key.startsWith(`${label}.`)) filteredLinks[key] = links[key];
+      }
+
+      /* Create an endpoint for each object to have PURIs for each object */
+      swagger.paths[`/id/${label}/{id}`] = {
+        get: {
+          summary: definition,
+          description: usageNote,
+          operationId: `${label}GET`,
+          parameters: [
+            {
+              name: 'id',
+              required: true,
+              in: 'path',
+              description: `Identificator van een ${label} object.`,
+              schema: {
+                type: 'string',
+              },
+            },
+          ],
+          responses: {
+            200: {
+              description: `${label} object gevonden.`,
+              content: {
+                [OutputFormat.JsonLd]: {
+                  schema: {
+                    $ref: `#/components/schemas/${label}`,
+                  },
+                },
+              },
+              links: filteredLinks,
+            },
+            /* Error codes follow the RFC 7807 */
+            400: {
+              description: 'Invalid data supplied.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            401: {
+              description: 'Invalid authorization.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            403: {
+              description: 'Authentication failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            404: {
+              description: 'Resource not found.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            412: {
+              description: 'Pre-condition failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            500: {
+              description: 'Unexpected Server Error.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            502: {
+              description: 'Bad Gateway.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            503: {
+              description: 'Service unavailable.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            504: {
+              description: 'Gateway Timeout.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+          },
+        },
+      };
+    }
+
+    /* Inline schemas */
+    swagger.components = {
+      schemas: {},
+    };
+
+    for (const schemaLabel of Object.keys(schemas))
+      swagger.components.schemas[schemaLabel] = schemas[schemaLabel];
+
+    return swagger;
+  }
+
+  public createSchemas(): Object {
+    const schemas: { [key: string]: any } = {};
+
+    /* Create error schema */
+    schemas['ProbleemDetails'] = {
+      title: 'ProbleemDetails',
+      type: 'object',
+      description:
+        'Een weergave van een algemene foutmelding zoals gedefinieerd in RFC 7807.',
+      properties: {
+        type: {
+          type: 'string',
+          format: 'uri',
+          description:
+            'URI referentie die het probleem identificeert. Deze specificatie moedigt aan om, wanneer de referentie wordt verwijderd, een leesbare documentatie te bieden voor het probleemtype. Als dit element niet aanwezig is, wordt aangenomen dat de waarde about:blank is.',
+        },
+        title: {
+          type: 'string',
+          description:
+            'Een korte, voor mensen leesbare samenvatting van het probleemtype. Het MAG NIET veranderen tussen verschillende voorkomens van de fout, behalve voor doeleinden van lokalisatie.',
+        },
+        status: {
+          type: 'string',
+          description:
+            'De HTTP-statuscode die is gegenereerd door de oorspronkelijke server voor dit optreden van het probleem.',
+        },
+        detail: {
+          type: 'string',
+          description:
+            'Een voor mensen leesbare uitleg die specifiek is voor dit optreden van het probleem',
+        },
+        instance: {
+          type: 'string',
+          description:
+            'Een URI-referentie die het specifieke optreden van het probleem identificeert. Het kan al dan niet meer informatie opleveren als de referentie wordt verwijderd.',
+        },
+      },
+      required: ['detail', 'title'],
+    };
+
+    /* Create schema for each enumeration */
+    for (const enumId of this.store.findSubjects(
+      ns.oslo('assignedURI'),
+      ns.skos('Concept'),
+    )) {
+      let label = getApplicationProfileLabel(
+        enumId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      if (!label) {
+        this.logger.error(`Unknown enum label for ${enumId.value}`);
+        continue;
+      }
+
+      /* Class labels should be always pascal cased */
+      label = toPascalCase(label);
+
+      schemas[label] = {
+        title: label,
+        type: 'object',
+        description: `Enumeratie van ${label}`,
+        properties: {
+          '@id': {
+            type: 'string',
+            format: 'uri',
+          },
+        },
+        required: ['@id'],
+      };
+    }
+
+    /* Create schema for each Class and Datatype */
+    let links: any = {};
+    for (const classId of [
+      ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
+      ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
+    ]) {
+      const assignedUri = this.store.getAssignedUri(classId);
+
+      if (assignedUri && [...DataTypes.values()].includes(assignedUri.value))
+        continue;
+
+      let label = getApplicationProfileLabel(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+      const definition = getApplicationProfileDefinition(
         classId,
         this.store,
         this.configuration.language,
@@ -158,7 +392,6 @@ export class SwaggerGenerationService implements IService {
 
       attributes[label] = [];
       requiredAttributes[label] = [];
-      links[label] = {};
 
       /* Find all attributes for object */
       for (const attributeId of attributeIds) {
@@ -170,6 +403,7 @@ export class SwaggerGenerationService implements IService {
         const attributeMinCount = getMinCount(attributeId, this.store);
         const attributeMaxCount = getMaxCount(attributeId, this.store);
         const attributeRangeId = this.store.getRange(attributeId);
+        const attributeDomainId = this.store.getDomain(attributeId);
         const attributeDefinition = getApplicationProfileDefinition(
           attributeId,
           this.store,
@@ -193,9 +427,22 @@ export class SwaggerGenerationService implements IService {
           continue;
         }
 
+        if (!attributeDomainId) {
+          this.logger.error(
+            `Unknown domain for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+
+        const attributeClassLabel = getApplicationProfileLabel(
+          attributeDomainId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
         const attributeDatatypeId =
           this.store.getAssignedUri(attributeRangeId)?.value;
-        const attributeDatatypeLabel = getApplicationProfileLabel(
+        let attributeDatatypeLabel = getApplicationProfileLabel(
           attributeRangeId,
           this.store,
           this.configuration.language,
@@ -207,7 +454,29 @@ export class SwaggerGenerationService implements IService {
           );
           continue;
         }
+        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
 
+        /* Attribute datatypes may have a super class assigned, but any subclass of this super class must be allowed */
+        const subclasses: string[] = [];
+        for (const subclassId of this.store.findSubjects(
+          ns.rdfs('subClassOf'),
+          attributeRangeId,
+        )) {
+          const subclassLabel = getApplicationProfileLabel(
+            subclassId,
+            this.store,
+            this.configuration.language,
+          )?.value;
+
+          if (!subclassLabel) {
+            console.error(`Unable to retrieve subclass label of ${subclassId}`);
+            continue;
+          }
+
+          subclasses.push(subclassLabel);
+        }
+
+        /* Cardinality */
         if (!attributeMinCount || !attributeMaxCount) {
           this.logger.error(
             `Unknown cardinality for attribute ${attributeId.value}`,
@@ -216,27 +485,36 @@ export class SwaggerGenerationService implements IService {
         }
 
         /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
-        const type = 'object';
         const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
         const properties = mapProperties(
           attributeDatatypeId,
           attributeDatatypeLabel,
           this.configuration.baseURL,
+          subclasses,
         );
         const requiredProperties = properties
           ? Object.keys(properties)
           : undefined;
 
+        /* Primitive datatypes are objects with properties */
+        let item = {};
+        if ([...DataTypes.values()].includes(attributeDatatypeId)) {
+          item = {
+            type: 'object',
+            description: description,
+            properties: properties,
+            required: requiredProperties,
+          };
+          /* Schema references are $ref, not objects */
+        } else {
+          item = properties;
+        }
+
         if (attributeMaxCount != '0' && attributeMaxCount != '1') {
-          attributes[label][`${label}.${attributeLabel}`] = {
+          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = {
             type: 'array',
             description: `Lijst van ${attributeDatatypeLabel} items.`,
-            items: {
-              type: type,
-              description: description,
-              properties: properties,
-              required: requiredProperties,
-            },
+            items: item,
             minItems: parseInt(attributeMinCount),
             maxItems:
               attributeMaxCount == '*'
@@ -245,108 +523,140 @@ export class SwaggerGenerationService implements IService {
           };
           /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
         } else {
-          attributes[label][`${label}.${attributeLabel}`] = {
-            type: type,
-            description: description,
-            properties: properties,
-            required: requiredProperties,
-          };
+          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = item;
         }
 
         /* Only require properties which are not arrays since those have their own cardinality checks */
         if (attributeMinCount == '1')
           requiredAttributes[label].push(`${label}.${attributeLabel}`);
+      }
+
+      /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
+      requiredAttributes[label] = [...new Set(requiredAttributes[label])];
+
+      /* Create components for each schema */
+      schemas[label] = {
+        title: label,
+        type: 'object',
+        description: definition,
+        properties: {
+          '@id': {
+            type: 'string',
+            format: 'uri',
+          },
+          /* Do not allow double typing for strict validation and problems with Swagger tooling (discriminator keyword) */
+          '@type': {
+            type: 'object',
+            description: `Object type (klasse ${label})`,
+            pattern: `^${label}\$`,
+          },
+          ...attributes[label],
+        },
+        required: ['@id', '@type', ...requiredAttributes[label]],
+      };
+
+      /* Create components with JSON-LD enveloppe for each schema, use deep-copy to avoid @context in original schema */
+      schemas[`${label}JsonLd`] = JSON.parse(JSON.stringify(schemas[label]));
+      schemas[`${label}JsonLd`].required.push('@context');
+      schemas[`${label}JsonLd`].properties['@context'] = {
+        type: 'string',
+        format: 'uri',
+        pattern: `^${this.configuration.contextURL}$`.replace(/\//g, '\\/'),
+      };
+    }
+
+    return schemas;
+  }
+
+  public createLinks(): Object {
+    let links: any = {};
+
+    /* Create link for each Class, datatypes are always nested. */
+    for (const classId of this.store.findSubjects(
+      ns.rdf('type'),
+      ns.owl('Class'),
+    )) {
+      let label = getApplicationProfileLabel(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      /* Get all attributes in a recursive manner for inheritance */
+      let attributeIds: RDF.Term[] = [];
+      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+
+      if (!label) {
+        this.logger.error(`Unknown class label for ${classId.value}`);
+        continue;
+      }
+      /* Class labels should be always pascal cased */
+      label = toPascalCase(label);
+
+      /* Find all attributes for object */
+      for (const attributeId of attributeIds) {
+        let attributeLabel = getApplicationProfileLabel(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+        const attributeRangeId = this.store.getRange(attributeId);
+        const attributeDefinition = getApplicationProfileDefinition(
+          attributeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeLabel) {
+          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
+          continue;
+        }
+        /* Attribute labels should be always camel cased */
+        attributeLabel = toCamelCase(attributeLabel);
+
+        if (!attributeRangeId) {
+          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
+          continue;
+        }
+
+        const attributeDatatypeId =
+          this.store.getAssignedUri(attributeRangeId)?.value;
+        let attributeDatatypeLabel = getApplicationProfileLabel(
+          attributeRangeId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!attributeDatatypeId || !attributeDatatypeLabel) {
+          this.logger.error(
+            `Unknown datatype for attribute ${attributeId.value}`,
+          );
+          continue;
+        }
+        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
 
         /* Create all possible links for endpoint */
         if (!isStandardDatatype(attributeDatatypeId)) {
-          links[label][`${attributeDatatypeLabel}GET`] = {
-            operationId: `${attributeDatatypeLabel}GET`,
+          links[`${label}.${attributeLabel}`] = {
+            operationId: `${label}GET`,
             parameters: {
               /* Referring to response body always starts with the same prefix */
               id: `$response.body#/${label}.${attributeLabel}/@id`,
             },
-            description: `Het \`@id\` attribuut van de waarde van \`${label}.${attributeLabel}\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
+            description: `De waarde van het attribuut \`@id\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
           };
         }
       }
-
-      /* Create an endpoint for each object to have PURIs for each object */
-      swagger.paths[`/id/${label}/{id}`] = {
-        get: {
-          summary: definition,
-          description: usageNote,
-          operationId: `${label}GET`,
-          tags: [this.getTag(classId)],
-          parameters: [
-            {
-              name: 'id',
-              required: true,
-              in: 'path',
-              description: `Identificator van een ${label} object.`,
-              schema: {
-                type: 'string',
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: `${label} object gevonden.`,
-              content: {
-                [OutputFormat.JsonLd]: {
-                  schema: {
-                    $ref: `#/components/schemas/${label}`,
-                  },
-                },
-              },
-              links: links[label],
-            },
-            400: {
-              description: `Ontbrekende informatie bij het opvragen een ${label} object.`,
-            },
-            404: {
-              description: `${label} object met gegeven ID niet gevonden.`,
-            },
-          },
-        },
-      };
-
-      /* Create components for each schema */
-      swagger.components.schemas[label] = {
-        type: 'object',
-        description: definition,
-        properties: {
-          '@context': {
-            type: 'string',
-            format: 'uri',
-            enum: [this.configuration.contextURL],
-          },
-          '@id': {
-            type: 'string',
-            format: 'uri',
-            pattern: `^${this.configuration.baseURL.replace(RE_SLASH, '\\/').replace(RE_DOT, '\\.')}id\\/${label}\\/\\d`,
-          },
-          '@type': {
-            type: 'array',
-            description: 'Lijst van object types (klasse)',
-            items: {
-              type: 'string',
-              description: `${label} type`,
-              /* enum validation breaks codegen, see https://vlaamseoverheid.atlassian.net/browse/DATAST-46 */
-            },
-            minItems: 1,
-          },
-          ...attributes[label],
-        },
-        required: ['@context', '@id', '@type', ...requiredAttributes[label]],
-      };
     }
 
-    return swagger;
+    return links;
   }
 
-  public async writeSwagger(swagger: Object) {
-    const data = JSON.stringify(swagger, null, 2);
+  public async writeJSON(json: Object, outputPath: string) {
+    const data = JSON.stringify(json, null, 2);
+    const filePath = path.join(this.configuration.output, outputPath);
 
-    await writeFile(this.configuration.output, data);
+    ensureOutputDirectory(path.dirname(filePath));
+    await writeFile(filePath, data);
   }
 }
