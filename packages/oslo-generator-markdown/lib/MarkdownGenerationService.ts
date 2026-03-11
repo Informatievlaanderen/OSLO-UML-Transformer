@@ -123,6 +123,25 @@ export class MarkdownGenerationService implements IService {
           continue;
         }
 
+        const range = this.store.getRange(attributeId);
+        console.log('JOA range')
+        console.log(range);
+        let rangeUri = undefined
+        let rangeLabel = undefined
+        if(range) {
+          rangeLabel = getApplicationProfileLabel(
+            range,
+            this.store,
+            this.configuration.language
+          )?.value;
+          rangeUri = this.store.getAssignedUri(range)?.value
+
+          // get the URI though...
+          console.log('GETTING URI FOR RANGE')
+          const rUri = this.store.getAssignedUri(range)
+          console.log(rUri)
+        }
+
         const splitted = await splitUri(attributeAssignedUri);
 
         const property = new Property(attributeLabel, attributeAssignedUri, splitted?.prefix, splitted?.element);
@@ -134,11 +153,20 @@ export class MarkdownGenerationService implements IService {
 
         property.minCount = attributeMinCount;
         property.maxCount = attributeMaxCount;
+
+        property.rangeUri = rangeUri
+        property.rangeLabel = rangeLabel
+
+        if(rangeUri) {
+          const rangeUriSplitted = await splitUri(rangeUri);
+          property.rangePrefix = rangeUriSplitted?.prefix
+          property.rangeElement = rangeUriSplitted?.element
+        }
       }
     }
 
     // loop over extracted entities
-    console.log(entities);
+    // console.log(entities);
 
     // sort everything to keep predictability
     entities.sort((a, b) => a.label.localeCompare(b.label));
@@ -155,14 +183,20 @@ export class MarkdownGenerationService implements IService {
 
     /* Serialize entities and write them to a markdown file */
     var blocks: string[] = [];
-    const headers = ['Eigenschap', 'URI', 'Kardinaliteit'];
+    const headers = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
     entities.forEach((e) => {
       blocks.push(md.heading(md.link(e.uri, e.label), { level: 2 }));
       let rows: string[][] = [];
       e.properties.forEach((p) => {
         rows.push([
+          // the label
           p.label,
-          md.link(p.uri, (p.prefix && p.element) ? `${p.prefix}:${p.element}` : p.uri),
+          // the uri (shortened, with link to full)
+          md.link(p.uri, p.prettyUri()),
+          // the range label
+          p.rangeLabel!!,
+          // the range uri
+          md.link(p.rangeUri!!, p.prettyRangeUri()),
           `${p.minCount}..${p.maxCount}`
         ]);
       });
@@ -191,11 +225,23 @@ class Property {
   element: string | undefined;
   minCount: string | undefined;
   maxCount: string | undefined;
+  rangeUri: string | undefined;
+  rangeLabel: string | undefined;
+  rangePrefix: string | undefined;
+  rangeElement: string | undefined;
 
   constructor(label: string, uri: string, prefix: string | undefined, element: string | undefined) {
     this.label = label;
     this.uri = uri;
     this.prefix = prefix;
     this.element = element;
+  }
+
+  prettyUri() {
+    return (this.prefix && this.element) ? `${this.prefix}:${this.element}` : this.uri
+  }
+
+  prettyRangeUri() {
+    return (this.rangePrefix && this.rangeElement) ? `${this.rangePrefix}:${this.rangeElement}` : this.rangeUri
   }
 }
