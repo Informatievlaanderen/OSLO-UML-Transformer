@@ -517,7 +517,7 @@ export class SwaggerGenerationService implements IService {
         }
 
         if (attributeMaxCount != '0' && attributeMaxCount != '1') {
-          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = {
+          attributes[label][attributeLabel] = {
             type: 'array',
             description: `Lijst van ${attributeDatatypeLabel} items.`,
             items: item,
@@ -529,12 +529,12 @@ export class SwaggerGenerationService implements IService {
           };
           /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
         } else {
-          attributes[label][`${attributeClassLabel}.${attributeLabel}`] = item;
+          attributes[label][attributeLabel] = item;
         }
 
         /* Only require properties which are not arrays since those have their own cardinality checks */
         if (attributeMinCount == '1')
-          requiredAttributes[label].push(`${label}.${attributeLabel}`);
+          requiredAttributes[label].push(attributeLabel);
       }
 
       /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
