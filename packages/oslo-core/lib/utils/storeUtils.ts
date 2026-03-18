@@ -1,3 +1,4 @@
+import type { Logger } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import type { DataFactory } from 'rdf-data-factory';
 import type { QuadStore } from '../store/QuadStore';
@@ -215,10 +216,19 @@ export function findAllAttributes(
   subject: RDF.Term,
   attributeIds: RDF.Term[],
   store: QuadStore,
+  logger: Logger,
+  visited: Set<string> = new Set(),
 ): RDF.Term[] {
-  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
+  if (visited.has(subject.value)) {
+    logger.warn(
+      `[QuadStore]: Circular reference detected for ${subject.value}`,
+    );
+    return attributeIds;
+  }
+  visited.add(subject.value);
 
-  /* Merge all referenced dummy parents with the real one based on assigned URI */
+  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
+  // Merge all referenced dummy parents with the real one based on assigned URI
   let additionalParentIds: RDF.Term[] = [];
   for (const parentId of parentIds) {
     const assignedUri = store.findObject(parentId, ns.oslo('assignedURI'));
@@ -233,15 +243,24 @@ export function findAllAttributes(
   }
   parentIds = [...parentIds, ...additionalParentIds];
 
-  /* Collect all attributes */
+  // Collect all attributes
   attributeIds = [
     ...attributeIds,
     ...store.findSubjects(ns.rdfs('domain'), subject),
   ];
 
-  /* Recursive search further for attributes */
+  // Recursive search further for attributes
   for (const parentId of parentIds)
-    attributeIds = findAllAttributes(parentId, attributeIds, store);
+    attributeIds = findAllAttributes(
+      parentId,
+      attributeIds,
+      store,
+      logger,
+      visited,
+    );
+
+  // Remove from visited so other paths can still traverse through this node
+  visited.delete(subject.value);
 
   return attributeIds;
 }
@@ -253,7 +272,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
   // Second check allows store2 to have more quads than store1 if it has all quads of store1 plus more
   if (quads1.length !== quads2.length) {
     console.log(
-      `[QUadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
+      `[QuadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
     );
     return false;
   }
@@ -270,7 +289,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
 
     if (!matchingQuad) {
       console.log(
-        `[QUadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
+        `[QuadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
       );
       return false;
     }
