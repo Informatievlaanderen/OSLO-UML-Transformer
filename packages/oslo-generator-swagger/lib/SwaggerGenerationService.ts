@@ -21,20 +21,26 @@ import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import { DataFactory } from 'rdf-data-factory';
 import { SwaggerGenerationServiceConfiguration } from './config/SwaggerGenerationServiceConfiguration';
-import {
+import type {
   SwaggerRoot,
-  SwaggerInfoContact,
-  SwaggerInfoLicense,
+  OpenApiSchema,
+  OpenApiLink,
+  ResolvedAttribute,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
+import {
+  buildErrorResponses,
+  buildProbleemDetailsSchema,
+  filterLinksByClass,
+  getContact,
+  getLicense,
+} from './utils/swaggerUtils';
 
 @injectable()
 export class SwaggerGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: SwaggerGenerationServiceConfiguration;
-  public readonly dataFactory = new DataFactory();
   public readonly store: QuadStore;
 
   public constructor(
@@ -48,599 +54,337 @@ export class SwaggerGenerationService implements IService {
     this.store = store;
   }
 
-  private getProbleemdetailsContent(): any {
-    return {
-      [OutputFormat.JsonProblem]: {
-        schema: {
-          $ref: '#/components/schemas/ProbleemDetails',
-        },
-      },
-    };
-  }
-
-  private getProbleemdetailsLink(label: string): any {
-    return {
-      'ProbleemDetails.type': {
-        operationId: `${label}GET`,
-        parameters: {
-          type: `$response.body#/type`,
-        },
-        description:
-          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
-      },
-    };
-  }
-
-  private getContact(): SwaggerInfoContact | undefined {
-    /* If no contact information is provided, the whole block may not appear */
-    if (
-      !this.configuration.contactName &&
-      !this.configuration.contactURL &&
-      !this.configuration.contactEmail
-    )
-      return undefined;
-
-    return {
-      name: this.configuration.contactName,
-      url: this.configuration.contactURL,
-      email: this.configuration.contactEmail,
-    };
-  }
-
-  private getLicense(): SwaggerInfoLicense | undefined {
-    /* If no license information is provided, the whole block may not appear */
-    if (!this.configuration.licenseName && !this.configuration.licenseURL)
-      return undefined;
-
-    return {
-      name: this.configuration.licenseName,
-      url: this.configuration.licenseURL,
-    };
-  }
-
   public async init(): Promise<void> {
     return this.store.addQuadsFromFile(this.configuration.input);
   }
 
   public async run(): Promise<void> {
-    /* Create Swagger schemas */
-    const schemas: any = this.createSchemas();
-    for (const label of Object.keys(schemas))
-      await this.writeJSON(
-        schemas[label],
-        `swagger/components/schemas/${label}.json`,
-      );
+    const schemas = this.createSchemas();
+    const links = this.createLinks();
 
-    /* Create Swagger links */
-    const links: any = this.createLinks();
-    for (const label of Object.keys(links))
-      await this.writeJSON(
-        links[label],
-        `swagger/components/links/${label}.json`,
-      );
+    for (const [label, schema] of Object.entries(schemas)) {
+      await this.writeJSON(schema, `swagger/components/schemas/${label}.json`);
+    }
 
-    /* Create self-standing referenceable components */
-    const components: any = {
-      openapi: this.configuration.versionSwagger,
-      info: {
-        title: `Components of ${this.configuration.title}`,
-        description: this.configuration.description,
-        contact: this.getContact(),
-        license: this.getLicense(),
-        version: this.configuration.versionAPI,
-      },
-      components: { schemas, links },
-    };
-    await this.writeJSON(components, `swagger/components.json`);
+    for (const [label, link] of Object.entries(links)) {
+      await this.writeJSON(link, `swagger/components/links/${label}.json`);
+    }
 
-    /* Create Swagger endpoint paths as example */
+    const components = this.buildComponentsDocument(schemas, links);
+    await this.writeJSON(components, 'swagger/components.json');
+
     const swagger = this.createSwagger(schemas, links);
     await this.writeJSON(swagger, 'swagger/example.json');
   }
 
-  public createSwagger(schemas: any, links: any): Object {
-    const swagger: SwaggerRoot = {
-      openapi: this.configuration.versionSwagger,
-      info: {
-        title: this.configuration.title,
-        description: this.configuration.description,
-        contact: this.getContact(),
-        license: this.getLicense(),
-        version: this.configuration.versionAPI,
-      },
-      servers: [
-        {
-          url: this.configuration.baseURL,
-          description: 'Basis URL',
-        },
-      ],
-      paths: {},
+  private buildInfoBlock(title: string) {
+    return {
+      title,
+      description: this.configuration.description,
+      contact: getContact(
+        this.configuration.contactName,
+        this.configuration.contactURL,
+        this.configuration.contactEmail,
+      ),
+      license: getLicense(
+        this.configuration.licenseName,
+        this.configuration.licenseURL,
+      ),
+      version: this.configuration.versionAPI,
     };
-
-    /* Create endpoint for each Class */
-    for (const classId of this.store.findSubjects(
-      ns.rdf('type'),
-      ns.owl('Class'),
-    )) {
-      const filteredLinks: any = {};
-      let label = getApplicationProfileLabel(
-        classId,
-        this.store,
-        this.configuration.language,
-      )?.value;
-      const definition = getApplicationProfileDefinition(
-        classId,
-        this.store,
-        this.configuration.language,
-      )?.value;
-      const usageNote = getApplicationProfileDefinition(
-        classId,
-        this.store,
-        this.configuration.language,
-      )?.value;
-
-      if (!label) {
-        this.logger.error(`Unknown class label for ${classId.value}`);
-        continue;
-      }
-      /* Class labels should be always pascal cased */
-      label = toPascalCase(label);
-
-      /* Only keep links which are related to the class */
-      for (const key of Object.keys(links)) {
-        if (key.startsWith(`${label}.`)) filteredLinks[key] = links[key];
-      }
-
-      /* Create an endpoint for each object to have PURIs for each object */
-      swagger.paths[`/id/${label}/{id}`] = {
-        get: {
-          summary: definition,
-          description: usageNote,
-          operationId: `${label}GET`,
-          parameters: [
-            {
-              name: 'id',
-              required: true,
-              in: 'path',
-              description: `Identificator van een ${label} object.`,
-              schema: {
-                type: 'string',
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: `${label} object gevonden.`,
-              content: {
-                [OutputFormat.JsonLd]: {
-                  schema: {
-                    $ref: `#/components/schemas/${label}`,
-                  },
-                },
-              },
-              links: filteredLinks,
-            },
-            /* Error codes follow the RFC 7807 */
-            400: {
-              description: 'Invalid data supplied.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            401: {
-              description: 'Invalid authorization.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            403: {
-              description: 'Authentication failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            404: {
-              description: 'Resource not found.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            412: {
-              description: 'Pre-condition failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            500: {
-              description: 'Unexpected Server Error.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            502: {
-              description: 'Bad Gateway.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            503: {
-              description: 'Service unavailable.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            504: {
-              description: 'Gateway Timeout.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-          },
-        },
-      };
-    }
-
-    /* Inline schemas */
-    swagger.components = {
-      schemas: {},
-    };
-
-    for (const schemaLabel of Object.keys(schemas))
-      swagger.components.schemas[schemaLabel] = schemas[schemaLabel];
-
-    return swagger;
   }
 
-  public createSchemas(): Object {
-    const schemas: { [key: string]: any } = {};
+  private resolveAttribute(attributeId: RDF.Term): ResolvedAttribute | null {
+    let attributeLabel = getApplicationProfileLabel(
+      attributeId,
+      this.store,
+      this.configuration.language,
+    )?.value;
 
-    /* Create error schema */
-    schemas['ProbleemDetails'] = {
-      title: 'ProbleemDetails',
-      type: 'object',
-      description:
-        'Een weergave van een algemene foutmelding zoals gedefinieerd in RFC 7807.',
-      properties: {
-        type: {
-          type: 'string',
-          format: 'uri',
-          description:
-            'URI referentie die het probleem identificeert. Deze specificatie moedigt aan om, wanneer de referentie wordt verwijderd, een leesbare documentatie te bieden voor het probleemtype. Als dit element niet aanwezig is, wordt aangenomen dat de waarde about:blank is.',
-        },
-        title: {
-          type: 'string',
-          description:
-            'Een korte, voor mensen leesbare samenvatting van het probleemtype. Het MAG NIET veranderen tussen verschillende voorkomens van de fout, behalve voor doeleinden van lokalisatie.',
-        },
-        status: {
-          type: 'string',
-          description:
-            'De HTTP-statuscode die is gegenereerd door de oorspronkelijke server voor dit optreden van het probleem.',
-        },
-        detail: {
-          type: 'string',
-          description:
-            'Een voor mensen leesbare uitleg die specifiek is voor dit optreden van het probleem',
-        },
-        instance: {
-          type: 'string',
-          description:
-            'Een URI-referentie die het specifieke optreden van het probleem identificeert. Het kan al dan niet meer informatie opleveren als de referentie wordt verwijderd.',
-        },
-      },
-      required: ['detail', 'title'],
+    if (!attributeLabel) {
+      this.logger.error(`Unknown label for attribute ${attributeId.value}`);
+      return null;
+    }
+    attributeLabel = toCamelCase(attributeLabel);
+
+    const attributeRangeId = this.store.getRange(attributeId);
+    if (!attributeRangeId) {
+      this.logger.error(`Unknown range for attribute ${attributeId.value}`);
+      return null;
+    }
+
+    const attributeDomainId = this.store.getDomain(attributeId);
+    if (!attributeDomainId) {
+      this.logger.error(`Unknown domain for attribute ${attributeId.value}`);
+      return null;
+    }
+
+    const attributeDatatypeId =
+      this.store.getAssignedUri(attributeRangeId)?.value;
+    let attributeDatatypeLabel = getApplicationProfileLabel(
+      attributeRangeId,
+      this.store,
+      this.configuration.language,
+    )?.value;
+
+    if (!attributeDatatypeId || !attributeDatatypeLabel) {
+      this.logger.error(`Unknown datatype for attribute ${attributeId.value}`);
+      return null;
+    }
+    attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
+
+    const attributeClassLabel = getApplicationProfileLabel(
+      attributeDomainId,
+      this.store,
+      this.configuration.language,
+    )?.value;
+
+    const attributeDefinition = getApplicationProfileDefinition(
+      attributeId,
+      this.store,
+      this.configuration.language,
+    )?.value;
+
+    const attributeUsageNote = getApplicationProfileUsageNote(
+      attributeId,
+      this.store,
+      this.configuration.language,
+    )?.value;
+
+    const attributeMinCount = getMinCount(attributeId, this.store);
+    const attributeMaxCount = getMaxCount(attributeId, this.store);
+
+    if (!attributeMinCount || !attributeMaxCount) {
+      this.logger.error(
+        `Unknown cardinality for attribute ${attributeId.value}`,
+      );
+      return null;
+    }
+
+    const subclasses: string[] = [];
+    for (const subclassId of this.store.findSubjects(
+      ns.rdfs('subClassOf'),
+      attributeRangeId,
+    )) {
+      const subclassLabel = getApplicationProfileLabel(
+        subclassId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      if (!subclassLabel) {
+        this.logger.error(`Unable to retrieve subclass label of ${subclassId}`);
+        continue;
+      }
+      subclasses.push(subclassLabel);
+    }
+
+    return {
+      attributeLabel,
+      attributeDefinition,
+      attributeUsageNote,
+      attributeMinCount,
+      attributeMaxCount,
+      attributeDatatypeId,
+      attributeDatatypeLabel,
+      attributeClassLabel,
+      subclasses,
     };
+  }
 
-    /* Create schema for each enumeration */
+  private getClassLabel(classId: RDF.Term): string | null {
+    const label = getApplicationProfileLabel(
+      classId,
+      this.store,
+      this.configuration.language,
+    )?.value;
+
+    if (!label) {
+      this.logger.error(`Unknown class label for ${classId.value}`);
+      return null;
+    }
+    return toPascalCase(label);
+  }
+
+  public createSchemas(): Record<string, OpenApiSchema> {
+    const schemas: Record<string, OpenApiSchema> = {};
+
+    schemas['ProbleemDetails'] = buildProbleemDetailsSchema();
+
+    this.addEnumerationSchemas(schemas);
+    this.addClassAndDatatypeSchemas(schemas);
+
+    return schemas;
+  }
+
+  private addEnumerationSchemas(schemas: Record<string, OpenApiSchema>): void {
     for (const enumId of this.store.findSubjects(
       ns.oslo('assignedURI'),
       ns.skos('Concept'),
     )) {
-      let label = getApplicationProfileLabel(
-        enumId,
-        this.store,
-        this.configuration.language,
-      )?.value;
-
-      if (!label) {
-        this.logger.error(`Unknown enum label for ${enumId.value}`);
-        continue;
-      }
-
-      /* Class labels should be always pascal cased */
-      label = toPascalCase(label);
+      const label = this.getClassLabel(enumId);
+      if (!label) continue;
 
       schemas[label] = {
         title: label,
         type: 'object',
         description: `Enumeratie van ${label}`,
         properties: {
-          '@id': {
-            type: 'string',
-            format: 'uri',
-          },
+          '@id': { type: 'string', format: 'uri' },
         },
         required: ['@id'],
       };
     }
+  }
 
-    /* Create schema for each Class and Datatype */
-    let links: any = {};
-    for (const classId of [
+  private addClassAndDatatypeSchemas(
+    schemas: Record<string, OpenApiSchema>,
+  ): void {
+    const classAndDatatypeIds = [
       ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
       ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
-    ]) {
+    ];
+
+    for (const classId of classAndDatatypeIds) {
       const assignedUri = this.store.getAssignedUri(classId);
-
-      if (assignedUri && [...DataTypes.values()].includes(assignedUri.value))
+      if (assignedUri && [...DataTypes.values()].includes(assignedUri.value)) {
         continue;
+      }
 
-      let label = getApplicationProfileLabel(
-        classId,
-        this.store,
-        this.configuration.language,
-      )?.value;
+      const label = this.getClassLabel(classId);
+      if (!label) continue;
+
       const definition = getApplicationProfileDefinition(
         classId,
         this.store,
         this.configuration.language,
       )?.value;
-      let attributes: any = {};
-      let requiredAttributes: any = {};
 
-      /* Get all attributes in a recursive manner for inheritance */
-      let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+      const attributeIds = findAllAttributes(classId, [], this.store, this.logger);
+      const { properties, required } =
+        this.buildAttributeProperties(attributeIds);
 
-      if (!label) {
-        this.logger.error(`Unknown class label for ${classId.value}`);
-        continue;
-      }
-      /* Class labels should be always pascal cased */
-      label = toPascalCase(label);
-
-      attributes[label] = [];
-      requiredAttributes[label] = [];
-
-      /* Find all attributes for object */
-      for (const attributeId of attributeIds) {
-        let attributeLabel = getApplicationProfileLabel(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-        const attributeMinCount = getMinCount(attributeId, this.store);
-        const attributeMaxCount = getMaxCount(attributeId, this.store);
-        const attributeRangeId = this.store.getRange(attributeId);
-        const attributeDomainId = this.store.getDomain(attributeId);
-        const attributeDefinition = getApplicationProfileDefinition(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-        const attributeUsageNote = getApplicationProfileUsageNote(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        if (!attributeLabel) {
-          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
-          continue;
-        }
-        /* Attribute labels should be always camel cased */
-        attributeLabel = toCamelCase(attributeLabel);
-
-        if (!attributeRangeId) {
-          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
-          continue;
-        }
-
-        if (!attributeDomainId) {
-          this.logger.error(
-            `Unknown domain for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-
-        const attributeClassLabel = getApplicationProfileLabel(
-          attributeDomainId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        const attributeDatatypeId =
-          this.store.getAssignedUri(attributeRangeId)?.value;
-        let attributeDatatypeLabel = getApplicationProfileLabel(
-          attributeRangeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        if (!attributeDatatypeId || !attributeDatatypeLabel) {
-          this.logger.error(
-            `Unknown datatype for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
-
-        /* Attribute datatypes may have a super class assigned, but any subclass of this super class must be allowed */
-        const subclasses: string[] = [];
-        for (const subclassId of this.store.findSubjects(
-          ns.rdfs('subClassOf'),
-          attributeRangeId,
-        )) {
-          const subclassLabel = getApplicationProfileLabel(
-            subclassId,
-            this.store,
-            this.configuration.language,
-          )?.value;
-
-          if (!subclassLabel) {
-            console.error(`Unable to retrieve subclass label of ${subclassId}`);
-            continue;
-          }
-
-          subclasses.push(subclassLabel);
-        }
-
-        /* Cardinality */
-        if (!attributeMinCount || !attributeMaxCount) {
-          this.logger.error(
-            `Unknown cardinality for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-
-        /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
-        const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
-        const properties = mapProperties(
-          attributeDatatypeId,
-          attributeDatatypeLabel,
-          this.configuration.baseURL,
-          subclasses,
-        );
-        const requiredProperties = properties
-          ? Object.keys(properties)
-          : undefined;
-
-        /* Primitive datatypes are objects with properties */
-        let item = {};
-        if ([...DataTypes.values()].includes(attributeDatatypeId)) {
-          item = {
-            type: 'object',
-            description: description,
-            properties: properties,
-            required: requiredProperties,
-          };
-          /* Schema references are $ref, not objects */
-        } else {
-          item = properties;
-        }
-
-        if (attributeMaxCount != '0' && attributeMaxCount != '1') {
-          attributes[label][attributeLabel] = {
-            type: 'array',
-            description: `Lijst van ${attributeDatatypeLabel} items.`,
-            items: item,
-            minItems: parseInt(attributeMinCount),
-            maxItems:
-              attributeMaxCount == '*'
-                ? undefined
-                : parseInt(attributeMaxCount),
-          };
-          /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
-        } else {
-          attributes[label][attributeLabel] = item;
-        }
-
-        /* Only require properties which are not arrays since those have their own cardinality checks */
-        if (attributeMinCount == '1')
-          requiredAttributes[label].push(attributeLabel);
-      }
-
-      /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
-      requiredAttributes[label] = [...new Set(requiredAttributes[label])];
-
-      /* Create components for each schema */
       schemas[label] = {
         title: label,
         type: 'object',
         description: definition,
         properties: {
-          '@id': {
-            type: 'string',
-            format: 'uri',
-          },
-          /* Do not allow double typing for strict validation and problems with Swagger tooling (discriminator keyword) */
+          '@id': { type: 'string', format: 'uri' },
           '@type': {
             type: 'object',
             description: `Object type (klasse ${label})`,
-            pattern: `^${label}\$`,
+            pattern: `^${label}$`,
           },
-          ...attributes[label],
+          ...properties,
         },
-        required: ['@id', '@type', ...requiredAttributes[label]],
+        required: ['@id', '@type', ...required],
       };
 
-      /* Create components with JSON-LD enveloppe for each schema, use deep-copy to avoid @context in original schema */
-      schemas[`${label}JsonLd`] = JSON.parse(JSON.stringify(schemas[label]));
-      schemas[`${label}JsonLd`].required.push('@context');
-      schemas[`${label}JsonLd`].properties['@context'] = {
+      /* Create JSON-LD envelope variant */
+      const jsonLdSchema = JSON.parse(
+        JSON.stringify(schemas[label]),
+      ) as OpenApiSchema;
+      jsonLdSchema.required = [...(jsonLdSchema.required ?? []), '@context'];
+      jsonLdSchema.properties!['@context'] = {
         type: 'string',
         format: 'uri',
         pattern: `^${this.configuration.contextURL}$`.replace(/\//g, '\\/'),
       };
+      schemas[`${label}JsonLd`] = jsonLdSchema;
     }
-
-    return schemas;
   }
 
-  public createLinks(): Object {
-    let links: any = {};
+  private buildAttributeProperties(attributeIds: RDF.Term[]): {
+    properties: Record<string, unknown>;
+    required: string[];
+  } {
+    const properties: Record<string, unknown> = {};
+    const required: string[] = [];
 
-    /* Create link for each Class, datatypes are always nested. */
+    for (const attributeId of attributeIds) {
+      const resolved = this.resolveAttribute(attributeId);
+      if (!resolved) continue;
+
+      const {
+        attributeLabel,
+        attributeDefinition,
+        attributeUsageNote,
+        attributeMinCount,
+        attributeMaxCount,
+        attributeDatatypeId,
+        attributeDatatypeLabel,
+        subclasses,
+      } = resolved;
+
+      const description = [attributeDefinition, attributeUsageNote]
+        .filter(Boolean)
+        .join(' ');
+
+      const mappedProps = mapProperties(
+        attributeDatatypeId,
+        attributeDatatypeLabel,
+        this.configuration.baseURL,
+        subclasses,
+      );
+
+      const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
+      const item = isPrimitive
+        ? {
+            type: 'object',
+            description,
+            properties: mappedProps,
+            required: mappedProps ? Object.keys(mappedProps) : undefined,
+          }
+        : mappedProps;
+
+      const isArray = attributeMaxCount !== '0' && attributeMaxCount !== '1';
+
+      if (isArray) {
+        properties[attributeLabel] = {
+          type: 'array',
+          description: `Lijst van ${attributeDatatypeLabel} items.`,
+          items: item,
+          minItems: parseInt(attributeMinCount, 10),
+          maxItems:
+            attributeMaxCount === '*'
+              ? undefined
+              : parseInt(attributeMaxCount, 10),
+        };
+      } else {
+        properties[attributeLabel] = item;
+      }
+
+      if (attributeMinCount === '1') {
+        required.push(attributeLabel);
+      }
+    }
+
+    return { properties, required: [...new Set(required)] };
+  }
+
+  public createLinks(): Record<string, OpenApiLink> {
+    const links: Record<string, OpenApiLink> = {};
+
     for (const classId of this.store.findSubjects(
       ns.rdf('type'),
       ns.owl('Class'),
     )) {
-      let label = getApplicationProfileLabel(
-        classId,
-        this.store,
-        this.configuration.language,
-      )?.value;
+      const label = this.getClassLabel(classId);
+      if (!label) continue;
 
-      /* Get all attributes in a recursive manner for inheritance */
-      let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+      const attributeIds = findAllAttributes(classId, [], this.store, this.logger);
 
-      if (!label) {
-        this.logger.error(`Unknown class label for ${classId.value}`);
-        continue;
-      }
-      /* Class labels should be always pascal cased */
-      label = toPascalCase(label);
-
-      /* Find all attributes for object */
       for (const attributeId of attributeIds) {
-        let attributeLabel = getApplicationProfileLabel(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-        const attributeRangeId = this.store.getRange(attributeId);
-        const attributeDefinition = getApplicationProfileDefinition(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
+        const resolved = this.resolveAttribute(attributeId);
+        if (!resolved) continue;
 
-        if (!attributeLabel) {
-          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
-          continue;
-        }
-        /* Attribute labels should be always camel cased */
-        attributeLabel = toCamelCase(attributeLabel);
+        const { attributeLabel, attributeDatatypeId, attributeDatatypeLabel } =
+          resolved;
 
-        if (!attributeRangeId) {
-          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
-          continue;
-        }
-
-        const attributeDatatypeId =
-          this.store.getAssignedUri(attributeRangeId)?.value;
-        let attributeDatatypeLabel = getApplicationProfileLabel(
-          attributeRangeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        if (!attributeDatatypeId || !attributeDatatypeLabel) {
-          this.logger.error(
-            `Unknown datatype for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
-
-        /* Create all possible links for endpoint */
         if (!isStandardDatatype(attributeDatatypeId)) {
           links[`${label}.${attributeLabel}`] = {
             operationId: `${label}GET`,
             parameters: {
-              /* Referring to response body always starts with the same prefix */
               id: `$response.body#/${label}.${attributeLabel}/@id`,
             },
             description: `De waarde van het attribuut \`@id\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
@@ -652,11 +396,88 @@ export class SwaggerGenerationService implements IService {
     return links;
   }
 
-  public async writeJSON(json: Object, outputPath: string) {
-    const data = JSON.stringify(json, null, 2);
+  public createSwagger(
+    schemas: Record<string, OpenApiSchema>,
+    links: Record<string, OpenApiLink>,
+  ): SwaggerRoot {
+    const swagger: SwaggerRoot = {
+      openapi: this.configuration.versionSwagger,
+      info: this.buildInfoBlock(this.configuration.title),
+      servers: [{ url: this.configuration.baseURL, description: 'Basis URL' }],
+      paths: {},
+      components: { schemas: { ...schemas } },
+    };
+
+    for (const classId of this.store.findSubjects(
+      ns.rdf('type'),
+      ns.owl('Class'),
+    )) {
+      const label = this.getClassLabel(classId);
+      if (!label) continue;
+
+      const definition = getApplicationProfileDefinition(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      const usageNote = getApplicationProfileUsageNote(
+        classId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      const filteredLinks = filterLinksByClass(links, label);
+
+      swagger.paths[`/id/${label}/{id}`] = {
+        get: {
+          summary: definition,
+          description: usageNote,
+          operationId: `${label}GET`,
+          parameters: [
+            {
+              name: 'id',
+              required: true,
+              in: 'path',
+              description: `Identificator van een ${label} object.`,
+              schema: { type: 'string' },
+            },
+          ],
+          responses: {
+            200: {
+              description: `${label} object gevonden.`,
+              content: {
+                [OutputFormat.JsonLd]: {
+                  schema: { $ref: `#/components/schemas/${label}` },
+                },
+              },
+              links: filteredLinks,
+            },
+            ...buildErrorResponses(label),
+          },
+        },
+      };
+    }
+
+    return swagger;
+  }
+
+  private buildComponentsDocument(
+    schemas: Record<string, OpenApiSchema>,
+    links: Record<string, OpenApiLink>,
+  ) {
+    return {
+      openapi: this.configuration.versionSwagger,
+      info: this.buildInfoBlock(`Components of ${this.configuration.title}`),
+      components: { schemas, links },
+    };
+  }
+
+  public async writeJSON(data: unknown, outputPath: string): Promise<void> {
+    const json = JSON.stringify(data, null, 2);
     const filePath = path.join(this.configuration.output, outputPath);
 
     ensureOutputDirectory(path.dirname(filePath));
-    await writeFile(filePath, data);
+    await writeFile(filePath, json);
   }
 }
