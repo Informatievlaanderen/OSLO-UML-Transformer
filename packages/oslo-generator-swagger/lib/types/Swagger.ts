@@ -1,8 +1,8 @@
 export interface SwaggerRoot {
-  openapi: string;
+  Swagger: string;
   info: SwaggerInfo;
   servers: SwaggerServer[];
-  paths: Record<string, OpenApiPath>;
+  paths: Record<string, SwaggerPath>;
   components?: SwaggerComponents;
 }
 
@@ -31,29 +31,29 @@ export interface SwaggerServer {
 }
 
 export interface SwaggerComponents {
-  schemas: Record<string, OpenApiSchema>;
-  links?: Record<string, OpenApiLink>;
+  schemas: Record<string, SwaggerSchema>;
+  links?: Record<string, SwaggerLink>;
 }
 
-export interface OpenApiPath {
-  get?: OpenApiPathOperation;
-  post?: OpenApiPathOperation;
-  put?: OpenApiPathOperation;
-  delete?: OpenApiPathOperation;
-  patch?: OpenApiPathOperation;
+export interface SwaggerPath {
+  get?: SwaggerPathOperation;
+  post?: SwaggerPathOperation;
+  put?: SwaggerPathOperation;
+  delete?: SwaggerPathOperation;
+  patch?: SwaggerPathOperation;
 }
 
-export interface OpenApiPathOperation {
+export interface SwaggerPathOperation {
   tags?: string[];
   summary?: string;
   description?: string;
   operationId?: string;
-  parameters?: OpenApiParameter[];
-  requestBody?: OpenApiRequestBody;
-  responses: Record<string, OpenApiResponse>;
+  parameters?: SwaggerParameter[];
+  requestBody?: SwaggerRequestBody;
+  responses: Record<string, SwaggerResponse>;
 }
 
-export interface OpenApiParameter {
+export interface SwaggerParameter {
   name: string;
   description?: string;
   in: string;
@@ -61,21 +61,21 @@ export interface OpenApiParameter {
   schema: { type: string };
 }
 
-export interface OpenApiRequestBody {
+export interface SwaggerRequestBody {
   description?: string;
   content: Record<
     string,
-    { schema: OpenApiSchema | SchemaRef; example?: Record<string, string> }
+    { schema: SwaggerSchema | SchemaRef; example?: Record<string, string> }
   >;
 }
 
-export interface OpenApiResponse {
+export interface SwaggerResponse {
   description: string;
   content?: Record<string, { schema: SchemaRef }>;
-  links?: Record<string, OpenApiLink>;
+  links?: Record<string, SwaggerLink>;
 }
 
-export interface OpenApiSchema {
+export interface SwaggerSchema {
   title?: string;
   type: string;
   description?: string;
@@ -86,8 +86,8 @@ export interface OpenApiSchema {
   minItems?: number;
   maxItems?: number;
   enum?: string[];
-  items?: OpenApiSchema | SchemaRef;
-  properties?: Record<string, OpenApiSchema | SchemaRef>;
+  items?: SwaggerSchema | SchemaRef;
+  properties?: Record<string, SwaggerSchema | SchemaRef>;
   required?: string[];
 }
 
@@ -95,7 +95,7 @@ export interface SchemaRef {
   $ref: string;
 }
 
-export interface OpenApiLink {
+export interface SwaggerLink {
   operationId: string;
   parameters: Record<string, string>;
   description: string;

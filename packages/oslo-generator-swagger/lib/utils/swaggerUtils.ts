@@ -5,9 +5,9 @@ import {
   PROBLEEM_DETAILS_SCHEMA_REF,
 } from '../constants/Swagger';
 import type {
-  OpenApiLink,
-  OpenApiResponse,
-  OpenApiSchema,
+  SwaggerLink,
+  SwaggerResponse,
+  SwaggerSchema,
   SchemaRef,
   SwaggerInfoContact,
   SwaggerInfoLicense,
@@ -23,7 +23,7 @@ function getProbleemdetailsContent(): {
   };
 }
 
-function getProbleemdetailsLink(label: string): Record<string, OpenApiLink> {
+function getProbleemdetailsLink(label: string): Record<string, SwaggerLink> {
   return {
     'ProbleemDetails.type': {
       operationId: `${label}GET`,
@@ -53,8 +53,8 @@ export function getLicense(
 
 export function buildErrorResponses(
   label: string,
-): Record<string, OpenApiResponse> {
-  const responses: Record<string, OpenApiResponse> = {};
+): Record<string, SwaggerResponse> {
+  const responses: Record<string, SwaggerResponse> = {};
   for (const { code, description } of ERROR_RESPONSES) {
     responses[code] = {
       description,
@@ -66,16 +66,16 @@ export function buildErrorResponses(
 }
 
 export function filterLinksByClass(
-  links: Record<string, OpenApiLink>,
+  links: Record<string, SwaggerLink>,
   classLabel: string,
-): Record<string, OpenApiLink> {
+): Record<string, SwaggerLink> {
   const prefix = `${classLabel}.`;
   return Object.fromEntries(
     Object.entries(links).filter(([key]) => key.startsWith(prefix)),
   );
 }
 
-export function buildProbleemDetailsSchema(): OpenApiSchema {
+export function buildProbleemDetailsSchema(): SwaggerSchema {
   return {
     title: 'ProbleemDetails',
     type: 'object',

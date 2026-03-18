@@ -24,8 +24,8 @@ import { inject, injectable } from 'inversify';
 import { SwaggerGenerationServiceConfiguration } from './config/SwaggerGenerationServiceConfiguration';
 import type {
   SwaggerRoot,
-  OpenApiSchema,
-  OpenApiLink,
+  SwaggerSchema,
+  SwaggerLink,
   ResolvedAttribute,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
@@ -206,8 +206,8 @@ export class SwaggerGenerationService implements IService {
     return toPascalCase(label);
   }
 
-  public createSchemas(): Record<string, OpenApiSchema> {
-    const schemas: Record<string, OpenApiSchema> = {};
+  public createSchemas(): Record<string, SwaggerSchema> {
+    const schemas: Record<string, SwaggerSchema> = {};
 
     schemas['ProbleemDetails'] = buildProbleemDetailsSchema();
 
@@ -217,7 +217,7 @@ export class SwaggerGenerationService implements IService {
     return schemas;
   }
 
-  private addEnumerationSchemas(schemas: Record<string, OpenApiSchema>): void {
+  private addEnumerationSchemas(schemas: Record<string, SwaggerSchema>): void {
     for (const enumId of this.store.findSubjects(
       ns.oslo('assignedURI'),
       ns.skos('Concept'),
@@ -238,7 +238,7 @@ export class SwaggerGenerationService implements IService {
   }
 
   private addClassAndDatatypeSchemas(
-    schemas: Record<string, OpenApiSchema>,
+    schemas: Record<string, SwaggerSchema>,
   ): void {
     const classAndDatatypeIds = [
       ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
@@ -283,7 +283,7 @@ export class SwaggerGenerationService implements IService {
       /* Create JSON-LD envelope variant */
       const jsonLdSchema = JSON.parse(
         JSON.stringify(schemas[label]),
-      ) as OpenApiSchema;
+      ) as SwaggerSchema;
       jsonLdSchema.required = [...(jsonLdSchema.required ?? []), '@context'];
       jsonLdSchema.properties!['@context'] = {
         type: 'string',
@@ -362,8 +362,8 @@ export class SwaggerGenerationService implements IService {
     return { properties, required: [...new Set(required)] };
   }
 
-  public createLinks(): Record<string, OpenApiLink> {
-    const links: Record<string, OpenApiLink> = {};
+  public createLinks(): Record<string, SwaggerLink> {
+    const links: Record<string, SwaggerLink> = {};
 
     for (const classId of this.store.findSubjects(
       ns.rdf('type'),
@@ -397,11 +397,11 @@ export class SwaggerGenerationService implements IService {
   }
 
   public createSwagger(
-    schemas: Record<string, OpenApiSchema>,
-    links: Record<string, OpenApiLink>,
+    schemas: Record<string, SwaggerSchema>,
+    links: Record<string, SwaggerLink>,
   ): SwaggerRoot {
     const swagger: SwaggerRoot = {
-      openapi: this.configuration.versionSwagger,
+      Swagger: this.configuration.versionSwagger,
       info: this.buildInfoBlock(this.configuration.title),
       servers: [{ url: this.configuration.baseURL, description: 'Basis URL' }],
       paths: {},
@@ -463,8 +463,8 @@ export class SwaggerGenerationService implements IService {
   }
 
   private buildComponentsDocument(
-    schemas: Record<string, OpenApiSchema>,
-    links: Record<string, OpenApiLink>,
+    schemas: Record<string, SwaggerSchema>,
+    links: Record<string, SwaggerLink>,
   ) {
     return {
       openapi: this.configuration.versionSwagger,
