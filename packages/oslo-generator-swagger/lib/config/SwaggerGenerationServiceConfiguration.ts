@@ -144,14 +144,14 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get contextURL(): string {
     if (!this._contextURL) {
-      throw new Error(`Trying access property "contextURL" before it was set.`);
+      throw new Error(`Trying to access property "contextURL" before it was set.`);
     }
     return this._contextURL;
   }
 
   public get baseURL(): string {
     if (!this._baseURL) {
-      throw new Error(`Trying access property "baseURL" before it was set.`);
+      throw new Error(`Trying to access property "baseURL" before it was set.`);
     }
     return this._baseURL;
   }

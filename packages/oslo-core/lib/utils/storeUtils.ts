@@ -229,7 +229,7 @@ export function findAllAttributes(
   }
   visited.add(subject.value);
 
-  /* Merge all referenced dummy parents with the real one based on assigned URI */
+  // Merge all referenced dummy parents with the real one based on assigned URI
   let additionalParentIds: RDF.Term[] = [];
   for (const parentId of parentIds) {
     const assignedUri = store.findObject(parentId, ns.oslo('assignedURI'));
@@ -244,13 +244,13 @@ export function findAllAttributes(
   }
   parentIds = [...parentIds, ...additionalParentIds];
 
-  /* Collect all attributes */
+  // Collect all attributes
   attributeIds = [
     ...attributeIds,
     ...store.findSubjects(ns.rdfs('domain'), subject),
   ];
 
-  /* Recursive search further for attributes */
+  // Recursive search further for attributes
   for (const parentId of parentIds)
     attributeIds = findAllAttributes(
       parentId,

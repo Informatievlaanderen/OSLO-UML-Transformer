@@ -574,7 +574,7 @@ export class SwaggerGenerationService implements IService {
 
       /* Get all attributes in a recursive manner for inheritance */
       let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+      attributeIds = findAllAttributes(classId, attributeIds, this.store, this.logger);
 
       if (!label) {
         this.logger.error(`Unknown class label for ${classId.value}`);
