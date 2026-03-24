@@ -228,7 +228,10 @@ export function findAllAttributes(
       ...additionalParentIds,
       ...store
         .findSubjects(ns.oslo('assignedURI'), assignedUri)
-        .filter((item) => item.value !== subject.value),
+        .filter(
+          (item) =>
+            item.value !== subject.value && item.value !== parentId.value,
+        ),
     ];
   }
   parentIds = [...parentIds, ...additionalParentIds];
