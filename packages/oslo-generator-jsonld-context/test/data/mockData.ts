@@ -70,6 +70,81 @@ export const jsonldData = [
   },
 ];
 
+export const jsonldInheritanceData = [
+  {
+    '@id': 'http://example.org/.well-known/id/class/1',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+      '@id': 'http://example.org/id/class/1',
+    },
+    '@type': 'http://www.w3.org/2002/07/owl#Class',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+      {
+        '@language': 'en',
+        '@value': 'TestClass',
+      },
+    ],
+  },
+  {
+    '@id': 'http://example.org/.well-known/id/class/2',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+      '@id': 'http://example.org/id/class/2',
+    },
+    '@type': 'http://www.w3.org/2002/07/owl#Class',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+      {
+        '@language': 'en',
+        '@value': 'AnotherTestClass',
+      },
+    ],
+    'http://www.w3.org/2000/01/rdf-schema#subClassOf': {
+      '@id': 'http://example.org/.well-known/id/class/1',
+    },
+  },
+  {
+    '@id': 'http://example.org/.well-known/id/property/1',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+      '@id': 'http://example.org/id/property/1',
+    },
+    '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+      {
+        '@language': 'en',
+        '@value': 'TestProperty',
+      },
+    ],
+    'http://www.w3.org/2000/01/rdf-schema#domain': [
+      {
+        '@id': 'http://example.org/.well-known/id/class/1',
+      },
+    ],
+    'http://www.w3.org/2000/01/rdf-schema#range': {
+      '@id': 'http://example.org/.well-known/id/class/2',
+    },
+    'http://www.w3.org/ns/shacl#maxCount': '*',
+  },
+  {
+    '@id': 'http://example.org/.well-known/id/property/2',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#assignedURI': {
+      '@id': 'http://example.org/id/property/2',
+    },
+    '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
+    'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel': [
+      {
+        '@language': 'en',
+        '@value': 'AnotherTestProperty',
+      },
+    ],
+    'http://www.w3.org/2000/01/rdf-schema#domain': [
+      {
+        '@id': 'http://example.org/.well-known/id/class/1',
+      },
+    ],
+    'http://www.w3.org/2000/01/rdf-schema#range': {
+      '@id': 'http://example.org/.well-known/id/class/2',
+    },
+  },
+];
+
 export const classJsonldWithDuplicates = [
   {
     '@id': 'http://example.org/.well-known/id/class/1',
