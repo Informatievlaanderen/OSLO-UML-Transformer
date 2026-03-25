@@ -12,7 +12,11 @@ import { JsonldContextGenerationService } from '../lib/JsonldContextGenerationSe
 import {
   classJsonld,
   classJsonldWithDuplicates,
-  jsonldData, jsonldPropertyWithMaxCardinality, jsonLdWithoutAssignedUris, propertyJsonld,
+  jsonldData,
+  jsonldInheritanceData,
+  jsonldPropertyWithMaxCardinality,
+  jsonLdWithoutAssignedUris,
+  propertyJsonld,
   propertyJsonldWithDuplicates,
   propertyJsonldWithoutDomain,
   propertyJsonldWithoutDomainLabel,
@@ -33,7 +37,8 @@ function parseJsonld(data: any): Promise<RDF.Quad[]> {
 
   return new Promise<RDF.Quad[]>((resolve, reject) => {
     const quads: RDF.Quad[] = [];
-    rdfParser.parse(textStream, { contentType: OutputFormat.JsonLd})
+    rdfParser
+      .parse(textStream, { contentType: OutputFormat.JsonLd })
       .on('data', (quad: RDF.Quad) => quads.push(quad))
       .on('error', (error: unknown) => reject(error))
       .on('end', () => resolve(quads));
@@ -55,10 +60,12 @@ describe('JsonldContextGenerationService', () => {
 
   it('should initialize the quad store in the init function', async () => {
     jest.spyOn(store, 'addQuadsFromFile').mockReturnValue(Promise.resolve());
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', output: 'context.jsonld' },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', output: 'context.jsonld' },
+        store,
+      )
     );
 
     await service.init();
@@ -67,23 +74,29 @@ describe('JsonldContextGenerationService', () => {
   });
 
   it('should write the jsonld context to a file', async () => {
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', output: 'context.jsonld' },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', output: 'context.jsonld' },
+        store,
+      )
     );
 
     jest.spyOn(fs, 'writeFile');
 
     await service.run();
 
-
-    expect(fs.writeFile).toHaveBeenCalledWith('context.jsonld', JSON.stringify({ '@context': {} }, null, 2));
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      'context.jsonld',
+      JSON.stringify({ '@context': {} }, null, 2),
+    );
   });
 
   it('should generate a regular context object', async () => {
     store.addQuads(await parseJsonld(jsonldData));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     const context = await service.generateContext();
     expect(context).toEqual({
@@ -103,27 +116,76 @@ describe('JsonldContextGenerationService', () => {
 
   it('should generate a scoped context', async () => {
     store.addQuads(await parseJsonld(jsonldData));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{
-      language: 'en',
-      scopedContext: true,
-    }, store);
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{
+        language: 'en',
+        scopedContext: true,
+      },
+      store,
+    );
 
     const context = await service.generateContext();
     expect(context).toEqual({
-      "AnotherTestClass": {
-        "@id": "http://example.org/id/class/2",
+      AnotherTestClass: {
+        '@id': 'http://example.org/id/class/2',
       },
-      "TestClass": {
-        "@id": "http://example.org/id/class/1",
-        "@context": {
-          "anotherTestProperty": {
-            "@id": "http://example.org/id/property/2",
-            "@type": "http://example.org/id/class/2",
+      TestClass: {
+        '@id': 'http://example.org/id/class/1',
+        '@context': {
+          anotherTestProperty: {
+            '@id': 'http://example.org/id/property/2',
+            '@type': 'http://example.org/id/class/2',
           },
-          "testProperty": {
-            "@id": "http://example.org/id/property/1",
-            "@type": "http://example.org/id/class/2",
-            "@container": "@set",
+          testProperty: {
+            '@id': 'http://example.org/id/property/1',
+            '@type': 'http://example.org/id/class/2',
+            '@container': '@set',
+          },
+        },
+      },
+    });
+  });
+
+  it('should generate a scoped context without inheritance', async () => {
+    store.addQuads(await parseJsonld(jsonldInheritanceData));
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{
+        language: 'en',
+        scopedContext: true,
+        allowDoubleTyping: false,
+      },
+      store,
+    );
+
+    const context = await service.generateContext();
+    expect(context).toEqual({
+      AnotherTestClass: {
+        '@id': 'http://example.org/id/class/2',
+        '@context': {
+          anotherTestProperty: {
+            '@id': 'http://example.org/id/property/2',
+            '@type': 'http://example.org/id/class/2',
+          },
+          testProperty: {
+            '@id': 'http://example.org/id/property/1',
+            '@type': 'http://example.org/id/class/2',
+            '@container': '@set',
+          },
+        },
+      },
+      TestClass: {
+        '@id': 'http://example.org/id/class/1',
+        '@context': {
+          anotherTestProperty: {
+            '@id': 'http://example.org/id/property/2',
+            '@type': 'http://example.org/id/class/2',
+          },
+          testProperty: {
+            '@id': 'http://example.org/id/property/1',
+            '@type': 'http://example.org/id/class/2',
+            '@container': '@set',
           },
         },
       },
@@ -132,10 +194,14 @@ describe('JsonldContextGenerationService', () => {
 
   it('should add prefixes to the context when addDomainPrefix is set', async () => {
     store.addQuads(await parseJsonld(jsonldData));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{
-      language: 'en',
-      addDomainPrefix: true,
-    }, store);
+    const service = <any>new JsonldContextGenerationService(
+      logger,
+      <any>{
+        language: 'en',
+        addDomainPrefix: true,
+      },
+      store,
+    );
 
     const context = await service.generateContext();
     expect(context).toEqual({
@@ -155,7 +221,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should add prefixes to the context for duplicate properties', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     const context = await service.generateContext();
     expect(context).toEqual({
@@ -174,45 +242,62 @@ describe('JsonldContextGenerationService', () => {
 
   it('should identify duplicate labels for the configured language', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
-    const subjects = <RDF.NamedNode[]>store.findQuads(null, null, null).map(x => x.subject);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
+    const subjects = <RDF.NamedNode[]>(
+      store.findQuads(null, null, null).map((x) => x.subject)
+    );
     const duplicates = service.identifyDuplicateLabels(subjects);
 
-    expect(duplicates)
-      .toEqual(expect.arrayContaining(
-        [expect.objectContaining(df.namedNode('http://example.org/.well-known/id/class/1'))],
-      ));
-    expect(duplicates)
-      .toEqual(expect.arrayContaining(
-        [expect.objectContaining(df.namedNode('http://example.org/.well-known/id/class/2'))],
-      ));
+    expect(duplicates).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(
+          df.namedNode('http://example.org/.well-known/id/class/1'),
+        ),
+      ]),
+    );
+    expect(duplicates).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(
+          df.namedNode('http://example.org/.well-known/id/class/2'),
+        ),
+      ]),
+    );
   });
 
   it('should create an array of class metadata objects', async () => {
     store.addQuads(await parseJsonld(classJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'nl' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'nl' }, store)
+    );
 
     const classMetadata = await service.createClassMetadata();
 
     expect(classMetadata.length).toBe(1);
-    expect(classMetadata[0].assignedURI.value).toBe('http://example.org/id/class/1');
+    expect(classMetadata[0].assignedURI.value).toBe(
+      'http://example.org/id/class/1',
+    );
     expect(classMetadata[0].label.value).toBe('TestClass');
   });
 
   it('should log an error when a class subject appears in the duplicates array', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
     await service.generateContext();
     expect(service.logger.error).toHaveBeenCalledTimes(2);
-  })
-
+  });
 
   it('should log an error when the assigned URI for a class can not be found', async () => {
     store.addQuads(await parseJsonld(jsonLdWithoutAssignedUris));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -222,7 +307,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when a class label is used multiple times', async () => {
     store.addQuads(await parseJsonld(classJsonldWithDuplicates));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -232,7 +319,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when a domain label can not be found', async () => {
     store.addQuads(await parseJsonld(classJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -242,14 +331,20 @@ describe('JsonldContextGenerationService', () => {
 
   it('should create an array of property metadata objects', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     const propertyMetadata = await service.createPropertyMetadata();
 
     expect(propertyMetadata.length).toBe(1);
-    expect(propertyMetadata[0].assignedURI.value).toBe('http://example.org/id/property/1');
+    expect(propertyMetadata[0].assignedURI.value).toBe(
+      'http://example.org/id/property/1',
+    );
     expect(propertyMetadata[0].label.value).toBe('Test');
-    expect(propertyMetadata[0].rangeAssignedUri.value).toBe('http://example.org/id/class/2');
+    expect(propertyMetadata[0].rangeAssignedUri.value).toBe(
+      'http://example.org/id/class/2',
+    );
     expect(propertyMetadata[0].domainLabel.value).toBe('TestClass');
     expect(propertyMetadata[0].addContainer).toBe(false);
     expect(propertyMetadata[0].addPrefix).toBe(false);
@@ -257,7 +352,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the assigned URI for a property can not be found', async () => {
     store.addQuads(await parseJsonld(jsonLdWithoutAssignedUris));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -269,7 +366,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the label for a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutLabel));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -282,7 +381,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the range of a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutRange));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -294,7 +395,9 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the assigned URI of the range for a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutRangeAssignedURI));
-    const service = <any>new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store);
+    const service = <any>(
+      new JsonldContextGenerationService(logger, <any>{ language: 'en' }, store)
+    );
 
     jest.spyOn(service.logger, 'error');
 
@@ -306,10 +409,12 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the domain for a property can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutDomain));
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', addDomainPrefix: true },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', addDomainPrefix: true },
+        store,
+      )
     );
 
     jest.spyOn(service.logger, 'error');
@@ -322,10 +427,12 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log an error when the label for a domain can not be found', async () => {
     store.addQuads(await parseJsonld(propertyJsonldWithoutDomainLabel));
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', addDomainPrefix: true },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', addDomainPrefix: true },
+        store,
+      )
     );
 
     jest.spyOn(service.logger, 'error');
@@ -339,10 +446,12 @@ describe('JsonldContextGenerationService', () => {
 
   it('should determine if an attribute can have multiple values', async () => {
     store.addQuads(await parseJsonld(jsonldPropertyWithMaxCardinality));
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', addDomainPrefix: false },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', addDomainPrefix: false },
+        store,
+      )
     );
 
     const canHaveMultipleValues = service.canHaveAListOfValues(
@@ -358,10 +467,12 @@ describe('JsonldContextGenerationService', () => {
 
   it('should log a warning when max cardinality is not present for attribute', async () => {
     store.addQuads(await parseJsonld(propertyJsonld));
-    const service = <any>new JsonldContextGenerationService(
-      logger,
-      <any>{ language: 'en', addDomainPrefix: false },
-      store,
+    const service = <any>(
+      new JsonldContextGenerationService(
+        logger,
+        <any>{ language: 'en', addDomainPrefix: false },
+        store,
+      )
     );
 
     jest.spyOn(service.logger, 'warn');
@@ -369,7 +480,8 @@ describe('JsonldContextGenerationService', () => {
       df.namedNode('http://example.org/.well-known/id/property/1'),
     );
 
-    expect(service.logger.warn)
-      .toHaveBeenCalledWith(`Unable to retrieve max cardinality of property http://example.org/.well-known/id/property/1.`);
+    expect(service.logger.warn).toHaveBeenCalledWith(
+      `Unable to retrieve max cardinality of property http://example.org/.well-known/id/property/1.`,
+    );
   });
 });
