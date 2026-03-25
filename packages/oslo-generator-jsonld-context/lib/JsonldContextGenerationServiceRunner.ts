@@ -36,6 +36,11 @@ export class JsonldContextGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('allowDoubleTyping', {
+        describe: 'Allow multiple types per class',
+        default: false,
+        boolean: true,
+      })
       .demandOption(['input', 'language'])
       .help('h')
       .alias('h', 'help');
