@@ -280,13 +280,17 @@ export class ShaclTemplateGenerationService implements IService {
       );
 
       if (!child || !parent)
-        throw new Error('Child or parent is missing for cross reference!');
+        throw new Error(
+          `Child or parent is missing for cross reference ${redefinedProperty.value}!`,
+        );
 
       const childDomain: RDF.Term | undefined = store.getDomain(child);
       const parentDomain: RDF.Term | undefined = store.getDomain(parent);
 
       if (!childDomain || !parentDomain)
-        throw new Error('Child or parent domain is missing!');
+        throw new Error(
+          `Child (${child}) or parent (${parent}) domain is missing!`,
+        );
 
       const childNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
         childDomain.value,
@@ -301,7 +305,7 @@ export class ShaclTemplateGenerationService implements IService {
         propertyIdToShapeIdMap.get(child.value);
 
       if (!propertyShapeParent || !propertyShapeChild)
-        throw new Error('Cannot find SHACL property shape for parent or child');
+        throw new Error(`Cannot find SHACL property shape for parent (${parent}) or child (${child})`);
 
       /*
        * FIXME: figure out why the blanknode propertyShapeParent is not equal
@@ -323,7 +327,7 @@ export class ShaclTemplateGenerationService implements IService {
         childNodeShapeId,
         ns.shacl('targetClass'),
       );
-      if (!childClassId) throw new Error('Cannot find child class ID');
+      if (!childClassId) throw new Error(`Cannot find child class ID of child (${child})`);
 
       const xOneList = [this.df.blankNode(), this.df.blankNode()];
       const xOneValues = [
@@ -339,7 +343,7 @@ export class ShaclTemplateGenerationService implements IService {
         this.df.quad(xOneList[0], ns.shacl('not'), rdfTypeShapeId),
         /* Child: only match with the child through rdf:type. */
         this.df.quad(xOneList[1], ns.shacl('property'), rdfTypeShapeId),
-        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild)
+        this.df.quad(xOneList[1], ns.shacl('property'), propertyShapeChild),
       ];
 
       shaclStore.addQuads([
