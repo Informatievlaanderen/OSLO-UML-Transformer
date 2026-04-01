@@ -289,7 +289,7 @@ export class ShaclTemplateGenerationService implements IService {
 
       if (!childDomain || !parentDomain)
         throw new Error(
-          `Child (${child}) or parent (${parent}) domain is missing!`,
+          `Child (${child.value}) or parent (${parent.value}) domain is missing!`,
         );
 
       const childNodeShapeId: NamedOrBlankNode = classIdToShapeIdMap.get(
