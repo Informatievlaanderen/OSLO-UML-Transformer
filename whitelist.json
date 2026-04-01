@@ -45,5 +45,8 @@
   "https://vocab.belgif.be/ns/utility-services#",
   "https://vocab.belgif.be/ns/generic#",
   "https://vocab.belgif.be/ns/network#",
-  "http://purl.org/vocab/bio/0.1/"
+  "http://purl.org/vocab/bio/0.1/",
+  "https://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2_TC1/OWL#",
+  "https://w3id.org/okn/o/sd#",
+  "https://www.fair-gnss.oma.be/gnss-dcat-ap/vocabulary/geo#"
 ]
