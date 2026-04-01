@@ -305,7 +305,7 @@ export class ShaclTemplateGenerationService implements IService {
         propertyIdToShapeIdMap.get(child.value);
 
       if (!propertyShapeParent || !propertyShapeChild)
-        throw new Error(`Cannot find SHACL property shape for parent (${parent}) or child (${child})`);
+        throw new Error(`Cannot find SHACL property shape for parent (${parent.value}) or child (${child.value})`);
 
       /*
        * FIXME: figure out why the blanknode propertyShapeParent is not equal
@@ -327,7 +327,7 @@ export class ShaclTemplateGenerationService implements IService {
         childNodeShapeId,
         ns.shacl('targetClass'),
       );
-      if (!childClassId) throw new Error(`Cannot find child class ID of child (${child})`);
+      if (!childClassId) throw new Error(`Cannot find child class ID of child (${child.value})`);
 
       const xOneList = [this.df.blankNode(), this.df.blankNode()];
       const xOneValues = [
