@@ -184,7 +184,7 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
   ): Promise<void> {
     const objects = database.getTable(EaTable.Object).getData();
     const query = `
-    SELECT Object_ID, Object_Type, Name, Note, Package_ID, Stereotype, ea_guid
+    SELECT Object_ID, Object_Type, Name, Note, Package_ID, Stereotype, Abstract, ea_guid, IsRoot
     FROM ? object
     WHERE Object_Type IN ('Class', 'DataType', 'Enumeration')`;
 
