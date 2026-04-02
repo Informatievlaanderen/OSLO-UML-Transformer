@@ -109,7 +109,7 @@ export class SqliteFileReader implements IFileReader<SqliteDatabase> {
     registry: DataRegistry,
   ): Promise<void> {
     const elementStatement = database.prepare(`
-      SELECT Object_ID, Object_Type, Name, Note, Package_ID, Stereotype, ea_guid
+      SELECT Object_ID, Object_Type, Name, Note, Package_ID, Stereotype, Abstract, ea_guid, IsRoot
       FROM ${EaTable.Object}
       WHERE Object_Type IN ('Class', 'DataType', 'Enumeration')
     `);

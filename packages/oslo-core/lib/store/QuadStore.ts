@@ -124,8 +124,8 @@ export class QuadStore {
 
   /**
    * Finds all subjects where predicate is 'rdf:type' and object 'skos:Concept'
-   * We chose the skos:Concept here as enumerations have the skos:Concept uri in EA 
-   * There is no skos:ConceptScheme used in EA since we assume that it's only used to 
+   * We chose the skos:Concept here as enumerations have the skos:Concept uri in EA
+   * There is no skos:ConceptScheme used in EA since we assume that it's only used to
    * represent a value from a skos:ConceptScheme instead of the conceptscheme as a whole
    * https://github.com/Informatievlaanderen/OSLO-UML-Transformer/wiki/Technical-Guidelines#enumerations
    * @returns an array of RDF.NamedNodes
@@ -625,5 +625,37 @@ export class QuadStore {
     return <RDF.Term | undefined>(
       this.findObject(subject, ns.oslo('childAttribute'))
     );
+  }
+
+  /**
+   * Check if class is abstract
+   * @param subject The RDF.Term to determine if it is an abstract class
+   * @param graph The RDF.Term of the named graph
+   */
+  public isAbstractClass(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): boolean {
+    const types = this.findObjects(subject, ns.rdf('type'));
+    for (const t of types)
+      if (t.value === ns.oslo('AbstractClass').value) return true;
+
+    return false;
+  }
+
+  /**
+   * Check if class is root object
+   * @param subject The RDF.Term to determine if it is an root object
+   * @param graph The RDF.Term of the named graph
+   */
+  public isRootClass(
+    subject: RDF.Term,
+    graph: RDF.Term | null = null,
+  ): boolean {
+    const types = this.findObjects(subject, ns.rdf('type'));
+    for (const t of types)
+      if (t.value === ns.oslo('RootClass').value) return true;
+
+    return false;
   }
 }

@@ -249,6 +249,22 @@ export class ElementConverterHandler extends ConverterHandler<EaElement> {
         quads.push(
           this.df.quad(objectInternalId, ns.rdf('type'), ns.owl('Class')),
         );
+        if (object.abstract)
+          quads.push(
+            this.df.quad(
+              objectInternalId,
+              ns.rdf('type'),
+              ns.oslo('AbstractClass'),
+            ),
+          );
+        if (object.root)
+          quads.push(
+            this.df.quad(
+              objectInternalId,
+              ns.rdf('type'),
+              ns.oslo('RootClass'),
+            ),
+          );
         break;
 
       case ElementType.DataType:
