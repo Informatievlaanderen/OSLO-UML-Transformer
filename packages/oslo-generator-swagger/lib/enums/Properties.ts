@@ -35,6 +35,7 @@ export const mapProperties = (
     label: string,
     baseURI: string,
     subclasses: string[],
+    abstract: boolean,
   ): object => {
   /* Primitive data type conversion from Linked Data to Swagger */
   if (Properties.has(datatype)) {
@@ -46,8 +47,10 @@ export const mapProperties = (
     const mapping: Record<string, string> = {};
     const oneOf = [];
 
+    /* Only allow super class if it is not abstract */
     mapping[label] = `#/components/schemas/${label}`;
-    oneOf.push({ $ref: `#/components/schemas/${label}` });
+    if (!abstract)
+        oneOf.push({ $ref: `#/components/schemas/${label}` });
 
     for (const subclass of subclasses) {
       const ref = `#/components/schemas/${subclass}`;
