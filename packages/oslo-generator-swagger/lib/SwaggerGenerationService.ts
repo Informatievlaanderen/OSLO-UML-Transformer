@@ -48,29 +48,6 @@ export class SwaggerGenerationService implements IService {
     this.store = store;
   }
 
-  private getProbleemdetailsContent(): any {
-    return {
-      [OutputFormat.JsonProblem]: {
-        schema: {
-          $ref: '#/components/schemas/ProbleemDetails',
-        },
-      },
-    };
-  }
-
-  private getProbleemdetailsLink(label: string): any {
-    return {
-      'ProbleemDetails.type': {
-        operationId: `${label}GET`,
-        parameters: {
-          type: `$response.body#/type`,
-        },
-        description:
-          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
-      },
-    };
-  }
-
   private getContact(): SwaggerInfoContact | undefined {
     /* If no contact information is provided, the whole block may not appear */
     if (
@@ -220,52 +197,6 @@ export class SwaggerGenerationService implements IService {
               },
               links: filteredLinks,
             },
-            /* Error codes follow the RFC 7807 */
-            400: {
-              description: 'Invalid data supplied.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            401: {
-              description: 'Invalid authorization.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            403: {
-              description: 'Authentication failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            404: {
-              description: 'Resource not found.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            412: {
-              description: 'Pre-condition failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            500: {
-              description: 'Unexpected Server Error.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            502: {
-              description: 'Bad Gateway.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            503: {
-              description: 'Service unavailable.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
-            504: {
-              description: 'Gateway Timeout.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
-            },
           },
         },
       };
@@ -284,43 +215,6 @@ export class SwaggerGenerationService implements IService {
 
   public createSchemas(): Object {
     const schemas: { [key: string]: any } = {};
-
-    /* Create error schema */
-    schemas['ProbleemDetails'] = {
-      title: 'ProbleemDetails',
-      type: 'object',
-      description:
-        'Een weergave van een algemene foutmelding zoals gedefinieerd in RFC 7807.',
-      properties: {
-        type: {
-          type: 'string',
-          format: 'uri',
-          description:
-            'URI referentie die het probleem identificeert. Deze specificatie moedigt aan om, wanneer de referentie wordt verwijderd, een leesbare documentatie te bieden voor het probleemtype. Als dit element niet aanwezig is, wordt aangenomen dat de waarde about:blank is.',
-        },
-        title: {
-          type: 'string',
-          description:
-            'Een korte, voor mensen leesbare samenvatting van het probleemtype. Het MAG NIET veranderen tussen verschillende voorkomens van de fout, behalve voor doeleinden van lokalisatie.',
-        },
-        status: {
-          type: 'string',
-          description:
-            'De HTTP-statuscode die is gegenereerd door de oorspronkelijke server voor dit optreden van het probleem.',
-        },
-        detail: {
-          type: 'string',
-          description:
-            'Een voor mensen leesbare uitleg die specifiek is voor dit optreden van het probleem',
-        },
-        instance: {
-          type: 'string',
-          description:
-            'Een URI-referentie die het specifieke optreden van het probleem identificeert. Het kan al dan niet meer informatie opleveren als de referentie wordt verwijderd.',
-        },
-      },
-      required: ['detail', 'title'],
-    };
 
     /* Create schema for each enumeration */
     for (const enumId of this.store.findSubjects(
@@ -456,6 +350,9 @@ export class SwaggerGenerationService implements IService {
         }
         attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
 
+        const attributeDatatypeAbstract =
+          this.store.isAbstractClass(attributeRangeId);
+
         /* Attribute datatypes may have a super class assigned, but any subclass of this super class must be allowed */
         const subclasses: string[] = [];
         for (const subclassId of this.store.findSubjects(
@@ -491,6 +388,7 @@ export class SwaggerGenerationService implements IService {
           attributeDatatypeLabel,
           this.configuration.baseURL,
           subclasses,
+          attributeDatatypeAbstract,
         );
         const requiredProperties = properties
           ? Object.keys(properties)
@@ -511,11 +409,12 @@ export class SwaggerGenerationService implements IService {
         }
 
         if (attributeMaxCount != '0' && attributeMaxCount != '1') {
+          /* minItems must be 1, empty arrays are removed by not including the attribute, even if minCount == 0 */
           attributes[label][attributeLabel] = {
             type: 'array',
             description: `Lijst van ${attributeDatatypeLabel} items.`,
             items: item,
-            minItems: parseInt(attributeMinCount),
+            minItems: Math.max(parseInt(attributeMinCount), 1),
             maxItems:
               attributeMaxCount == '*'
                 ? undefined
@@ -546,7 +445,7 @@ export class SwaggerGenerationService implements IService {
           },
           /* Do not allow double typing for strict validation and problems with Swagger tooling (discriminator keyword) */
           '@type': {
-            type: 'object',
+            type: 'string',
             description: `Object type (klasse ${label})`,
             pattern: `^${label}\$`,
           },
@@ -560,7 +459,6 @@ export class SwaggerGenerationService implements IService {
       schemas[`${label}JsonLd`].required.push('@context');
       schemas[`${label}JsonLd`].properties['@context'] = {
         type: 'string',
-        format: 'uri',
         pattern: `^${this.configuration.contextURL}$`.replace(/\//g, '\\/'),
       };
     }
