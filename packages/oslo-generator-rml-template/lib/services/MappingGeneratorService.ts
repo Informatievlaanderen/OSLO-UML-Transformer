@@ -42,10 +42,13 @@ export class MappingGeneratorService {
   }
 
   private getClassAndDatatypeQuads(): RDF.Quad[] {
+    /* Only classes and datatypes which are not abstract are relevant */
     return [
       ...this.store.findQuads(null, ns.rdf('type'), ns.owl('Class')),
       ...this.store.findQuads(null, ns.rdf('type'), ns.rdfs('Datatype')),
-    ];
+    ].filter((quad) => {
+      return !this.store.isAbstractClass(quad.subject);
+    });
   }
 
   private async processClassQuad(
@@ -54,6 +57,7 @@ export class MappingGeneratorService {
     parentTriplesMaps: Record<string, RmlTripleMapEntry[]>,
   ): Promise<void> {
     const classId = quad.subject;
+
     let label = getApplicationProfileLabel(
       classId,
       this.store,
