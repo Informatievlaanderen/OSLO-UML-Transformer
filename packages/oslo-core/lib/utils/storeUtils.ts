@@ -216,16 +216,35 @@ export function findAllAttributes(
   attributeIds: RDF.Term[],
   store: QuadStore,
 ): RDF.Term[] {
-  const parentIds = store.findObjects(subject, ns.rdfs('subClassOf'));
+  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
 
+  /* Merge all referenced dummy parents with the real one based on assigned URI */
+  let additionalParentIds: RDF.Term[] = [];
+  for (const parentId of parentIds) {
+    const assignedUri = store.findObject(parentId, ns.oslo('assignedURI'));
+    if (!assignedUri) continue;
+
+    additionalParentIds = [
+      ...additionalParentIds,
+      ...store
+        .findSubjects(ns.oslo('assignedURI'), assignedUri)
+        .filter(
+          (item) =>
+            item.value !== subject.value && item.value !== parentId.value,
+        ),
+    ];
+  }
+  parentIds = [...parentIds, ...additionalParentIds];
+
+  /* Collect all attributes */
   attributeIds = [
     ...attributeIds,
     ...store.findSubjects(ns.rdfs('domain'), subject),
   ];
 
-  for (const parentId of parentIds) {
+  /* Recursive search further for attributes */
+  for (const parentId of parentIds)
     attributeIds = findAllAttributes(parentId, attributeIds, store);
-  }
 
   return attributeIds;
 }
@@ -237,7 +256,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
   // Second check allows store2 to have more quads than store1 if it has all quads of store1 plus more
   if (quads1.length !== quads2.length) {
     console.log(
-      `[QUadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
+      `[QuadStore]: Store1 has a length of ${quads1.length} whilst Store2 has a length of ${quads2.length}.`,
     );
     return false;
   }
@@ -254,7 +273,7 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
 
     if (!matchingQuad) {
       console.log(
-        `[QUadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
+        `[QuadStore]: Quad not found in store2: ${quad1.subject?.value} ${quad1.predicate?.value} ${quad1.object?.value} ${quad1.graph?.value}`,
       );
       return false;
     }

@@ -9,6 +9,8 @@ import { EaObject } from '../types/EaObject';
 export class EaElement extends EaObject {
   public readonly type: ElementType;
   public readonly packageId: number;
+  public readonly abstract: boolean;
+  public readonly root: boolean;
 
   public constructor(
     id: number,
@@ -16,11 +18,15 @@ export class EaElement extends EaObject {
     guid: string,
     type: ElementType,
     packageId: number,
+    abstract: number,
+    root: number,
   ) {
     super(id, name, guid);
 
     this.type = type;
     this.packageId = packageId;
+    this.abstract = Boolean(abstract);
+    this.root = Boolean(root);
 
     this.osloGuid = uniqueId(guid, name, id);
   }

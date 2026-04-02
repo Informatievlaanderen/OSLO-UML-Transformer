@@ -1,11 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
-import { OutputFormat, QuadStore } from '@oslo-flanders/core';
+import { OutputFormat, QuadStore, quadSort } from '@oslo-flanders/core';
 import { createWriteStream, writeFileSync } from 'fs';
 import rdfSerializer from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
-import { quadSort } from './utils/utils';
 import streamifyArray from 'streamify-array';
 
 @injectable()

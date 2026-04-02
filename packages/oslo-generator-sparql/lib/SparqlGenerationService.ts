@@ -13,13 +13,13 @@ import {
   toPascalCase,
   toCamelCase,
   findAllAttributes,
+  splitUri,
 } from '@oslo-flanders/core';
 import { writeFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { SparqlGenerationServiceConfiguration } from './config/SparqlGenerationServiceConfiguration';
-import { splitUri } from './utils/sparqlUtils';
 
 @injectable()
 export class SparqlGenerationService implements IService {
@@ -83,6 +83,11 @@ export class SparqlGenerationService implements IService {
         continue;
       }
 
+      /* If a prefix is available use it as label to avoid conflicts such as foaf:Person and person:Person */
+      const splitted = await splitUri(assignedUri);
+      if (splitted)
+        label = `${splitted.prefix.toUpperCase()}${label}`;
+
       queries[label] = {
         type: 'query',
         queryType: 'SELECT',
@@ -109,7 +114,6 @@ export class SparqlGenerationService implements IService {
       };
 
       /* Try to extract prefixes and define them as SPARQL PREFIXes in the query */
-      const splitted = await splitUri(assignedUri);
       if (splitted) queries[label].prefixes[splitted.prefix] = splitted.uri;
       else this.logger.warn('Splitting URI failed for extracting prefix');
 

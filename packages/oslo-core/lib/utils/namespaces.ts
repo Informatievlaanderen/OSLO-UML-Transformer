@@ -23,7 +23,8 @@ enum Prefixes {
   vl = 'https://data.vlaanderen.be/ns/shacl#',
   schema = 'https://schema.org/',
   cpov = 'http://data.europa.eu/m8g/',
-  locn = 'http://www.w3.org/ns/locn#'
+  locn = 'http://www.w3.org/ns/locn#',
+  rml = 'http://w3id.org/rml/'
 }
 
 export type Namespace = {
