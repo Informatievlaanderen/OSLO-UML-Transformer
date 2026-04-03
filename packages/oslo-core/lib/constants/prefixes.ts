@@ -4,6 +4,37 @@ import fetch from 'node-fetch';
 const PREFIX_CC_URL = 'https://prefix.cc/context';
 
 export async function getPrefixes(): Promise<Record<string, string>> {
+  return {
+    adms: ns.adms('').value,
+    cpov: ns.cpov('').value,
+    dcat: ns.dcat('').value,
+    dcatap: ns.dcatap('').value,
+    dct: ns.dcterms('').value,
+    dcterms: ns.dcterms('').value,
+    foaf: ns.foaf('').value,
+    generiek: ns.generiek('').value,
+    geodcatap: ns.geodcatap('').value,
+    locn: ns.locn('').value,
+    mdcat: ns.mdcat('').value,
+    oslo: ns.oslo('').value,
+    owl: ns.owl('').value,
+    person: ns.person('').value,
+    prov: ns.prov('').value,
+    qb: ns.qb('').value,
+    rdf: ns.rdf('').value,
+    rdfs: ns.rdfs('').value,
+    schema: ns.schema('').value,
+    shacl: ns.shacl('').value,
+    skos: ns.skos('').value,
+    time: ns.time('').value,
+    vann: ns.vann('').value,
+    vcard: ns.vcard('').value,
+    vl: ns.vl('').value,
+    vlaanderen: ns.vlaanderen('').value,
+    void: ns.void('').value,
+    xsd: ns.xsd('').value,
+  };
+
   const url = PREFIX_CC_URL;
   try {
     const response = await fetch(url);

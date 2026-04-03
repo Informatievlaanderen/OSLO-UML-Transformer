@@ -27,13 +27,13 @@ The packages `oslo-core` and `oslo-extractor-uml-ea` are not executable via the 
 
 ## How to run
 
-Each package package is published on the NPM registry and can be installed globally or as part of a NodeJS project. The README.md of each package describes how the component can be executed along with the various CLI options.
+Each package is published on the NPM registry and can be installed globally or as part of a NodeJS project. The README.md of each package describes how the component can be executed along with the various CLI options.
 
 ## Developer information
 
 ### How To Build
 
-To build the source code, the dependencies must first be installed. We make use op npm workspaces, so the dependencies of all packages are installed as well. More information on workspaces can be found [here](https://docs.npmjs.com/cli/v10/using-npm/workspaces).
+To build the source code, the dependencies must first be installed. We make use of npm workspaces, so the dependencies of all packages are installed as well. More information on workspaces can be found [here](https://docs.npmjs.com/cli/v10/using-npm/workspaces).
 
 ```bash
 npm install
