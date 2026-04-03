@@ -48,9 +48,10 @@ export const mapProperties = (
     const oneOf = [];
 
     /* Only allow super class if it is not abstract */
-    mapping[label] = `#/components/schemas/${label}`;
-    if (!abstract)
-        oneOf.push({ $ref: `#/components/schemas/${label}` });
+    if (!abstract) {
+      mapping[label] = `#/components/schemas/${label}`;
+      oneOf.push({ $ref: `#/components/schemas/${label}` });
+    }
 
     for (const subclass of subclasses) {
       const ref = `#/components/schemas/${subclass}`;

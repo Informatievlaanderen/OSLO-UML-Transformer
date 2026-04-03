@@ -48,6 +48,29 @@ export class SwaggerGenerationService implements IService {
     this.store = store;
   }
 
+  private getProbleemdetailsContent(): any {
+    return {
+      [OutputFormat.JsonProblem]: {
+        schema: {
+          $ref: '#/components/schemas/Probleemdetail',
+        },
+      },
+    };
+  }
+
+  private getProbleemdetailsLink(label: string): any {
+    return {
+      'Probleemdetail.type': {
+        operationId: `${label}GET`,
+        parameters: {
+          type: `$response.body#/type`,
+        },
+        description:
+          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+      },
+    };
+  }
+
   private getContact(): SwaggerInfoContact | undefined {
     /* If no contact information is provided, the whole block may not appear */
     if (
@@ -133,12 +156,16 @@ export class SwaggerGenerationService implements IService {
       ],
       paths: {},
     };
+    const hasRootClasses =
+      this.store.findSubjects(ns.rdf('type'), ns.oslo('RootClass')).length > 0;
 
-    /* Create endpoint for each Class */
+    /* Create endpoint for each Class which is marked as RootClass, if none, generate all */
     for (const classId of this.store.findSubjects(
       ns.rdf('type'),
       ns.owl('Class'),
     )) {
+      if (hasRootClasses && !this.store.isRootClass(classId)) continue;
+
       const filteredLinks: any = {};
       let label = getApplicationProfileLabel(
         classId,
@@ -202,6 +229,52 @@ export class SwaggerGenerationService implements IService {
                 },
               },
               links: filteredLinks,
+            },
+            /* Error codes follow the RFC 7807 */
+            400: {
+              description: 'Invalid data supplied.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            401: {
+              description: 'Invalid authorization.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            403: {
+              description: 'Authentication failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            404: {
+              description: 'Resource not found.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            412: {
+              description: 'Pre-condition failed.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            500: {
+              description: 'Unexpected Server Error.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            502: {
+              description: 'Bad Gateway.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            503: {
+              description: 'Service unavailable.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
+            },
+            504: {
+              description: 'Gateway Timeout.',
+              content: this.getProbleemdetailsContent(),
+              links: this.getProbleemdetailsLink(label),
             },
           },
         },
@@ -458,14 +531,6 @@ export class SwaggerGenerationService implements IService {
           ...attributes[label],
         },
         required: ['@id', '@type', ...requiredAttributes[label]],
-      };
-
-      /* Create components with JSON-LD enveloppe for each schema, use deep-copy to avoid @context in original schema */
-      schemas[`${label}JsonLd`] = JSON.parse(JSON.stringify(schemas[label]));
-      schemas[`${label}JsonLd`].required.push('@context');
-      schemas[`${label}JsonLd`].properties['@context'] = {
-        type: 'string',
-        pattern: `^${this.configuration.contextURL}$`.replace(/\//g, '\\/'),
       };
     }
 
