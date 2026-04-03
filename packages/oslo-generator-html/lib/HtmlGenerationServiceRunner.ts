@@ -1,6 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
-import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { HtmlGenerationServiceConfiguration } from './config/HtmlGenerationServiceConfiguration';
 import type { HtmlGenerationService } from './HtmlGenerationService';
@@ -10,8 +9,7 @@ export class HtmlGenerationServiceRunner extends AppRunner<
   HtmlGenerationServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
         describe: 'The webuniversum input file to generate an HTML file for.',
       })

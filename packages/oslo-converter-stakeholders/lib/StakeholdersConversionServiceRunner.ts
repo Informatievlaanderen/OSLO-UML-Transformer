@@ -1,6 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner, LOG_LEVELS, OutputFormat } from '@oslo-flanders/core';
-import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { StakeholdersConversionServiceConfiguration } from './config/StakeholdersConversionServiceConfiguration';
 import type { StakeholdersConversionService } from './StakeholdersConversionService';
@@ -10,8 +9,7 @@ export class StakeholdersConversionServiceRunner extends AppRunner<
   StakeholdersConversionServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
         describe: 'URL or local path to an OSLO stakeholders csv file.',
       })
@@ -46,13 +44,13 @@ export class StakeholdersConversionServiceRunner extends AppRunner<
         ['input'],
         'Please provide the necessary arguments to work with this tool.',
       )
-      .check((args) => {
+      .check((args: any) => {
         if (args.outputFormat === OutputFormat.JsonLd && !args.iri) {
           throw new Error(
             `--iri is required when outputFormat is ${OutputFormat.JsonLd}`,
           );
         }
-        return true; 
+        return true;
       })
       .help('h')
       .alias('h', 'help');

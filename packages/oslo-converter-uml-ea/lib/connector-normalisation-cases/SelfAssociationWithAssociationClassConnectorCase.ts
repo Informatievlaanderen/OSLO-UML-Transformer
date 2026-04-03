@@ -88,8 +88,16 @@ export class SelfAssociationWithAssociationClassConnectorCase
         tagName: tag.tagName.replace(TagNames.AssociationSourcePrefix, ''),
       }));
 
+    const destinationExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationDestPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationDestPrefix, ''),
+      }));
+
     const sourceBaseClassTags: EaTag[] = [
       ...sourceExtraTags,
+      ...sourceTags,
       {
         tagName: TagNames.LocalName,
         tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
@@ -99,12 +107,30 @@ export class SelfAssociationWithAssociationClassConnectorCase
     ];
 
     // Get reverse tags from association class
-    const sourceRevExtraTags: EaTag[] = connector.tags
+    const sourceRevExtraTags: EaTag[] = associationClassObject.tags
       .filter((x) => x.tagName.startsWith(TagNames.AssociationSourceRevPrefix))
       .map((tag) => ({
         ...tag,
         tagName: tag.tagName.replace(TagNames.AssociationSourceRevPrefix, ''),
       }));
+
+    const destinationRevExtraTags: EaTag[] = associationClassObject.tags
+      .filter((x) => x.tagName.startsWith(TagNames.AssociationDestRevPrefix))
+      .map((tag) => ({
+        ...tag,
+        tagName: tag.tagName.replace(TagNames.AssociationDestRevPrefix, ''),
+      }));
+
+    const destinationBaseClassTags: EaTag[] = [
+      ...destinationExtraTags,
+      ...sourceTags,
+      {
+        tagName: TagNames.LocalName,
+        tagValue: `${toPascalCase(associationClassName)}.${toCamelCase(
+          baseClassObjectName,
+        )}.target`,
+      },
+    ];
 
     normalisedConnectors.push(
       new NormalizedConnector(
@@ -113,9 +139,48 @@ export class SelfAssociationWithAssociationClassConnectorCase
         connector.associationClassId,
         connector.sourceObjectId,
         '1',
-        [...sourceBaseClassTags, ...sourceRevExtraTags],
+        [...sourceBaseClassTags],
+      ),
+      new NormalizedConnector(
+        connector,
+        `${baseClassObjectName} (target)`,
+        connector.associationClassId,
+        connector.destinationObjectId,
+        '1',
+        [...destinationBaseClassTags],
       ),
     );
+
+    // Push the reverse tags from the association class to the source and destination
+    if (sourceRevExtraTags.length) {
+      normalisedConnectors.push(
+        new NormalizedConnector(
+          connector,
+          `${baseClassObjectName}.${associationClassName}`,
+          connector.sourceObjectId,
+          connector.associationClassId,
+          // The cardinality for the reverse relationship is not explicitly defined in EA
+          // as the relationship is implicit. We use the cardinality of the connector's destination with '1' as a fallback.
+          connector.destinationCardinality ?? '1',
+          sourceRevExtraTags,
+        ),
+      );
+    }
+
+    if (destinationRevExtraTags.length) {
+      normalisedConnectors.push(
+        new NormalizedConnector(
+          connector,
+          `${baseClassObjectName}.${associationClassName}`,
+          connector.destinationObjectId,
+          connector.associationClassId,
+          // The cardinality for the reverse relationship is not explicitly defined in EA
+          // as the relationship is implicit. We use the cardinality of the connector's destination with '1' as a fallback.
+          connector.sourceCardinality ?? '1',
+          destinationRevExtraTags,
+        ),
+      );
+    }
 
     return normalisedConnectors;
   }

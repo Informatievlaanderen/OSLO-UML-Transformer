@@ -256,6 +256,45 @@ export class CodelistGenerationService implements IService {
               }
             }
 
+            // ADD properties for nested ConceptSchemes
+            addInScheme(quads, this.df, conceptScheme, schemeRow.inScheme);
+            addTopConceptOf(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow.topConceptOf,
+            );
+            addNotation(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow[this.configuration.notationColumn],
+            );
+            addBroaderConcepts(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow[this.configuration.broaderColumn],
+            );
+            addNarrowerConcepts(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow[this.configuration.narrowerColumn],
+            );
+            addStatus(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow[this.configuration.statusColumn],
+            );
+            addDataset(
+              quads,
+              this.df,
+              conceptScheme,
+              schemeRow[this.configuration.datasetColumn],
+            );
+
             // Process all concepts belonging to this scheme
             for (const conceptRow of conceptRows) {
               try {

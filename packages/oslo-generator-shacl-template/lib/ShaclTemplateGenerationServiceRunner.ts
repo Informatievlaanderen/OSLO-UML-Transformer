@@ -1,6 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner, OutputFormat } from '@oslo-flanders/core';
-import yargs from 'yargs';
 import { container } from './config/DependencyInjectionConfig';
 import type { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import type { ShaclTemplateGenerationService } from './ShaclTemplateGenerationService';
@@ -10,8 +9,7 @@ export class ShaclTemplateGenerationServiceRunner extends AppRunner<
   ShaclTemplateGenerationServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
         describe: 'The input file to generate a SHACL template from.',
       })

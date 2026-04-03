@@ -1,6 +1,5 @@
 import { AppRunner, LOG_LEVELS } from '@oslo-flanders/core';
 import type { CliArgv } from '@oslo-flanders/core';
-import yargs from 'yargs';
 import type { CodelistGenerationService } from './CodelistGenerationService';
 import type { CodelistGenerationServiceConfiguration } from './config/CodelistGenerationServiceConfiguration';
 import { container } from './config/DependencyInjectionConfig';
@@ -10,8 +9,7 @@ export class CodelistGenerationServiceRunner extends AppRunner<
   CodelistGenerationServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
         describe: 'URL or local path to a CSV file containing codelist data.',
       })

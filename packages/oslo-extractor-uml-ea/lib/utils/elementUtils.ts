@@ -14,6 +14,8 @@ export function mapToEaElement(
         <string>item.ea_guid,
         getElementType(<string>item.Object_Type),
         <number>item.Package_ID,
+        <number>item.Abstract,
+        <number>item.IsRoot,
       ),
   );
 

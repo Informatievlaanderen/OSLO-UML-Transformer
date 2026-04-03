@@ -1,7 +1,6 @@
 import type { CliArgv } from '@oslo-flanders/core';
 import { AppRunner } from '@oslo-flanders/core';
 
-import yargs from 'yargs';
 import type { SparqlGenerationService } from '../lib/SparqlGenerationService';
 import { container } from './config/DependencyInjectionConfig';
 import type { SparqlGenerationServiceConfiguration } from './config/SparqlGenerationServiceConfiguration';
@@ -11,15 +10,14 @@ export class SparqlGenerationServiceRunner extends AppRunner<
   SparqlGenerationServiceConfiguration
 > {
   public async runCli(argv: CliArgv): Promise<void> {
-    const yargv = yargs(argv.slice(2))
-      .usage('node ./bin/runner.js [args]')
+    const yargv = this.createYargsInstance(argv.slice(2))
       .option('input', {
-        describe:
-          'The input file to generate SPARQL queries from.',
+        describe: 'The input file to generate SPARQL queries from.',
         default: 'input.jsonld',
       })
       .option('output', {
-        describe: 'Name of the output directory where all the queries will be written to.',
+        describe:
+          'Name of the output directory where all the queries will be written to.',
         default: 'queries',
       })
       .option('language', {
@@ -31,10 +29,7 @@ export class SparqlGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
-      .demandOption([
-        'input',
-        'output',
-      ])
+      .demandOption(['input', 'output'])
       .help('h')
       .alias('h', 'help');
 

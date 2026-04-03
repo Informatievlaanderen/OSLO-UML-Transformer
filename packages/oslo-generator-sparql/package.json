@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/sparql-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate SPARQL queries.",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-generator-sparql#readme",
