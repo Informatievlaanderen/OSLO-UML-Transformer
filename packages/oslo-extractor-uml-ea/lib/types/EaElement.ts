@@ -19,14 +19,14 @@ export class EaElement extends EaObject {
     type: ElementType,
     packageId: number,
     abstract: number,
-    root: number,
+    root: boolean,
   ) {
     super(id, name, guid);
 
     this.type = type;
     this.packageId = packageId;
-    this.abstract = Boolean(abstract);
-    this.root = Boolean(root);
+    this.abstract = abstract == 1;
+    this.root = root;
 
     this.osloGuid = uniqueId(guid, name, id);
   }

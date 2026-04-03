@@ -15,7 +15,7 @@ export function mapToEaElement(
         getElementType(<string>item.Object_Type),
         <number>item.Package_ID,
         <number>item.Abstract,
-        <number>item.IsRoot,
+        <boolean>item.IsRoot,
       ),
   );
 

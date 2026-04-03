@@ -21,6 +21,8 @@ export function getOsloContext(): any {
     redefinedAttributes: '@included',
     subsettedAttributes: '@included',
     enumerations: '@included',
+    abstractClasses: '@included',
+    rootClasses: '@included',
     baseURI: {
       '@id': 'oslo:baseURI',
       '@type': '@id',
@@ -79,6 +81,12 @@ export function getOsloContext(): any {
     Package: 'oslo:Package',
     Class: {
       '@id': 'owl:Class',
+    },
+    AbstractClass: {
+      '@id': 'oslo:AbstractClass',
+    },
+    RootClass: {
+      '@id': 'oslo:RootClass',
     },
     DatatypeProperty: {
       '@id': 'owl:DatatypeProperty',

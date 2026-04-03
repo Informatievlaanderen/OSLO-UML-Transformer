@@ -29,6 +29,8 @@ describe('JsonLdOutputHandler', () => {
     jest.spyOn(<any>outputHandler, 'getRedefinedAttributes');
     jest.spyOn(<any>outputHandler, 'getSubsettedAttributes');
     jest.spyOn(<any>outputHandler, 'getEnumerations');
+    jest.spyOn(<any>outputHandler, 'getAbstractClasses');
+    jest.spyOn(<any>outputHandler, 'getRootClasses');
     jest
       .spyOn(<any>outputHandler, 'addDocumentInformation')
       // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -49,6 +51,8 @@ describe('JsonLdOutputHandler', () => {
     document.referencedEntities = [];
     document.redefinedAttributes = [];
     document.subsettedAttributes = [];
+    document.abstractClasses = [];
+    document.rootClasses = [];
     document.enumerations = [];
 
     await outputHandler.write(store, writeStream);
