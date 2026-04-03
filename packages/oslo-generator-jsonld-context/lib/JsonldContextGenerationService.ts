@@ -8,6 +8,7 @@ import {
   ServiceIdentifier,
   QuadStore,
   getApplicationProfileLabel,
+  findAllAttributes,
 } from '@oslo-flanders/core';
 
 import type * as RDF from '@rdfjs/types';
@@ -128,16 +129,30 @@ export class JsonldContextGenerationService implements IService {
     const result = classMetadata
       .sort((a, b) => a.label.value.localeCompare(b.label.value))
       .reduce((main, x: ClassMetadata) => {
+        let attributeIds: RDF.Term[] = [];
+
+        /* CLI arg om dit gedrag te switchen tussen alle attributen of via inheritance */
+        if (this.configuration.allowDoubleTyping) {
+          attributeIds = propertyMetadata
+            .filter((y: PropertyMetadata) => {
+              return y.domainLabel.value === x.label.value;
+            })
+            .map((y: PropertyMetadata) => {
+              return y.osloId;
+            });
+        } else {
+          attributeIds = findAllAttributes(x.osloId, attributeIds, this.store);
+        }
+
         return {
           ...main,
           [toPascalCase(x.label.value)]: {
             '@id': x.assignedURI.value,
             '@context': {
               ...propertyMetadata
-                .filter(
-                  (y: PropertyMetadata) =>
-                    y.domainLabel.value === x.label.value,
-                )
+                .filter((y: PropertyMetadata) => {
+                  return attributeIds.map((a: RDF.Term) => { return a.value }).includes(y.osloId.value);
+                })
                 .sort((a, b) => a.label.value.localeCompare(b.label.value))
                 .reduce((subMain, y: PropertyMetadata) => {
                   return {
@@ -381,6 +396,8 @@ export class JsonldContextGenerationService implements IService {
             );
           }
 
+          /* If multiple types are not allowed, push down all attributes from the super class to the leaf */
+          //for loop op domainlabel waarbij domainlabel telkens varieert
           propertyMetadata.push({
             osloId: subject,
             assignedURI: assignedUri,
