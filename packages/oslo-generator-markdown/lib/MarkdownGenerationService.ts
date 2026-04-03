@@ -194,7 +194,7 @@ export class MarkdownGenerationService implements IService {
           // the uri (shortened, with link to full)
           md.link(p.uri, p.prettyUri()),
           // the range label
-          p.rangeLabel!!,
+          p.rangeLabel || "",
           // the range uri
           md.link(p.rangeUri!!, p.prettyRangeUri()),
           `${p.minCount}..${p.maxCount}`
