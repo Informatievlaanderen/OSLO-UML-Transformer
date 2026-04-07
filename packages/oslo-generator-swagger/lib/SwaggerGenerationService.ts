@@ -449,7 +449,7 @@ export class SwaggerGenerationService implements IService {
             continue;
           }
 
-          subclasses.push(subclassLabel);
+          subclasses.push(toPascalCase(subclassLabel));
         }
 
         /* Cardinality */

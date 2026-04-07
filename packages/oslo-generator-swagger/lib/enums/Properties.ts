@@ -43,7 +43,7 @@ export const mapProperties = (
   }
 
   /* Multiple subclasses requires a discriminator to link both the superclass and subclasses as schemas */
-  if (subclasses.length > 1) {
+  if (subclasses.length > 0) {
     const mapping: Record<string, string> = {};
     const oneOf = [];
 
