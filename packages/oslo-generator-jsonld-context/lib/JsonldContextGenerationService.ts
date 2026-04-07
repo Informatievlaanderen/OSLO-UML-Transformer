@@ -4,7 +4,6 @@ import { writeFile } from 'fs/promises';
 import type { IService } from '@oslo-flanders/core';
 import {
   Logger,
-  ns,
   ServiceIdentifier,
   QuadStore,
   getApplicationProfileLabel,
