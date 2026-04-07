@@ -336,8 +336,12 @@ export class SwaggerGenerationService implements IService {
     ]) {
       const assignedUri = this.store.getAssignedUri(classId);
 
+      /* Primitive datatypes may not be generated */
       if (assignedUri && [...DataTypes.values()].includes(assignedUri.value))
         continue;
+
+      /* Abstract classes may not be generated to avoid that they are instantiated */
+      if (this.store.isAbstractClass(classId)) continue;
 
       let label = getApplicationProfileLabel(
         classId,
@@ -564,6 +568,9 @@ export class SwaggerGenerationService implements IService {
         this.store,
         this.configuration.language,
       )?.value;
+
+      /* Abstract classes may not be instantiated so they cannot have links */
+      if (this.store.isAbstractClass(classId)) continue;
 
       /* Get all attributes in a recursive manner for inheritance */
       let attributeIds: RDF.Term[] = [];
