@@ -512,6 +512,19 @@ export class SwaggerGenerationService implements IService {
       /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
       requiredAttributes[label] = [...new Set(requiredAttributes[label])];
 
+      /* Root classes require a @context property, add it here if needed */
+      let context = {};
+      if (this.store.isRootClass(classId)) {
+        context = {
+          '@context': {
+            type: 'string',
+            description:
+              'URI of the JSON-LD versioned context file for this response.',
+            pattern: `^${this.configuration.contextURL}$`.replace(/\//g, '\\/'),
+          },
+        };
+      }
+
       /* Create components for each schema */
       schemas[label] = {
         title: label,
@@ -529,6 +542,7 @@ export class SwaggerGenerationService implements IService {
             pattern: `^${label}\$`,
           },
           ...attributes[label],
+          ...context,
         },
         required: ['@id', '@type', ...requiredAttributes[label]],
       };
