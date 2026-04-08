@@ -16,6 +16,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       redefinedAttributes,
       subsettedAttributes,
       enumerations,
+      abstractClasses,
+      rootClasses,
     ] = await Promise.all([
       this.getPackages(store),
       this.getClasses(store),
@@ -25,6 +27,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
       this.getRedefinedAttributes(store),
       this.getSubsettedAttributes(store),
       this.getEnumerations(store),
+      this.getAbstractClasses(store),
+      this.getRootClasses(store),
     ]);
 
     const document: any = {};
@@ -37,6 +41,8 @@ export class JsonLdOutputHandler implements IOutputHandler {
     document.referencedEntities = referencedEntities;
     document.redefinedAttributes = redefinedAttributes;
     document.subsettedAttributes = subsettedAttributes;
+    document.abstractClasses = abstractClasses;
+    document.rootClasses = rootClasses;
 
     document.enumerations = enumerations;
     (<WriteStream>writeStream).write(JSON.stringify(document, null, 2));
@@ -392,6 +398,38 @@ export class JsonLdOutputHandler implements IOutputHandler {
         ...(assignedURI && {
           assignedURI: assignedURI.value,
         }),
+      };
+    });
+  }
+
+  private async getAbstractClasses(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const classIds: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('AbstractClass'),
+      df.defaultGraph(),
+    );
+
+    return classIds.map((subject: RDF.Term) => {
+      return {
+        '@id': subject.value,
+        '@type': 'AbstractClass',
+      };
+    });
+  }
+
+  private async getRootClasses(store: QuadStore): Promise<any> {
+    const df = new DataFactory();
+    const classIds: RDF.Term[] = store.findSubjects(
+      ns.rdf('type'),
+      ns.oslo('RootClass'),
+      df.defaultGraph(),
+    );
+
+    return classIds.map((subject: RDF.Term) => {
+      return {
+        '@id': subject.value,
+        '@type': 'RootClass',
       };
     });
   }
