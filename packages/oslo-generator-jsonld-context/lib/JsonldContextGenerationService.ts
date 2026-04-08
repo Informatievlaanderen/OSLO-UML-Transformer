@@ -140,7 +140,7 @@ export class JsonldContextGenerationService implements IService {
               return y.osloId;
             });
         } else {
-          attributeIds = findAllAttributes(x.osloId, attributeIds, this.store);
+          attributeIds = findAllAttributes(x.osloId, attributeIds, this.store, this.logger);
         }
 
         return {
