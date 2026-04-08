@@ -115,7 +115,7 @@ export class SparqlGenerationService implements IService {
 
       /* Add all attributes of the class to the query */
       let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+      attributeIds = findAllAttributes(classId, attributeIds, this.store, this.logger);
 
       /* Find all attributes for object */
       for (const attributeId of attributeIds) {
