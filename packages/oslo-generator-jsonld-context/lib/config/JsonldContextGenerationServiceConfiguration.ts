@@ -31,9 +31,9 @@ export class JsonldContextGenerationServiceConfiguration
   private _scopedContext: boolean | undefined;
 
   /**
-   * Allow multiple types per class
+   * Enable the use of polymorphism of classes
    */
-  private _allowDoubleTyping: boolean | undefined;
+  private _enablePolymorphism: boolean | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
@@ -41,7 +41,7 @@ export class JsonldContextGenerationServiceConfiguration
     this._addDomainPrefix = <boolean>params.addDomainPrefix;
     this._language = <string>params.language;
     this._scopedContext = <boolean>params.scopedContext;
-    this._allowDoubleTyping = <boolean>params.allowDoubleTyping;
+    this._enablePolymorphism = <boolean>params.enablePolymorphism;
   }
 
   public get input(): string {
@@ -85,12 +85,12 @@ export class JsonldContextGenerationServiceConfiguration
     return this._scopedContext;
   }
 
-  public get allowDoubleTyping(): boolean {
-    if (this._allowDoubleTyping === undefined) {
+  public get enablePolymorphism(): boolean {
+    if (this._enablePolymorphism === undefined) {
       throw new Error(
-        `Trying to access property "allowDoubleTyping" before it was set.`,
+        `Trying to access property "enablePolymorphism" before it was set.`,
       );
     }
-    return this._allowDoubleTyping;
+    return this._enablePolymorphism;
   }
 }
