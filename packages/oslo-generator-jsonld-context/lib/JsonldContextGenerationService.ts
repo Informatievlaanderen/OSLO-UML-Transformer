@@ -130,8 +130,8 @@ export class JsonldContextGenerationService implements IService {
       .reduce((main, x: ClassMetadata) => {
         let attributeIds: RDF.Term[] = [];
 
-        /* CLI arg om dit gedrag te switchen tussen alle attributen of via inheritance */
-        if (this.configuration.allowDoubleTyping) {
+        /* Allow configuring the use of polymorphism or not */
+        if (this.configuration.enablePolymorphism) {
           attributeIds = propertyMetadata
             .filter((y: PropertyMetadata) => {
               return y.domainLabel.value === x.label.value;
@@ -396,7 +396,6 @@ export class JsonldContextGenerationService implements IService {
           }
 
           /* If multiple types are not allowed, push down all attributes from the super class to the leaf */
-          //for loop op domainlabel waarbij domainlabel telkens varieert
           propertyMetadata.push({
             osloId: subject,
             assignedURI: assignedUri,
