@@ -2,20 +2,22 @@ import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
 
 @injectable()
-export class JsonldContextGenerationServiceConfiguration implements IConfiguration {
+export class JsonldContextGenerationServiceConfiguration
+  implements IConfiguration
+{
   /**
    * Local path or URL to (OSLO compliant) RDF file to generate JSON-LD context from
    */
   private _input: string | undefined;
 
   /**
- * Local path to write the JSON-LD context to
- */
+   * Local path to write the JSON-LD context to
+   */
   private _output: string | undefined;
 
   /**
- * The language of the labels that are used in the context
- */
+   * The language of the labels that are used in the context
+   */
   private _language: string | undefined;
 
   /**
@@ -28,12 +30,18 @@ export class JsonldContextGenerationServiceConfiguration implements IConfigurati
    */
   private _scopedContext: boolean | undefined;
 
+  /**
+   * Enable the use of polymorphism of classes
+   */
+  private _enablePolymorphism: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._addDomainPrefix = <boolean>params.addDomainPrefix;
     this._language = <string>params.language;
     this._scopedContext = <boolean>params.scopedContext;
+    this._enablePolymorphism = <boolean>params.enablePolymorphism;
   }
 
   public get input(): string {
@@ -52,22 +60,37 @@ export class JsonldContextGenerationServiceConfiguration implements IConfigurati
 
   public get language(): string {
     if (!this._language) {
-      throw new Error(`Trying to access property "language" before it was set.`);
+      throw new Error(
+        `Trying to access property "language" before it was set.`,
+      );
     }
     return this._language;
   }
 
   public get addDomainPrefix(): boolean {
     if (this._addDomainPrefix === undefined) {
-      throw new Error(`Trying to access property "addDomainPrefix" before it was set.`);
+      throw new Error(
+        `Trying to access property "addDomainPrefix" before it was set.`,
+      );
     }
     return this._addDomainPrefix;
   }
 
   public get scopedContext(): boolean {
     if (this._scopedContext === undefined) {
-      throw new Error(`Trying to access property "scopedContext" before it was set.`);
+      throw new Error(
+        `Trying to access property "scopedContext" before it was set.`,
+      );
     }
     return this._scopedContext;
+  }
+
+  public get enablePolymorphism(): boolean {
+    if (this._enablePolymorphism === undefined) {
+      throw new Error(
+        `Trying to access property "enablePolymorphism" before it was set.`,
+      );
+    }
+    return this._enablePolymorphism;
   }
 }

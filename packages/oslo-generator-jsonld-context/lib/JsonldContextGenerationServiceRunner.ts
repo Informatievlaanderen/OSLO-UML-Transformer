@@ -36,6 +36,11 @@ export class JsonldContextGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('enablePolymorphism', {
+        describe: 'Enable the use of polymorphism of classes',
+        default: true,
+        boolean: true,
+      })
       .demandOption(['input', 'language'])
       .help('h')
       .alias('h', 'help');

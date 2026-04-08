@@ -24,6 +24,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--addDomainPrefix` | Prefix every attribute with its domain | No | `true` or `false` (default) |
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
 | `--scopedContext` | Boolean that decides to keep the @context scoped or not | No | `true` or `false` (default) |
+| `--enablePolymorphism` | Boolean that enables the use of polymorphism | No | `true` (default) or `false` |
 
 ## Usage
 ```bash
