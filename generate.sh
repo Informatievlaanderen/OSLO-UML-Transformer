@@ -24,8 +24,9 @@ npm install -g \
 @oslo-flanders/ea-converter \
 @oslo-flanders/stakeholders-converter \
 @oslo-flanders/json-webuniversum-generator \
+@oslo-flanders/jsonld-validator \
 @oslo-flanders/metadata-generator \
-@oslo-flanders/html-generator
+@oslo-flanders/html-generator \
 
 # Step 1: Convert EA model to report.jsonld
 echo "==> Running oslo-converter-ea..."
@@ -44,7 +45,13 @@ oslo-stakeholders-converter \
 --outputFormat application/json \
 --output stakeholders.json
 
-# Step 3: Generate webuniversum-config.json from report.jsonld
+# Step 3: Validate the generated report.jsonld
+echo "==> Running oslo-jsonld-validator..."
+oslo-jsonld-validator \
+--input report.jsonld \
+--whitelist https://raw.githubusercontent.com/Informatievlaanderen/OSLO-UML-Transformer/refs/heads/configuration/whitelist.json
+
+# Step 4: Generate webuniversum-config.json from report.jsonld
 echo "==> Running oslo-webuniversum-json-generator..."
 oslo-webuniversum-json-generator \
 --input report.jsonld \
@@ -52,7 +59,7 @@ oslo-webuniversum-json-generator \
 --publicationEnvironment https://data.test-vlaanderen.be \
 --specificationType ApplicationProfile
 
-# Step 4: Generate metadata.json from report.jsonld
+# Step 5: Generate metadata.json from report.jsonld
 echo "==> Running metadata-generator..."
 metadata-generator \
 --input report.jsonld \
@@ -63,7 +70,7 @@ metadata-generator \
 --primarylanguage nl \
 --uridomain data.vlaanderen.be
 
-# Step 5: Generate HTML publication
+# Step 6: Generate HTML publication
 echo "==> Running oslo-generator-html..."
 oslo-generator-html \
 --input webuniversum-config.json \
