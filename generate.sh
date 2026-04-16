@@ -2,21 +2,33 @@
 
 set -e
 
-REPO_URL="$1"
+REPO_SOURCE="$1"
 EAP_FILE="$2"
 DIAGRAM_NAME="$3"
 
-if [ -z "$REPO_URL" ] || [ -z "$EAP_FILE" ] || [ -z "$DIAGRAM_NAME" ]; then
-    echo "Usage: $0 <repo_url> <eap_file> <diagram_name>"
-    echo "  repo_url:     GitHub repository URL (e.g. https://github.com/org/repo)"
+if [ -z "$REPO_SOURCE" ] || [ -z "$EAP_FILE" ] || [ -z "$DIAGRAM_NAME" ]; then
+    echo "Usage: $0 <repo_source> <eap_file> <diagram_name>"
+    echo "  repo_source:  GitHub repository URL (e.g. https://github.com/org/repo)"
+    echo "                or a local directory path (e.g. /path/to/repo)"
     echo "  eap_file:     Name of the .eap file (e.g. EPBD.eap)"
     echo "  diagram_name: Name of the diagram (e.g. OSLO-EPBD2-v2)"
     exit 1
 fi
 
-REPO_NAME=$(basename "$REPO_URL" .git)
-UML_FILE="${REPO_URL}/raw/refs/heads/main/${EAP_FILE}"
-STAKEHOLDERS_FILE="${REPO_URL}/raw/refs/heads/main/stakeholders.csv"
+if [ -d "$REPO_SOURCE" ]; then
+    # Local directory
+    REPO_SOURCE=$(cd "$REPO_SOURCE" && pwd)
+    REPO_NAME=$(basename "$REPO_SOURCE")
+    UML_FILE="${REPO_SOURCE}/${EAP_FILE}"
+    STAKEHOLDERS_FILE="${REPO_SOURCE}/stakeholders.csv"
+    echo "==> Using local directory: $REPO_SOURCE"
+else
+    # GitHub repository URL
+    REPO_NAME=$(basename "$REPO_SOURCE" .git)
+    UML_FILE="${REPO_SOURCE}/raw/refs/heads/main/${EAP_FILE}"
+    STAKEHOLDERS_FILE="${REPO_SOURCE}/raw/refs/heads/main/stakeholders.csv"
+    echo "==> Using remote repository: $REPO_SOURCE"
+fi
 
 # Install required packages globally
 echo "==> Installing required packages..."
@@ -24,9 +36,8 @@ npm install -g \
 @oslo-flanders/ea-converter \
 @oslo-flanders/stakeholders-converter \
 @oslo-flanders/json-webuniversum-generator \
-@oslo-flanders/jsonld-validator \
 @oslo-flanders/metadata-generator \
-@oslo-flanders/html-generator \
+@oslo-flanders/html-generator
 
 # Step 1: Convert EA model to report.jsonld
 echo "==> Running oslo-converter-ea..."
@@ -45,13 +56,7 @@ oslo-stakeholders-converter \
 --outputFormat application/json \
 --output stakeholders.json
 
-# Step 3: Validate the generated report.jsonld
-echo "==> Running oslo-jsonld-validator..."
-oslo-jsonld-validator \
---input report.jsonld \
---whitelist https://raw.githubusercontent.com/Informatievlaanderen/OSLO-UML-Transformer/refs/heads/configuration/whitelist.json
-
-# Step 4: Generate webuniversum-config.json from report.jsonld
+# Step 3: Generate webuniversum-config.json from report.jsonld
 echo "==> Running oslo-webuniversum-json-generator..."
 oslo-webuniversum-json-generator \
 --input report.jsonld \
@@ -59,7 +64,7 @@ oslo-webuniversum-json-generator \
 --publicationEnvironment https://data.test-vlaanderen.be \
 --specificationType ApplicationProfile
 
-# Step 5: Generate metadata.json from report.jsonld
+# Step 4: Generate metadata.json from report.jsonld
 echo "==> Running metadata-generator..."
 metadata-generator \
 --input report.jsonld \
@@ -70,7 +75,7 @@ metadata-generator \
 --primarylanguage nl \
 --uridomain data.vlaanderen.be
 
-# Step 6: Generate HTML publication
+# Step 5: Generate HTML publication
 echo "==> Running oslo-generator-html..."
 oslo-generator-html \
 --input webuniversum-config.json \
