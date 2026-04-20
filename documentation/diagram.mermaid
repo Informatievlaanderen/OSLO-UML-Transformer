@@ -217,7 +217,7 @@ flowchart TB
     subgraph DVB_EXAMPLE ["Example deployment: data.vlaanderen.be — The toolchain is stand-alone software and does not require this setup"]
         direction LR
 
-        THEMA_REPO["<b>OSLOthema-* repository</b><br/><i>GitHub thema repository</i><br/>──────────<br/>Stores source assets:<br/>• .eap UML file<br/>• stakeholders.csv<br/>• custom .njk templates<br/><br/><i>e.g. OSLOthema-energiehuis</i>"]
+        THEMA_REPO["<b>OSLOthema-* repository</b><br/><i>GitHub thema repository</i><br/>──────────<br/>Stores source assets:<br/>• .eap UML file<br/>• stakeholders.csv<br/>• custom Jinja templates<br/><br/><i>e.g. OSLOthema-energiehuis</i>"]
 
         PUB_ENV["<b>Publication environment</b><br/><i>data.vlaanderen.be2 repository</i><br/>──────────<br/>Contains a directory of<br/>publication JSON configs<br/>that trigger the toolchain<br/>via CI pipeline<br/><br/><i>e.g. config/production/*publication.json</i>"]
 
