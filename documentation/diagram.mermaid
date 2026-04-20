@@ -1,0 +1,265 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#1a73e8',
+    'primaryTextColor': '#000000',
+    'primaryBorderColor': '#1557b0',
+    'secondaryColor': '#FFED00',
+    'secondaryBorderColor': '#000',
+    'tertiaryColor': '#fce8e6',
+    'lineColor': '#5f6368',
+    'fontSize': '14px'
+  }
+}}%%
+
+flowchart TB
+    %% ================================================================
+    %% SOURCE INPUTS
+    %% ================================================================
+    subgraph SOURCES ["Source Inputs"]
+        direction TB
+
+        CODELIST_CSV["<b>Codelist CSV</b><br/><i>.csv file</i><br/>──────────<br/>Contains SKOS concepts:<br/>labels, definitions,<br/>notations, broader/<br/>narrower hierarchies"]
+
+        STAKEHOLDERS_CSV["<b>Stakeholders CSV</b><br/><i>.csv file</i><br/>──────────<br/>Contains contributor info:<br/>names, affiliations,<br/>roles & OVO codes"]
+
+
+        EA_FILE["<b>Enterprise Architect UML</b><br/><i>.eap / .eapx file</i><br/>──────────<br/>Contains UML class diagrams<br/>with packages, classes,<br/>attributes, connectors,<br/>enumerations & data types"]
+        
+    end
+
+    %% ================================================================
+    %% EXTRACTION PHASE
+    %% ================================================================
+    subgraph EXTRACTION ["Phase 1 — Extraction"]
+        direction TB
+        EXTRACTOR["<b>oslo-extractor-uml-ea</b><br/><i>@oslo-flanders/ea-uml-extractor</i><br/>──────────<br/>Reads the EA file and maps<br/>all UML elements to typed<br/>in-memory data structures:<br/>• Packages<br/>• Elements (classes, datatypes, enums)<br/>• Attributes<br/>• Connectors<br/><br/><i>⚙ Supports SQLite & AccessDB formats</i>"]
+    end
+
+    %% ================================================================
+    %% CONVERSION PHASE — THE KEY STEP
+    %% ================================================================
+    subgraph CONVERSION ["Phase 2 — Conversion to Intermediary Format"]
+        direction TB
+
+        EA_CONVERTER["<b>oslo-converter-uml-ea</b><br/><i>CLI: oslo-converter-ea</i><br/>──────────<br/>Transforms extracted UML data<br/>into RDF triples serialized<br/>as JSON-LD"]
+
+    end
+
+    STAKEHOLDERS_CONVERTER["<b>oslo-converter-stakeholders</b><br/><i>CLI: oslo-stakeholders-converter</i><br/>──────────<br/>Converts CSV stakeholder data<br/>into structured JSON or JSON-LD"]
+
+    %% ================================================================
+    %% THE INTERMEDIARY FORMAT — CENTRAL HUB
+    %% ================================================================
+    REPORT_JSONLD["<b>report.jsonld </b><br/><b>OSLO Intermediary JSON-LD</b><br/>═══════════<br/>The single source of truth<br/>for all downstream generators.<br/><br/>Contains full RDF representation<br/>of the data model: classes,<br/>properties, datatypes, constraints,<br/>cardinalities, labels, definitions,<br/>usageNotes, parents, codelists, etc.<br/><br/><i>Format: application/ld+json</i>"]
+
+    STAKEHOLDERS_JSON["<b>stakeholders.json</b><br/><i>Structured contributor data</i>"]
+
+    %% ================================================================
+    %% VALIDATION PHASE
+    %% ================================================================
+    subgraph VALIDATION ["Optional phase — Validation"]
+        direction TB
+        JSONLD_VALIDATOR["<b>oslo-validator-jsonld</b><br/><i>CLI: oslo-jsonld-validator</i><br/>──────────<br/>Validates all URIs in the<br/>JSON-LD against a whitelist<br/>of allowed namespace prefixes"]
+
+        STAKEHOLDERS_VALIDATOR["<b>oslo-validator-stakeholders</b><br/><i>CLI: oslo-stakeholders-validator</i><br/>──────────<br/>Validates OVO codes and<br/>structure of stakeholder files"]
+    end
+
+    %% ================================================================
+    %% GENERATION PHASE — ALL CONSUME THE INTERMEDIARY FORMAT
+    %% ================================================================
+    subgraph GENERATORS ["Phase 3 — Artifact Generation (all from report.jsonld)"]
+        direction TB
+
+        subgraph ROW1 ["Linked Data Artifacts"]
+            direction LR
+            GEN_RDF["<b>oslo-generator-rdf-vocabulary</b><br/><i>CLI: oslo-generator-rdf</i><br/>──────────<br/>Generates RDF vocabulary<br/>(Turtle, N-Triples, N-Quads, JSON-LD)"]
+
+            GEN_JSONLD_CTX["<b>oslo-generator-jsonld-context</b><br/><i>CLI: oslo-jsonld-context-generator</i><br/>──────────<br/>Generates JSON-LD @context<br/>mapping terms to URIs"]
+
+            GEN_SHACL["<b>oslo-generator-shacl-template</b><br/><i>CLI: oslo-shacl-template-generator</i><br/>──────────<br/>Generates SHACL shapes<br/>for data validation"]
+        end
+
+        subgraph ROW2 ["API & Query Artifacts"]
+            direction LR
+            GEN_SWAGGER["<b>oslo-generator-swagger</b><br/><i>CLI: oslo-generator-swagger</i><br/>──────────<br/>Generates OpenAPI/Swagger<br/>specifications"]
+
+            GEN_SPARQL["<b>oslo-generator-sparql</b><br/><i>CLI: oslo-generator-sparql</i><br/>──────────<br/>Generates SPARQL queries<br/>(one per class)"]
+
+            GEN_RML["<b>oslo-generator-rml-template</b><br/><i>CLI: oslo-generator-rml</i><br/>──────────<br/>Generates RML mapping<br/>templates for data<br/>transformation"]
+        end
+
+        subgraph ROW3 ["Documentation Artifacts"]
+            direction LR
+            GEN_WEBUNIVERSUM["<b>oslo-generator-json-webuniversum</b><br/><i>CLI: oslo-webuniversum-json-generator</i><br/>──────────<br/>Generates Webuniversum JSON<br/>config for Nuxt.JS rendering"]
+
+            GEN_RESPEC["<b>oslo-generator-respec-html</b><br/><i>CLI: oslo-generator-respec</i><br/>──────────<br/>Generates HTML using<br/>ReSpec template<br/>(visual validation tool)"]
+
+            GEN_EXAMPLES["<b>oslo-generator-examples</b><br/><i>CLI: oslo-examples-generator</i><br/>──────────<br/>Generates example JSON-LD<br/>instances per class"]
+        end
+
+        subgraph ROW4 ["Extensible"]
+            direction LR
+            GEN_CUSTOM["<b>Your custom generator</b><br/>──────────<br/>Any artifact generator can be<br/>added, as long as it consumes<br/>the intermediary format<br/>(report.jsonld) as input"]
+        end
+    end
+
+    %% ================================================================
+    %% SECONDARY PROCESSING — HTML GENERATION
+    %% ================================================================
+    subgraph HTML_PIPELINE ["Phase 4 — HTML Publication Pipeline"]
+        direction TB
+        WEBUNIVERSUM_JSON["<b>webuniversum-config.json</b><br/><i>Nuxt.JS rendering config</i>"]
+
+        METADATA_JSON["<b>metadata.json</b><br/><i>Document metadata:</i><br/>hostname, document path,<br/>languages, URI domain"]
+
+        GEN_HTML["<b>oslo-generator-html</b><br/><i>CLI: oslo-generator-html</i><br/>──────────<br/>Generates final HTML page<br/>using Nunjucks templates"]
+    end
+
+    %% ================================================================
+    %% INDEPENDENT CODELIST GENERATION
+    %% ================================================================
+    subgraph CODELIST_GEN ["Independent — Codelist Generation"]
+        direction TB
+        GEN_CODELIST["<b>oslo-codelist-generator</b><br/><i>CLI: oslo-codelist-generator</i><br/>──────────<br/>Generates SKOS codelists in Turtle<br/>(ConceptScheme + Concepts)"]
+    end
+
+    %% ================================================================
+    %% FINAL OUTPUTS
+    %% ================================================================
+    subgraph OUTPUTS ["Generated Artifacts"]
+        direction TB
+        OUT_RDF["<b>vocabulary.ttl</b><br/><i>RDF Vocabulary</i><br/>(Turtle / N-Triples / JSON-LD)"]
+        OUT_CTX["<b>context.jsonld</b><br/><i>JSON-LD Context</i>"]
+        OUT_SHACL["<b>shacl.jsonld</b><br/><i>SHACL Shapes</i><br/>(JSON-LD / Turtle / N-Triples)"]
+        OUT_SWAGGER["<b>swagger.json</b><br/><i>OpenAPI Specification</i>"]
+        OUT_SPARQL["<b>*.sparql</b><br/><i>SPARQL Query Files</i><br/>(one per class)"]
+        OUT_RML["<b>mapping.ttl</b><br/><i>RML Mapping Templates</i>"]
+        OUT_HTML["<b>index.html</b><br/><i>HTML Publication</i><br/>(Nunjucks-rendered)"]
+        OUT_RESPEC["<b>respec.html</b><br/><i>ReSpec HTML Page</i>"]
+        OUT_EXAMPLES["<b>examples/*.jsonld</b><br/><i>Example Instances</i>"]
+        OUT_CODELIST["<b>codelist.ttl</b><br/><i>SKOS Codelist</i><br/>(Turtle)"]
+        OUT_CUSTOM["<b>custom-output.*</b><br/><i>Custom Artifact</i>"]
+    end
+
+    %% ================================================================
+    %% CONNECTIONS — Source to Extraction
+    %% ================================================================
+    EA_FILE --> EXTRACTOR
+
+    %% ================================================================
+    %% CONNECTIONS — Extraction to Conversion
+    %% ================================================================
+    EXTRACTOR --> EA_CONVERTER
+
+    %% ================================================================
+    %% CONNECTIONS — Source to Stakeholders Converter
+    %% ================================================================
+    STAKEHOLDERS_CSV --> STAKEHOLDERS_CONVERTER
+
+    %% ================================================================
+    %% CONNECTIONS — Conversion to Intermediary Format (THE KEY FLOW)
+    %% ================================================================
+    EA_CONVERTER ==>REPORT_JSONLD
+    STAKEHOLDERS_CONVERTER --> STAKEHOLDERS_JSON
+
+    %% ================================================================
+    %% CONNECTIONS — Intermediary to Validation
+    %% ================================================================
+    REPORT_JSONLD -.-> JSONLD_VALIDATOR
+    STAKEHOLDERS_JSON -.-> STAKEHOLDERS_VALIDATOR
+
+    %% ================================================================
+    %% CONNECTIONS — Intermediary Format to ALL Generators (THE KEY POINT)
+    %% ================================================================
+    REPORT_JSONLD ==> GEN_RDF
+    REPORT_JSONLD ==> GEN_JSONLD_CTX
+    REPORT_JSONLD ==> GEN_SHACL
+    REPORT_JSONLD ==> GEN_SWAGGER
+    REPORT_JSONLD ==> GEN_SPARQL
+    REPORT_JSONLD ==> GEN_RML
+    REPORT_JSONLD ==> GEN_WEBUNIVERSUM
+    REPORT_JSONLD ==> GEN_RESPEC
+    REPORT_JSONLD ==> GEN_EXAMPLES
+    REPORT_JSONLD ==> GEN_CUSTOM
+
+    %% ================================================================
+    %% CONNECTIONS — Webuniversum to HTML Pipeline
+    %% ================================================================
+    GEN_WEBUNIVERSUM --> WEBUNIVERSUM_JSON
+    WEBUNIVERSUM_JSON --> GEN_HTML
+    STAKEHOLDERS_JSON --> GEN_HTML
+    METADATA_JSON --> GEN_HTML
+
+    %% ================================================================
+    %% CONNECTIONS — Generators to Outputs
+    %% ================================================================
+    GEN_RDF --> OUT_RDF
+    GEN_JSONLD_CTX --> OUT_CTX
+    GEN_SHACL --> OUT_SHACL
+    GEN_SWAGGER --> OUT_SWAGGER
+    GEN_SPARQL --> OUT_SPARQL
+    GEN_RML --> OUT_RML
+    GEN_HTML --> OUT_HTML
+    GEN_RESPEC --> OUT_RESPEC
+    GEN_EXAMPLES --> OUT_EXAMPLES
+    GEN_CUSTOM --> OUT_CUSTOM
+
+    %% ================================================================
+    %% CONNECTIONS — Codelist (independent flow)
+    %% ================================================================
+    CODELIST_CSV --> GEN_CODELIST
+    GEN_CODELIST --> OUT_CODELIST
+
+    %% ================================================================
+    %% EXAMPLE DEPLOYMENT — data.vlaanderen.be (specific, not required)
+    %% ================================================================
+    subgraph DVB_EXAMPLE ["Example deployment: data.vlaanderen.be — The toolchain is stand-alone software and does not require this setup"]
+        direction LR
+
+        THEMA_REPO["<b>OSLOthema-* repository</b><br/><i>GitHub thema repository</i><br/>──────────<br/>Stores source assets:<br/>• .eap UML file<br/>• stakeholders.csv<br/>• custom .njk templates<br/><br/><i>e.g. OSLOthema-energiehuis</i>"]
+
+        PUB_ENV["<b>Publication environment</b><br/><i>data.vlaanderen.be2 repository</i><br/>──────────<br/>Contains a directory of<br/>publication JSON configs<br/>that trigger the toolchain<br/>via CI pipeline<br/><br/><i>e.g. config/production/*publication.json</i>"]
+
+        CI_PIPELINE["<b>CI Pipeline</b><br/>──────────<br/>Runs the OSLO toolchain<br/>for each publication config,<br/>generating all artifacts"]
+
+        GENERATED_REPO["<b>Generated output repository</b><br/><i>data.vlaanderen.be2-generated</i><br/>──────────<br/>All generated artifacts<br/>are pushed here by CI<br/><br/><i>e.g. production branch</i>"]
+
+        THEMA_REPO --> PUB_ENV
+        PUB_ENV --> CI_PIPELINE
+        CI_PIPELINE --> GENERATED_REPO
+    end
+
+    %% ================================================================
+    %% CONNECTIONS — Example deployment references the toolchain
+    %% ================================================================
+    SOURCES -. "Source assets<br/>stored in thema repository" .-> THEMA_REPO
+    OUTPUTS -. "Generated artifacts<br/>pushed by CI" .-> GENERATED_REPO
+
+    %% ================================================================
+    %% STYLING
+    %% ================================================================
+    classDef sourceStyle fill:#4285f4,stroke:#1a56c4,color:#ffffff,stroke-width:2px
+    classDef extractStyle fill:#34a853,stroke:#1e7e34,color:#ffffff,stroke-width:2px
+    classDef convertStyle fill:#ea4335,stroke:#c5221f,color:#ffffff,stroke-width:2px
+    classDef intermediaryStyle fill:#fbbc04,stroke:#e37400,color:#000000,stroke-width:4px
+    classDef validatorStyle fill:#9c27b0,stroke:#7b1fa2,color:#ffffff,stroke-width:2px
+    classDef generatorStyle fill:#ff6d00,stroke:#e65100,color:#ffffff,stroke-width:2px
+    classDef htmlPipelineStyle fill:#00897b,stroke:#00695c,color:#ffffff,stroke-width:2px
+    classDef outputStyle fill:#e8f0fe,stroke:#1a73e8,color:#1a73e8,stroke-width:2px
+    classDef codelistStyle fill:#795548,stroke:#5d4037,color:#ffffff,stroke-width:2px
+    classDef dvbStyle fill:#FFED00,stroke:#000,color:#000,stroke-width:2px,stroke-dasharray: 5 5
+    linkStyle 36 stroke:#607d8b,stroke-width:2px,stroke-dasharray: 8 4
+    linkStyle 37 stroke:#607d8b,stroke-width:2px,stroke-dasharray: 8 4
+
+    class EA_FILE,STAKEHOLDERS_CSV,CODELIST_CSV sourceStyle
+    class EXTRACTOR extractStyle
+    class EA_CONVERTER,STAKEHOLDERS_CONVERTER convertStyle
+    class REPORT_JSONLD intermediaryStyle
+    class STAKEHOLDERS_JSON outputStyle
+    class JSONLD_VALIDATOR,STAKEHOLDERS_VALIDATOR validatorStyle
+    class GEN_RDF,GEN_JSONLD_CTX,GEN_SHACL,GEN_SWAGGER,GEN_SPARQL,GEN_RML,GEN_WEBUNIVERSUM,GEN_RESPEC,GEN_EXAMPLES,GEN_CUSTOM generatorStyle
+    class GEN_HTML,WEBUNIVERSUM_JSON,METADATA_JSON htmlPipelineStyle
+    class OUT_RDF,OUT_CTX,OUT_SHACL,OUT_SWAGGER,OUT_SPARQL,OUT_RML,OUT_HTML,OUT_RESPEC,OUT_EXAMPLES,OUT_CODELIST,OUT_CUSTOM outputStyle
+    class GEN_CODELIST codelistStyle
+    class THEMA_REPO,PUB_ENV,CI_PIPELINE,GENERATED_REPO dvbStyle
