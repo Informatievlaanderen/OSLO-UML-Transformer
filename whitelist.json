@@ -46,5 +46,6 @@
   "http://purl.org/vocab/bio/0.1/",
   "https://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2_TC1/OWL#",
   "https://w3id.org/okn/o/sd#",
-  "https://www.fair-gnss.oma.be/gnss-dcat-ap/vocabulary/geo#"
+  "https://www.fair-gnss.oma.be/gnss-dcat-ap/vocabulary/geo#",
+  "https://www.geonames.org/ontology#"
 ]
