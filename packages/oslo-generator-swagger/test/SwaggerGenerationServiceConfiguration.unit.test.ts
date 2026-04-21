@@ -104,7 +104,7 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     const config = new SwaggerGenerationServiceConfiguration();
 
     expect(() => config.contextURL).toThrowError(
-      'Trying access property "contextURL" before it was set.',
+      'Trying to access property "contextURL" before it was set.',
     );
     await config.createFromCli(params);
     expect(config.contextURL).toBe('http://example.com/context.jsonld');
