@@ -217,9 +217,9 @@ flowchart TB
     subgraph DVB_EXAMPLE ["Example deployment: data.vlaanderen.be — The toolchain is stand-alone software and does not require this setup"]
         direction LR
 
-        THEMA_REPO["<b>OSLOthema-* repository</b><br/><i>GitHub thema repository</i><br/>──────────<br/>Stores source assets:<br/>• .eap UML file<br/>• stakeholders.csv<br/>• custom Jinja templates<br/><br/><i>e.g. OSLOthema-energiehuis</i>"]
+        THEMA_REPO["<b>OSLOthema-* repository</b><br/><i>GitHub thema repository</i><br/>──────────<br/>Stores source assets:<br/>• .eap UML file<br/>• stakeholders.csv<br/>• custom Jinja templates<br/><i>e.g. OSLOthema-energiehuis</i>"]
 
-        PUB_ENV["<b>Publication environment</b><br/><i>data.vlaanderen.be2 repository</i><br/>──────────<br/>Contains a directory of<br/>publication JSON configs<br/>that trigger the toolchain<br/>via CI pipeline<br/><br/><i>e.g. config/production/*publication.json</i>"]
+        PUB_ENV["<b>Publication environment</b><br/><i>data.vlaanderen.be2 repository</i><br/>──────────<br/>Contains a directory of<br/>publication JSON configs<br/>that trigger the toolchain<br/>via CI pipeline<br/><i>e.g. config/production/ *publication.json</i>"]
 
         CI_PIPELINE["<b>CI Pipeline</b><br/>──────────<br/>Runs the OSLO toolchain<br/>for each publication config,<br/>generating all artifacts"]
 
@@ -244,7 +244,7 @@ flowchart TB
     classDef convertStyle fill:#ea4335,stroke:#c5221f,color:#ffffff,stroke-width:2px
     classDef intermediaryStyle fill:#fbbc04,stroke:#e37400,color:#000000,stroke-width:4px
     classDef validatorStyle fill:#9c27b0,stroke:#7b1fa2,color:#ffffff,stroke-width:2px
-    classDef generatorStyle fill:#ff6d00,stroke:#e65100,color:#ffffff,stroke-width:2px
+    classDef generatorStyle fill:#ff6d00,stroke:#e6510  o0,color:#ffffff,stroke-width:2px
     classDef htmlPipelineStyle fill:#00897b,stroke:#00695c,color:#ffffff,stroke-width:2px
     classDef outputStyle fill:#e8f0fe,stroke:#1a73e8,color:#1a73e8,stroke-width:2px
     classDef codelistStyle fill:#795548,stroke:#5d4037,color:#ffffff,stroke-width:2px
