@@ -246,6 +246,7 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
     store.addQuads(await parseJsonld(classWithParentWithoutAssignedURI));
 
     const warnSpy = jest.spyOn(logger, 'warn');
+    const infoSpy = jest.spyOn(logger, 'info');
 
     // This should now not throw an error
     const result = (<any>service).createParentObject(
@@ -253,7 +254,7 @@ describe('JsonWebuniversumGenerationServiceConfiguration', () => {
     );
 
     // Check that a warning was logged with the expected message
-    expect(warnSpy).toHaveBeenCalledWith(
+    expect(infoSpy).toHaveBeenCalledWith(
       `Unable to find the assigned URI for external class http://example.org/.well-known/id/class/1 which acts as a parent. Using original URI as fallback.`,
     );
 
