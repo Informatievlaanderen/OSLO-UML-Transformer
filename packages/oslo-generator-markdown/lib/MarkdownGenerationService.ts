@@ -15,13 +15,12 @@ import {
   toCamelCase,
   findAllAttributes
 } from '@oslo-flanders/core';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { splitUri } from './utils/sparqlUtils';
 import { MarkdownGenerationServiceConfiguration } from './config/MarkdownGenerationServiceConfiguration';
-import { Generator as SparqlGenerator } from 'sparqljs';
 
 @injectable()
 export class MarkdownGenerationService implements IService {
@@ -49,8 +48,21 @@ export class MarkdownGenerationService implements IService {
     /* Create simple markdown tables for each entity. */
     const entities: Array<Entity> = await this.createMarkdownTables();
 
+    /* Get some metadata from the profile itself */
+    const meta = this.parseJson(this.configuration.input);
+
     /* Write output to file */
-    await this.writeMarkdown(entities);
+    await this.writeMarkdown(entities, meta);
+  }
+
+  private parseJson(file: string): Meta {
+    const fileData = JSON.parse(readFileSync(file, 'utf8'));
+    let result = new Meta();
+    result.title = fileData["title"];
+    result.profileUrl = "https://data.vlaanderen.be" + fileData["urlref"];
+    result.profileVersion = fileData["publication-date"];
+    result.license = fileData["license"];
+    return result
   }
 
   private async createMarkdownTables(): Promise<Array<Entity>> {
@@ -78,9 +90,6 @@ export class MarkdownGenerationService implements IService {
       }
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
-
-      console.log('========');
-      console.log(`label: ${label} assignedUri: ${assignedUri}`);
 
       if (!assignedUri) {
         this.logger.error(
@@ -124,8 +133,6 @@ export class MarkdownGenerationService implements IService {
         }
 
         const range = this.store.getRange(attributeId);
-        console.log('JOA range')
-        console.log(range);
         let rangeUri = undefined
         let rangeLabel = undefined
         if(range) {
@@ -135,11 +142,6 @@ export class MarkdownGenerationService implements IService {
             this.configuration.language
           )?.value;
           rangeUri = this.store.getAssignedUri(range)?.value
-
-          // get the URI though...
-          console.log('GETTING URI FOR RANGE')
-          const rUri = this.store.getAssignedUri(range)
-          console.log(rUri)
         }
 
         const splitted = await splitUri(attributeAssignedUri);
@@ -165,9 +167,6 @@ export class MarkdownGenerationService implements IService {
       }
     }
 
-    // loop over extracted entities
-    // console.log(entities);
-
     // sort everything to keep predictability
     entities.sort((a, b) => a.label.localeCompare(b.label));
     entities.forEach((e) => {
@@ -177,13 +176,26 @@ export class MarkdownGenerationService implements IService {
     return entities;
   }
 
-  private async writeMarkdown(entities: Array<Entity>) {
+  private async writeMarkdown(entities: Array<Entity>, meta: Meta) {
     /* Create output directory */
     ensureOutputDirectory(this.configuration.output);
 
     /* Serialize entities and write them to a markdown file */
     var blocks: string[] = [];
+
+    blocks.push(md.heading('Applicatieprofiel', { level: 1 }));
+    blocks.push(
+      md.table(
+        ['Eigenschap', 'Waarde'],
+        [
+          ['Titel', meta.title || ''],
+          ['URL', md.link(meta.profileUrl || '')],
+          ['Versie', meta.profileVersion || ''],
+          ['Licentie', meta.license || '']
+        ]));
+
     const headers = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
+    blocks.push(md.heading('Entiteiten', { level: 1}));
     entities.forEach((e) => {
       blocks.push(md.heading(md.link(e.uri, e.label), { level: 2 }));
       let rows: string[][] = [];
@@ -194,7 +206,7 @@ export class MarkdownGenerationService implements IService {
           // the uri (shortened, with link to full)
           md.link(p.uri, p.prettyUri()),
           // the range label
-          p.rangeLabel || "",
+          p.rangeLabel || 'undefined',
           // the range uri
           md.link(p.rangeUri!!, p.prettyRangeUri()),
           `${p.minCount}..${p.maxCount}`
@@ -244,4 +256,11 @@ class Property {
   prettyRangeUri() {
     return (this.rangePrefix && this.rangeElement) ? `${this.rangePrefix}:${this.rangeElement}` : this.rangeUri
   }
+}
+
+class Meta {
+  profileUrl: string | undefined;
+  profileVersion: string | undefined;
+  title: string | undefined;
+  license: string | undefined;
 }

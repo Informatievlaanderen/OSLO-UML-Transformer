@@ -9,11 +9,6 @@ import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import rdfParser from 'rdf-parse';
 import { MarkdownGenerationService } from '../lib/MarkdownGenerationService';
-import {
-  mockInput,
-  mockSparqlParticipatie,
-  mockSparqlAdresvoorstelling,
-} from './data/mockData';
 
 jest.mock('@oslo-flanders/core', () => {
   return {
@@ -35,7 +30,7 @@ function parseJsonld(data: any): Promise<RDF.Quad[]> {
   });
 }
 
-describe('SparqlGenerationService', () => {
+describe('MarkdownGenerationService', () => {
   let store: QuadStore;
   let service: any;
   const df: DataFactory = new DataFactory();
@@ -47,8 +42,8 @@ describe('SparqlGenerationService', () => {
       logger,
       <any>{
         language: 'nl',
-        input: 'input.jsonld',
-        output: 'queriesDirectory',
+        input: 'test/data/input.jsonld',
+        output: 'testoutput',
       },
       store,
     );
@@ -72,24 +67,15 @@ describe('SparqlGenerationService', () => {
     expect(store.addQuadsFromFile).toHaveBeenCalled();
   });
 
-  it('should generate a valid SPARQL query', async () => {
+  it('should generate valid markdown', async () => {
+    const mockInput = JSON.parse(readFileSync( 'test/data/input.jsonld', 'utf8'));
+    const expectedOutput = readFileSync( 'test/data/expected.md', 'utf8');
     await service.store.addQuads(await parseJsonld(mockInput));
     await service.run();
 
-    const sparqlParticipatie = readFileSync(
-      'queriesDirectory/Participatie.sparql',
-      'utf8',
-    );
-    expect(sparqlParticipatie).toBe(mockSparqlParticipatie);
-    unlinkSync('queriesDirectory/Participatie.sparql');
+    const output = readFileSync( 'testoutput/markdown.md', 'utf8');
+    expect(output).toBe(expectedOutput);
 
-    const sparqlAdresvoorstelling = readFileSync(
-      'queriesDirectory/Adresvoorstelling.sparql',
-      'utf8',
-    );
-    expect(sparqlAdresvoorstelling).toBe(mockSparqlAdresvoorstelling);
-    unlinkSync('queriesDirectory/Adresvoorstelling.sparql');
-
-    rmSync('queriesDirectory', { recursive: true, force: true });
+    rmSync('testoutput', { recursive: true, force: true });
   });
 });

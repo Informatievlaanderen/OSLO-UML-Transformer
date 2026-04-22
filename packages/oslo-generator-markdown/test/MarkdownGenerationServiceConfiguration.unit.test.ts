@@ -11,7 +11,7 @@ jest.mock('@oslo-flanders/core', () => {
   };
 });
 
-describe('SparqlGenerationServiceConfiguration', () => {
+describe('MarkdownGenerationServiceConfiguration', () => {
   let params: any;
 
   beforeAll(() => {
