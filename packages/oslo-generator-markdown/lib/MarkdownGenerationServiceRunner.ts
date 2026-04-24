@@ -24,6 +24,10 @@ export class MarkdownGenerationServiceRunner extends AppRunner<
         describe: 'Language tag to use.',
         default: 'nl',
       })
+      .option('baseURI', {
+        describe: 'Used when building profile-specific information.',
+        default: 'https://data.vlaanderen.be',
+      })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,

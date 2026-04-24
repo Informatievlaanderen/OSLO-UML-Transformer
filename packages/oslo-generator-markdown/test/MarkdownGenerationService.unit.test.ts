@@ -44,6 +44,7 @@ describe('MarkdownGenerationService', () => {
         language: 'nl',
         input: 'test/data/input.jsonld',
         output: 'testoutput',
+        baseURI: 'https://data.vlaanderen.be'
       },
       store,
     );

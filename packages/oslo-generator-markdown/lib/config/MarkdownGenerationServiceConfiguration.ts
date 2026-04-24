@@ -18,10 +18,16 @@ export class MarkdownGenerationServiceConfiguration implements IConfiguration {
    */
   private _language: string | undefined;
 
+  /**
+   * The language of the labels that are used in the context
+   */
+  private _baseURI: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
+    this._baseURI = <string>params.baseURI;
   }
 
   public get input(): string {
@@ -45,5 +51,12 @@ export class MarkdownGenerationServiceConfiguration implements IConfiguration {
       );
     }
     return this._language;
+  }
+
+  public get baseURI(): string {
+    if (!this._baseURI) {
+      throw new Error(`Trying to access property "baseURI" before it was set.`);
+    }
+    return this._baseURI;
   }
 }
