@@ -47,17 +47,17 @@ export class MarkdownGenerationService implements IService {
     const entities: Array<Entity> = await this.createMarkdownTables();
 
     /* Get some metadata from the profile itself */
-    const meta = this.parseJson(this.configuration.input);
+    const meta = this.parseJson(this.configuration.input, this.configuration.baseURI);
 
     /* Write output to file */
     await this.writeMarkdown(entities, meta);
   }
 
-  private parseJson(file: string): Meta {
+  private parseJson(file: string, baseURI: string): Meta {
     const fileData = JSON.parse(readFileSync(file, 'utf8'));
     let result = new Meta();
     result.title = fileData["title"];
-    result.profileUrl = "https://data.vlaanderen.be" + fileData["urlref"];
+    result.profileUrl = baseURI + fileData["urlref"];
     result.profileVersion = fileData["publication-date"];
     result.license = fileData["license"];
     return result
