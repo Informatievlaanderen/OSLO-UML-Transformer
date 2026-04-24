@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-
 import * as path from 'path';
 import * as md from 'ts-markdown-builder';
 import { getMaxCount, IService } from '@oslo-flanders/core';

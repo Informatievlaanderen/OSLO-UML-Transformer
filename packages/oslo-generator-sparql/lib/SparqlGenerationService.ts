@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-
 import * as path from 'path';
 import type { IService } from '@oslo-flanders/core';
 import {
