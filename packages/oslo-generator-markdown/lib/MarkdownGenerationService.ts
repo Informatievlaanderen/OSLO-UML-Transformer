@@ -19,6 +19,7 @@ import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { splitUri } from '@oslo-flanders/core/lib/utils/uri';
 import { MarkdownGenerationServiceConfiguration } from './config/MarkdownGenerationServiceConfiguration';
+import { HEADERS } from './constants/constants';
 
 @injectable()
 export class MarkdownGenerationService implements IService {
@@ -192,7 +193,6 @@ export class MarkdownGenerationService implements IService {
           ['Licentie', meta.license || '']
         ]));
 
-    const headers = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
     blocks.push(md.heading('Entiteiten', { level: 1}));
     entities.forEach((e) => {
       blocks.push(md.heading(md.link(e.uri, e.label), { level: 2 }));
@@ -210,7 +210,7 @@ export class MarkdownGenerationService implements IService {
           `${p.minCount}..${p.maxCount}`
         ]);
       });
-      blocks.push(md.table(headers, rows));
+      blocks.push(md.table(HEADERS, rows));
     });
     writeFileSync(path.join(this.configuration.output, `markdown.md`), md.joinBlocks(blocks));
   }
