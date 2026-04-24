@@ -1,7 +1,7 @@
-import { getPrefixes } from '@oslo-flanders/core';
-import type { SplittedUri } from '../types/Sparql';
+import { getPrefixes } from '../constants/prefixes';
+import { SplitUri } from '../types/SplitUri';
 
-export async function splitUri(uri: string): Promise<SplittedUri | undefined> {
+export async function splitUri(uri: string): Promise<SplitUri | undefined> {
   /* Extract prefix and element by finding the last occurrence of # or / */
   const hashIndex = uri.lastIndexOf('#');
   const slashIndex = uri.lastIndexOf('/');

@@ -1,0 +1,1 @@
+export const HEADERS = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
