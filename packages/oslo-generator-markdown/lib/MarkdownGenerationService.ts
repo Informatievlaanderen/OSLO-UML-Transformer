@@ -17,7 +17,7 @@ import { writeFileSync, readFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
-import { splitUri } from './utils/sparqlUtils';
+import { splitUri } from '@oslo-flanders/core/lib/utils/uri';
 import { MarkdownGenerationServiceConfiguration } from './config/MarkdownGenerationServiceConfiguration';
 
 @injectable()
