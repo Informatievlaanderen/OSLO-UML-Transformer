@@ -12,6 +12,7 @@ enum Prefixes {
   geodcatap = 'http://data.europa.eu/930/',
   locn = 'http://www.w3.org/ns/locn#',
   mdcat = 'https://data.vlaanderen.be/ns/metadata-dcat#',
+  mobilitydcatap = 'https://w3id.org/mobilitydcat-ap#',
   oslo = 'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#',
   owl = 'http://www.w3.org/2002/07/owl#',
   person = 'http://www.w3.org/ns/person#',
