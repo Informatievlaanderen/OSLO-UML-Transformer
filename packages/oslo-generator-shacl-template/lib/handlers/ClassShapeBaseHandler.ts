@@ -4,6 +4,7 @@ import {
   getApplicationProfileUsageNote,
   type Logger,
   type QuadStore,
+  isStandardDatatype,
 } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
@@ -59,7 +60,10 @@ export class ClassShapeBaseHandler extends ShaclHandler {
     const description: RDF.Literal | undefined =
       getApplicationProfileDefinition(subject, store, this.config.language);
 
-    if (!description) {
+    // https://vlaamseoverheid.atlassian.net/browse/DATAST-1279
+    // Don't include primitive datatypes
+    const isPrimitiveDatatype: boolean = isStandardDatatype(assignedURI.value);
+    if (!description && !isPrimitiveDatatype) {
       this.logger.warn(
         `Unable to find the description for subject "${subject.value}".`,
       );
