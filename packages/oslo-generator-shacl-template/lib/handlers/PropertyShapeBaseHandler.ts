@@ -5,6 +5,7 @@ import {
   createList,
   ns,
   type QuadStore,
+  isStandardDatatype,
 } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 
@@ -63,7 +64,10 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     // https://vlaamseoverheid.atlassian.net/browse/SDTT-363
     // Relax the constraint to a warning
-    if (!description) {
+    // https://vlaamseoverheid.atlassian.net/browse/DATAST-1279
+    // Don't include primitive datatypes
+    const isPrimitiveDatatype: boolean = isStandardDatatype(assignedURI.value);
+    if (!description && !isPrimitiveDatatype) {
       this.logger.warn(
         `Unable to find the description for subject "${subject.value}".`,
       );
@@ -172,7 +176,9 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
         this.df.quad(
           shapeId,
           propertyTypePredicate,
-          rangeAssignedURI.equals(ns.rdfs('Literal'))? propertyTypeValue : rangeAssignedURI,
+          rangeAssignedURI.equals(ns.rdfs('Literal'))
+            ? propertyTypeValue
+            : rangeAssignedURI,
           baseQuadsGraph,
         ),
       ];
@@ -279,9 +285,8 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
       this.discoverSubClasses(id as RDF.NamedNode, store, subClasses);
 
       for (const s of subClasses) {
-        const found = rangeClasses.some(x => x.value === s.value);
-        if (!found)
-          rangeClasses.push(s);
+        const found = rangeClasses.some((x) => x.value === s.value);
+        if (!found) rangeClasses.push(s);
       }
     }
   }
