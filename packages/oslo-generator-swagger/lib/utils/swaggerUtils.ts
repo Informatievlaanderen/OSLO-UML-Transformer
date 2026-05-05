@@ -75,42 +75,4 @@ export function filterLinksByClass(
   );
 }
 
-export function buildProbleemDetailsSchema(): SwaggerSchema {
-  return {
-    title: 'ProbleemDetails',
-    type: 'object',
-    description:
-      'Een weergave van een algemene foutmelding zoals gedefinieerd in RFC 7807.',
-    properties: {
-      type: {
-        type: 'string',
-        format: 'uri',
-        description:
-          'URI referentie die het probleem identificeert. Deze specificatie moedigt aan om, wanneer de referentie wordt verwijderd, een leesbare documentatie te bieden voor het probleemtype. Als dit element niet aanwezig is, wordt aangenomen dat de waarde about:blank is.',
-      },
-      title: {
-        type: 'string',
-        description:
-          'Een korte, voor mensen leesbare samenvatting van het probleemtype. Het MAG NIET veranderen tussen verschillende voorkomens van de fout, behalve voor doeleinden van lokalisatie.',
-      },
-      status: {
-        type: 'string',
-        description:
-          'De HTTP-statuscode die is gegenereerd door de oorspronkelijke server voor dit optreden van het probleem.',
-      },
-      detail: {
-        type: 'string',
-        description:
-          'Een voor mensen leesbare uitleg die specifiek is voor dit optreden van het probleem',
-      },
-      instance: {
-        type: 'string',
-        description:
-          'Een URI-referentie die het specifieke optreden van het probleem identificeert. Het kan al dan niet meer informatie opleveren als de referentie wordt verwijderd.',
-      },
-    },
-    required: ['detail', 'title'],
-  };
-}
-
 /* eslint-enable*/
