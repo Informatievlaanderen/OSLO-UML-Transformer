@@ -329,7 +329,6 @@ export class SwaggerGenerationService implements IService {
     }
 
     /* Create schema for each Class and Datatype */
-    let links: any = {};
     for (const classId of [
       ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
       ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
