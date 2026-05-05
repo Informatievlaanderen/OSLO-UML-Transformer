@@ -590,11 +590,6 @@ export class SwaggerGenerationService implements IService {
           this.configuration.language,
         )?.value;
         const attributeRangeId = this.store.getRange(attributeId);
-        const attributeDefinition = getApplicationProfileDefinition(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
 
         if (!attributeLabel) {
           this.logger.error(`Unknown label for attribute ${attributeId.value}`);
