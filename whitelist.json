@@ -31,6 +31,7 @@
   "http://data.europa.eu/m8g/",
   "http://data.europa.eu/it6/",
   "http://data.europa.eu/snb/model/elm/",
+  "http://data.europa.eu/esco/model#",
   "http://xmlns.com/foaf/0.1/",
   "http://www.cidoc-crm.org/cidoc-crm/",
   "https://periodo.github.io/edtf-ontology/edtfo.ttl#",
