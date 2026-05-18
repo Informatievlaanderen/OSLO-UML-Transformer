@@ -148,6 +148,7 @@ export class CodelistGenerationService implements IService {
         columns: true,
         delimiter: ',',
         skip_empty_lines: true,
+        bom: true
       });
 
       parser.on('readable', () => {

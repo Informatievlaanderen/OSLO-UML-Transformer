@@ -2,21 +2,33 @@
 
 set -e
 
-REPO_URL="$1"
+REPO_SOURCE="$1"
 EAP_FILE="$2"
 DIAGRAM_NAME="$3"
 
-if [ -z "$REPO_URL" ] || [ -z "$EAP_FILE" ] || [ -z "$DIAGRAM_NAME" ]; then
-    echo "Usage: $0 <repo_url> <eap_file> <diagram_name>"
-    echo "  repo_url:     GitHub repository URL (e.g. https://github.com/org/repo)"
+if [ -z "$REPO_SOURCE" ] || [ -z "$EAP_FILE" ] || [ -z "$DIAGRAM_NAME" ]; then
+    echo "Usage: $0 <repo_source> <eap_file> <diagram_name>"
+    echo "  repo_source:  GitHub repository URL (e.g. https://github.com/org/repo)"
+    echo "                or a local directory path (e.g. /path/to/repo)"
     echo "  eap_file:     Name of the .eap file (e.g. EPBD.eap)"
     echo "  diagram_name: Name of the diagram (e.g. OSLO-EPBD2-v2)"
     exit 1
 fi
 
-REPO_NAME=$(basename "$REPO_URL" .git)
-UML_FILE="${REPO_URL}/raw/refs/heads/main/${EAP_FILE}"
-STAKEHOLDERS_FILE="${REPO_URL}/raw/refs/heads/main/stakeholders.csv"
+if [ -d "$REPO_SOURCE" ]; then
+    # Local directory
+    REPO_SOURCE=$(cd "$REPO_SOURCE" && pwd)
+    REPO_NAME=$(basename "$REPO_SOURCE")
+    UML_FILE="${REPO_SOURCE}/${EAP_FILE}"
+    STAKEHOLDERS_FILE="${REPO_SOURCE}/stakeholders.csv"
+    echo "==> Using local directory: $REPO_SOURCE"
+else
+    # GitHub repository URL
+    REPO_NAME=$(basename "$REPO_SOURCE" .git)
+    UML_FILE="${REPO_SOURCE}/raw/refs/heads/main/${EAP_FILE}"
+    STAKEHOLDERS_FILE="${REPO_SOURCE}/raw/refs/heads/main/stakeholders.csv"
+    echo "==> Using remote repository: $REPO_SOURCE"
+fi
 
 # Install required packages globally
 echo "==> Installing required packages..."

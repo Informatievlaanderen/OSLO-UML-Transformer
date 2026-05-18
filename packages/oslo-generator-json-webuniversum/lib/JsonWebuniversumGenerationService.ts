@@ -546,7 +546,7 @@ export class JsonWebuniversumGenerationService implements IService {
     if (!parentAssignedURI) {
       // Check if this is an external URI (doesn't start with "urn:")
       if (isExternalUri(subject.value)) {
-        this.logger.warn(
+        this.logger.info(
           `Unable to find the assigned URI for external class ${subject.value} which acts as a parent. Using original URI as fallback.`,
         );
 

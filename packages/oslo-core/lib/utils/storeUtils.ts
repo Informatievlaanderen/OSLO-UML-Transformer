@@ -260,7 +260,7 @@ export function findAllAttributes(
       visited,
     );
 
-  /* Remove from visited so other paths can still traverse through this node */
+  // Remove from visited so other paths can still traverse through this node
   visited.delete(subject.value);
 
   return attributeIds;
