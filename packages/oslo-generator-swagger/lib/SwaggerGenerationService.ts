@@ -21,7 +21,6 @@ import * as path from 'path';
 import { writeFile } from 'fs/promises';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
-import { DataFactory } from 'rdf-data-factory';
 import { SwaggerGenerationServiceConfiguration } from './config/SwaggerGenerationServiceConfiguration';
 import {
   SwaggerRoot,
@@ -34,7 +33,6 @@ import { mapProperties } from './enums/Properties';
 export class SwaggerGenerationService implements IService {
   public readonly logger: Logger;
   public readonly configuration: SwaggerGenerationServiceConfiguration;
-  public readonly dataFactory = new DataFactory();
   public readonly store: QuadStore;
 
   public constructor(
@@ -182,12 +180,6 @@ export class SwaggerGenerationService implements IService {
         this.store,
         this.configuration.language,
       )?.value;
-      let attributes: any = {};
-      let requiredAttributes: any = {};
-
-      /* Get all attributes in a recursive manner for inheritance */
-      let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store, this.logger);
 
       if (!label) {
         this.logger.error(`Unknown class label for ${classId.value}`);
@@ -357,7 +349,12 @@ export class SwaggerGenerationService implements IService {
 
       /* Get all attributes in a recursive manner for inheritance */
       let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store, this.logger);
+      attributeIds = findAllAttributes(
+        classId,
+        attributeIds,
+        this.store,
+        this.logger,
+      );
 
       if (!label) {
         this.logger.error(`Unknown class label for ${classId.value}`);
@@ -409,12 +406,6 @@ export class SwaggerGenerationService implements IService {
           );
           continue;
         }
-
-        const attributeClassLabel = getApplicationProfileLabel(
-          attributeDomainId,
-          this.store,
-          this.configuration.language,
-        )?.value;
 
         const attributeDatatypeId =
           this.store.getAssignedUri(attributeRangeId)?.value;
@@ -468,7 +459,6 @@ export class SwaggerGenerationService implements IService {
         const properties = mapProperties(
           attributeDatatypeId,
           attributeDatatypeLabel,
-          this.configuration.baseURL,
           subclasses,
           attributeDatatypeAbstract,
         );
@@ -573,7 +563,12 @@ export class SwaggerGenerationService implements IService {
 
       /* Get all attributes in a recursive manner for inheritance */
       let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store, this.logger);
+      attributeIds = findAllAttributes(
+        classId,
+        attributeIds,
+        this.store,
+        this.logger,
+      );
 
       if (!label) {
         this.logger.error(`Unknown class label for ${classId.value}`);

@@ -7,7 +7,6 @@ import {
 import type {
   SwaggerLink,
   SwaggerResponse,
-  SwaggerSchema,
   SchemaRef,
   SwaggerInfoContact,
   SwaggerInfoLicense,
