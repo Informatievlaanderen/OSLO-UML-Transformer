@@ -175,7 +175,7 @@ export class SwaggerGenerationService implements IService {
         this.store,
         this.configuration.language,
       )?.value;
-      const usageNote = getApplicationProfileDefinition(
+      const usageNote = getApplicationProfileUsageNote(
         classId,
         this.store,
         this.configuration.language,
@@ -537,7 +537,7 @@ export class SwaggerGenerationService implements IService {
           ...attributes[label],
           ...context,
         },
-        required: ['@id', '@type', ...requiredAttributes[label]],
+        required: ['@type', ...requiredAttributes[label]],
       };
     }
 
