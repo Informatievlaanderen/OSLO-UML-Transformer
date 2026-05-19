@@ -12,6 +12,8 @@ import rdfParser from 'rdf-parse';
 import streamifyString from 'streamify-string';
 import * as _ from '../lib/utils/fetchFileOrUrl';
 import { uniqueId } from '../lib/utils/uniqueId';
+import { splitUri } from '../lib/utils/uri';
+import { SplitUri } from '../lib/types/SplitUri';
 
 jest.mock('@oslo-flanders/core', () => {
   return {
@@ -98,5 +100,18 @@ describe('Util functions', () => {
 
     expect(uniqueId(guid, label, id)).toEqual(uniqueId(guid, label, id));
     expect(uniqueId(guid, label, id)).not.toEqual(uniqueId(guid, label, 2));
+  });
+
+  it('should split a URI correctly', async () => {
+      const uri = 'http://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator'
+      const result: SplitUri | undefined = await splitUri(uri)
+
+      expect(result).not.toBeNull()
+
+      if(result) {
+        expect(result.prefix).toEqual('generiek');
+        expect(result.uri).toEqual('http://data.vlaanderen.be/ns/generiek#');
+        expect(result.element).toEqual('gestructureerdeIdentificator');
+      }
   });
 });
