@@ -2,8 +2,8 @@ export interface SwaggerRoot {
   openapi: string;
   info: SwaggerInfo;
   servers: SwaggerServer[];
-  paths: SwaggerPaths;
-  components: SwaggerComponents;
+  paths: Record<string, SwaggerPath>;
+  components?: SwaggerComponents;
 }
 
 export interface SwaggerInfo {
@@ -30,95 +30,73 @@ export interface SwaggerServer {
   description?: string;
 }
 
-export type SwaggerPaths = Record<string, SwaggerPathsOperations>;
-
-export interface SwaggerPathsOperations {
-  get?: SwaggerPathsOperation;
-  post?: SwaggerPathsOperation;
-  put?: SwaggerPathsOperation;
-  delete?: SwaggerPathsOperation;
-  patch?: SwaggerPathsOperation;
+export interface SwaggerComponents {
+  schemas: Record<string, SwaggerSchema>;
+  links?: Record<string, SwaggerLink>;
 }
 
-export interface SwaggerPathsOperation {
+export interface SwaggerPath {
+  get?: SwaggerPathOperation;
+  post?: SwaggerPathOperation;
+  put?: SwaggerPathOperation;
+  delete?: SwaggerPathOperation;
+  patch?: SwaggerPathOperation;
+}
+
+export interface SwaggerPathOperation {
   tags?: string[];
   summary?: string;
   description?: string;
   operationId?: string;
-  parameters?: SwaggerPathsOperationParameter[];
-  requestBody?: SwaggerPathsOperationRequestBody;
-  responses?: SwaggerPathsOperationResponses;
+  parameters?: SwaggerParameter[];
+  requestBody?: SwaggerRequestBody;
+  responses: Record<string, SwaggerResponse>;
 }
 
-export interface SwaggerPathsOperationParameter {
-  name?: string;
+export interface SwaggerParameter {
+  name: string;
   description?: string;
   in: string;
   required: boolean;
-  schema: SwaggerPathsOperationParameterSchema;
+  schema: { type: string };
 }
 
-export interface SwaggerPathsOperationParameterSchema {
-  type: string;
-}
-
-export interface SwaggerPathsOperationRequestBody {
+export interface SwaggerRequestBody {
   description?: string;
-  content: SwaggerPathsOperationRequestBodyContent;
+  content: Record<
+    string,
+    { schema: SwaggerSchema | SchemaRef; example?: Record<string, string> }
+  >;
 }
 
-export type SwaggerPathsOperationRequestBodyContent = Record<
-  string,
-  SwaggerPathsOperationRequestBodyContentValue
->;
-
-export interface SwaggerPathsOperationRequestBodyContentValue {
-  schema: SwaggerPathsOperationRequestBodyContentValueSchema;
-  example?: SwaggerPathsOperationRequestBodyContentValueExample;
+export interface SwaggerResponse {
+  description: string;
+  content?: Record<string, { schema: SchemaRef }>;
+  links?: Record<string, SwaggerLink>;
 }
 
-export interface SwaggerPathsOperationRequestBodyContentValueSchema {
-  type: string;
-}
-
-export type SwaggerPathsOperationRequestBodyContentValueExample = Record<
-  string,
-  string
->;
-
-export interface SwaggerPathsOperationResponses {}
-
-export interface SwaggerComponents {
-  schemas: SwaggerComponentsSchemas;
-}
-
-export type SwaggerComponentsSchemas = Record<
-  string,
-  SwaggerComponentsSchemasValue
->;
-
-export interface SwaggerComponentsSchemasValue {
-  type?: string;
-  description?: string;
-  properties?: SwaggerComponentsValueProperties;
-  required?: string[];
-}
-
-export type SwaggerComponentsValueProperties = Record<
-  string,
-  SwaggerComponentsValuePropertiesValue
->;
-
-export interface SwaggerComponentsValuePropertiesValue {
+export interface SwaggerSchema {
+  title?: string;
   type: string;
   description?: string;
+  pattern?: string;
+  format?: string;
+  minimum?: number;
+  maximum?: number;
+  minItems?: number;
+  maxItems?: number;
   enum?: string[];
-  items?: SwaggerComponentsValuePropertiesValueItems;
+  items?: SwaggerSchema | SchemaRef;
+  properties?: Record<string, SwaggerSchema | SchemaRef>;
+  required?: string[];
 }
 
-export interface SwaggerComponentsValuePropertiesValueItems {
-  type: string;
-  description?: string;
-  properties?: SwaggerComponentsValueProperties;
-  required?: string[];
+export interface SchemaRef {
+  $ref: string;
+}
+
+export interface SwaggerLink {
+  operationId: string;
+  parameters: Record<string, string>;
+  description: string;
 }

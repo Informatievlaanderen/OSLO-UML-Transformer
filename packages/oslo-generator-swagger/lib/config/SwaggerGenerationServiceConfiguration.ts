@@ -74,7 +74,6 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
   private _licenseURL: string | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
-    console.log(params.title)
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
@@ -145,14 +144,14 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get contextURL(): string {
     if (!this._contextURL) {
-      throw new Error(`Trying access property "contextURL" before it was set.`);
+      throw new Error(`Trying to access property "contextURL" before it was set.`);
     }
     return this._contextURL;
   }
 
   public get baseURL(): string {
     if (!this._baseURL) {
-      throw new Error(`Trying access property "baseURL" before it was set.`);
+      throw new Error(`Trying to access property "baseURL" before it was set.`);
     }
     return this._baseURL;
   }

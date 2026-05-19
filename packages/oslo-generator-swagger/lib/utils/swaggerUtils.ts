@@ -1,43 +1,77 @@
-import type { QuadStore } from '@oslo-flanders/core';
-import { ns } from '@oslo-flanders/core';
-import type * as RDF from '@rdfjs/types';
+/* eslint-disable max-len */
+import { OutputFormat } from '@oslo-flanders/core/lib/enums/OutputFormat';
+import {
+  ERROR_RESPONSES,
+  PROBLEEM_DETAILS_SCHEMA_REF,
+} from '../constants/Swagger';
+import type {
+  SwaggerLink,
+  SwaggerResponse,
+  SchemaRef,
+  SwaggerInfoContact,
+  SwaggerInfoLicense,
+} from '../types/Swagger';
 
-export function findAllAttributes(
-  subject: RDF.Term,
-  attributeIds: RDF.Term[],
-  store: QuadStore,
-): RDF.Term[] {
-  const parentIds = store.findObjects(subject, ns.rdfs('subClassOf'));
+function getProbleemdetailsContent(): {
+  [OutputFormat.JsonProblem]: { schema: SchemaRef };
+} {
+  return {
+    [OutputFormat.JsonProblem]: {
+      schema: { $ref: PROBLEEM_DETAILS_SCHEMA_REF },
+    },
+  };
+}
 
-  attributeIds = [
-    ...attributeIds,
-    ...store.findSubjects(ns.rdfs('domain'), subject),
-  ];
+function getProbleemdetailsLink(label: string): Record<string, SwaggerLink> {
+  return {
+    'ProbleemDetails.type': {
+      operationId: `${label}GET`,
+      parameters: { type: '$response.body#/type' },
+      description:
+        'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+    },
+  };
+}
 
-  for (const parentId of parentIds) {
-    attributeIds = findAllAttributes(parentId, attributeIds, store);
+export function getContact(
+  contactName?: string,
+  contactURL?: string,
+  contactEmail?: string,
+): SwaggerInfoContact | undefined {
+  if (!contactName && !contactURL && !contactEmail) return undefined;
+  return { name: contactName, url: contactURL, email: contactEmail };
+}
+
+export function getLicense(
+  licenseName?: string,
+  licenseURL?: string,
+): SwaggerInfoLicense | undefined {
+  if (!licenseName && !licenseURL) return undefined;
+  return { name: licenseName, url: licenseURL };
+}
+
+export function buildErrorResponses(
+  label: string,
+): Record<string, SwaggerResponse> {
+  const responses: Record<string, SwaggerResponse> = {};
+  for (const { code, description } of ERROR_RESPONSES) {
+    responses[code] = {
+      description,
+      content: getProbleemdetailsContent(),
+      links: getProbleemdetailsLink(label),
+    };
   }
-
-  return attributeIds;
+  return responses;
 }
 
-function removeCaret(text: string): string {
-  return text.replace(/^\^/u, '');
+export function filterLinksByClass(
+  links: Record<string, SwaggerLink>,
+  classLabel: string,
+): Record<string, SwaggerLink> {
+  const prefix = `${classLabel}.`;
+  return Object.fromEntries(
+    Object.entries(links).filter(([key]) => key.startsWith(prefix)),
+  );
 }
 
-export function toPascalCase(text: string): string {
-  return removeCaret(text)
-    .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
-      word.toUpperCase(),
-    )
-    .replace(/\s+/gu, '');
-}
-
-export function toCamelCase(text: string): string {
-  return removeCaret(text)
-    .replace(/(?:^\w|[A-Z]|\b\w)/gu, (word: string, index: number) =>
-      index === 0 ? word.toLowerCase() : word.toUpperCase(),
-    )
-    .replace(/\s+/gu, '');
-}
-
+/* eslint-enable*/
