@@ -44,7 +44,7 @@ describe('SwaggerGenerationService', () => {
       <any>{
         language: 'nl',
         input: 'data/KVS-Input.json',
-        output: 'swagger.json',
+        output: 'output',
         title: 'My Title',
         description: 'My Description',
         contextURL: 'http://example.com/context.jsonld',
@@ -83,8 +83,8 @@ describe('SwaggerGenerationService', () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
 
-    const swagger = JSON.parse(readFileSync('swagger.json').toString());
+    const swagger = JSON.parse(readFileSync('output/swagger/example.json').toString());
     expect(JSON.stringify(kvsOutput) === JSON.stringify(swagger));
-    unlinkSync('swagger.json');
+    unlinkSync('output/swagger/example.json');
   });
 });

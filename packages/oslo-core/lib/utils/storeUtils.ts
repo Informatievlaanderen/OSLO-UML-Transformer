@@ -219,6 +219,8 @@ export function findAllAttributes(
   logger: Logger,
   visited: Set<string> = new Set(),
 ): RDF.Term[] {
+  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
+
   if (visited.has(subject.value)) {
     logger.warn(
       `[QuadStore]: Circular reference detected for ${subject.value}`,
@@ -227,7 +229,6 @@ export function findAllAttributes(
   }
   visited.add(subject.value);
 
-  let parentIds: RDF.Term[] = store.findObjects(subject, ns.rdfs('subClassOf'));
   // Merge all referenced dummy parents with the real one based on assigned URI
   let additionalParentIds: RDF.Term[] = [];
   for (const parentId of parentIds) {
