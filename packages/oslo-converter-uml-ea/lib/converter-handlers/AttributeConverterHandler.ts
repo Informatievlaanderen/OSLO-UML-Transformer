@@ -342,12 +342,12 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       this.df.quad(
         attributeInternalId,
         ns.shacl('minCount'),
-        this.df.literal(object.lowerBound),
+        this.df.literal(object.lowerBound, ns.xsd('integer')),
       ),
       this.df.quad(
         attributeInternalId,
         ns.shacl('maxCount'),
-        this.df.literal(object.upperBound),
+        this.df.literal(object.upperBound, ns.xsd('integer')),
       ),
     );
 
