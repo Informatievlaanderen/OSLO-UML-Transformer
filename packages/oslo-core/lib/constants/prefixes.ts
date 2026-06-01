@@ -2,11 +2,11 @@ import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
 const PREFIX_CC_URL = 'http://prefix.cc/context';
-var _cachedPrefixes: Record<string,string>
+let cachedPrefixes: Record<string,string>
 
 export async function getPrefixes(): Promise<Record<string, string>> {
-  if(_cachedPrefixes)
-    return _cachedPrefixes
+  if(cachedPrefixes)
+    return cachedPrefixes
   const url = PREFIX_CC_URL;
   try {
     const response = await fetch(url);
@@ -16,8 +16,8 @@ export async function getPrefixes(): Promise<Record<string, string>> {
 
     const data = await response.json();
     if (data['@context']) {
-      _cachedPrefixes = fixPrefixes(data['@context'])
-      return _cachedPrefixes;
+      cachedPrefixes = fixPrefixes(data['@context'])
+      return cachedPrefixes;
     }
     throw new Error('Invalid context format received from prefix.cc');
   } catch (error: unknown) {
