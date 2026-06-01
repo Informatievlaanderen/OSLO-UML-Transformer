@@ -1,1 +1,1 @@
-export const HEADERS = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
+export const HEADERS:string[] = ['Eigenschap', 'URI', 'Type', 'Type URI', 'Kardinaliteit'];
