@@ -19,7 +19,7 @@ import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { splitUri } from '@oslo-flanders/core/lib/utils/uri';
 import { MarkdownGenerationServiceConfiguration } from './config/MarkdownGenerationServiceConfiguration';
-import { HEADERS } from './constants/constants';
+import { STRINGS } from './constants/constants';
 
 @injectable()
 export class MarkdownGenerationService implements IService {
@@ -182,15 +182,15 @@ export class MarkdownGenerationService implements IService {
     /* Serialize entities and write them to a markdown file */
     var blocks: string[] = [];
 
-    blocks.push(md.heading('Applicatieprofiel', { level: 1 }));
+    blocks.push(md.heading(STRINGS.APPLICATIONPROFILE, { level: 1 }));
     blocks.push(
       md.table(
-        ['Eigenschap', 'Waarde'],
+        [STRINGS.PROPERTY, STRINGS.VALUE],
         [
-          ['Titel', meta.title || ''],
-          ['URL', md.link(meta.profileUrl || '')],
-          ['Versie', meta.profileVersion || ''],
-          ['Licentie', meta.license || '']
+          [STRINGS.TITLE, meta.title || ''],
+          [STRINGS.URL, md.link(meta.profileUrl || '')],
+          [STRINGS.VERSION, meta.profileVersion || ''],
+          [STRINGS.LICENSE, meta.license || '']
         ]));
 
     blocks.push(md.heading('Entiteiten', { level: 1}));
@@ -210,7 +210,13 @@ export class MarkdownGenerationService implements IService {
           `${p.minCount}..${p.maxCount}`
         ]);
       });
-      blocks.push(md.table(HEADERS, rows));
+      blocks.push(md.table([
+        STRINGS.PROPERTY,
+        STRINGS.URI,
+        STRINGS.TYPE,
+        STRINGS.URITYPE,
+        STRINGS.CARDINALITY
+      ], rows));
     });
     writeFileSync(path.join(this.configuration.output, `markdown.md`), md.joinBlocks(blocks));
   }
