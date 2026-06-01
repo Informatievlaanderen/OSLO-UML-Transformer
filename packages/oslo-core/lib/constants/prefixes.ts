@@ -58,12 +58,12 @@ export async function getPrefixes(): Promise<Record<string, string>> {
 }
 
 function fixPrefixes(records: Record<string,string>): Record<string, string> {
-  // mobilitydcat-ap is incorrectly mapped to mdcat in prefix.cc
+  // Profile mobilityDCAT-AP is incorrectly mapped to mdcat in prefix.cc
   records.mdcat = ns.mdcat('').value
   records.mobilitydcatap = ns.mobilitydcatap('').value
-  // missing value
+  // Missing value
   records.generiek = ns.generiek('').value
-  // geodcatap is incorrectly defined in prefix.cc as "geodcat"
+  // Profile GeoDCAT-AP is incorrectly defined in prefix.cc as "geodcat"
   delete records.geodcat
   records.geodcatap = ns.geodcatap('').value
   return records;
