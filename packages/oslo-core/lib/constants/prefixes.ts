@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
@@ -11,9 +12,9 @@ export async function getPrefixes(): Promise<Record<string, string>> {
       throw new Error(`Failed to fetch prefixes: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Record<string, unknown>;
     if (data['@context']) {
-      return data['@context'];
+      return data['@context'] as Record<string, string>;
     }
     throw new Error('Invalid context format received from prefix.cc');
   } catch (error: unknown) {
@@ -30,3 +31,4 @@ export async function getPrefixes(): Promise<Record<string, string>> {
     };
   }
 }
+/* eslint-enable @typescript-eslint/consistent-type-assertions */

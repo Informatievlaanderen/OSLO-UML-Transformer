@@ -34,6 +34,7 @@ export class OutputHandlerService {
 
     if (this.config.outputFormat === 'text/turtle') {
       // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
+      // @ts-ignore
       const { default: Serializer } = await import('@rdfjs/serializer-turtle');
       const serializer = new Serializer();
       const output = serializer.transform(quads);
