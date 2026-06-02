@@ -15,7 +15,7 @@ import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { rdfSerializer } from 'rdf-serialize';
-import streamifyArray from 'streamify-array';
+import { streamifyArray } from 'streamify-array';
 import { RdfVocabularyGenerationServiceConfiguration } from './config/RdfVocabularyGenerationServiceConfiguration';
 
 @injectable()

@@ -6,7 +6,7 @@ import { createWriteStream, writeFileSync } from 'fs';
 import { rdfSerializer } from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
 import { quadSort } from './utils/utils';
-import streamifyArray from 'streamify-array';
+import { streamifyArray } from 'streamify-array';
 
 @injectable()
 export class OutputHandlerService {
