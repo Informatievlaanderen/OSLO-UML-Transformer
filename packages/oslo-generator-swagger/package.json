@@ -46,7 +46,7 @@
     "rdf-data-factory": "^1.1.1",
     "rdf-parse": "^2.3.2",
     "rdf-serialize": "^2.2.2",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.1",
     "streamify-array": "^1.0.1",
     "streamify-string": "^1.0.1",
     "yargs": "^18.0.0"

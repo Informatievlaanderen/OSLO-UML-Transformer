@@ -45,7 +45,7 @@
     "n3": "^2.0.0",
     "rdf-parse": "^4.0.0",
     "rdf-validate-shacl": "^0.6.5",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.1",
     "yargs": "^18.0.0"
   },
   "devDependencies": {

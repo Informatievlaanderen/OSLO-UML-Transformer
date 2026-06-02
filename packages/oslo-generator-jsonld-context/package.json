@@ -44,7 +44,7 @@
     "n3": "^2.0.0",
     "rdf-data-factory": "^1.1.2",
     "rdf-parse": "^2.3.2",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.1",
     "streamify-string": "^1.0.1",
     "yargs": "^18.0.0"
   },
