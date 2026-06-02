@@ -57,8 +57,9 @@ describe('Util functions', () => {
 
   it('should fetch a local file and return a Buffer', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
-    jest.spyOn(fs.Stats.prototype, 'isFile').mockImplementation(() => true);
-    jest.spyOn(fsp, 'stat').mockReturnValue(Promise.resolve(new fs.Stats()));
+    jest
+      .spyOn(fsp, 'stat')
+      .mockResolvedValue({ isFile: () => true } as fs.Stats);
     jest
       .spyOn(fsp, 'readFile')
       .mockReturnValue(Promise.resolve(Buffer.from('')));
@@ -80,8 +81,9 @@ describe('Util functions', () => {
     ).rejects.toThrowError();
 
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
-    jest.spyOn(fsp, 'stat').mockReturnValue(Promise.resolve(new fs.Stats()));
-    jest.spyOn(fs.Stats.prototype, 'isFile').mockImplementation(() => false);
+    jest
+      .spyOn(fsp, 'stat')
+      .mockResolvedValue({ isFile: () => false } as fs.Stats);
 
     await expect(
       async () => await _.fetchFileOrUrl('file://example.ttl'),
