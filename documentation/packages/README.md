@@ -7,3 +7,4 @@ This project is wrtitten in TypeScript and commonjs. Libraries that are written 
 - node-fetch: can't be bumped to v3 because it's ESM only. We are currently using v2 which is commonjs and works fine.
 - inversify: issues with inversify v7 and higher. We are currently using v6 which is commonjs and works fine.
 - jest: issues with jest v30 and higher. Relatively big effort to upgrade to v30 for little gain. leaving this one out for now
+- eslint: Relatively big effort to upgrade to v8 for little gain. leaving this one out for now

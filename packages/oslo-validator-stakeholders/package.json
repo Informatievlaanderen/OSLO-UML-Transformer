@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
-    "@types/node": "^18.11.17",
+    "@types/node": "^25.9.1",
     "@types/rdfjs__data-model": "^2.0.9",
     "jest": "^29.3.1",
     "shacl-engine": "^1.0.2",
