@@ -38,7 +38,7 @@
     "@oslo-flanders/core": "^1.0.0",
     "inversify": "^6.0.1",
     "marked": "^4.3.0",
-    "n3": "^1.16.4",
+    "n3": "^2.0.0",
     "nunjucks": "^3.2.4",
     "reflect-metadata": "^0.1.13",
     "yargs": "^18.0.0"
