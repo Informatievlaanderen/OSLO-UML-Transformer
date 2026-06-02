@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import { Writable } from 'stream';
 import { QuadStore, OutputFormat } from '@oslo-flanders/core';
 import { DataFactory } from 'rdf-data-factory';
-import rdfSerializer from 'rdf-serialize';
+import { rdfSerializer } from 'rdf-serialize';
 import { ShaclTemplateGenerationServiceConfiguration } from '../lib/config/ShaclTemplateGenerationServiceConfiguration';
 import { OutputHandlerService } from '../lib/OutputHandlerService';
 

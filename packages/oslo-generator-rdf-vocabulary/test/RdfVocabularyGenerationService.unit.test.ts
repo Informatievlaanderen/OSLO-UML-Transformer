@@ -8,7 +8,7 @@ import { OutputFormat, QuadStore, VoidLogger, ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { rdfParser } from 'rdf-parse';
-import rdfSerializer from 'rdf-serialize';
+import { rdfSerializer } from 'rdf-serialize';
 import { RdfVocabularyGenerationService } from '../lib/RdfVocabularyGenerationService';
 import {
   jsonldAttributeWithoutAssignedUri,

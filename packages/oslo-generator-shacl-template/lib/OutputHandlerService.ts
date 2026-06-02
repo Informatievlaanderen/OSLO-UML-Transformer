@@ -3,7 +3,7 @@ import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTempl
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
 import { OutputFormat, QuadStore } from '@oslo-flanders/core';
 import { createWriteStream, writeFileSync } from 'fs';
-import rdfSerializer from 'rdf-serialize';
+import { rdfSerializer } from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
 import { quadSort } from './utils/utils';
 import streamifyArray from 'streamify-array';
