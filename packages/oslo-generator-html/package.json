@@ -44,7 +44,7 @@
     "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
+    "@rdfjs/types": "^2.0.0",
     "@types/marked": "^4.0.8",
     "@types/nunjucks": "^3.2.2"
   },

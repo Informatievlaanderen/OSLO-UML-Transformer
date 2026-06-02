@@ -44,7 +44,7 @@
     "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
+    "@rdfjs/types": "^2.0.0",
     "@types/nunjucks": "^3.2.2"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
