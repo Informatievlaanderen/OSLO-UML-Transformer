@@ -3,6 +3,10 @@
   "author": {
     "name": "Digitaal Vlaanderen"
   },
+  "engines": {
+    "npm": ">=11.0.0",
+    "node": ">=22.0.0"
+  },
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer#readme",
   "repository": {
     "type": "git",
