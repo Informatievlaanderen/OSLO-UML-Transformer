@@ -7,7 +7,7 @@ import fs from 'fs/promises';
 import { VoidLogger, QuadStore, OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import { JsonldContextGenerationService } from '../lib/JsonldContextGenerationService';
 import {
   classJsonld,

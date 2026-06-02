@@ -54,7 +54,7 @@
     "@types/streamify-array": "^1.0.3",
     "@types/streamify-string": "^1.0.4",
     "jest-runner-groups": "^2.2.0",
-    "rdf-parse": "^2.3.3",
+    "rdf-parse": "^5.0.0",
     "streamify-string": "^1.0.1"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"

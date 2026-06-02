@@ -8,7 +8,7 @@ import type * as RDF from '@rdfjs/types';
 import * as N3 from 'n3';
 import * as __ from 'node-fetch';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import streamifyString from 'streamify-string';
 import * as _ from '../lib/utils/fetchFileOrUrl';
 import { uniqueId } from '../lib/utils/uniqueId';

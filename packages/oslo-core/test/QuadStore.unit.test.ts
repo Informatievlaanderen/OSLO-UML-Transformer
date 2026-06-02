@@ -6,7 +6,7 @@ import 'reflect-metadata';
 import { OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import streamifyString from 'streamify-string';
 
 import { QuadStore } from '../lib/store/QuadStore';

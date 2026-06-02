@@ -7,7 +7,7 @@ import path from 'path';
 import { ns, QuadStore, VoidLogger } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import streamifyString from 'streamify-string';
 import { CodelistGenerationService } from '../lib/CodelistGenerationService';
 import { CodelistGenerationServiceConfiguration } from '../lib/config/CodelistGenerationServiceConfiguration';
