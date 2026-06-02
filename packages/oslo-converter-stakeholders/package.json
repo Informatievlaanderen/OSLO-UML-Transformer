@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@oslo-flanders/core": "^1.0.0",
-    "csv-parse": "^5.3.6",
+    "csv-parse": "^6.2.1",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.2.1",
     "yargs": "^18.0.0"
