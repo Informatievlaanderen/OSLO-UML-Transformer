@@ -41,7 +41,7 @@
     "inversify": "^6.0.1",
     "n3": "^1.14.2",
     "reflect-metadata": "^0.1.13",
-    "yargs": "^17.6.0"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/n3": "^1.10.4",

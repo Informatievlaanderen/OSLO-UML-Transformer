@@ -46,7 +46,7 @@
     "rdf-parse": "^4.0.0",
     "rdf-validate-shacl": "^0.6.5",
     "reflect-metadata": "^0.1.13",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",

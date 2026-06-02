@@ -33,7 +33,7 @@
     "csv-parse": "^5.3.6",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
-    "yargs": "^17.6.0"
+    "yargs": "^18.0.0"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
 }

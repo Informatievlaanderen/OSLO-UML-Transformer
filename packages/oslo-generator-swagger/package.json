@@ -49,7 +49,7 @@
     "reflect-metadata": "^0.1.13",
     "streamify-array": "^1.0.1",
     "streamify-string": "^1.0.1",
-    "yargs": "^17.6.0"
+    "yargs": "^18.0.0"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
 }

@@ -35,7 +35,7 @@
     "n3": "^1.17.2",
     "rdf-data-factory": "^1.1.2",
     "reflect-metadata": "^0.2.1",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@rdfjs/types": "^1.1.0"
