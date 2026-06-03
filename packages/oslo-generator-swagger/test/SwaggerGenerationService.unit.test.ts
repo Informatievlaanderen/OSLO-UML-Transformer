@@ -7,7 +7,7 @@ import { Readable } from 'stream';
 import { QuadStore, VoidLogger, OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import { SwaggerGenerationService } from '../lib/SwaggerGenerationService';
 import { kvsInput, kvsOutput } from './data/mockData';
 

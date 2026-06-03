@@ -8,7 +8,7 @@ import fs from 'fs/promises';
 import { OutputFormat, QuadStore, VoidLogger } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import type { 
   JsonWebuniversumGenerationServiceConfiguration } from '../lib/config/JsonWebuniversumGenerationServiceConfiguration';
 import { JsonWebuniversumGenerationService } from '../lib/JsonWebuniversumGenerationService';

@@ -14,7 +14,7 @@ import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { writeFile } from 'fs/promises';
 import { Writer } from 'n3';
-import { getPrefixes } from './constants/prefixes';
+import { getPrefixes } from '@oslo-flanders/core';
 import {
   formatOutput,
   extractNamespaces,
@@ -148,7 +148,7 @@ export class CodelistGenerationService implements IService {
         columns: true,
         delimiter: ',',
         skip_empty_lines: true,
-        bom: true
+        bom: true,
       });
 
       parser.on('readable', () => {
