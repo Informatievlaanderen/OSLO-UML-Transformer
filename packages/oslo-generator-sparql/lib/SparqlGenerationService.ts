@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-
 import * as path from 'path';
 import type { IService } from '@oslo-flanders/core';
 import {
@@ -13,13 +11,13 @@ import {
   toPascalCase,
   toCamelCase,
   findAllAttributes,
+  splitUri,
 } from '@oslo-flanders/core';
 import { writeFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { DataFactory } from 'rdf-data-factory';
 import { SparqlGenerationServiceConfiguration } from './config/SparqlGenerationServiceConfiguration';
-import { splitUri } from './utils/sparqlUtils';
 
 @injectable()
 export class SparqlGenerationService implements IService {
