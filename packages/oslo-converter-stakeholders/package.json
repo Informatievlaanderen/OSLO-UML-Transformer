@@ -1,6 +1,6 @@
 {
   "name": "@oslo-flanders/stakeholders-converter",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Converts an OSLO stakeholders csv file to a different format",
   "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
   "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-converter-stakeholders-oslo#readme",
@@ -29,7 +29,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "dependencies": {
-    "@oslo-flanders/core": "^1.0.0",
+    "@oslo-flanders/core": "^1.1.0",
     "csv-parse": "^6.2.1",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.2.1",
