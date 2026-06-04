@@ -2,7 +2,7 @@
  * @group unit
  */
 import 'reflect-metadata';
-import { unlinkSync, rmSync, readFileSync } from 'fs';
+import { rmSync, readFileSync } from 'fs';
 import { Readable } from 'stream';
 import { QuadStore, VoidLogger, OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';

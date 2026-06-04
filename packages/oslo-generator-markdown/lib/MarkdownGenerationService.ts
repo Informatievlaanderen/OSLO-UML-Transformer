@@ -11,7 +11,7 @@ import {
   ensureOutputDirectory,
   toPascalCase,
   toCamelCase,
-  findAllAttributes
+  findAllAttributes,
 } from '@oslo-flanders/core';
 import { writeFileSync, readFileSync } from 'fs';
 import type * as RDF from '@rdfjs/types';
@@ -32,7 +32,7 @@ export class MarkdownGenerationService implements IService {
     @inject(ServiceIdentifier.Logger) logger: Logger,
     @inject(ServiceIdentifier.Configuration)
     config: MarkdownGenerationServiceConfiguration,
-    @inject(ServiceIdentifier.QuadStore) store: QuadStore
+    @inject(ServiceIdentifier.QuadStore) store: QuadStore,
   ) {
     this.logger = logger;
     this.configuration = config;
@@ -48,7 +48,10 @@ export class MarkdownGenerationService implements IService {
     const entities: Array<Entity> = await this.createMarkdownTables();
 
     /* Get some metadata from the profile itself */
-    const meta = this.parseJson(this.configuration.input, this.configuration.baseURI);
+    const meta = this.parseJson(
+      this.configuration.input,
+      this.configuration.baseURI,
+    );
 
     /* Write output to file */
     await this.writeMarkdown(entities, meta);
@@ -57,33 +60,32 @@ export class MarkdownGenerationService implements IService {
   private parseJson(file: string, baseURI: string): Meta {
     const fileData = JSON.parse(readFileSync(file, 'utf8'));
     let result = new Meta();
-    result.title = fileData["title"];
-    result.profileUrl = baseURI + fileData["urlref"];
-    result.profileVersion = fileData["publication-date"];
-    result.license = fileData["license"];
-    return result
+    result.title = fileData['title'];
+    result.profileUrl = baseURI + fileData['urlref'];
+    result.profileVersion = fileData['publication-date'];
+    result.license = fileData['license'];
+    return result;
   }
 
   private async createMarkdownTables(): Promise<Array<Entity>> {
-
     const entities = new Array<Entity>();
 
     /* Create a query for each class and datatype in the diagram */
     for (const quad of [
       ...this.store.findQuads(null, ns.rdf('type'), ns.owl('Class')),
-      ...this.store.findQuads(null, ns.rdf('type'), ns.rdfs('Datatype'))
+      ...this.store.findQuads(null, ns.rdf('type'), ns.rdfs('Datatype')),
     ]) {
       const classId = quad.subject;
       let label = getApplicationProfileLabel(
         classId,
         this.store,
-        this.configuration.language
+        this.configuration.language,
       )?.value;
       const assignedUri = this.store.getAssignedUri(classId)?.value;
 
       if (!label) {
         this.logger.error(
-          `Unknown class label for subject ${classId.value}, cannot generate query`
+          `Unknown class label for subject ${classId.value}, cannot generate query`,
         );
         continue;
       }
@@ -92,7 +94,7 @@ export class MarkdownGenerationService implements IService {
 
       if (!assignedUri) {
         this.logger.error(
-          `Unknown assigned URI for subject ${classId.value}, cannot generate query`
+          `Unknown assigned URI for subject ${classId.value}, cannot generate query`,
         );
         continue;
       }
@@ -103,16 +105,24 @@ export class MarkdownGenerationService implements IService {
 
       /* Add all attributes of the class to the query */
       let attributeIds: RDF.Term[] = [];
-      attributeIds = findAllAttributes(classId, attributeIds, this.store);
+      attributeIds = findAllAttributes(
+        classId,
+        attributeIds,
+        this.store,
+        this.logger,
+      );
+
+      // Keep the first occurrence for each term to avoid duplicate rows
+      // when the same attribute is reached through multiple inheritance paths.
+      attributeIds = [...new Map(attributeIds.map((id) => [id.value, id])).values()];
 
       /* Find all attributes for object */
       for (const attributeId of attributeIds) {
         let attributeLabel = getApplicationProfileLabel(
           attributeId,
           this.store,
-          this.configuration.language
+          this.configuration.language,
         )?.value;
-
 
         const attributeAssignedUri =
           this.store.getAssignedUri(attributeId)?.value;
@@ -126,26 +136,31 @@ export class MarkdownGenerationService implements IService {
 
         if (!attributeAssignedUri) {
           this.logger.error(
-            `Unknown assigned URI for attribute ${attributeId.value}`
+            `Unknown assigned URI for attribute ${attributeId.value}`,
           );
           continue;
         }
 
         const range = this.store.getRange(attributeId);
-        let rangeUri = undefined
-        let rangeLabel = undefined
-        if(range) {
+        let rangeUri = undefined;
+        let rangeLabel = undefined;
+        if (range) {
           rangeLabel = getApplicationProfileLabel(
             range,
             this.store,
-            this.configuration.language
+            this.configuration.language,
           )?.value;
-          rangeUri = this.store.getAssignedUri(range)?.value
+          rangeUri = this.store.getAssignedUri(range)?.value;
         }
 
         const splitted = await splitUri(attributeAssignedUri);
 
-        const property = new Property(attributeLabel, attributeAssignedUri, splitted?.prefix, splitted?.element);
+        const property = new Property(
+          attributeLabel,
+          attributeAssignedUri,
+          splitted?.prefix,
+          splitted?.element,
+        );
         entity.properties.push(property);
 
         /* Min count == 0 is reflected as SPARQL OPTIONAL in queries */
@@ -155,13 +170,13 @@ export class MarkdownGenerationService implements IService {
         property.minCount = attributeMinCount;
         property.maxCount = attributeMaxCount;
 
-        property.rangeUri = rangeUri
-        property.rangeLabel = rangeLabel
+        property.rangeUri = rangeUri;
+        property.rangeLabel = rangeLabel;
 
-        if(rangeUri) {
+        if (rangeUri) {
           const rangeUriSplitted = await splitUri(rangeUri);
-          property.rangePrefix = rangeUriSplitted?.prefix
-          property.rangeElement = rangeUriSplitted?.element
+          property.rangePrefix = rangeUriSplitted?.prefix;
+          property.rangeElement = rangeUriSplitted?.element;
         }
       }
     }
@@ -190,10 +205,12 @@ export class MarkdownGenerationService implements IService {
           [STRINGS.TITLE, meta.title || ''],
           [STRINGS.URL, md.link(meta.profileUrl || '')],
           [STRINGS.VERSION, meta.profileVersion || ''],
-          [STRINGS.LICENSE, meta.license || '']
-        ]));
+          [STRINGS.LICENSE, meta.license || ''],
+        ],
+      ),
+    );
 
-    blocks.push(md.heading('Entiteiten', { level: 1}));
+    blocks.push(md.heading('Entiteiten', { level: 1 }));
     entities.forEach((e) => {
       blocks.push(md.heading(md.link(e.uri, e.label), { level: 2 }));
       let rows: string[][] = [];
@@ -207,18 +224,26 @@ export class MarkdownGenerationService implements IService {
           p.rangeLabel || 'undefined',
           // the range uri
           md.link(p.rangeUri!!, p.prettyRangeUri()),
-          `${p.minCount}..${p.maxCount}`
+          `${p.minCount}..${p.maxCount}`,
         ]);
       });
-      blocks.push(md.table([
-        STRINGS.PROPERTY,
-        STRINGS.URI,
-        STRINGS.TYPE,
-        STRINGS.URITYPE,
-        STRINGS.CARDINALITY
-      ], rows));
+      blocks.push(
+        md.table(
+          [
+            STRINGS.PROPERTY,
+            STRINGS.URI,
+            STRINGS.TYPE,
+            STRINGS.URITYPE,
+            STRINGS.CARDINALITY,
+          ],
+          rows,
+        ),
+      );
     });
-    writeFileSync(path.join(this.configuration.output, `markdown.md`), md.joinBlocks(blocks));
+    writeFileSync(
+      path.join(this.configuration.output, `markdown.md`),
+      md.joinBlocks(blocks),
+    );
   }
 }
 
@@ -246,7 +271,12 @@ class Property {
   rangePrefix: string | undefined;
   rangeElement: string | undefined;
 
-  constructor(label: string, uri: string, prefix: string | undefined, element: string | undefined) {
+  constructor(
+    label: string,
+    uri: string,
+    prefix: string | undefined,
+    element: string | undefined,
+  ) {
     this.label = label;
     this.uri = uri;
     this.prefix = prefix;
@@ -254,11 +284,15 @@ class Property {
   }
 
   prettyUri() {
-    return (this.prefix && this.element) ? `${this.prefix}:${this.element}` : this.uri
+    return this.prefix && this.element
+      ? `${this.prefix}:${this.element}`
+      : this.uri;
   }
 
   prettyRangeUri() {
-    return (this.rangePrefix && this.rangeElement) ? `${this.rangePrefix}:${this.rangeElement}` : this.rangeUri
+    return this.rangePrefix && this.rangeElement
+      ? `${this.rangePrefix}:${this.rangeElement}`
+      : this.rangeUri;
   }
 }
 
