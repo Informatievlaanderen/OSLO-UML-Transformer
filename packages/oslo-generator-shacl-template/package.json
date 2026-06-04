@@ -41,12 +41,12 @@
     "@rdfjs/serializer-turtle": "^1.1.5",
     "i18n": "^0.15.1",
     "inversify": "^6.0.1",
-    "n3": "^1.17.2",
-    "rdf-data-factory": "^1.1.2",
-    "rdf-serialize": "^2.2.3",
+    "n3": "^2.0.0",
+    "rdf-data-factory": "^2.0.0",
+    "rdf-serialize": "^5.1.0",
     "reflect-metadata": "^0.2.1",
-    "streamify-array": "^1.0.1",
-    "yargs": "^17.7.2"
+    "streamify-array": "^2.0.0",
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/i18n": "^0.13.10",
@@ -54,7 +54,7 @@
     "@types/streamify-array": "^1.0.3",
     "@types/streamify-string": "^1.0.4",
     "jest-runner-groups": "^2.2.0",
-    "rdf-parse": "^2.3.3",
+    "rdf-parse": "^5.0.0",
     "streamify-string": "^1.0.1"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"

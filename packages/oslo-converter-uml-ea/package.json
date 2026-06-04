@@ -36,7 +36,7 @@
     "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
+    "@rdfjs/types": "^2.0.0",
     "@types/n3": "^1.16.1",
     "jest-runner-groups": "^2.2.0"
   },
@@ -45,10 +45,10 @@
     "@oslo-flanders/ea-uml-extractor": "^1.0.3",
     "@oslo-flanders/output-handlers": "^0.0.4-alpha.0",
     "inversify": "^6.0.1",
-    "n3": "^1.16.2",
-    "rdf-data-factory": "^1.1.1",
-    "reflect-metadata": "^0.1.13",
-    "yargs": "^17.6.0"
+    "n3": "^2.0.0",
+    "rdf-data-factory": "^2.0.0",
+    "reflect-metadata": "^0.2.1",
+    "yargs": "^18.0.0"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"
 }

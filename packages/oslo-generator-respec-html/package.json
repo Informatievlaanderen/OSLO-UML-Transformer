@@ -38,13 +38,13 @@
     "@oslo-flanders/html-respec-generator": "^1.0.0",
     "@oslo-flanders/stakeholders-converter": "^1.0.0",
     "inversify": "^6.0.1",
-    "n3": "^1.16.4",
+    "n3": "^2.0.0",
     "nunjucks": "^3.2.4",
-    "reflect-metadata": "^0.1.13",
-    "yargs": "^17.7.2"
+    "reflect-metadata": "^0.2.1",
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@rdfjs/types": "^1.1.0",
+    "@rdfjs/types": "^2.0.0",
     "@types/nunjucks": "^3.2.2"
   },
   "gitHead": "beaa3821b72a7df104ff61af49fed6c1140fadd8"

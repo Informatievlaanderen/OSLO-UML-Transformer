@@ -1,7 +1,7 @@
 import type * as RDF from '@rdfjs/types';
 import { injectable } from 'inversify';
 import * as N3 from 'n3';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import { fetchFileOrUrl } from '../utils/fetchFileOrUrl';
 import { ns } from '../utils/namespaces';
 

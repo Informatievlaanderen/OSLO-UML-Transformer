@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { ns } from '@oslo-flanders/core';
 import fetch from 'node-fetch';
 
 const PREFIX_CC_URL = 'http://prefix.cc/context';
-let cachedPrefixes: Record<string,string>
+let cachedPrefixes: Record<string, string>;
 
 export async function getPrefixes(): Promise<Record<string, string>> {
-  if(cachedPrefixes)
-    return cachedPrefixes
+  if (cachedPrefixes) return cachedPrefixes;
   const url = PREFIX_CC_URL;
   try {
     const response = await fetch(url);
@@ -14,9 +14,9 @@ export async function getPrefixes(): Promise<Record<string, string>> {
       throw new Error(`Failed to fetch prefixes: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Record<string, unknown>;
     if (data['@context']) {
-      cachedPrefixes = fixPrefixes(data['@context'])
+      cachedPrefixes = fixPrefixes(data['@context'] as Record<string, string>);
       return cachedPrefixes;
     }
     throw new Error('Invalid context format received from prefix.cc');
@@ -57,14 +57,14 @@ export async function getPrefixes(): Promise<Record<string, string>> {
   }
 }
 
-function fixPrefixes(records: Record<string,string>): Record<string, string> {
+function fixPrefixes(records: Record<string, string>): Record<string, string> {
   // Profile mobilityDCAT-AP is incorrectly mapped to mdcat in prefix.cc
-  records.mdcat = ns.mdcat('').value
-  records.mobilitydcatap = ns.mobilitydcatap('').value
+  records.mdcat = ns.mdcat('').value;
+  records.mobilitydcatap = ns.mobilitydcatap('').value;
   // Missing value
-  records.generiek = ns.generiek('').value
+  records.generiek = ns.generiek('').value;
   // Profile GeoDCAT-AP is incorrectly defined in prefix.cc as "geodcat"
-  delete records.geodcat
-  records.geodcatap = ns.geodcatap('').value
+  delete records.geodcat;
+  records.geodcatap = ns.geodcatap('').value;
   return records;
 }

@@ -1,6 +1,6 @@
 import { OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
-import rdfParser from 'rdf-parse';
+import { rdfParser } from 'rdf-parse';
 import streamifyString from 'streamify-string';
 
 export function parseJsonld(data: any): Promise<RDF.Quad[]> {

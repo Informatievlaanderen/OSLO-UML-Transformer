@@ -3,10 +3,10 @@ import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTempl
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
 import { OutputFormat, QuadStore } from '@oslo-flanders/core';
 import { createWriteStream, writeFileSync } from 'fs';
-import rdfSerializer from 'rdf-serialize';
+import { rdfSerializer } from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
 import { quadSort } from './utils/utils';
-import streamifyArray from 'streamify-array';
+import { streamifyArray } from 'streamify-array';
 
 @injectable()
 export class OutputHandlerService {
@@ -34,6 +34,7 @@ export class OutputHandlerService {
 
     if (this.config.outputFormat === 'text/turtle') {
       // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
+      // @ts-ignore
       const { default: Serializer } = await import('@rdfjs/serializer-turtle');
       const serializer = new Serializer();
       const output = serializer.transform(quads);
