@@ -173,7 +173,7 @@ describe('ShaclTemplateGenerationService', () => {
       (<any>service).createSubjectToShapeIdMap(propertyIds, false),
     ).toThrow(
       new Error(
-        `Unable to find the domain for subject "http://example.org/.well-known/id/property/1".`,
+        `[ShaclTemplateGenerationService]: Unable to find the domain for subject "http://example.org/.well-known/id/property/1" which should act as a property.`
       ),
     );
   });
