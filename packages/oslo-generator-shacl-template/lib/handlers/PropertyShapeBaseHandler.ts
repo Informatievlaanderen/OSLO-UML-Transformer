@@ -6,12 +6,12 @@ import {
   ns,
   type QuadStore,
   isStandardDatatype,
+  toPascalCase,
 } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 
 import type { NamedOrBlankNode } from '../types/IHandler';
 import { ShaclHandler } from '../types/IHandler';
-import { toPascalCase } from '../utils/utils';
 import { inject } from 'inversify';
 import { ShaclTemplateGenerationServiceIdentifier } from '../config/ShaclTemplateGenerationServiceIdentifier';
 import { Logger } from '@oslo-flanders/core';
@@ -131,7 +131,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     if (!domain) {
       throw new Error(
-        `Unable to find the domain for subject "${subject.value}".`,
+        `[PropertyShapeBaseHandler]: Unable to find the domain for subject "${subject.value}" which should act as a property.`,
       );
     }
 

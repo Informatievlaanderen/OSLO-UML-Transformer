@@ -266,7 +266,7 @@ describe('PropertyShapeBaseHandler', () => {
       ),
     ).toThrow(
       new Error(
-        `Unable to find the domain for subject "http://example.org/.well-known/id/property/1".`,
+        `[PropertyShapeBaseHandler]: Unable to find the domain for subject "http://example.org/.well-known/id/property/1" which should act as a property.`,
       ),
     );
   });

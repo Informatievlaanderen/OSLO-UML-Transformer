@@ -6,7 +6,8 @@ import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { Constraint } from '../lib/enums/Constraint';
 import { GenerationMode } from '../lib/enums/GenerationMode';
-import { getGenerationMode, getConstraints, toPascalCase, quadSort } from '../lib/utils/utils';
+import { getGenerationMode, getConstraints, quadSort } from '../lib/utils/utils';
+import { toPascalCase } from '@oslo-flanders/core';
 
 describe('Util functions', () => {
   const DF: DataFactory = new DataFactory();
