@@ -15,7 +15,7 @@ import { PipelineService } from './PipelineService';
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
 import { OutputHandlerService } from './OutputHandlerService';
 import { GenerationMode } from './enums/GenerationMode';
-import { toPascalCase } from './utils/utils';
+import { isShape, toPascalCase } from './utils/utils';
 import { SHA1 } from 'crypto-js';
 import { shouldFilterUri } from './constants/filteredUris';
 
@@ -189,25 +189,21 @@ export class ShaclTemplateGenerationService implements IService {
       if (createBlankNodes) {
         shapeId = this.df.blankNode();
       } else {
-        const subjectType = this.store.findObject(subject, ns.rdf('type'))!;
-        const suffix =
-          subjectType.equals(ns.owl('Class')) ||
-          subjectType.equals(ns.rdfs('Datatype'))
-            ? 'Shape'
-            : 'Property';
+        const subjectType: RDF.Term = this.store.findObject(
+          subject,
+          ns.rdf('type'),
+        )!;
+        const suffix = isShape(subjectType) ? 'Shape' : 'Property';
 
         let fragmentIdentifier = '';
-        if (
-          subjectType.equals(ns.owl('Class')) ||
-          subjectType.equals(ns.rdfs('Datatype'))
-        ) {
+        if (isShape(subjectType)) {
           fragmentIdentifier = `${toPascalCase(label.value)}${suffix}`;
         } else {
           const domain = this.store.getDomain(subject);
 
           if (!domain) {
             throw new Error(
-              `Unable to find the domain for subject "${subject.value}".`,
+              `[ShaclTemplateGenerationService]: Unable to find the domain for subject "${subject.value}" which should act as a property.`,
             );
           }
 
@@ -305,7 +301,9 @@ export class ShaclTemplateGenerationService implements IService {
         propertyIdToShapeIdMap.get(child.value);
 
       if (!propertyShapeParent || !propertyShapeChild)
-        throw new Error(`Cannot find SHACL property shape for parent (${parent.value}) or child (${child.value})`);
+        throw new Error(
+          `Cannot find SHACL property shape for parent (${parent.value}) or child (${child.value})`,
+        );
 
       /*
        * FIXME: figure out why the blanknode propertyShapeParent is not equal
@@ -327,7 +325,8 @@ export class ShaclTemplateGenerationService implements IService {
         childNodeShapeId,
         ns.shacl('targetClass'),
       );
-      if (!childClassId) throw new Error(`Cannot find child class ID of child (${child.value})`);
+      if (!childClassId)
+        throw new Error(`Cannot find child class ID of child (${child.value})`);
 
       const xOneList = [this.df.blankNode(), this.df.blankNode()];
       const xOneValues = [

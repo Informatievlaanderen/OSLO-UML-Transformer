@@ -131,7 +131,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     if (!domain) {
       throw new Error(
-        `Unable to find the domain for subject "${subject.value}".`,
+        `[PropertyShapeBaseHandler]: Unable to find the domain for subject "${subject.value}" which should act as a property.`,
       );
     }
 
