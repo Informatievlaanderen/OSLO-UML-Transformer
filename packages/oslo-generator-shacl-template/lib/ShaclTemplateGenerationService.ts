@@ -5,6 +5,7 @@ import {
   getApplicationProfileLabel,
   createList,
   ns,
+  toPascalCase,
 } from '@oslo-flanders/core';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import { inject, injectable } from 'inversify';
@@ -15,7 +16,7 @@ import { PipelineService } from './PipelineService';
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
 import { OutputHandlerService } from './OutputHandlerService';
 import { GenerationMode } from './enums/GenerationMode';
-import { isShape, toPascalCase } from './utils/utils';
+import { isShape } from './utils/utils';
 import { SHA1 } from 'crypto-js';
 import { shouldFilterUri } from './constants/filteredUris';
 
