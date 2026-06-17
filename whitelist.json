@@ -48,5 +48,9 @@
   "https://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2_TC1/OWL#",
   "https://w3id.org/okn/o/sd#",
   "https://www.fair-gnss.oma.be/gnss-dcat-ap/vocabulary/geo#",
-  "https://www.geonames.org/ontology#"
+  "https://www.geonames.org/ontology#",
+  "http://data.vlaanderen.be/ns/",
+  "http://data.europa.eu/eli/ontology#",
+  "http://data.europa.eu/930",
+  "http://schema.org/ContactPoint"
 ]
