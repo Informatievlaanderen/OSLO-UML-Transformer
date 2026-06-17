@@ -388,7 +388,7 @@ export class JsonldValidationService implements IService {
             }
 
             this.logger.error(
-              `Found missing class or attribute (${value}): ${uri}`,
+              `Found missing class or attribute (${value}): ${uri} in Vocabulary`,
             );
             result.invalidEntries.push({
               uri,
@@ -418,7 +418,7 @@ export class JsonldValidationService implements IService {
             }
 
             this.logger.error(
-              `Found missing class or attribute (${value}): ${uri}`,
+              `Found missing class or attribute (${value}): ${uri} in Application Profile`,
             );
             result.invalidEntries.push({
               uri,
