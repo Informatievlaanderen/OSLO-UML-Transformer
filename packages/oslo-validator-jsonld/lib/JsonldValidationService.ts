@@ -379,6 +379,16 @@ export class JsonldValidationService implements IService {
               null,
             );
 
+            // Skip URIs which are not in the vocabulary, they are checked in the application profile
+            if (
+              assignedURI !== undefined &&
+              assignedURI.value.includes(
+                this.configuration.publicationEnvironment,
+              )
+            ) {
+              continue;
+            }
+
             // Skip XSD datatypes as they are never included in specifications
             if (
               assignedURI !== undefined &&
@@ -397,7 +407,8 @@ export class JsonldValidationService implements IService {
             continue;
           }
         } else if (
-          this.configuration.specificationType === SpecificationType.ApplicationProfile
+          this.configuration.specificationType ===
+          SpecificationType.ApplicationProfile
         ) {
           if (
             this.store.getApLabel(quad.subject, 'nl', null) === undefined &&
