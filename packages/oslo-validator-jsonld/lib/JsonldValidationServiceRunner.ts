@@ -13,6 +13,9 @@ export class JsonldValidationServiceRunner extends AppRunner<
       .option('input', {
         describe: 'Local path or URL to JSON-LD file to validate.',
       })
+      .option('publicationEnvironment', {
+        describe: 'The base URI of environment where the document will be published.',
+      })
       .option('specificationType', {
         describe: 'Type of the document.',
         choices: [
