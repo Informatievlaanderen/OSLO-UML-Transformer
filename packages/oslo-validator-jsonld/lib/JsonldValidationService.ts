@@ -382,7 +382,7 @@ export class JsonldValidationService implements IService {
             // Skip URIs which are not in the vocabulary, they are checked in the application profile
             if (
               assignedURI !== undefined &&
-              assignedURI.value.includes(
+              !assignedURI.object.value.includes(
                 this.configuration.publicationEnvironment,
               )
             ) {
