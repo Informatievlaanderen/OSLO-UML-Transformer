@@ -30,48 +30,58 @@ const Properties: Map<string, object> = new Map<string, object>([
   [ns.xsd('decimal').value, { '@value': { type: 'string', pattern: '(+|-)?([0-9]+(.[0-9]*)?|.[0-9]+)' }, '@type': { type: 'string', pattern: '^Decimal$' } }],
 ]);
 /* eslint-enable max-len*/
- 
+
 export const mapProperties = (
-    datatype: string,
-    label: string,
-    subclasses: string[],
-    abstract: boolean,
-  ): object => {
+  datatype: string,
+  label: string,
+  subclasses: string[],
+  abstract: boolean,
+  excludeClasses: string[],
+): object | undefined => {
   /* Primitive data type conversion from Linked Data to Swagger */
   if (Properties.has(datatype)) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return Properties.get(datatype)!;
   }
 
-  /* Multiple subclasses requires a discriminator to link both the superclass and subclasses as schemas */
-  if (subclasses.length > 0) {
-    const mapping: Record<string, string> = {};
-    const oneOf = [];
+  const oneOf = [];
 
-    /* Only allow super class if it is not abstract */
-    if (!abstract) {
-      mapping[label] = `#/components/schemas/${label}`;
-      oneOf.push({ $ref: `#/components/schemas/${label}` });
-    }
-
-    for (const subclass of subclasses) {
-      const ref = `#/components/schemas/${subclass}`;
-      oneOf.push({ $ref: ref });
-      mapping[subclass] = ref;
-    }
-
-    return {
-      oneOf,
-      discriminator: {
-        propertyName: '@type',
-        mapping,
-      },
-    };
+  // Add the superclass to the list if it's not abstract and not excluded
+  if (!abstract && !excludeClasses.includes(label)) {
+    oneOf.push({ $ref: `#/components/schemas/${label}` });
   }
 
-  /* Regular schemas without any subclassing */
+  // Add all subclasses that are not excluded
+  for (const subclass of subclasses) {
+    if (!excludeClasses.includes(subclass)) {
+      oneOf.push({ $ref: `#/components/schemas/${subclass}` });
+    }
+  }
+
+  // If no valid classes are left for this property, it should be omitted
+  if (oneOf.length === 0) {
+    return undefined;
+  }
+
+  // If only one class remains, we don't need a discriminator
+  if (oneOf.length === 1) {
+    return oneOf[0];
+  }
+
+  // If multiple classes remain, build the discriminator object
+  const mapping: Record<string, string> = {};
+  for (const item of oneOf) {
+    const refParts = item.$ref.split('/');
+    const className = refParts[refParts.length - 1];
+    mapping[className] = item.$ref;
+  }
+
   return {
-    $ref: `#/components/schemas/${label}`,
+    oneOf,
+    discriminator: {
+      propertyName: '@type',
+      mapping,
+    },
   };
 };
 

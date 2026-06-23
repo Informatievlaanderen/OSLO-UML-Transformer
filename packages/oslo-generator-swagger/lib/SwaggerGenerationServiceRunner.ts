@@ -38,6 +38,16 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
       .option('contactURL', { describe: 'API contact URL.' })
       .option('licenseName', { describe: 'API license name.' })
       .option('licenseURL', { describe: 'API license URL.' })
+      .option('excludeClasses', {
+        describe: 'A list of class names to exclude from the output.',
+        type: 'string',
+        array: true,
+      })
+      .option('excludeProperties', {
+        describe: 'A list of property names to exclude from the output.',
+        type: 'string',
+        array: true,
+      })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,

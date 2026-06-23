@@ -188,6 +188,11 @@ export class SwaggerGenerationService implements IService {
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
 
+      /* If a class is excluded via configuration, stop here */
+      if (this.configuration.excludeClasses.includes(label)) {
+        continue;
+      }
+
       /* Only keep links which are related to the class */
       for (const key of Object.keys(links)) {
         if (key.startsWith(`${label}.`)) filteredLinks[key] = links[key];
@@ -363,6 +368,11 @@ export class SwaggerGenerationService implements IService {
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
 
+      /* If a class is excluded via configuration, stop here */
+      if (this.configuration.excludeClasses.includes(label)) {
+        continue;
+      }
+
       attributes[label] = [];
       requiredAttributes[label] = [];
 
@@ -394,6 +404,16 @@ export class SwaggerGenerationService implements IService {
         }
         /* Attribute labels should be always camel cased */
         attributeLabel = toCamelCase(attributeLabel);
+
+        // Addition for the `excludeProperties` flag to remove any reference to an excluded property
+        const classNameWithPropertyName = `${label}.${attributeLabel}`;
+        if (
+          this.configuration.excludeProperties.includes(
+            classNameWithPropertyName,
+          )
+        ) {
+          continue;
+        }
 
         if (!attributeRangeId) {
           this.logger.error(`Unknown range for attribute ${attributeId.value}`);
@@ -461,7 +481,13 @@ export class SwaggerGenerationService implements IService {
           attributeDatatypeLabel,
           subclasses,
           attributeDatatypeAbstract,
+          this.configuration.excludeClasses,
         );
+
+        // If mapProperties returns nothing, the property pointed to an excluded class (this.configuration.excludeClasses)
+        if (!properties) {
+          continue;
+        }
         const requiredProperties = properties
           ? Object.keys(properties)
           : undefined;
@@ -577,6 +603,11 @@ export class SwaggerGenerationService implements IService {
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
 
+      /* If a class is excluded via configuration, stop here */
+      if (this.configuration.excludeClasses.includes(label)) {
+        continue;
+      }
+
       /* Find all attributes for object */
       for (const attributeId of attributeIds) {
         let attributeLabel = getApplicationProfileLabel(
@@ -592,6 +623,16 @@ export class SwaggerGenerationService implements IService {
         }
         /* Attribute labels should be always camel cased */
         attributeLabel = toCamelCase(attributeLabel);
+
+        // Addition for the `excludeProperties` flag to remove any reference to an excluded property
+        const classNameWithPropertyName = `${label}.${attributeLabel}`;
+        if (
+          this.configuration.excludeProperties.includes(
+            classNameWithPropertyName,
+          )
+        ) {
+          continue;
+        }
 
         if (!attributeRangeId) {
           this.logger.error(`Unknown range for attribute ${attributeId.value}`);
@@ -613,6 +654,13 @@ export class SwaggerGenerationService implements IService {
           continue;
         }
         attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
+
+        // Addition for the `excludeClasses` flag to remove any reference to an excluded class
+        if (
+          this.configuration.excludeClasses.includes(attributeDatatypeLabel)
+        ) {
+          continue;
+        }
 
         /* Create all possible links for endpoint */
         if (!isStandardDatatype(attributeDatatypeId)) {

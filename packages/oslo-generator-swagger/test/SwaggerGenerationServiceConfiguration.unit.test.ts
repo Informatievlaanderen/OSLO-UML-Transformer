@@ -164,4 +164,31 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     await config.createFromCli(params);
     expect(config.versionSwagger).toBe('3.0.4');
   });
+
+  it('should set _excludeClasses using the parameters received from the CLI', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    const testParams = { ...params, excludeClasses: ['Class1', 'Class2'] };
+    await config.createFromCli(testParams);
+
+    expect((<any>config)._excludeClasses).toEqual(['Class1', 'Class2']);
+  });
+
+  it('should return an empty array when "excludeClasses" is undefined', () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    expect(config.excludeClasses).toEqual([]);
+  });
+
+  it('should set _excludeProperties using the parameters received from the CLI', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    const testParams = { ...params, excludeProperties: ['prop1', 'prop2'] };
+    await config.createFromCli(testParams);
+
+    expect((<any>config)._excludeProperties).toEqual(['prop1', 'prop2']);
+  });
+
+  it('should return an empty array when "excludeProperties" is undefined', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    await config.createFromCli(params);
+    expect(config.excludeProperties).toEqual([]);
+  });
 });
