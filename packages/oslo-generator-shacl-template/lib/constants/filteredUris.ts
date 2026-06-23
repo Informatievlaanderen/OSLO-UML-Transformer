@@ -5,7 +5,7 @@ import type * as RDF from '@rdfjs/types';
  * URIs that should be filtered out from SHACL shape generation
  */
 
-export const FILTERED_URIS: RDF.NamedNode[] = [ns.rdfs('Literal')];
+export const FILTERED_URIS: RDF.NamedNode[] = [ns.rdfs('Literal'), ns.skos('Concept')];
 
 /**
  * Check if a URI should be filtered out from shape generation
