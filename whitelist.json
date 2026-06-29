@@ -50,5 +50,6 @@
   "https://www.fair-gnss.oma.be/gnss-dcat-ap/vocabulary/geo#",
   "https://www.geonames.org/ontology#",
   "http://data.europa.eu/eli/ontology#",
-  "http://data.europa.eu/930/"
+  "http://data.europa.eu/930/",
+  "http://data.europa.eu/r5r/"
 ]
