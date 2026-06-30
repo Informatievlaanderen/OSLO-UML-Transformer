@@ -115,7 +115,10 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
 
     if (shouldFilterUri(rangeAssignedURI)) {
       propertyTypePredicate = ns.shacl('nodeKind');
-      propertyTypeValue = ns.shacl('Literal');
+      propertyTypeValue =
+        ns.rdfs('Literal').value == rangeAssignedURI.value
+          ? ns.shacl('Literal')
+          : ns.shacl('BlankNodeOrIRI');
     } else {
       propertyTypePredicate = propertyType.equals(ns.owl('DatatypeProperty'))
         ? ns.shacl('datatype')
@@ -176,7 +179,7 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
         this.df.quad(
           shapeId,
           propertyTypePredicate,
-          rangeAssignedURI.equals(ns.rdfs('Literal'))
+          (rangeAssignedURI.equals(ns.rdfs('Literal')) || rangeAssignedURI.equals(ns.skos('Concept')))
             ? propertyTypeValue
             : rangeAssignedURI,
           baseQuadsGraph,
