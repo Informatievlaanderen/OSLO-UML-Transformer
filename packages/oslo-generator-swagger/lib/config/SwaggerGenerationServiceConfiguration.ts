@@ -73,6 +73,16 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
    */
   private _licenseURL: string | undefined;
 
+  /**
+   * An array of class names to be excluded from the generated output
+   */
+  private _excludeClasses: string[] | undefined;
+
+  /**
+   * An array of property names to be excluded from the generated output
+   */
+  private _excludeProperties: string[] | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -88,6 +98,8 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._contactEmail = <string>params.contactEmail;
     this._licenseName = <string>params.licenseName;
     this._licenseURL = <string>params.licenseURL;
+    this._excludeClasses = <string[]>params.excludeClasses;
+    this._excludeProperties = <string[]>params.excludeProperties;
   }
 
   public get input(): string {
@@ -144,7 +156,9 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get contextURL(): string {
     if (!this._contextURL) {
-      throw new Error(`Trying to access property "contextURL" before it was set.`);
+      throw new Error(
+        `Trying to access property "contextURL" before it was set.`,
+      );
     }
     return this._contextURL;
   }
@@ -174,5 +188,13 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get licenseURL(): string | undefined {
     return this._licenseURL;
+  }
+
+  public get excludeClasses(): string[] {
+    return this._excludeClasses || [];
+  }
+
+  public get excludeProperties(): string[] {
+    return this._excludeProperties || [];
   }
 }

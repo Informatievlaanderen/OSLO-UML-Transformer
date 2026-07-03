@@ -2,7 +2,7 @@
  * @group unit
  */
 import 'reflect-metadata';
-import { unlinkSync, readFileSync } from 'fs';
+import { rmSync, readFileSync } from 'fs';
 import { Readable } from 'stream';
 import { QuadStore, VoidLogger, OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
@@ -56,6 +56,11 @@ describe('SwaggerGenerationService', () => {
         licenseURL: 'http://example.com/license/',
         versionAPI: '1.0.0.',
         versionSwagger: '3.0.4',
+        excludeClasses: ['Domicilie'],
+        excludeProperties: [
+          'GeregistreerdeOrganisatie.voorkeursnaam',
+          'PubliekeOrganisatie.voorkeursnaam',
+        ],
       },
       store,
     );
@@ -72,6 +77,11 @@ describe('SwaggerGenerationService', () => {
     jest.clearAllMocks();
   });
 
+  // Cleanup of generated assets based on mock data.
+  afterAll(() => {
+    rmSync('output', { recursive: true, force: true });
+  });
+
   it('should initialize the quad store in the init function', async () => {
     jest.spyOn(store, 'addQuadsFromFile').mockReturnValue(Promise.resolve());
     await service.init();
@@ -83,8 +93,38 @@ describe('SwaggerGenerationService', () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
 
-    const swagger = JSON.parse(readFileSync('output/swagger/example.json').toString());
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    // Excluded class
+    expect(swagger.components.schemas.Domicilie).toBeUndefined();
+    expect(swagger.components.schemas.GeregistreerdPersoon).toBeDefined();
     expect(JSON.stringify(kvsOutput) === JSON.stringify(swagger));
-    unlinkSync('output/swagger/example.json');
+  });
+
+  it('should generate a valid Swagger API document in JSON and exclude the defined properties', async () => {
+    await service.store.addQuads(await parseJsonld(kvsInput));
+    await service.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    console.log(
+      swagger.components.schemas.GeregistreerdeOrganisatie.properties,
+    );
+
+    expect(
+      swagger.components.schemas.GeregistreerdeOrganisatie.properties
+        .voorkeursnaam,
+    ).toBeUndefined();
+    expect(
+      swagger.components.schemas.PubliekeOrganisatie.properties.voorkeursnaam,
+    ).toBeUndefined();
+    expect(
+      swagger.components.schemas.GeregistreerdeOrganisatie.properties
+        .contactinfo,
+    ).toBeDefined();
   });
 });
