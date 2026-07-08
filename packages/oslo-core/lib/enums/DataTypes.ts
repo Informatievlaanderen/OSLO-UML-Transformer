@@ -35,6 +35,7 @@ export const DataTypes: Map<string, string> = new Map<string, string>([
   ['unsignedshort', `${xsd}#unsignedLong`],
   ['unsignedshort', `${xsd}#unsignedShort`],
   ['unsignedbyte', `${xsd}#unsignedByte`],
+  ['language', `${xsd}#language`],
 ]);
 
 export const getDataType = (key: string): string | undefined =>
