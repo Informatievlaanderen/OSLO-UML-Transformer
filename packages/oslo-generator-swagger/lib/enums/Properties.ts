@@ -28,6 +28,7 @@ const Properties: Map<string, object> = new Map<string, object>([
   [ns.xsd('unsignedShort').value, { '@value': { type: 'number', format: 'int32', minimum: 0, maximum: 65_535 }, '@type': { type: 'string', pattern: '^UnsignedShort$' } }],
   [ns.xsd('unsignedByte').value, { '@value': { type: 'number', format: 'int32', minimum: 0, maximum: 255 }, '@type': { type: 'string', pattern: '^UnsignedByte$' } }],
   [ns.xsd('decimal').value, { '@value': { type: 'string', pattern: '(+|-)?([0-9]+(.[0-9]*)?|.[0-9]+)' }, '@type': { type: 'string', pattern: '^Decimal$' } }],
+  [ns.xsd('language').value, { '@value': { type: 'string', pattern: '^[a-z]{2,3}(-[A-Z]{2})?' }, '@type': { type: 'string', pattern: '^Language$' } }],
 ]);
 /* eslint-enable max-len*/
 
