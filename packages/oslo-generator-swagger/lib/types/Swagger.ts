@@ -100,3 +100,7 @@ export interface SwaggerLink {
   parameters: Record<string, string>;
   description: string;
 }
+
+export interface Schema {
+  [key: string]: any
+}
