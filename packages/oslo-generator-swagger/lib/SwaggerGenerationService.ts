@@ -16,6 +16,7 @@ import {
   toPascalCase,
   toCamelCase,
   DataTypes,
+  isEnumeration,
 } from '@oslo-flanders/core';
 import * as path from 'path';
 import { writeFile } from 'fs/promises';
@@ -26,6 +27,7 @@ import {
   SwaggerRoot,
   SwaggerInfoContact,
   SwaggerInfoLicense,
+  Schema,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
 
@@ -94,6 +96,16 @@ export class SwaggerGenerationService implements IService {
       name: this.configuration.licenseName,
       url: this.configuration.licenseURL,
     };
+  }
+
+  /* The schema already exists in the model. This would mean that there are identical labels, which isn't ideal
+  https://vlaamseoverheid.atlassian.net/browse/DATAST-2249?atlOrigin=eyJpIjoiMWYyZjVmOTFhMWExNDc4MmIwMGQxNjhkMjJmN2NhZGUiLCJwIjoiaiJ9
+  */
+  private schemaExists(schema: Schema, label: string): boolean {
+    if (schema[label]) {
+      this.logger.warn(`[SwaggerGenerationService]: Schema already exists for the label (${label}) and will be overwritten.`)
+    }
+    return !!schema[label];
   }
 
   public async init(): Promise<void> {
@@ -290,13 +302,9 @@ export class SwaggerGenerationService implements IService {
   }
 
   public createSchemas(): Object {
-    const schemas: { [key: string]: any } = {};
-
+    const schemas: Schema = {};
     /* Create schema for each enumeration */
-    for (const enumId of this.store.findSubjects(
-      ns.oslo('assignedURI'),
-      ns.skos('Concept'),
-    )) {
+    for (const enumId of this.store.getEnumerations()) {
       let label = getApplicationProfileLabel(
         enumId,
         this.store,
@@ -310,6 +318,8 @@ export class SwaggerGenerationService implements IService {
 
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
+
+      this.schemaExists(schemas, label)
 
       schemas[label] = {
         title: label,
@@ -329,7 +339,10 @@ export class SwaggerGenerationService implements IService {
     for (const classId of [
       ...this.store.findSubjects(ns.rdf('type'), ns.owl('Class')),
       ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
-    ]) {
+    ]
+      // Extra filter to exclude all the enumerations since these are mentioned twice in the intermedairy format under enums and classes
+      .filter((val) => !isEnumeration(this.store, val))
+    ) {
       const assignedUri = this.store.getAssignedUri(classId);
 
       /* Primitive datatypes may not be generated */
@@ -544,6 +557,7 @@ export class SwaggerGenerationService implements IService {
         };
       }
 
+      this.schemaExists(schemas, label)
       /* Create components for each schema */
       schemas[label] = {
         title: label,

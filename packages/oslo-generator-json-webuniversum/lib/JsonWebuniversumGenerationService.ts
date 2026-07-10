@@ -13,6 +13,7 @@ import {
   getMinCount,
   getMaxCount,
   SpecificationType,
+  isEnumeration,
 } from '@oslo-flanders/core';
 import { inject, injectable } from 'inversify';
 import { JsonWebuniversumGenerationServiceConfiguration } from './config/JsonWebuniversumGenerationServiceConfiguration';
@@ -594,14 +595,9 @@ export class JsonWebuniversumGenerationService implements IService {
     if (!this.configuration.ignoreSkosConcept) {
       return true;
     }
+    const isEnum: boolean = isEnumeration(this.store, element)
 
-    // Check if the element is in the enumerations list
-    const enumerations = this.store.getEnumerations();
-    const isEnumeration = enumerations.some((enumeration) =>
-      enumeration.equals(element),
-    );
-
-    if (isEnumeration) {
+    if (isEnum) {
       this.logger.info(`Ignoring SKOS Concept enumeration ${element.value}`);
       return false;
     }
