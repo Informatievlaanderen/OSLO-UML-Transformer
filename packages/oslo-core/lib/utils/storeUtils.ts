@@ -298,3 +298,12 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
 
   return true;
 }
+
+export function isEnumeration(store: QuadStore, element: RDF.Term
+): boolean {
+  // Check if the element is in the enumerations list
+  const enumerations = store.getEnumerations();
+  return enumerations.some((enumeration) =>
+    enumeration.equals(element),
+  );
+}
