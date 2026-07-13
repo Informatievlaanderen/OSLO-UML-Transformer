@@ -20,14 +20,17 @@ npm install -g @oslo-flanders/jsonld-validator
 
 ## API
 
-| Parameter     | Description                                                                             | Required           | Possible values  |
-| ------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------- |
-| `--input`     | The URL or local file path of an OSLO JSON-LD file                                      | :heavy_check_mark: |                  |
-| `--whitelist` | The URL or local file path to a whitelist json containing a set of allowed URI prefixes | :heavy_check_mark: | `whitelist.json` |
+| Parameter                  | Description                                                                             | Required           | Possible values                    |
+| -------------------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------------------------- |
+| `--input`                  | The URL or local file path of an OSLO JSON-LD file                                      | :heavy_check_mark: |                                    |
+| `--whitelist`              | The URL or local file path to a whitelist json containing a set of allowed URI prefixes | :heavy_check_mark: | `whitelist.json`                   |
+| `--publicationEnvironment` | The base URI of environment where the document will be published.                       | :heavy_check_mark: | `https://data.vlaanderen.be`       |
+| `--language`               | The language in which intermediary format is generated.                                 | :heavy_check_mark: | `nl`, `fr`, `en`, `es`             |
+| `--specificationType`      | The type of specification being validated.                                              | :heavy_check_mark: | `ApplicationProfile`, `Vocabulary` |
 
 ## Usage
 
 ```bash
-oslo-jsonld-validator --input report.jsonld --whitelist whitelist.json
-oslo-jsonld-validator --input report.jsonld --whitelist https://raw.githubusercontent.com/Informatievlaanderen/OSLO-UML-Transformer/refs/heads/configuration/whitelist.json
+oslo-jsonld-validator --input report.jsonld --whitelist whitelist.json --language nl --publicationEnvironment https://data.vlaanderen.be --specificationType Vocabulary
+oslo-jsonld-validator --input report.jsonld --whitelist https://raw.githubusercontent.com/Informatievlaanderen/OSLO-UML-Transformer/refs/heads/configuration/whitelist.json --language nl --publicationEnvironment https://data.vlaanderen.be --specificationType ApplicationProfile
 ```

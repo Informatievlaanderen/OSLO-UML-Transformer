@@ -402,7 +402,7 @@ export class JsonldValidationService implements IService {
         if (
           this.configuration.specificationType === SpecificationType.Vocabulary
         ) {
-          if (this.store.getVocLabel(quad.subject, 'nl', null) === undefined) {
+          if (this.store.getVocLabel(quad.subject, this.configuration.language, null) === undefined) {
             const assignedURI = this.store.findQuad(
               quad.subject,
               ns.oslo('assignedURI'),
@@ -441,8 +441,8 @@ export class JsonldValidationService implements IService {
           SpecificationType.ApplicationProfile
         ) {
           if (
-            this.store.getApLabel(quad.subject, 'nl', null) === undefined &&
-            this.store.getVocLabel(quad.subject, 'nl', null) === undefined
+            this.store.getApLabel(quad.subject, this.configuration.language, null) === undefined &&
+            this.store.getVocLabel(quad.subject, this.configuration.language, null) === undefined
           ) {
             const assignedURI = this.store.findQuad(
               quad.subject,

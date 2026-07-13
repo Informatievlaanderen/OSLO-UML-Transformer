@@ -32,6 +32,7 @@ describe('JsonldValidationService', () => {
     (<any>config)._input = 'input.jsonld';
     (<any>config)._whitelist = 'whitelist.json';
     (<any>config)._specificationType = 'ApplicationProfile';
+    (<any>config)._language = 'nl';
 
     store = new QuadStore();
 
