@@ -23,11 +23,17 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
    */
   private _specificationType: string | undefined;
 
+  /**
+   * The language in which intermediary format is generated
+   */
+  private _language: string | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._whitelist = <string>params.whitelist;
     this._specificationType = <string>params.specificationType;
+    this._language = <string>params.language
   }
 
   public get input(): string {
@@ -65,4 +71,14 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
     }
     return this._publicationEnvironment;
   }
+
+  public get language(): string {
+    if (!this._language) {
+      throw new Error(
+        `Trying to access property "language" before it was set.`,
+      );
+    }
+    return this._language;
+  }
 }
+
