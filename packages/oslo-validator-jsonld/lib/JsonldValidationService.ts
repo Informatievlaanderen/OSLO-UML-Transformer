@@ -12,6 +12,7 @@ import { inject, injectable } from 'inversify';
 import type * as RDF from '@rdfjs/types';
 import { JsonldValidationServiceConfiguration } from './config/JsonldValidationServiceConfiguration';
 import { ValidationResult } from './types/Validation';
+import { abbreviations } from './enums/abbreviations';
 
 @injectable()
 export class JsonldValidationService implements IService {
@@ -58,21 +59,21 @@ export class JsonldValidationService implements IService {
 
     if (resultSentences.isValid) {
       this.logger.info(
-        'Validation successful! All sentences seem to be valid, no spelling mistakes found.',
+        'Validation successful! All sentences seem to be valid, no spelling mistakes or abbreviations found.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes.`,
+        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes or abbreviations.`,
       );
     }
 
     if (resultLabels.isValid) {
       this.logger.info(
-        'Validation successful! All labels seem to be valid, no spelling mistakes found.',
+        'Validation successful! All labels seem to be valid, no spelling mistakes or abbreviations found.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes.`,
+        `Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes or abbreviations.`,
       );
     }
 
@@ -206,6 +207,20 @@ export class JsonldValidationService implements IService {
           continue;
         }
 
+        if (this.checkIsAbbreviation(value)) {
+          const abbrevs = this.findAbbreviations(value);
+          for (const abbr of abbrevs) {
+            this.logger.warn(
+              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}', replace with '${abbr.replacement}'`,
+            );
+          }
+          result.invalidEntries.push({
+            uri,
+            location: `[JsonLdValidationService]: Label contains abbreviation(s): ${abbrevs.map(a => `'${a.original}' -> '${a.replacement}'`).join(', ')} for value: ${value}`,
+          });
+          continue;
+        }
+
         if (this.checkHasTODO(value)) {
           this.logger.warn(
             `Found a TODO or FIXME in sentence: '${value}' for subject: ${uri}`,
@@ -269,6 +284,21 @@ export class JsonldValidationService implements IService {
           result.invalidEntries.push({
             uri,
             location: `Labels may not be empty strings: ${value}`,
+          });
+          continue;
+        }
+
+
+        if (this.checkIsAbbreviation(value)) {
+          const abbrevs = this.findAbbreviations(value);
+          for (const abbr of abbrevs) {
+            this.logger.warn(
+              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}', replace with '${abbr.replacement}'`,
+            );
+          }
+          result.invalidEntries.push({
+            uri,
+            location: `[JsonLdValidationService]: Label contains abbreviation(s): ${abbrevs.map(a => `'${a.original}' -> '${a.replacement}'`).join(', ')} for value: ${value}`,
           });
           continue;
         }
@@ -482,5 +512,33 @@ export class JsonldValidationService implements IService {
 
   private checkEndsWithHashOrDash(value: string): boolean {
     return value.endsWith('#') || value.endsWith('/');
+  }
+
+  private findAbbreviations(value: string): { original: string; replacement: string }[] {
+    const hits: { original: string; replacement: string }[] = [];
+    const seen = new Set<string>();
+
+    // Match both bare abbreviations (bv, etc) and dotted ones (i.h.k.v., e.g.)
+    const matcher = /\b([a-z]+(?:\.[a-z]+)*\.?)\b/gi;
+
+    let match: RegExpExecArray | null;
+    while ((match = matcher.exec(value)) !== null) {
+      const original = match[1];
+      const normalized = original.toLowerCase().replace(/\./g, '');
+
+      if (normalized in abbreviations && !seen.has(normalized)) {
+        seen.add(normalized);
+        hits.push({
+          original,
+          replacement: abbreviations[normalized as keyof typeof abbreviations],
+        });
+      }
+    }
+
+    return hits;
+  }
+
+  private checkIsAbbreviation(value: string): boolean {
+    return this.findAbbreviations(value).length > 0;
   }
 }
