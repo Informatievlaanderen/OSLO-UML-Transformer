@@ -49,51 +49,51 @@ export class JsonldValidationService implements IService {
 
     if (resultUris.isValid) {
       this.logger.info(
-        'Validation successful! All assigned URIs are whitelisted.',
+        '[JsonLdValidationService]: Validation successful! All assigned URIs are whitelisted.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultUris.invalidEntries.length} non-whitelisted assigned URIs`,
+        `[JsonLdValidationService]: Validation found ${resultUris.invalidEntries.length} non-whitelisted assigned URIs`,
       );
     }
 
     if (resultSentences.isValid) {
       this.logger.info(
-        'Validation successful! All sentences seem to be valid, no spelling mistakes or abbreviations found.',
+        '[JsonLdValidationService]: Validation successful! All sentences seem to be valid, no spelling mistakes or abbreviations found.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes or abbreviations.`,
+        `[JsonLdValidationService]: Validation found ${resultSentences.invalidEntries.length} sentences with spelling mistakes or abbreviations.`,
       );
     }
 
     if (resultLabels.isValid) {
       this.logger.info(
-        'Validation successful! All labels seem to be valid, no spelling mistakes or abbreviations found.',
+        '[JsonLdValidationService]: Validation successful! All labels seem to be valid, no spelling mistakes or abbreviations found.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes or abbreviations.`,
+        `[JsonLdValidationService]: Validation found ${resultLabels.invalidEntries.length} labels with spelling mistakes or abbreviations.`,
       );
     }
 
     if (resultBaseURIs.isValid) {
       this.logger.info(
-        'Validation successful! All base URIs seem to be valid.',
+        '[JsonLdValidationService]: Validation successful! All base URIs seem to be valid.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultLabels.invalidEntries.length} invalid base URIs.`,
+        `[JsonLdValidationService]: Validation found ${resultLabels.invalidEntries.length} invalid base URIs.`,
       );
     }
 
     if (resultMissingClasses.isValid) {
       this.logger.info(
-        'Validation successful! All referenced classes and attributes seem to be included.',
+        '[JsonLdValidationService]: Validation successful! All referenced classes and attributes seem to be included.',
       );
     } else {
       this.logger.info(
-        `Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes or attributes.`,
+        `[JsonLdValidationService]: Validation found ${resultMissingClasses.invalidEntries.length} missing referenced classes or attributes.`,
       );
     }
   }
@@ -107,23 +107,23 @@ export class JsonldValidationService implements IService {
 
       if (!Array.isArray(whitelistFromFile)) {
         throw new Error(
-          'Whitelist file must contain a JSON array of URI prefixes',
+          '[JsonLdValidationService]: Whitelist file must contain a JSON array of URI prefixes',
         );
       }
 
       if (!whitelistFromFile.length) {
         throw new Error(
-          'Whitelist is empty. Must contain at least one URI prefix',
+          '[JsonLdValidationService]: Whitelist is empty. Must contain at least one URI prefix',
         );
       }
 
       this.whitelist = whitelistFromFile;
       this.logger.info(
-        `Loaded ${this.whitelist.length} URI prefixes into whitelist`,
+        `[JsonLdValidationService]: Loaded ${this.whitelist.length} URI prefixes into whitelist`,
       );
     } catch (error) {
       console.log(error);
-      throw new Error(`Failed to load whitelist from ${filePath}`);
+      throw new Error(`[JsonLdValidationService]: Failed to load whitelist from ${filePath}`);
     }
   }
 
@@ -166,7 +166,7 @@ export class JsonldValidationService implements IService {
 
     if (!isWhitelisted) {
       this.logger.warn(
-        `Found non-whitelisted assigned URI: ${uri} for subject: ${quad.subject.value}`,
+        `[JsonLdValidationService]: Found non-whitelisted assigned URI: ${uri} for subject: ${quad.subject.value}`,
       );
       result.invalidEntries.push({
         uri,
@@ -199,7 +199,7 @@ export class JsonldValidationService implements IService {
         const value: string = quad.object.value;
 
         if (this.checkIsEmpty(value)) {
-          this.logger.warn(`Found empty sentence for subject: ${uri}`);
+          this.logger.warn(`[JsonLdValidationService]: Found empty sentence for subject: ${uri}`);
           result.invalidEntries.push({
             uri,
             location: `Sentences may not be empty strings: ${value}`,
@@ -223,7 +223,7 @@ export class JsonldValidationService implements IService {
 
         if (this.checkHasTODO(value)) {
           this.logger.warn(
-            `Found a TODO or FIXME in sentence: '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Found a TODO or FIXME in sentence: '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -234,7 +234,7 @@ export class JsonldValidationService implements IService {
 
         if (!this.checkStartsWithCapital(value)) {
           this.logger.warn(
-            `Found sentence without capital letter: '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Found sentence without capital letter: '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -245,7 +245,7 @@ export class JsonldValidationService implements IService {
 
         if (!this.checkEndsWithDot(value)) {
           this.logger.warn(
-            `Found sentence without a '.': '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Found sentence without a '.': '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -280,7 +280,7 @@ export class JsonldValidationService implements IService {
         const value: string = quad.object.value;
 
         if (this.checkIsEmpty(value)) {
-          this.logger.warn(`Found empty label for subject: ${uri}`);
+          this.logger.warn(`[JsonLdValidationService]: Found empty label for subject: ${uri}`);
           result.invalidEntries.push({
             uri,
             location: `Labels may not be empty strings: ${value}`,
@@ -305,7 +305,7 @@ export class JsonldValidationService implements IService {
 
         if (this.checkHasTODO(value)) {
           this.logger.warn(
-            `Found a TODO or FIXME in label: '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Found a TODO or FIXME in label: '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -316,7 +316,7 @@ export class JsonldValidationService implements IService {
 
         if (this.checkEndsWithDot(value)) {
           this.logger.warn(
-            `Labels must not end with a '.': '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Labels must not end with a '.': '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -327,7 +327,7 @@ export class JsonldValidationService implements IService {
 
         if (!this.checkIsAlphanumeric(value)) {
           this.logger.warn(
-            `Labels must only contain alphabetical characters: '${value}' for subject: ${uri}`,
+            `[JsonLdValidationService]: Labels must only contain alphabetical characters: '${value}' for subject: ${uri}`,
           );
           result.invalidEntries.push({
             uri,
@@ -358,7 +358,7 @@ export class JsonldValidationService implements IService {
         const value: string = quad.object.value;
 
         if (!this.checkEndsWithHashOrDash(value)) {
-          this.logger.warn(`Found base URI without a hash or dash: ${uri}`);
+          this.logger.warn(`[JsonLdValidationService]: Found base URI without a hash or dash: ${uri}`);
           result.invalidEntries.push({
             uri,
             location: `Base URIs must end with a hash or dash: ${value}`,
@@ -367,7 +367,7 @@ export class JsonldValidationService implements IService {
         }
 
         if (this.checkHasTODO(value)) {
-          this.logger.warn(`Found base URI with TODO or FIXME: ${uri}`);
+          this.logger.warn(`[JsonLdValidationService]: Found base URI with TODO or FIXME: ${uri}`);
           result.invalidEntries.push({
             uri,
             location: `Base URIs must not contain TODO or FIXME: ${value}`,
@@ -428,7 +428,7 @@ export class JsonldValidationService implements IService {
             }
 
             this.logger.error(
-              `Found missing class or attribute (${value}): ${uri} in Vocabulary`,
+              `[JsonLdValidationService]: Found missing class or attribute (${value}): ${uri} in Vocabulary`,
             );
             result.invalidEntries.push({
               uri,
@@ -459,7 +459,7 @@ export class JsonldValidationService implements IService {
             }
 
             this.logger.error(
-              `Found missing class or attribute (${value}): ${uri} in Application Profile`,
+              `[JsonLdValidationService]: Found missing class or attribute (${value}): ${uri} in Application Profile`,
             );
             result.invalidEntries.push({
               uri,
@@ -469,7 +469,7 @@ export class JsonldValidationService implements IService {
           }
         } else {
           throw new Error(
-            `Unknown specification type: ${this.configuration.specificationType}`,
+            `[JsonLdValidationService]: Unknown specification type: ${this.configuration.specificationType}`,
           );
         }
       }
