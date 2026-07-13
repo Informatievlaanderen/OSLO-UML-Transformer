@@ -60,7 +60,7 @@ describe('JsonldValidationService', () => {
       await service.run();
 
       expect(logger.info).toHaveBeenCalledWith(
-        'Validation successful! All assigned URIs are whitelisted.',
+        '[JsonLdValidationService]: Validation successful! All assigned URIs are whitelisted.',
       );
     });
 
@@ -88,10 +88,10 @@ describe('JsonldValidationService', () => {
       await service.run();
 
       expect(logger.info).toHaveBeenCalledWith(
-        'Validation found 1 non-whitelisted assigned URIs',
+        '[JsonLdValidationService]: Validation found 1 non-whitelisted assigned URIs',
       );
       expect(logger.warn).toHaveBeenCalledWith(
-        'Found non-whitelisted assigned URI: http://invalid-domain.org/invalid for subject: http://subject2',
+        '[JsonLdValidationService]: Found non-whitelisted assigned URI: http://invalid-domain.org/invalid for subject: http://subject2',
       );
     });
 
@@ -122,10 +122,10 @@ describe('JsonldValidationService', () => {
 
       // Only the NamedNode should be validated and reported as invalid
       expect(logger.info).toHaveBeenCalledWith(
-        'Validation found 1 non-whitelisted assigned URIs',
+        '[JsonLdValidationService]: Validation found 1 non-whitelisted assigned URIs',
       );
       expect(logger.warn).toHaveBeenCalledWith(
-        'Found non-whitelisted assigned URI: http://invalid-domain.org/invalid for subject: http://subject1',
+        '[JsonLdValidationService]: Found non-whitelisted assigned URI: http://invalid-domain.org/invalid for subject: http://subject1',
       );
     });
   });
@@ -494,6 +494,80 @@ describe('JsonldValidationService', () => {
       expect(result.invalidEntries).toHaveLength(2);
       expect(result.invalidEntries[0].uri).toBe('http://subject/apLabel');
       expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
+    });
+
+    it('should detect abbreviations in labels (bare and dotted variants)', () => {
+      const nonMatchingQuads = [
+        // Bare abbreviation
+        df.quad(
+          df.namedNode('http://subject/bv'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('bv'),
+        ),
+        // Dotted abbreviation (i.h.k.v.)
+        df.quad(
+          df.namedNode('http://subject/ihkv'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('i.h.k.v.'),
+        ),
+        // Dotted abbreviation without trailing dot (m.b.v)
+        df.quad(
+          df.namedNode('http://subject/mbv'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('m.b.v'),
+        ),
+        // Abbreviation with trailing dot (etc.)
+        df.quad(
+          df.namedNode('http://subject/etc'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('etc.'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateLabels();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(4);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/bv');
+      expect(result.invalidEntries[1].uri).toBe('http://subject/ihkv');
+      expect(result.invalidEntries[2].uri).toBe('http://subject/mbv');
+      expect(result.invalidEntries[3].uri).toBe('http://subject/etc');
+    });
+
+    it('should not flag labels without abbreviations', () => {
+      const matchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/ok1'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('Gebouw'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/ok2'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('Straatnaam'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(matchingQuads);
+
+      const result = (<any>service).validateLabels();
+      // These should pass the abbreviation check (only invalid entries come from other checks)
+      const abbrevEntries = result.invalidEntries.filter((e: any) =>
+        e.location.includes('abbreviation'),
+      );
+      expect(abbrevEntries).toHaveLength(0);
     });
   });
 
