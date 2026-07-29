@@ -211,7 +211,7 @@ export class JsonldValidationService implements IService {
           const abbrevs = this.findAbbreviations(value);
           for (const abbr of abbrevs) {
             this.logger.warn(
-              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}', replace with '${abbr.replacement}'`,
+              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}' for subject: ${uri}, replace with '${abbr.replacement}'`,
             );
           }
           result.invalidEntries.push({
@@ -293,7 +293,7 @@ export class JsonldValidationService implements IService {
           const abbrevs = this.findAbbreviations(value);
           for (const abbr of abbrevs) {
             this.logger.warn(
-              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}', replace with '${abbr.replacement}'`,
+              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}' for subject: ${uri}, replace with '${abbr.replacement}'`,
             );
           }
           result.invalidEntries.push({
