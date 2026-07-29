@@ -195,6 +195,11 @@ export class JsonldValidationService implements IService {
 
     for (const quad of quads) {
       if (quad.object.termType === 'Literal') {
+        // Only validate sentences that match the configured language
+        if (this.configuration.language && (<RDF.Literal>quad.object).language && (<RDF.Literal>quad.object).language !== this.configuration.language) {
+          continue;
+        }
+
         const uri: string = quad.subject.value;
         const value: string = quad.object.value;
 
@@ -207,16 +212,17 @@ export class JsonldValidationService implements IService {
           continue;
         }
 
+
         if (this.checkIsAbbreviation(value)) {
           const abbrevs = this.findAbbreviations(value);
           for (const abbr of abbrevs) {
             this.logger.warn(
-              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in label '${value}' for subject: ${uri}, replace with '${abbr.replacement}'`,
+              `[JsonLdValidationService]: Found abbreviation '${abbr.original}' in sentence '${value}' for subject: ${uri}, replace with '${abbr.replacement}'`,
             );
           }
           result.invalidEntries.push({
             uri,
-            location: `[JsonLdValidationService]: Label contains abbreviation(s): ${abbrevs.map(a => `'${a.original}' -> '${a.replacement}'`).join(', ')} for value: ${value}`,
+            location: `[JsonLdValidationService]: Sentence contains abbreviation(s): ${abbrevs.map(a => `'${a.original}' -> '${a.replacement}'`).join(', ')} for value: ${value}`,
           });
           continue;
         }
@@ -276,6 +282,11 @@ export class JsonldValidationService implements IService {
 
     for (const quad of quads) {
       if (quad.object.termType === 'Literal') {
+        // Only validate labels that match the configured language
+        if (this.configuration.language && (<RDF.Literal>quad.object).language && (<RDF.Literal>quad.object).language !== this.configuration.language) {
+          continue;
+        }
+
         const uri: string = quad.subject.value;
         const value: string = quad.object.value;
 
