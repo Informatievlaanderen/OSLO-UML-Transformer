@@ -4917,10 +4917,17 @@ export const kvsOutput = {
             "properties": {
               "@value": {
                 "type": "string"
+              },
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "String"
+                ]
               }
             },
             "required": [
-              "@value"
+              "@value",
+              "@type"
             ]
           },
           "GeregistreerdPersoon.voornaam": {
@@ -4932,10 +4939,17 @@ export const kvsOutput = {
               "properties": {
                 "@value": {
                   "type": "string"
+                },
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "String"
+                  ]
                 }
               },
               "required": [
-                "@value"
+                "@value",
+                "@type"
               ]
             },
             "minItems": 0
@@ -5138,10 +5152,17 @@ export const kvsOutput = {
             "properties": {
               "@value": {
                 "type": "string"
+              },
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "String"
+                ]
               }
             },
             "required": [
-              "@value"
+              "@value",
+              "@type"
             ]
           },
           "Persoon.voornaam": {
@@ -5153,10 +5174,17 @@ export const kvsOutput = {
               "properties": {
                 "@value": {
                   "type": "string"
+                },
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "String"
+                  ]
                 }
               },
               "required": [
-                "@value"
+                "@value",
+                "@type"
               ]
             },
             "minItems": 0
