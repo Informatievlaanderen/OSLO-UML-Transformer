@@ -85,9 +85,9 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
   private _excludeProperties: string[] | undefined;
 
   /**
-   * Output format
+   * Output formats
    */
-  private _outputFormat: OutputFormat | undefined;
+  private _outputFormat: OutputFormat[] | undefined;
 
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
@@ -106,7 +106,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._licenseURL = <string>params.licenseURL;
     this._excludeClasses = <string[]>params.excludeClasses;
     this._excludeProperties = <string[]>params.excludeProperties;
-    this._outputFormat = <OutputFormat>params.outputFormat;
+    this._outputFormat = <OutputFormat[]>params.outputFormat;
   }
 
   public get input(): string {
@@ -205,7 +205,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     return this._excludeProperties || [];
   }
 
-  public get outputFormat(): OutputFormat {
-    return this._outputFormat || OutputFormat.Json;
+  public get outputFormat(): OutputFormat[] {
+    return this._outputFormat || [OutputFormat.Json];
   }
 }

@@ -119,23 +119,9 @@ export class SwaggerGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    const ext = FILE_EXTENSIONS[this.configuration.outputFormat] ?? '.json';
-
-    /* Create Swagger schemas */
+    /* Create schemas and links once, then write for each output format */
     const schemas: any = this.createSchemas();
-    for (const label of Object.keys(schemas))
-      await this.writeOutput(
-        schemas[label],
-        `swagger/components/schemas/${label}${ext}`,
-      );
-
-    /* Create Swagger links */
     const links: any = this.createLinks();
-    for (const label of Object.keys(links))
-      await this.writeOutput(
-        links[label],
-        `swagger/components/links/${label}${ext}`,
-      );
 
     /* Create self-standing referenceable components */
     const components: any = {
@@ -149,11 +135,30 @@ export class SwaggerGenerationService implements IService {
       },
       components: { schemas, links },
     };
-    await this.writeOutput(components, `swagger/components${ext}`);
 
     /* Create Swagger endpoint paths as example */
     const swagger = this.createSwagger(schemas, links);
-    await this.writeOutput(swagger, `swagger/example${ext}`);
+
+    for (const format of this.configuration.outputFormat) {
+      const ext = FILE_EXTENSIONS[format] ?? '.json';
+
+      for (const label of Object.keys(schemas))
+        await this.writeOutput(
+          format,
+          schemas[label],
+          `swagger/components/schemas/${label}${ext}`,
+        );
+
+      for (const label of Object.keys(links))
+        await this.writeOutput(
+          format,
+          links[label],
+          `swagger/components/links/${label}${ext}`,
+        );
+
+      await this.writeOutput(format, components, `swagger/components${ext}`);
+      await this.writeOutput(format, swagger, `swagger/example${ext}`);
+    }
   }
 
   public createSwagger(schemas: any, links: any): Object {
@@ -701,8 +706,12 @@ export class SwaggerGenerationService implements IService {
     return links;
   }
 
-  public async writeOutput(obj: Object, outputPath: string) {
-    const isYaml = this.configuration.outputFormat === OutputFormat.Yaml;
+  public async writeOutput(
+    outputFormat: OutputFormat,
+    obj: Object,
+    outputPath: string,
+  ) {
+    const isYaml = outputFormat === OutputFormat.Yaml;
     const data = isYaml
       ? yaml.dump(JSON.parse(JSON.stringify(obj)), { noRefs: true, lineWidth: -1 })
       : JSON.stringify(obj, null, 2);

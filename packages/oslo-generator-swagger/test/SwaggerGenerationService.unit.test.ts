@@ -57,6 +57,7 @@ describe('SwaggerGenerationService', () => {
         licenseURL: 'http://example.com/license/',
         versionAPI: '1.0.0.',
         versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
         excludeClasses: ['Domicilie'],
         excludeProperties: [
           'GeregistreerdeOrganisatie.voorkeursnaam',
@@ -147,7 +148,7 @@ describe('SwaggerGenerationService', () => {
         licenseURL: 'http://example.com/license/',
         versionAPI: '1.0.0.',
         versionSwagger: '3.0.4',
-        outputFormat: OutputFormat.Yaml,
+        outputFormat: [OutputFormat.Yaml],
         excludeClasses: [],
         excludeProperties: [],
       },
@@ -171,5 +172,55 @@ describe('SwaggerGenerationService', () => {
 
     // Cleanup
     rmSync('output-yaml', { recursive: true, force: true });
+  });
+
+  it('should generate both JSON and YAML output when both formats are specified', async () => {
+    const multiService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-both',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json, OutputFormat.Yaml],
+        excludeClasses: [],
+        excludeProperties: [],
+      },
+      store,
+    );
+
+    await multiService.store.addQuads(await parseJsonld(kvsInput));
+    await multiService.run();
+
+    // Verify both JSON and YAML files exist
+    expect(existsSync('output-both/swagger/example.json')).toBe(true);
+    expect(existsSync('output-both/swagger/components.json')).toBe(true);
+    expect(existsSync('output-both/swagger/example.yaml')).toBe(true);
+    expect(existsSync('output-both/swagger/components.yaml')).toBe(true);
+
+    // Verify JSON content
+    const jsonContent = readFileSync('output-both/swagger/example.json').toString();
+    const jsonSwagger = JSON.parse(jsonContent);
+    expect(jsonSwagger.openapi).toBe('3.0.4');
+    expect(jsonSwagger.info.title).toBe('My Title');
+
+    // Verify YAML content
+    const yamlContent = readFileSync('output-both/swagger/example.yaml').toString();
+    const yamlSwagger = yaml.load(yamlContent) as any;
+    expect(yamlSwagger.openapi).toBe('3.0.4');
+    expect(yamlSwagger.info.title).toBe('My Title');
+
+    // Cleanup
+    rmSync('output-both', { recursive: true, force: true });
   });
 });

@@ -54,9 +54,10 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         boolean: true,
       })
       .option('outputFormat', {
-        describe: 'Output format for the generated files.',
-        choices: [OutputFormat.Json, OutputFormat.Yaml] as const,
-        default: OutputFormat.Json,
+        describe: 'Output format for the generated files. Can be specified multiple times.',
+        type: 'string',
+        array: true,
+        default: [OutputFormat.Json] as const,
       })
       .demandOption([
         'input',

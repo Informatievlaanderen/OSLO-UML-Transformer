@@ -192,16 +192,23 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     expect(config.excludeProperties).toEqual([]);
   });
 
-  it('should default outputFormat to application/json when not provided', async () => {
+  it('should default outputFormat to [application/json] when not provided', async () => {
     const config = new SwaggerGenerationServiceConfiguration();
     await config.createFromCli(params);
-    expect(config.outputFormat).toBe('application/json');
+    expect(config.outputFormat).toEqual(['application/json']);
   });
 
-  it('should set outputFormat to application/yaml when provided', async () => {
+  it('should set outputFormat to [application/yaml] when provided', async () => {
     const config = new SwaggerGenerationServiceConfiguration();
-    const testParams = { ...params, outputFormat: 'application/yaml' };
+    const testParams = { ...params, outputFormat: ['application/yaml'] };
     await config.createFromCli(testParams);
-    expect(config.outputFormat).toBe('application/yaml');
+    expect(config.outputFormat).toEqual(['application/yaml']);
+  });
+
+  it('should support multiple output formats simultaneously', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    const testParams = { ...params, outputFormat: ['application/json', 'application/yaml'] };
+    await config.createFromCli(testParams);
+    expect(config.outputFormat).toEqual(['application/json', 'application/yaml']);
   });
 });
