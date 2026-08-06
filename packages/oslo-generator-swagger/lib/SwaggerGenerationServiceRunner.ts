@@ -1,5 +1,5 @@
 import type { CliArgv } from '@oslo-flanders/core';
-import { AppRunner } from '@oslo-flanders/core';
+import { AppRunner, OutputFormat } from '@oslo-flanders/core';
 
 import type { SwaggerGenerationService } from '../lib/SwaggerGenerationService';
 import { container } from './config/DependencyInjectionConfig';
@@ -52,6 +52,11 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         describe: 'All logs are suppressed',
         default: false,
         boolean: true,
+      })
+      .option('outputFormat', {
+        describe: 'Output format for the generated files.',
+        choices: [OutputFormat.Json, OutputFormat.Yaml] as const,
+        default: OutputFormat.Json,
       })
       .demandOption([
         'input',

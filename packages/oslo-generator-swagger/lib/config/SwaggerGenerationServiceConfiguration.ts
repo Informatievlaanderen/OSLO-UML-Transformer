@@ -1,4 +1,5 @@
 import type { IConfiguration, YargsParams } from '@oslo-flanders/core';
+import { OutputFormat } from '@oslo-flanders/core';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -83,6 +84,11 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
    */
   private _excludeProperties: string[] | undefined;
 
+  /**
+   * Output format
+   */
+  private _outputFormat: OutputFormat | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -100,6 +106,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._licenseURL = <string>params.licenseURL;
     this._excludeClasses = <string[]>params.excludeClasses;
     this._excludeProperties = <string[]>params.excludeProperties;
+    this._outputFormat = <OutputFormat>params.outputFormat;
   }
 
   public get input(): string {
@@ -196,5 +203,9 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get excludeProperties(): string[] {
     return this._excludeProperties || [];
+  }
+
+  public get outputFormat(): OutputFormat {
+    return this._outputFormat || OutputFormat.Json;
   }
 }

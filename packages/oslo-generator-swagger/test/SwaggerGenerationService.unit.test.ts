@@ -2,12 +2,13 @@
  * @group unit
  */
 import 'reflect-metadata';
-import { rmSync, readFileSync } from 'fs';
+import { rmSync, readFileSync, existsSync } from 'fs';
 import { Readable } from 'stream';
 import { QuadStore, VoidLogger, OutputFormat } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
 import { DataFactory } from 'rdf-data-factory';
 import { rdfParser } from 'rdf-parse';
+import * as yaml from 'js-yaml';
 import { SwaggerGenerationService } from '../lib/SwaggerGenerationService';
 import { kvsInput, kvsOutput } from './data/mockData';
 
@@ -126,5 +127,49 @@ describe('SwaggerGenerationService', () => {
       swagger.components.schemas.GeregistreerdeOrganisatie.properties
         .contactinfo,
     ).toBeDefined();
+  });
+
+  it('should generate a valid Swagger API document in YAML when outputFormat is application/yaml', async () => {
+    const yamlService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-yaml',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: OutputFormat.Yaml,
+        excludeClasses: [],
+        excludeProperties: [],
+      },
+      store,
+    );
+
+    await yamlService.store.addQuads(await parseJsonld(kvsInput));
+    await yamlService.run();
+
+    // Verify YAML files exist instead of JSON
+    expect(existsSync('output-yaml/swagger/example.yaml')).toBe(true);
+    expect(existsSync('output-yaml/swagger/components.yaml')).toBe(true);
+
+    // Verify the YAML is valid and matches expected structure
+    const yamlContent = readFileSync('output-yaml/swagger/example.yaml').toString();
+    const swagger = yaml.load(yamlContent) as any;
+
+    expect(swagger.openapi).toBe('3.0.4');
+    expect(swagger.info.title).toBe('My Title');
+    expect(swagger.components.schemas.GeregistreerdPersoon).toBeDefined();
+
+    // Cleanup
+    rmSync('output-yaml', { recursive: true, force: true });
   });
 });

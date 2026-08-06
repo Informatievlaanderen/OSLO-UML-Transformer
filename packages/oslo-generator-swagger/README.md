@@ -37,6 +37,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--licenseURL` | URL of the license of the API | No | |
 | `--excludeClasses` | Classes to exclude from the generated Swagger | No | Persoon Organisatie Test |
 | `--excludeProperties` | Properties to exclude from the generated Swagger | No | voornaam achternaam |
+| `--outputFormat` | Output format for the generated files | No | `application/json` (default) or `application/yaml` |
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
 
 ## Usage
@@ -46,4 +47,5 @@ oslo-generator-swagger --input report.jsonld --output swagger.json --language nl
 oslo-generator-swagger --input report.jsonld --output swagger.json --language nl --versionSwagger 3.0.4 --versionAPI 1.0.0 --title "Mijn API" --description "Mijn API beschrijving." --contextURL http://example.com/context.jsonld --baseURL http://example.com --excludeClasses Persoon Organisatie
 oslo-generator-swagger --input report.jsonld --output swagger.json --language nl --versionSwagger 3.0.4 --versionAPI 1.0.0 --title "Mijn API" --description "Mijn API beschrijving." --contextURL http://example.com/context.jsonld --baseURL http://example.com --excludeClasses Persoon --excludeProperties Persoon.voornaam
 oslo-generator-swagger --input report.jsonld --output swagger.json --language nl --versionSwagger 3.0.4 --versionAPI 1.0.0 --title "Mijn API" --description "Mijn API beschrijving." --contextURL http://example.com/context.jsonld --baseURL http://example.com --excludeClasses GeregistreerdPersoon --excludeProperties Persoon.voornaam Persoon.achternaam
+oslo-generator-swagger --input report.jsonld --output swagger.yaml --language nl --versionSwagger 3.0.4 --versionAPI 1.0.0 --title "Mijn API" --description "Mijn API beschrijving." --contextURL http://example.com/context.jsonld --baseURL http://example.com --outputFormat application/yaml
 ```
