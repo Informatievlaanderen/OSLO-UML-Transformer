@@ -100,7 +100,17 @@ describe('SwaggerGenerationService', () => {
     // Excluded class
     expect(swagger.components.schemas.Domicilie).toBeUndefined();
     expect(swagger.components.schemas.GeregistreerdPersoon).toBeDefined();
-    expect(JSON.stringify(kvsOutput) === JSON.stringify(swagger));
+
+    // A primitive property should be $ref to a separate dot-notation schema
+    const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
+    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+
+    // The separate primitive schema should exist with the right structure
+    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    expect(achternaamSchema).toBeDefined();
+    expect(achternaamSchema.type).toBe('object');
+    expect(achternaamSchema.properties['@value']).toBeDefined();
+    expect(achternaamSchema.required).toContain('@value');
   });
 
   it('should generate a valid Swagger API document in JSON and exclude the defined properties', async () => {
