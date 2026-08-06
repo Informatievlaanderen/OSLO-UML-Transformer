@@ -9,8 +9,3 @@ export enum OutputFormat {
   ntriples = 'application/n-triples',
   unsupported = 'unsupported/format',
 }
-
-export const FILE_EXTENSIONS: Record<string, string> = {
-  [OutputFormat.Json]: '.json',
-  [OutputFormat.Yaml]: '.yaml',
-};
