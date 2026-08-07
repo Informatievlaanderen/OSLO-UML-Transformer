@@ -30,6 +30,8 @@ npm install -g @oslo-flanders/shacl-template-generator
 | `--addConstraintMessages` | Add additional messages in the configured language to the SHACL shapes | No, default `false` ||
 | `--addRuleNumbers` | Add extra entry for rule numbers, allowing editors to add a rule numbers across multiple specs | No, default `false` ||
 | `--addShapesContainer` | Creates a container shape that links to all generated shapes using rdfs:member properties. Useful for tools that need to discover all shapes in a document. | no, default `true` ||
+| `--excludeClasses` | A list of class names to exclude from the generated SHACL template | No | Persoon Organisatie |
+| `--excludeProperties` | A list of property names to exclude from the generated SHACL template | No | Persoon.voornaam Persoon.achternaam |
 ## Usage
 
 ```bash
@@ -42,5 +44,7 @@ oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI
 oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addCodelistRules true
 oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addConstraintMessages true
 oslo-shacl-template-generator --input report.jsonld --language nl --shapeBaseURI https://data.vlaanderen.be --addRuleNumbers true
+oslo-shacl-template-generator --input report.jsonld --language nl --excludeClasses Persoon Organisatie
+oslo-shacl-template-generator --input report.jsonld --language nl --excludeProperties Persoon.voornaam Persoon.achternaam
 ```
 
