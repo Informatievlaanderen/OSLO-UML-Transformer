@@ -189,4 +189,90 @@ describe('ShaclTemplateGenerationService', () => {
       ),
     );
   });
+
+  it('should exclude classes when excludeClasses is set', async () => {
+    const mockClassHandler: IHandler = {
+      setNext: jest.fn(),
+      handle: jest.fn(),
+    };
+
+    const mockPropertyHandler: IHandler = {
+      setNext: jest.fn(),
+      handle: jest.fn(),
+    };
+
+    const mockClassPipeline = {
+      handlers: [mockClassHandler],
+      handle: jest.fn(),
+      loadSubjectIdToShapeIdMaps: jest.fn(),
+    };
+
+    const mockPropertyPipeline = {
+      handlers: [mockPropertyHandler],
+      handle: jest.fn(),
+      loadSubjectIdToShapeIdMaps: jest.fn(),
+    };
+
+    store.addQuads(await parseJsonld(baseData));
+
+    (<any>pipelineService)._classPipeline = mockClassPipeline;
+    (<any>pipelineService)._propertyPipeline = mockPropertyPipeline;
+
+    // Set excludeClasses to exclude the only class
+    (<any>config)._excludeClasses = ['ClassLabel'];
+    (<any>config)._excludeProperties = [];
+
+    const classHandleSpy = jest.spyOn(mockClassPipeline, 'handle');
+    const propertyHandleSpy = jest.spyOn(mockPropertyPipeline, 'handle');
+
+    await service.run();
+
+    // The class pipeline should NOT be called because the class is excluded
+    expect(classHandleSpy).not.toHaveBeenCalled();
+    // The property pipeline should also NOT be called because the domain class is excluded
+    expect(propertyHandleSpy).not.toHaveBeenCalled();
+  });
+
+  it('should exclude properties when excludeProperties is set', async () => {
+    const mockClassHandler: IHandler = {
+      setNext: jest.fn(),
+      handle: jest.fn(),
+    };
+
+    const mockPropertyHandler: IHandler = {
+      setNext: jest.fn(),
+      handle: jest.fn(),
+    };
+
+    const mockClassPipeline = {
+      handlers: [mockClassHandler],
+      handle: jest.fn(),
+      loadSubjectIdToShapeIdMaps: jest.fn(),
+    };
+
+    const mockPropertyPipeline = {
+      handlers: [mockPropertyHandler],
+      handle: jest.fn(),
+      loadSubjectIdToShapeIdMaps: jest.fn(),
+    };
+
+    store.addQuads(await parseJsonld(baseData));
+
+    (<any>pipelineService)._classPipeline = mockClassPipeline;
+    (<any>pipelineService)._propertyPipeline = mockPropertyPipeline;
+
+    // Set excludeProperties to exclude the only property
+    (<any>config)._excludeClasses = [];
+    (<any>config)._excludeProperties = ['ClassLabel.propertyLabel'];
+
+    const classHandleSpy = jest.spyOn(mockClassPipeline, 'handle');
+    const propertyHandleSpy = jest.spyOn(mockPropertyPipeline, 'handle');
+
+    await service.run();
+
+    // The class pipeline should still be called
+    expect(classHandleSpy).toHaveBeenCalled();
+    // The property pipeline should NOT be called because the property is excluded
+    expect(propertyHandleSpy).not.toHaveBeenCalled();
+  });
 });
