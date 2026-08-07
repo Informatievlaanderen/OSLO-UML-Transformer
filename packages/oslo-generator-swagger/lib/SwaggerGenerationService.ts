@@ -20,6 +20,7 @@ import {
 } from '@oslo-flanders/core';
 import * as path from 'path';
 import { writeFile } from 'fs/promises';
+import * as yaml from 'js-yaml';
 import type * as RDF from '@rdfjs/types';
 import { inject, injectable } from 'inversify';
 import { SwaggerGenerationServiceConfiguration } from './config/SwaggerGenerationServiceConfiguration';
@@ -30,6 +31,11 @@ import {
   Schema,
 } from './types/Swagger';
 import { mapProperties } from './enums/Properties';
+
+const FILE_EXTENSIONS: Record<string, string> = {
+  [OutputFormat.Json]: '.json',
+  [OutputFormat.Yaml]: '.yaml',
+};
 
 @injectable()
 export class SwaggerGenerationService implements IService {
@@ -113,21 +119,9 @@ export class SwaggerGenerationService implements IService {
   }
 
   public async run(): Promise<void> {
-    /* Create Swagger schemas */
+    /* Create schemas and links once, then write for each output format */
     const schemas: any = this.createSchemas();
-    for (const label of Object.keys(schemas))
-      await this.writeJSON(
-        schemas[label],
-        `swagger/components/schemas/${label}.json`,
-      );
-
-    /* Create Swagger links */
     const links: any = this.createLinks();
-    for (const label of Object.keys(links))
-      await this.writeJSON(
-        links[label],
-        `swagger/components/links/${label}.json`,
-      );
 
     /* Create self-standing referenceable components */
     const components: any = {
@@ -141,11 +135,30 @@ export class SwaggerGenerationService implements IService {
       },
       components: { schemas, links },
     };
-    await this.writeJSON(components, `swagger/components.json`);
 
     /* Create Swagger endpoint paths as example */
     const swagger = this.createSwagger(schemas, links);
-    await this.writeJSON(swagger, 'swagger/example.json');
+
+    for (const format of this.configuration.outputFormat) {
+      const ext = FILE_EXTENSIONS[format] ?? '.json';
+
+      for (const label of Object.keys(schemas))
+        await this.writeOutput(
+          format,
+          schemas[label],
+          `swagger/components/schemas/${label}${ext}`,
+        );
+
+      for (const label of Object.keys(links))
+        await this.writeOutput(
+          format,
+          links[label],
+          `swagger/components/links/${label}${ext}`,
+        );
+
+      await this.writeOutput(format, components, `swagger/components${ext}`);
+      await this.writeOutput(format, swagger, `swagger/example${ext}`);
+    }
   }
 
   public createSwagger(schemas: any, links: any): Object {
@@ -693,8 +706,15 @@ export class SwaggerGenerationService implements IService {
     return links;
   }
 
-  public async writeJSON(json: Object, outputPath: string) {
-    const data = JSON.stringify(json, null, 2);
+  public async writeOutput(
+    outputFormat: OutputFormat,
+    obj: Object,
+    outputPath: string,
+  ) {
+    const isYaml = outputFormat === OutputFormat.Yaml;
+    const data = isYaml
+      ? yaml.dump(JSON.parse(JSON.stringify(obj)), { noRefs: true, lineWidth: -1 })
+      : JSON.stringify(obj, null, 2);
     const filePath = path.join(this.configuration.output, outputPath);
 
     ensureOutputDirectory(path.dirname(filePath));
