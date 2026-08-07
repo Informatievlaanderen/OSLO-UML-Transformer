@@ -76,6 +76,16 @@ export class ShaclTemplateGenerationServiceRunner extends AppRunner<
         type: 'boolean',
         default: true,
       })
+      .option('excludeClasses', {
+        describe: 'A list of class names to exclude from the output.',
+        type: 'string',
+        array: true,
+      })
+      .option('excludeProperties', {
+        describe: 'A list of property names to exclude from the output.',
+        type: 'string',
+        array: true,
+      })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,

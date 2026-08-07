@@ -6,6 +6,7 @@ import {
   createList,
   ns,
   toPascalCase,
+  toCamelCase,
 } from '@oslo-flanders/core';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import { inject, injectable } from 'inversify';
@@ -85,6 +86,17 @@ export class ShaclTemplateGenerationService implements IService {
       ...this.store.getClassIds(),
       ...this.store.getDatatypes(),
     ]) {
+      /* If a class is excluded via configuration, stop here */
+      const classLabel = getApplicationProfileLabel(
+        classId,
+        this.store,
+        this.configuration.language,
+      );
+
+      if (classLabel && this.configuration.excludeClasses.includes(toPascalCase(classLabel.value))) {
+        continue;
+      }
+
       this.pipelineService.classPipeline.handle(
         classId,
         this.store,
@@ -96,6 +108,38 @@ export class ShaclTemplateGenerationService implements IService {
       ...this.store.getDatatypePropertyIds(),
       ...this.store.getObjectPropertyIds(),
     ]) {
+      // Addition for the `excludeProperties` flag to remove any reference to an excluded property
+      const propertyLabel = getApplicationProfileLabel(
+        propertyId,
+        this.store,
+        this.configuration.language,
+      );
+
+      if (propertyLabel) {
+        const domain = this.store.getDomain(propertyId);
+        if (domain) {
+          const domainLabel = getApplicationProfileLabel(
+            domain,
+            this.store,
+            this.configuration.language,
+          );
+          if (domainLabel) {
+            const pascalDomain = toPascalCase(domainLabel.value);
+            const classNameWithPropertyName = `${pascalDomain}.${toCamelCase(propertyLabel.value)}`;
+
+            // Skip if the property itself is excluded
+            if (this.configuration.excludeProperties.includes(classNameWithPropertyName)) {
+              continue;
+            }
+
+            // Skip if the domain class is excluded (otherwise property shapes would reference a non-existent class shape)
+            if (this.configuration.excludeClasses.includes(pascalDomain)) {
+              continue;
+            }
+          }
+        }
+      }
+
       this.pipelineService.propertyPipeline.handle(
         propertyId,
         this.store,
@@ -134,8 +178,18 @@ export class ShaclTemplateGenerationService implements IService {
     );
 
     // Add rdfs:member links to all class shapes (non-blank nodes only)
-    for (const [, shapeId] of classIdToShapeIdMap) {
+    for (const [classId, shapeId] of classIdToShapeIdMap) {
       if (shapeId.termType === 'NamedNode') {
+        // Skip excluded classes
+        const classLabel = getApplicationProfileLabel(
+          this.df.namedNode(classId),
+          this.store,
+          this.configuration.language,
+        );
+        if (classLabel && this.configuration.excludeClasses.includes(toPascalCase(classLabel.value))) {
+          continue;
+        }
+
         shaclStore.addQuad(
           this.df.quad(containerShapeId, ns.rdfs('member'), shapeId),
         );

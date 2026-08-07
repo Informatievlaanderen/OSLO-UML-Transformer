@@ -70,6 +70,16 @@ export class ShaclTemplateGenerationServiceConfiguration
    */
   private _addShapesContainer: boolean | undefined;
 
+  /**
+   * An array of class names to be excluded from the generated output
+   */
+  private _excludeClasses: string[] | undefined;
+
+  /**
+   * An array of property names to be excluded from the generated output
+   */
+  private _excludeProperties: string[] | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -83,6 +93,8 @@ export class ShaclTemplateGenerationServiceConfiguration
     this._addConstraintMessages = <boolean>params.addConstraintMessages;
     this._addConstraintRuleNumbers = <boolean>params.addRuleNumbers;
     this._addShapesContainer = <boolean>params.addShapesContainer;
+    this._excludeClasses = <string[]>params.excludeClasses;
+    this._excludeProperties = <string[]>params.excludeProperties;
   }
 
   public get input(): string {
@@ -175,5 +187,13 @@ export class ShaclTemplateGenerationServiceConfiguration
 
   public get addShapesContainer(): boolean {
     return !!this._addShapesContainer;
+  }
+
+  public get excludeClasses(): string[] {
+    return this._excludeClasses || [];
+  }
+
+  public get excludeProperties(): string[] {
+    return this._excludeProperties || [];
   }
 }
