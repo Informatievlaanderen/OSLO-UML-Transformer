@@ -5,6 +5,7 @@ import {
   type Logger,
   type QuadStore,
   isStandardDatatype,
+  toPascalCase,
 } from '@oslo-flanders/core';
 import { ns } from '@oslo-flanders/core';
 import type * as RDF from '@rdfjs/types';
@@ -128,6 +129,16 @@ export class ClassShapeBaseHandler extends ShaclHandler {
       ns.rdfs('subClassOf'),
       classId,
     )) {
+      // Skip excluded classes
+      const subClassLabel = getApplicationProfileLabel(
+        subClassId as RDF.NamedNode,
+        store,
+        this.config.language,
+      );
+      if (subClassLabel && this.config.excludeClasses.includes(toPascalCase(subClassLabel.value))) {
+        continue;
+      }
+
       const subClassAssignedURI = store.findObject(
         subClassId,
         ns.oslo('assignedURI'),

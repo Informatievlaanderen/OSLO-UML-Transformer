@@ -303,6 +303,16 @@ export class PropertyShapeBaseHandler extends ShaclHandler {
       ns.rdfs('subClassOf'),
       classId,
     )) {
+      // Skip excluded classes
+      const subClassLabel = getApplicationProfileLabel(
+        subClassId as RDF.NamedNode,
+        store,
+        this.config.language,
+      );
+      if (subClassLabel && this.config.excludeClasses.includes(toPascalCase(subClassLabel.value))) {
+        continue;
+      }
+
       const subClassAssignedURI = store.findObject(
         subClassId,
         ns.oslo('assignedURI'),
