@@ -503,6 +503,10 @@ export class SwaggerGenerationService implements IService {
           continue;
         }
 
+        const requiredProperties = properties
+          ? Object.keys(properties)
+          : undefined;
+
         const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
         let item: any;
 
@@ -514,7 +518,7 @@ export class SwaggerGenerationService implements IService {
             type: 'object',
             description: description,
             properties: properties,
-            required: Object.keys(properties),
+            required: requiredProperties,
           };
           item = { $ref: `#/components/schemas/${schemaName}` };
         } else {
