@@ -316,6 +316,7 @@ export class SwaggerGenerationService implements IService {
 
   public createSchemas(): Object {
     const schemas: Schema = {};
+
     /* Create schema for each enumeration */
     for (const enumId of this.store.getEnumerations()) {
       let label = getApplicationProfileLabel(
@@ -514,20 +515,25 @@ export class SwaggerGenerationService implements IService {
         if (!properties) {
           continue;
         }
+
         const requiredProperties = properties
           ? Object.keys(properties)
           : undefined;
 
-        /* Primitive datatypes are objects with properties */
-        let item = {};
-        if ([...DataTypes.values()].includes(attributeDatatypeId)) {
-          item = {
+        const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
+        let item: any;
+
+        if (isPrimitive) {
+          /* Wrap primitive property in its own named schema to avoid naming collisions */
+          const schemaName = `${label}.${attributeLabel}`;
+          schemas[schemaName] = {
+            title: schemaName,
             type: 'object',
             description: description,
             properties: properties,
             required: requiredProperties,
           };
-          /* Schema references are $ref, not objects */
+          item = { $ref: `#/components/schemas/${schemaName}` };
         } else {
           item = properties;
         }
@@ -536,7 +542,7 @@ export class SwaggerGenerationService implements IService {
           /* minItems must be 1, empty arrays are removed by not including the attribute, even if minCount == 0 */
           attributes[label][attributeLabel] = {
             type: 'array',
-            description: `Lijst van ${attributeDatatypeLabel} items.`,
+            description: `${description} Lijst van ${attributeDatatypeLabel} items.`,
             items: item,
             minItems: Math.max(parseInt(attributeMinCount), 1),
             maxItems:
