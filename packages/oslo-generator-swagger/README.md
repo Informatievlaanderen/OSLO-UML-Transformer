@@ -38,6 +38,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--excludeClasses` | Classes to exclude from the generated Swagger | No | Persoon Organisatie Test |
 | `--excludeProperties` | Properties to exclude from the generated Swagger | No | voornaam achternaam |
 | `--outputFormat` | Output format for the generated files. Can be specified multiple times to generate multiple formats at once. | No | `application/json` (default) or `application/yaml` |
+| `--disableLinks` | Disable the creation of links | No | `true` or `false` (default) |
 | `--silent` | Suppress log messages | No | `true` or `false` (default) |
 
 ## Usage

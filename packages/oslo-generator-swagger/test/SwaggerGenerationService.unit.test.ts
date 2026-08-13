@@ -233,4 +233,98 @@ describe('SwaggerGenerationService', () => {
     // Cleanup
     rmSync('output-both', { recursive: true, force: true });
   });
+
+  it('should not generate links when disableLinks is true', async () => {
+    const noLinksService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-nolinks',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        disableLinks: true,
+      },
+      store,
+    );
+
+    await noLinksService.store.addQuads(await parseJsonld(kvsInput));
+    await noLinksService.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output-nolinks/swagger/example.json').toString(),
+    );
+    const components = JSON.parse(
+      readFileSync('output-nolinks/swagger/components.json').toString(),
+    );
+
+    // The components.links key should be entirely absent
+    expect(components.components.links).toBeUndefined();
+
+    // The per-class link files should not exist
+    expect(existsSync('output-nolinks/swagger/components/links')).toBe(false);
+
+    // No endpoint 200 response should contain a links key
+    for (const path of Object.values<any>(swagger.paths)) {
+      expect(path.get.responses['200'].links).toBeUndefined();
+    }
+
+    // Cleanup
+    rmSync('output-nolinks', { recursive: true, force: true });
+  });
+
+  it('should still generate links when disableLinks is false', async () => {
+    const withLinksService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-withlinks',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        disableLinks: false,
+      },
+      store,
+    );
+
+    await withLinksService.store.addQuads(await parseJsonld(kvsInput));
+    await withLinksService.run();
+
+    const components = JSON.parse(
+      readFileSync('output-withlinks/swagger/components.json').toString(),
+    );
+
+    // Some links should be present in the output
+    expect(components.components.links).toBeDefined();
+    expect(
+      Object.keys(components.components.links).length,
+    ).toBeGreaterThan(0);
+
+    // Cleanup
+    rmSync('output-withlinks', { recursive: true, force: true });
+  });
 });

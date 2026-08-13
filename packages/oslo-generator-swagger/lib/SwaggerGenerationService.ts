@@ -121,7 +121,9 @@ export class SwaggerGenerationService implements IService {
   public async run(): Promise<void> {
     /* Create schemas and links once, then write for each output format */
     const schemas: any = this.createSchemas();
-    const links: any = this.createLinks();
+    const links: any = this.configuration.disableLinks
+      ? {}
+      : this.createLinks();
 
     /* Create self-standing referenceable components */
     const components: any = {
@@ -133,7 +135,10 @@ export class SwaggerGenerationService implements IService {
         license: this.getLicense(),
         version: this.configuration.versionAPI,
       },
-      components: { schemas, links },
+      components: {
+        schemas,
+        ...(Object.keys(links).length > 0 ? { links } : {}),
+      },
     };
 
     /* Create Swagger endpoint paths as example */
@@ -161,7 +166,7 @@ export class SwaggerGenerationService implements IService {
     }
   }
 
-  public createSwagger(schemas: any, links: any): Object {
+  public createSwagger(schemas: any, links: any = {}): Object {
     const swagger: SwaggerRoot = {
       openapi: this.configuration.versionSwagger,
       info: {
@@ -250,7 +255,9 @@ export class SwaggerGenerationService implements IService {
                   },
                 },
               },
-              links: filteredLinks,
+              ...(Object.keys(filteredLinks).length > 0
+                ? { links: filteredLinks }
+                : {}),
             },
             /* Error codes follow the RFC 7807 */
             400: {

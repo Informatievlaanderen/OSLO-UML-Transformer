@@ -211,4 +211,24 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     await config.createFromCli(testParams);
     expect(config.outputFormat).toEqual(['application/json', 'application/yaml']);
   });
+
+  it('should default disableLinks to false when not provided', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    await config.createFromCli(params);
+    expect(config.disableLinks).toBe(false);
+  });
+
+  it('should set disableLinks to true when provided', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    const testParams = { ...params, disableLinks: true };
+    await config.createFromCli(testParams);
+    expect(config.disableLinks).toBe(true);
+  });
+
+  it('should set disableLinks to false when explicitly set to false', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    const testParams = { ...params, disableLinks: false };
+    await config.createFromCli(testParams);
+    expect(config.disableLinks).toBe(false);
+  });
 });
