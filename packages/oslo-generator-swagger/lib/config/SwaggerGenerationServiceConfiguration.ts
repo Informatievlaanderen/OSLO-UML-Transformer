@@ -89,6 +89,11 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
    */
   private _outputFormat: OutputFormat[] | undefined;
 
+  /**
+   * Whether to disable the creation of links
+   */
+  private _disableLinks: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -107,6 +112,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._excludeClasses = <string[]>params.excludeClasses;
     this._excludeProperties = <string[]>params.excludeProperties;
     this._outputFormat = <OutputFormat[]>params.outputFormat;
+    this._disableLinks = <boolean>params.disableLinks;
   }
 
   public get input(): string {
@@ -207,5 +213,9 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get outputFormat(): OutputFormat[] {
     return this._outputFormat || [OutputFormat.Json];
+  }
+
+  public get disableLinks(): boolean {
+    return !!this._disableLinks;
   }
 }

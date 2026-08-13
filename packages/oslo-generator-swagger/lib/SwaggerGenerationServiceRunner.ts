@@ -48,6 +48,11 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         type: 'string',
         array: true,
       })
+      .option('disableLinks', {
+        describe: 'Disable the creation of links.',
+        default: false,
+        boolean: true,
+      })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,
