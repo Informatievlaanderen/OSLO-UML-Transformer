@@ -54,19 +54,19 @@ export class SwaggerGenerationService implements IService {
     this.store = store;
   }
 
-  private getProbleemdetailsContent(): any {
+  private getProblemdetailsContent(): any {
     return {
       [OutputFormat.JsonProblem]: {
         schema: {
-          $ref: '#/components/schemas/Probleemdetail',
+          $ref: '#/components/schemas/Problemdetail',
         },
       },
     };
   }
 
-  private getProbleemdetailsLink(label: string): any {
+  private getProblemdetailsLink(label: string): any {
     return {
-      'Probleemdetail.type': {
+      'Problemdetail.type': {
         operationId: `${label}GET`,
         parameters: {
           type: `$response.body#/type`,
@@ -264,48 +264,48 @@ export class SwaggerGenerationService implements IService {
             /* Error codes follow the RFC 7807 */
             400: {
               description: 'Invalid data supplied.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             401: {
               description: 'Invalid authorization.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             403: {
               description: 'Authentication failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             404: {
               description: 'Resource not found.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             412: {
               description: 'Pre-condition failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             500: {
               description: 'Unexpected Server Error.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             502: {
               description: 'Bad Gateway.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             503: {
               description: 'Service unavailable.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             504: {
               description: 'Gateway Timeout.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
           },
         },
