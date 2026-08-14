@@ -196,6 +196,9 @@ export class SwaggerGenerationService implements IService {
     )) {
       if (hasRootClasses && !this.store.isRootClass(classId)) continue;
 
+      /* Abstract classes should never be materialized as endpoint */
+      if (this.store.isAbstractClass(classId)) continue;
+
       const filteredLinks: any = {};
       let label = getApplicationProfileLabel(
         classId,
