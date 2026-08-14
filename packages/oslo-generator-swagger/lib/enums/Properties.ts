@@ -2,7 +2,7 @@
 import { ns } from '@oslo-flanders/core';
 
 /* eslint-disable max-len */
-const Properties: Map<string, object> = new Map<string, object>([
+const PropertiesExpanded: Map<string, object> = new Map<string, object>([
   [ns.rdf('langString').value, { '@value': { type: 'string' }, '@language': { type: 'string', pattern: '^nl$' } }],
   [ns.rdfs('Literal').value, { '@value': { type: 'string' }, '@type': { type: 'string' } }],
   [ns.xsd('string').value, { '@value': { type: 'string' }}],
@@ -30,6 +30,36 @@ const Properties: Map<string, object> = new Map<string, object>([
   [ns.xsd('decimal').value, { '@value': { type: 'string', pattern: '(+|-)?([0-9]+(.[0-9]*)?|.[0-9]+)' }, '@type': { type: 'string', pattern: '^Decimal$' } }],
   [ns.xsd('language').value, { '@value': { type: 'string', pattern: '^[a-z]{2,3}(-[A-Z]{2})?' }, '@type': { type: 'string', pattern: '^Language$' } }],
 ]);
+
+/* JSON-LD context provides values for @type and @language for primitive datatypes */
+const PropertiesCompacted: Map<string, object> = new Map<string, object>([
+  [ns.rdf('langString').value, { type: 'string' }],
+  [ns.rdfs('Literal').value, { type: 'string' }],
+  [ns.xsd('string').value, { type: 'string' }],
+  [ns.xsd('anyURI').value, { type: 'string', format: 'uri' }],
+  [ns.xsd('dateTime').value, { type: 'string', format: 'date-time' }],
+  [ns.xsd('date').value, { type: 'string', format: 'date' }],
+  [ns.xsd('boolean').value, { type: 'boolean' }],
+  [ns.xsd('integer').value, { type: 'number', format: 'int64' }],
+  [ns.xsd('long').value, { type: 'number', format: 'int64', minimum: -9_223_372_036_854_775_808, maximum: 9_223_372_036_854_775_807 }],
+  [ns.xsd('float').value, { type: 'number', format: 'float' }],
+  [ns.xsd('double').value, { type: 'number', format: 'double' }],
+  [ns.xsd('int').value, { type: 'number', format: 'int32', minimum: -2_147_483_648, maximum: 2_147_483_647 }],
+  [ns.xsd('short').value, { type: 'number', format: 'int32', minimum: -32_768, maximum: 32_767 }],
+  [ns.xsd('byte').value, { type: 'number', format: 'int32', minimum: -128, maximum: 127 }],
+  [ns.xsd('hexBinary').value, { type: 'string', format: 'binary' }],
+  [ns.xsd('base64Binary').value, { type: 'string', format: 'byte' }],
+  [ns.xsd('nonNegativeInteger').value, { type: 'number', format: 'int64' }],
+  [ns.xsd('nonPositiveInteger').value, { type: 'number', format: 'int64' }],
+  [ns.xsd('negativeInteger').value, { type: 'number', format: 'int64', maximum: 0 }],
+  [ns.xsd('positiveInteger').value, { type: 'number', format: 'int64', minimum: 1 }],
+  [ns.xsd('unsignedLong').value, { type: 'number', format: 'int64', minimum: 0, maximum: 18_446_744_073_709_551_615 }],
+  [ns.xsd('unsignedInt').value, { type: 'number', format: 'int32', minimum: 0, maximum: 4_294_967_295 }],
+  [ns.xsd('unsignedShort').value, { type: 'number', format: 'int32', minimum: 0, maximum: 65_535 }],
+  [ns.xsd('unsignedByte').value, { type: 'number', format: 'int32', minimum: 0, maximum: 255 }],
+  [ns.xsd('decimal').value, { type: 'string', pattern: '(+|-)?([0-9]+(.[0-9]*)?|.[0-9]+)' }],
+  [ns.xsd('language').value, { type: 'string', pattern: '^[a-z]{2,3}(-[A-Z]{2})?' }],
+]);
 /* eslint-enable max-len*/
 
 export const mapProperties = (
@@ -38,11 +68,19 @@ export const mapProperties = (
   subclasses: string[],
   abstract: boolean,
   excludeClasses: string[],
+  expanded: boolean
 ): object | undefined => {
   /* Primitive data type conversion from Linked Data to Swagger */
-  if (Properties.has(datatype)) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return Properties.get(datatype)!;
+  if (expanded) {
+    if (PropertiesExpanded.has(datatype)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return PropertiesExpanded.get(datatype)!;
+    }
+  } else {
+    if (PropertiesCompacted.has(datatype)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return PropertiesCompacted.get(datatype)!;
+    }
   }
 
   const oneOf = [];
