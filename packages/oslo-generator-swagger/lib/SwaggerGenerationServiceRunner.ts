@@ -53,6 +53,21 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('expanded', {
+        describe: 'Use JSON-LD expanded format instead of default compact format.',
+        default: false,
+        boolean: true,
+      })
+      .option('excludeClassesExpanded', {
+        describe: 'A list of class names to exclude from expanding their properties with JSON-LD expansion.',
+        type: 'string',
+        array: true,
+      })
+      .option('excludePropertiesExpanded', {
+        describe: 'A list of property names to exclude from JSON-LD expansion.',
+        type: 'string',
+        array: true,
+      })
       .option('silent', {
         describe: 'All logs are suppressed',
         default: false,

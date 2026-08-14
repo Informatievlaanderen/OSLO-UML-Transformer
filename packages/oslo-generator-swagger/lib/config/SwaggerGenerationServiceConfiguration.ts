@@ -94,6 +94,21 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
    */
   private _disableLinks: boolean | undefined;
 
+  /**
+   * Whether to use expanded JSON-LD format or not
+   */
+  private _expanded: boolean | undefined;
+
+  /**
+   * An array of class names to be excluded from expansion
+   */
+  private _excludeClassesExpanded: string[] | undefined;
+
+  /**
+   * An array of property names to be excluded from expansion
+   */
+  private _excludePropertiesExpanded: string[] | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._input = <string>params.input;
     this._output = <string>params.output;
@@ -113,6 +128,11 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._excludeProperties = <string[]>params.excludeProperties;
     this._outputFormat = <OutputFormat[]>params.outputFormat;
     this._disableLinks = <boolean>params.disableLinks;
+    this._expanded = <boolean>params.expanded;
+    this._excludeClassesExpanded = <string[]>params.excludeClassesExpanded;
+    this._excludePropertiesExpanded = <string[]>(
+      params.excludePropertiesExpanded
+    );
   }
 
   public get input(): string {
@@ -217,5 +237,17 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get disableLinks(): boolean {
     return !!this._disableLinks;
+  }
+
+  public get expanded(): boolean {
+    return !!this._expanded;
+  }
+
+  public get excludeClassesExpanded(): string[] {
+    return this._excludeClassesExpanded || [];
+  }
+
+  public get excludePropertiesExpanded(): string[] {
+    return this._excludePropertiesExpanded || [];
   }
 }
