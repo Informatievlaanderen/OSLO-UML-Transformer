@@ -317,6 +317,34 @@ export class SwaggerGenerationService implements IService {
       schemas: {},
     };
 
+    /* Add minimal ProblemDetail in case it is not present, but needed for example Swagger */
+    swagger.components.schemas['Problemdetail'] = {
+      title: 'Problemdetail',
+      type: 'object',
+      description:
+        'Meer gedetailleerde beschrijving van de fout in een HTTP response.',
+      properties: {
+        type: {
+          type: 'string',
+          format: 'uri',
+        },
+        title: {
+          type: 'string',
+        },
+        status: {
+          type: 'integer',
+          format: 'int64',
+        },
+        detail: {
+          type: 'string',
+        },
+        instance: {
+          type: 'string',
+          format: 'uri',
+        },
+      },
+    };
+
     for (const schemaLabel of Object.keys(schemas))
       swagger.components.schemas[schemaLabel] = schemas[schemaLabel];
 
