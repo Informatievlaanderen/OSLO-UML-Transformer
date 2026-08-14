@@ -72,7 +72,7 @@ export class SwaggerGenerationService implements IService {
           type: `$response.body#/type`,
         },
         description:
-          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `Problemdetail` op te halen.',
       },
     };
   }
