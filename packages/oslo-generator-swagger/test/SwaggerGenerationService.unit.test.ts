@@ -63,6 +63,7 @@ describe('SwaggerGenerationService', () => {
           'GeregistreerdeOrganisatie.voorkeursnaam',
           'PubliekeOrganisatie.voorkeursnaam',
         ],
+        expanded: true,
       },
       store,
     );
