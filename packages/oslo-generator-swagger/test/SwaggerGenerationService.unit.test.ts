@@ -64,6 +64,8 @@ describe('SwaggerGenerationService', () => {
           'PubliekeOrganisatie.voorkeursnaam',
         ],
         expanded: true,
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: []
       },
       store,
     );
@@ -92,7 +94,7 @@ describe('SwaggerGenerationService', () => {
     expect(store.addQuadsFromFile).toHaveBeenCalled();
   });
 
-  it('should generate a valid Swagger API document in JSON', async () => {
+  it('should generate a valid Swagger API document in JSON (expanded)', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
 
@@ -116,16 +118,110 @@ describe('SwaggerGenerationService', () => {
     expect(achternaamSchema.required).toContain('@value');
   });
 
+  it('should generate a valid Swagger API document in JSON (compacted)', async () => {
+    const compactedService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: ['Domicilie'],
+        excludeProperties: [
+          'GeregistreerdeOrganisatie.voorkeursnaam',
+          'PubliekeOrganisatie.voorkeursnaam',
+        ],
+        expanded: false,
+        excludeClassesExpanded: ['PubliekeDienstverlening'],
+        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
+      },
+      store,
+    );
+    await compactedService.store.addQuads(await parseJsonld(kvsInput));
+    await compactedService.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    // A primitive property should be $ref to a separate dot-notation schema
+    const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
+    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+
+    // The primitive schema should not be an object, but a real primitive instead
+    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    expect(achternaamSchema).toBeDefined();
+    expect(achternaamSchema.type).toBe('string');
+  });
+
+  it('should generate a valid Swagger API document in JSON (exclude expansion)', async () => {
+    const expandedService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        contactName: 'Contact name',
+        contactURL: 'http://example.com/contact/',
+        contactEmail: 'Contact e-mail',
+        licenseName: 'License name',
+        licenseURL: 'http://example.com/license/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: ['Domicilie'],
+        excludeProperties: [
+          'GeregistreerdeOrganisatie.voorkeursnaam',
+          'PubliekeOrganisatie.voorkeursnaam',
+        ],
+        expanded: true,
+        excludeClassesExpanded: ['PubliekeDienstverlening'],
+        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
+      },
+      store,
+    );
+    await expandedService.store.addQuads(await parseJsonld(kvsInput));
+    await expandedService.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    // A primitive property should be $ref to a separate dot-notation schema
+    const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
+    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+
+    // The primitive schema should not be an object, but a real primitive instead
+    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    expect(achternaamSchema).toBeDefined();
+    expect(achternaamSchema.type).toBe('string');
+
+    const publiekeDienstverleningSchema = swagger.components.schemas['PubliekeDienstverlening.naam'];
+    expect(publiekeDienstverleningSchema).toBeDefined();
+    expect(publiekeDienstverleningSchema.type).toBe('string');
+  });
+
   it('should generate a valid Swagger API document in JSON and exclude the defined properties', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
 
     const swagger = JSON.parse(
       readFileSync('output/swagger/example.json').toString(),
-    );
-
-    console.log(
-      swagger.components.schemas.GeregistreerdeOrganisatie.properties,
     );
 
     expect(
@@ -162,6 +258,8 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Yaml],
         excludeClasses: [],
         excludeProperties: [],
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: []
       },
       store,
     );
@@ -206,6 +304,8 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Json, OutputFormat.Yaml],
         excludeClasses: [],
         excludeProperties: [],
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: []
       },
       store,
     );
@@ -257,6 +357,8 @@ describe('SwaggerGenerationService', () => {
         excludeClasses: [],
         excludeProperties: [],
         disableLinks: true,
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: []
       },
       store,
     );
@@ -308,6 +410,8 @@ describe('SwaggerGenerationService', () => {
         excludeClasses: [],
         excludeProperties: [],
         disableLinks: false,
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: []
       },
       store,
     );
