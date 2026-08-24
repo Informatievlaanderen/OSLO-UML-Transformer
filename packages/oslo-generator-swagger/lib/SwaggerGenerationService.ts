@@ -109,7 +109,9 @@ export class SwaggerGenerationService implements IService {
   */
   private schemaExists(schema: Schema, label: string): boolean {
     if (schema[label]) {
-      this.logger.warn(`[SwaggerGenerationService]: Schema already exists for the label (${label}) and will be overwritten.`)
+      this.logger.warn(
+        `[SwaggerGenerationService]: Schema already exists for the label (${label}) and will be overwritten.`,
+      );
     }
     return !!schema[label];
   }
@@ -340,7 +342,7 @@ export class SwaggerGenerationService implements IService {
       /* Class labels should be always pascal cased */
       label = toPascalCase(label);
 
-      this.schemaExists(schemas, label)
+      this.schemaExists(schemas, label);
 
       schemas[label] = {
         title: label,
@@ -362,8 +364,7 @@ export class SwaggerGenerationService implements IService {
       ...this.store.findSubjects(ns.rdf('type'), ns.rdfs('Datatype')),
     ]
       // Extra filter to exclude all the enumerations since these are mentioned twice in the intermedairy format under enums and classes
-      .filter((val) => !isEnumeration(this.store, val))
-    ) {
+      .filter((val) => !isEnumeration(this.store, val))) {
       const assignedUri = this.store.getAssignedUri(classId);
 
       /* Primitive datatypes may not be generated */
@@ -508,6 +509,16 @@ export class SwaggerGenerationService implements IService {
           continue;
         }
 
+        /* Expanded JSON-LD depends on configuration */
+        let expanded = this.configuration.expanded;
+        if (this.configuration.excludeClassesExpanded.includes(label)) {
+          expanded = false;
+        }
+
+        if (this.configuration.excludePropertiesExpanded.includes(`${label}.${attributeLabel}`)) {
+          expanded = false;
+        }
+
         /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
         const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
         const properties = mapProperties(
@@ -516,6 +527,7 @@ export class SwaggerGenerationService implements IService {
           subclasses,
           attributeDatatypeAbstract,
           this.configuration.excludeClasses,
+          expanded,
         );
 
         // If mapProperties returns nothing, the property pointed to an excluded class (this.configuration.excludeClasses)
@@ -527,19 +539,30 @@ export class SwaggerGenerationService implements IService {
           ? Object.keys(properties)
           : undefined;
 
-        const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
+        const isPrimitive = [...DataTypes.values()].includes(
+          attributeDatatypeId,
+        );
         let item: any;
 
         if (isPrimitive) {
           /* Wrap primitive property in its own named schema to avoid naming collisions */
           const schemaName = `${label}.${attributeLabel}`;
-          schemas[schemaName] = {
-            title: schemaName,
-            type: 'object',
-            description: description,
-            properties: properties,
-            required: requiredProperties,
-          };
+
+          if (expanded) {
+            schemas[schemaName] = {
+              title: schemaName,
+              type: 'object',
+              description: description,
+              properties: properties,
+              required: requiredProperties,
+            };
+          } else {
+            schemas[schemaName] = {
+              title: schemaName,
+              description: description,
+              ...properties,
+            };
+          }
           item = { $ref: `#/components/schemas/${schemaName}` };
         } else {
           item = properties;
@@ -583,7 +606,7 @@ export class SwaggerGenerationService implements IService {
         };
       }
 
-      this.schemaExists(schemas, label)
+      this.schemaExists(schemas, label);
       /* Create components for each schema */
       schemas[label] = {
         title: label,
@@ -726,7 +749,10 @@ export class SwaggerGenerationService implements IService {
   ) {
     const isYaml = outputFormat === OutputFormat.Yaml;
     const data = isYaml
-      ? yaml.dump(JSON.parse(JSON.stringify(obj)), { noRefs: true, lineWidth: -1 })
+      ? yaml.dump(JSON.parse(JSON.stringify(obj)), {
+          noRefs: true,
+          lineWidth: -1,
+        })
       : JSON.stringify(obj, null, 2);
     const filePath = path.join(this.configuration.output, outputPath);
 
