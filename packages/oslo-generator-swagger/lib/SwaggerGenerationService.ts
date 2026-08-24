@@ -54,25 +54,25 @@ export class SwaggerGenerationService implements IService {
     this.store = store;
   }
 
-  private getProbleemdetailsContent(): any {
+  private getProblemdetailsContent(): any {
     return {
       [OutputFormat.JsonProblem]: {
         schema: {
-          $ref: '#/components/schemas/Probleemdetail',
+          $ref: '#/components/schemas/Problemdetail',
         },
       },
     };
   }
 
-  private getProbleemdetailsLink(label: string): any {
+  private getProblemdetailsLink(label: string): any {
     return {
-      'Probleemdetail.type': {
+      'Problemdetail.type': {
         operationId: `${label}GET`,
         parameters: {
           type: `$response.body#/type`,
         },
         description:
-          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `ProblemDetails` op te halen.',
+          'De waarde van het attribuut `type` kan gebruikt worden om het gerefereerde object van het type `Problemdetail` op te halen.',
       },
     };
   }
@@ -264,48 +264,48 @@ export class SwaggerGenerationService implements IService {
             /* Error codes follow the RFC 7807 */
             400: {
               description: 'Invalid data supplied.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             401: {
               description: 'Invalid authorization.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             403: {
               description: 'Authentication failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             404: {
               description: 'Resource not found.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             412: {
               description: 'Pre-condition failed.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             500: {
               description: 'Unexpected Server Error.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             502: {
               description: 'Bad Gateway.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             503: {
               description: 'Service unavailable.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
             504: {
               description: 'Gateway Timeout.',
-              content: this.getProbleemdetailsContent(),
-              links: this.getProbleemdetailsLink(label),
+              content: this.getProblemdetailsContent(),
+              links: this.getProblemdetailsLink(label),
             },
           },
         },
@@ -315,6 +315,34 @@ export class SwaggerGenerationService implements IService {
     /* Inline schemas */
     swagger.components = {
       schemas: {},
+    };
+
+    /* Add minimal ProblemDetail in case it is not present, but needed for example Swagger */
+    swagger.components.schemas['Problemdetail'] = {
+      title: 'Problemdetail',
+      type: 'object',
+      description:
+        'Meer gedetailleerde beschrijving van de fout in een HTTP response.',
+      properties: {
+        type: {
+          type: 'string',
+          format: 'uri',
+        },
+        title: {
+          type: 'string',
+        },
+        status: {
+          type: 'integer',
+          format: 'int64',
+        },
+        detail: {
+          type: 'string',
+        },
+        instance: {
+          type: 'string',
+          format: 'uri',
+        },
+      },
     };
 
     for (const schemaLabel of Object.keys(schemas))

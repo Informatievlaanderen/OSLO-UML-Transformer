@@ -94,6 +94,24 @@ describe('SwaggerGenerationService', () => {
     expect(store.addQuadsFromFile).toHaveBeenCalled();
   });
 
+  it('should contain always a ProblemDetail', async () => {
+    await service.store.addQuads(await parseJsonld(kvsInput));
+    await service.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    // The separate primitive schema should exist with the right structure
+    const achternaamSchema = swagger.components.schemas['Problemdetail'];
+    expect(achternaamSchema).toBeDefined();
+    expect(achternaamSchema.type).toBe('object');
+    expect(achternaamSchema.properties['type']).toBeDefined();
+    expect(achternaamSchema.properties['title']).toBeDefined();
+    expect(achternaamSchema.properties['status']).toBeDefined();
+    expect(achternaamSchema.properties['detail']).toBeDefined();
+    expect(achternaamSchema.properties['instance']).toBeDefined();
+  });
   it('should generate a valid Swagger API document in JSON (expanded)', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
