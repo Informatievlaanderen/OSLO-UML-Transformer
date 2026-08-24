@@ -146,6 +146,12 @@ export class SwaggerGenerationService implements IService {
     /* Create Swagger endpoint paths as example */
     const swagger = this.createSwagger(schemas, links);
 
+    /* Only append the language suffix when the generated language differs from the primary language */
+    const languageSuffix =
+      this.configuration.language === this.configuration.primaryLanguage
+        ? ''
+        : `_${this.configuration.language}`;
+
     for (const format of this.configuration.outputFormat) {
       const ext = FILE_EXTENSIONS[format] ?? '.json';
 
@@ -153,18 +159,26 @@ export class SwaggerGenerationService implements IService {
         await this.writeOutput(
           format,
           schemas[label],
-          `swagger/components/schemas/${label}${ext}`,
+          `swagger/components/schemas/${label}${languageSuffix}${ext}`,
         );
 
       for (const label of Object.keys(links))
         await this.writeOutput(
           format,
           links[label],
-          `swagger/components/links/${label}${ext}`,
+          `swagger/components/links/${label}${languageSuffix}${ext}`,
         );
 
-      await this.writeOutput(format, components, `swagger/components${ext}`);
-      await this.writeOutput(format, swagger, `swagger/example${ext}`);
+      await this.writeOutput(
+        format,
+        components,
+        `swagger/components${languageSuffix}${ext}`,
+      );
+      await this.writeOutput(
+        format,
+        swagger,
+        `swagger/example${languageSuffix}${ext}`,
+      );
     }
   }
 

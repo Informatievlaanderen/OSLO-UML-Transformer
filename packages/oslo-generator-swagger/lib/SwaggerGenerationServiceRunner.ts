@@ -25,6 +25,11 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
       })
       .option('versionAPI', { describe: 'API version.' })
       .option('language', { describe: 'API language tag.', default: 'nl' })
+      .option('primaryLanguage', {
+        describe:
+          'The primary language of the API. Output files for this language keep their original name, while other languages get a `_{language}` suffix.',
+        default: 'nl',
+      })
       .option('title', {
         describe: 'API title.',
         type: 'string',
@@ -87,6 +92,7 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         'title',
         'contextURL',
         'baseURL',
+        'language'
       ])
       .help('h')
       .alias('h', 'help');

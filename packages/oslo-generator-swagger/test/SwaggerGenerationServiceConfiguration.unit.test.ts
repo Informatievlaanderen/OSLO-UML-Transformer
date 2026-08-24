@@ -19,6 +19,7 @@ describe('SwaggerGenerationServiceConfiguration', () => {
       input: 'input.jsonld',
       output: 'openapi.json',
       language: 'nl',
+      primaryLanguage: 'nl',
       title: 'My Title',
       description: 'My Description',
       contextURL: 'http://example.com/context.jsonld',
@@ -40,6 +41,7 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     expect((<any>config)._input).toBeDefined();
     expect((<any>config)._output).toBeDefined();
     expect((<any>config)._language).toBeDefined();
+    expect((<any>config)._primaryLanguage).toBeDefined();
     expect((<any>config)._title).toBeDefined();
     expect((<any>config)._description).toBeDefined();
     expect((<any>config)._contextURL).toBeDefined();
@@ -91,6 +93,20 @@ describe('SwaggerGenerationServiceConfiguration', () => {
     );
     await config.createFromCli(params);
     expect(config.title).toBe('My Title');
+  });
+
+  it('should return the primaryLanguage from the parameters received from the CLI', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    await config.createFromCli({ ...params, primaryLanguage: 'en' });
+
+    expect(config.primaryLanguage).toBe('en');
+  });
+
+  it('should default primaryLanguage to "nl" when it is not provided', async () => {
+    const config = new SwaggerGenerationServiceConfiguration();
+    await config.createFromCli(params);
+
+    expect(config.primaryLanguage).toBe('nl');
   });
 
   it('should throw no error when "description" is undefined or otherwise return its value', async () => {

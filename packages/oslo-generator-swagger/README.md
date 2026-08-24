@@ -24,6 +24,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--input` | The URL or local file path of an OSLO-compliant RDF file | :heavy_check_mark: | |
 | `--output` | The name of the output file | :heavy_check_mark: | |
 | `--language` | The language in which the Swagger must be generated (labels) | No | |
+| `--primaryLanguage` | The primary language of the API. Output files for this language keep their original name, while other languages get a `_{language}` suffix | No | `nl` (default) |
 | `--versionSwagger` | Swagger OpenAPI specification version | :heavy_check_mark: | |
 | `--versionAPI` | API version | :heavy_check_mark: | |
 | `--title` | Title of the API document | :heavy_check_mark: | |

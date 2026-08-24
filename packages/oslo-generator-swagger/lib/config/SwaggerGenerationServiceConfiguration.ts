@@ -20,6 +20,12 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
   private _language: string | undefined;
 
   /**
+   * The primary language of the API. Output files for this language keep their
+   * original name, while files for other languages get a `_{language}` suffix.
+   */
+  private _primaryLanguage: string | undefined;
+
+  /**
    * Swagger version
    */
   private _versionSwagger: string | undefined;
@@ -113,6 +119,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._input = <string>params.input;
     this._output = <string>params.output;
     this._language = <string>params.language;
+    this._primaryLanguage = <string>params.primaryLanguage;
     this._versionSwagger = <string>params.versionSwagger;
     this._versionAPI = <string>params.versionAPI;
     this._title = <string>params.title;
@@ -156,6 +163,11 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
       );
     }
     return this._language;
+  }
+
+  public get primaryLanguage(): string {
+    /* Default to Dutch, which is the primary language of the OSLO standards */
+    return this._primaryLanguage || 'nl';
   }
 
   public get versionSwagger(): string {

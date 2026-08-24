@@ -63,6 +63,7 @@ describe('SwaggerGenerationService', () => {
           'GeregistreerdeOrganisatie.voorkeursnaam',
           'PubliekeOrganisatie.voorkeursnaam',
         ],
+        primaryLanguage: 'nl',
         expanded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: []
@@ -113,6 +114,88 @@ describe('SwaggerGenerationService', () => {
     expect(achternaamSchema.properties['instance']).toBeDefined();
   });
 
+  it('should write root files without a language suffix when language equals primaryLanguage', async () => {
+    const primaryService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        primaryLanguage: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-primary',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: [],
+      },
+      store,
+    );
+
+    await primaryService.store.addQuads(await parseJsonld(kvsInput));
+    await primaryService.run();
+
+    expect(existsSync('output-primary/swagger/example.json')).toBe(true);
+    expect(existsSync('output-primary/swagger/components.json')).toBe(true);
+    expect(
+      existsSync('output-primary/swagger/components/schemas/GeregistreerdPersoon.json'),
+    ).toBe(true);
+
+    // No suffixed files should have been written
+    expect(existsSync('output-primary/swagger/example_nl.json')).toBe(false);
+    expect(existsSync('output-primary/swagger/components_nl.json')).toBe(false);
+
+    rmSync('output-primary', { recursive: true, force: true });
+  });
+
+  it('should write files with a language suffix when language differs from primaryLanguage', async () => {
+    // The mock data only contains Dutch (nl) labels, so we keep language: 'nl'
+    // but set a different primaryLanguage to exercise the suffix logic.
+    const translatedService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        primaryLanguage: 'en',
+        input: 'data/KVS-Input.json',
+        output: 'output-translated',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: [],
+      },
+      store,
+    );
+
+    await translatedService.store.addQuads(await parseJsonld(kvsInput));
+    await translatedService.run();
+
+    expect(existsSync('output-translated/swagger/example_nl.json')).toBe(true);
+    expect(existsSync('output-translated/swagger/components_nl.json')).toBe(true);
+    expect(
+      existsSync(
+        'output-translated/swagger/components/schemas/GeregistreerdPersoon_nl.json',
+      ),
+    ).toBe(true);
+
+    // Unsuffixed root files should not have been written
+    expect(existsSync('output-translated/swagger/example.json')).toBe(false);
+    expect(existsSync('output-translated/swagger/components.json')).toBe(false);
+
+    rmSync('output-translated', { recursive: true, force: true });
+  });
+
   it('should generate a valid Swagger API document in JSON (expanded)', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
@@ -161,6 +244,7 @@ describe('SwaggerGenerationService', () => {
           'GeregistreerdeOrganisatie.voorkeursnaam',
           'PubliekeOrganisatie.voorkeursnaam',
         ],
+        primaryLanguage: 'nl',
         expanded: false,
         excludeClassesExpanded: ['PubliekeDienstverlening'],
         excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
@@ -208,6 +292,7 @@ describe('SwaggerGenerationService', () => {
           'GeregistreerdeOrganisatie.voorkeursnaam',
           'PubliekeOrganisatie.voorkeursnaam',
         ],
+        primaryLanguage: 'nl',
         expanded: true,
         excludeClassesExpanded: ['PubliekeDienstverlening'],
         excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
@@ -263,6 +348,7 @@ describe('SwaggerGenerationService', () => {
         language: 'nl',
         input: 'data/KVS-Input.json',
         output: 'output-yaml',
+        primaryLanguage: 'nl',
         title: 'My Title',
         description: 'My Description',
         contextURL: 'http://example.com/context.jsonld',
@@ -309,6 +395,7 @@ describe('SwaggerGenerationService', () => {
         language: 'nl',
         input: 'data/KVS-Input.json',
         output: 'output-both',
+        primaryLanguage: 'nl',
         title: 'My Title',
         description: 'My Description',
         contextURL: 'http://example.com/context.jsonld',
@@ -361,6 +448,7 @@ describe('SwaggerGenerationService', () => {
         language: 'nl',
         input: 'data/KVS-Input.json',
         output: 'output-nolinks',
+        primaryLanguage: 'nl',
         title: 'My Title',
         description: 'My Description',
         contextURL: 'http://example.com/context.jsonld',
@@ -414,6 +502,7 @@ describe('SwaggerGenerationService', () => {
         language: 'nl',
         input: 'data/KVS-Input.json',
         output: 'output-withlinks',
+        primaryLanguage: 'nl',
         title: 'My Title',
         description: 'My Description',
         contextURL: 'http://example.com/context.jsonld',
