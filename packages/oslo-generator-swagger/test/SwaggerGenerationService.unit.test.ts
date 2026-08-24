@@ -112,6 +112,7 @@ describe('SwaggerGenerationService', () => {
     expect(achternaamSchema.properties['detail']).toBeDefined();
     expect(achternaamSchema.properties['instance']).toBeDefined();
   });
+
   it('should generate a valid Swagger API document in JSON (expanded)', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
@@ -449,5 +450,18 @@ describe('SwaggerGenerationService', () => {
 
     // Cleanup
     rmSync('output-withlinks', { recursive: true, force: true });
+  });
+
+  it('should not include abstract class in endpoints', async () => {
+    await service.store.addQuads(await parseJsonld(kvsInput));
+    await service.run();
+
+    const swagger = JSON.parse(
+      readFileSync('output/swagger/example.json').toString(),
+    );
+
+    // Abstract class
+    expect(swagger.components.schemas.Agent).toBeUndefined();
+    expect(Object.keys(swagger.paths).includes('Agent')).toBeFalsy();
   });
 });

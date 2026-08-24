@@ -17,6 +17,8 @@ export const kvsInput = {
     datatypes: '@included',
     attributes: '@included',
     referencedEntities: '@included',
+    abstractClasses: "@included",
+    rootClasses: "@included",
     baseURI: {
       '@id': 'oslo:baseURI',
       '@type': '@id',
@@ -115,6 +117,12 @@ export const kvsInput = {
       '@id': 'oslo:extensions',
       '@container': '@set',
     },
+    AbstractClass: {
+      "@id": "oslo:AbstractClass"
+    },
+    RootClass: {
+      "@id": "oslo:RootClass"
+    },
   },
   '@id':
     'https://data.vlaanderen.be/doc/implementatiemodel/klantvolgsysteem1/ontwerpstandaard/2025-11-04',
@@ -130,6 +138,13 @@ export const kvsInput = {
         'https://data.vlaanderen.be/id/concept/StandaardStatus/OntwerpStandaard',
     },
   ],
+  abstractClasses: [
+    {
+      "@id": "urn:oslo-toolchain:b954552fd64a110b7edc2539cd01dee3687f9bb38e0fb0fd6c9ae68249b2406d",
+      "@type": "AbstractClass"
+    }
+  ],
+  rootClasses: [],
   classes: [
     {
       '@id':
