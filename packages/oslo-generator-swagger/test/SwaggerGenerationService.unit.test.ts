@@ -112,7 +112,6 @@ describe('SwaggerGenerationService', () => {
     expect(achternaamSchema.properties['detail']).toBeDefined();
     expect(achternaamSchema.properties['instance']).toBeDefined();
   });
-
   it('should generate a valid Swagger API document in JSON (expanded)', async () => {
     await service.store.addQuads(await parseJsonld(kvsInput));
     await service.run();
