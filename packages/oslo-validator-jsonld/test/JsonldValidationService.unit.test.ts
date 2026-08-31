@@ -497,6 +497,34 @@ describe('JsonldValidationService', () => {
       expect(result.invalidEntries[1].uri).toBe('http://subject/vocLabel');
     });
 
+    it('should allow labels that are exact matches in the label whitelist', async () => {
+      (<any>service).labelWhitelist = ['_links'];
+
+      const nonMatchingQuads = [
+        df.quad(
+          df.namedNode('http://subject/links'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#apLabel',
+          ),
+          df.literal('_links'),
+        ),
+        df.quad(
+          df.namedNode('http://subject/embedded'),
+          df.namedNode(
+            'https://implementatie.data.vlaanderen.be/ns/oslo-toolchain#vocLabel',
+          ),
+          df.literal('_embedded'),
+        ),
+      ];
+      jest.spyOn(store, 'findQuads').mockReturnValueOnce(nonMatchingQuads);
+
+      const result = (<any>service).validateLabels();
+      expect(result.isValid).toBe(false);
+
+      expect(result.invalidEntries).toHaveLength(1);
+      expect(result.invalidEntries[0].uri).toBe('http://subject/embedded');
+    });
+
     it('should detect abbreviations in labels (bare and dotted variants)', () => {
       const nonMatchingQuads = [
         // Bare abbreviation

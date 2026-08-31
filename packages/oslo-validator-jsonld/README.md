@@ -24,6 +24,7 @@ npm install -g @oslo-flanders/jsonld-validator
 | -------------------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------------------------- |
 | `--input`                  | The URL or local file path of an OSLO JSON-LD file                                      | :heavy_check_mark: |                                    |
 | `--whitelist`              | The URL or local file path to a whitelist json containing a set of allowed URI prefixes | :heavy_check_mark: | `whitelist.json`                   |
+| `--labelWhitelist`         | The URL or local file path to a label whitelist json containing exact label matches     |                    | `label-whitelist.json`             |
 | `--publicationEnvironment` | The base URI of environment where the document will be published.                       | :heavy_check_mark: | `https://data.vlaanderen.be`       |
 | `--language`               | The language in which intermediary format is generated.                                 | :heavy_check_mark: | `nl`, `fr`, `en`, `es`             |
 | `--specificationType`      | The type of specification being validated.                                              | :heavy_check_mark: | `ApplicationProfile`, `Vocabulary` |
