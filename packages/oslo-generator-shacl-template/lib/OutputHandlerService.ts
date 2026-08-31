@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { ShaclTemplateGenerationServiceConfiguration } from './config/ShaclTemplateGenerationServiceConfiguration';
 import { ShaclTemplateGenerationServiceIdentifier } from './config/ShaclTemplateGenerationServiceIdentifier';
-import { OutputFormat, QuadStore } from '@oslo-flanders/core';
+import { OutputFormat, QuadStore, ns } from '@oslo-flanders/core';
 import { createWriteStream, writeFileSync } from 'fs';
 import { rdfSerializer } from 'rdf-serialize';
 import { DataFactory } from 'rdf-data-factory';
@@ -36,7 +36,10 @@ export class OutputHandlerService {
       // Dynamic import. Required due to ESM and CommonJS compatibility issues between project and third-party libs
       // @ts-ignore
       const { default: Serializer } = await import('@rdfjs/serializer-turtle');
-      const serializer = new Serializer();
+      const prefixes = new Map([
+        ['vann', df.namedNode(ns.vann('').value)],
+      ]);
+      const serializer = new Serializer({ prefixes: prefixes as any });
       const output = serializer.transform(quads);
       writeFileSync(fileName, output);
     } else {
