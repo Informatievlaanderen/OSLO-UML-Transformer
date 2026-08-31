@@ -99,6 +99,18 @@ export class ClassShapeBaseHandler extends ShaclHandler {
         : []),
     ]);
 
+    // Add rdfs:seeAlso link to the HTML documentation for this class shape
+    if (this.config.applicationProfileURL) {
+      const seeAlso = `${this.config.applicationProfileURL}#${toPascalCase(label.value)}`;
+      shaclStore.addQuad(
+        this.df.quad(
+          <RDF.NamedNode>shapeId,
+          ns.rdfs('seeAlso'),
+          this.df.namedNode(seeAlso),
+        ),
+      );
+    }
+
     const targetClasses: RDF.NamedNode[] = [assignedURI];
 
     /*
