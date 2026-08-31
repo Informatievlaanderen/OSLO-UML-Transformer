@@ -106,6 +106,36 @@ describe('ClassShapeBaseHandler', () => {
     ).toBe(true);
   });
 
+  it('should add a link to the application profile if option is configured', async () => {
+    store.addQuads(await parseJsonld(baseData));
+    params.applicationProfileURL = 'http://example.org/ap';
+    await config.createFromCli(params);
+
+    handler.handle(
+      df.namedNode('http://example.org/.well-known/id/class/1'),
+      store,
+      shaclStore,
+    );
+
+    const shaclQuads: RDF.Quad[] = shaclStore.findQuads(null, null, null, null);
+
+    expect(shaclQuads.length).toBe(6);
+    expect(
+      shaclQuads.some(
+        (quad: RDF.Quad) =>
+          quad.predicate.equals(
+            df.namedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
+          ) &&
+          quad.subject.equals(
+            df.namedNode('http://example.org/id/shape/1'),
+          ) &&
+          quad.object.equals(
+            df.namedNode('http://example.org/ap#MyLabel'),
+          ),
+      ),
+    ).toBe(true);
+  });
+
   it('should throw an error when the assigned URI is missing', async () => {
     store.addQuads(await parseJsonld(baseDataWithoutAssignedURI));
     expect(() =>
