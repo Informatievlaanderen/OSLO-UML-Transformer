@@ -27,6 +27,10 @@ export class JsonldValidationServiceRunner extends AppRunner<
         describe:
           'Local path or URL to whitelist file (JSON array of URI prefixes).',
       })
+      .option('labelWhitelist', {
+        describe:
+          'Local path or URL to label whitelist file (JSON array of exact label matches).',
+      })
       .option('language', {
         describe: 'The language in which intermediary format is generated.',
         default: 'nl'

@@ -20,6 +20,7 @@ export class JsonldValidationService implements IService {
   public readonly configuration: JsonldValidationServiceConfiguration;
   public readonly store: QuadStore;
   private whitelist: string[] = [];
+  private labelWhitelist: string[] = [];
 
   public constructor(
     @inject(ServiceIdentifier.Logger) logger: Logger,
@@ -35,6 +36,10 @@ export class JsonldValidationService implements IService {
   public async init(): Promise<void> {
     if (this.configuration.whitelist) {
       await this.loadWhitelist(this.configuration.whitelist);
+    }
+
+    if (this.configuration.labelWhitelist) {
+      await this.loadLabelWhitelist(this.configuration.labelWhitelist);
     }
 
     return this.store.addQuadsFromFile(this.configuration.input);
@@ -124,6 +129,29 @@ export class JsonldValidationService implements IService {
     } catch (error) {
       console.log(error);
       throw new Error(`[JsonLdValidationService]: Failed to load whitelist from ${filePath}`);
+    }
+  }
+
+  private async loadLabelWhitelist(filePath: string): Promise<void> {
+    try {
+      const buffer: Buffer = await fetchFileOrUrl(filePath);
+      const content = buffer.toString();
+
+      const labelWhitelistFromFile = JSON.parse(content);
+
+      if (!Array.isArray(labelWhitelistFromFile)) {
+        throw new Error(
+          '[JsonLdValidationService]: Label whitelist file must contain a JSON array of labels',
+        );
+      }
+
+      this.labelWhitelist = labelWhitelistFromFile;
+      this.logger.info(
+        `[JsonLdValidationService]: Loaded ${this.labelWhitelist.length} labels into label whitelist`,
+      );
+    } catch (error) {
+      console.log(error);
+      throw new Error(`[JsonLdValidationService]: Failed to load label whitelist from ${filePath}`);
     }
   }
 
@@ -337,6 +365,10 @@ export class JsonldValidationService implements IService {
         }
 
         if (!this.checkIsAlphanumeric(value)) {
+          if (this.isLabelWhitelisted(value)) {
+            continue;
+          }
+
           this.logger.warn(
             `[JsonLdValidationService]: Labels must only contain alphabetical characters: '${value}' for subject: ${uri}`,
           );
@@ -519,6 +551,10 @@ export class JsonldValidationService implements IService {
 
   private checkIsAlphanumeric(value: string): boolean {
     return value.match(/^[a-z0-9éëïöü\s]+$/i) !== null;
+  }
+
+  private isLabelWhitelisted(value: string): boolean {
+    return this.labelWhitelist.includes(value);
   }
 
   private checkEndsWithHashOrDash(value: string): boolean {

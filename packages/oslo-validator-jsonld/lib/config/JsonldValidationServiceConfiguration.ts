@@ -19,6 +19,11 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
   private _whitelist: string | undefined;
 
   /**
+   * Local path or URL to label whitelist file (JSON array of exact label matches)
+   */
+  private _labelWhitelist: string | undefined;
+
+  /**
    * Type of document
    */
   private _specificationType: string | undefined;
@@ -32,6 +37,7 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
     this._input = <string>params.input;
     this._publicationEnvironment = <string>params.publicationEnvironment;
     this._whitelist = <string>params.whitelist;
+    this._labelWhitelist = <string>params.labelWhitelist;
     this._specificationType = <string>params.specificationType;
     this._language = <string>params.language
   }
@@ -52,6 +58,10 @@ export class JsonldValidationServiceConfiguration implements IConfiguration {
       );
     }
     return this._whitelist;
+  }
+
+  public get labelWhitelist(): string | undefined {
+    return this._labelWhitelist;
   }
 
   public get specificationType(): string | undefined {
