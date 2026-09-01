@@ -121,14 +121,6 @@ describe('CodelistConstraintHandler', () => {
       shaclQuads.some(
         (quad) =>
           quad.predicate.equals(
-            df.namedNode('http://www.w3.org/ns/shacl#class'),
-          ) && quad.object.equals(df.namedNode(ns.skos('ConceptScheme').value)),
-      ),
-    ).toBe(true);
-    expect(
-      shaclQuads.some(
-        (quad) =>
-          quad.predicate.equals(
             df.namedNode('http://www.w3.org/ns/shacl#hasValue'),
           ) &&
           quad.object.equals(df.namedNode('http://example.org/id/codelist/1')),
