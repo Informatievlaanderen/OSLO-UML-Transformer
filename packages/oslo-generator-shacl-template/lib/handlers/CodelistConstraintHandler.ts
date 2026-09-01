@@ -89,7 +89,6 @@ export class CodelistConstraintHandler extends ShaclHandler {
         this.df.quad(this.df.namedNode(constraintId), ns.shacl('node'), nodeBlankNode),
         this.df.quad(nodeBlankNode, ns.rdf('type'), ns.shacl('NodeConstraint')),
         this.df.quad(nodeBlankNode, ns.shacl('property'), propertyBlankNode),
-        this.df.quad(propertyBlankNode, ns.shacl('class'), ns.skos('ConceptScheme')),
         this.df.quad(propertyBlankNode, ns.shacl('hasValue'), codelist),
         this.df.quad(propertyBlankNode, ns.shacl('minCount'), this.df.literal('1', ns.xsd('integer'))),
         this.df.quad(propertyBlankNode, ns.shacl('nodeKind'), ns.shacl('IRI')),
