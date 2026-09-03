@@ -19,6 +19,7 @@ export const DataTypes: Map<string, string> = new Map<string, string>([
   ['yearmonth', `${xsd}#gYearMonth`],
   ['month', `${xsd}#gMonth`],
   ['monthday', `${xsd}#gMonthDay`],
+  ['day', `${xsd}#gDay`],
   ['duration', `${xsd}#duration`],
   ['html', `${rdf}#HTML`],
   ['uri', `${xsd}#anyURI`],
