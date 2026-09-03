@@ -53,5 +53,6 @@
   "http://data.europa.eu/eli/ontology#",
   "http://data.europa.eu/930/",
   "http://data.europa.eu/r5r/",
-  "https://w3id.org/dpv#"
+  "https://w3id.org/dpv#",
+  "https://purl.eu/ns/mobility/"
 ]
