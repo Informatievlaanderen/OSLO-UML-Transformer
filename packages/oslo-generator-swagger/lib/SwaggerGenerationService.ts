@@ -143,6 +143,9 @@ export class SwaggerGenerationService implements IService {
       },
     };
 
+    /* Create embedded (self-contained) variant with all $ref resolved inline */
+    const embeddedComponents: any = this.resolveRefs(components, schemas);
+
     /* Create Swagger endpoint paths as example */
     const swagger = this.createSwagger(schemas, links);
 
@@ -173,6 +176,11 @@ export class SwaggerGenerationService implements IService {
         format,
         components,
         `swagger/components${languageSuffix}${ext}`,
+      );
+      await this.writeOutput(
+        format,
+        embeddedComponents,
+        `swagger/_embedded${languageSuffix}${ext}`,
       );
       await this.writeOutput(
         format,
@@ -803,5 +811,76 @@ export class SwaggerGenerationService implements IService {
 
     ensureOutputDirectory(path.dirname(filePath));
     await writeFile(filePath, data);
+  }
+
+  /**
+   * Create a self-contained copy of the components object where all `$ref`
+   * pointers to `#/components/schemas/<name>` are replaced by the actual
+   * schema definition inline. Resolves recursively so that nested `$ref`
+   * references are also inlined. Circular references are preserved as `$ref`
+   * to avoid infinite recursion.
+   */
+  private resolveRefs(components: any, schemas: any): any {
+    const embedded = JSON.parse(JSON.stringify(components));
+    const resolving = new Set<string>();
+
+    function walk(obj: any): void {
+      if (!obj || typeof obj !== 'object') {
+        return;
+      }
+      if (Array.isArray(obj)) {
+        for (let i = 0; i < obj.length; i++) {
+          if (obj[i] !== null && typeof obj[i] === 'object' && obj[i].$ref) {
+            const match = obj[i].$ref.match(/^#\/components\/schemas\/(.+)$/);
+            if (match && schemas[match[1]]) {
+              if (resolving.has(match[1])) {
+                // Circular reference – keep the $ref as-is
+                continue;
+              }
+              resolving.add(match[1]);
+              obj[i] = JSON.parse(JSON.stringify(schemas[match[1]]));
+              walk(obj[i]);
+              resolving.delete(match[1]);
+            }
+          } else {
+            walk(obj[i]);
+          }
+        }
+      } else {
+        for (const key of Object.keys(obj)) {
+          if (
+            key === '$ref' &&
+            typeof obj[key] === 'string' &&
+            obj.$ref.startsWith('#/components/schemas/')
+          ) {
+            continue;
+          }
+          if (
+            obj[key] !== null &&
+            typeof obj[key] === 'object' &&
+            obj[key].$ref
+          ) {
+            const match = obj[key].$ref.match(
+              /^#\/components\/schemas\/(.+)$/,
+            );
+            if (match && schemas[match[1]]) {
+              if (resolving.has(match[1])) {
+                // Circular reference – keep the $ref as-is
+                continue;
+              }
+              resolving.add(match[1]);
+              obj[key] = JSON.parse(JSON.stringify(schemas[match[1]]));
+              walk(obj[key]);
+              resolving.delete(match[1]);
+            }
+          } else {
+            walk(obj[key]);
+          }
+        }
+      }
+    }
+
+    walk(embedded);
+    return embedded;
   }
 }
