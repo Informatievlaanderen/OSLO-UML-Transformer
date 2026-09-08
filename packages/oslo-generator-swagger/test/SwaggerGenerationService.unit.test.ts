@@ -142,6 +142,7 @@ describe('SwaggerGenerationService', () => {
 
     expect(existsSync('output-primary/swagger/example.json')).toBe(true);
     expect(existsSync('output-primary/swagger/components.json')).toBe(true);
+    expect(existsSync('output-primary/swagger/_embedded.json')).toBe(true);
     expect(
       existsSync('output-primary/swagger/components/schemas/GeregistreerdPersoon.json'),
     ).toBe(true);
@@ -149,6 +150,7 @@ describe('SwaggerGenerationService', () => {
     // No suffixed files should have been written
     expect(existsSync('output-primary/swagger/example_nl.json')).toBe(false);
     expect(existsSync('output-primary/swagger/components_nl.json')).toBe(false);
+    expect(existsSync('output-primary/swagger/_embedded_nl.json')).toBe(false);
 
     rmSync('output-primary', { recursive: true, force: true });
   });
@@ -183,6 +185,7 @@ describe('SwaggerGenerationService', () => {
 
     expect(existsSync('output-translated/swagger/example_nl.json')).toBe(true);
     expect(existsSync('output-translated/swagger/components_nl.json')).toBe(true);
+    expect(existsSync('output-translated/swagger/_embedded_nl.json')).toBe(true);
     expect(
       existsSync(
         'output-translated/swagger/components/schemas/GeregistreerdPersoon_nl.json',
@@ -192,6 +195,7 @@ describe('SwaggerGenerationService', () => {
     // Unsuffixed root files should not have been written
     expect(existsSync('output-translated/swagger/example.json')).toBe(false);
     expect(existsSync('output-translated/swagger/components.json')).toBe(false);
+    expect(existsSync('output-translated/swagger/_embedded.json')).toBe(false);
 
     rmSync('output-translated', { recursive: true, force: true });
   });
@@ -375,6 +379,7 @@ describe('SwaggerGenerationService', () => {
     // Verify YAML files exist instead of JSON
     expect(existsSync('output-yaml/swagger/example.yaml')).toBe(true);
     expect(existsSync('output-yaml/swagger/components.yaml')).toBe(true);
+    expect(existsSync('output-yaml/swagger/_embedded.yaml')).toBe(true);
 
     // Verify the YAML is valid and matches expected structure
     const yamlContent = readFileSync('output-yaml/swagger/example.yaml').toString();
@@ -422,8 +427,10 @@ describe('SwaggerGenerationService', () => {
     // Verify both JSON and YAML files exist
     expect(existsSync('output-both/swagger/example.json')).toBe(true);
     expect(existsSync('output-both/swagger/components.json')).toBe(true);
+    expect(existsSync('output-both/swagger/_embedded.json')).toBe(true);
     expect(existsSync('output-both/swagger/example.yaml')).toBe(true);
     expect(existsSync('output-both/swagger/components.yaml')).toBe(true);
+    expect(existsSync('output-both/swagger/_embedded.yaml')).toBe(true);
 
     // Verify JSON content
     const jsonContent = readFileSync('output-both/swagger/example.json').toString();
@@ -479,9 +486,13 @@ describe('SwaggerGenerationService', () => {
     const components = JSON.parse(
       readFileSync('output-nolinks/swagger/components.json').toString(),
     );
+    const embedded = JSON.parse(
+      readFileSync('output-nolinks/swagger/_embedded.json').toString(),
+    );
 
     // The components.links key should be entirely absent
     expect(components.components.links).toBeUndefined();
+    expect(embedded.components.links).toBeUndefined();
 
     // The per-class link files should not exist
     expect(existsSync('output-nolinks/swagger/components/links')).toBe(false);
@@ -552,5 +563,28 @@ describe('SwaggerGenerationService', () => {
     // Abstract class
     expect(swagger.components.schemas.Agent).toBeUndefined();
     expect(Object.keys(swagger.paths).includes('Agent')).toBeFalsy();
+  });
+
+  it('should generate an _embedded file with all $ref resolved inline', async () => {
+    await service.store.addQuads(await parseJsonld(kvsInput));
+    await service.run();
+
+    const embedded = JSON.parse(
+      readFileSync('output/swagger/_embedded.json').toString(),
+    );
+
+    // The embedded file should have the same top-level structure
+    expect(embedded.openapi).toBe('3.0.4');
+    expect(embedded.components).toBeDefined();
+    expect(embedded.components.schemas).toBeDefined();
+
+    // Verify that a known referenced schema is now inlined
+    // GeregistreerdPersoon.achternaam was a $ref target, now should be inlined
+    const gp = embedded.components.schemas.GeregistreerdPersoon;
+    expect(gp).toBeDefined();
+    expect(gp.properties.achternaam).toBeDefined();
+    // The property should be an inline schema, not a $ref
+    expect(gp.properties.achternaam.$ref).toBeUndefined();
+    expect(gp.properties.achternaam.title).toBe('GeregistreerdPersoon.achternaam');
   });
 });
