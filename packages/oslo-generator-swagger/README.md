@@ -39,6 +39,7 @@ The service is executed from the CLI and expects the following parameters:
 | `--excludeClasses` | Classes to exclude from the generated Swagger | No | Persoon Organisatie Test |
 | `--excludeProperties` | Properties to exclude from the generated Swagger | No | voornaam achternaam |
 | `--disableLinks` | Disable the creation of links | No | `true` or `false` (default) |
+| `--generateEmbedded` | Generate the embedded (self-contained) variant with all `$ref` resolved inline | No | `true` or `false` (default) |
 | `--expanded` | Disable the creation of links | No | `true` or `false` (default) |
 | `--excludeClassesExpanded` | Classes to exclude from expanding their properties in JSON-LD | No | Persoon Organisatie Test |
 | `--excludePropertiesExpanded` | Properties to exclude from expanding in JSON-LD | No | voornaam achternaam |
