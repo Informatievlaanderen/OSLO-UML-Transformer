@@ -101,6 +101,11 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
   private _disableLinks: boolean | undefined;
 
   /**
+   * Whether to generate the embedded (self-contained) variant with all $ref resolved inline
+   */
+  private _generateEmbedded: boolean | undefined;
+
+  /**
    * Whether to use expanded JSON-LD format or not
    */
   private _expanded: boolean | undefined;
@@ -135,6 +140,7 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
     this._excludeProperties = <string[]>params.excludeProperties;
     this._outputFormat = <OutputFormat[]>params.outputFormat;
     this._disableLinks = <boolean>params.disableLinks;
+    this._generateEmbedded = <boolean>params.generateEmbedded;
     this._expanded = <boolean>params.expanded;
     this._excludeClassesExpanded = <string[]>params.excludeClassesExpanded;
     this._excludePropertiesExpanded = <string[]>(
@@ -249,6 +255,10 @@ export class SwaggerGenerationServiceConfiguration implements IConfiguration {
 
   public get disableLinks(): boolean {
     return !!this._disableLinks;
+  }
+
+  public get generateEmbedded(): boolean {
+    return !!this._generateEmbedded;
   }
 
   public get expanded(): boolean {

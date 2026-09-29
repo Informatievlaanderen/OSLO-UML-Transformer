@@ -58,6 +58,12 @@ export class SwaggerGenerationServiceRunner extends AppRunner<
         default: false,
         boolean: true,
       })
+      .option('generateEmbedded', {
+        describe:
+          'Generate the embedded (self-contained) variant with all $ref resolved inline.',
+        default: false,
+        boolean: true,
+      })
       .option('expanded', {
         describe: 'Use JSON-LD expanded format instead of default compact format.',
         default: false,

@@ -65,6 +65,7 @@ describe('SwaggerGenerationService', () => {
         ],
         primaryLanguage: 'nl',
         expanded: true,
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: []
       },
@@ -131,6 +132,7 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Json],
         excludeClasses: [],
         excludeProperties: [],
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: [],
       },
@@ -174,6 +176,7 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Json],
         excludeClasses: [],
         excludeProperties: [],
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: [],
       },
@@ -367,6 +370,7 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Yaml],
         excludeClasses: [],
         excludeProperties: [],
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: []
       },
@@ -415,6 +419,7 @@ describe('SwaggerGenerationService', () => {
         outputFormat: [OutputFormat.Json, OutputFormat.Yaml],
         excludeClasses: [],
         excludeProperties: [],
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: []
       },
@@ -471,6 +476,7 @@ describe('SwaggerGenerationService', () => {
         excludeClasses: [],
         excludeProperties: [],
         disableLinks: true,
+        generateEmbedded: true,
         excludeClassesExpanded: [],
         excludePropertiesExpanded: []
       },
@@ -586,5 +592,114 @@ describe('SwaggerGenerationService', () => {
     // The property should be an inline schema, not a $ref
     expect(gp.properties.achternaam.$ref).toBeUndefined();
     expect(gp.properties.achternaam.title).toBe('GeregistreerdPersoon.achternaam');
+  });
+
+  it('should not generate an _embedded file when generateEmbedded is false', async () => {
+    const noEmbeddedService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-noembedded',
+        primaryLanguage: 'nl',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        generateEmbedded: false,
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: [],
+      },
+      store,
+    );
+
+    await noEmbeddedService.store.addQuads(await parseJsonld(kvsInput));
+    await noEmbeddedService.run();
+
+    // The embedded file should not exist
+    expect(existsSync('output-noembedded/swagger/_embedded.json')).toBe(false);
+
+    // The other files should still be generated
+    expect(existsSync('output-noembedded/swagger/example.json')).toBe(true);
+    expect(existsSync('output-noembedded/swagger/components.json')).toBe(true);
+
+    // Cleanup
+    rmSync('output-noembedded', { recursive: true, force: true });
+  });
+
+  it('should not generate an _embedded file when generateEmbedded is omitted (defaults to false)', async () => {
+    const defaultService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-default',
+        primaryLanguage: 'nl',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: [],
+      },
+      store,
+    );
+
+    await defaultService.store.addQuads(await parseJsonld(kvsInput));
+    await defaultService.run();
+
+    // The embedded file should not exist when the flag is not provided
+    expect(existsSync('output-default/swagger/_embedded.json')).toBe(false);
+
+    // The other files should still be generated
+    expect(existsSync('output-default/swagger/example.json')).toBe(true);
+    expect(existsSync('output-default/swagger/components.json')).toBe(true);
+
+    // Cleanup
+    rmSync('output-default', { recursive: true, force: true });
+  });
+
+  it('should generate an _embedded file when generateEmbedded is true', async () => {
+    const embeddedService = <any>new SwaggerGenerationService(
+      logger,
+      <any>{
+        language: 'nl',
+        input: 'data/KVS-Input.json',
+        output: 'output-embedded',
+        primaryLanguage: 'nl',
+        title: 'My Title',
+        description: 'My Description',
+        contextURL: 'http://example.com/context.jsonld',
+        baseURL: 'http://example.com/',
+        versionAPI: '1.0.0.',
+        versionSwagger: '3.0.4',
+        outputFormat: [OutputFormat.Json],
+        excludeClasses: [],
+        excludeProperties: [],
+        generateEmbedded: true,
+        excludeClassesExpanded: [],
+        excludePropertiesExpanded: [],
+      },
+      store,
+    );
+
+    await embeddedService.store.addQuads(await parseJsonld(kvsInput));
+    await embeddedService.run();
+
+    // The embedded file should exist
+    expect(existsSync('output-embedded/swagger/_embedded.json')).toBe(true);
+
+    // Cleanup
+    rmSync('output-embedded', { recursive: true, force: true });
   });
 });

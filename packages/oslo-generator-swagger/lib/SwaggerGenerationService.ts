@@ -144,7 +144,9 @@ export class SwaggerGenerationService implements IService {
     };
 
     /* Create embedded (self-contained) variant with all $ref resolved inline */
-    const embeddedComponents: any = this.resolveRefs(components, schemas);
+    const embeddedComponents: any = this.configuration.generateEmbedded
+      ? this.resolveRefs(components, schemas)
+      : undefined;
 
     /* Create Swagger endpoint paths as example */
     const swagger = this.createSwagger(schemas, links);
@@ -177,11 +179,13 @@ export class SwaggerGenerationService implements IService {
         components,
         `swagger/components${languageSuffix}${ext}`,
       );
-      await this.writeOutput(
-        format,
-        embeddedComponents,
-        `swagger/_embedded${languageSuffix}${ext}`,
-      );
+      if (embeddedComponents) {
+        await this.writeOutput(
+          format,
+          embeddedComponents,
+          `swagger/_embedded${languageSuffix}${ext}`,
+        );
+      }
       await this.writeOutput(
         format,
         swagger,
