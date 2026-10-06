@@ -10,16 +10,5 @@
     },
     "disabled": false,
     "dummy": "043"
-  },
-  {
-    "urlref": "/doc/applicatieprofiel/zaalreservatie/kandidaatstandaard/kristof-t",
-    "repository": "https://github.com/Informatievlaanderen/OSLOthema-zaalreservatie",
-    "branchtag": "kandidaat_2025-07-01_v0.0.3",
-    "name": "zaalreservatie",
-    "filename": "config/zaalreservatie-ap.json",
-    "navigation": {
-      "prev": "/doc/applicatieprofiel/zaalreservatie/ontwerpstandaard/2025-04-18"
-    },
-    "dummy": "054"
   }
 ]

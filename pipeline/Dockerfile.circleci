@@ -19,13 +19,16 @@ COPY package.json lerna.json tsconfig.json ./
 COPY packages/ ./packages/
 
 # Install dependencies and build all packages
-RUN npm install && \
-    npx lerna exec -- npm i && \
+# Note: npm workspaces handle all workspace package dependencies from the root
+# `npm install`. Running `lerna exec -- npm i` would create local node_modules
+# inside each package, breaking the workspace symlinks and hiding CLI binaries
+# (like oslo-converter-ea) from PATH.
+RUN npm install --legacy-peer-deps && \
     npm run build && \
     # Prune dev dependencies — only production deps are needed at runtime.
     # This saves ~50-100 MB (eslint, jest, typescript, @types/*, etc.).
-    rm -rf node_modules/.cache /root/.npm && \
-    find /build -name "*.js.map" -type f -delete 2>/dev/null || true
+    rm -rf node_modules/.cache /root/.npm
+RUN find /build -name "*.js.map" -type f -delete 2>/dev/null || true
 
 # --- Legacy /app helper source -----------------------------------------------
 # The orchestration scripts reference a set of legacy helpers under /app that
