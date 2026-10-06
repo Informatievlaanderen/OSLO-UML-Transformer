@@ -11,14 +11,7 @@ generators in isolation.
    ```bash
    make -C pipeline build
    ```
-
-2. **GitHub token** — the harness checks out the spec repositories over HTTPS.
-   For private repositories you need a PAT. Export it before running:
-   ```bash
-   export TOOLCHAIN_TOKEN="ghp_..."
-   ```
-   (For public repos you can leave it empty; `CI_TOKEN` is also accepted.)
-
+   
 ## How it works
 
 The harness (`run.sh`) mirrors the CircleCI job sequence:
