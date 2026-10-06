@@ -1,0 +1,101 @@
+# OSLO Pipeline Docker Image
+#
+# Builds the complete publication toolchain from source:
+#   - All @oslo-flanders/* npm packages from packages/
+#   - Legacy /app helpers (specgen, metadata-generator) from OSLO-SpecificationGenerator
+#   - Pipeline orchestration scripts from pipeline/scripts/
+
+# Source and pinned refs for the legacy /app helpers.
+ARG LEGACY_HELPERS_REPO=https://github.com/Informatievlaanderen/OSLO-SpecificationGenerator.git
+ARG LEGACY_APP_REF=dev4.0
+ARG LEGACY_SPECGEN_REF=toolchain-v1-scripts
+
+FROM node:24.11.0 AS builder
+
+WORKDIR /build
+
+# Copy the monorepo configuration
+COPY package.json lerna.json tsconfig.json ./
+COPY packages/ ./packages/
+
+# Install dependencies and build all packages
+RUN npm install && \
+    npx lerna exec -- npm i && \
+    npm run build && \
+    # Prune dev dependencies — only production deps are needed at runtime.
+    # This saves ~50-100 MB (eslint, jest, typescript, @types/*, etc.).
+    rm -rf node_modules/.cache /root/.npm && \
+    find /build -name "*.js.map" -type f -delete 2>/dev/null || true
+
+# --- Legacy /app helper source -----------------------------------------------
+# The orchestration scripts reference a set of legacy helpers under /app that
+# are not part of the @oslo-flanders/* packages:
+#   - /app/*.js  (translation-json-*, autotranslate*, merge-overviewreport,
+#                 report_lines_links, xsd-generator, html-metadata-generator, ...)
+#   - /app/views/*.j2  (Nunjucks templates)
+#   - /app/specgen/*.py (Python vocabulary generator)
+# The .js tools + views come from the `dev4.0` branch; the Python specgen comes
+# from the legacy `toolchain-v1-scripts` tag. Both live in the same legacy repo.
+FROM node:24.11.0 AS legacy-helpers
+
+ARG LEGACY_HELPERS_REPO
+ARG LEGACY_APP_REF
+ARG LEGACY_SPECGEN_REF
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN git clone --depth 1 --branch "${LEGACY_APP_REF}" "${LEGACY_HELPERS_REPO}" /src/legacy-app && \
+    git clone --depth 1 --branch "${LEGACY_SPECGEN_REF}" "${LEGACY_HELPERS_REPO}" /src/legacy-specgen
+
+# Install the legacy app's Node dependencies once so they ship with the image.
+# rdf-dereference is pulled in additionally for pipeline/scripts/fetch_external_rdf.js
+# (used by copy_resources_to_urlref.sh to dereference external vocabularies).
+RUN cd /src/legacy-app && \
+    npm install --omit=dev --no-audit --no-fund && \
+    npm install --omit=dev --no-audit --no-fund rdf-dereference@5.0.0
+
+# --- Production image ---
+FROM node:24.11.0-slim
+
+# The orchestration scripts depend on jq, git, curl, and the legacy specgen
+# helper is a Python script. The slim image doesn't ship these, so install them.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      jq git ca-certificates curl \
+      python3 python3-pip && \
+    pip3 install --break-system-packages --no-cache-dir click Jinja2 six rdflib && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the complete, fully-installed monorepo from the builder. This includes the
+# compiled packages, the hoisted node_modules (all third-party deps), and the
+# @oslo-flanders/* workspace symlinks, so inter-package imports such as
+# `@oslo-flanders/core` and third-party modules resolve correctly.
+COPY --from=builder /build /usr/local/lib/oslo
+
+# Install the legacy /app helpers. The /app directory is a real directory (not a
+# symlink) holding the legacy .js tools, their node_modules, the views/*.j2
+# templates, and the Python specgen.
+COPY --from=legacy-helpers /src/legacy-app /app
+COPY --from=legacy-helpers /src/legacy-specgen/specgen /app/specgen
+COPY --from=legacy-helpers /src/legacy-specgen/templates /app/templates
+
+# Expose the legacy app's node_modules (for NODE_PATH) and the monorepo CLI
+# binaries.
+ENV NODE_PATH="/app/node_modules:/usr/local/lib/oslo/node_modules"
+ENV PATH="/usr/local/lib/oslo/node_modules/.bin:${PATH}"
+
+# Install the pipeline orchestration scripts
+COPY pipeline/scripts/ /usr/local/lib/pipeline/scripts/
+# Make scripts available on PATH
+ENV PATH="/usr/local/lib/pipeline/scripts:${PATH}"
+
+# The build context is assembled by docker-build.sh and contains only:
+#   package.json lerna.json tsconfig.json packages/ pipeline/scripts/
+
+# Set working directory
+WORKDIR /workspace
+
+# Default command
+CMD ["bash"]
