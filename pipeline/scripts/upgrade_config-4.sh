@@ -109,11 +109,30 @@ upgrade_config() {
     local SLINE=$1
     echo "upgrade config for $SLINE"
 
-    set -x
-
     THEMACONFIGFILE=${SLINE}/.names.json
     TMPFILE=/tmp/upgradeconfig
     TMPFILEINPUT=/tmp/upgradeconfig_input
+
+    # Validate .names.json before passing it to the Node script
+    if [ ! -s "${THEMACONFIGFILE}" ]; then
+        echo "ERROR: ${THEMACONFIGFILE} is empty or does not exist"
+        echo "The name in the publication point does not match any name"
+        echo "in the referenced config file from the thema repository."
+        echo "Publication point name: $(jq -r '.name // "?"' ${SLINE}/.publication-point.json 2>/dev/null)"
+        exit 1
+    fi
+    if ! jq -e . "${THEMACONFIGFILE}" >/dev/null 2>&1; then
+        echo "ERROR: ${THEMACONFIGFILE} contains invalid JSON"
+        jq . "${THEMACONFIGFILE}" 2>&1 || true
+        exit 1
+    fi
+    if [ "$(jq 'length' "${THEMACONFIGFILE}")" -eq 0 ]; then
+        echo "ERROR: ${THEMACONFIGFILE} is an empty JSON array"
+        echo "The 'name' in the publication point"
+        echo "($(jq -r '.name // "?"' ${SLINE}/.publication-point.json 2>/dev/null))"
+        echo "does not match any 'name' in the referenced config file."
+        exit 1
+    fi
 
     node /app/update-config-translation.js -i ${THEMACONFIGFILE}  -g ${PRIMELANGUAGE} -m ${PRIMELANGUAGE} -s ${AZURETRANSLATIONKEY} -o ${TMPFILE}
     for g in ${GOALLANGUAGE}; do

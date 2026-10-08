@@ -50,6 +50,12 @@ cleanup_directory() {
   then
     STR=".[] | select(.name == \"$(cat .names.txt)\") | [.]"
     jq "${STR}" ${MAPPINGFILE} >.names.json
+    if [ ! -s .names.json ] || [ "$(jq 'length' .names.json)" -eq 0 ]; then
+        echo "ERROR: name '$(cat .names.txt)' not found in ${MAPPINGFILE}"
+        echo "Available names:"
+        jq -r '.[].name' "${MAPPINGFILE}" 2>/dev/null | while read n; do echo "         - $n"; done
+        exit 1
+    fi
     jq -r '.[] | @sh "find . -name \"*.eap\" !  -name \(.eap) -type f -exec rm -f {} + "' .names.json | bash -e
     SITE=`jq -r .[].site .names.json`
     find ./site-skeleton -depth -type d ! -wholename "./site-skeleton"  ! -wholename "./${SITE}" -exec rm -rf {} + 
@@ -231,7 +237,6 @@ then
       RDIR=${DIR#'/'}
       mkdir -p $ROOTDIR/$MAIN/$RDIR
       mkdir -p $ROOTDIR/target/$RDIR
-      mkdir -p $ROOTDIR/report/$RDIR
       
 
 

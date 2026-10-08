@@ -41,6 +41,14 @@ generator_parameters() {
     fi
 }
 
+# --- Logging -----------------------------------------------------------------
+
+log_command() {
+    local REPORTFILE=$1
+    shift
+    echo "GEN-CMD: $*"
+    echo "${REPORTLINEPREFIX}command: $*" >>"${REPORTFILE}"
+}
 
 
 #############################################################################################
@@ -124,6 +132,10 @@ extract_json() {
 
     echo "${REPORTLINEPREFIX}oslo-converter-ea for diagram ${DIAGRAM}" &>>${REPORTFILE}
     echo "${REPORTLINEPREFIX}-------------------------------------" &>>${REPORTFILE}
+    log_command ${REPORTFILE} oslo-converter-ea ${PARAMETERS} --umlFile ${UMLFILE} --diagramName ${DIAGRAM} --outputFile ${OUTPUTFILE} \
+                 --specificationType ${SPECTYPE} --versionId ${URLREF2} --baseUri https://${DOMAIN} \
+                 --debug true \
+                 --publicationEnvironment ${HOSTNAME2}/
     oslo-converter-ea ${PARAMETERS} --umlFile ${UMLFILE} --diagramName ${DIAGRAM} --outputFile ${OUTPUTFILE} \
                  --specificationType ${SPECTYPE} --versionId ${URLREF2} --baseUri https://${DOMAIN} \
 		 --debug true \
@@ -146,6 +158,7 @@ extract_json() {
     SK_REPORTFILE=${TTDIR}/oslo-stakeholders-converter.report.md
     echo "${REPORTLINEPREFIX} oslo-stakeholders-converter" &>>${SK_REPORTFILE}
     echo "${REPORTLINEPREFIX}-------------------------------------" &>>${SK_REPORTFILE}
+    log_command ${SK_REPORTFILE} oslo-stakeholders-converter --input ${CONTRIBUTORSFILE} --outputFormat application/json --contributorsColumn ${CONTRIBUTORSCOLUMN} --output ${TTDIR}/stakeholders.json
     oslo-stakeholders-converter --input ${CONTRIBUTORSFILE} --outputFormat application/json --contributorsColumn ${CONTRIBUTORSCOLUMN} --output ${TTDIR}/stakeholders.json &>>${SK_REPORTFILE}
     oslo-stakeholders-converter --input ${CONTRIBUTORSFILE} --outputFormat application/json --contributorsColumn ${CONTRIBUTORSCOLUMN} --output stakeholders.json
 
