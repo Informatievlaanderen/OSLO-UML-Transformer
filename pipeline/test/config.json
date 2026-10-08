@@ -15,8 +15,7 @@
   "toolchain": {
     "strictness": "lazy",
     "version": 4,
-    "triggerall": false,
-    "autotranslate": true
+    "triggerall": false
   },
   "shaclgenerator": {
     "parameters-old": "-m individual -c 'uniqueLanguages' -c 'nodeKind'"

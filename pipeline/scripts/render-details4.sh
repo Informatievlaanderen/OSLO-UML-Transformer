@@ -175,12 +175,12 @@ cat ${CHECKOUTFILE} | while read line; do
                     done
                 ;;
                 autotranslate)
-                    AUTOTRANSLATE=$(jq -r .toolchain.autotranslate ${CONFIGDIR}/config.json)
-                    if [ ${AUTOTRANSLATE} == true ]; then
-                        for g in ${GOALLANGUAGE}; do
+                    for g in ${GOALLANGUAGE}; do
+                        USEAUTOTRANSLATION=$(jq -r '.translation | .[] | select(.language == "'"${g}"'") | .autotranslate' $i)
+                        if [ "${USEAUTOTRANSLATION}" == "true" ] || [ "${USEAUTOTRANSLATION}" == true ]; then
                             autotranslatefiles ${PRIMELANGUAGE} ${g} $i ${SLINE} ${TLINE} ${AUTOTRANSLATIONDIR}/${line}
-                        done
-                    fi
+                        fi
+                    done
                 ;;
                 merge)
                     render_merged_files ${PRIMELANGUAGE} ${PRIMELANGUAGE} $i ${SLINE} ${TLINE} ${RLINE}
@@ -199,6 +199,17 @@ cat ${CHECKOUTFILE} | while read line; do
                     fi
                 ;;
                 report)
+                    # Download the previous report4/README.md from the generated repository
+                    # so the merge script can extend it rather than starting from scratch.
+                    GENERATED_ORG=$(jq -r '.generatedrepository.organisation' ${CONFIGDIR}/config.json)
+                    GENERATED_REPO=$(jq -r '.generatedrepository.repository' ${CONFIGDIR}/config.json)
+                    GENERATED_BRANCH="${CIRCLE_BRANCH:-dev}"
+                    if [ -n "${GENERATED_ORG}" ] && [ -n "${GENERATED_REPO}" ] && [ "${GENERATED_ORG}" != "null" ] && [ -n "${TOOLCHAIN_TOKEN:-}" ]; then
+                        downloadFileGithub.sh \
+                            "{\"organisation\":\"${GENERATED_ORG}\",\"repository\":\"${GENERATED_REPO}\",\"branchtag\":\"${GENERATED_BRANCH}\",\"filepath\":\"report4/README.md\"}" \
+                            "${TARGETDIR}/README.md" \
+                            "${TOOLCHAIN_TOKEN:-}" 2>/dev/null || true
+                    fi
                     EXECUTIONVIEW=${TARGETDIR}/report4/overviewreport.md
                     OLD_GLOBAL_OVERVIEW=${TARGETDIR}/README.md
                     GLOBAL_OVERVIEW=${TARGETDIR}/report4/README.md

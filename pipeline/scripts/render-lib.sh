@@ -36,32 +36,22 @@ generate_for_language() {
     local LANGUAGE=$1
     local JSONI=$2
 
-    AUTOTRANSLATE=$(jq -r .toolchain.autotranslate ${CONFIGDIR}/config.json)
+    # Check the per-language autotranslate flag in the publication point config.
+    COMMANDLANGJSON=$(echo '.translation | .[] | select(.language | contains("'${LANGUAGE}'")) | .autotranslate')
+    PUB_AUTOTRANSLATE=$(jq -r "${COMMANDLANGJSON}" ${JSONI})
 
-    if [ ${AUTOTRANSLATE} == true ]; then
-        OTHERCOMMAND=$(echo '.otherLanguages | contains(["'${LANGUAGE}'"])')
-        OTHER=$(jq -r "${OTHERCOMMAND}" ${CONFIGDIR}/config.json)
-        if [ "${OTHER}" == "true" ] || [ "${OTHER}" == true ]; then
-            # Check the publication point's own translation config.
-            COMMANDLANGJSON=$(echo '.translation | .[] | select(.language | contains("'${LANGUAGE}'")) | .autotranslate')
-            PUB_AUTOTRANSLATE=$(jq -r "${COMMANDLANGJSON}" ${JSONI})
-            if [ "${PUB_AUTOTRANSLATE}" == "false" ] || [ "${PUB_AUTOTRANSLATE}" == false ]; then
-                GENERATEDARTEFACT=false
-            else
-                # Also verify the merged file actually exists — if not, skip.
-                local FILENAME=$(jq -r '.name' "${JSONI}")
-                local JSONDIR=$(dirname "${JSONI}")
-                local MERGEDFILE="${JSONDIR}/merged/merged_${FILENAME}_${LANGUAGE}.jsonld"
-                if [ -f "${MERGEDFILE}" ]; then
-                    GENERATEDARTEFACT=true
-                else
-                    GENERATEDARTEFACT=false
-                fi
-            fi
+    if [ "${PUB_AUTOTRANSLATE}" == "true" ] || [ "${PUB_AUTOTRANSLATE}" == true ]; then
+        # Autotranslate is enabled for this language — check if the merged file exists.
+        local FILENAME=$(jq -r '.name' "${JSONI}")
+        local JSONDIR=$(dirname "${JSONI}")
+        local MERGEDFILE="${JSONDIR}/merged/merged_${FILENAME}_${LANGUAGE}.jsonld"
+        if [ -f "${MERGEDFILE}" ]; then
+            GENERATEDARTEFACT=true
         else
             GENERATEDARTEFACT=false
         fi
     else
+        # No autotranslate — check if a manual translation file exists.
         COMMANDLANGJSON=$(echo '.translation | .[] | select(.language | contains("'${LANGUAGE}'")) | .translationjson')
         TRANSLATIONFILE=$(jq -r "${COMMANDLANGJSON}" ${JSONI})
         if [ "${TRANSLATIONFILE}" == "" ] || [ "${TRANSLATIONFILE}" == "null" ]; then
@@ -309,12 +299,7 @@ render_merged_files() {
         INPUTTRANSLATIONFILE=${TLINE}/translation/${TRANSLATIONFILE}
     else
         if [ "${USEAUTOTRANSLATION}" == true ]; then
-            AUTOTRANSLATE=$(jq -r .toolchain.autotranslate ${CONFIGDIR}/config.json)
-            if [ ${AUTOTRANSLATE} == true ]; then
-                INPUTTRANSLATIONFILE=${TLINE}/autotranslation/${TRANSLATIONFILE}
-            else
-                INPUTTRANSLATIONFILE=${TLINE}/translation/${TRANSLATIONFILE}
-            fi
+            INPUTTRANSLATIONFILE=${TLINE}/autotranslation/${TRANSLATIONFILE}
         else
             INPUTTRANSLATIONFILE=${TLINE}/translation/${TRANSLATIONFILE}
         fi

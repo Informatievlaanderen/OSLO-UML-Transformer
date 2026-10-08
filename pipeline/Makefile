@@ -9,7 +9,7 @@ build:
 	./docker-build.sh --tag oslo-pipeline
 
 build-linux:
-	./docker-build.sh --platform linux/amd64 --tag oslo-pipeline
+	./docker-build.sh --no-cache --platform linux/amd64 --tag oslo-pipeline
 
 test: build
 	chmod +x test/run.sh
