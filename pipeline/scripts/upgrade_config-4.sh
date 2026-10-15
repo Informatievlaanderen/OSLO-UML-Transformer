@@ -142,6 +142,31 @@ upgrade_config() {
 
     cp ${TMPFILE} ${THEMACONFIGFILE}
 
+    # Apply the per-spec autotranslate override from the publication point
+    # config (data.vlaanderen.be2). The publication point entry may declare:
+    #   "autotranslate": false                    -> disable for all goal languages
+    #   "autotranslate": { "en": false, "fr": true } -> per-language control
+    # The prime language is never autotranslated, so it is left untouched.
+    PUBPOINTFILE=${SLINE}/.publication-point.json
+    if [ -f "${PUBPOINTFILE}" ]; then
+        PUB_AUTOTRANSLATE=$(jq -r 'if has("autotranslate") then .autotranslate else empty end' "${PUBPOINTFILE}")
+        if [ -n "${PUB_AUTOTRANSLATE}" ]; then
+            echo "upgrade config: applying autotranslate override from publication point: ${PUB_AUTOTRANSLATE}"
+            if [ "${PUB_AUTOTRANSLATE}" == "true" ] || [ "${PUB_AUTOTRANSLATE}" == "false" ]; then
+                # Boolean: apply to every goal language
+                jq --argjson autotranslate "${PUB_AUTOTRANSLATE}" \
+                   '.[0].translation |= map(if .language != "'"${PRIMELANGUAGE}"'" then .autotranslate = $autotranslate else . end)' \
+                   "${THEMACONFIGFILE}" > "${TMPFILE}"
+            else
+                # Object: per-language map, e.g. {"en": false, "fr": true}
+                jq --argjson overrides "${PUB_AUTOTRANSLATE}" \
+                   '.[0].translation |= map(if .language != "'"${PRIMELANGUAGE}"'" and ($overrides[.language] != null) then .autotranslate = $overrides[.language] else . end)' \
+                   "${THEMACONFIGFILE}" > "${TMPFILE}"
+            fi
+            cp "${TMPFILE}" "${THEMACONFIGFILE}"
+        fi
+    fi
+
 }
 
 

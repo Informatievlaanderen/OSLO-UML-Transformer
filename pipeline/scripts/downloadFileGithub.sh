@@ -20,7 +20,7 @@ set -euo pipefail
 
 FILEDESC=$1
 TARGET=$2
-TOKEN=$3
+TOKEN=${3:-}
 
 #-----------------------------------------------------------------------------#
 # 
@@ -53,7 +53,7 @@ if [ "${TOKEN}" != "" ] ; then
    STATUS=`curl -s -w "%{http_code}" -H "Authorization: token ${TOKEN}" -o ${TMPDIR}/apifile.out https://api.github.com/repos/${ORG}/${REPO}/contents/${FILEPATH}?ref=${BRANCHTAG}`
    checkHTTPcode ${STATUS}
    DOWNLOADURL=`jq -r .download_url ${TMPDIR}/apifile.out`
-   STATUS=`curl -s -w "%{http_code}" -H "Authorization: token ${TOKEN}" -o ${TMPDIR}/file.out ${DOWNLOADURL}` 
+   STATUS=`curl -s -w "%{http_code}" --location-trusted -H "Authorization: token ${TOKEN}" -o ${TMPDIR}/file.out ${DOWNLOADURL}` 
    checkHTTPcode ${STATUS}
 else
 	echo "accessing pubic repository"

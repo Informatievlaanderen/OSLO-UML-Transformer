@@ -354,7 +354,16 @@ render_metadata() {
     echo "${REPORTLINEPREFIX}metadata for language ${GOALLANGUAGE} ${REPORTLINENEWLINE}" &>>${REPORTFILE}
     echo "${REPORTLINEPREFIX}-------------------------------------${REPORTLINENEWLINE}" &>>${REPORTFILE}
 
-    ARGS=( -i "${JSONI}" -g "${PRIMELANGUAGE}" -m "${GOALLANGUAGE}" -h "${HOSTNAME}" -r "/${DROOT}" -u "${URIDOMAIN}" -o "${METAOUTPUT}" -p "${REPORTLINEPREFIX}" )
+    # Honour a per-spec "languages" override: the primary language of the
+    # publication environment is the spec's first language when declared.
+    SPEC_LANGUAGES=$(jq -r '.languages // empty' ${JSONI} 2>/dev/null)
+    if [ -n "${SPEC_LANGUAGES}" ]; then
+        META_PRIMELANGUAGE=$(echo "${SPEC_LANGUAGES}" | jq -r '.[0]')
+    else
+        META_PRIMELANGUAGE=${PRIMELANGUAGE}
+    fi
+
+    ARGS=( -i "${JSONI}" -g "${META_PRIMELANGUAGE}" -m "${GOALLANGUAGE}" -h "${HOSTNAME}" -r "/${DROOT}" -u "${URIDOMAIN}" -o "${METAOUTPUT}" -p "${REPORTLINEPREFIX}" )
     log_command ${REPORTFILE} node /app/html-metadata-generator.js "${ARGS[@]}"
     if ! node /app/html-metadata-generator.js "${ARGS[@]}" &>>"${REPORTFILE}"; then
         echo "RENDER-DETAILS: failed"
@@ -365,13 +374,28 @@ render_metadata() {
             jq --arg bt "${BRANCHTAG}" '. + {"branchtag": $bt}' "${METAOUTPUT}" > /tmp/meta_bt.json && mv /tmp/meta_bt.json "${METAOUTPUT}"
         fi
 
-        AVAILABLE_LANGUAGES=("${PRIMELANGUAGE}")
-        for lang in $(jq -r '.otherLanguages[]' ${CONFIGDIR}/config.json); do
-            generate_for_language ${lang} ${JSONI}
-            if [ "${GENERATEDARTEFACT}" == "true" ] || [ "${GENERATEDARTEFACT}" == true ]; then
-                AVAILABLE_LANGUAGES+=("${lang}")
-            fi
-        done
+        AVAILABLE_LANGUAGES=("${META_PRIMELANGUAGE}")
+        # Honour a per-spec "languages" override from the publication point
+        # config (merged into the all-*.jsonld input) when present.
+        SPEC_LANGUAGES=$(jq -r '.languages // empty' ${JSONI} 2>/dev/null)
+        if [ -n "${SPEC_LANGUAGES}" ]; then
+            for lang in $(echo "${SPEC_LANGUAGES}" | jq -r '.[]'); do
+                if [ "${lang}" == "${META_PRIMELANGUAGE}" ]; then
+                    continue
+                fi
+                generate_for_language ${lang} ${JSONI}
+                if [ "${GENERATEDARTEFACT}" == "true" ] || [ "${GENERATEDARTEFACT}" == true ]; then
+                    AVAILABLE_LANGUAGES+=("${lang}")
+                fi
+            done
+        else
+            for lang in $(jq -r '.otherLanguages[]' ${CONFIGDIR}/config.json); do
+                generate_for_language ${lang} ${JSONI}
+                if [ "${GENERATEDARTEFACT}" == "true" ] || [ "${GENERATEDARTEFACT}" == true ]; then
+                    AVAILABLE_LANGUAGES+=("${lang}")
+                fi
+            done
+        fi
 
         if [ -f "${METAOUTPUT}" ]; then
             AVAILABLE_JSON=$(printf '%s\n' "${AVAILABLE_LANGUAGES[@]}" | jq -R . | jq -s .)

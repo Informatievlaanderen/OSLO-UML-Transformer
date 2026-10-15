@@ -118,7 +118,7 @@ construct_urlref_if_missing() {
             local temp_metadata="/tmp/metadata_${name}.json"
             
             # downloadFileGithub.sh is on PATH (bundled in the pipeline image)
-            downloadFileGithub.sh "{\"repository\":\"$repository\",\"organisation\":\"$organisation\",\"branchtag\":\"$branchtag\",\"filepath\":\"$filename\"}" "$temp_metadata" "${TOOLCHAIN_TOKEN}"
+            downloadFileGithub.sh "{\"repository\":\"$repository\",\"organisation\":\"$organisation\",\"branchtag\":\"$branchtag\",\"filepath\":\"$filename\"}" "$temp_metadata" "${TOOLCHAIN_TOKEN:-}"
             
             if [[ -f "$temp_metadata" ]]; then
                 # Extract metadata from the thema repository - INCLUDING TYPE
