@@ -1,0 +1,30 @@
+# Pipeline build artefacts
+node_modules/
+lib/
+dist/
+*.tgz
+*.log
+
+# Generated test output
+checkouts.txt
+links.txt
+rawcheckouts.txt
+report/
+report4/
+target/
+src/
+ttl/
+json/
+translation/
+autotranslation/
+testt/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
