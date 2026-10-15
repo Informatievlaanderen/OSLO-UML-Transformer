@@ -255,14 +255,12 @@ export function findAllAttributes(
 
     additionalParentIds = [
       ...additionalParentIds,
-      ...store
-        .findSubjects(ns.oslo('assignedURI'), assignedUri)
-        .filter(
-          (item) =>
-            item.value !== parentId.value &&
-            !visited.has(item.value) &&
-            !isSubclassOf(item, parentId, store),
-        ),
+      ...store.findSubjects(ns.oslo('assignedURI'), assignedUri).filter(
+        (item) =>
+          item.value !== parentId.value && // not the potential dummy itself
+          !visited.has(item.value) && // not on the current path
+          !isSubclassOf(item, parentId, store), // not a descendant of the potential dummy
+      ),
     ];
   }
   parentIds = [...parentIds, ...additionalParentIds];
