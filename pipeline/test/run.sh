@@ -154,6 +154,55 @@ else
 fi
 end_test || AUTOTRANSLATE_OVERRIDE_FAILED=1
 
+# --- test: autotranslate with spec prime language ----------------------------
+# When a spec declares "languages": ["en", "nl"] and "autotranslate": {"nl": true},
+# the spec's prime (en) must stay autotranslate=false (it is the source) while
+# the goal language (nl) is autotranslated — even though nl is the GLOBAL prime.
+start_test "autotranslate-spec-prime"
+AT2_WS="${WORKSPACE}/autotranslate-spec-prime-ws"
+rm -rf "${AT2_WS}"
+mkdir -p "${AT2_WS}/src/doc/en-prime-spec" "${AT2_WS}/config"
+cat > "${AT2_WS}/src/doc/en-prime-spec/.publication-point.json" << 'EOF'
+{
+  "urlref": "/doc/en-prime-spec",
+  "name": "en-prime-spec",
+  "languages": ["en", "nl"],
+  "autotranslate": { "nl": true }
+}
+EOF
+cat > "${AT2_WS}/src/doc/en-prime-spec/.names.json" << 'EOF'
+[
+  {
+    "name": "en-prime-spec",
+    "template": "test.j2",
+    "title": "Test",
+    "translation": [
+      { "language": "nl", "template": "test.j2", "title": "Test", "translationjson": "test_nl.json", "mergefile": "merge_test_nl.jsonld", "autotranslate": false },
+      { "language": "en", "template": "test_en.j2", "title": "Test", "translationjson": "test_en.json", "mergefile": "merge_test_en.jsonld", "autotranslate": true }
+    ]
+  }
+]
+EOF
+echo "doc/en-prime-spec" > "${AT2_WS}/checkouts.txt"
+cp "${CONFIG_JSON}" "${AT2_WS}/config/config.json"
+docker run --rm \
+    -v "${AT2_WS}:${CONTAINER_WORKSPACE}" \
+    -e TOOLCHAIN_TOKEN="${CI_TOKEN}" \
+    -e CIRCLE_BRANCH="test" \
+    -e CIRCLE_WORKING_DIRECTORY="/usr/local/lib/pipeline" \
+    -e AZURETRANSLATIONKEY="${AZURETRANSLATIONKEY:-dummy}" \
+    "${IMAGE}" upgrade_config-4.sh "${CONTAINER_WORKSPACE}" "${CONTAINER_WORKSPACE}/config" >/dev/null 2>&1
+assert_exit 0 "$?"
+NL_AUTOTRANSLATE=$(jq -r ".[0].translation[] | select(.language==\"nl\") | .autotranslate" "${AT2_WS}/src/doc/en-prime-spec/.names.json")
+EN_AUTOTRANSLATE=$(jq -r ".[0].translation[] | select(.language==\"en\") | .autotranslate" "${AT2_WS}/src/doc/en-prime-spec/.names.json")
+if [ "${NL_AUTOTRANSLATE}" == "true" ] && [ "${EN_AUTOTRANSLATE}" == "false" ]; then
+    echo "PASS: spec prime (en) not autotranslated, goal (nl) autotranslated (nl=${NL_AUTOTRANSLATE}, en=${EN_AUTOTRANSLATE})"
+else
+    echo "FAIL: spec prime handling wrong (nl=${NL_AUTOTRANSLATE}, en=${EN_AUTOTRANSLATE})"
+    AUTOTRANSLATE_SPEC_PRIME_FAILED=1
+fi
+end_test || AUTOTRANSLATE_SPEC_PRIME_FAILED=1
+
 # --- test: per-spec languages override ---------------------------------------
 # The publication point config (data.vlaanderen.be2) may declare a "languages"
 # list to restrict which languages are rendered for a spec, overriding the
@@ -338,6 +387,7 @@ echo "=================================================="
 if [ "${CHECKOUT_FAILED:-0}" = "1" ] || \
    [ "${UPGRADE_FAILED:-0}" = "1" ] || \
    [ "${AUTOTRANSLATE_OVERRIDE_FAILED:-0}" = "1" ] || \
+   [ "${AUTOTRANSLATE_SPEC_PRIME_FAILED:-0}" = "1" ] || \
    [ "${LANGUAGES_OVERRIDE_FAILED:-0}" = "1" ] || \
    [ "${EXTRACT_FAILED:-0}" = "1" ] || \
    [ "${RENDER_FAILED:-0}" = "1" ] || \
