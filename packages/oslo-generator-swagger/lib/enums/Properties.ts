@@ -33,8 +33,8 @@ const PropertiesExpanded: Map<string, object> = new Map<string, object>([
 
 /* JSON-LD context provides values for @type and @language for primitive datatypes */
 const PropertiesCompacted: Map<string, object> = new Map<string, object>([
-  [ns.rdf('langString').value, { type: 'string' }],
-  [ns.rdfs('Literal').value, { type: 'string' }],
+  [ns.rdf('langString').value, { type: 'object', properties: { '@value': { type: 'string' }, '@language': { type: 'string', pattern: '^nl$' } }, required: ['@value', '@language'] }],
+  [ns.rdfs('Literal').value, { type: 'object', properties: { '@value': { type: 'string' }, '@type': { type: 'string' } }, required: ['@value'] }],
   [ns.xsd('string').value, { type: 'string' }],
   [ns.xsd('anyURI').value, { type: 'string', format: 'uri' }],
   [ns.xsd('dateTime').value, { type: 'string', format: 'date-time' }],
