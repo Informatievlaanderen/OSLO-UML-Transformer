@@ -324,7 +324,10 @@ describe('SwaggerGenerationService', () => {
 
     const publiekeDienstverleningSchema = swagger.components.schemas['PubliekeDienstverlening.naam'];
     expect(publiekeDienstverleningSchema).toBeDefined();
-    expect(publiekeDienstverleningSchema.type).toBe('string');
+    expect(publiekeDienstverleningSchema.type).toBe('object');
+    expect(publiekeDienstverleningSchema.properties['@value']).toBeDefined();
+    expect(publiekeDienstverleningSchema.properties['@language']).toBeDefined();
+    expect(publiekeDienstverleningSchema.required).toEqual(['@value', '@language']);    
   });
 
   it('should generate a valid Swagger API document in JSON and exclude the defined properties', async () => {
