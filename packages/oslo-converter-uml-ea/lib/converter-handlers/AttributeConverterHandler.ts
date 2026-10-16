@@ -1,6 +1,12 @@
 import { URL } from 'url';
 import type { QuadStore } from '@oslo-flanders/core';
-import { PropertyType, datatypeIdentifierToHash, getDataType, ns } from '@oslo-flanders/core';
+import {
+  PropertyType,
+  datatypeIdentifierToHash,
+  getDataType,
+  ns,
+} from '@oslo-flanders/core';
+import { ConceptAttribute } from '../utils/conceptAttributes';
 
 import { ElementType } from '@oslo-flanders/ea-uml-extractor';
 import type {
@@ -44,7 +50,7 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
     store: QuadStore,
   ): Promise<QuadStore> {
     // Only attributes of elements that are on the target diagram will be passed to the output handler
-    // and attributes that have a domain that is not an enumeration
+    // and attributes that have a domain that is not an enumeration, except the added SKOS concept attributes
     const enumerationClasses: EaElement[] = model.elements.filter(
       (x) => x.type === ElementType.Enumeration,
     );
@@ -52,7 +58,8 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
       .filter(
         (x) =>
           model.targetDiagram.elementIds.includes(x.classId) &&
-          !enumerationClasses.some((y) => y.id === x.classId),
+          (x instanceof ConceptAttribute ||
+            !enumerationClasses.some((y) => y.id === x.classId)),
       )
       .forEach((object) =>
         store.addQuads(this.createQuads(object, uriRegistry, model)),
@@ -82,8 +89,11 @@ export class AttributeConverterHandler extends ConverterHandler<EaAttribute> {
         );
       }
 
-      // We do not process attributes of enumerations
-      if (attributeClass.type === ElementType.Enumeration) {
+      // We do not process attributes of enumerations, except the added SKOS concept attributes
+      if (
+        attributeClass.type === ElementType.Enumeration &&
+        !(attribute instanceof ConceptAttribute)
+      ) {
         return;
       }
 

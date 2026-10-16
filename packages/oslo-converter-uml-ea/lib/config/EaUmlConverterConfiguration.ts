@@ -47,6 +47,11 @@ export class EaUmlConverterConfiguration implements IConfiguration {
    */
   private _inputFormat: string | undefined;
 
+  /**
+   * A boolean that decides whether the SKOS Concept attributes (code and voorkeursnaam) are added to every enumeration
+   */
+  private _addConceptAttributes: boolean | undefined;
+
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
@@ -57,6 +62,7 @@ export class EaUmlConverterConfiguration implements IConfiguration {
     this._allTags = <boolean>params.allTags;
     this._debug = <boolean>params.debug;
     this._inputFormat = <string>params.inputFormat;
+    this._addConceptAttributes = <boolean>params.addConceptAttributes;
   }
 
   public get umlFile(): string {
@@ -126,5 +132,9 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       );
     }
     return this._inputFormat;
+  }
+
+  public get addConceptAttributes(): boolean {
+    return !!this._addConceptAttributes;
   }
 }

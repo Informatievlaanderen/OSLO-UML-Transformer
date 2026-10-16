@@ -401,6 +401,33 @@ export class SwaggerGenerationService implements IService {
 
       this.schemaExists(schemas, label);
 
+      /* Enumerations only get properties when they have attributes, such as the SKOS Concept attributes added by the converter */
+      const attributeIds: RDF.Term[] = findAllAttributes(
+        enumId,
+        [],
+        this.store,
+        this.logger,
+      );
+
+      if (attributeIds.length === 0) {
+        schemas[label] = {
+          title: label,
+          type: 'object',
+          description: `Enumeratie van ${label}`,
+          properties: {
+            '@id': {
+              type: 'string',
+              format: 'uri',
+            },
+          },
+          required: ['@id'],
+        };
+        continue;
+      }
+
+      const { properties: attributes, required: requiredAttributes } =
+        this.createProperties(label, attributeIds, schemas);
+
       schemas[label] = {
         title: label,
         type: 'object',
@@ -410,8 +437,15 @@ export class SwaggerGenerationService implements IService {
             type: 'string',
             format: 'uri',
           },
+          /* As for classes, so the type-scoped JSON-LD context of the enumeration applies */
+          '@type': {
+            type: 'string',
+            description: `Object type (klasse ${label})`,
+            pattern: `^${label}\$`,
+          },
+          ...attributes,
         },
-        required: ['@id'],
+        required: ['@type', ...requiredAttributes],
       };
     }
 
@@ -441,8 +475,6 @@ export class SwaggerGenerationService implements IService {
         this.store,
         this.configuration.language,
       )?.value;
-      let attributes: any = {};
-      let requiredAttributes: any = {};
 
       /* Get all attributes in a recursive manner for inheritance */
       let attributeIds: RDF.Term[] = [];
@@ -465,190 +497,8 @@ export class SwaggerGenerationService implements IService {
         continue;
       }
 
-      attributes[label] = [];
-      requiredAttributes[label] = [];
-
-      /* Find all attributes for object */
-      for (const attributeId of attributeIds) {
-        let attributeLabel = getApplicationProfileLabel(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-        const attributeMinCount = getMinCount(attributeId, this.store);
-        const attributeMaxCount = getMaxCount(attributeId, this.store);
-        const attributeRangeId = this.store.getRange(attributeId);
-        const attributeDomainId = this.store.getDomain(attributeId);
-        const attributeDefinition = getApplicationProfileDefinition(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-        const attributeUsageNote = getApplicationProfileUsageNote(
-          attributeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        if (!attributeLabel) {
-          this.logger.error(`Unknown label for attribute ${attributeId.value}`);
-          continue;
-        }
-        /* Attribute labels should be always camel cased */
-        attributeLabel = toCamelCase(attributeLabel);
-
-        // Addition for the `excludeProperties` flag to remove any reference to an excluded property
-        const classNameWithPropertyName = `${label}.${attributeLabel}`;
-        if (
-          this.configuration.excludeProperties.includes(
-            classNameWithPropertyName,
-          )
-        ) {
-          continue;
-        }
-
-        if (!attributeRangeId) {
-          this.logger.error(`Unknown range for attribute ${attributeId.value}`);
-          continue;
-        }
-
-        if (!attributeDomainId) {
-          this.logger.error(
-            `Unknown domain for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-
-        const attributeDatatypeId =
-          this.store.getAssignedUri(attributeRangeId)?.value;
-        let attributeDatatypeLabel = getApplicationProfileLabel(
-          attributeRangeId,
-          this.store,
-          this.configuration.language,
-        )?.value;
-
-        if (!attributeDatatypeId || !attributeDatatypeLabel) {
-          this.logger.error(
-            `Unknown datatype for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-        attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
-
-        const attributeDatatypeAbstract =
-          this.store.isAbstractClass(attributeRangeId);
-
-        /* Attribute datatypes may have a super class assigned, but any subclass of this super class must be allowed */
-        const subclasses: string[] = [];
-        for (const subclassId of this.store.findSubjects(
-          ns.rdfs('subClassOf'),
-          attributeRangeId,
-        )) {
-          const subclassLabel = getApplicationProfileLabel(
-            subclassId,
-            this.store,
-            this.configuration.language,
-          )?.value;
-
-          if (!subclassLabel) {
-            console.error(`Unable to retrieve subclass label of ${subclassId}`);
-            continue;
-          }
-
-          subclasses.push(toPascalCase(subclassLabel));
-        }
-
-        /* Cardinality */
-        if (!attributeMinCount || !attributeMaxCount) {
-          this.logger.error(
-            `Unknown cardinality for attribute ${attributeId.value}`,
-          );
-          continue;
-        }
-
-        /* Expanded JSON-LD depends on configuration */
-        let expanded = this.configuration.expanded;
-        if (this.configuration.excludeClassesExpanded.includes(label)) {
-          expanded = false;
-        }
-
-        if (this.configuration.excludePropertiesExpanded.includes(`${label}.${attributeLabel}`)) {
-          expanded = false;
-        }
-
-        /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
-        const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
-        const properties = mapProperties(
-          attributeDatatypeId,
-          attributeDatatypeLabel,
-          subclasses,
-          attributeDatatypeAbstract,
-          this.configuration.excludeClasses,
-          expanded,
-        );
-
-        // If mapProperties returns nothing, the property pointed to an excluded class (this.configuration.excludeClasses)
-        if (!properties) {
-          continue;
-        }
-
-        const requiredProperties = properties
-          ? Object.keys(properties)
-          : undefined;
-
-        const isPrimitive = [...DataTypes.values()].includes(
-          attributeDatatypeId,
-        );
-        let item: any;
-
-        if (isPrimitive) {
-          /* Wrap primitive property in its own named schema to avoid naming collisions */
-          const schemaName = `${label}.${attributeLabel}`;
-
-          if (expanded) {
-            schemas[schemaName] = {
-              title: schemaName,
-              type: 'object',
-              description: description,
-              properties: properties,
-              required: requiredProperties,
-            };
-          } else {
-            schemas[schemaName] = {
-              title: schemaName,
-              description: description,
-              ...properties,
-            };
-          }
-          item = { $ref: `#/components/schemas/${schemaName}` };
-        } else {
-          item = properties;
-        }
-
-        if (attributeMaxCount != '0' && attributeMaxCount != '1') {
-          /* minItems must be 1, empty arrays are removed by not including the attribute, even if minCount == 0 */
-          attributes[label][attributeLabel] = {
-            type: 'array',
-            description: `${description} Lijst van ${attributeDatatypeLabel} items.`,
-            items: item,
-            minItems: Math.max(parseInt(attributeMinCount), 1),
-            maxItems:
-              attributeMaxCount == '*'
-                ? undefined
-                : parseInt(attributeMaxCount),
-          };
-          /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
-        } else {
-          attributes[label][attributeLabel] = item;
-        }
-
-        /* Only require properties which are not arrays since those have their own cardinality checks */
-        if (attributeMinCount == '1')
-          requiredAttributes[label].push(attributeLabel);
-      }
-
-      /* Remove duplicates in requiredAttributes list which may be introduced due to redefine/subsetting in inheritance */
-      requiredAttributes[label] = [...new Set(requiredAttributes[label])];
+      const { properties: attributes, required: requiredAttributes } =
+        this.createProperties(label, attributeIds, schemas);
 
       /* Root classes require a @context property, add it here if needed */
       let context = {};
@@ -680,14 +530,207 @@ export class SwaggerGenerationService implements IService {
             description: `Object type (klasse ${label})`,
             pattern: `^${label}\$`,
           },
-          ...attributes[label],
+          ...attributes,
           ...context,
         },
-        required: ['@type', ...requiredAttributes[label]],
+        required: ['@type', ...requiredAttributes],
       };
     }
 
     return schemas;
+  }
+
+  /**
+   * Creates the Swagger properties for the attributes of a class or enumeration
+   * @returns the properties, and the labels of the properties that are required
+   */
+  private createProperties(
+    label: string,
+    attributeIds: RDF.Term[],
+    schemas: Schema,
+  ): { properties: any; required: string[] } {
+    const attributeProperties: any = {};
+    const required: string[] = [];
+
+    /* Find all attributes for object */
+    for (const attributeId of attributeIds) {
+      let attributeLabel = getApplicationProfileLabel(
+        attributeId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+      const attributeMinCount = getMinCount(attributeId, this.store);
+      const attributeMaxCount = getMaxCount(attributeId, this.store);
+      const attributeRangeId = this.store.getRange(attributeId);
+      const attributeDomainId = this.store.getDomain(attributeId);
+      const attributeDefinition = getApplicationProfileDefinition(
+        attributeId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+      const attributeUsageNote = getApplicationProfileUsageNote(
+        attributeId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      if (!attributeLabel) {
+        this.logger.error(`Unknown label for attribute ${attributeId.value}`);
+        continue;
+      }
+      /* Attribute labels should be always camel cased */
+      attributeLabel = toCamelCase(attributeLabel);
+
+      // Addition for the `excludeProperties` flag to remove any reference to an excluded property
+      const classNameWithPropertyName = `${label}.${attributeLabel}`;
+      if (
+        this.configuration.excludeProperties.includes(classNameWithPropertyName)
+      ) {
+        continue;
+      }
+
+      if (!attributeRangeId) {
+        this.logger.error(`Unknown range for attribute ${attributeId.value}`);
+        continue;
+      }
+
+      if (!attributeDomainId) {
+        this.logger.error(`Unknown domain for attribute ${attributeId.value}`);
+        continue;
+      }
+
+      const attributeDatatypeId =
+        this.store.getAssignedUri(attributeRangeId)?.value;
+      let attributeDatatypeLabel = getApplicationProfileLabel(
+        attributeRangeId,
+        this.store,
+        this.configuration.language,
+      )?.value;
+
+      if (!attributeDatatypeId || !attributeDatatypeLabel) {
+        this.logger.error(
+          `Unknown datatype for attribute ${attributeId.value}`,
+        );
+        continue;
+      }
+      attributeDatatypeLabel = toPascalCase(attributeDatatypeLabel);
+
+      const attributeDatatypeAbstract =
+        this.store.isAbstractClass(attributeRangeId);
+
+      /* Attribute datatypes may have a super class assigned, but any subclass of this super class must be allowed */
+      const subclasses: string[] = [];
+      for (const subclassId of this.store.findSubjects(
+        ns.rdfs('subClassOf'),
+        attributeRangeId,
+      )) {
+        const subclassLabel = getApplicationProfileLabel(
+          subclassId,
+          this.store,
+          this.configuration.language,
+        )?.value;
+
+        if (!subclassLabel) {
+          console.error(`Unable to retrieve subclass label of ${subclassId}`);
+          continue;
+        }
+
+        subclasses.push(toPascalCase(subclassLabel));
+      }
+
+      /* Cardinality */
+      if (!attributeMinCount || !attributeMaxCount) {
+        this.logger.error(
+          `Unknown cardinality for attribute ${attributeId.value}`,
+        );
+        continue;
+      }
+
+      /* Expanded JSON-LD depends on configuration */
+      let expanded = this.configuration.expanded;
+      if (this.configuration.excludeClassesExpanded.includes(label)) {
+        expanded = false;
+      }
+
+      if (
+        this.configuration.excludePropertiesExpanded.includes(
+          `${label}.${attributeLabel}`,
+        )
+      ) {
+        expanded = false;
+      }
+
+      /* Arrays must be introduced into the schema if the max cardinality is 2 or more */
+      const description = `${attributeDefinition}${attributeUsageNote ? ' ' + attributeUsageNote : ''}`;
+      const properties = mapProperties(
+        attributeDatatypeId,
+        attributeDatatypeLabel,
+        subclasses,
+        attributeDatatypeAbstract,
+        this.configuration.excludeClasses,
+        expanded,
+      );
+
+      // If mapProperties returns nothing, the property pointed to an excluded class (this.configuration.excludeClasses)
+      if (!properties) {
+        continue;
+      }
+
+      const requiredProperties = properties
+        ? Object.keys(properties)
+        : undefined;
+
+      const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
+      let item: any;
+
+      if (isPrimitive) {
+        /* Wrap primitive property in its own named schema to avoid naming collisions */
+        const schemaName = `${label}.${attributeLabel}`;
+
+        if (expanded) {
+          schemas[schemaName] = {
+            title: schemaName,
+            type: 'object',
+            description: description,
+            properties: properties,
+            required: requiredProperties,
+          };
+        } else {
+          schemas[schemaName] = {
+            title: schemaName,
+            description: description,
+            ...properties,
+          };
+        }
+        item = { $ref: `#/components/schemas/${schemaName}` };
+      } else {
+        item = properties;
+      }
+
+      if (attributeMaxCount != '0' && attributeMaxCount != '1') {
+        /* minItems must be 1, empty arrays are removed by not including the attribute, even if minCount == 0 */
+        attributeProperties[attributeLabel] = {
+          type: 'array',
+          description: `${description} Lijst van ${attributeDatatypeLabel} items.`,
+          items: item,
+          minItems: Math.max(parseInt(attributeMinCount), 1),
+          maxItems:
+            attributeMaxCount == '*' ? undefined : parseInt(attributeMaxCount),
+        };
+        /* Regular property with a cardinality of [0..0], [0..1], [1..1] */
+      } else {
+        attributeProperties[attributeLabel] = item;
+      }
+
+      /* Only require properties which are not arrays since those have their own cardinality checks */
+      if (attributeMinCount == '1') required.push(attributeLabel);
+    }
+
+    /* Remove duplicates which may be introduced due to redefine/subsetting in inheritance */
+    return {
+      properties: attributeProperties,
+      required: [...new Set(required)],
+    };
   }
 
   public createLinks(): Object {
@@ -864,9 +907,7 @@ export class SwaggerGenerationService implements IService {
             typeof obj[key] === 'object' &&
             obj[key].$ref
           ) {
-            const match = obj[key].$ref.match(
-              /^#\/components\/schemas\/(.+)$/,
-            );
+            const match = obj[key].$ref.match(/^#\/components\/schemas\/(.+)$/);
             if (match && schemas[match[1]]) {
               if (resolving.has(match[1])) {
                 // Circular reference – keep the $ref as-is
