@@ -58,6 +58,14 @@ export class EaUmlConversionServiceRunner extends AppRunner<
         default: InputFormat.AccessDB,
         choices: [InputFormat.AccessDB, InputFormat.SQLite],
       })
+      .option('addConceptAttributes', {
+        describe:
+          'Add the SKOS Concept attributes code and voorkeursnaam to every enumeration',
+        default: false,
+        boolean: true,
+        hidden: true,
+      })
+
       .demandOption(
         ['umlFile', 'diagramName', 'versionId', 'publicationEnvironment'],
         'Please provide the necessary arguments to work with this tool.',

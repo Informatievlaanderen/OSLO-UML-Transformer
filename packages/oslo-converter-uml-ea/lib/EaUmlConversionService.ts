@@ -10,6 +10,7 @@ import { EaUmlConverterServiceIdentifier } from './config/EaUmlConverterServiceI
 import { ConverterHandlerService } from './ConverterHandlerService';
 import { OutputHandlerService } from './OutputHandlerService';
 import { FileReaderService } from '@oslo-flanders/ea-uml-extractor/lib/FileReaderService';
+import { addConceptAttributesToEnumerations } from './utils/conceptAttributes';
 
 @injectable()
 export class EaUmlConversionService implements IService {
@@ -45,6 +46,11 @@ export class EaUmlConversionService implements IService {
     const store = await converterHandler
       .filterHiddenObjects(model)
       .then(() => converterHandler.filterIgnoredObjects(model))
+      .then(() => {
+        if (this.configuration.addConceptAttributes) {
+          addConceptAttributesToEnumerations(model);
+        }
+      })
       .then(() => converterHandler.normalize(model))
       .then(() => converterHandler.assignUris(model))
       .then((uriRegistry) => converterHandler.convert(model, uriRegistry))
