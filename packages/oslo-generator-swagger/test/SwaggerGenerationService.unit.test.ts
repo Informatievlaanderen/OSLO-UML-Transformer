@@ -863,7 +863,12 @@ describe('SwaggerGenerationService', () => {
       expect(schemas['Euronorm.voorkeursnaam']).toEqual({
         title: 'Euronorm.voorkeursnaam',
         description: 'Naam waarmee het concept bij voorkeur wordt aangeduid.',
-        type: 'string',
+        type: 'object',
+        properties: {
+          '@language': { type: 'string', pattern: '^nl$' },
+          '@value': { type: 'string' },
+        },
+        required: ['@value', '@language'],
       });
     });
 
