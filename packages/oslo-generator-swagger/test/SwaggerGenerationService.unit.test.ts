@@ -67,7 +67,7 @@ describe('SwaggerGenerationService', () => {
         expanded: true,
         generateEmbedded: true,
         excludeClassesExpanded: [],
-        excludePropertiesExpanded: []
+        excludePropertiesExpanded: [],
       },
       store,
     );
@@ -146,7 +146,9 @@ describe('SwaggerGenerationService', () => {
     expect(existsSync('output-primary/swagger/components.json')).toBe(true);
     expect(existsSync('output-primary/swagger/_embedded.json')).toBe(true);
     expect(
-      existsSync('output-primary/swagger/components/schemas/GeregistreerdPersoon.json'),
+      existsSync(
+        'output-primary/swagger/components/schemas/GeregistreerdPersoon.json',
+      ),
     ).toBe(true);
 
     // No suffixed files should have been written
@@ -187,8 +189,12 @@ describe('SwaggerGenerationService', () => {
     await translatedService.run();
 
     expect(existsSync('output-translated/swagger/example_nl.json')).toBe(true);
-    expect(existsSync('output-translated/swagger/components_nl.json')).toBe(true);
-    expect(existsSync('output-translated/swagger/_embedded_nl.json')).toBe(true);
+    expect(existsSync('output-translated/swagger/components_nl.json')).toBe(
+      true,
+    );
+    expect(existsSync('output-translated/swagger/_embedded_nl.json')).toBe(
+      true,
+    );
     expect(
       existsSync(
         'output-translated/swagger/components/schemas/GeregistreerdPersoon_nl.json',
@@ -217,10 +223,13 @@ describe('SwaggerGenerationService', () => {
 
     // A primitive property should be $ref to a separate dot-notation schema
     const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
-    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+    expect(gp.achternaam).toEqual({
+      $ref: '#/components/schemas/GeregistreerdPersoon.achternaam',
+    });
 
     // The separate primitive schema should exist with the right structure
-    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    const achternaamSchema =
+      swagger.components.schemas['GeregistreerdPersoon.achternaam'];
     expect(achternaamSchema).toBeDefined();
     expect(achternaamSchema.type).toBe('object');
     expect(achternaamSchema.properties['@value']).toBeDefined();
@@ -254,7 +263,7 @@ describe('SwaggerGenerationService', () => {
         primaryLanguage: 'nl',
         expanded: false,
         excludeClassesExpanded: ['PubliekeDienstverlening'],
-        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
+        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam'],
       },
       store,
     );
@@ -267,10 +276,13 @@ describe('SwaggerGenerationService', () => {
 
     // A primitive property should be $ref to a separate dot-notation schema
     const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
-    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+    expect(gp.achternaam).toEqual({
+      $ref: '#/components/schemas/GeregistreerdPersoon.achternaam',
+    });
 
     // The primitive schema should not be an object, but a real primitive instead
-    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    const achternaamSchema =
+      swagger.components.schemas['GeregistreerdPersoon.achternaam'];
     expect(achternaamSchema).toBeDefined();
     expect(achternaamSchema.type).toBe('string');
   });
@@ -302,7 +314,7 @@ describe('SwaggerGenerationService', () => {
         primaryLanguage: 'nl',
         expanded: true,
         excludeClassesExpanded: ['PubliekeDienstverlening'],
-        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam']
+        excludePropertiesExpanded: ['GeregistreerdPersoon.achternaam'],
       },
       store,
     );
@@ -315,14 +327,18 @@ describe('SwaggerGenerationService', () => {
 
     // A primitive property should be $ref to a separate dot-notation schema
     const gp = swagger.components.schemas.GeregistreerdPersoon.properties;
-    expect(gp.achternaam).toEqual({ $ref: '#/components/schemas/GeregistreerdPersoon.achternaam' });
+    expect(gp.achternaam).toEqual({
+      $ref: '#/components/schemas/GeregistreerdPersoon.achternaam',
+    });
 
     // The primitive schema should not be an object, but a real primitive instead
-    const achternaamSchema = swagger.components.schemas['GeregistreerdPersoon.achternaam'];
+    const achternaamSchema =
+      swagger.components.schemas['GeregistreerdPersoon.achternaam'];
     expect(achternaamSchema).toBeDefined();
     expect(achternaamSchema.type).toBe('string');
 
-    const publiekeDienstverleningSchema = swagger.components.schemas['PubliekeDienstverlening.naam'];
+    const publiekeDienstverleningSchema =
+      swagger.components.schemas['PubliekeDienstverlening.naam'];
     expect(publiekeDienstverleningSchema).toBeDefined();
     expect(publiekeDienstverleningSchema.type).toBe('string');
   });
@@ -372,7 +388,7 @@ describe('SwaggerGenerationService', () => {
         excludeProperties: [],
         generateEmbedded: true,
         excludeClassesExpanded: [],
-        excludePropertiesExpanded: []
+        excludePropertiesExpanded: [],
       },
       store,
     );
@@ -386,7 +402,9 @@ describe('SwaggerGenerationService', () => {
     expect(existsSync('output-yaml/swagger/_embedded.yaml')).toBe(true);
 
     // Verify the YAML is valid and matches expected structure
-    const yamlContent = readFileSync('output-yaml/swagger/example.yaml').toString();
+    const yamlContent = readFileSync(
+      'output-yaml/swagger/example.yaml',
+    ).toString();
     const swagger = yaml.load(yamlContent) as any;
 
     expect(swagger.openapi).toBe('3.0.4');
@@ -421,7 +439,7 @@ describe('SwaggerGenerationService', () => {
         excludeProperties: [],
         generateEmbedded: true,
         excludeClassesExpanded: [],
-        excludePropertiesExpanded: []
+        excludePropertiesExpanded: [],
       },
       store,
     );
@@ -438,13 +456,17 @@ describe('SwaggerGenerationService', () => {
     expect(existsSync('output-both/swagger/_embedded.yaml')).toBe(true);
 
     // Verify JSON content
-    const jsonContent = readFileSync('output-both/swagger/example.json').toString();
+    const jsonContent = readFileSync(
+      'output-both/swagger/example.json',
+    ).toString();
     const jsonSwagger = JSON.parse(jsonContent);
     expect(jsonSwagger.openapi).toBe('3.0.4');
     expect(jsonSwagger.info.title).toBe('My Title');
 
     // Verify YAML content
-    const yamlContent = readFileSync('output-both/swagger/example.yaml').toString();
+    const yamlContent = readFileSync(
+      'output-both/swagger/example.yaml',
+    ).toString();
     const yamlSwagger = yaml.load(yamlContent) as any;
     expect(yamlSwagger.openapi).toBe('3.0.4');
     expect(yamlSwagger.info.title).toBe('My Title');
@@ -478,7 +500,7 @@ describe('SwaggerGenerationService', () => {
         disableLinks: true,
         generateEmbedded: true,
         excludeClassesExpanded: [],
-        excludePropertiesExpanded: []
+        excludePropertiesExpanded: [],
       },
       store,
     );
@@ -536,7 +558,7 @@ describe('SwaggerGenerationService', () => {
         excludeProperties: [],
         disableLinks: false,
         excludeClassesExpanded: [],
-        excludePropertiesExpanded: []
+        excludePropertiesExpanded: [],
       },
       store,
     );
@@ -550,9 +572,7 @@ describe('SwaggerGenerationService', () => {
 
     // Some links should be present in the output
     expect(components.components.links).toBeDefined();
-    expect(
-      Object.keys(components.components.links).length,
-    ).toBeGreaterThan(0);
+    expect(Object.keys(components.components.links).length).toBeGreaterThan(0);
 
     // Cleanup
     rmSync('output-withlinks', { recursive: true, force: true });
@@ -591,7 +611,9 @@ describe('SwaggerGenerationService', () => {
     expect(gp.properties.achternaam).toBeDefined();
     // The property should be an inline schema, not a $ref
     expect(gp.properties.achternaam.$ref).toBeUndefined();
-    expect(gp.properties.achternaam.title).toBe('GeregistreerdPersoon.achternaam');
+    expect(gp.properties.achternaam.title).toBe(
+      'GeregistreerdPersoon.achternaam',
+    );
   });
 
   it('should not generate an _embedded file when generateEmbedded is false', async () => {
@@ -701,5 +723,155 @@ describe('SwaggerGenerationService', () => {
 
     // Cleanup
     rmSync('output-embedded', { recursive: true, force: true });
+  });
+
+  describe('enumerations', () => {
+    const conceptUri = 'http://www.w3.org/2004/02/skos/core#Concept';
+    const euronormId = 'urn:oslo-toolchain:test-euronorm';
+    const brandstoftypeId = 'urn:oslo-toolchain:test-brandstoftype';
+
+    // An enumeration as the converter writes it: in classes (with its labels) and in enumerations
+    const enumerationClass = (id: string, label: string): any => ({
+      '@id': id,
+      '@type': 'Class',
+      assignedURI: conceptUri,
+      apLabel: [{ '@language': 'nl', '@value': label }],
+    });
+
+    // A SKOS Concept attribute as the converter adds it with --addConceptAttributes
+    const conceptAttribute = (
+      name: string,
+      uri: string,
+      definition: string,
+      range: string,
+    ): any => ({
+      '@id': `urn:oslo-toolchain:test-euronorm-${name}`,
+      '@type': 'http://www.w3.org/2002/07/owl#DatatypeProperty',
+      assignedURI: uri,
+      apLabel: [{ '@language': 'nl', '@value': name }],
+      apDefinition: [{ '@language': 'nl', '@value': definition }],
+      domain: { '@id': euronormId },
+      range: { '@id': range },
+      minCount: {
+        '@value': '0',
+        '@type': 'http://www.w3.org/2001/XMLSchema#integer',
+      },
+      maxCount: {
+        '@value': '1',
+        '@type': 'http://www.w3.org/2001/XMLSchema#integer',
+      },
+    });
+
+    const input = {
+      ...kvsInput,
+      '@context': {
+        ...kvsInput['@context'],
+        enumerations: '@included',
+        Enumeration: { '@id': 'skos:Concept' },
+      },
+      classes: [
+        ...kvsInput.classes,
+        enumerationClass(euronormId, 'Euronorm'),
+        enumerationClass(brandstoftypeId, 'Brandstoftype'),
+      ],
+      enumerations: [
+        { '@id': euronormId, '@type': 'Enumeration', assignedURI: conceptUri },
+        {
+          '@id': brandstoftypeId,
+          '@type': 'Enumeration',
+          assignedURI: conceptUri,
+        },
+      ],
+      attributes: [
+        ...kvsInput.attributes,
+        conceptAttribute(
+          'code',
+          'http://www.w3.org/2004/02/skos/core#notation',
+          'Code waarmee het concept binnen de codelijst wordt aangeduid.',
+          'urn:oslo-toolchain:487667944', // xsd:string
+        ),
+        conceptAttribute(
+          'voorkeursnaam',
+          'http://www.w3.org/2004/02/skos/core#prefLabel',
+          'Naam waarmee het concept bij voorkeur wordt aangeduid.',
+          'urn:oslo-toolchain:1727880001', // rdf:langString
+        ),
+      ],
+    };
+
+    let schemas: any;
+
+    beforeEach(async () => {
+      const compactedService = <any>new SwaggerGenerationService(
+        logger,
+        <any>{
+          language: 'nl',
+          input: 'data/KVS-Input.json',
+          output: 'output',
+          title: 'My Title',
+          description: 'My Description',
+          contextURL: 'http://example.com/context.jsonld',
+          baseURL: 'http://example.com/',
+          versionAPI: '1.0.0.',
+          versionSwagger: '3.0.4',
+          outputFormat: [OutputFormat.Json],
+          excludeClasses: [],
+          excludeProperties: [],
+          primaryLanguage: 'nl',
+          expanded: false,
+          excludeClassesExpanded: [],
+          excludePropertiesExpanded: [],
+        },
+        store,
+      );
+      await compactedService.store.addQuads(await parseJsonld(input));
+      await compactedService.run();
+
+      schemas = JSON.parse(
+        readFileSync('output/swagger/example.json').toString(),
+      ).components.schemas;
+    });
+
+    it('should give an enumeration with attributes the same schema as a class', () => {
+      expect(schemas.Euronorm).toEqual({
+        title: 'Euronorm',
+        type: 'object',
+        description: 'Enumeratie van Euronorm',
+        properties: {
+          '@id': { type: 'string', format: 'uri' },
+          '@type': {
+            type: 'string',
+            description: 'Object type (klasse Euronorm)',
+            pattern: '^Euronorm$',
+          },
+          code: { $ref: '#/components/schemas/Euronorm.code' },
+          voorkeursnaam: {
+            $ref: '#/components/schemas/Euronorm.voorkeursnaam',
+          },
+        },
+        required: ['@type'],
+      });
+      expect(schemas['Euronorm.code']).toEqual({
+        title: 'Euronorm.code',
+        description:
+          'Code waarmee het concept binnen de codelijst wordt aangeduid.',
+        type: 'string',
+      });
+      expect(schemas['Euronorm.voorkeursnaam']).toEqual({
+        title: 'Euronorm.voorkeursnaam',
+        description: 'Naam waarmee het concept bij voorkeur wordt aangeduid.',
+        type: 'string',
+      });
+    });
+
+    it('should keep only @id for an enumeration without attributes', () => {
+      expect(schemas.Brandstoftype).toEqual({
+        title: 'Brandstoftype',
+        type: 'object',
+        description: 'Enumeratie van Brandstoftype',
+        properties: { '@id': { type: 'string', format: 'uri' } },
+        required: ['@id'],
+      });
+    });
   });
 });
