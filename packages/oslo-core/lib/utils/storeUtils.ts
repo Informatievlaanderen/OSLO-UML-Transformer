@@ -212,6 +212,22 @@ export function createList(
   return list[0];
 }
 
+// Checks whether node inherits from ancestor regardless of number of generations
+function isSubclassOf(
+  node: RDF.Term,
+  ancestor: RDF.Term,
+  store: QuadStore,
+  seen: Set<string> = new Set(),
+): boolean {
+  for (const parent of store.findObjects(node, ns.rdfs('subClassOf'))) {
+    if (parent.value === ancestor.value) return true;
+    if (seen.has(parent.value)) continue;
+    seen.add(parent.value);
+    if (isSubclassOf(parent, ancestor, store, seen)) return true;
+  }
+  return false;
+}
+
 export function findAllAttributes(
   subject: RDF.Term,
   attributeIds: RDF.Term[],
@@ -234,12 +250,17 @@ export function findAllAttributes(
   for (const parentId of parentIds) {
     const assignedUri = store.findObject(parentId, ns.oslo('assignedURI'));
     if (!assignedUri) continue;
+    // Can't be a dummy if it has attributes
+    if (store.findSubjects(ns.rdfs('domain'), parentId).length > 0) continue;
 
     additionalParentIds = [
       ...additionalParentIds,
-      ...store
-        .findSubjects(ns.oslo('assignedURI'), assignedUri)
-        .filter((item) => item.value !== subject.value),
+      ...store.findSubjects(ns.oslo('assignedURI'), assignedUri).filter(
+        (item) =>
+          item.value !== parentId.value && // not the potential dummy itself
+          !visited.has(item.value) && // not on the current path
+          !isSubclassOf(item, parentId, store), // not a descendant of the potential dummy
+      ),
     ];
   }
   parentIds = [...parentIds, ...additionalParentIds];
@@ -299,11 +320,8 @@ export function areStoresEqual(store1: QuadStore, store2: QuadStore): boolean {
   return true;
 }
 
-export function isEnumeration(store: QuadStore, element: RDF.Term
-): boolean {
+export function isEnumeration(store: QuadStore, element: RDF.Term): boolean {
   // Check if the element is in the enumerations list
   const enumerations = store.getEnumerations();
-  return enumerations.some((enumeration) =>
-    enumeration.equals(element),
-  );
+  return enumerations.some((enumeration) => enumeration.equals(element));
 }
