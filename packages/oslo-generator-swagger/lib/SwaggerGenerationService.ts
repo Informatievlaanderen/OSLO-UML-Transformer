@@ -582,7 +582,7 @@ export class SwaggerGenerationService implements IService {
       attributeLabel = toCamelCase(attributeLabel);
 
       // Addition for the `excludeProperties` flag to remove any reference to an excluded property
-      const classNameWithPropertyName = `${label}.${attributeLabel}`;
+      const classNameWithPropertyName = `${label}${toPascalCase(attributeLabel)}`;
       if (
         this.configuration.excludeProperties.includes(classNameWithPropertyName)
       ) {
@@ -654,7 +654,7 @@ export class SwaggerGenerationService implements IService {
 
       if (
         this.configuration.excludePropertiesExpanded.includes(
-          `${label}.${attributeLabel}`,
+          `${label}${toPascalCase(attributeLabel)}`,
         )
       ) {
         expanded = false;
@@ -685,7 +685,7 @@ export class SwaggerGenerationService implements IService {
 
       if (isPrimitive) {
         /* Wrap primitive property in its own named schema to avoid naming collisions */
-        const schemaName = `${label}.${attributeLabel}`;
+        const schemaName = `${label}${toPascalCase(attributeLabel)}`;
 
         if (expanded) {
           schemas[schemaName] = {
@@ -788,7 +788,7 @@ export class SwaggerGenerationService implements IService {
         attributeLabel = toCamelCase(attributeLabel);
 
         // Addition for the `excludeProperties` flag to remove any reference to an excluded property
-        const classNameWithPropertyName = `${label}.${attributeLabel}`;
+        const classNameWithPropertyName = `${label}${toPascalCase(attributeLabel)}`;
         if (
           this.configuration.excludeProperties.includes(
             classNameWithPropertyName,
@@ -827,11 +827,12 @@ export class SwaggerGenerationService implements IService {
 
         /* Create all possible links for endpoint */
         if (!isStandardDatatype(attributeDatatypeId)) {
-          links[`${label}.${attributeLabel}`] = {
+          const schemaName = `${label}${toPascalCase(attributeLabel)}`;
+          links[schemaName] = {
             operationId: `${label}GET`,
             parameters: {
               /* Referring to response body always starts with the same prefix */
-              id: `$response.body#/${label}.${attributeLabel}/@id`,
+              id: `$response.body#/${schemaName}/@id`,
             },
             description: `De waarde van het attribuut \`@id\` kan gebruikt worden om het gerefereerde object van het type \`${attributeDatatypeLabel}\` op te halen.`,
           };
