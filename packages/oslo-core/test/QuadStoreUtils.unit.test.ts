@@ -10,6 +10,45 @@ import { QuadStore } from '../lib/store/QuadStore';
 import { ns } from '../lib/utils/namespaces';
 import { areStoresEqual, findAllAttributes } from '../lib/utils/storeUtils';
 
+/**
+ * Builds a store from { class: assignedURI }, [child, parent] and [attribute, class] pairs.
+ * The given id function turns each class and attribute name into its node in the store.
+ */
+function buildStore(
+  id: (name: string) => RDF.NamedNode,
+  classes: Record<string, string>,
+  parents: [string, string][],
+  attributes: [string, string][],
+): QuadStore {
+  const df = new DataFactory();
+  const store = new QuadStore();
+  store.addQuads([
+    ...Object.entries(classes).map(([name, uri]) =>
+      df.quad(id(name), ns.oslo('assignedURI'), df.namedNode(uri)),
+    ),
+    ...parents.map(([child, parent]) =>
+      df.quad(id(child), ns.rdfs('subClassOf'), id(parent)),
+    ),
+    ...attributes.map(([attribute, name]) =>
+      df.quad(id(attribute), ns.rdfs('domain'), id(name)),
+    ),
+  ]);
+  return store;
+}
+
+// Attribute names of the class named `name`, using the same id function as buildStore.
+// Sorted: the store does not guarantee an order, duplicates stay visible
+function attributesOf(
+  name: string,
+  store: QuadStore,
+  logger: Logger,
+  id: (name: string) => RDF.NamedNode,
+): string[] {
+  return findAllAttributes(id(name), [], store, logger)
+    .map((term) => term.value.replace('http://example.org/', ''))
+    .sort();
+}
+
 describe('QuadStore Utility Functions', () => {
   let store1: QuadStore;
   let store2: QuadStore;
@@ -105,38 +144,9 @@ describe('findAllAttributes', () => {
     logger = <Logger>(<unknown>{ warn: jest.fn() });
   });
 
-  /**
-   * Builds a store from { class: assignedURI }, [child, parent] and [attribute, class] pairs.
-   */
-  function buildStore(
-    classes: Record<string, string>,
-    parents: [string, string][],
-    attributes: [string, string][],
-  ): QuadStore {
-    const store = new QuadStore();
-    store.addQuads([
-      ...Object.entries(classes).map(([name, uri]) =>
-        df.quad(id(name), ns.oslo('assignedURI'), df.namedNode(uri)),
-      ),
-      ...parents.map(([child, parent]) =>
-        df.quad(id(child), ns.rdfs('subClassOf'), id(parent)),
-      ),
-      ...attributes.map(([attribute, name]) =>
-        df.quad(id(attribute), ns.rdfs('domain'), id(name)),
-      ),
-    ]);
-    return store;
-  }
-
-  // Attribute names, sorted: the store does not guarantee an order, duplicates stay visible
-  function attributesOf(name: string, store: QuadStore): string[] {
-    return findAllAttributes(id(name), [], store, logger)
-      .map((term) => term.value.replace('http://example.org/', ''))
-      .sort();
-  }
-
   it('should collect inherited attributes exactly once', () => {
     const store = buildStore(
+      id,
       { A: 'urn:a', B: 'urn:b', C: 'urn:c' },
       [
         ['A', 'B'],
@@ -149,13 +159,14 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('A', store)).toEqual(['a1', 'b1', 'c1']);
+    expect(attributesOf('A', store, logger, id)).toEqual(['a1', 'b1', 'c1']);
     expect(logger.warn).not.toHaveBeenCalled();
   });
 
   it('should borrow the attributes of the real class for a dummy parent', () => {
     // Dummy: a copy of the real class with the same URI but without attributes
     const store = buildStore(
+      id,
       { Sub: 'urn:sub', Dummy: 'urn:P', Real: 'urn:P' },
       [['Sub', 'Dummy']],
       [
@@ -164,12 +175,13 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('Sub', store)).toEqual(['r1', 's1']);
+    expect(attributesOf('Sub', store, logger, id)).toEqual(['r1', 's1']);
     expect(logger.warn).not.toHaveBeenCalled();
   });
 
   it('should not treat siblings with the same URI as parents', () => {
     const store = buildStore(
+      id,
       { PE: 'urn:U', PLE: 'urn:U', DE: 'urn:U' },
       [
         ['PE', 'DE'],
@@ -182,13 +194,14 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('PE', store)).toEqual(['de', 'pe']);
+    expect(attributesOf('PE', store, logger, id)).toEqual(['de', 'pe']);
     expect(logger.warn).not.toHaveBeenCalled();
   });
 
   it('should not merge descendants of a dummy parent with the same URI', () => {
     // Envelope (dummy, no attributes) <- DataEnvelope <- PregnancyEnvelope, PregnancyListEnvelope
     const store = buildStore(
+      id,
       {
         Envelope: 'urn:U',
         DataEnvelope: 'urn:U',
@@ -207,14 +220,18 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('DataEnvelope', store)).toEqual(['data']);
-    expect(attributesOf('PregnancyEnvelope', store)).toEqual(['data', 'pe']);
+    expect(attributesOf('DataEnvelope', store, logger, id)).toEqual(['data']);
+    expect(attributesOf('PregnancyEnvelope', store, logger, id)).toEqual([
+      'data',
+      'pe',
+    ]);
     expect(logger.warn).not.toHaveBeenCalled();
   });
 
   it('should not warn when two parents share an ancestor', () => {
     // Diamond: A inherits from B and C, which both inherit from D
     const store = buildStore(
+      id,
       { A: 'urn:a', B: 'urn:b', C: 'urn:c', D: 'urn:d' },
       [
         ['A', 'B'],
@@ -228,12 +245,16 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect([...new Set(attributesOf('A', store))]).toEqual(['a1', 'd1']);
+    expect([...new Set(attributesOf('A', store, logger, id))]).toEqual([
+      'a1',
+      'd1',
+    ]);
     expect(logger.warn).not.toHaveBeenCalled();
   });
 
   it('should still warn about a real circular inheritance and stop', () => {
     const store = buildStore(
+      id,
       { X: 'urn:x', Y: 'urn:y' },
       [
         ['X', 'Y'],
@@ -245,7 +266,7 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('X', store)).toEqual(['x1', 'y1']);
+    expect(attributesOf('X', store, logger, id)).toEqual(['x1', 'y1']);
     expect(logger.warn).toHaveBeenCalledTimes(1);
     expect(logger.warn).toHaveBeenCalledWith(
       '[QuadStore]: Circular reference detected for http://example.org/X',
@@ -255,6 +276,7 @@ describe('findAllAttributes', () => {
   it('should still warn about a longer circular inheritance and stop', () => {
     // A -> B -> C -> D -> A
     const store = buildStore(
+      id,
       { A: 'urn:a', B: 'urn:b', C: 'urn:c', D: 'urn:d' },
       [
         ['A', 'B'],
@@ -270,7 +292,12 @@ describe('findAllAttributes', () => {
       ],
     );
 
-    expect(attributesOf('A', store)).toEqual(['a1', 'b1', 'c1', 'd1']);
+    expect(attributesOf('A', store, logger, id)).toEqual([
+      'a1',
+      'b1',
+      'c1',
+      'd1',
+    ]);
     expect(logger.warn).toHaveBeenCalledTimes(1);
     expect(logger.warn).toHaveBeenCalledWith(
       '[QuadStore]: Circular reference detected for http://example.org/A',
