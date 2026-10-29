@@ -1,0 +1,26 @@
+{
+  "primeLanguage": "nl",
+  "otherLanguages": [],
+  "hostname": "https://data.dev-vlaanderen.be",
+  "domain": "data.vlaanderen.be",
+  "publicationpoints": ["dev"],
+  "generatedrepository": {
+    "organisation": "informatievlaanderen",
+    "repository": "data.vlaanderen.be2-generated",
+    "private": false,
+    "gitEmail": "toolchain@data.vlaanderen.be",
+    "gitUser": "toolchain"
+  },
+  "toolchainversion": "4.2.0",
+  "toolchain": {
+    "strictness": "lazy",
+    "version": 4,
+    "triggerall": false
+  },
+  "shaclgenerator": {
+    "parameters-old": "-m individual -c 'uniqueLanguages' -c 'nodeKind'"
+  },
+  "contextgenerator": {
+    "parameters-old": "-c -l label"
+  }
+}
