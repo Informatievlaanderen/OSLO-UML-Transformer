@@ -60,6 +60,10 @@ cp -r "${REPO_ROOT}/packages/" "${BUILD_DIR}/packages/"
 mkdir -p "${BUILD_DIR}/pipeline"
 cp -r "${SCRIPT_DIR}/scripts/" "${BUILD_DIR}/pipeline/scripts/"
 
+# Copy pipeline schemas (used by validate-config-schema.js)
+mkdir -p "${BUILD_DIR}/pipeline/schemas"
+cp -r "${SCRIPT_DIR}/schemas/" "${BUILD_DIR}/pipeline/schemas/"
+
 # Copy the Dockerfile itself
 cp "${SCRIPT_DIR}/Dockerfile.circleci" "${BUILD_DIR}/Dockerfile"
 

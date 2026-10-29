@@ -134,6 +134,19 @@ upgrade_config() {
         exit 1
     fi
 
+    # Validate the config against the spec-config JSON Schema before handing it
+    # to the legacy update-config-translation.js helper. The schema requires a
+    # top-level 'template', which the legacy helper needs to derive the
+    # goal-language translation blocks; without it the helper crashes with an
+    # opaque TypeError, so we fail here with a clear message instead.
+    VALIDATOR_PATH=$(command -v validate-config-schema.js 2>/dev/null || echo "/usr/local/lib/pipeline/scripts/validate-config-schema.js")
+    if ! node "${VALIDATOR_PATH}" \
+        -i "${THEMACONFIGFILE}" -m "${PRIMELANGUAGE}"; then
+        echo "ERROR: config validation failed for ${THEMACONFIGFILE}"
+        echo "The spec config must provide a top-level 'template'."
+        exit 1
+    fi
+
     node /app/update-config-translation.js -i ${THEMACONFIGFILE}  -g ${PRIMELANGUAGE} -m ${PRIMELANGUAGE} -s ${AZURETRANSLATIONKEY} -o ${TMPFILE}
     for g in ${GOALLANGUAGE}; do
 	    cp ${TMPFILE} ${TMPFILEINPUT}

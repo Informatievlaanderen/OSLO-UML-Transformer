@@ -124,8 +124,12 @@ cat > "${AT_WS}/src/doc/autotranslate-override-test/.names.json" << 'EOF'
 [
   {
     "name": "autotranslate-override-test",
+    "type": "voc",
+    "eap": "Test.eap",
     "template": "test.j2",
     "title": "Test",
+    "publication-state": "https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard",
+    "publication-date": "2026-01-01",
     "translation": [
       { "language": "nl", "template": "test.j2", "title": "Test", "translationjson": "test_nl.json", "mergefile": "merge_test_nl.jsonld", "autotranslate": false },
       { "language": "en", "template": "test_en.j2", "title": "Test", "translationjson": "test_en.json", "mergefile": "merge_test_en.jsonld", "autotranslate": true },
@@ -174,8 +178,12 @@ cat > "${AT2_WS}/src/doc/en-prime-spec/.names.json" << 'EOF'
 [
   {
     "name": "en-prime-spec",
+    "type": "voc",
+    "eap": "Test.eap",
     "template": "test.j2",
     "title": "Test",
+    "publication-state": "https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard",
+    "publication-date": "2026-01-01",
     "translation": [
       { "language": "nl", "template": "test.j2", "title": "Test", "translationjson": "test_nl.json", "mergefile": "merge_test_nl.jsonld", "autotranslate": false },
       { "language": "en", "template": "test_en.j2", "title": "Test", "translationjson": "test_en.json", "mergefile": "merge_test_en.jsonld", "autotranslate": true }
@@ -223,8 +231,12 @@ cat > "${LANG_WS}/src/doc/en-only-spec/.names.json" << 'EOF'
 [
   {
     "name": "en-only-spec",
+    "type": "voc",
+    "eap": "Test.eap",
     "template": "test.j2",
     "title": "Test",
+    "publication-state": "https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard",
+    "publication-date": "2026-01-01",
     "translation": [
       { "language": "nl", "template": "test.j2", "title": "Test", "translationjson": "test_nl.json", "mergefile": "merge_test_nl.jsonld", "autotranslate": false },
       { "language": "en", "template": "test_en.j2", "title": "Test", "translationjson": "test_en.json", "mergefile": "merge_test_en.jsonld", "autotranslate": false }

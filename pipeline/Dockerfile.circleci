@@ -92,11 +92,13 @@ ENV PATH="/usr/local/lib/oslo/node_modules/.bin:${PATH}"
 
 # Install the pipeline orchestration scripts
 COPY pipeline/scripts/ /usr/local/lib/pipeline/scripts/
+# Copy the JSON Schemas used by the pipeline validation scripts
+COPY pipeline/schemas/ /usr/local/lib/pipeline/schemas/
 # Make scripts available on PATH
 ENV PATH="/usr/local/lib/pipeline/scripts:${PATH}"
 
 # The build context is assembled by docker-build.sh and contains only:
-#   package.json lerna.json tsconfig.json packages/ pipeline/scripts/
+#   package.json lerna.json tsconfig.json packages/ pipeline/scripts/ pipeline/schemas/
 
 # Set working directory
 WORKDIR /workspace
