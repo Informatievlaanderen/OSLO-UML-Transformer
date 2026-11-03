@@ -54,5 +54,6 @@
   "http://data.europa.eu/930/",
   "http://data.europa.eu/r5r/",
   "https://w3id.org/dpv#",
-  "https://purl.eu/ns/mobility/"
+  "https://purl.eu/ns/mobility/",
+  "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/"
 ]
