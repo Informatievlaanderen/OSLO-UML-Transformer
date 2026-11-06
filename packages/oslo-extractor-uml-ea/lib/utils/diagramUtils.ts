@@ -75,6 +75,33 @@ export function addConnectorIdsToDiagram(
   });
 }
 
+/**
+ * Combines a main diagram with side diagrams into a new diagram with the id, name,
+ * package and path of the main diagram, and the elements and connectors of all of them.
+ * The diagrams themselves are not changed.
+ */
+export function combineDiagrams(
+  mainDiagram: EaDiagram,
+  sideDiagrams: EaDiagram[],
+): EaDiagram {
+  const diagrams = [mainDiagram, ...sideDiagrams];
+  const combined = new EaDiagram(
+    mainDiagram.id,
+    mainDiagram.name,
+    mainDiagram.eaGuid,
+    mainDiagram.packageId,
+  );
+
+  combined.path = mainDiagram.path;
+  combined.tags = mainDiagram.tags;
+  combined.elementIds = [...new Set(diagrams.flatMap((x) => x.elementIds))];
+  combined.connectorsIds = [
+    ...new Set(diagrams.flatMap((x) => x.connectorsIds)),
+  ];
+
+  return combined;
+}
+
 function setDiagramPath(diagram: EaDiagram, packages: EaPackage[]): void {
   const diagramPackage = packages.find(
     (x) => x.packageId === diagram.packageId,

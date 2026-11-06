@@ -6,6 +6,7 @@ import type { EaElement } from './types/EaElement';
 import type { EaPackage } from './types/EaPackage';
 import type { EaCrossReference } from './types/EaCrossReference';
 import type { NormalizedConnector } from './types/NormalizedConnector';
+import { combineDiagrams } from './utils/diagramUtils';
 
 export class DataRegistry {
   public readonly logger: Logger;
@@ -24,7 +25,33 @@ export class DataRegistry {
   private _crossReferences: EaCrossReference[] | undefined;
   private _targetDiagram: EaDiagram | undefined;
 
-  public setTargetDiagram(name: string): void {
+  /**
+   * Sets the diagram that is converted. Everything on the side diagrams is added
+   * to it as if it were drawn on the main diagram. Package and name stay those of
+   * the main diagram.
+   */
+  public setTargetDiagram(name: string, sideDiagramNames: string[] = []): void {
+    const mainDiagram = this.findDiagram(name);
+
+    const sideDiagrams = sideDiagramNames
+      .filter((sideDiagramName) => {
+        if (sideDiagramName === name) {
+          this.logger.warn(
+            `Side diagram '${sideDiagramName}' is the main diagram itself and is ignored.`,
+          );
+          return false;
+        }
+        return true;
+      })
+      .map((sideDiagramName) => this.findDiagram(sideDiagramName));
+
+    this.targetDiagram =
+      sideDiagrams.length > 0
+        ? combineDiagrams(mainDiagram, sideDiagrams)
+        : mainDiagram;
+  }
+
+  private findDiagram(name: string): EaDiagram {
     const filteredDiagrams = this.diagrams.filter((x) => x.name === name);
 
     if (filteredDiagrams.length > 1) {
@@ -39,7 +66,7 @@ export class DataRegistry {
       );
     }
 
-    this.targetDiagram = filteredDiagrams[0];
+    return filteredDiagrams[0];
   }
 
   public get targetDiagram(): EaDiagram {
