@@ -64,3 +64,12 @@ node bin/runner.js --umlFile https://github.com/Informatievlaanderen/OSLO-UML-Tr
 ```bash
 node bin/runner.js --umlFile https://github.com/Informatievlaanderen/OSLO-UML-Transformer/raw/integration-test-files/oslo-converter-uml-ea/09-AssociatiesMijnDomeinMetUriTags.EAP --diagramName MijnDomeinMetUriTags2 --outputFile 07-AssociatiesMijnDomeinMetUriTags.jsonld --specificationType ApplicationProfile --versionId version/1 --publicationEnvironment https://data.vlaanderen.be    
 ```
+
+## Test 10: AssociatiesMijnDomeinMetZijdiagrammen
+
+Main diagram `Hoofd` with side diagram `Zij` must give the same result as diagram `Gecombineerd`, which has everything of both on one diagram.
+
+### Executed command
+```bash
+node bin/runner.js --umlFile https://github.com/Informatievlaanderen/OSLO-UML-Transformer/raw/integration-test-files/oslo-converter-uml-ea/10-AssociatiesMijnDomeinMetZijdiagrammen.EAP --diagramName Hoofd --sideDiagrams Zij --outputFile 10-AssociatiesMijnDomeinMetZijdiagrammen.jsonld --specificationType ApplicationProfile --versionId version/1 --publicationEnvironment https://data.vlaanderen.be
+```
