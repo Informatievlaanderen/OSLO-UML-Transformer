@@ -14,6 +14,11 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   private _diagramName: string | undefined;
 
   /**
+   * The names of the side diagrams within the EAP file, added as if they were on the main diagram.
+   */
+  private _sideDiagrams: string[] | undefined;
+
+  /**
    * Name of the RDF output file
    */
   private _outputFile: string | undefined;
@@ -55,6 +60,7 @@ export class EaUmlConverterConfiguration implements IConfiguration {
   public async createFromCli(params: YargsParams): Promise<void> {
     this._umlFile = <string>params.umlFile;
     this._diagramName = <string>params.diagramName;
+    this._sideDiagrams = <string[]>(params.sideDiagrams || []);
     this._outputFile = <string>(params.outputFile || 'report.jsonld');
     this._versionId = <string>params.versionId;
     this._outputFormat = <string>params.outputFormat;
@@ -79,6 +85,10 @@ export class EaUmlConverterConfiguration implements IConfiguration {
       );
     }
     return this._diagramName;
+  }
+
+  public get sideDiagrams(): string[] {
+    return this._sideDiagrams || [];
   }
 
   public get outputFile(): string {

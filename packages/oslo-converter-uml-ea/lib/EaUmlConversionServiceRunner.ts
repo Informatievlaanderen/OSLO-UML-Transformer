@@ -16,6 +16,13 @@ export class EaUmlConversionServiceRunner extends AppRunner<
       .option('diagramName', {
         describe: 'Name of the diagram within the EAP file.',
       })
+      .option('sideDiagrams', {
+        describe:
+          'Names of diagrams within the EAP file whose elements are added as if they were on the main diagram.',
+        array: true,
+        string: true,
+        default: [],
+      })
       .option('outputFile', {
         describe: 'Name of the output file (default: console).',
       })

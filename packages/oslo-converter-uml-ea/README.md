@@ -23,6 +23,7 @@ The service is executed from the CLI and expects the following parameters:
 | --------- | --------- | ----------- | --------------- |
 | `--umlFile` | The URL or local file path of an EA UML diagram | :heavy_check_mark: ||
 | `--diagramName` | The name of the UML diagram within the EAP file | :heavy_check_mark: ||
+| `--sideDiagrams` | Names of other diagrams within the EAP file whose elements and connectors are added as if they were on the main diagram. Package, base URI and scope come from the main diagram. Put all names after a single `--sideDiagrams` | No ||
 | `--publicationEnvironment` | The base URI of environment where the document will be published | :heavy_check_mark: | |
 | `--versionId` | Version identifier for the document | :heavy_check_mark: ||
 | `--outputFile` | The name of the RDF output file | No, but if omitted, output is written to process.stdout ||
@@ -38,4 +39,5 @@ oslo-converter-ea --umlFile path/to/uml/diagram.eap --diagramName "diagramName" 
 oslo-converter-ea --umlFile https://github.com/path/to/uml/diagram.eap --diagramName "My UML diagram" --versionId "test/1" --outputFormat application/ld+json --publicationEnvironment https://data.vlaanderen.be
 oslo-converter-ea --umlFile https://github.com/path/to/uml/diagram.eap --diagramName "My UML diagram" --versionId "test/1" --outputFormat application/ld+json --publicationEnvironment https://data.vlaanderen.be --allTags true
 oslo-converter-ea --umlFile path/to/uml/diagram.eap --diagramName "diagramName" --versionId "test/1" --outputFile path/to/output.jsonld --ignoreSkosElements false
+oslo-converter-ea --umlFile path/to/uml/diagram.eap --diagramName "diagramName" --sideDiagrams "API" "Errors" --versionId "test/1" --outputFile path/to/output.jsonld --publicationEnvironment https://data.vlaanderen.be
 ```

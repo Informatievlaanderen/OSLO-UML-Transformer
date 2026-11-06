@@ -41,7 +41,10 @@ export class EaUmlConversionService implements IService {
       this.logger,
     ).createDataRegistry(this.configuration.umlFile);
 
-    model.setTargetDiagram(this.configuration.diagramName);
+    model.setTargetDiagram(
+      this.configuration.diagramName,
+      this.configuration.sideDiagrams,
+    );
 
     const store = await converterHandler
       .filterHiddenObjects(model)
