@@ -1,0 +1,211 @@
+#!/bin/bash
+set -euo pipefail
+
+TARGETDIR=$1
+CONFIGDIR=$2
+CHECKOUTFILE=${TARGETDIR}/checkouts.txt
+
+PRIMELANGUAGECONFIG=$(jq -r .primeLanguage ${CONFIGDIR}/config.json)
+GOALLANGUAGECONFIG=$(jq -r '.otherLanguages | @sh' ${CONFIGDIR}/config.json)
+GOALLANGUAGECONFIG=$(echo ${GOALLANGUAGECONFIG} | sed -e "s/'//g")
+
+PRIMELANGUAGE=${3-${PRIMELANGUAGECONFIG}}
+GOALLANGUAGE=${4-${GOALLANGUAGECONFIG}}
+
+#############################################################################################
+#
+# calculate the configuration from the specification
+#
+#############################################################################################
+get_mapping_file() {
+    local MAPPINGFILE=`jq -r 'if (.filename | length) > 0 then .filename else @sh "config/eap-mapping.json"  end' .publication-point.json`
+    #local MAPPINGFILE="config/eap-mapping.json"
+    if [ -f ".names.txt" ]
+    then
+	STR=".[] | select(.name == \"$(cat .names.txt)\") | [.]"
+	jq "${STR}" ${MAPPINGFILE} > .names.json
+	MAPPINGFILE=".names.json"
+    fi
+    echo ${MAPPINGFILE}
+}
+
+#############################################################################################
+#
+# convert older toolchain version configs to this version
+#
+#############################################################################################
+# incomplete bash version
+#
+upgrade_config_old() {
+    local SLINE=$1
+    echo "upgrade config for $SLINE"
+
+    PRIMELANGUAGE=$(jq -r ".primeLanguage" ${CONFIGDIR}/config.json)
+
+    echo "prime language is $PRIMELANGUAGE"
+    
+
+    HASTRANSLATION=$(jq -r .[0].translation[0].language ${SLINE}/.names.json)
+    echo "${HASTRANSLATION}: if null then no translation is present and thus configuration will be updated."
+
+    # SHOULD SUPPORT autotranslate option
+
+    TITLE=$(jq -r .[0].title ${SLINE}/.names.json)
+    TEMPLATEORIG=$(jq -r .[0].template ${SLINE}/.names.json)
+    NAME=$(jq -r .[0].name ${SLINE}/.names.json)
+
+    echo "title: $TITLE"
+    echo "template original: $TEMPLATEORIG"
+    echo "name: $NAME"
+
+#    TEMPLATE=${TEMPLATEORIG/.j2/_${PRIMELANGUAGE}.j2}
+    TEMPLATE=${TEMPLATEORIG}
+    echo "template: $TEMPLATE"
+
+    TRANSLATIONOBJTEMPLATE='{"translation" : [{
+       "language" : $jqlanguage,
+       "title" : $jqtitle,
+       "template" : $jqtemplate,
+       "translationjson" : $jqtranslation,
+       "mergefile" : $jqmergefile
+     }]}'
+
+    JQTRANSLATION="${NAME}_${PRIMELANGUAGE}.json"
+
+    TRANSLATIONOBJ=$(jq -n \
+        --arg jqlanguage "${PRIMELANGUAGE}" --arg jqtitle "${TITLE}" --arg jqtemplate ${TEMPLATE} \
+        --arg jqtranslation $JQTRANSLATION --arg jqmergefile ${NAME}_${PRIMELANGUAGE}_merged.json \
+        "${TRANSLATIONOBJTEMPLATE}")
+    echo $TRANSLATIONOBJ >/tmp/upgrade.json
+
+    # check for the amount of items in the .names.json
+    AMOUNT=$(jq length ${SLINE}/.names.json)
+
+    echo "amount of items in the .names.json: $AMOUNT"
+
+    if [ ${AMOUNT} -eq 1 ]; then
+
+        if [ "$HASTRANSLATION" == "" ] || [ "$HASTRANSLATION" == "null" ]; then
+
+            jq -s '[.[0][0] * .[1]]' ${SLINE}/.names.json /tmp/upgrade.json >/tmp/mergedupgrade.json
+            cp /tmp/mergedupgrade.json ${SLINE}/.names.json
+        fi
+
+    else
+        echo "ERROR only a list with a single matching value should be in the specification config"
+        cat ${SLINE}/.names.json
+        exit -1
+    fi
+
+}
+
+#############################################################################################
+#
+# convert older toolchain version configs to this version
+#
+#############################################################################################
+
+upgrade_config() {
+    local SLINE=$1
+    echo "upgrade config for $SLINE"
+
+    THEMACONFIGFILE=${SLINE}/.names.json
+    TMPFILE=/tmp/upgradeconfig
+    TMPFILEINPUT=/tmp/upgradeconfig_input
+
+    # Validate .names.json before passing it to the Node script
+    if [ ! -s "${THEMACONFIGFILE}" ]; then
+        echo "ERROR: ${THEMACONFIGFILE} is empty or does not exist"
+        echo "The name in the publication point does not match any name"
+        echo "in the referenced config file from the thema repository."
+        echo "Publication point name: $(jq -r '.name // "?"' ${SLINE}/.publication-point.json 2>/dev/null)"
+        exit 1
+    fi
+    if ! jq -e . "${THEMACONFIGFILE}" >/dev/null 2>&1; then
+        echo "ERROR: ${THEMACONFIGFILE} contains invalid JSON"
+        jq . "${THEMACONFIGFILE}" 2>&1 || true
+        exit 1
+    fi
+    if [ "$(jq 'length' "${THEMACONFIGFILE}")" -eq 0 ]; then
+        echo "ERROR: ${THEMACONFIGFILE} is an empty JSON array"
+        echo "The 'name' in the publication point"
+        echo "($(jq -r '.name // "?"' ${SLINE}/.publication-point.json 2>/dev/null))"
+        echo "does not match any 'name' in the referenced config file."
+        exit 1
+    fi
+
+    # Validate the config against the spec-config JSON Schema before handing it
+    # to the legacy update-config-translation.js helper. The schema requires a
+    # top-level 'template', which the legacy helper needs to derive the
+    # goal-language translation blocks; without it the helper crashes with an
+    # opaque TypeError, so we fail here with a clear message instead.
+    VALIDATOR_PATH=$(command -v validate-config-schema.js 2>/dev/null || echo "/usr/local/lib/pipeline/scripts/validate-config-schema.js")
+    if ! node "${VALIDATOR_PATH}" \
+        -i "${THEMACONFIGFILE}" -m "${PRIMELANGUAGE}"; then
+        echo "ERROR: config validation failed for ${THEMACONFIGFILE}"
+        echo "The spec config must provide a top-level 'template'."
+        exit 1
+    fi
+
+    node /app/update-config-translation.js -i ${THEMACONFIGFILE}  -g ${PRIMELANGUAGE} -m ${PRIMELANGUAGE} -s ${AZURETRANSLATIONKEY} -o ${TMPFILE}
+    for g in ${GOALLANGUAGE}; do
+	    cp ${TMPFILE} ${TMPFILEINPUT}
+    node /app/update-config-translation.js -i ${TMPFILEINPUT}  -g ${g} -m ${PRIMELANGUAGE} -s ${AZURETRANSLATIONKEY} -o ${TMPFILE}
+    done
+
+    cp ${TMPFILE} ${THEMACONFIGFILE}
+
+    # Apply the per-spec autotranslate override from the publication point
+    # config (data.vlaanderen.be2). The publication point entry may declare:
+    #   "autotranslate": false                    -> disable for all goal languages
+    #   "autotranslate": { "en": false, "fr": true } -> per-language control
+    # The spec's prime language (languages[0], falling back to the global
+    # primeLanguage) is never autotranslated, so it is left untouched.
+    PUBPOINTFILE=${SLINE}/.publication-point.json
+    if [ -f "${PUBPOINTFILE}" ]; then
+        PUB_AUTOTRANSLATE=$(jq -r 'if has("autotranslate") then .autotranslate else empty end' "${PUBPOINTFILE}")
+        if [ -n "${PUB_AUTOTRANSLATE}" ]; then
+            echo "upgrade config: applying autotranslate override from publication point: ${PUB_AUTOTRANSLATE}"
+            # Determine the spec's prime language: languages[0] if declared,
+            # otherwise the global prime language.
+            SPEC_PRIME=$(jq -r 'if (.languages | length) > 0 then .languages[0] else empty end' "${PUBPOINTFILE}")
+            if [ -z "${SPEC_PRIME}" ]; then
+                SPEC_PRIME=${PRIMELANGUAGE}
+            fi
+            if [ "${PUB_AUTOTRANSLATE}" == "true" ] || [ "${PUB_AUTOTRANSLATE}" == "false" ]; then
+                # Boolean: apply to every goal language; the spec's prime
+                # language is the source and is never autotranslated.
+                jq --argjson autotranslate "${PUB_AUTOTRANSLATE}" \
+                   --arg specprime "${SPEC_PRIME}" \
+                   '.[0].translation |= map(if .language == $specprime then .autotranslate = false else .autotranslate = $autotranslate end)' \
+                   "${THEMACONFIGFILE}" > "${TMPFILE}"
+            else
+                # Object: per-language map, e.g. {"en": false, "fr": true}
+                jq --argjson overrides "${PUB_AUTOTRANSLATE}" \
+                   --arg specprime "${SPEC_PRIME}" \
+                   '.[0].translation |= map(if .language == $specprime then .autotranslate = false elif ($overrides[.language] != null) then .autotranslate = $overrides[.language] else . end)' \
+                   "${THEMACONFIGFILE}" > "${TMPFILE}"
+            fi
+            cp "${TMPFILE}" "${THEMACONFIGFILE}"
+        fi
+    fi
+
+}
+
+
+echo "upgrade config: starting with $TARGETDIR $CONFIGDIR"
+
+cat ${CHECKOUTFILE} | while read line; do
+    SLINE=${TARGETDIR}/src/${line}
+    TLINE=${TARGETDIR}/target/${line}
+    RLINE=${TARGETDIR}/report/${line}
+    TRLINE=${TARGETDIR}/translation/${line}
+    if [ -d "${SLINE}" ]; then
+         pushd ${SLINE}
+         MAPPINGFILE=$(get_mapping_file)   
+	 popd
+        upgrade_config ${SLINE}
+    else
+        echo "Error: ${SLINE}"
+    fi
+done

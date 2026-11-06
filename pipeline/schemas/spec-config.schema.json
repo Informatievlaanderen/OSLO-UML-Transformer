@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://data.vlaanderen.be/schemas/oslo-pipeline/spec-config.schema.json",
+  "title": "OSLO spec config",
+  "description": "Validates the specification config file (e.g. config/<name>-voc.json or config/<name>-ap.json) as referenced by a publication point. The upgrade step (upgrade_config-4.sh) derives the goal-language translation blocks from the main-language block, so a top-level template is required.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": { "type": "string", "minLength": 1 },
+      "type": {
+        "type": "string",
+        "enum": ["voc", "ap", "codelist", "impl", "oj"]
+      },
+      "prefix": { "type": "string" },
+      "eap": { "type": "string", "minLength": 1 },
+      "diagram": { "type": "string" },
+      "template": { "type": "string", "minLength": 1 },
+      "title": { "type": "string", "minLength": 1 },
+      "publication-state": { "type": "string", "minLength": 1 },
+      "publication-date": { "type": "string", "minLength": 1 },
+      "license": { "type": "string" },
+      "contributors-file": { "type": "string" },
+      "contributors-column": { "type": "string" },
+      "site": { "type": "string" },
+      "feedbackurl": { "type": "string" },
+      "standaardregisterurl": { "type": "string" },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "package": { "type": "string" },
+            "packagelabel": { "type": "string" },
+            "packageurl": { "type": "string" }
+          },
+          "required": ["package"]
+        }
+      },
+      "translation": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "language": { "type": "string", "minLength": 1 },
+            "template": { "type": "string", "minLength": 1 },
+            "title": { "type": "string" },
+            "translationjson": { "type": "string", "minLength": 1 },
+            "mergefile": { "type": "string", "minLength": 1 },
+            "autotranslate": {
+              "anyOf": [{ "type": "boolean" }, { "type": "object" }]
+            }
+          },
+          "required": [
+            "language",
+            "template",
+            "title",
+            "translationjson",
+            "mergefile"
+          ]
+        }
+      }
+    },
+    "required": ["name", "type", "title", "eap", "publication-date", "publication-state", "template"]
+  }
+}
