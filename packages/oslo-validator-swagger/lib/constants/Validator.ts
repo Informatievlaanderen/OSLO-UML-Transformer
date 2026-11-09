@@ -1,3 +1,6 @@
+import { runJavaValidation } from "../javaRunner"
+import { ValidationRunner } from "../types/Validator"
+
 /**
  * Docker image name for the Java validation suite.
  * Built from the repository root with:
@@ -35,3 +38,7 @@ export const DOCKER_MAX_BUFFER = 10 * 1024 * 1024
  * Temporary directory prefix for downloaded specs.
  */
 export const TMP_DIR_PREFIX = 'oslo-validator-'
+
+export const VALIDATION_SUITES: ValidationRunner[] = [
+    { name: 'java', run: runJavaValidation },
+]

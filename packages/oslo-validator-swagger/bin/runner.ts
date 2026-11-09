@@ -2,23 +2,9 @@
 import yargs from 'yargs'
 import { createLogger } from '@oslo-flanders/core/lib/logging/LogUtil'
 import type { Logger } from '@oslo-flanders/core/lib/logging/Logger'
-import { runJavaValidation } from '../lib/javaRunner'
 import { formatMarkdownReport } from '../lib/utils/reportUtils'
-import type { JavaValidationReport, ValidationSuiteResult } from '../lib/types/Validator'
-
-interface ValidationRunner {
-  name: string
-  run: (specFile: string) => Promise<JavaValidationReport>
-}
-
-/**
- * Registry of available validation suites.
- * Each entry knows how to launch its Docker container.
- * Add new suites here (e.g. dotnet, python) as they are implemented.
- */
-const VALIDATION_SUITES: ValidationRunner[] = [
-  { name: 'java', run: runJavaValidation },
-]
+import type { ValidationSuiteResult } from '../lib/types/Validator'
+import { VALIDATION_SUITES } from '../lib/constants/Validator'
 
 class SwaggerValidatorRunner {
   private logger: Logger = createLogger()
