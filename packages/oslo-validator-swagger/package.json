@@ -1,0 +1,44 @@
+{
+  "name": "@oslo-flanders/swagger-validator",
+  "version": "1.0.0",
+  "description": "Validate OpenAPI Swagger specifications via language-specific round-trip validation suites (Java, .NET, etc.)",
+  "author": "Digitaal Vlaanderen <https://data.vlaanderen.be/id/organisatie/OVO002949>",
+  "homepage": "https://github.com/informatievlaanderen/OSLO-UML-Transformer/tree/main/packages/oslo-validator-swagger#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "oslo-validator-swagger": "./bin/runner.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "bin": "bin",
+    "suites": "suites"
+  },
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "suites/**/*",
+    "index.d.ts",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/OSLO-UML-Transformer.git"
+  },
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/OSLO-UML-Transformer/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1"
+  },
+  "dependencies": {
+    "@oslo-flanders/core": "^1.2.0",
+    "yargs": "^18.0.0"
+  }
+}

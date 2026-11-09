@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.vlaanderen</groupId>
+    <artifactId>oslo-swagger-validator</artifactId>
+    <version>1.0.0</version>
+    <name>OSLO Swagger Validator (Java)</name>
+    <description>Validates OpenAPI specs against openapi-generator-maven-plugin</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <openapi-generator.version>7.12.0</openapi-generator.version>
+
+        <!-- Overridden at runtime via -D -->
+        <spec.path>${project.basedir}/spec.json</spec.path>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${spec.path}</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <skipValidateSpec>true</skipValidateSpec>
+                            <apiPackage>be.vlaanderen.validator.api</apiPackage>
+                            <modelPackage>be.vlaanderen.validator.model</modelPackage>
+                            <configOptions>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
+                                <useJakartaEe>true</useJakartaEe>
+                                <openApiNullable>true</openApiNullable>
+                                <useOneOfInterfaces>true</useOneOfInterfaces>
+                                <containerDefaultToNull>true</containerDefaultToNull>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
