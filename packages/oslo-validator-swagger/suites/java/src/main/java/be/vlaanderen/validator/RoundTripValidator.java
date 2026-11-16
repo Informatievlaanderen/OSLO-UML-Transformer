@@ -79,8 +79,16 @@ public class RoundTripValidator {
 
             JsonNode inputJson = objectMapper.readTree(exampleFile);
 
-            // Deserialize into the generated model class
-            Object model = objectMapper.treeToValue(inputJson, modelClass);
+            Object model;
+            try {
+                // Deserialize into the generated model class
+                model = objectMapper.treeToValue(inputJson, modelClass);
+            } catch (Exception e) {
+                String msg = exampleFile.getName() + " [deserialization] " + e.getClass().getSimpleName() + ": " + e.getMessage();
+                System.err.println("  ✗ Deserialization failed: " + e.getMessage());
+                allFailures.add(msg);
+                continue;
+            }
 
             // JSR-303 bean validation
             @SuppressWarnings("unchecked")

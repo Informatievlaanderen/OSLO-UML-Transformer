@@ -1,0 +1,139 @@
+{
+  "@context": "https://implementatie.data.vlaanderen.be/doc/implementatiemodel/magda/persoon/v0.2.0/context/persoon.jsonld",
+  "@type": "PersonEnvelope",
+  "data": {
+    "@type": "GeregistreerdPersoon",
+    "geslacht": {
+      "@id": "https://data.vlaanderen.be/id/concept/IT000/Geslacht/2"
+    },
+    "creatiedatum": { "@value": "geen-datum", "@type": "Date" },
+    "bron": {
+      "@id": "https://data.vlaanderen.be/id/organisatie/OVO027248",
+      "@type": "Organisatie"
+    },
+    "modificatiedatum": { "@value": "1996-03-03", "@type": "Date" },
+    "heeftGeboorte": {
+      "@type": "Geboorte",
+      "datum": {
+        "@type": "Moment",
+        "inXSDdatum": { "@value": "1900-04-05", "@type": "Date" },
+        "inDatumTijd": {
+          "@type": "AlgemeneDatumTijdBeschrijving",
+          "jaar": { "@value": "1900" },
+          "maand": { "@value": "04" },
+          "dag": { "@value": "05" }
+        }
+      },
+      "plaats": {
+        "@id": "http://publications.europa.eu/resource/authority/country/BEL",
+        "@type": "Plaats",
+        "landcode": { "@value": "BEL" },
+        "plaatsnaam": {
+          "@language": "nl",
+          "@value": "Belgie"
+        }
+      }
+    },
+    "achternaam": [
+      { "@value": "Nielens" }
+    ],
+    "voornaam": [
+      { "@value": "Louise" },
+      { "@value": "Thérèse" }
+    ],
+    "heeftBurgerlijkeStaat": {
+      "@type": "BurgerlijkeStaat",
+      "type": {
+        "@id": "https://data.vlaanderen.be/id/concept/IT120/BurgerlijkeStaattype/30"
+      }
+    },
+    "registratie": {
+      "@type": "Identificator",
+      "identificator": { "@value": "00040527291" }
+    },
+    "registratiedetail": {
+      "@type": "Registratie",
+      "dossierstatus": [
+        {
+          "@id": "https://data.vlaanderen.be/id/concept/IT001/Dossierstatus/99990"
+        }
+      ]
+    },
+    "beheerder": [
+      {
+        "@type": "AdministratiefBeheerder",
+        "type": {
+          "@id": "https://data.vlaanderen.be/id/concept/AdministratiefBeheerdertype/Gemeente"
+        },
+        "voorkeursnaam": {
+          "@language": "nl",
+          "@value": "Koelkelberg"
+        }
+      }
+    ],
+    "heeftInwonerschap": [
+      {
+        "@type": "Inwonerschap",
+        "jurisdictie": {
+          "@type": "Jurisdictie",
+          "plaats": {
+            "@id": "http://publications.europa.eu/resource/authority/country/BEL",
+            "@type": "Plaats",
+            "landcode": { "@value": "BEL" },
+            "plaatsnaam": {
+              "@language": "nl",
+              "@value": "Belgie"
+            }
+          }
+        },
+        "heeftVerblijfplaats": [
+          {
+            "@type": "Domicilie",
+            "verblijfsadres": {
+              "@type": "Adresvoorstelling",
+              "huisnummer": { "@value": "101" },
+              "volledigAdres": {
+                "@language": "nl",
+                "@value": "Segherslaan 101 1081 Koekelberg BELGIE"
+              },
+              "postcode": { "@value": "1081" },
+              "straatnaam": {
+                "@language": "nl",
+                "@value": "Segherslaan"
+              },
+              "gemeentenaam": {
+                "@language": "nl",
+                "@value": "Koekelberg"
+              },
+              "land": {
+                "@language": "nl",
+                "@value": "Belgie"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "heeftPersoonsrelatie": [
+      {
+        "@type": "Afstamming",
+        "afstammingstype": {
+          "@id": "https://data.vlaanderen.be/id/concept/IT110/Afstammingstype/00"
+        },
+        "datumVanAfstamming": { "@value": "1900-04-05", "@type": "Date" },
+        "metPersoon": {
+          "@type": "Persoon",
+          "geslacht": {
+            "@id": "https://data.vlaanderen.be/id/concept/IT000/Geslacht/2"
+          },
+          "achternaam": [
+            { "@value": "Willems" }
+          ],
+          "voornaam": [
+            { "@value": "Thérèse" }
+          ]
+        }
+      }
+    ]
+  }
+}
