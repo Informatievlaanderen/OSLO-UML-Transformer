@@ -5,7 +5,10 @@ export function formatMarkdownReport(result: ValidationSuiteResult): string {
   md += `**Status:** ${result.passed ? '✅ Passed' : '❌ Failed'}\n\n`
 
   if (!result.passed && result.javaValidation.message) {
-    md += `${result.javaValidation.message}\n\n`
+    md += '## Errors\n\n'
+    md += '```\n'
+    md += `${result.javaValidation.message}\n`
+    md += '```\n\n'
   }
 
   return md

@@ -3,7 +3,7 @@ import yargs from 'yargs'
 import { createLogger } from '@oslo-flanders/core/lib/logging/LogUtil'
 import type { Logger } from '@oslo-flanders/core/lib/logging/Logger'
 import { formatMarkdownReport } from '../lib/utils/reportUtils'
-import type { ValidationSuiteResult } from '../lib/types/Validator'
+import type { ValidationSuiteResult, ValidationOptions } from '../lib/types/Validator'
 import { VALIDATION_SUITES } from '../lib/constants/Validator'
 
 class SwaggerValidatorRunner {
@@ -23,6 +23,15 @@ class SwaggerValidatorRunner {
         array: true,
         default: ['java'],
         choices: VALIDATION_SUITES.map(s => s.name),
+      })
+      .option('root-model', {
+        describe: 'Fully-qualified class name of the root model for round-trip JSON validation (e.g. be.vlaanderen.validator.model.PersonEnvelope)',
+        type: 'string',
+      })
+      .option('examples', {
+        describe: 'Example JSON files (local paths or URLs) for round-trip validation. Repeat for multiple: --examples file1.json --examples https://...',
+        type: 'string',
+        array: true,
       })
       .option('logLevel', {
         describe: 'Log level',
@@ -47,9 +56,26 @@ class SwaggerValidatorRunner {
 
         const input = params.input as string
         const suites = params.suite as string[]
+        const rootModel = params['root-model'] as string | undefined
+        const examples = params.examples as string[] | undefined
 
         this.logger.info(`Input spec: ${input}`)
         this.logger.info(`Validation suites: ${suites.join(', ')}`)
+
+        if (rootModel) {
+          this.logger.info(`Root model for round-trip: ${rootModel}`)
+        }
+        if (examples && examples.length > 0) {
+          this.logger.info(`Example files: ${examples.join(', ')}`)
+        }
+
+        const validationOptions: ValidationOptions = {}
+        if (rootModel) {
+          validationOptions.rootModel = rootModel
+        }
+        if (examples && examples.length > 0) {
+          validationOptions.examples = examples
+        }
 
         const results: ValidationSuiteResult[] = []
 
@@ -61,7 +87,7 @@ class SwaggerValidatorRunner {
           }
 
           this.logger.info(`Running ${suiteName} validation suite...`)
-          const javaResult = await runner.run(input)
+          const javaResult = await runner.run(input, validationOptions)
 
           results.push({
             javaValidation: javaResult,

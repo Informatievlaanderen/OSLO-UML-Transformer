@@ -5,7 +5,7 @@ import { tmpdir } from 'os'
 import { createLogger } from '@oslo-flanders/core/lib/logging/LogUtil'
 import { fetchFileOrUrl } from '@oslo-flanders/core'
 import type { Logger } from '@oslo-flanders/core/lib/logging/Logger'
-import type { JavaValidationReport } from './types/Validator'
+import type { JavaValidationReport, ValidationOptions } from './types/Validator'
 import {
   DOCKER_IMAGE,
   COMPANION_FILES,
@@ -16,7 +16,7 @@ import {
   TMP_DIR_PREFIX,
 } from './constants/Validator'
 
-async function resolveSpec(specFile: string): Promise<{ dir: string; filename: string }> {
+export async function resolveSpec(specFile: string): Promise<{ dir: string; filename: string }> {
   if (specFile.startsWith('http://') || specFile.startsWith('https://')) {
     const tmpDir = mkdtempSync(join(tmpdir(), TMP_DIR_PREFIX))
     const filename = specFile.split('/').pop() || DEFAULT_SPEC_FILENAME
@@ -32,10 +32,10 @@ async function resolveSpec(specFile: string): Promise<{ dir: string; filename: s
     for (const companion of COMPANION_FILES) {
       try {
         const companionUrl = `${baseUrl}${companion}`
-        logger.verbose(`Attempting to download companion file: ${companionUrl}`)
+        logger.info(`Attempting to download companion file: ${companionUrl}`)
         const companionBuffer = await fetchFileOrUrl(companionUrl)
         writeFileSync(join(tmpDir, companion), companionBuffer)
-        logger.verbose(`Companion file saved: ${companion}`)
+        logger.info(`Companion file saved: ${companion}`)
       } catch {
         // Companion file not available, that's fine
       }
@@ -51,20 +51,111 @@ async function resolveSpec(specFile: string): Promise<{ dir: string; filename: s
   }
 }
 
-export async function runJavaValidation(specFile: string): Promise<JavaValidationReport> {
+/**
+ * Resolve example files: download URLs to a temp directory, keep local paths as-is.
+ * Returns the directory containing all examples and the list of filenames.
+ */
+export async function resolveExamples(
+  examples: string[],
+  specDir: string,
+): Promise<{ exampleFilenames: string[] }> {
   const logger: Logger = createLogger()
+  const exampleFilenames: string[] = []
+
+  for (let i = 0; i < examples.length; i++) {
+    const example = examples[i]
+    if (example.startsWith('http://') || example.startsWith('https://')) {
+      logger.info(`Downloading example file from URL: ${example}`)
+      const buffer = await fetchFileOrUrl(example)
+      const filename = example.split('/').pop() || `example-${i}.json`
+      writeFileSync(join(specDir, filename), buffer)
+      exampleFilenames.push(filename)
+      logger.info(`Example saved to: ${specDir}/${filename}`)
+    } else {
+      // Local file: copy it into the spec directory so Docker can access it
+      const absolute = resolve(process.cwd(), example)
+      const filename = absolute.split('/').pop() || `example-${i}.json`
+      const buffer = await fetchFileOrUrl(absolute)
+      writeFileSync(join(specDir, filename), buffer)
+      exampleFilenames.push(filename)
+      logger.info(`Example copied to: ${specDir}/${filename}`)
+    }
+  }
+
+  return { exampleFilenames }
+}
+
+/**
+ * Check if the Docker image exists locally.
+ */
+function imageExists(imageName: string): boolean {
+  try {
+    execSync(`docker image inspect ${imageName}`, {
+      encoding: 'utf-8',
+      stdio: 'ignore',
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Build the Docker image from the project's Dockerfile.
+ * Assumes the command is run from the repository root.
+ */
+function buildDockerImage(logger: Logger): void {
+  logger.info(`Docker image "${DOCKER_IMAGE}" not found. Building...`)
+  const dockerfile = 'packages/oslo-validator-swagger/Dockerfile'
+  execSync(`docker build -t ${DOCKER_IMAGE} -f ${dockerfile} .`, {
+    encoding: 'utf-8',
+    stdio: 'inherit',
+    timeout: DOCKER_TIMEOUT_MS,
+  })
+  logger.info(`Docker image "${DOCKER_IMAGE}" built successfully`)
+}
+
+export async function runJavaValidation(
+  specFile: string,
+  options?: ValidationOptions,
+): Promise<JavaValidationReport> {
+  const logger: Logger = createLogger()
+
+  // Auto-build the Docker image if it doesn't exist yet
+  if (!imageExists(DOCKER_IMAGE)) {
+    buildDockerImage(logger)
+  }
 
   const { dir: specDir, filename: specFilename } = await resolveSpec(specFile)
 
   logger.info(`Validating spec: ${specFilename}`)
 
+  // Build Docker arguments
+  const dockerArgs: string[] = [
+    `--input=${SPEC_MOUNT_DIR}/${specFilename}`,
+  ]
+
+  // Resolve and mount example files if provided
+  if (options?.examples && options.examples.length > 0) {
+    const { exampleFilenames } = await resolveExamples(options.examples, specDir)
+
+    if (options.rootModel) {
+      dockerArgs.push(`--root-model=${options.rootModel}`)
+    }
+
+    const examplePaths = exampleFilenames
+      .map((f) => `${SPEC_MOUNT_DIR}/${f}`)
+      .join(',')
+    dockerArgs.push(`--examples=${examplePaths}`)
+  }
+
   const command =
     `docker run --rm ` +
     `-v "${specDir}:${SPEC_MOUNT_DIR}" ` +
     `${DOCKER_IMAGE} ` +
-    `--input=${SPEC_MOUNT_DIR}/${specFilename}`
+    dockerArgs.join(' ')
 
-  logger.verbose(`Running: ${command}`)
+  logger.info(`Running: ${command}`)
 
   let stdout: string
   try {
@@ -88,8 +179,6 @@ export async function runJavaValidation(specFile: string): Promise<JavaValidatio
   } catch {
     const msg =
       `Failed to parse validation result from container output.\n` +
-      `Ensure the Docker image is built:\n` +
-      `  docker build -t ${DOCKER_IMAGE} -f packages/oslo-validator-swagger/Dockerfile .\n\n` +
       `Container output:\n${stdout.slice(0, 2000)}`
 
     logger.error(msg)

@@ -18,7 +18,88 @@
 
         <!-- Overridden at runtime via -D -->
         <spec.path>${project.basedir}/spec.json</spec.path>
+        <root.model></root.model>
+        <examples></examples>
     </properties>
+
+    <dependencies>
+        <!-- Jakarta Validation API (needed by generated models) -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <!-- Hibernate Validator (JSR-303 implementation) -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <!-- Jackson for JSON processing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.18.3</version>
+        </dependency>
+        <!-- OpenAPI Jackson nullable support -->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <!-- Jakarta Annotation API (for @Generated etc.) -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <!-- Spring Context (for @Validated on generated API interfaces) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.2.5</version>
+        </dependency>
+        <!-- Spring Web (for ResponseEntity, HttpStatus etc. on generated API interfaces) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.2.5</version>
+        </dependency>
+        <!-- Spring Web MVC (for ApiUtil) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.2.5</version>
+        </dependency>
+        <!-- Spring Lang (for @Nullable on generated models) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.2.5</version>
+        </dependency>
+        <!-- Jakarta Servlet API (for ApiUtil) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+        </dependency>
+        <!-- Swagger Annotations (for @Schema, @Operation etc. on generated code) -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.28</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -28,6 +109,7 @@
                 <version>${openapi-generator.version}</version>
                 <executions>
                     <execution>
+                        <id>generate-sources</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -46,6 +128,25 @@
                                 <useOneOfInterfaces>true</useOneOfInterfaces>
                                 <containerDefaultToNull>true</containerDefaultToNull>
                             </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Copy dependencies to a lib folder for classpath resolution at runtime -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>compile</includeScope>
                         </configuration>
                     </execution>
                 </executions>
