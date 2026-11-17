@@ -138,4 +138,24 @@ describe('Round-trip validation (MAGDA Persoon)', () => {
 
     expect(result.passed).toBe(true)
   })
+
+  it('should pass with explicit generator options matching defaults', async () => {
+    // Explicitly pass the same defaults that are in pom.xml
+    const options: ValidationOptions = {
+      rootModel: ROOT_MODEL,
+      examples: [`${EXAMPLES_DIR}/example-valid.json`],
+      generatorOptions: {
+        useSpringBoot3: 'true',
+        interfaceOnly: 'true',
+        useJakartaEe: 'true',
+        openApiNullable: 'true',
+        useOneOfInterfaces: 'true',
+        containerDefaultToNull: 'true',
+      },
+    }
+
+    const result = await runValidation(SPEC_URL, options)
+
+    expect(result.passed).toBe(true)
+  })
 })

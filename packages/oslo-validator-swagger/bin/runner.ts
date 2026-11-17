@@ -33,6 +33,11 @@ class SwaggerValidatorRunner {
         type: 'string',
         array: true,
       })
+      .option('generator-option', {
+        describe: 'Override openapi-generator configOptions. Format: key=value. Repeat for multiple: --generator-option useSpringBoot3=false --generator-option openApiNullable=false',
+        type: 'string',
+        array: true,
+      })
       .option('logLevel', {
         describe: 'Log level',
         type: 'string',
@@ -58,6 +63,7 @@ class SwaggerValidatorRunner {
         const suites = params.suite as string[]
         const rootModel = params['root-model'] as string | undefined
         const examples = params.examples as string[] | undefined
+        const generatorOptionsRaw = params['generator-option'] as string[] | undefined
 
         this.logger.info(`Input spec: ${input}`)
         this.logger.info(`Validation suites: ${suites.join(', ')}`)
@@ -75,6 +81,21 @@ class SwaggerValidatorRunner {
         }
         if (examples && examples.length > 0) {
           validationOptions.examples = examples
+        }
+        if (generatorOptionsRaw && generatorOptionsRaw.length > 0) {
+          const generatorOptions: Record<string, string> = {}
+          for (const opt of generatorOptionsRaw) {
+            const eqIdx = opt.indexOf('=')
+            if (eqIdx > 0) {
+              const key = opt.substring(0, eqIdx)
+              const value = opt.substring(eqIdx + 1)
+              generatorOptions[key] = value
+              this.logger.info(`Generator option: ${key}=${value}`)
+            } else {
+              this.logger.warn(`Skipping malformed generator option (expected key=value): ${opt}`)
+            }
+          }
+          validationOptions.generatorOptions = generatorOptions
         }
 
         const results: ValidationSuiteResult[] = []

@@ -14,8 +14,7 @@ export interface ValidationRunner {
 }
 
 export interface ValidationOptions {
-  /** Fully-qualified class name of the root model for round-trip deserialization */
   rootModel?: string
-  /** Example JSON files (local paths or URLs) for round-trip validation */
   examples?: string[]
+  generatorOptions?: Record<string, string>
 }

@@ -1,6 +1,6 @@
 import { execSync } from 'child_process'
 import { resolve, dirname, join } from 'path'
-import { mkdtempSync, writeFileSync } from 'fs'
+import { mkdtempSync, writeFileSync, existsSync } from 'fs'
 import { tmpdir } from 'os'
 import { createLogger } from '@oslo-flanders/core/lib/logging/LogUtil'
 import { fetchFileOrUrl } from '@oslo-flanders/core'
@@ -101,13 +101,36 @@ function imageExists(imageName: string): boolean {
 }
 
 /**
+ * Find the repository root by walking up from cwd until we find a known marker.
+ * Markers checked (in order): .git directory, lerna.json, package.json with "lerna" in scripts.
+ */
+function findRepoRoot(): string {
+  let dir = process.cwd()
+  while (true) {
+    if (existsSync(join(dir, '.git'))) {
+      return dir
+    }
+    if (existsSync(join(dir, 'lerna.json'))) {
+      return dir
+    }
+    const parent = dirname(dir)
+    if (parent === dir) {
+      // Reached filesystem root without finding a marker — fall back to cwd
+      return process.cwd()
+    }
+    dir = parent
+  }
+}
+
+/**
  * Build the Docker image from the project's Dockerfile.
- * Assumes the command is run from the repository root.
+ * Finds the repository root automatically, so it works from any working directory.
  */
 function buildDockerImage(logger: Logger): void {
-  logger.info(`Docker image "${DOCKER_IMAGE}" not found. Building...`)
-  const dockerfile = 'packages/oslo-validator-swagger/Dockerfile'
-  execSync(`docker build -t ${DOCKER_IMAGE} -f ${dockerfile} .`, {
+  const repoRoot = findRepoRoot()
+  logger.info(`Docker image "${DOCKER_IMAGE}" not found. Building from repo root: ${repoRoot}...`)
+  const dockerfile = join(repoRoot, 'packages/oslo-validator-swagger/Dockerfile')
+  execSync(`docker build -t ${DOCKER_IMAGE} -f "${dockerfile}" "${repoRoot}"`, {
     encoding: 'utf-8',
     stdio: 'inherit',
     timeout: DOCKER_TIMEOUT_MS,
@@ -147,6 +170,13 @@ export async function runJavaValidation(
       .map((f) => `${SPEC_MOUNT_DIR}/${f}`)
       .join(',')
     dockerArgs.push(`--examples=${examplePaths}`)
+  }
+
+  // Pass generator configOptions overrides (written to a YAML config file inside the container)
+  if (options?.generatorOptions) {
+    for (const [key, value] of Object.entries(options.generatorOptions)) {
+      dockerArgs.push(`--generator-option=${key}=${value}`)
+    }
   }
 
   const command =

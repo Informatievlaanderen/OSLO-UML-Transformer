@@ -38,6 +38,9 @@ jest.mock('fs', () => {
   }
 })
 
+// Mock process.cwd to return a predictable path
+const mockCwd = jest.spyOn(process, 'cwd').mockReturnValue('/repo/packages/oslo-validator-swagger')
+
 // Mock os.tmpdir
 jest.mock('os', () => ({
   tmpdir: jest.fn(() => '/tmp'),
@@ -222,6 +225,7 @@ describe('runJavaValidation', () => {
   const mockMkdtempSync = mkdtempSync as jest.Mock
   const mockWriteFileSync = writeFileSync as jest.Mock
   const mockResolve = resolve as jest.Mock
+  const mockExistsSync = existsSync as jest.Mock
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -231,6 +235,13 @@ describe('runJavaValidation', () => {
         return `/cwd/${args[1]}`
       }
       return actualResolve(...args)
+    })
+    // Make findRepoRoot find the repo root via .git
+    mockExistsSync.mockImplementation((path: string) => {
+      if (path === '/repo/.git') {
+        return true
+      }
+      return actualExistsSync(path)
     })
   })
 
@@ -250,6 +261,8 @@ describe('runJavaValidation', () => {
     expect(mockExecSync.mock.calls[0][0]).toContain('docker image inspect')
     expect(mockExecSync.mock.calls[1][0]).toContain('docker build')
     expect(mockExecSync.mock.calls[1][0]).toContain(DOCKER_IMAGE)
+    // Should use the correct Dockerfile path from repo root
+    expect(mockExecSync.mock.calls[1][0]).toContain('packages/oslo-validator-swagger/Dockerfile')
   })
 
   it('should not build the Docker image when it already exists', async () => {
@@ -357,6 +370,65 @@ describe('runJavaValidation', () => {
     expect(lastCall).not.toContain('--examples')
   })
 
+  it('should pass generator options as --generator-option arguments', async () => {
+    // image inspect succeeds, then docker run
+    mockExecSync
+      .mockImplementationOnce(() => '')
+      .mockReturnValue(JSON.stringify({ passed: true }))
+
+    const options: ValidationOptions = {
+      generatorOptions: {
+        useSpringBoot3: 'false',
+        openApiNullable: 'false',
+      },
+    }
+
+    await runJavaValidation('spec.json', options)
+
+    const lastCall = mockExecSync.mock.calls[mockExecSync.mock.calls.length - 1][0]
+    expect(lastCall).toContain('--generator-option=useSpringBoot3=false')
+    expect(lastCall).toContain('--generator-option=openApiNullable=false')
+  })
+
+  it('should pass generator options alongside root-model and examples', async () => {
+    // image inspect succeeds, then docker run
+    mockExecSync
+      .mockImplementationOnce(() => '')
+      .mockReturnValue(JSON.stringify({ passed: true }))
+    mockFetchFileOrUrl.mockResolvedValue(Buffer.from('{"example":true}'))
+
+    const options: ValidationOptions = {
+      rootModel: 'be.vlaanderen.validator.model.Person',
+      examples: ['https://example.com/example1.json'],
+      generatorOptions: {
+        useSpringBoot3: 'false',
+      },
+    }
+
+    await runJavaValidation('spec.json', options)
+
+    const lastCall = mockExecSync.mock.calls[mockExecSync.mock.calls.length - 1][0]
+    expect(lastCall).toContain('--root-model=be.vlaanderen.validator.model.Person')
+    expect(lastCall).toContain(`--examples=${SPEC_MOUNT_DIR}/example1.json`)
+    expect(lastCall).toContain('--generator-option=useSpringBoot3=false')
+  })
+
+  it('should handle empty generator options gracefully', async () => {
+    // image inspect succeeds, then docker run
+    mockExecSync
+      .mockImplementationOnce(() => '')
+      .mockReturnValue(JSON.stringify({ passed: true }))
+
+    const options: ValidationOptions = {
+      generatorOptions: {},
+    }
+
+    await runJavaValidation('spec.json', options)
+
+    const lastCall = mockExecSync.mock.calls[mockExecSync.mock.calls.length - 1][0]
+    expect(lastCall).not.toContain('--generator-option')
+  })
+
   it('should return failure when Docker execution throws without stdout', async () => {
     // image inspect succeeds, then docker run fails
     mockExecSync
@@ -402,5 +474,6 @@ describe('runJavaValidation', () => {
   })
 })
 
-// Helper to access the real path.resolve for the mock
+// Helper to access the real implementations for mocks
 const actualResolve = jest.requireActual('path').resolve
+const actualExistsSync = jest.requireActual('fs').existsSync

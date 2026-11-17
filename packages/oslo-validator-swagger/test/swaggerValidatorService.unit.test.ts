@@ -76,4 +76,35 @@ describe('runValidation', () => {
 
     expect(mockRunJavaValidation).toHaveBeenCalledWith('spec.json', options)
   })
+
+  it('should forward generatorOptions to runJavaValidation', async () => {
+    mockRunJavaValidation.mockResolvedValue({ passed: true })
+
+    const options: ValidationOptions = {
+      generatorOptions: {
+        useSpringBoot3: 'false',
+        openApiNullable: 'false',
+      },
+    }
+
+    await runValidation('spec.json', options)
+
+    expect(mockRunJavaValidation).toHaveBeenCalledWith('spec.json', options)
+  })
+
+  it('should forward all options combined (rootModel + examples + generatorOptions)', async () => {
+    mockRunJavaValidation.mockResolvedValue({ passed: true })
+
+    const options: ValidationOptions = {
+      rootModel: 'be.vlaanderen.validator.model.Person',
+      examples: ['example.json'],
+      generatorOptions: {
+        useSpringBoot3: 'false',
+      },
+    }
+
+    await runValidation('spec.json', options)
+
+    expect(mockRunJavaValidation).toHaveBeenCalledWith('spec.json', options)
+  })
 })

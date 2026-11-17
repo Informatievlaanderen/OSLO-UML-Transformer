@@ -17,14 +17,15 @@ npm install -g @oslo-flanders/swagger-validator
 
 ## API
 
-| Parameter      | Description                                                       | Required           | Default |
-| -------------- | ----------------------------------------------------------------- | ------------------ | ------- |
-| `--input`      | Path or URL to the OpenAPI Swagger file                           | :heavy_check_mark: |         |
-| `--suite`      | Validation suite(s) to run (repeatable)                           |                    | `java`  |
-| `--root-model` | Fully-qualified class name of the root model for round-trip JSON validation |           |         |
-| `--examples`   | Example JSON files (local paths or URLs) for round-trip validation (repeatable) |          |         |
-| `--logLevel`   | Log level                                                         |                    | `info`  |
-| `--silent`     | Suppress all logging output                                       |                    | `false` |
+| Parameter           | Description                                                       | Required           | Default |
+| ------------------- | ----------------------------------------------------------------- | ------------------ | ------- |
+| `--input`           | Path or URL to the OpenAPI Swagger file                           | :heavy_check_mark: |         |
+| `--suite`           | Validation suite(s) to run (repeatable)                           |                    | `java`  |
+| `--root-model`      | Fully-qualified class name of the root model for round-trip JSON validation |           |         |
+| `--examples`        | Example JSON files (local paths or URLs) for round-trip validation (repeatable) |          |         |
+| `--generator-option`| Override openapi-generator configOptions (repeatable, format: `key=value`) |          |         |
+| `--logLevel`        | Log level                                                         |                    | `info`  |
+| `--silent`          | Suppress all logging output                                       |                    | `false` |
 
 ## Usage
 
@@ -48,9 +49,6 @@ oslo-validator-swagger \
   --root-model be.vlaanderen.validator.model.PersonEnvelope \
   --examples https://example.com/example1.json \
   --examples https://example.com/example2.json
-
-# Run multiple suites (unsupported for now)
-oslo-validator-swagger --input swagger.yaml --suite java --suite dotnet
 ```
 
 ## Round-trip validation
@@ -67,5 +65,50 @@ When `--root-model` and `--examples` are provided, the validator:
 
 This catches issues like:
 - Missing fields in the generated model (data loss during round-trip)
-- JSR-303 constraint violations on example data
 - Incompatible type mappings between OpenAPI types and Java types
+
+## Customising generator options (`--generator-option`)
+
+The Docker entrypoint generates a YAML config file with sensible defaults, but different projects need different settings. Use `--generator-option` to override **any** `configOptions` at runtime — no image rebuild needed.
+
+### How it works
+
+Inside the Docker container, the entrypoint generates a YAML config file with sensible defaults, then merges in any `--generator-option` overrides:
+
+```yaml
+configOptions:
+  useSpringBoot3: "true"
+  interfaceOnly: "true"
+  useTags: "true"
+  useJakartaEe: "true"
+  openApiNullable: "true"
+  useOneOfInterfaces: "true"
+  containerDefaultToNull: "true"
+```
+
+The `pom.xml` references this generated file via `<configurationFile>`:
+
+```xml
+<configurationFile>${generator.configFile}</configurationFile>
+```
+
+This means **any** [openapi-generator `configOptions`](https://openapi-generator.tech/docs/generators/spring/) can be overridden — not just a predefined set. The `pom.xml` no longer hardcodes any property-based options.
+
+### Example
+
+```bash
+oslo-validator-swagger \
+  --input magda-spec.json \
+  --root-model be.vlaanderen.validator.model.PersonEnvelope \
+  --examples magda-example.json
+```
+
+```bash
+oslo-validator-swagger \
+  --input grar-spec.json \
+  --root-model be.vlaanderen.validator.model.GrarEnvelope \
+  --examples grar-example.json \
+  --generator-option useSpringBoot3=false \
+  --generator-option openApiNullable=false \
+  --generator-option useOneOfInterfaces=false
+```
