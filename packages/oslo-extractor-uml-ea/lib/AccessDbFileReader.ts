@@ -95,6 +95,7 @@ export class AccessDbFileReader implements IFileReader<MDBReader> {
     registry.connectors = mapToElementConnector(data, registry.elements);
 
     const connectorTags = database.getTable(EaTable.ConnectorTag).getData();
+    convertNOTEStoNotes(connectorTags);
     addEaTagsToElements(
       connectorTags,
       registry.connectors,

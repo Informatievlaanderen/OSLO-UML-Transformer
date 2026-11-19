@@ -182,6 +182,7 @@ export class SqliteFileReader implements IFileReader<SqliteDatabase> {
     const connectorTags = database
       .prepare(`SELECT * FROM ${EaTable.ConnectorTag}`)
       .all();
+    convertNOTEStoNotes(connectorTags);
     addEaTagsToElements(
       connectorTags,
       registry.connectors,
