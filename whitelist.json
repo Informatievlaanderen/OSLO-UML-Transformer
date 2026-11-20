@@ -55,5 +55,24 @@
   "http://data.europa.eu/r5r/",
   "https://w3id.org/dpv#",
   "https://purl.eu/ns/mobility/",
-  "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/"
+  "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/abstracten#",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/implementatieelement#",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/installatie#",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/levenscyclus#",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#",
+  "https://wegenenverkeer.data.vlaanderen.be/ns/proefenmeting#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/abstracten#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/implementatieelement#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/installatie#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/levenscyclus#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/onderdeel#",
+  "https://wegenenverkeer-test.data.vlaanderen.be/ns/proefenmeting#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/abstracten#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/implementatieelement#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/installatie#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/levenscyclus#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/onderdeel#",
+  "https://wegenenverkeer.data.dev-vlaanderen.be/ns/proefenmeting#" 
+  
 ]
