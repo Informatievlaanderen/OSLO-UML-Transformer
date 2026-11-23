@@ -375,6 +375,10 @@ export class CodelistGenerationService implements IService {
         }
 
         try {
+          if (result === undefined) {
+            reject(new Error('No output was produced by the Turtle writer'));
+            return;
+          }
           await writeFile(this.configuration.output, formatOutput(result));
           this.logger.info(`Output written to ${this.configuration.output}`);
           resolve();
