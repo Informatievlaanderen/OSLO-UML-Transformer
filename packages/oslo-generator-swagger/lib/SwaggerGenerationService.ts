@@ -676,8 +676,9 @@ export class SwaggerGenerationService implements IService {
         continue;
       }
 
+      /* In expanded JSON-LD, @type is optional for literals (e.g. { "@value": "test" }) */
       const requiredProperties = properties
-        ? Object.keys(properties)
+        ? Object.keys(properties).filter(key => key !== '@type')
         : undefined;
 
       const isPrimitive = [...DataTypes.values()].includes(attributeDatatypeId);
