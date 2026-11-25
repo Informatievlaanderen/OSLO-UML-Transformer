@@ -47,6 +47,8 @@ if [ "${DETAILS}" == "bundle" ]; then
         echo "RENDER-DETAILS: bundling failed"
         exit 1
     fi
+    echo "RENDER-DETAILS: validating bundle consistency"
+    validate_bundle_consistency.sh ${CONFIGDIR} ${TARGETDIR}/target ${TARGETDIR} || true
     exit 0
 fi
 
