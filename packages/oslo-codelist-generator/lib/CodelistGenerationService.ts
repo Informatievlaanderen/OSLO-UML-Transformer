@@ -23,6 +23,7 @@ import {
   addNotation,
   addInScheme,
   addTopConceptOf,
+  addHasPart,
   addNarrowerConcepts,
   addBroaderConcepts,
   addStatus,
@@ -258,12 +259,16 @@ export class CodelistGenerationService implements IService {
             }
 
             // ADD properties for nested ConceptSchemes
-            addInScheme(quads, this.df, conceptScheme, schemeRow.inScheme);
+            // Use dcterms:isPartOf instead of skos:inScheme/skos:topConceptOf
+            // for ConceptSchemes to avoid violating SKOS integrity condition S9
+            // (Concept and ConceptScheme are disjoint).
+            addInScheme(quads, this.df, conceptScheme, schemeRow.inScheme, true);
             addTopConceptOf(
               quads,
               this.df,
               conceptScheme,
               schemeRow.topConceptOf,
+              true,
             );
             addNotation(
               quads,
@@ -306,6 +311,22 @@ export class CodelistGenerationService implements IService {
                   `Error processing concept row: ${error instanceof Error ? error.message : String(error)}`,
                 );
                 throw error;
+              }
+            }
+          }
+
+          // Second pass: add dcterms:hasPart on parent ConceptSchemes
+          // for ConceptScheme-to-ConceptScheme relationships
+          for (const [, { schemeRow }] of conceptSchemeMap) {
+            if (schemeRow.inScheme && schemeRow.inScheme !== 'null') {
+              const parentScheme = conceptSchemeMap.get(schemeRow.inScheme);
+              if (parentScheme) {
+                addHasPart(
+                  quads,
+                  this.df,
+                  this.df.namedNode(schemeRow.inScheme),
+                  schemeRow['@id'],
+                );
               }
             }
           }
@@ -353,11 +374,16 @@ export class CodelistGenerationService implements IService {
       extractNamespaces(quad.predicate, usedNamespaces);
     }
 
-    // Filter prefixes to only include those with namespaces present in quads
+    // Filter prefixes to only include those with namespaces present in quads,
+    // deduplicating by namespace (prefix.cc returns multiple aliases for the same namespace).
+    // Sort so longer (more descriptive) prefixes win over short aliases (e.g. dcterms over dct).
     const filteredPrefixes: Record<string, string> = {};
-    for (const [prefix, namespace] of Object.entries(prefixes)) {
-      if (usedNamespaces.has(namespace)) {
+    const seenNamespaces = new Set<string>();
+    const sorted = Object.entries(prefixes).sort(([a], [b]) => b.length - a.length);
+    for (const [prefix, namespace] of sorted) {
+      if (usedNamespaces.has(namespace) && !seenNamespaces.has(namespace)) {
         filteredPrefixes[prefix] = namespace;
+        seenNamespaces.add(namespace);
       }
     }
 

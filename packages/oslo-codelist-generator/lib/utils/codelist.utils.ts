@@ -45,15 +45,30 @@ export function addNotation(
   }
 }
 
+export function addHasPart(
+  quads: RDF.Quad[],
+  df: DataFactory,
+  parentUri: RDF.NamedNode,
+  childUri: string | undefined,
+): void {
+  if (childUri && childUri !== 'null') {
+    quads.push(
+      df.quad(parentUri, ns.dcterms('hasPart'), df.namedNode(childUri)),
+    );
+  }
+}
+
 export function addInScheme(
   quads: RDF.Quad[],
   df: DataFactory,
-  conceptUri: RDF.NamedNode,
+  subjectUri: RDF.NamedNode,
   inScheme: string | undefined,
+  isConceptScheme = false,
 ): void {
   if (inScheme && inScheme !== 'null') {
+    const predicate = isConceptScheme ? ns.dcterms('isPartOf') : ns.skos('inScheme');
     quads.push(
-      df.quad(conceptUri, ns.skos('inScheme'), df.namedNode(inScheme)),
+      df.quad(subjectUri, predicate, df.namedNode(inScheme)),
     );
   }
 }
@@ -61,12 +76,14 @@ export function addInScheme(
 export function addTopConceptOf(
   quads: RDF.Quad[],
   df: DataFactory,
-  conceptUri: RDF.NamedNode,
+  subjectUri: RDF.NamedNode,
   topConceptOf: string | undefined,
+  isConceptScheme = false,
 ): void {
   if (topConceptOf && topConceptOf !== 'null') {
+    const predicate = isConceptScheme ? ns.dcterms('isPartOf') : ns.skos('topConceptOf');
     quads.push(
-      df.quad(conceptUri, ns.skos('topConceptOf'), df.namedNode(topConceptOf)),
+      df.quad(subjectUri, predicate, df.namedNode(topConceptOf)),
     );
   }
 }
