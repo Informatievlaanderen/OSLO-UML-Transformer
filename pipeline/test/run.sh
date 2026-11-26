@@ -380,6 +380,18 @@ run_in_container copy_resources_to_urlref.sh \
 assert_exit 0 "$?"
 end_test || BUNDLE_FAILED=1
 
+# --- test: bundle consistency ------------------------------------------------
+# Validates that generated artifacts (swagger, context, shacl, rdf) match their
+# bundled counterparts. This catches cases where static files from bundleDirectory
+# silently overwrite generated files.
+start_test "bundle-consistency"
+run_in_container validate_bundle_consistency.sh \
+    "${CONTAINER_WORKSPACE}/config" \
+    "${CONTAINER_WORKSPACE}/target" \
+    "${CONTAINER_WORKSPACE}"
+assert_exit 0 "$?"
+end_test || BUNDLE_CONSISTENCY_FAILED=1
+
 # --- test: sanity checks on the artifacts ------------------------------------
 # Only meaningful when the html render step ran (single-step runs like
 # STEP=report don't produce index.html).
@@ -404,6 +416,7 @@ if [ "${CHECKOUT_FAILED:-0}" = "1" ] || \
    [ "${EXTRACT_FAILED:-0}" = "1" ] || \
    [ "${RENDER_FAILED:-0}" = "1" ] || \
    [ "${BUNDLE_FAILED:-0}" = "1" ] || \
+   [ "${BUNDLE_CONSISTENCY_FAILED:-0}" = "1" ] || \
    [ "${ARTIFACT_FAILED:-0}" = "1" ] || \
    [ "${REPORT_MERGE_FAILED:-0}" = "1" ]; then
     echo "RESULT: FAILED"

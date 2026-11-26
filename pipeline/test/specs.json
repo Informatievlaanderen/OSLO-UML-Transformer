@@ -1,37 +1,22 @@
 [
   {
-    "urlref": "/doc/applicatieprofiel/zaalreservatie/kandidaatstandaard/2025-07-01",
-    "repository": "https://github.com/Informatievlaanderen/OSLOthema-zaalreservatie",
-    "branchtag": "kandidaat_2025-07-01_v0.0.3",
-    "name": "zaalreservatie",
-    "filename": "config/zaalreservatie-ap.json",
-    "navigation": {
-      "prev": "/doc/applicatieprofiel/zaalreservatie/ontwerpstandaard/2025-04-18"
+    "urlref": "/doc/implementatiemodel/magda/persoon/v0.4.0",
+    "repository": "https://github.com/Informatievlaanderen/OSLOthema-persoon",
+    "branchtag": "dummy-kristof",
+    "name": "persoon",
+    "filename": "config/persoon-magda-im.json",
+    "contextgenerator": {
+      "parameters": "--scopedContext true --enablePolymorphism false"
     },
-    "disabled": false,
-    "dummy": "043"
-  },
-  {
-    "urlref": "/doc/applicatieprofiel/zaalreservatie/kandidaatstandaard/kristof-t",
-    "repository": "https://github.com/Informatievlaanderen/OSLOthema-zaalreservatie",
-    "branchtag": "kandidaat_2025-07-01_v0.0.3",
-    "name": "zaalreservatie",
-    "filename": "config/zaalreservatie-ap.json",
-    "navigation": {
-      "prev": "/doc/applicatieprofiel/zaalreservatie/ontwerpstandaard/2025-04-18"
+    "swaggergenerator": {
+      "parameters": "--title 'MAGDA persoon.personen REST' --description 'MAGDA OSLO-conforme REST API voor persoon.personen (MVP)' --versionAPI 0.4.0 --versionSwagger 3.1.0 --disableLinks --language nl --excludeProperties Inwonerschap.persoon Gezinsrelatie.vanPersoon Huwelijk.vanPersoon Samenwonen.vanPersoon Afstamming.vanPersoon AfstammingDalendeLijn.vanPersoon AfstammingOpgaandeLijn.vanPersoon --licenseURL https://vlaamseoverheid.atlassian.net/wiki/spaces/MG/pages/9056387121/persoon.personen+-+v1#Gebruiksvoorwaarden --licenseName Gebruiksvoorwaarden --outputFormat application/yaml --contactURL https://vlaamseoverheid.atlassian.net/servicedesk/customer/portal/2038 --contactName MAGDA Service Desk --expanded true"
     },
-    "dummy": "055"
-  },
-  {
-    "urlref": "/doc/vocabularium/zaalreservatie/kandidaatstandaard/2025-07-01",
-    "repository": "https://github.com/Informatievlaanderen/OSLOthema-zaalreservatie",
-    "branchtag": "kandidaat_2025-07-01_v0.0.3",
-    "name": "zaalreservatie",
-    "disabled": false,
-    "filename": "config/zaalreservatie-voc.json",
     "navigation": {
-      "prev": "/doc/vocabularium/zaalreservatie/ontwerpstandaard/2025-04-18"
+      "prev": "/doc/implementatiemodel/magda/persoon/v0.3.0"
     },
-    "dummy": "042"
+    "bundle": true,
+    "bundleDirectory": "/resources/OSLO-Persoon-MAGDA-IM/artefacts",
+    "dummy": "167",
+    "disabled": false
   }
 ]
