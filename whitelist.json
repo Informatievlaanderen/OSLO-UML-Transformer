@@ -60,5 +60,5 @@
   "https://wegenenverkeer-test.data.vlaanderen.be/ns/",
   "https://wegenenverkeer.data.dev-vlaanderen.be/ns/",
   "https://w3id.org/cloudevents#",
-  "https://www.w3.org/2018/credentials/"
+  "https://www.w3.org/2018/credentials#"
 ]
