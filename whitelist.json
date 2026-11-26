@@ -59,8 +59,5 @@
   "https://wegenenverkeer.data.vlaanderen.be/ns/",
   "https://wegenenverkeer-test.data.vlaanderen.be/ns/",
   "https://wegenenverkeer.data.dev-vlaanderen.be/ns/",
-  "https://wegenenverkeer.data.vlaanderen.be/id/implementatiemodel/",
-  "https://wegenenverkeer-test.data.vlaanderen.be/id/implementatiemodel/",
-  "https://wegenenverkeer.data.dev-vlaanderen.be/id/implementatiemodel/",
   "https://w3id.org/cloudevents#"
 ]
