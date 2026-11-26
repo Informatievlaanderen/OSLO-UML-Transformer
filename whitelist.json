@@ -18,6 +18,7 @@
   "http://www.w3.org/ns/oa#",
   "https://www.w3.org/ns/activitystreams#",
   "http://www.w3.org/ns/dqv#",
+  "https://www.w3.org/2018/credentials#",
   "http://qudt.org/schema/qudt/",
   "http://purl.org/dc/terms/",
   "http://purl.org/vocab/cpsv#",
@@ -59,6 +60,5 @@
   "https://wegenenverkeer.data.vlaanderen.be/ns/",
   "https://wegenenverkeer-test.data.vlaanderen.be/ns/",
   "https://wegenenverkeer.data.dev-vlaanderen.be/ns/",
-  "https://w3id.org/cloudevents#",
-  "https://www.w3.org/2018/credentials#"
+  "https://w3id.org/cloudevents#"
 ]
